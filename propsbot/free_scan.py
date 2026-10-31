@@ -254,15 +254,34 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
     out_dir = root / "resultat"
     out_dir.mkdir(exist_ok=True)
     write_csv(rows, out_dir / f"spel_{time.strftime('%Y%m%d_%H%M')}.csv", settings["bankroll"], False)
+    # ---- bokföring, stängningsodds, rättning och webbsida
+    from .export import write_site
+    from .ledger import Ledger
+    from .results import settle_open
+    ledger = Ledger(root / "bokforing.json")
+    evd_by_id = {evd["id"]: evd for evd, _, _ in data}
+    new_bets = ledger.record(rows, evd_by_id)
+    ledger.update_closing(rows, time.time())
+    try:
+        for line in settle_open(ledger, JsonClient(root / ".cache_odds", ttl_s=900)):
+            diag.log(line)
+    except Exception as e:  # rättningen får aldrig stoppa skanningen
+        diag.log(f"Rättning: oväntat fel {type(e).__name__}: {e}")
+    ledger.save()
+    diag.log(f"Bokförda nya spel: {len(new_bets)}")
+    write_site(root / "site", rows, ledger, settings)
+
     if notify and settings.get("ntfy_topic"):
         # Första körningen mot en ny kanal: skicka ett test så att man ser att det fungerar.
-        tf = root / "ntfy_kanal.txt"
-        if not tf.exists() or tf.read_text(encoding="utf-8").strip() != settings["ntfy_topic"]:
+        import hashlib
+        th = hashlib.sha1(settings["ntfy_topic"].encode()).hexdigest()[:12]
+        tf = root / "ntfy_kanal.txt"   # bara en hash – kanalnamnet ska inte synas publikt
+        if not tf.exists() or tf.read_text(encoding="utf-8").strip() != th:
             ok = send(settings["ntfy_topic"], "propsbot är igång",
                       "Notiser fungerar. Du får en notis för varje nytt spelbart ben (odds 1,40–6,00).",
                       priority=3, tags="white_check_mark")
             if ok:
-                tf.write_text(settings["ntfy_topic"], encoding="utf-8")
+                tf.write_text(th, encoding="utf-8")
                 diag.log("Testnotis skickad till mobilen.")
         n = notify_new(playable, settings, root)
         diag.log(f"Notiser skickade: {n}")
@@ -270,14 +289,17 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
     import os
     if os.environ.get("GITHUB_ACTIONS"):
         keep = [l for l in diag.lines if l.startswith(("Kambi", "Pinnacle", "Bolag", "VARNING"))
-                or l.startswith(("SPEL:", "Spelarodds")) or "spelbara" in l or "otis" in l][:45]
+                or l.startswith(("SPEL:", "Spelarodds", "Rätt", "Struken", "Bokförda"))
+                or "spelbara" in l or "otis" in l][:45]
         print("::notice title=diagnos::" + "%0A".join(x.replace("%", "%25") for x in keep))
     return rows
 
 
 def notify_new(playable: list[ScanRow], settings: dict, root: Path) -> int:
     # Separat minne per kanal, så att byte av kanal inte tappar notiser.
-    seen = SeenStore(root / f"notifierade_{settings['ntfy_topic']}.json")
+    import hashlib
+    th = hashlib.sha1(settings["ntfy_topic"].encode()).hexdigest()[:12]
+    seen = SeenStore(root / f"notifierade_{th}.json")
     sent = 0
     for r in playable:
         c = r.row.decision.cand

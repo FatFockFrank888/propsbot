@@ -3,7 +3,12 @@ name: bevaka-odds
 on:
   schedule:
     - cron: "*/10 6-22 * * *"   # var 10:e minut 06–22 UTC (GitHub kan fördröja några minuter)
-  workflow_dispatch: {}          # kör manuellt från fliken Actions
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
 
 concurrency:
   group: bevaka
@@ -13,6 +18,8 @@ jobs:
   skanna:
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    environment:
+      name: github-pages
     steps:
       - uses: actions/checkout@v4
 
@@ -23,30 +30,34 @@ jobs:
 
       - run: pip install -r requirements.txt
 
-      # Kom ihåg vilka ben som redan notifierats mellan körningarna.
-      - uses: actions/cache/restore@v4
-        with:
-          path: state
-          key: state-${{ github.run_id }}
-          restore-keys: state-
+      # Bokföring och notisminne ligger i grenen "data" så att inget försvinner.
+      - name: Hämta sparat läge
+        run: |
+          git config user.name "propsbot"
+          git config user.email "propsbot@users.noreply.github.com"
+          if git fetch --depth 1 origin data:data 2>/dev/null; then
+            git worktree add state data
+          else
+            git worktree add --orphan -b data state
+          fi
+          printf '.cache_odds/\n*.sqlite\n' > state/.gitignore
 
-      - name: Skanna och skicka notiser
+      - name: Skanna, bokför, rätta och skicka notiser
         env:
           NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
           PROPSBOT_STATE_DIR: state
         run: python -m propsbot skanna
 
-      - uses: actions/cache/save@v4
+      - name: Spara läge
         if: always()
-        with:
-          path: state
-          key: state-${{ github.run_id }}
+        run: |
+          cd state
+          git add -A
+          git commit -q -m "läge $(date -u +%FT%TZ)" || echo "inget nytt"
+          git push -q origin data || echo "kunde inte spara"
 
-      - uses: actions/upload-artifact@v4
-        if: always()
+      - uses: actions/upload-pages-artifact@v3
         with:
-          name: diagnos-${{ github.run_id }}
-          path: |
-            state/diagnos
-            state/resultat
-          retention-days: 3
+          path: state/site
+
+      - uses: actions/deploy-pages@v4

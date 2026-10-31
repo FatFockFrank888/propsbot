@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fotboll Prop-radarn</title>
+<style>
+  :root { --bg:#141414; --panel:#1c1c1c; --line:#2a2a2a; --text:#ececec; --dim:#8a8a8a;
+          --good:#4cc38a; --bad:#e5484d; --accent:#3b82f6; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--text);
+         font:14px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  header { padding:18px 24px 6px; }
+  h1 { font-size:20px; margin:0 0 4px; }
+  .sub { color:var(--dim); font-size:13px; max-width:780px; }
+  .tabs { display:flex; gap:6px; padding:12px 24px 0; }
+  .tab { background:none; border:1px solid var(--line); color:var(--dim); padding:7px 14px;
+         border-radius:8px; cursor:pointer; font-size:14px; }
+  .tab.on { color:var(--text); background:var(--panel); }
+  main { padding:12px 24px 40px; }
+  .controls { display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin:10px 0 14px; }
+  input[type=search], select { background:var(--panel); color:var(--text); border:1px solid var(--line);
+         border-radius:8px; padding:9px 12px; font-size:14px; }
+  input[type=search] { width:300px; max-width:100%; }
+  label { color:var(--text); display:flex; gap:6px; align-items:center; cursor:pointer; }
+  .wrap { overflow:auto; max-height:75vh; border-top:1px solid var(--line); }
+  table { width:100%; border-collapse:collapse; }
+  th { position:sticky; top:0; background:var(--bg); text-align:left; font-weight:600;
+       padding:9px 10px; border-bottom:1px solid var(--line); white-space:nowrap; cursor:pointer; }
+  td { padding:8px 10px; border-bottom:1px solid var(--line); white-space:nowrap; }
+  td.n, th.n { text-align:right; font-variant-numeric:tabular-nums; }
+  .pos { color:var(--good); } .neg { color:var(--dim); } .loss { color:var(--bad); }
+  tr.play td { background:rgba(76,195,138,.07); }
+  .pill { padding:2px 8px; border-radius:99px; font-size:12px; border:1px solid var(--line); }
+  .pill.vunnen { color:var(--good); border-color:var(--good); }
+  .pill.förlorad { color:var(--bad); border-color:var(--bad); }
+  .pill.öppen { color:var(--accent); border-color:var(--accent); }
+  .tiles { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px; margin:6px 0 18px; }
+  .tile { background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:12px 14px; }
+  .tile .k { color:var(--dim); font-size:12px; }
+  .tile .v { font-size:20px; font-weight:600; margin-top:2px; font-variant-numeric:tabular-nums; }
+  h2 { font-size:15px; margin:22px 0 8px; }
+  .empty { color:var(--dim); padding:24px 0; }
+  .hidden { display:none; }
+  .upd { color:var(--dim); font-size:12px; margin-left:auto; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Fotboll Prop-radarn</h1>
+  <div class="sub">Skott, skott på mål, mål och assist per spelare hos Kambi-bolagen. Sannolikheten är
+    Kambis rättvisa pris justerat mot Pinnacles matchlinjer och gäller givet att spelaren spelar
+    (annars stryks spelet). Spelbart från 2 % edge (4 % för mål och assist, +3 procentenheter vid ensidigt pris),
+    odds 1,40–6,00. "Spela från" = lägsta odds som räcker. Insats = ¼ Kelly, högst 2 % av bankrullen.</div>
+</header>
+<div class="tabs">
+  <button class="tab on" data-tab="radar">Radar</button>
+  <button class="tab" data-tab="bok">Bokföring</button>
+  <span class="upd" id="upd"></span>
+</div>
+<main>
+  <section id="radar">
+    <div class="controls">
+      <input type="search" id="q" placeholder="Sök spelare, lag eller match">
+      <select id="mk">
+        <option value="">Alla marknader</option>
+        <option value="shots">Skott</option>
+        <option value="shots_on_target">Skott på mål</option>
+        <option value="goal">Mål</option>
+        <option value="assist">Assist</option>
+      </select>
+      <label><input type="checkbox" id="only"> Bara spelbara</label>
+    </div>
+    <div class="wrap"><table>
+      <thead><tr>
+        <th data-k="spelare">Spelare</th><th data-k="match">Match</th><th data-k="avspark">Avspark</th>
+        <th data-k="spel">Spel</th><th class="n" data-k="prognos">Prognos</th><th class="n" data-k="odds">Odds</th>
+        <th data-k="bolag">Bolag</th><th class="n" data-k="sannolikhet">Sannolikhet</th>
+        <th class="n" data-k="ratt_odds">Rätt odds</th><th class="n" data-k="edge">Edge</th>
+        <th class="n" data-k="spela_fran">Spela från</th><th class="n" data-k="insats_pct">Insats</th>
+      </tr></thead>
+      <tbody id="rows"></tbody>
+    </table></div>
+  </section>
+
+  <section id="bok" class="hidden">
+    <div class="tiles" id="tiles"></div>
+    <h2>Per bolag</h2>
+    <div class="wrap" style="max-height:none"><table>
+      <thead><tr><th>Bolag</th><th class="n">Rättade spel</th><th class="n">Insats</th>
+        <th class="n">Resultat</th><th class="n">ROI</th></tr></thead>
+      <tbody id="books"></tbody></table></div>
+    <h2>Alla spel</h2>
+    <div class="wrap"><table>
+      <thead><tr><th>Bokförd</th><th>Avspark</th><th>Match</th><th>Spelare</th><th>Spel</th>
+        <th>Bolag</th><th class="n">Odds</th><th class="n">Stängning</th><th class="n">CLV</th>
+        <th class="n">Sannolikhet</th><th class="n">Edge</th><th class="n">Insats</th>
+        <th>Status</th><th class="n">Utfall</th><th class="n">Resultat</th></tr></thead>
+      <tbody id="bets"></tbody></table></div>
+  </section>
+</main>
+<script>
+const nf = (x, d = 2) => x == null || isNaN(x) ? "–" : x.toLocaleString("sv-SE", {minimumFractionDigits: d, maximumFractionDigits: d});
+const pct = (x, d = 1) => x == null || isNaN(x) ? "–" : nf(x * 100, d) + "%";
+const tz = {timeZone: "Europe/Stockholm"};
+const fmtTs = ts => ts ? new Date(ts * 1000).toLocaleString("sv-SE", {...tz, weekday: "short", hour: "2-digit", minute: "2-digit"}) : "–";
+const fmtUtc = s => fmtTs(Date.parse(s.replace(" ", "T") + ":00Z") / 1000);
+const label = (m, l) => m === "goal" && l === 0.5 ? "gör mål" : m === "assist" && l === 0.5 ? "assist" :
+  ({shots: "skott", shots_on_target: "skott på mål", goal: "mål", assist: "assist"}[m] || m) + " över " + l;
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"}[c]));
+
+let DATA = null, sortKey = "edge", sortDir = -1;
+
+function renderRadar() {
+  const q = document.getElementById("q").value.toLowerCase();
+  const mk = document.getElementById("mk").value;
+  const only = document.getElementById("only").checked;
+  let rows = DATA.radar.filter(r => (!mk || r.marknad === mk) && (!only || r.spelbar) &&
+    (!q || (r.spelare + " " + r.match).toLowerCase().includes(q)));
+  rows.sort((a, b) => (a[sortKey] > b[sortKey] ? 1 : a[sortKey] < b[sortKey] ? -1 : 0) * sortDir);
+  document.getElementById("rows").innerHTML = rows.map(r => `
+    <tr class="${r.spelbar ? "play" : ""}" title="${esc(r.kommentar)}">
+      <td>${esc(r.spelare)}</td><td>${esc(r.match)}</td><td>${fmtUtc(r.avspark)}</td><td>${esc(r.spel)}</td>
+      <td class="n">${nf(r.prognos)}</td><td class="n">${nf(r.odds)}</td><td>${esc(r.bolag)}</td>
+      <td class="n">${pct(r.sannolikhet)}</td><td class="n">${nf(r.ratt_odds)}</td>
+      <td class="n ${r.edge > 0 ? "pos" : "neg"}">${pct(r.edge)}</td><td class="n">${nf(r.spela_fran)}</td>
+      <td class="n">${r.spelbar ? pct(r.insats_pct, 2) : "–"}</td>
+    </tr>`).join("") || `<tr><td colspan="12" class="empty">Inga ben matchar filtret.</td></tr>`;
+}
+
+function renderBok() {
+  const s = DATA.sammanfattning, br = DATA.regler.bankrulle;
+  const tiles = [
+    ["Bokförda spel", s.antal], ["Rättade", s.rattade], ["Öppna", s.oppna],
+    ["Träffprocent", s.rattade ? pct(s.vunna / s.rattade) : "–"],
+    ["Insats totalt", pct(s.insats_pct, 2)], ["Resultat", pct(s.resultat_pct, 2)],
+    ["ROI", pct(s.roi)], ["Snitt-CLV", pct(s.clv_snitt)],
+    ["Väntat resultat", pct(s.forvantat_pct, 2)], ["Resultat i kr", nf(s.resultat_pct * br, 0) + " kr"],
+  ];
+  document.getElementById("tiles").innerHTML = tiles.map(([k, v]) =>
+    `<div class="tile"><div class="k">${k}</div><div class="v">${v}</div></div>`).join("");
+  const pb = Object.entries(s.per_bolag || {});
+  document.getElementById("books").innerHTML = pb.map(([b, x]) => `<tr><td>${esc(b)}</td>
+    <td class="n">${x.spel}</td><td class="n">${pct(x.insats, 2)}</td>
+    <td class="n ${x.resultat >= 0 ? "pos" : "loss"}">${pct(x.resultat, 2)}</td>
+    <td class="n">${pct(x.insats ? x.resultat / x.insats : null)}</td></tr>`).join("")
+    || `<tr><td colspan="5" class="empty">Inga rättade spel än.</td></tr>`;
+  document.getElementById("bets").innerHTML = DATA.bokforing.map(b => {
+    const clv = b.stangning ? b.odds / b.stangning - 1 : null;
+    return `<tr><td>${fmtTs(b.bokford)}</td><td>${fmtTs(b.avspark)}</td><td>${esc(b.match)}</td>
+      <td>${esc(b.spelare)}</td><td>${label(b.marknad, b.linje)}</td><td>${esc(b.bolag)}</td>
+      <td class="n">${nf(b.odds)}</td><td class="n">${nf(b.stangning)}</td>
+      <td class="n ${clv > 0 ? "pos" : clv < 0 ? "loss" : ""}">${pct(clv)}</td>
+      <td class="n">${pct(b.sannolikhet)}</td><td class="n">${pct(b.edge)}</td>
+      <td class="n">${pct(b.insats_pct, 2)}</td><td><span class="pill ${b.status}">${b.status}</span></td>
+      <td class="n">${b.utfall ?? "–"}</td>
+      <td class="n ${b.resultat_enheter > 0 ? "pos" : b.resultat_enheter < 0 ? "loss" : ""}">${pct(b.resultat_enheter, 2)}</td></tr>`;
+  }).join("") || `<tr><td colspan="15" class="empty">Inga bokförda spel än.</td></tr>`;
+}
+
+async function load() {
+  try {
+    const r = await fetch("data.json?t=" + Date.now(), {cache: "no-store"});
+    DATA = await r.json();
+    const mins = Math.round((Date.now() / 1000 - DATA.uppdaterad_ts) / 60);
+    document.getElementById("upd").textContent = `Uppdaterad för ${mins} min sedan`;
+    renderRadar(); renderBok();
+  } catch (e) { document.getElementById("upd").textContent = "Kunde inte läsa data."; }
+}
+
+document.querySelectorAll(".tab").forEach(t => t.onclick = () => {
+  document.querySelectorAll(".tab").forEach(x => x.classList.toggle("on", x === t));
+  document.getElementById("radar").classList.toggle("hidden", t.dataset.tab !== "radar");
+  document.getElementById("bok").classList.toggle("hidden", t.dataset.tab !== "bok");
+});
+document.querySelectorAll("#radar th").forEach(th => th.onclick = () => {
+  const k = th.dataset.k; sortDir = sortKey === k ? -sortDir : (th.classList.contains("n") ? -1 : 1);
+  sortKey = k; renderRadar();
+});
+["q", "mk", "only"].forEach(id => document.getElementById(id).oninput = renderRadar);
+load(); setInterval(load, 120000);
+</script>
+</body>
+</html>

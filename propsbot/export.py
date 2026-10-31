@@ -1,0 +1,59 @@
+"""Skriver webbsidans data (radar + bokföring) till en mapp som publiceras på GitHub Pages."""
+from __future__ import annotations
+
+import json
+import shutil
+import time
+from datetime import datetime, timezone
+from pathlib import Path
+
+from .ledger import Ledger
+from .line_adjust import rate_for_prob
+from .pipeline import MARKET_LABEL
+from .scan import ScanRow
+
+WEB = Path(__file__).resolve().parent.parent / "web"
+
+
+def _spel(market: str, line: float) -> str:
+    if market == "goal" and line == 0.5:
+        return "gör mål"
+    if market == "assist" and line == 0.5:
+        return "assist"
+    return f"{MARKET_LABEL.get(market, market).lower()} över {line:g}"
+
+
+def radar_rows(rows: list[ScanRow], settings: dict, limit: int = 800) -> list[dict]:
+    out = []
+    for r in rows:
+        d = r.row.decision
+        c = d.cand
+        if not d.show:  # utanför oddsramen
+            continue
+        out.append({
+            "spelare": c.player_name, "match": r.match, "avspark": r.kickoff,
+            "spel": _spel(c.market, c.line), "marknad": c.market,
+            "prognos": round(rate_for_prob(min(max(c.p, 1e-4), 0.999), c.line), 2),
+            "odds": c.best.odds, "bolag": c.best.book, "sannolikhet": c.p,
+            "ratt_odds": 1.0 / c.p, "edge": c.edge, "spela_fran": d.play_from,
+            "insats_pct": d.stake if d.playable else 0.0, "spelbar": d.playable,
+            "kommentar": "; ".join(d.reasons),
+        })
+    out.sort(key=lambda x: -x["edge"])
+    return out[:limit]
+
+
+def write_site(site: Path, rows: list[ScanRow], ledger: Ledger, settings: dict) -> None:
+    site.mkdir(parents=True, exist_ok=True)
+    data = {
+        "uppdaterad": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "uppdaterad_ts": time.time(),
+        "regler": {"min_odds": 1.40, "max_odds": 6.0, "kelly": 0.25,
+                   "bankrulle": settings.get("bankroll", 1000)},
+        "radar": radar_rows(rows, settings),
+        "bokforing": sorted(ledger.bets, key=lambda b: -b["bokford"]),
+        "sammanfattning": ledger.summary(),
+    }
+    (site / "data.json").write_text(json.dumps(data, ensure_ascii=False), encoding="utf-8")
+    if (WEB / "index.html").exists():
+        shutil.copy(WEB / "index.html", site / "index.html")
