@@ -37,7 +37,8 @@ def radar_rows(rows: list[ScanRow], settings: dict, limit: int = 800) -> list[di
         out.append({
             "spelare": c.player_name, "match": r.match, "avspark": r.kickoff,
             "spel": _spel(c.market, c.line), "marknad": c.market,
-            "prognos": round(rate_for_prob(min(max(c.p, 1e-4), 0.999), c.line), 2),
+            "prognos": round(rate_for_prob(min(max(c.p, 1e-4), 0.999), c.line), 2)
+            if c.market in ("shots", "shots_on_target", "goal", "assist") else None,
             "odds": c.best.odds, "bolag": c.best.book, "sannolikhet": c.p,
             "ratt_odds": 1.0 / c.p, "edge": c.edge, "spela_fran": d.play_from,
             "insats_pct": d.stake if d.playable else 0.0,
@@ -54,9 +55,10 @@ def radar_rows(rows: list[ScanRow], settings: dict, limit: int = 800) -> list[di
 
 def write_site(site: Path, rows: list[ScanRow], ledger: Ledger, settings: dict,
                test_ledger: Ledger | None = None, parlays: dict | None = None,
-               shadow_ledger: Ledger | None = None) -> None:
+               shadow_ledger: Ledger | None = None, sport: str = "Fotboll") -> None:
     site.mkdir(parents=True, exist_ok=True)
     data = {
+        "sport": sport,
         "uppdaterad": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "uppdaterad_ts": time.time(),
         "regler": {"min_odds": 1.40, "max_odds": 6.0, "kelly": 0.25,

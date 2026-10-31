@@ -98,7 +98,9 @@ def evaluate_match(match: MatchContext, quotes: list[OddsQuote], books: BookSetu
     return rows
 
 
-MARKET_LABEL = {"shots": "Skott", "shots_on_target": "Skott på mål", "goal": "Mål", "assist": "Assist"}
+MARKET_LABEL = {"shots": "Skott", "shots_on_target": "Skott på mål", "goal": "Mål", "assist": "Assist",
+                "points": "Poäng", "rebounds": "Returer", "assists": "Assist (NBA)",
+                "threes": "Trepoängare", "pra": "PRA"}
 
 
 def format_table(rows: list[Row], only_shown: bool = True) -> str:

@@ -78,6 +78,10 @@ DEFAULT_SETTINGS = {
     "model_mode": "test",
     "model_weight": 0.25,
     "model_market_mult": {"shots": 1.0, "shots_on_target": 1.0, "goal": 0.7, "assist": 0.6},
+    # NBA (Kambi-bolagen mot Pinnacles tvåsidiga spelarodds)
+    "nba_enabled": True,
+    "nba_hours_ahead": 30,
+    "nba_max_events": 15,
     # Parlays: 2–5 ben, olika matcher, samma bolag.
     "parlays_enabled": True,
     "parlay_max_legs": 5,

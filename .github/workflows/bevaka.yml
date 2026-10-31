@@ -69,13 +69,13 @@ jobs:
       - uses: actions/deploy-pages@v4
 
       # GitHubs schema startar inte pålitligt. Därför startar varje körning nästa:
-      # 10 min mellan skanningarna 06–22 UTC, 60 min på natten. Schemat ovan finns kvar som reserv.
+      # 10 min mellan skanningarna (även NBA-kvällar), 60 min 04–06 UTC. Schemat ovan är reserv.
       - name: Starta nästa körning
         if: always()
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           H=$(date -u +%H)
-          if [ "$H" -ge 6 ] && [ "$H" -lt 22 ]; then WAIT=480; else WAIT=3300; fi
+          if [ "$H" -ge 4 ] && [ "$H" -lt 6 ]; then WAIT=3300; else WAIT=480; fi
           sleep $WAIT
           gh workflow run bevaka.yml --repo "$GITHUB_REPOSITORY" --ref main

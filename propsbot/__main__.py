@@ -92,6 +92,53 @@ def cmd_free(args) -> None:
     rows = scan_once(_state_root(), Path(args.settings))
     print()
     print(format_scan(rows))
+    try:
+        run_nba(_state_root(), Path(args.settings))
+    except Exception as e:  # NBA får aldrig stoppa fotbollen
+        import traceback
+        print(f"NBA: fel {type(e).__name__}: {e}")
+        traceback.print_exc()
+
+
+def run_nba(root: Path, settings_path: Path) -> None:
+    import os
+    from .export import write_site
+    from .free_scan import notify_new
+    from .nba import nba_scan
+    from .parlays import ParlayLedger, suggest
+    from .results import settle_open  # noqa: F401  (fotbollens rättning används inte för NBA)
+    from .scan import load_settings
+    settings = load_settings(settings_path)
+    if not settings.get("nba_enabled", True):
+        return
+    res = nba_scan(root, settings_path)
+    sugg = suggest(res["rows"], res["evd"], settings)
+    pl = ParlayLedger(root / "nba_parlays.json")
+    new_p = pl.record(sugg)
+    from .nba import settle_nba
+    from .sources.http import JsonClient
+    try:
+        settle_nba(pl.legs_ledger(), JsonClient(root / ".cache_odds", ttl_s=900))
+    except Exception as e:
+        res["diag"].log(f"NBA parlay-rättning: {e}")
+    pl.update_status()
+    pl.save()
+    write_site(root / "site" / "nba", res["rows"], res["ledger"], settings, None,
+               {"parlay_forslag": sugg, "parlay_bokforing": sorted(pl.items, key=lambda x: -x["bokford"]),
+                "parlay_sammanfattning": pl.summary()}, res["shadow"], sport="NBA")
+    if settings.get("ntfy_topic"):
+        nba_settings = dict(settings, ntfy_topic=settings["ntfy_topic"])
+        n = notify_new(res["playable"], nba_settings, root)
+        from .notify import send
+        for x in new_p:
+            legs = "\n".join(f"• {l['spelare']} {l['marknad']} över {l['linje']:g} ({l['odds']:.2f})"
+                             for l in x["ben"])
+            send(settings["ntfy_topic"], f"NBA PARLAY {x['antal_ben']} ben @ {x['odds']:.2f} hos {x['bolag']}",
+                 f"{legs}\nEV {x['ev']:.1%}, insats {x['insats_pct']:.2%}")
+        res["diag"].log(f"NBA notiser: {n}")
+    if os.environ.get("GITHUB_ACTIONS"):
+        keep = [l for l in res["diag"].lines if l.startswith(("Kambi NBA", "Pinnacle NBA", "NBA"))][:30]
+        print("::notice title=nba::" + "%0A".join(x.replace("%", "%25") for x in keep))
 
 
 def cmd_watch(args) -> None:
