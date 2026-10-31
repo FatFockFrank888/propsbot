@@ -1,4 +1,4 @@
-Skanning 2026-10-31 15:18
+Skanning 2026-10-31 15:24
 Kambi unibet (ubse): OK, 24 matcher i valda ligor
 Kambi paf (paf): OK
 Kambi atg (atg): OK
@@ -6,7 +6,7 @@ Kambi leovegas (leose): OK
 Kambi svenskaspel (svenskaspel): OK
 Kambi expekt (expektse): OK
 Pinnacle: OK, 15 ligor
-Pinnacle: 38 matcher, matchlinjer för 18 av 24 Kambi-matcher, 0 spelarodds som används
+Pinnacle: 37 matcher, matchlinjer för 18 av 24 Kambi-matcher, 0 spelarodds som används
 Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
   Double Chance | units=Regular | kategori=Team Props | deltagare=Sassuolo Or Parma,Draw Or Parma,Draw Or Sassuolo  ->  används inte (lagmarknad)
   Total Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
@@ -89,11 +89,11 @@ Modellens nivåavvikelse mot marknaden (log-odds, dras bort): assist -0.16, goal
   Udinese – Roma: väntade mål Pinnacle 3.16 mot Kambi 3.16 (kvot 1.001); uppmätt marginal: goal k=1.44, assist k=1.54, shots_on_target stege k=1.08 (18 spelare; marginal vid 3,00 ≈ 9%)
 Exempel uppmätt marginal: goal k=1.44, assist k=1.54, shots_on_target stege k=1.08 (18 spelare; marginal vid 3,00 ≈ 9%)
   Bayern Munich – Borussia Dortmund: väntade mål Pinnacle 4.08 mot Kambi 4.06 (kvot 1.003); uppmätt marginal: goal k=1.48, assist k=1.61, shots_on_target stege k=1.12 (6 spelare; marginal vid 3,00 ≈ 14%)
-  Tottenham – Crystal Palace: väntade mål Pinnacle 2.92 mot Kambi 2.95 (kvot 0.988); uppmätt marginal: goal k=1.47, assist k=1.52
+  Tottenham – Crystal Palace: väntade mål Pinnacle 2.91 mot Kambi 2.95 (kvot 0.985); uppmätt marginal: goal k=1.47, assist k=1.52
   Celta Vigo B – Córdoba CF: saknar matchlinjer från Pinnacle
   Real Betis – Málaga: väntade mål Pinnacle 3.35 mot Kambi 3.37 (kvot 0.993); uppmätt marginal: goal k=1.51, assist k=1.63
   AC Milan – Inter: saknar matchlinjer från Pinnacle
-  Troyes – Le Mans: väntade mål Pinnacle 2.64 mot Kambi 2.62 (kvot 1.004); uppmätt marginal: goal k=1.39, assist k=1.33, shots_on_target stege k=1.16 (18 spelare; marginal vid 3,00 ≈ 19%)
+  Troyes – Le Mans: väntade mål Pinnacle 2.64 mot Kambi 2.64 (kvot 0.998); uppmätt marginal: goal k=1.39, assist k=1.33, shots_on_target stege k=1.20 (18 spelare; marginal vid 3,00 ≈ 25%)
   Aston Villa – Fulham: väntade mål Pinnacle 2.81 mot Kambi 2.83 (kvot 0.995); uppmätt marginal: goal k=1.39, assist k=1.53
   Albacete Balompié – Sabadell FC: saknar matchlinjer från Pinnacle
   FC Barcelona – Alaves: väntade mål Pinnacle 4.22 mot Kambi 4.19 (kvot 1.008); uppmätt marginal: goal k=1.73, assist k=1.67
@@ -109,25 +109,21 @@ Exempel uppmätt marginal: goal k=1.44, assist k=1.54, shots_on_target stege k=1
   AD Ceuta FC – Sporting de Gijón: saknar matchlinjer från Pinnacle
   Racing Santander – Real Madrid: väntade mål Pinnacle 4.34 mot Kambi 4.24 (kvot 1.025); uppmätt marginal: goal k=1.68, assist k=1.73
 Bolag med spelarodds: atg, expekt, leovegas, paf, svenskaspel, unibet
-Spelarodds per marknad: assist 2892, goal 6676, shots 5410, shots_on_target 4464
-Kambi-marknader: assist='to give an assist (settled using opta data)':2892; goal='to score':4205; goal='to score at least 2 goals':2057; goal='to score at least 3 goals':342; goal='to score at least 4 goals':66; goal='to score at least 5 goals':6; shots="player's shots (settled using opta data)":5410; shots_on_target="player's shots on target (settled using opta data)":4464
+Spelarodds per marknad: assist 2892, goal 6676, shots 5392, shots_on_target 4464
+Kambi-marknader: assist='to give an assist (settled using opta data)':2892; goal='to score':4205; goal='to score at least 2 goals':2045; goal='to score at least 3 goals':354; goal='to score at least 4 goals':66; goal='to score at least 5 goals':6; shots="player's shots (settled using opta data)":5392; shots_on_target="player's shots on target (settled using opta data)":4464
 Pinnacle har inga spelarprops här – använder linjejustering mot Pinnacles matchlinjer.
-Spelarmodell: 0 av 2896 ben har modell, 7 nya matcher hämtade från ESPN
+Spelarmodell: 0 av 2893 ben har modell, 0 nya matcher hämtade från ESPN
 Bästa edge marknad goal: -6.7%, -7.9%, -8.4% (av 236 ben)
-Bästa edge marknad assist: -33.3%, -33.5%, -35.1% (av 208 ben)
-Bästa edge marknad shots_on_target: +4.2%, +3.4%, +2.6% (av 606 ben)
-Bästa edge marknad shots: -3.9%, -3.9%, -4.0% (av 606 ben)
+Bästa edge marknad assist: -33.3%, -34.0%, -35.1% (av 208 ben)
+Bästa edge marknad shots_on_target: +4.2%, +3.3%, +2.6% (av 605 ben)
+Bästa edge marknad shots: -3.9%, -3.9%, -4.0% (av 604 ben)
 Bästa edge modelltest goal: -8.4%, -9.1%, -13.5% (av 218 ben)
 Bästa edge modelltest assist: -31.9%, -32.3%, -33.0% (av 191 ben)
-Bästa edge modelltest shots_on_target: +8.8%, +7.5%, +7.5% (av 561 ben)
-Bästa edge modelltest shots: +8.1%, +7.4%, +7.1% (av 564 ben)
-4 spelbara ben.
-SPEL: Aston Villa – Fulham (2026-10-31 20:00 UTC) | Gonzalo García | Skott på mål över 0.5 | atg 1.42 | Kambi rättvis 73.5% -> justerad 73.4% | edge 4.2% | spela från 1.40 | linjejusterat: väntade mål Pinnacle 2.81 mot Kambi 2.83 (kvot 0.995); uppmätt marginal: goal k=1.39, assist k=1.53
-SPEL: Tottenham – Crystal Palace (2026-10-31 17:30 UTC) | Dominic Solanke | Skott på mål över 0.5 | atg 1.40 | Kambi rättvis 74.1% -> justerad 73.8% | edge 3.4% | spela från 1.40 | linjejusterat: väntade mål Pinnacle 2.92 mot Kambi 2.95 (kvot 0.988); uppmätt marginal: goal k=1.47, assist k=1.52
-SPEL: Aston Villa – Fulham (2026-10-31 20:00 UTC) | Tammy Abraham | Skott på mål över 0.5 | atg 1.49 | Kambi rättvis 69.0% -> justerad 68.9% | edge 2.6% | spela från 1.48 | linjejusterat: väntade mål Pinnacle 2.81 mot Kambi 2.83 (kvot 0.995); uppmätt marginal: goal k=1.39, assist k=1.53
-SPEL: Tottenham – Crystal Palace (2026-10-31 17:30 UTC) | Jean-Philippe Mateta | Skott på mål över 0.5 | atg 1.48 | Kambi rättvis 69.5% -> justerad 69.3% | edge 2.5% | spela från 1.47 | linjejusterat: väntade mål Pinnacle 2.92 mot Kambi 2.95 (kvot 0.988); uppmätt marginal: goal k=1.47, assist k=1.52
-Bokförda nya spel: 4
-Skuggspel: 0 nya bokförda (stoppade av reglerna, minst 2 % edge)
-Modelltest: 55 spelbara enligt modellen, 55 nya testspel bokförda
-Parlays: 1 förslag, 1 nya bokförda
-Notiser skickade: 5
+Bästa edge modelltest shots_on_target: +8.7%, +7.5%, +7.5% (av 560 ben)
+Bästa edge modelltest shots: +7.8%, +6.9%, +6.8% (av 562 ben)
+0 spelbara ben.
+Bokförda nya spel: 0
+Skuggspel: 4 nya bokförda (stoppade av reglerna, minst 2 % edge)
+Modelltest: 0 spelbara enligt modellen, 0 nya testspel bokförda
+Parlays: 1 förslag, 0 nya bokförda
+Notiser skickade: 0
