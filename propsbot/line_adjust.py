@@ -81,7 +81,8 @@ class Lines:
 
 def evaluate_line_adjusted(evd: dict, quotes: list[OddsQuote], names: dict[str, str],
                            settings: dict, cfg: Config, now: float,
-                           pin_lines: Lines, kambi_lines: Lines) -> tuple[list[ScanRow], str]:
+                           pin_lines: Lines, kambi_lines: Lines,
+                           model: dict | None = None) -> tuple[list[ScanRow], str]:
     lh_p, la_p = pin_lines.lambdas()
     lh_k, la_k = kambi_lines.lambdas()
     ratio = (lh_p + la_p) / (lh_k + la_k)
@@ -112,7 +113,22 @@ def evaluate_line_adjusted(evd: dict, quotes: list[OddsQuote], names: dict[str, 
         if not fk:
             continue
         p_k, two_sided = fk
-        p = adjust_prob(p_k, line, ratio, market)
+        p_adj = adjust_prob(p_k, line, ratio, market)
+        p, p_mod, note = p_adj, float("nan"), ""
+        if model:
+            from .market import inv_logit, logit
+            from .player_model import match_player, prob_over
+            mk = match_player(model, pid)
+            if mk and (mk, market) in model:
+                mu, pr = model[(mk, market)]
+                p_mod = min(max(prob_over(market, mu, line), 0.005), 0.995)
+                w = settings.get("model_weight", 0.25) * \
+                    settings.get("model_market_mult", {}).get(market, 1.0)
+                if abs(logit(p_mod) - logit(p_adj)) > 1.0:
+                    w *= 0.5   # stor oenighet: modellen saknar troligen info (roll, skada)
+                p = inv_logit(w * logit(p_mod) + (1 - w) * logit(p_adj))
+                note = (f"modell {p_mod:.0%} (väntat {mu:.2f}, {pr.n_matches} matcher, "
+                        f"{pr.starts} starter), marknad {p_adj:.0%}, modellvikt {w:.2f}")
         dcfg = dataclasses.replace(cfg.decision,
                                    min_edge_by_market=dict(cfg.decision.min_edge_by_market))
         if not two_sided:
@@ -123,12 +139,14 @@ def evaluate_line_adjusted(evd: dict, quotes: list[OddsQuote], names: dict[str, 
                          lineup_confirmed=True, minutes_to_kickoff=mtk)
         d = evaluate(cand, dcfg)
         d.reasons.append(f"linjejusterat: {info}")
+        if note:
+            d.reasons.append(note)
         if not two_sided:
             d.reasons.append("ensidigt pris – högre edgekrav")
         if d.cand.edge > settings["max_plausible_edge"]:
             d.playable, d.stake = False, 0.0
             d.reasons.append(f"edge över {settings['max_plausible_edge']:.0%} – orimligt, kontrollera")
-        out.append(ScanRow("fotboll", title, kickoff, Row(d, float("nan"), p_k, 0.0), 1))
+        out.append(ScanRow("fotboll", title, kickoff, Row(d, p_mod, p_k, 0.0), 1))
     apply_portfolio_limits([r.row.decision for r in out], cfg.decision)
     return out, info
 

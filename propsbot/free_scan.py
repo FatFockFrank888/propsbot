@@ -210,6 +210,29 @@ def collect(settings: dict, diag: Diag, cache_dir: Path) -> list[tuple[dict, lis
     return out
 
 
+def player_models(evd: dict, settings: dict, pm, diag: Diag) -> dict | None:
+    """Spelarmodell för båda lagen, skalad med Pinnacles väntade mål per lag."""
+    from .player_model import model_probs
+    try:
+        hit = pm.find_upcoming(evd["home_team"], evd["away_team"], evd["commence_time"])
+        if not hit:
+            diag.lines.append(f"  {evd['home_team']} – {evd['away_team']}: modell – hittar inte matchen hos ESPN")
+            return None
+        lg, _eid, hid, aid, _ = hit
+        lh, la = evd["pin_lines"].lambdas()
+        out = {}
+        for tid, lam in ((hid, lh), (aid, la)):
+            tm = pm.team(lg, tid, evd["commence_time"])
+            if tm:
+                out.update(model_probs(tm, lam))
+        n = len({k for k, _ in out})
+        diag.lines.append(f"  {evd['home_team']} – {evd['away_team']}: modell {lg}, {n} spelare")
+        return out or None
+    except Exception as e:  # modellen får aldrig stoppa skanningen
+        diag.lines.append(f"  {evd['home_team']} – {evd['away_team']}: modell FEL {type(e).__name__}: {e}")
+        return None
+
+
 def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[ScanRow]:
     settings = load_settings(settings_path)
     # Alla Kambi-bolag är en leverantörsgrupp.
@@ -222,6 +245,11 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
     rows: list[ScanRow] = []
     books: set[str] = set()
     store = Store(root / "propsbot.sqlite")
+    pm = None
+    if settings.get("use_player_model"):
+        from .player_model import PlayerModel
+        pm = PlayerModel(JsonClient(root / ".cache_odds", ttl_s=3600, min_interval_s=0.25),
+                         root / "espn")
     for evd, quotes, names in data:
         if not quotes:
             continue
@@ -230,8 +258,9 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
         if has_pin_props:
             res = evaluate_event_market_only(evd, quotes, names, settings, cfg, time.time(), "fotboll")
         elif "pin_lines" in evd and "kambi_lines" in evd:
+            model = player_models(evd, settings, pm, diag) if pm else None
             res, info = evaluate_line_adjusted(evd, quotes, names, settings, cfg, time.time(),
-                                               evd["pin_lines"], evd["kambi_lines"])
+                                               evd["pin_lines"], evd["kambi_lines"], model)
             diag.lines.append(f"  {evd['home_team']} – {evd['away_team']}: {info}")
         else:
             miss = "Pinnacle" if "pin_lines" not in evd else "Kambi"
@@ -257,6 +286,10 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
     if "pinnacle" not in books:
         diag.log("Pinnacle har inga spelarprops här – använder linjejustering mot Pinnacles matchlinjer.")
     playable = [r for r in rows if r.row.decision.playable and r.row.decision.show]
+    if pm:
+        n_mod = sum(1 for r in rows if r.row.p_model == r.row.p_model)  # inte NaN
+        diag.log(f"Spelarmodell: {n_mod} av {len(rows)} ben har modell, "
+                 f"{pm.store.fetched} nya matcher hämtade från ESPN")
     diag.log(f"{len(playable)} spelbara ben.")
     for r in playable:
         c, d = r.row.decision.cand, r.row.decision
@@ -302,7 +335,8 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
     import os
     if os.environ.get("GITHUB_ACTIONS"):
         keep = [l for l in diag.lines if l.startswith(("Kambi", "Pinnacle", "Bolag", "VARNING"))
-                or l.startswith(("SPEL:", "Spelarodds", "Kambi-marknader", "Rätt", "Struken", "Bokförda"))
+                or l.startswith(("SPEL:", "Spelarodds", "Spelarmodell", "Rätt", "Struken", "Bokförda"))
+                or "modell" in l
                 or "spelbara" in l or "otis" in l][:45]
         print("::notice title=diagnos::" + "%0A".join(x.replace("%", "%25") for x in keep))
     return rows

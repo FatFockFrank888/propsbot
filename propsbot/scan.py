@@ -68,6 +68,10 @@ DEFAULT_SETTINGS = {
     "max_kambi_events": 30,
     # Hoppa över matcher där Kambis och Pinnacles målförväntan skiljer mer än så.
     "max_line_ratio_dev": 0.10,
+    # Egen spelarmodell (ESPN-statistik). Vikt mot marknaden i log-odds.
+    "use_player_model": True,
+    "model_weight": 0.25,
+    "model_market_mult": {"shots": 1.0, "shots_on_target": 1.0, "goal": 0.7, "assist": 0.6},
     # Notiser till mobilen via ntfy (gratis app). Tomt = av.
     "ntfy_topic": "",
     "watch_interval_minutes": 10,
