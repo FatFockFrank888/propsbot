@@ -293,7 +293,9 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
                                                evd["pin_lines"], evd["kambi_lines"],
                                                model if active else None, offsets, None, global_mm)
             if model and not active:
-                shadow, _ = evaluate_line_adjusted(evd, quotes, names, settings, cfg, time.time(),
+                # Modelltestet mäter modellen med uppmätt marginal (utan försiktighetsgolvet).
+                test_settings = dict(settings, min_power_k_shots=0.0)
+                shadow, _ = evaluate_line_adjusted(evd, quotes, names, test_settings, cfg, time.time(),
                                                    evd["pin_lines"], evd["kambi_lines"], model,
                                                    offsets, None, global_mm)
                 shadow_rows += shadow
