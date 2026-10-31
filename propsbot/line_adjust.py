@@ -87,6 +87,10 @@ def evaluate_line_adjusted(evd: dict, quotes: list[OddsQuote], names: dict[str, 
     ratio = (lh_p + la_p) / (lh_k + la_k)
     info = (f"väntade mål Pinnacle {lh_p + la_p:.2f} mot Kambi {lh_k + la_k:.2f} "
             f"(kvot {ratio:.3f})")
+    if abs(ratio - 1) > settings.get("max_line_ratio_dev", 0.10):
+        # Så stora skillnader mellan Kambi och Pinnacle är nästan alltid fel matchning,
+        # olika regler (t.ex. förlängning i cup) eller gamla linjer – inte en edge.
+        return [], info + " – för stor skillnad, hoppas över"
     excluded = set(settings.get("excluded_books", [])) | {settings["sharp_book"]}
     playable = set(settings["playable_books"]) or {q.book for q in quotes if q.book not in excluded}
     mtk = (evd["commence_time"] - now) / 60.0
@@ -130,6 +134,12 @@ def evaluate_line_adjusted(evd: dict, quotes: list[OddsQuote], names: dict[str, 
 
 
 # ------------------------------------------------------------ matchlinjer
+def _is_half_line(x: float) -> bool:
+    """Bara x.5-linjer. Asiatiska linjer (2.25, 2.75, 3.0) har halva vinster/push
+    och kan inte tolkas som P(mål > linje)."""
+    return abs((x % 1) - 0.5) < 1e-6
+
+
 def kambi_match_lines(raw: dict) -> Lines | None:
     """1X2 och total ur Kambis betoffer-svar för en match."""
     x12 = None
@@ -147,7 +157,8 @@ def kambi_match_lines(raw: dict) -> Lines | None:
                 side = "over" if o.get("type") == "OT_OVER" or \
                     (o.get("englishLabel") or "").lower() == "over" else "under"
                 totals.setdefault(o["line"] / 1000, {})[side] = o["odds"] / 1000
-    full = {k: v for k, v in totals.items() if "over" in v and "under" in v}
+    full = {k: v for k, v in totals.items()
+            if "over" in v and "under" in v and _is_half_line(k)}
     if not x12 or not full:
         return None
     ln = min(full, key=lambda k: abs(full[k]["over"] - full[k]["under"]))
@@ -171,7 +182,8 @@ def pinnacle_match_lines(markets: list, matchup_id: int) -> Lines | None:
                     continue
                 totals.setdefault(float(p["points"]), {})[p.get("designation")] = \
                     american_to_decimal(float(p["price"]))
-    full = {k: v for k, v in totals.items() if "over" in v and "under" in v}
+    full = {k: v for k, v in totals.items()
+            if "over" in v and "under" in v and _is_half_line(k)}
     if not x12 or not full:
         return None
     ln = min(full, key=lambda k: abs(full[k]["over"] - full[k]["under"]))

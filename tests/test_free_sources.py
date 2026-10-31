@@ -235,7 +235,7 @@ def test_line_adjusted_finds_edge_when_pinnacle_expects_more_goals():
     now = time.time()
     evd = {"id": "k1", "home_team": "A", "away_team": "B", "commence_time": now + 7200}
     kambi = Lines((2.0, 3.5, 3.8), 2.5, (2.10, 1.75))      # Kambi: lågt målsnitt
-    pin = Lines((1.95, 3.7, 4.0), 2.5, (1.55, 2.55))       # Pinnacle: klart fler mål
+    pin = Lines((1.95, 3.7, 4.0), 2.5, (1.95, 1.90))       # Pinnacle: fler mål
     q = [OddsQuote(b, "k1", "x y", "goal", 0.5, "over", o, now, provider="kambi")
          for b, o in (("unibet", 2.60), ("paf", 2.75), ("atg", 2.60))]
     rows, info = evaluate_line_adjusted(evd, q, {"x y": "X Y"}, DEFAULT_SETTINGS, Config(), now,
@@ -248,3 +248,25 @@ def test_line_adjusted_finds_edge_when_pinnacle_expects_more_goals():
     rows2, _ = evaluate_line_adjusted(evd, q, {"x y": "X Y"}, DEFAULT_SETTINGS, Config(), now,
                                       kambi, pin)
     assert not rows2[0].row.decision.playable
+
+
+def test_asian_total_lines_ignored_and_big_ratio_skipped():
+    mk = [{"matchupId": 1, "period": 0, "type": "moneyline", "prices": [
+              {"designation": "home", "price": -300}, {"designation": "draw", "price": 450},
+              {"designation": "away", "price": 800}]},
+          {"matchupId": 1, "period": 0, "type": "total", "prices": [
+              {"designation": "over", "price": -102, "points": 3.75},
+              {"designation": "under", "price": -108, "points": 3.75}]},
+          {"matchupId": 1, "period": 0, "type": "total", "isAlternate": True, "prices": [
+              {"designation": "over", "price": -250, "points": 2.5},
+              {"designation": "under", "price": 200, "points": 2.5}]}]
+    pl = pinnacle_match_lines(mk, 1)
+    assert pl.total_line == 2.5                      # 3.75 (asiatisk) ignoreras
+    from propsbot.models import OddsQuote
+    now = time.time()
+    evd = {"id": "k1", "home_team": "A", "away_team": "B", "commence_time": now + 7200}
+    q = [OddsQuote("unibet", "k1", "x", "goal", 0.5, "over", 2.6, now, provider="kambi")]
+    rows, info = evaluate_line_adjusted(evd, q, {}, DEFAULT_SETTINGS, Config(), now,
+                                        Lines((1.95, 3.7, 4.0), 2.5, (1.30, 3.60)),
+                                        Lines((2.0, 3.5, 3.8), 2.5, (2.10, 1.75)))
+    assert rows == [] and "hoppas över" in info

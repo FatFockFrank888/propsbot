@@ -66,6 +66,8 @@ DEFAULT_SETTINGS = {
                               "UEFA - Champions League", "UEFA - Europa League",
                               "Sweden - Allsvenskan"],
     "max_kambi_events": 30,
+    # Hoppa över matcher där Kambis och Pinnacles målförväntan skiljer mer än så.
+    "max_line_ratio_dev": 0.10,
     # Notiser till mobilen via ntfy (gratis app). Tomt = av.
     "ntfy_topic": "",
     "watch_interval_minutes": 10,
