@@ -110,7 +110,8 @@ class MarginModel:
     info: str = ""
 
 
-def measure_margins(quotes: list[OddsQuote], total_goals: float, cfg: Config) -> MarginModel:
+def measure_margins(quotes: list[OddsQuote], total_goals: float, cfg: Config,
+                    fallback: "MarginModel | None" = None) -> MarginModel:
     from .market import estimate_one_sided_margin
     mm = MarginModel()
     parts = []
@@ -162,7 +163,14 @@ def measure_margins(quotes: list[OddsQuote], total_goals: float, cfg: Config) ->
                 pairs, cfg.market.one_sided_margin.get(market, (0.08, 0.015)), prior_n=20)
             b, sl = mm.curve[market]
             parts.append(f"{market} m(2,0)={b:.0%} m(4,0)={b + 2 * sl:.0%}")
-    mm.info = "uppmätt marginal: " + (", ".join(parts) or "otillräckligt underlag")
+    # Saknas mätning i just den här matchen: använd mätningen över alla matcher i skanningen.
+    if fallback is not None:
+        for key, k in fallback.power.items():
+            if key[1] in ("shots", "shots_on_target") and key not in mm.power:
+                mm.power[key] = k
+        for market, c in fallback.curve.items():
+            mm.curve.setdefault(market, c)
+    mm.info = "uppmätt marginal: " + (", ".join(parts) or "otillräckligt underlag i matchen")
     return mm
 
 
@@ -210,7 +218,8 @@ def evaluate_line_adjusted(evd: dict, quotes: list[OddsQuote], names: dict[str, 
                            settings: dict, cfg: Config, now: float,
                            pin_lines: Lines, kambi_lines: Lines,
                            model: dict | None = None, model_offset: dict | None = None,
-                           gaps_out: list | None = None) -> tuple[list[ScanRow], str]:
+                           gaps_out: list | None = None,
+                           global_mm: MarginModel | None = None) -> tuple[list[ScanRow], str]:
     lh_p, la_p = pin_lines.lambdas()
     lh_k, la_k = kambi_lines.lambdas()
     ratio = (lh_p + la_p) / (lh_k + la_k)
@@ -226,7 +235,8 @@ def evaluate_line_adjusted(evd: dict, quotes: list[OddsQuote], names: dict[str, 
     title = f"{evd['home_team']} – {evd['away_team']}"
     kickoff = datetime.fromtimestamp(evd["commence_time"], timezone.utc).strftime("%Y-%m-%d %H:%M")
 
-    mm = measure_margins(quotes, lh_p + la_p, cfg) if settings.get("measure_margins", True) else None
+    mm = measure_margins(quotes, lh_p + la_p, cfg, global_mm) \
+        if settings.get("measure_margins", True) else None
     if mm:
         info += f"; {mm.info}"
     by_line: dict[tuple, list[OddsQuote]] = defaultdict(list)
@@ -283,7 +293,8 @@ def evaluate_line_adjusted(evd: dict, quotes: list[OddsQuote], names: dict[str, 
         if note:
             d.reasons.append(note)
         if not two_sided:
-            d.reasons.append("ensidigt pris med gissad marginal – högre edgekrav")
+            d.reasons.append("marginalen kunde inte mätas – inte spelbart")
+            d.playable, d.stake = False, 0.0
         if d.cand.edge > settings["max_plausible_edge"]:
             d.playable, d.stake = False, 0.0
             d.reasons.append(f"edge över {settings['max_plausible_edge']:.0%} – orimligt, kontrollera")

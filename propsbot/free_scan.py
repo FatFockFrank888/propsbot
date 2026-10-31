@@ -252,6 +252,11 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
         from .player_model import PlayerModel
         pm = PlayerModel(JsonClient(root / ".cache_odds", ttl_s=3600, min_interval_s=0.25),
                          root / "espn")
+    # Skottmarginal mätt över alla matcher (reserv när en enskild match har för lite underlag).
+    from .line_adjust import measure_margins
+    all_q = [q for _, qs, _ in data for q in qs]
+    global_mm = measure_margins(all_q, 0.0, cfg)
+    diag.log("Marginal över alla matcher: " + global_mm.info)
     # Förpass: modellens nivåavvikelse mot marknaden per marknad (median i log-odds).
     models: dict[str, dict | None] = {}
     offsets: dict[str, float] = {}
@@ -264,7 +269,7 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
                 if models[evd["id"]]:
                     evaluate_line_adjusted(evd, quotes, names, settings, cfg, time.time(),
                                            evd["pin_lines"], evd["kambi_lines"],
-                                           models[evd["id"]], None, gaps)
+                                           models[evd["id"]], None, gaps, global_mm)
         from statistics import median
         for mk in {m for m, *_ in gaps}:
             g = sorted(x for m, x in gaps if m == mk)
@@ -286,11 +291,11 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
             active = settings.get("model_mode") == "aktiv"
             res, info = evaluate_line_adjusted(evd, quotes, names, settings, cfg, time.time(),
                                                evd["pin_lines"], evd["kambi_lines"],
-                                               model if active else None, offsets)
+                                               model if active else None, offsets, None, global_mm)
             if model and not active:
                 shadow, _ = evaluate_line_adjusted(evd, quotes, names, settings, cfg, time.time(),
                                                    evd["pin_lines"], evd["kambi_lines"], model,
-                                                   offsets)
+                                                   offsets, None, global_mm)
                 shadow_rows += shadow
             diag.lines.append(f"  {evd['home_team']} – {evd['away_team']}: {info}")
             if "uppmätt marginal" in info and not margin_logged:
@@ -361,7 +366,8 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
     new_shadow = shadow_ledger.record(
         rows, evd_by_id,
         predicate=lambda r: (not r.row.decision.playable and r.row.decision.show
-                             and r.row.decision.cand.edge >= 0.02))
+                             and r.row.decision.cand.edge >= 0.02
+                             and not any("kunde inte mätas" in x for x in r.row.decision.reasons)))
     shadow_ledger.update_closing(rows, time.time())
     try:
         settle_open(shadow_ledger, JsonClient(root / ".cache_odds", ttl_s=900))
@@ -369,7 +375,7 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
         diag.log(f"Rättning (skuggspel): {type(e).__name__}: {e}")
     shadow_ledger.save()
     diag.log(f"Skuggspel: {len(new_shadow)} nya bokförda (stoppade av reglerna, minst 2 % edge)")
-    test_ledger = Ledger(root / "bokforing_modell_v2.json")   # v2: efter uppmätt marginal
+    test_ledger = Ledger(root / "bokforing_modell_v3.json")   # v3: bara uppmätt marginal
     new_test = test_ledger.record(shadow_rows, evd_by_id)
     test_ledger.update_closing(shadow_rows, time.time())
     try:
@@ -421,7 +427,7 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
     import os
     if os.environ.get("GITHUB_ACTIONS"):
         keep = [l for l in diag.lines if l.startswith(("Kambi", "Pinnacle", "Bolag", "VARNING"))
-                or l.startswith(("SPEL:", "Exempel", "Bästa edge", "Spelarodds", "Spelarmodell", "Modellens", "Modelltest", "Parlays", "Skuggspel", "Rätt",
+                or l.startswith(("SPEL:", "Exempel", "Marginal över", "Bästa edge", "Spelarodds", "Spelarmodell", "Modellens", "Modelltest", "Parlays", "Skuggspel", "Rätt",
                                  "Struken", "Bokförda"))
                 or "spelbara" in l or "otis" in l][:45]
         print("::notice title=diagnos::" + "%0A".join(x.replace("%", "%25") for x in keep))
