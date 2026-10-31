@@ -99,6 +99,7 @@ class OddsQuote:
     odds: float
     ts: float              # unix-tid då priset hämtades
     provider: str | None = None  # t.ex. "kambi"; fylls i av grupperingen
+    variant: str = ""            # källans marknadsnamn, så att olika marknader aldrig blandas
 
 
 @dataclass

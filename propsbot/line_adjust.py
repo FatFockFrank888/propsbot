@@ -100,10 +100,10 @@ def evaluate_line_adjusted(evd: dict, quotes: list[OddsQuote], names: dict[str, 
     by_line: dict[tuple, list[OddsQuote]] = defaultdict(list)
     for q in quotes:
         if q.provider == "kambi":
-            by_line[(q.player_id, q.market, q.line)].append(q)
+            by_line[(q.player_id, q.market, q.line, q.variant)].append(q)
 
     out: list[ScanRow] = []
-    for (pid, market, line), qs in by_line.items():
+    for (pid, market, line, _variant), qs in by_line.items():
         cands = [q for q in qs if q.side == "over" and q.book in playable]
         if not cands:
             continue

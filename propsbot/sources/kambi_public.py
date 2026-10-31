@@ -133,5 +133,6 @@ def parse_betoffers(raw: dict, book: str, match_id: str) -> tuple[list[OddsQuote
             pid = name_key(player)
             names.setdefault(pid, person_name(player))
             quotes.append(OddsQuote(book=book, match_id=match_id, player_id=pid, market=market,
-                                    line=line, side=side, odds=odds, ts=now, provider="kambi"))
+                                    line=line, side=side, odds=odds, ts=now, provider="kambi",
+                                    variant=label.strip().lower()))
     return quotes, names

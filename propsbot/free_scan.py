@@ -252,6 +252,8 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
     from collections import Counter
     mc = Counter(q.market for _, qs, _ in data for q in qs)
     diag.log("Spelarodds per marknad: " + ", ".join(f"{k} {v}" for k, v in sorted(mc.items())))
+    vc = Counter((q.market, q.variant) for _, qs, _ in data for q in qs if q.provider == "kambi")
+    diag.log("Kambi-marknader: " + "; ".join(f"{m}={v!r}:{n}" for (m, v), n in sorted(vc.items())))
     if "pinnacle" not in books:
         diag.log("Pinnacle har inga spelarprops här – använder linjejustering mot Pinnacles matchlinjer.")
     playable = [r for r in rows if r.row.decision.playable and r.row.decision.show]
@@ -300,7 +302,7 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
     import os
     if os.environ.get("GITHUB_ACTIONS"):
         keep = [l for l in diag.lines if l.startswith(("Kambi", "Pinnacle", "Bolag", "VARNING"))
-                or l.startswith(("SPEL:", "Spelarodds", "Rätt", "Struken", "Bokförda"))
+                or l.startswith(("SPEL:", "Spelarodds", "Kambi-marknader", "Rätt", "Struken", "Bokförda"))
                 or "spelbara" in l or "otis" in l][:45]
         print("::notice title=diagnos::" + "%0A".join(x.replace("%", "%25") for x in keep))
     return rows
