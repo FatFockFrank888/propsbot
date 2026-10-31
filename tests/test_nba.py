@@ -53,3 +53,16 @@ def test_pinnacle_nba_props():
     qs, names = pinnacle_nba_props(_Pin(related, markets), Ev(), "nba1")
     assert {(q.market, q.line, q.side) for q in qs} == {("points", 25.5, "over"), ("points", 25.5, "under")}
     assert names == {"lebron james": "LeBron James"}
+
+
+def test_interpolate_pinnacle_moves_line():
+    from propsbot.models import OddsQuote
+    from propsbot.nba import interpolate_pinnacle
+    qs = [OddsQuote("pinnacle", "m", "x", "points", 25.5, "over", 1.90, 0, provider="pinnacle"),
+          OddsQuote("pinnacle", "m", "x", "points", 25.5, "under", 1.90, 0, provider="pinnacle"),
+          OddsQuote("unibet", "m", "x", "points", 23.5, "over", 1.60, 0, provider="kambi"),
+          OddsQuote("unibet", "m", "x", "points", 30.5, "over", 4.00, 0, provider="kambi")]
+    assert interpolate_pinnacle(qs) == 1              # 30,5 ligger för långt bort
+    new = {q.side: q.odds for q in qs if q.line == 23.5 and q.book == "pinnacle"}
+    p_over = 1 / new["over"]
+    assert 0.6 < p_over < 0.7 and abs(1 / new["over"] + 1 / new["under"] - 1) < 1e-9

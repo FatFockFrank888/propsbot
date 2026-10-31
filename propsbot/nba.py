@@ -183,6 +183,62 @@ def pinnacle_nba_props(pin: PinnaclePublic, ev, match_id: str) -> tuple[list[Odd
     return qs, names
 
 
+# ---------------------------------------------------------------- linjeflytt
+# Överspridning per marknad (negativ binomial, form r): varians = μ + μ²/r.
+NB_R = {"points": 40, "rebounds": 25, "assists": 25, "threes": 40, "steals": 100, "blocks": 100,
+        "pra": 40, "pr": 40, "ra": 30}
+MAX_LINE_GAP = {"points": 3.0, "pra": 4.0, "pr": 3.5, "ra": 2.5}   # övriga: 1,5
+
+
+def interpolate_pinnacle(quotes: list[OddsQuote]) -> int:
+    """Lägg till Pinnacle-sannolikhet på Kambis linjer när Pinnacle har en närliggande linje.
+
+    Pinnacles marginalfria pris på deras linje ger spelarens väntade värde μ; därifrån
+    räknas P(över Kambis linje). Läggs in som marginalfria över/under-odds från "pinnacle".
+    """
+    from .market import devig_power
+    from .player_model import nb_over
+
+    def mu_for(p, line, r):
+        lo, hi = 0.01, 120.0
+        for _ in range(60):
+            mid = (lo + hi) / 2
+            if nb_over(mid, line, r) < p:
+                lo = mid
+            else:
+                hi = mid
+        return (lo + hi) / 2
+
+    pin: dict[tuple, dict[float, dict[str, float]]] = defaultdict(lambda: defaultdict(dict))
+    kambi_lines: set[tuple] = set()
+    match_id = None
+    for q in quotes:
+        match_id = q.match_id
+        if q.book == "pinnacle":
+            pin[(q.player_id, q.market)][q.line][q.side] = q.odds
+        elif q.provider == "kambi":
+            kambi_lines.add((q.player_id, q.market, q.line))
+    added = 0
+    now = time.time()
+    for pid, mk, line in kambi_lines:
+        lines = {ln: d for ln, d in pin.get((pid, mk), {}).items() if "over" in d and "under" in d}
+        if not lines or line in lines:
+            continue
+        ln = min(lines, key=lambda x: abs(x - line))
+        if abs(ln - line) > MAX_LINE_GAP.get(mk, 1.5):
+            continue
+        p_over = devig_power((lines[ln]["over"], lines[ln]["under"]))[0]
+        r = NB_R.get(mk, 40)
+        p_new = nb_over(mu_for(p_over, ln, r), line, r)
+        if not 0.03 < p_new < 0.97:
+            continue
+        for side, pr in (("over", p_new), ("under", 1 - p_new)):
+            quotes.append(OddsQuote("pinnacle", match_id, pid, mk, line, side, 1 / pr, now,
+                                    provider="pinnacle", variant=f"flyttad från {ln:g}"))
+        added += 1
+    return added
+
+
 # ---------------------------------------------------------------- rättning
 ESPN_NBA = "https://site.api.espn.com/apis/site/v2/sports/basketball/nba"
 BOX_KEYS = {"points": ("PTS",), "rebounds": ("REB",), "assists": ("AST",), "threes": ("3PT",),
@@ -322,12 +378,17 @@ def nba_scan(root: Path, settings_path: Path) -> dict:
         diag.log(f"Pinnacle NBA: FEL {type(e).__name__}: {e}")
     rows = []
     mc = Counter()
+    n_exact = n_moved = 0
     for evd, qs_all, names in per.values():
         _unify_players(qs_all, names)
-        mc.update(f"{q.book}:{q.market}" for q in qs_all)
+        pin_keys = {(q.player_id, q.market, q.line) for q in qs_all if q.book == "pinnacle"}
+        n_exact += len({(q.player_id, q.market, q.line) for q in qs_all if q.provider == "kambi"} & pin_keys)
+        n_moved += interpolate_pinnacle(qs_all)
+        mc.update(f"{q.book}:{q.market}" for q in qs_all if q.book in ("unibet", "pinnacle"))
         if qs_all:
             rows += evaluate_event_market_only(evd, qs_all, names, settings, cfg, time.time(), "NBA")
-    diag.log("NBA-odds per bolag och marknad: " + ", ".join(f"{k} {v}" for k, v in sorted(mc.items())))
+    diag.log(f"NBA linjer: {n_exact} med samma linje hos Pinnacle, {n_moved} flyttade från närliggande linje")
+    diag.log("NBA-odds (unibet/pinnacle) per marknad: " + ", ".join(f"{k} {v}" for k, v in sorted(mc.items())))
     rows.sort(key=lambda r: -r.row.decision.cand.edge)
     playable = [r for r in rows if r.row.decision.playable and r.row.decision.show]
     diag.log(f"NBA: {len(playable)} spelbara ben av {len(rows)}")

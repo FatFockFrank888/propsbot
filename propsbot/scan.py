@@ -56,7 +56,7 @@ DEFAULT_SETTINGS = {
     "kambi_market": "SE",
     "kambi_offerings": {"ubse": "unibet", "paf": "paf", "atg": "atg", "leose": "leovegas",
                         "svenskaspel": "svenskaspel", "expektse": "expekt",
-                        "betmgmse": "betmgm", "mgmse": "betmgm", "bmse": "betmgm"},
+                        "betmgmse": "betmgm"},
     # Pinnacle-marknader som får användas som referens. Mål är avstängt tills
     # tolkningen av Pinnacles målmarknad är verifierad mot riktiga råsvar.
     "pinnacle_trusted_markets": ["shots", "shots_on_target"],
