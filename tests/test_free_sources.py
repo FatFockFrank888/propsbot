@@ -182,12 +182,12 @@ def test_free_scan_end_to_end(tmp_path, monkeypatch):
     c = playable[0].row.decision.cand
     assert (c.best.book, c.market, c.best.odds) == ("paf", "shots_on_target", 2.1)
     assert 0.5 < c.p < 0.56
-    assert len(sent) == 1 and "Bukayo Saka" in sent[0]["title"]
+    assert len(sent) == 2 and "igång" in sent[0]["title"] and "Bukayo Saka" in sent[1]["title"]
     diag = (tmp_path / "diagnos" / "diagnos.txt").read_text(encoding="utf-8")
     assert "Pinnacle: OK" in diag and "1 spelbara ben" in diag
     # Andra skanningen: samma ben -> ingen ny notis.
     scan_once(tmp_path, settings)
-    assert len(sent) == 1
+    assert len(sent) == 2
 
 
 # ------------------------------------------------------- linjejustering

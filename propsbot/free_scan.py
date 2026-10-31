@@ -246,18 +246,29 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
     out_dir.mkdir(exist_ok=True)
     write_csv(rows, out_dir / f"spel_{time.strftime('%Y%m%d_%H%M')}.csv", settings["bankroll"], False)
     if notify and settings.get("ntfy_topic"):
-        notify_new(playable, settings, root)
+        # Första körningen mot en ny kanal: skicka ett test så att man ser att det fungerar.
+        tf = root / "ntfy_kanal.txt"
+        if not tf.exists() or tf.read_text(encoding="utf-8").strip() != settings["ntfy_topic"]:
+            ok = send(settings["ntfy_topic"], "propsbot är igång",
+                      "Notiser fungerar. Du får en notis för varje nytt spelbart ben (odds 1,40–6,00).",
+                      priority=3, tags="white_check_mark")
+            if ok:
+                tf.write_text(settings["ntfy_topic"], encoding="utf-8")
+                diag.log("Testnotis skickad till mobilen.")
+        n = notify_new(playable, settings, root)
+        diag.log(f"Notiser skickade: {n}")
     diag.save()
     import os
     if os.environ.get("GITHUB_ACTIONS"):
         keep = [l for l in diag.lines if l.startswith(("Kambi", "Pinnacle", "Bolag", "VARNING"))
-                or "spelbara" in l or "kvot" in l or "saknar" in l][:40]
+                or "spelbara" in l or "kvot" in l or "saknar" in l or "otis" in l][:45]
         print("::notice title=diagnos::" + "%0A".join(x.replace("%", "%25") for x in keep))
     return rows
 
 
-def notify_new(playable: list[ScanRow], settings: dict, root: Path) -> None:
-    seen = SeenStore(root / "notifierade.json")
+def notify_new(playable: list[ScanRow], settings: dict, root: Path) -> int:
+    # Separat minne per kanal, så att byte av kanal inte tappar notiser.
+    seen = SeenStore(root / f"notifierade_{settings['ntfy_topic']}.json")
     sent = 0
     for r in playable:
         c = r.row.decision.cand
@@ -275,6 +286,7 @@ def notify_new(playable: list[ScanRow], settings: dict, root: Path) -> None:
     seen.save()
     if sent:
         print(f"Skickade {sent} notiser till mobilen.")
+    return sent
 
 
 def watch(root: Path, settings_path: Path) -> None:
