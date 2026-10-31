@@ -70,8 +70,18 @@ DEFAULT_SETTINGS = {
     "max_line_ratio_dev": 0.10,
     # Egen spelarmodell (ESPN-statistik). Vikt mot marknaden i log-odds.
     "use_player_model": True,
+    # "test" = modellens spel bokförs separat utan notiser; "aktiv" = modellen styr spelen.
+    "model_mode": "test",
     "model_weight": 0.25,
     "model_market_mult": {"shots": 1.0, "shots_on_target": 1.0, "goal": 0.7, "assist": 0.6},
+    # Parlays: 2–5 ben, olika matcher, samma bolag.
+    "parlays_enabled": True,
+    "parlay_max_legs": 5,
+    "parlay_min_leg_edge": 0.02,
+    "parlay_max_odds": 40.0,
+    "parlay_max_stake": 0.005,
+    "parlay_pool_per_book": 8,
+    "parlay_max_suggestions": 5,
     # Notiser till mobilen via ntfy (gratis app). Tomt = av.
     "ntfy_topic": "",
     "watch_interval_minutes": 10,

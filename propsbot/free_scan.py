@@ -243,6 +243,7 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
     diag.log(time.strftime("Skanning %Y-%m-%d %H:%M"))
     data = collect(settings, diag, root / ".cache_odds")
     rows: list[ScanRow] = []
+    shadow_rows: list[ScanRow] = []
     books: set[str] = set()
     store = Store(root / "propsbot.sqlite")
     pm = None
@@ -264,10 +265,12 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
                                            evd["pin_lines"], evd["kambi_lines"],
                                            models[evd["id"]], None, gaps)
         from statistics import median
-        for mk in {m for m, _ in gaps}:
-            g = [x for m, x in gaps if m == mk]
+        for mk in {m for m, *_ in gaps}:
+            g = sorted(x for m, x in gaps if m == mk)
             if len(g) >= 30:
-                offsets[mk] = median(g)
+                cut = len(g) // 5
+                core = g[cut:len(g) - cut] or g
+                offsets[mk] = max(-0.7, min(0.7, sum(core) / len(core)))
         diag.log("Modellens nivåavvikelse mot marknaden (log-odds, dras bort): "
                  + ", ".join(f"{k} {v:+.2f}" for k, v in sorted(offsets.items())))
     for evd, quotes, names in data:
@@ -279,9 +282,15 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
             res = evaluate_event_market_only(evd, quotes, names, settings, cfg, time.time(), "fotboll")
         elif "pin_lines" in evd and "kambi_lines" in evd:
             model = models.get(evd["id"]) if pm else None
+            active = settings.get("model_mode") == "aktiv"
             res, info = evaluate_line_adjusted(evd, quotes, names, settings, cfg, time.time(),
-                                               evd["pin_lines"], evd["kambi_lines"], model,
-                                               offsets)
+                                               evd["pin_lines"], evd["kambi_lines"],
+                                               model if active else None, offsets)
+            if model and not active:
+                shadow, _ = evaluate_line_adjusted(evd, quotes, names, settings, cfg, time.time(),
+                                                   evd["pin_lines"], evd["kambi_lines"], model,
+                                                   offsets)
+                shadow_rows += shadow
             diag.lines.append(f"  {evd['home_team']} – {evd['away_team']}: {info}")
         else:
             miss = "Pinnacle" if "pin_lines" not in evd else "Kambi"
@@ -336,7 +345,33 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
         diag.log(f"Rättning: oväntat fel {type(e).__name__}: {e}")
     ledger.save()
     diag.log(f"Bokförda nya spel: {len(new_bets)}")
-    write_site(root / "site", rows, ledger, settings)
+    test_ledger = Ledger(root / "bokforing_modell.json")
+    new_test = test_ledger.record(shadow_rows, evd_by_id)
+    test_ledger.update_closing(shadow_rows, time.time())
+    try:
+        settle_open(test_ledger, JsonClient(root / ".cache_odds", ttl_s=900))
+    except Exception as e:
+        diag.log(f"Rättning (modelltest): {type(e).__name__}: {e}")
+    test_ledger.save()
+    n_test = sum(r.row.decision.playable and r.row.decision.show for r in shadow_rows)
+    diag.log(f"Modelltest: {n_test} spelbara enligt modellen, {len(new_test)} nya testspel bokförda")
+    parlay_data, new_parlays = None, []
+    if settings.get("parlays_enabled"):
+        from .parlays import ParlayLedger, suggest
+        sugg = suggest(rows, evd_by_id, settings)
+        pl = ParlayLedger(root / "parlays.json")
+        new_parlays = pl.record(sugg)
+        try:
+            settle_open(pl.legs_ledger(), JsonClient(root / ".cache_odds", ttl_s=900))
+        except Exception as e:
+            diag.log(f"Rättning (parlays): {type(e).__name__}: {e}")
+        pl.update_status()
+        pl.save()
+        diag.log(f"Parlays: {len(sugg)} förslag, {len(new_parlays)} nya bokförda")
+        parlay_data = {"parlay_forslag": sugg,
+                       "parlay_bokforing": sorted(pl.items, key=lambda x: -x["bokford"]),
+                       "parlay_sammanfattning": pl.summary()}
+    write_site(root / "site", rows, ledger, settings, test_ledger, parlay_data)
 
     if notify and settings.get("ntfy_topic"):
         # Första körningen mot en ny kanal: skicka ett test så att man ser att det fungerar.
@@ -351,13 +386,19 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
                 tf.write_text(th, encoding="utf-8")
                 diag.log("Testnotis skickad till mobilen.")
         n = notify_new(playable, settings, root)
+        for x in new_parlays:
+            legs = "\n".join(f"• {l['spelare']} {MARKET_LABEL.get(l['marknad'], l['marknad']).lower()} "
+                             f"över {l['linje']:g} ({l['odds']:.2f}) – {l['match']}" for l in x["ben"])
+            if send(settings["ntfy_topic"], f"PARLAY {x['antal_ben']} ben @ {x['odds']:.2f} hos {x['bolag']}",
+                    f"{legs}\nEV {x['ev']:.1%}, insats {x['insats_pct']:.2%} av bankrullen"):
+                n += 1
         diag.log(f"Notiser skickade: {n}")
     diag.save()
     import os
     if os.environ.get("GITHUB_ACTIONS"):
         keep = [l for l in diag.lines if l.startswith(("Kambi", "Pinnacle", "Bolag", "VARNING"))
-                or l.startswith(("SPEL:", "Spelarodds", "Spelarmodell", "Modellens", "Rätt", "Struken",
-                                 "Bokförda"))
+                or l.startswith(("SPEL:", "Spelarodds", "Spelarmodell", "Modellens", "Modelltest", "Parlays", "Rätt",
+                                 "Struken", "Bokförda"))
                 or "spelbara" in l or "otis" in l][:45]
         print("::notice title=diagnos::" + "%0A".join(x.replace("%", "%25") for x in keep))
     return rows

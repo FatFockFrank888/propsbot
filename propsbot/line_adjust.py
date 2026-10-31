@@ -124,7 +124,8 @@ def evaluate_line_adjusted(evd: dict, quotes: list[OddsQuote], names: dict[str, 
                 mu, pr = model[(mk, market)]
                 p_raw = min(max(prob_over(market, mu, line), 0.005), 0.995)
                 if gaps_out is not None:
-                    gaps_out.append((market, logit(p_raw) - logit(p_adj)))
+                    if 0.15 <= p_adj <= 0.85:
+                        gaps_out.append((market, logit(p_raw) - logit(p_adj)))
                 # Nivån tas från marknaden: modellens snittavvikelse per marknad dras bort,
                 # så att modellen bara bidrar med skillnader mellan spelare.
                 off = (model_offset or {}).get(market, 0.0)
