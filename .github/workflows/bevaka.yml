@@ -6,6 +6,7 @@ on:
   workflow_dispatch: {}
 
 permissions:
+  actions: write
   contents: write
   pages: write
   id-token: write
@@ -17,7 +18,7 @@ concurrency:
 jobs:
   skanna:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 75
     environment:
       name: github-pages
     steps:
@@ -66,3 +67,15 @@ jobs:
           path: state/site
 
       - uses: actions/deploy-pages@v4
+
+      # GitHubs schema startar inte pålitligt. Därför startar varje körning nästa:
+      # 10 min mellan skanningarna 06–22 UTC, 60 min på natten. Schemat ovan finns kvar som reserv.
+      - name: Starta nästa körning
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          H=$(date -u +%H)
+          if [ "$H" -ge 6 ] && [ "$H" -lt 22 ]; then WAIT=480; else WAIT=3300; fi
+          sleep $WAIT
+          gh workflow run bevaka.yml --repo "$GITHUB_REPOSITORY" --ref main
