@@ -32,6 +32,7 @@ EXCLUDE = ("quarter", "half", "1st", "2nd", "3rd", "4th", "first", "double", "tr
            "turnover", "most", "team", "race", "odd", "even", "milestone",
            "highest", "lowest", "exact", "both", " or ", "&nbsp")
 PIN_BASKETBALL = 4
+SAMPLE: dict = {}
 
 
 def nba_market(label: str) -> str | None:
@@ -148,6 +149,8 @@ def pinnacle_nba_props(pin: PinnaclePublic, ev, match_id: str) -> tuple[list[Odd
     related = pin.c.get(f"{PIN_BASE}/matchups/{ev.matchup_id}/related") or []
     markets = pin.c.get(f"{PIN_BASE}/matchups/{ev.matchup_id}/markets/related/straight") or []
     now = time.time()
+    SAMPLE.setdefault("pin_desc", [m.get("special", {}).get("description") for m in related
+                                   if m.get("type") == "special"][:8])
     specials = {}
     for m in related:
         if m.get("type") != "special":
@@ -162,6 +165,9 @@ def pinnacle_nba_props(pin: PinnaclePublic, ev, match_id: str) -> tuple[list[Odd
         if not mk:
             continue
         player = desc.split("(")[0].strip()
+        # "LeBron James Total Points" -> "LeBron James"
+        player = re.split(r"\s+(?:Total|Points|Rebounds|Assists|3 Point|Three|Pts|Rebs|Asts|Steals|"
+                          r"Blocks|Made|Over|Under)\b", player)[0].strip()
         pmap = {p["id"]: (p.get("name") or "").lower() for p in m.get("participants", []) if "id" in p}
         specials[int(m["id"])] = (player, mk, pmap)
     qs, names = [], {}
@@ -379,7 +385,13 @@ def nba_scan(root: Path, settings_path: Path) -> dict:
     rows = []
     mc = Counter()
     n_exact = n_moved = 0
+    sample_done = False
     for evd, qs_all, names in per.values():
+        if not sample_done and qs_all:
+            kn = sorted({q.player_id for q in qs_all if q.provider == "kambi"})[:6]
+            pn = sorted({q.player_id for q in qs_all if q.book == "pinnacle"})[:6]
+            diag.log(f"NBA namnexempel {evd['home_team']}: Kambi {kn} | Pinnacle {pn}")
+            sample_done = True
         _unify_players(qs_all, names)
         pin_keys = {(q.player_id, q.market, q.line) for q in qs_all if q.book == "pinnacle"}
         n_exact += len({(q.player_id, q.market, q.line) for q in qs_all if q.provider == "kambi"} & pin_keys)
@@ -387,6 +399,8 @@ def nba_scan(root: Path, settings_path: Path) -> dict:
         mc.update(f"{q.book}:{q.market}" for q in qs_all if q.book in ("unibet", "pinnacle"))
         if qs_all:
             rows += evaluate_event_market_only(evd, qs_all, names, settings, cfg, time.time(), "NBA")
+    if SAMPLE.get("pin_desc"):
+        diag.log(f"NBA Pinnacle-exempel: {SAMPLE['pin_desc']}")
     diag.log(f"NBA linjer: {n_exact} med samma linje hos Pinnacle, {n_moved} flyttade från närliggande linje")
     diag.log("NBA-odds (unibet/pinnacle) per marknad: " + ", ".join(f"{k} {v}" for k, v in sorted(mc.items())))
     rows.sort(key=lambda r: -r.row.decision.cand.edge)
