@@ -286,3 +286,14 @@ def test_kambi_team_markets_without_participant_ignored():
                        "participantId": 1, "odds": 2900, "status": "OPEN"}]}]}
     qs, names = parse_betoffers(raw, "unibet", "k1")
     assert [(q.player_id, q.market) for q in qs] == [("antoine semenyo", "goal")]
+
+
+def test_kambi_real_labels():
+    from propsbot.sources.props_text import market_from_label as m
+    assert m("to score") == ("goal", 0.5)
+    assert m("to score at least 2 goals") == ("goal", 1.5)
+    assert m("player to score 0:00-14:59") is None
+    assert m("to score most goals") is None
+    assert m("most shots on target (settled using opta data)") is None
+    assert m("to give an assist (settled using opta data)") == ("assist", None)
+    assert m("player's shots on target (settled using opta data)") == ("shots_on_target", None)

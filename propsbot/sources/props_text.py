@@ -11,7 +11,7 @@ EXCLUDE_WORDS = ("first", "last", "team", "header", "outside", "inside", "hat", 
                  "half", "minute", "card", "foul", "tackle", "save", "pass", "offside",
                  "corner", "combined", "both", "and ", "headed", "penalt", "own goal", "exactly", " or ",
                  "same", "match", "total goals", "both teams", "draw", "winner", "handicap",
-                 "clean sheet", "win to nil", "odd", "even", "correct score")
+                 "clean sheet", "win to nil", "odd", "even", "correct score", "most")
 
 
 def market_from_label(label: str) -> tuple[str, float | None] | None:
@@ -21,8 +21,11 @@ def market_from_label(label: str) -> tuple[str, float | None] | None:
     s = label.lower()
     if any(w in s for w in EXCLUDE_WORDS):
         return None
+    if re.search(r"\d{1,2}:\d{2}", s):     # tidsintervall, t.ex. "0:00-14:59"
+        return None
     line = None
-    m = re.search(r"(\d+)\s*\+", s) or re.search(r"(\d+) or more", s)
+    m = (re.search(r"(\d+)\s*\+", s) or re.search(r"(\d+) or more", s)
+         or re.search(r"at least (\d+)", s))
     if m:
         line = int(m.group(1)) - 0.5
     if "on target" in s:
