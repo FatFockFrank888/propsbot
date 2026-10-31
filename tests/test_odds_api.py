@@ -12,6 +12,7 @@ import pytest
 
 from propsbot.config import Config
 from propsbot.scan import DEFAULT_SETTINGS, consensus, evaluate_event_market_only, provider_groups
+TEST_SETTINGS = dict(DEFAULT_SETTINGS, playable_books=[])  # alla bolag spelbara i testerna
 from propsbot.sources import the_odds_api as toa
 from propsbot.sources.the_odds_api import normalize_name, parse_match_lines, parse_props
 
@@ -97,7 +98,7 @@ def _prop_event():
 
 def test_kambi_hint_groups_unibet_and_leovegas():
     quotes, _ = parse_props(_prop_event())
-    gid = provider_groups(quotes, DEFAULT_SETTINGS, Config())
+    gid = provider_groups(quotes, TEST_SETTINGS, Config())
     assert gid["unibet_eu"] == gid["leovegas"]
     assert gid["pinnacle"] != gid["unibet_eu"] != gid["betsson"]
 
@@ -105,7 +106,7 @@ def test_kambi_hint_groups_unibet_and_leovegas():
 def test_market_only_leave_one_out_edge():
     ev = _prop_event()
     quotes, names = parse_props(ev)
-    rows = evaluate_event_market_only(ev, quotes, names, DEFAULT_SETTINGS, Config(),
+    rows = evaluate_event_market_only(ev, quotes, names, TEST_SETTINGS, Config(),
                                       fetch_ts=1_700_000_000, sport="soccer_epl")
     assert len(rows) == 1
     d = rows[0].row.decision
@@ -120,7 +121,7 @@ def test_no_independent_source_gives_no_candidate():
     ev = dict(EVENT, bookmakers=[_bm("betsson", [_sot(
         [{"name": "Over", "description": "Bukayo Saka", "price": 2.5, "point": 0.5}])])])
     quotes, names = parse_props(ev)
-    rows = evaluate_event_market_only(ev, quotes, names, DEFAULT_SETTINGS, Config(),
+    rows = evaluate_event_market_only(ev, quotes, names, TEST_SETTINGS, Config(),
                                       fetch_ts=1_700_000_000, sport="soccer_epl")
     assert rows == []
 
@@ -130,7 +131,7 @@ def test_consensus_without_sharp_flags_low_confidence():
         [{"name": "Over", "description": "A B", "price": 1.9, "point": 0.5}])]),
         _bm("betsson", [_sot([{"name": "Over", "description": "A B", "price": 2.2, "point": 0.5}])])])
     quotes, _ = parse_props(ev)
-    gid = provider_groups(quotes, DEFAULT_SETTINGS, Config())
+    gid = provider_groups(quotes, TEST_SETTINGS, Config())
     c = consensus(quotes, gid, gid["betsson"], "pinnacle", "shots_on_target", Config())
     assert c and not c.has_sharp_or_two_sided
 
@@ -192,7 +193,7 @@ def test_single_one_sided_source_and_absurd_edge_blocked():
     ev = dict(EVENT, bookmakers=[_bm("betsson", [_sot(sot(8.0))]),
                                  _bm("nordicbet", [_sot(sot(3.8))])])
     quotes, names = parse_props(ev)
-    rows = evaluate_event_market_only(ev, quotes, names, DEFAULT_SETTINGS, Config(),
+    rows = evaluate_event_market_only(ev, quotes, names, TEST_SETTINGS, Config(),
                                       fetch_ts=1_700_000_000, sport="soccer_epl")
     d = rows[0].row.decision
     assert d.cand.best.book == "betsson"

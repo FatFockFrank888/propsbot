@@ -6,6 +6,7 @@ from propsbot.models import OddsQuote
 from propsbot.parlays import ParlayLedger, suggest
 from propsbot.pipeline import Row
 from propsbot.scan import DEFAULT_SETTINGS, ScanRow
+TEST_SETTINGS = dict(DEFAULT_SETTINGS, playable_books=[])  # alla bolag spelbara i testerna
 
 
 def row(match, player, p, odds, book="unibet"):
@@ -21,14 +22,14 @@ def test_suggest_rules():
             row("m3", "d", 0.50, 2.2), row("m4", "e", 0.40, 2.0), row("m5", "f", 0.55, 2.0, "paf")]
     evd = {f"m{i}": {"home_team": "H", "away_team": "A", "commence_time": time.time() + 7200}
            for i in range(1, 6)}
-    sug = suggest(rows, evd, DEFAULT_SETTINGS)
+    sug = suggest(rows, evd, TEST_SETTINGS)
     assert sug
     for s in sug:
         assert 2 <= s["antal_ben"] <= 5
         assert len({l["match_id"] for l in s["ben"]}) == s["antal_ben"]   # olika matcher
         assert {l["bolag"] for l in s["ben"]} == {s["bolag"]}              # samma bolag
         assert "e" not in {l["spelare_id"] for l in s["ben"]}               # negativ edge ej med
-        assert 0 < s["insats_pct"] <= DEFAULT_SETTINGS["parlay_max_stake"]
+        assert 0 < s["insats_pct"] <= TEST_SETTINGS["parlay_max_stake"]
         assert abs(s["odds"] - __import__("math").prod(l["odds"] for l in s["ben"])) < 1e-9
 
 

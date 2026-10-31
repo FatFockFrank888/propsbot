@@ -38,7 +38,8 @@ DEFAULT_SETTINGS = {
                      "player_assists"],
     "regions": "uk,eu",
     "bookmakers": [],
-    "playable_books": [],
+    # Bolag ni spelar hos. Övriga (t.ex. Paf, LeoVegas) används bara för att mäta marginal.
+    "playable_books": ["svenskaspel", "betmgm", "expekt", "atg", "unibet"],
     "sharp_book": "pinnacle",
     "kambi_hint_prefixes": ["unibet", "leovegas", "paf", "betrivers", "svenskaspel", "atg"],
     "max_events_per_run": 8,
@@ -54,7 +55,8 @@ DEFAULT_SETTINGS = {
     "use_the_odds_api": False,
     "kambi_market": "SE",
     "kambi_offerings": {"ubse": "unibet", "paf": "paf", "atg": "atg", "leose": "leovegas",
-                        "svenskaspel": "svenskaspel", "expektse": "expekt"},
+                        "svenskaspel": "svenskaspel", "expektse": "expekt",
+                        "betmgmse": "betmgm", "mgmse": "betmgm", "bmse": "betmgm"},
     # Pinnacle-marknader som får användas som referens. Mål är avstängt tills
     # tolkningen av Pinnacles målmarknad är verifierad mot riktiga råsvar.
     "pinnacle_trusted_markets": ["shots", "shots_on_target"],

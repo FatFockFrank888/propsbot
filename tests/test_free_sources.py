@@ -173,7 +173,7 @@ def test_free_scan_end_to_end(tmp_path, monkeypatch):
     monkeypatch.setattr(httpmod.time, "sleep", lambda s: None)
 
     settings = tmp_path / "settings.json"
-    settings.write_text(json.dumps({"kambi_offerings": {"ubse": "unibet", "paf": "paf",
+    settings.write_text(json.dumps({"playable_books": [], "kambi_offerings": {"ubse": "unibet", "paf": "paf",
                                                         "nope": "finnsinte"},
                                     "ntfy_topic": "propsbot-test"}), encoding="utf-8")
     rows = scan_once(tmp_path, settings)
@@ -198,6 +198,7 @@ from propsbot.line_adjust import (Lines, adjust_prob, evaluate_line_adjusted,  #
                                   kambi_match_lines, pinnacle_match_lines)
 from propsbot.config import Config  # noqa: E402
 from propsbot.scan import DEFAULT_SETTINGS  # noqa: E402
+TEST_SETTINGS = dict(DEFAULT_SETTINGS, playable_books=[])  # alla bolag spelbara i testerna
 
 
 def test_adjust_prob_direction_and_identity():
@@ -241,14 +242,14 @@ def test_line_adjusted_finds_edge_when_pinnacle_expects_more_goals():
     pin = Lines((1.95, 3.7, 4.0), 2.5, (1.95, 1.90))       # Pinnacle: fler mål
     q = [OddsQuote(b, "k1", "x y", "goal", 0.5, "over", o, now, provider="kambi")
          for b, o in (("unibet", 2.60), ("paf", 2.75), ("atg", 2.60))]
-    rows, info = evaluate_line_adjusted(evd, q, {"x y": "X Y"}, DEFAULT_SETTINGS, Config(), now,
+    rows, info = evaluate_line_adjusted(evd, q, {"x y": "X Y"}, TEST_SETTINGS, Config(), now,
                                         pin, kambi)
     d = rows[0].row.decision
     assert d.cand.best.book == "paf"
     assert d.cand.p > rows[0].row.p_market      # uppjusterad
     assert "kvot" in info
     # Omvänt: Pinnacle väntar färre mål -> aldrig spelbart
-    rows2, _ = evaluate_line_adjusted(evd, q, {"x y": "X Y"}, DEFAULT_SETTINGS, Config(), now,
+    rows2, _ = evaluate_line_adjusted(evd, q, {"x y": "X Y"}, TEST_SETTINGS, Config(), now,
                                       kambi, pin)
     assert not rows2[0].row.decision.playable
 
@@ -269,7 +270,7 @@ def test_asian_total_lines_ignored_and_big_ratio_skipped():
     now = time.time()
     evd = {"id": "k1", "home_team": "A", "away_team": "B", "commence_time": now + 7200}
     q = [OddsQuote("unibet", "k1", "x", "goal", 0.5, "over", 2.6, now, provider="kambi")]
-    rows, info = evaluate_line_adjusted(evd, q, {}, DEFAULT_SETTINGS, Config(), now,
+    rows, info = evaluate_line_adjusted(evd, q, {}, TEST_SETTINGS, Config(), now,
                                         Lines((1.95, 3.7, 4.0), 2.5, (1.30, 3.60)),
                                         Lines((2.0, 3.5, 3.8), 2.5, (2.10, 1.75)))
     assert rows == [] and "hoppas över" in info

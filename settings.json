@@ -17,7 +17,13 @@
   ],
   "regions": "uk,eu",
   "bookmakers": [],
-  "playable_books": [],
+  "playable_books": [
+    "svenskaspel",
+    "betmgm",
+    "expekt",
+    "atg",
+    "unibet"
+  ],
   "sharp_book": "pinnacle",
   "kambi_hint_prefixes": [
     "unibet",
@@ -47,7 +53,10 @@
     "atg": "atg",
     "leose": "leovegas",
     "svenskaspel": "svenskaspel",
-    "expektse": "expekt"
+    "expektse": "expekt",
+    "betmgmse": "betmgm",
+    "mgmse": "betmgm",
+    "bmse": "betmgm"
   },
   "pinnacle_trusted_markets": [
     "shots",
@@ -74,6 +83,25 @@
     "Sweden - Allsvenskan"
   ],
   "max_kambi_events": 30,
+  "max_line_ratio_dev": 0.1,
+  "min_power_k_shots": 1.2,
+  "min_edge_display": 0.02,
+  "use_player_model": true,
+  "model_mode": "test",
+  "model_weight": 0.25,
+  "model_market_mult": {
+    "shots": 1.0,
+    "shots_on_target": 1.0,
+    "goal": 0.7,
+    "assist": 0.6
+  },
+  "parlays_enabled": true,
+  "parlay_max_legs": 5,
+  "parlay_min_leg_edge": 0.02,
+  "parlay_max_odds": 40.0,
+  "parlay_max_stake": 0.005,
+  "parlay_pool_per_book": 8,
+  "parlay_max_suggestions": 5,
   "ntfy_topic": "",
   "watch_interval_minutes": 10
 }
