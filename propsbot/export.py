@@ -32,6 +32,8 @@ def radar_rows(rows: list[ScanRow], settings: dict, limit: int = 800) -> list[di
         c = d.cand
         if not d.show:  # utanför oddsramen
             continue
+        if c.edge < settings.get("min_edge_display", 0.02):   # bara spel med minst 2 % edge
+            continue
         out.append({
             "spelare": c.player_name, "match": r.match, "avspark": r.kickoff,
             "spel": _spel(c.market, c.line), "marknad": c.market,
