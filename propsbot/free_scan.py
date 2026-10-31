@@ -324,6 +324,13 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
         n_mod = sum(1 for r in rows if r.row.p_model == r.row.p_model)  # inte NaN
         diag.log(f"Spelarmodell: {n_mod} av {len(rows)} ben har modell, "
                  f"{pm.store.fetched} nya matcher hämtade från ESPN")
+    for label_, rr in (("marknad", rows), ("modelltest", shadow_rows)):
+        for mk in ("goal", "assist", "shots_on_target", "shots"):
+            es = sorted((r.row.decision.cand.edge for r in rr
+                         if r.row.decision.cand.market == mk and r.row.decision.show), reverse=True)
+            if es:
+                diag.log(f"Bästa edge {label_} {mk}: " + ", ".join(f"{e:+.1%}" for e in es[:3])
+                         + f" (av {len(es)} ben)")
     diag.log(f"{len(playable)} spelbara ben.")
     for r in playable:
         c, d = r.row.decision.cand, r.row.decision
@@ -414,7 +421,7 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
     import os
     if os.environ.get("GITHUB_ACTIONS"):
         keep = [l for l in diag.lines if l.startswith(("Kambi", "Pinnacle", "Bolag", "VARNING"))
-                or l.startswith(("SPEL:", "Exempel", "Spelarodds", "Spelarmodell", "Modellens", "Modelltest", "Parlays", "Skuggspel", "Rätt",
+                or l.startswith(("SPEL:", "Exempel", "Bästa edge", "Spelarodds", "Spelarmodell", "Modellens", "Modelltest", "Parlays", "Skuggspel", "Rätt",
                                  "Struken", "Bokförda"))
                 or "spelbara" in l or "otis" in l][:45]
         print("::notice title=diagnos::" + "%0A".join(x.replace("%", "%25") for x in keep))
