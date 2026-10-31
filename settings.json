@@ -1,0 +1,79 @@
+{
+  "sports": [
+    "soccer_epl",
+    "soccer_spain_la_liga",
+    "soccer_germany_bundesliga",
+    "soccer_italy_serie_a",
+    "soccer_france_ligue_one",
+    "soccer_uefa_champs_league",
+    "soccer_sweden_allsvenskan"
+  ],
+  "hours_ahead": 36,
+  "prop_markets": [
+    "player_shots_on_target",
+    "player_shots",
+    "player_goal_scorer_anytime",
+    "player_assists"
+  ],
+  "regions": "uk,eu",
+  "bookmakers": [],
+  "playable_books": [],
+  "sharp_book": "pinnacle",
+  "kambi_hint_prefixes": [
+    "unibet",
+    "leovegas",
+    "paf",
+    "betrivers",
+    "svenskaspel",
+    "atg"
+  ],
+  "max_events_per_run": 8,
+  "bankroll": 1000,
+  "extra_edge_without_sharp": 0.03,
+  "min_groups_without_sharp": 3,
+  "max_plausible_edge": 0.25,
+  "excluded_books": [
+    "pinnacle",
+    "williamhill",
+    "onexbet"
+  ],
+  "use_kambi": true,
+  "use_pinnacle": true,
+  "use_the_odds_api": false,
+  "kambi_market": "SE",
+  "kambi_offerings": {
+    "ubse": "unibet",
+    "paf": "paf",
+    "atg": "atg",
+    "leose": "leovegas",
+    "svenskaspel": "svenskaspel",
+    "expektse": "expekt"
+  },
+  "pinnacle_trusted_markets": [
+    "shots",
+    "shots_on_target"
+  ],
+  "league_words": [
+    "England / Premier League",
+    "Spain / La Liga",
+    "Germany / Bundesliga",
+    "Italy / Serie A",
+    "France / Ligue 1",
+    "Champions League",
+    "Europa League",
+    "Sweden / Allsvenskan"
+  ],
+  "pinnacle_league_words": [
+    "England - Premier League",
+    "Spain - La Liga",
+    "Germany - Bundesliga",
+    "Italy - Serie A",
+    "France - Ligue 1",
+    "UEFA - Champions League",
+    "UEFA - Europa League",
+    "Sweden - Allsvenskan"
+  ],
+  "max_kambi_events": 30,
+  "ntfy_topic": "",
+  "watch_interval_minutes": 10
+}

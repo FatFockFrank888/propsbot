@@ -1,0 +1,4813 @@
+{
+ "match_id": "EX-2026-11-01-HEM-BOR",
+ "competition": "Exempelligan",
+ "kickoff_utc": "2026-11-01T15:00:00Z",
+ "lineup_confirmed": true,
+ "referee": {
+  "name": "Domare A",
+  "added_time": 9.5,
+  "pen_mult": 1.1,
+  "freekick_mult": 1.05
+ },
+ "weather": {
+  "wind_ms": 4.0,
+  "heavy_rain": false,
+  "artificial_turf": false
+ },
+ "pinnacle_match_odds": {
+  "1x2": [
+   1.62,
+   4.1,
+   5.6
+  ],
+  "total": {
+   "line": 2.5,
+   "odds": [
+    1.83,
+    2.06
+   ]
+  }
+ },
+ "home": {
+  "name": "Hemmalaget",
+  "base_mix": {
+   "distance": 0.33
+  },
+  "opponent_profile": {
+   "block_height": -1.3,
+   "allowed_mult": {
+    "distance": 1.12,
+    "header": 1.08,
+    "counter": 0.85
+   }
+  },
+  "players": [
+   {
+    "id": "H1",
+    "name": "Hemma GK1",
+    "position": "GK",
+    "minutes": {
+     "p_start": 1.0
+    }
+   },
+   {
+    "id": "H2",
+    "name": "Hemma CB2",
+    "position": "CB",
+    "minutes": {
+     "p_start": 1.0
+    }
+   },
+   {
+    "id": "H3",
+    "name": "Hemma CB3",
+    "position": "CB",
+    "minutes": {
+     "p_start": 1.0
+    }
+   },
+   {
+    "id": "H4",
+    "name": "Hemma FB4",
+    "position": "FB",
+    "minutes": {
+     "p_start": 1.0
+    }
+   },
+   {
+    "id": "H5",
+    "name": "Hemma FB5",
+    "position": "FB",
+    "minutes": {
+     "p_start": 1.0
+    }
+   },
+   {
+    "id": "H6",
+    "name": "Hemma DM6",
+    "position": "DM",
+    "minutes": {
+     "p_start": 1.0
+    }
+   },
+   {
+    "id": "H7",
+    "name": "Hemma CM7",
+    "position": "CM",
+    "minutes": {
+     "p_start": 1.0
+    }
+   },
+   {
+    "id": "H8",
+    "name": "Hemma AM8",
+    "position": "AM",
+    "minutes": {
+     "p_start": 1.0
+    },
+    "share": {
+     "distance": 0.3,
+     "freekick": 0.45
+    },
+    "pen_order": 1,
+    "on_target": {
+     "distance": 0.31
+    },
+    "xa_share": 0.2
+   },
+   {
+    "id": "H9",
+    "name": "Hemma W9",
+    "position": "W",
+    "minutes": {
+     "p_start": 1.0
+    }
+   },
+   {
+    "id": "H10",
+    "name": "Hemma W10",
+    "position": "W",
+    "minutes": {
+     "p_start": 1.0
+    }
+   },
+   {
+    "id": "H11",
+    "name": "Hemma ST11",
+    "position": "ST",
+    "minutes": {
+     "p_start": 1.0
+    },
+    "share": {
+     "box": 0.34,
+     "header": 0.28
+    },
+    "pen_order": 2
+   },
+   {
+    "id": "H12",
+    "name": "Hemma ST12",
+    "position": "ST",
+    "minutes": {
+     "p_start": 0.0,
+     "p_sub_on_if_bench": 0.0
+    }
+   },
+   {
+    "id": "H13",
+    "name": "Hemma CM13",
+    "position": "CM",
+    "minutes": {
+     "p_start": 0.0
+    }
+   },
+   {
+    "id": "H14",
+    "name": "Hemma W14",
+    "position": "W",
+    "minutes": {
+     "p_start": 0.0
+    }
+   }
+  ]
+ },
+ "away": {
+  "name": "Bortalaget",
+  "opponent_profile": {
+   "block_height": 0.6,
+   "allowed_mult": {
+    "counter": 1.1
+   }
+  },
+  "players": [
+   {
+    "id": "A1",
+    "name": "Borta GK1",
+    "position": "GK",
+    "minutes": {
+     "p_start": 1.0
+    }
+   },
+   {
+    "id": "A2",
+    "name": "Borta CB2",
+    "position": "CB",
+    "minutes": {
+     "p_start": 1.0
+    }
+   },
+   {
+    "id": "A3",
+    "name": "Borta CB3",
+    "position": "CB",
+    "minutes": {
+     "p_start": 1.0
+    }
+   },
+   {
+    "id": "A4",
+    "name": "Borta FB4",
+    "position": "FB",
+    "minutes": {
+     "p_start": 1.0
+    }
+   },
+   {
+    "id": "A5",
+    "name": "Borta FB5",
+    "position": "FB",
+    "minutes": {
+     "p_start": 1.0
+    }
+   },
+   {
+    "id": "A6",
+    "name": "Borta DM6",
+    "position": "DM",
+    "minutes": {
+     "p_start": 1.0
+    }
+   },
+   {
+    "id": "A7",
+    "name": "Borta CM7",
+    "position": "CM",
+    "minutes": {
+     "p_start": 1.0
+    }
+   },
+   {
+    "id": "A8",
+    "name": "Borta AM8",
+    "position": "AM",
+    "minutes": {
+     "p_start": 1.0
+    }
+   },
+   {
+    "id": "A9",
+    "name": "Borta W9",
+    "position": "W",
+    "minutes": {
+     "p_start": 1.0
+    }
+   },
+   {
+    "id": "A10",
+    "name": "Borta W10",
+    "position": "W",
+    "minutes": {
+     "p_start": 1.0
+    }
+   },
+   {
+    "id": "A11",
+    "name": "Borta ST11",
+    "position": "ST",
+    "minutes": {
+     "p_start": 1.0
+    },
+    "share": {
+     "box": 0.3,
+     "counter": 0.38
+    },
+    "pen_order": 1
+   },
+   {
+    "id": "A12",
+    "name": "Borta ST12",
+    "position": "ST",
+    "minutes": {
+     "p_start": 0.0
+    }
+   },
+   {
+    "id": "A13",
+    "name": "Borta CM13",
+    "position": "CM",
+    "minutes": {
+     "p_start": 0.0
+    }
+   },
+   {
+    "id": "A14",
+    "name": "Borta W14",
+    "position": "W",
+    "minutes": {
+     "p_start": 0.0
+    }
+   }
+  ]
+ },
+ "quotes": [
+  {
+   "book": "unibet",
+   "player_id": "H2",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.72,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "H2",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.72,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "H2",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.72,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "H2",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.856,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "H2",
+   "market": "shots",
+   "line": 0.5,
+   "side": "under",
+   "odds": 2.057,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "bet365",
+   "player_id": "H2",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.68,
+   "ts": 1793545170.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "H2",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 4.01,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "H2",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 4.01,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "H2",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 4.01,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "bet365",
+   "player_id": "H2",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 3.98,
+   "ts": 1793545170.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "H2",
+   "market": "shots",
+   "line": 2.5,
+   "side": "over",
+   "odds": 10.96,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "H2",
+   "market": "shots",
+   "line": 2.5,
+   "side": "over",
+   "odds": 10.96,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "H2",
+   "market": "shots",
+   "line": 2.5,
+   "side": "over",
+   "odds": 10.96,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "H2",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 3.98,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "H2",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 3.98,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "H2",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 3.98,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "H2",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 4.144,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "H2",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "under",
+   "odds": 1.276,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "bet365",
+   "player_id": "H2",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 3.93,
+   "ts": 1793545170.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "H2",
+   "market": "goal",
+   "line": 0.5,
+   "side": "over",
+   "odds": 9.11,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "H2",
+   "market": "goal",
+   "line": 0.5,
+   "side": "over",
+   "odds": 9.11,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "H2",
+   "market": "goal",
+   "line": 0.5,
+   "side": "over",
+   "odds": 9.11,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "H3",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.6,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "H3",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.6,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "H3",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.79,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "H3",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.715,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "H3",
+   "market": "shots",
+   "line": 0.5,
+   "side": "under",
+   "odds": 2.263,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "H3",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 3.62,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "H3",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 3.62,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "H3",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 3.62,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "H3",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 3.848,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "H3",
+   "market": "shots",
+   "line": 1.5,
+   "side": "under",
+   "odds": 1.307,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "bet365",
+   "player_id": "H3",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 3.6,
+   "ts": 1793545170.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "H3",
+   "market": "shots",
+   "line": 2.5,
+   "side": "over",
+   "odds": 8.26,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "H3",
+   "market": "shots",
+   "line": 2.5,
+   "side": "over",
+   "odds": 8.26,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "H3",
+   "market": "shots",
+   "line": 2.5,
+   "side": "over",
+   "odds": 8.26,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "H3",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 3.78,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "H3",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 3.78,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "H3",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 3.78,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "H3",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 3.973,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "H3",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "under",
+   "odds": 1.293,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "bet365",
+   "player_id": "H3",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 3.7,
+   "ts": 1793545170.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "H3",
+   "market": "goal",
+   "line": 0.5,
+   "side": "over",
+   "odds": 9.35,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "H3",
+   "market": "goal",
+   "line": 0.5,
+   "side": "over",
+   "odds": 9.35,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "H3",
+   "market": "goal",
+   "line": 0.5,
+   "side": "over",
+   "odds": 9.35,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "H4",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 2.01,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "H4",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 2.01,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "H4",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 2.01,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "H4",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 2.088,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "H4",
+   "market": "shots",
+   "line": 0.5,
+   "side": "under",
+   "odds": 1.831,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "H4",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 5.29,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "H4",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 5.29,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "H4",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 5.29,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "H4",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 5.445,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "H4",
+   "market": "shots",
+   "line": 1.5,
+   "side": "under",
+   "odds": 1.189,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "H4",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 4.09,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "H4",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 4.09,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "H4",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 4.58,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "H4",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 4.478,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "H4",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "under",
+   "odds": 1.247,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "bet365",
+   "player_id": "H4",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 4.12,
+   "ts": 1793545170.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "H4",
+   "market": "assist",
+   "line": 0.5,
+   "side": "over",
+   "odds": 7.12,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "H4",
+   "market": "assist",
+   "line": 0.5,
+   "side": "over",
+   "odds": 7.12,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "H4",
+   "market": "assist",
+   "line": 0.5,
+   "side": "over",
+   "odds": 7.12,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "bet365",
+   "player_id": "H4",
+   "market": "assist",
+   "line": 0.5,
+   "side": "over",
+   "odds": 6.83,
+   "ts": 1793545170.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "H5",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.65,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "H5",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.65,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "H5",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.65,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "H5",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.729,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "H5",
+   "market": "shots",
+   "line": 0.5,
+   "side": "under",
+   "odds": 2.238,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "bet365",
+   "player_id": "H5",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.64,
+   "ts": 1793545170.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "H5",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 4.04,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "H5",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 4.04,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "H5",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 4.04,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "H5",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 4.305,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "H5",
+   "market": "shots",
+   "line": 1.5,
+   "side": "under",
+   "odds": 1.262,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "H5",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 4.06,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "H5",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 4.06,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "H5",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 4.06,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "H5",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 4.442,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "H5",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "under",
+   "odds": 1.25,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "H5",
+   "market": "assist",
+   "line": 0.5,
+   "side": "over",
+   "odds": 7.24,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "H5",
+   "market": "assist",
+   "line": 0.5,
+   "side": "over",
+   "odds": 7.24,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "H5",
+   "market": "assist",
+   "line": 0.5,
+   "side": "over",
+   "odds": 7.24,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "H6",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.6,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "H6",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.6,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "H6",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.79,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "H6",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.671,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "H6",
+   "market": "shots",
+   "line": 0.5,
+   "side": "under",
+   "odds": 2.344,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "H6",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 3.56,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "H6",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 3.56,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "H6",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 3.56,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "H6",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 3.795,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "H6",
+   "market": "shots",
+   "line": 1.5,
+   "side": "under",
+   "odds": 1.313,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "bet365",
+   "player_id": "H6",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 3.54,
+   "ts": 1793545170.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "H6",
+   "market": "shots",
+   "line": 2.5,
+   "side": "over",
+   "odds": 8.39,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "H6",
+   "market": "shots",
+   "line": 2.5,
+   "side": "over",
+   "odds": 8.39,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "H6",
+   "market": "shots",
+   "line": 2.5,
+   "side": "over",
+   "odds": 9.4,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "H6",
+   "market": "shots",
+   "line": 2.5,
+   "side": "over",
+   "odds": 8.717,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "H6",
+   "market": "shots",
+   "line": 2.5,
+   "side": "under",
+   "odds": 1.099,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "bet365",
+   "player_id": "H6",
+   "market": "shots",
+   "line": 2.5,
+   "side": "over",
+   "odds": 8.53,
+   "ts": 1793545170.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "H6",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 3.46,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "H6",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 3.46,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "H6",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 3.46,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "H6",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 3.77,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "H6",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "under",
+   "odds": 1.316,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "bet365",
+   "player_id": "H6",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 3.5,
+   "ts": 1793545170.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "H7",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.16,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "H7",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.16,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "H7",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.16,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "H7",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.21,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "H7",
+   "market": "shots",
+   "line": 0.5,
+   "side": "under",
+   "odds": 5.028,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "H7",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 2.04,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "H7",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 2.04,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "H7",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 2.04,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "H7",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 2.116,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "H7",
+   "market": "shots",
+   "line": 1.5,
+   "side": "under",
+   "odds": 1.811,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "H7",
+   "market": "shots",
+   "line": 2.5,
+   "side": "over",
+   "odds": 3.99,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "H7",
+   "market": "shots",
+   "line": 2.5,
+   "side": "over",
+   "odds": 3.99,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "H7",
+   "market": "shots",
+   "line": 2.5,
+   "side": "over",
+   "odds": 3.99,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "bet365",
+   "player_id": "H7",
+   "market": "shots",
+   "line": 2.5,
+   "side": "over",
+   "odds": 4.08,
+   "ts": 1793545170.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "H7",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 2.52,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "H7",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 2.52,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "H7",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 2.52,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "H7",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 2.688,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "H7",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "under",
+   "odds": 1.531,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "bet365",
+   "player_id": "H7",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 2.45,
+   "ts": 1793545170.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "H7",
+   "market": "shots_on_target",
+   "line": 1.5,
+   "side": "over",
+   "odds": 9.29,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "H7",
+   "market": "shots_on_target",
+   "line": 1.5,
+   "side": "over",
+   "odds": 9.29,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "H7",
+   "market": "shots_on_target",
+   "line": 1.5,
+   "side": "over",
+   "odds": 9.29,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "bet365",
+   "player_id": "H7",
+   "market": "shots_on_target",
+   "line": 1.5,
+   "side": "over",
+   "odds": 9.02,
+   "ts": 1793545170.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "H7",
+   "market": "goal",
+   "line": 0.5,
+   "side": "over",
+   "odds": 6.75,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "H7",
+   "market": "goal",
+   "line": 0.5,
+   "side": "over",
+   "odds": 6.75,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "H7",
+   "market": "goal",
+   "line": 0.5,
+   "side": "over",
+   "odds": 6.75,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "H7",
+   "market": "assist",
+   "line": 0.5,
+   "side": "over",
+   "odds": 6.85,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "H7",
+   "market": "assist",
+   "line": 0.5,
+   "side": "over",
+   "odds": 6.85,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "H7",
+   "market": "assist",
+   "line": 0.5,
+   "side": "over",
+   "odds": 6.85,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "bet365",
+   "player_id": "H7",
+   "market": "assist",
+   "line": 0.5,
+   "side": "over",
+   "odds": 6.79,
+   "ts": 1793545170.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "H8",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 1.28,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "H8",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 1.28,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "H8",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 1.28,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "H8",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 1.311,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "H8",
+   "market": "shots",
+   "line": 1.5,
+   "side": "under",
+   "odds": 3.816,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "H8",
+   "market": "shots",
+   "line": 2.5,
+   "side": "over",
+   "odds": 1.47,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "H8",
+   "market": "shots",
+   "line": 2.5,
+   "side": "over",
+   "odds": 1.47,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "H8",
+   "market": "shots",
+   "line": 2.5,
+   "side": "over",
+   "odds": 1.47,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "H8",
+   "market": "shots",
+   "line": 2.5,
+   "side": "over",
+   "odds": 1.565,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "H8",
+   "market": "shots",
+   "line": 2.5,
+   "side": "under",
+   "odds": 2.59,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "H8",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.41,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "H8",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.41,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "H8",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.41,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "H8",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.517,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "H8",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "under",
+   "odds": 2.735,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "H8",
+   "market": "shots_on_target",
+   "line": 1.5,
+   "side": "over",
+   "odds": 2.98,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "H8",
+   "market": "shots_on_target",
+   "line": 1.5,
+   "side": "over",
+   "odds": 2.98,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "H8",
+   "market": "shots_on_target",
+   "line": 1.5,
+   "side": "over",
+   "odds": 2.98,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "H8",
+   "market": "shots_on_target",
+   "line": 1.5,
+   "side": "over",
+   "odds": 3.11,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "H8",
+   "market": "shots_on_target",
+   "line": 1.5,
+   "side": "under",
+   "odds": 1.422,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "bet365",
+   "player_id": "H8",
+   "market": "shots_on_target",
+   "line": 1.5,
+   "side": "over",
+   "odds": 2.92,
+   "ts": 1793545170.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "H8",
+   "market": "goal",
+   "line": 0.5,
+   "side": "over",
+   "odds": 3.02,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "H8",
+   "market": "goal",
+   "line": 0.5,
+   "side": "over",
+   "odds": 3.02,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "H8",
+   "market": "goal",
+   "line": 0.5,
+   "side": "over",
+   "odds": 3.38,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "H8",
+   "market": "assist",
+   "line": 0.5,
+   "side": "over",
+   "odds": 3.42,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "H8",
+   "market": "assist",
+   "line": 0.5,
+   "side": "over",
+   "odds": 3.42,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "H8",
+   "market": "assist",
+   "line": 0.5,
+   "side": "over",
+   "odds": 3.42,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "bet365",
+   "player_id": "H8",
+   "market": "assist",
+   "line": 0.5,
+   "side": "over",
+   "odds": 3.45,
+   "ts": 1793545170.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "H9",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.09,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "H9",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.09,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "H9",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.22,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "H9",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.18,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "H9",
+   "market": "shots",
+   "line": 0.5,
+   "side": "under",
+   "odds": 5.633,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "bet365",
+   "player_id": "H9",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.06,
+   "ts": 1793545170.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "H9",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 1.4,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "H9",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 1.4,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "H9",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 1.4,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "H9",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 1.489,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "H9",
+   "market": "shots",
+   "line": 1.5,
+   "side": "under",
+   "odds": 2.831,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "H9",
+   "market": "shots",
+   "line": 2.5,
+   "side": "over",
+   "odds": 2.32,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "H9",
+   "market": "shots",
+   "line": 2.5,
+   "side": "over",
+   "odds": 2.32,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "H9",
+   "market": "shots",
+   "line": 2.5,
+   "side": "over",
+   "odds": 2.32,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "H9",
+   "market": "shots",
+   "line": 2.5,
+   "side": "over",
+   "odds": 2.436,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "H9",
+   "market": "shots",
+   "line": 2.5,
+   "side": "under",
+   "odds": 1.627,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "H9",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.85,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "H9",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.85,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "H9",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.85,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "H9",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.931,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "H9",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "under",
+   "odds": 1.972,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "bet365",
+   "player_id": "H9",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.81,
+   "ts": 1793545170.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "H9",
+   "market": "shots_on_target",
+   "line": 1.5,
+   "side": "over",
+   "odds": 4.59,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "H9",
+   "market": "shots_on_target",
+   "line": 1.5,
+   "side": "over",
+   "odds": 4.59,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "H9",
+   "market": "shots_on_target",
+   "line": 1.5,
+   "side": "over",
+   "odds": 4.59,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "bet365",
+   "player_id": "H9",
+   "market": "shots_on_target",
+   "line": 1.5,
+   "side": "over",
+   "odds": 4.53,
+   "ts": 1793545170.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "H9",
+   "market": "goal",
+   "line": 0.5,
+   "side": "over",
+   "odds": 4.48,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "H9",
+   "market": "goal",
+   "line": 0.5,
+   "side": "over",
+   "odds": 4.48,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "H9",
+   "market": "goal",
+   "line": 0.5,
+   "side": "over",
+   "odds": 4.48,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "bet365",
+   "player_id": "H9",
+   "market": "goal",
+   "line": 0.5,
+   "side": "over",
+   "odds": 4.51,
+   "ts": 1793545170.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "H9",
+   "market": "assist",
+   "line": 0.5,
+   "side": "over",
+   "odds": 4.83,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "H9",
+   "market": "assist",
+   "line": 0.5,
+   "side": "over",
+   "odds": 4.83,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "H9",
+   "market": "assist",
+   "line": 0.5,
+   "side": "over",
+   "odds": 4.83,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "H10",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.03,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "H10",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.03,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "H10",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.15,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "H10",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 1.41,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "H10",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 1.41,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "H10",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 1.41,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "H10",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 1.523,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "H10",
+   "market": "shots",
+   "line": 1.5,
+   "side": "under",
+   "odds": 2.713,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "bet365",
+   "player_id": "H10",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 1.45,
+   "ts": 1793545170.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "H10",
+   "market": "shots",
+   "line": 2.5,
+   "side": "over",
+   "odds": 2.52,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "H10",
+   "market": "shots",
+   "line": 2.5,
+   "side": "over",
+   "odds": 2.52,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "H10",
+   "market": "shots",
+   "line": 2.5,
+   "side": "over",
+   "odds": 2.82,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "H10",
+   "market": "shots",
+   "line": 2.5,
+   "side": "over",
+   "odds": 2.599,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "H10",
+   "market": "shots",
+   "line": 2.5,
+   "side": "under",
+   "odds": 1.562,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "bet365",
+   "player_id": "H10",
+   "market": "shots",
+   "line": 2.5,
+   "side": "over",
+   "odds": 2.6,
+   "ts": 1793545170.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "H10",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.68,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "H10",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.68,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "H10",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.68,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "H10",
+   "market": "shots_on_target",
+   "line": 1.5,
+   "side": "over",
+   "odds": 4.57,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "H10",
+   "market": "shots_on_target",
+   "line": 1.5,
+   "side": "over",
+   "odds": 4.57,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "H10",
+   "market": "shots_on_target",
+   "line": 1.5,
+   "side": "over",
+   "odds": 4.57,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "H10",
+   "market": "shots_on_target",
+   "line": 1.5,
+   "side": "over",
+   "odds": 4.802,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "H10",
+   "market": "shots_on_target",
+   "line": 1.5,
+   "side": "under",
+   "odds": 1.224,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "bet365",
+   "player_id": "H10",
+   "market": "shots_on_target",
+   "line": 1.5,
+   "side": "over",
+   "odds": 4.5,
+   "ts": 1793545170.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "H10",
+   "market": "goal",
+   "line": 0.5,
+   "side": "over",
+   "odds": 4.1,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "H10",
+   "market": "goal",
+   "line": 0.5,
+   "side": "over",
+   "odds": 4.1,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "H10",
+   "market": "goal",
+   "line": 0.5,
+   "side": "over",
+   "odds": 4.1,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "H10",
+   "market": "assist",
+   "line": 0.5,
+   "side": "over",
+   "odds": 5.34,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "H10",
+   "market": "assist",
+   "line": 0.5,
+   "side": "over",
+   "odds": 5.34,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "H10",
+   "market": "assist",
+   "line": 0.5,
+   "side": "over",
+   "odds": 5.34,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "H11",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 1.13,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "H11",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 1.13,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "H11",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 1.13,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "H11",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 1.219,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "H11",
+   "market": "shots",
+   "line": 1.5,
+   "side": "under",
+   "odds": 4.885,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "bet365",
+   "player_id": "H11",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 1.1,
+   "ts": 1793545170.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "H11",
+   "market": "shots",
+   "line": 2.5,
+   "side": "over",
+   "odds": 1.39,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "H11",
+   "market": "shots",
+   "line": 2.5,
+   "side": "over",
+   "odds": 1.39,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "H11",
+   "market": "shots",
+   "line": 2.5,
+   "side": "over",
+   "odds": 1.39,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "H11",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.26,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "H11",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.26,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "H11",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.26,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "H11",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.379,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "H11",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "under",
+   "odds": 3.338,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "H11",
+   "market": "shots_on_target",
+   "line": 1.5,
+   "side": "over",
+   "odds": 2.07,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "H11",
+   "market": "shots_on_target",
+   "line": 1.5,
+   "side": "over",
+   "odds": 2.07,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "H11",
+   "market": "shots_on_target",
+   "line": 1.5,
+   "side": "over",
+   "odds": 2.07,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "H11",
+   "market": "shots_on_target",
+   "line": 1.5,
+   "side": "over",
+   "odds": 2.229,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "H11",
+   "market": "shots_on_target",
+   "line": 1.5,
+   "side": "under",
+   "odds": 1.735,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "bet365",
+   "player_id": "H11",
+   "market": "shots_on_target",
+   "line": 1.5,
+   "side": "over",
+   "odds": 2.06,
+   "ts": 1793545170.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "H11",
+   "market": "goal",
+   "line": 0.5,
+   "side": "over",
+   "odds": 2.43,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "H11",
+   "market": "goal",
+   "line": 0.5,
+   "side": "over",
+   "odds": 2.43,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "H11",
+   "market": "goal",
+   "line": 0.5,
+   "side": "over",
+   "odds": 2.43,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "bet365",
+   "player_id": "H11",
+   "market": "goal",
+   "line": 0.5,
+   "side": "over",
+   "odds": 2.39,
+   "ts": 1793545170.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "H11",
+   "market": "assist",
+   "line": 0.5,
+   "side": "over",
+   "odds": 8.46,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "H11",
+   "market": "assist",
+   "line": 0.5,
+   "side": "over",
+   "odds": 8.46,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "H11",
+   "market": "assist",
+   "line": 0.5,
+   "side": "over",
+   "odds": 8.46,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "bet365",
+   "player_id": "H11",
+   "market": "assist",
+   "line": 0.5,
+   "side": "over",
+   "odds": 8.85,
+   "ts": 1793545170.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "H13",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.98,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "H13",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.98,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "H13",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.98,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "H13",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 2.048,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "H13",
+   "market": "shots",
+   "line": 0.5,
+   "side": "under",
+   "odds": 1.863,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "bet365",
+   "player_id": "H13",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.92,
+   "ts": 1793545170.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "H13",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 5.18,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "H13",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 5.18,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "H13",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 5.18,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "bet365",
+   "player_id": "H13",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 5.18,
+   "ts": 1793545170.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "H13",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 4.35,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "H13",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 4.35,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "H13",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 4.35,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "bet365",
+   "player_id": "H13",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 4.42,
+   "ts": 1793545170.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "H14",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.68,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "H14",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.68,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "H14",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.68,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "bet365",
+   "player_id": "H14",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.71,
+   "ts": 1793545170.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "H14",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 3.58,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "H14",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 3.58,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "H14",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 3.58,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "bet365",
+   "player_id": "H14",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 3.5,
+   "ts": 1793545170.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "H14",
+   "market": "shots",
+   "line": 2.5,
+   "side": "over",
+   "odds": 8.54,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "H14",
+   "market": "shots",
+   "line": 2.5,
+   "side": "over",
+   "odds": 8.54,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "H14",
+   "market": "shots",
+   "line": 2.5,
+   "side": "over",
+   "odds": 9.56,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "H14",
+   "market": "shots",
+   "line": 2.5,
+   "side": "over",
+   "odds": 8.818,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "H14",
+   "market": "shots",
+   "line": 2.5,
+   "side": "under",
+   "odds": 1.097,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "bet365",
+   "player_id": "H14",
+   "market": "shots",
+   "line": 2.5,
+   "side": "over",
+   "odds": 8.61,
+   "ts": 1793545170.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "H14",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 3.27,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "H14",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 3.27,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "H14",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 3.27,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "H14",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 3.48,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "H14",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "under",
+   "odds": 1.356,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "bet365",
+   "player_id": "H14",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 3.25,
+   "ts": 1793545170.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "H14",
+   "market": "goal",
+   "line": 0.5,
+   "side": "over",
+   "odds": 7.97,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "H14",
+   "market": "goal",
+   "line": 0.5,
+   "side": "over",
+   "odds": 7.97,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "H14",
+   "market": "goal",
+   "line": 0.5,
+   "side": "over",
+   "odds": 8.93,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "bet365",
+   "player_id": "H14",
+   "market": "goal",
+   "line": 0.5,
+   "side": "over",
+   "odds": 7.86,
+   "ts": 1793545170.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "A2",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 3.09,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "A2",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 3.09,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "A2",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 3.46,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "bet365",
+   "player_id": "A2",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 3.04,
+   "ts": 1793545170.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "A2",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 7.15,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "A2",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 7.15,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "A2",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 7.15,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "bet365",
+   "player_id": "A2",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 7.04,
+   "ts": 1793545170.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "A3",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 2.68,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "A3",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 2.68,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "A3",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 3.0,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "A3",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 2.853,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "A3",
+   "market": "shots",
+   "line": 0.5,
+   "side": "under",
+   "odds": 1.482,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "A3",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 7.76,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "A3",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 7.76,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "A3",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 7.76,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "A3",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 8.41,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "A3",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "under",
+   "odds": 1.104,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "A4",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 3.24,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "A4",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 3.24,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "A4",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 3.63,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "A4",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 3.367,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "A4",
+   "market": "shots",
+   "line": 0.5,
+   "side": "under",
+   "odds": 1.374,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "bet365",
+   "player_id": "A4",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 3.23,
+   "ts": 1793545170.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "A4",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 8.39,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "A4",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 8.39,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "A4",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 8.39,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "A4",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 8.808,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "A4",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "under",
+   "odds": 1.097,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "A5",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 3.24,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "A5",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 3.24,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "A5",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 3.24,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "A5",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 3.343,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "A5",
+   "market": "shots",
+   "line": 0.5,
+   "side": "under",
+   "odds": 1.378,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "bet365",
+   "player_id": "A5",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 3.24,
+   "ts": 1793545170.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "A5",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 8.96,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "A5",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 8.96,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "A5",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 8.96,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "A5",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 9.509,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "A5",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "under",
+   "odds": 1.087,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "A6",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 2.89,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "A6",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 2.89,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "A6",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 2.89,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "A6",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 3.121,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "A6",
+   "market": "shots",
+   "line": 0.5,
+   "side": "under",
+   "odds": 1.419,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "A6",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 6.95,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "A6",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 6.95,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "A6",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 6.95,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "A7",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.91,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "A7",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.91,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "A7",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.91,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "A7",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 2.004,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "A7",
+   "market": "shots",
+   "line": 0.5,
+   "side": "under",
+   "odds": 1.901,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "bet365",
+   "player_id": "A7",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.94,
+   "ts": 1793545170.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "A7",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 6.54,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "A7",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 6.54,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "A7",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 6.54,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "A7",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 5.2,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "A7",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 5.2,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "A7",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 5.2,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "A8",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.64,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "A8",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.64,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "A8",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.64,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "bet365",
+   "player_id": "A8",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.61,
+   "ts": 1793545170.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "A8",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 3.45,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "A8",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 3.45,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "A8",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 3.45,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "A8",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 3.633,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "A8",
+   "market": "shots",
+   "line": 1.5,
+   "side": "under",
+   "odds": 1.334,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "bet365",
+   "player_id": "A8",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 3.45,
+   "ts": 1793545170.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "A8",
+   "market": "shots",
+   "line": 2.5,
+   "side": "over",
+   "odds": 8.98,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "A8",
+   "market": "shots",
+   "line": 2.5,
+   "side": "over",
+   "odds": 8.98,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "A8",
+   "market": "shots",
+   "line": 2.5,
+   "side": "over",
+   "odds": 8.98,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "bet365",
+   "player_id": "A8",
+   "market": "shots",
+   "line": 2.5,
+   "side": "over",
+   "odds": 8.83,
+   "ts": 1793545170.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "A8",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 3.26,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "A8",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 3.26,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "A8",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 3.26,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "A8",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 3.46,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "A8",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "under",
+   "odds": 1.359,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "A8",
+   "market": "goal",
+   "line": 0.5,
+   "side": "over",
+   "odds": 9.99,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "A8",
+   "market": "goal",
+   "line": 0.5,
+   "side": "over",
+   "odds": 9.99,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "A8",
+   "market": "goal",
+   "line": 0.5,
+   "side": "over",
+   "odds": 11.19,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "A8",
+   "market": "assist",
+   "line": 0.5,
+   "side": "over",
+   "odds": 8.36,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "A8",
+   "market": "assist",
+   "line": 0.5,
+   "side": "over",
+   "odds": 8.36,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "A8",
+   "market": "assist",
+   "line": 0.5,
+   "side": "over",
+   "odds": 8.36,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "bet365",
+   "player_id": "A8",
+   "market": "assist",
+   "line": 0.5,
+   "side": "over",
+   "odds": 8.13,
+   "ts": 1793545170.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "A9",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.41,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "A9",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.41,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "A9",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.41,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "A9",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.523,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "A9",
+   "market": "shots",
+   "line": 0.5,
+   "side": "under",
+   "odds": 2.716,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "bet365",
+   "player_id": "A9",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.45,
+   "ts": 1793545170.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "A9",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 3.7,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "A9",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 3.7,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "A9",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 3.7,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "A9",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 3.917,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "A9",
+   "market": "shots",
+   "line": 1.5,
+   "side": "under",
+   "odds": 1.299,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "A9",
+   "market": "shots",
+   "line": 2.5,
+   "side": "over",
+   "odds": 9.38,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "A9",
+   "market": "shots",
+   "line": 2.5,
+   "side": "over",
+   "odds": 9.38,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "A9",
+   "market": "shots",
+   "line": 2.5,
+   "side": "over",
+   "odds": 9.38,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "A9",
+   "market": "shots",
+   "line": 2.5,
+   "side": "over",
+   "odds": 9.653,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "A9",
+   "market": "shots",
+   "line": 2.5,
+   "side": "under",
+   "odds": 1.085,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "A9",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 3.32,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "A9",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 3.32,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "A9",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 3.32,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "A9",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 3.636,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "A9",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "under",
+   "odds": 1.333,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "bet365",
+   "player_id": "A9",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 3.26,
+   "ts": 1793545170.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "A9",
+   "market": "goal",
+   "line": 0.5,
+   "side": "over",
+   "odds": 10.58,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "A9",
+   "market": "goal",
+   "line": 0.5,
+   "side": "over",
+   "odds": 10.58,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "A9",
+   "market": "goal",
+   "line": 0.5,
+   "side": "over",
+   "odds": 10.58,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "bet365",
+   "player_id": "A9",
+   "market": "goal",
+   "line": 0.5,
+   "side": "over",
+   "odds": 10.66,
+   "ts": 1793545170.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "A9",
+   "market": "assist",
+   "line": 0.5,
+   "side": "over",
+   "odds": 11.6,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "A9",
+   "market": "assist",
+   "line": 0.5,
+   "side": "over",
+   "odds": 11.6,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "A9",
+   "market": "assist",
+   "line": 0.5,
+   "side": "over",
+   "odds": 11.6,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "bet365",
+   "player_id": "A9",
+   "market": "assist",
+   "line": 0.5,
+   "side": "over",
+   "odds": 12.09,
+   "ts": 1793545170.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "A10",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.74,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "A10",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.74,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "A10",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.74,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "A10",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.843,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "A10",
+   "market": "shots",
+   "line": 0.5,
+   "side": "under",
+   "odds": 2.073,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "bet365",
+   "player_id": "A10",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.79,
+   "ts": 1793545170.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "A10",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 3.11,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "A10",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 3.11,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "A10",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 3.11,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "A10",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 3.252,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "A10",
+   "market": "shots",
+   "line": 1.5,
+   "side": "under",
+   "odds": 1.394,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "bet365",
+   "player_id": "A10",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 3.18,
+   "ts": 1793545170.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "A10",
+   "market": "shots",
+   "line": 2.5,
+   "side": "over",
+   "odds": 9.89,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "A10",
+   "market": "shots",
+   "line": 2.5,
+   "side": "over",
+   "odds": 9.89,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "A10",
+   "market": "shots",
+   "line": 2.5,
+   "side": "over",
+   "odds": 9.89,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "A10",
+   "market": "shots",
+   "line": 2.5,
+   "side": "over",
+   "odds": 10.156,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "A10",
+   "market": "shots",
+   "line": 2.5,
+   "side": "under",
+   "odds": 1.079,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "bet365",
+   "player_id": "A10",
+   "market": "shots",
+   "line": 2.5,
+   "side": "over",
+   "odds": 10.04,
+   "ts": 1793545170.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "A10",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 3.48,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "A10",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 3.48,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "A10",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 3.48,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "A10",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 3.663,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "A10",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "under",
+   "odds": 1.33,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "A10",
+   "market": "goal",
+   "line": 0.5,
+   "side": "over",
+   "odds": 8.95,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "A10",
+   "market": "goal",
+   "line": 0.5,
+   "side": "over",
+   "odds": 8.95,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "A10",
+   "market": "goal",
+   "line": 0.5,
+   "side": "over",
+   "odds": 10.02,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "bet365",
+   "player_id": "A10",
+   "market": "goal",
+   "line": 0.5,
+   "side": "over",
+   "odds": 9.29,
+   "ts": 1793545170.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "A10",
+   "market": "assist",
+   "line": 0.5,
+   "side": "over",
+   "odds": 11.97,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "A10",
+   "market": "assist",
+   "line": 0.5,
+   "side": "over",
+   "odds": 11.97,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "A10",
+   "market": "assist",
+   "line": 0.5,
+   "side": "over",
+   "odds": 11.97,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "A11",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.18,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "A11",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.18,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "A11",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.18,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "A11",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.263,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "A11",
+   "market": "shots",
+   "line": 0.5,
+   "side": "under",
+   "odds": 4.284,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "A11",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 1.7,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "A11",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 1.7,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "A11",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 1.7,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "A11",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 1.807,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "A11",
+   "market": "shots",
+   "line": 1.5,
+   "side": "under",
+   "odds": 2.121,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "bet365",
+   "player_id": "A11",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 1.69,
+   "ts": 1793545170.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "A11",
+   "market": "shots",
+   "line": 2.5,
+   "side": "over",
+   "odds": 3.16,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "A11",
+   "market": "shots",
+   "line": 2.5,
+   "side": "over",
+   "odds": 3.16,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "A11",
+   "market": "shots",
+   "line": 2.5,
+   "side": "over",
+   "odds": 3.16,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "bet365",
+   "player_id": "A11",
+   "market": "shots",
+   "line": 2.5,
+   "side": "over",
+   "odds": 3.08,
+   "ts": 1793545170.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "A11",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.95,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "A11",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.95,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "A11",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.95,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "A11",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 2.108,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "A11",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "under",
+   "odds": 1.816,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "bet365",
+   "player_id": "A11",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 1.93,
+   "ts": 1793545170.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "A11",
+   "market": "shots_on_target",
+   "line": 1.5,
+   "side": "over",
+   "odds": 5.72,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "A11",
+   "market": "shots_on_target",
+   "line": 1.5,
+   "side": "over",
+   "odds": 5.72,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "A11",
+   "market": "shots_on_target",
+   "line": 1.5,
+   "side": "over",
+   "odds": 5.72,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "A11",
+   "market": "shots_on_target",
+   "line": 1.5,
+   "side": "over",
+   "odds": 6.007,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "A11",
+   "market": "shots_on_target",
+   "line": 1.5,
+   "side": "under",
+   "odds": 1.165,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "bet365",
+   "player_id": "A11",
+   "market": "shots_on_target",
+   "line": 1.5,
+   "side": "over",
+   "odds": 5.73,
+   "ts": 1793545170.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "A11",
+   "market": "goal",
+   "line": 0.5,
+   "side": "over",
+   "odds": 3.36,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "A11",
+   "market": "goal",
+   "line": 0.5,
+   "side": "over",
+   "odds": 3.36,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "A11",
+   "market": "goal",
+   "line": 0.5,
+   "side": "over",
+   "odds": 3.36,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "A12",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 2.25,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "A12",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 2.25,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "A12",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 2.25,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "A12",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 7.65,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "A12",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 7.65,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "A12",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 7.65,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "bet365",
+   "player_id": "A12",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 7.62,
+   "ts": 1793545170.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "A12",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 5.9,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "A12",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 5.9,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "A12",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 5.9,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "A12",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 6.41,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "A12",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "under",
+   "odds": 1.151,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "A13",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 3.74,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "A13",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 3.74,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "A13",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 3.74,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "A13",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 3.923,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "A13",
+   "market": "shots",
+   "line": 0.5,
+   "side": "under",
+   "odds": 1.299,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "bet365",
+   "player_id": "A13",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 3.68,
+   "ts": 1793545170.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "A14",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 2.71,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "A14",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 2.71,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "A14",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 2.71,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "A14",
+   "market": "shots",
+   "line": 0.5,
+   "side": "over",
+   "odds": 2.924,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "pinnacle",
+   "player_id": "A14",
+   "market": "shots",
+   "line": 0.5,
+   "side": "under",
+   "odds": 1.464,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "A14",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 12.09,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "A14",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 12.09,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "A14",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 12.09,
+   "ts": 1793545140.0
+  },
+  {
+   "book": "bet365",
+   "player_id": "A14",
+   "market": "shots",
+   "line": 1.5,
+   "side": "over",
+   "odds": 12.12,
+   "ts": 1793545170.0
+  },
+  {
+   "book": "unibet",
+   "player_id": "A14",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 7.43,
+   "ts": 1793545200.0
+  },
+  {
+   "book": "paf",
+   "player_id": "A14",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 7.43,
+   "ts": 1793545180.0
+  },
+  {
+   "book": "svenskaspel",
+   "player_id": "A14",
+   "market": "shots_on_target",
+   "line": 0.5,
+   "side": "over",
+   "odds": 7.43,
+   "ts": 1793545140.0
+  }
+ ]
+}
