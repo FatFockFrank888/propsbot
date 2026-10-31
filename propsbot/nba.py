@@ -285,6 +285,7 @@ def nba_scan(root: Path, settings_path: Path) -> dict:
             if not events:
                 events = evs
     diag.log(f"Kambi NBA: {len(events)} matcher, bolag: {', '.join(sorted(set(working.values())))}")
+    t0 = time.time()
     per = {}
     for ev in sorted(events, key=lambda e: e.start)[: settings.get("nba_max_events", 15)]:
         evd = {"id": f"nba{ev.event_id}", "home_team": ev.home, "away_team": ev.away,
@@ -298,6 +299,8 @@ def nba_scan(root: Path, settings_path: Path) -> dict:
             qs_all += qs
             names.update(nm)
         per[ev.event_id] = (evd, qs_all, names)
+    diag.log(f"NBA tid: Kambi-props {time.time() - t0:.0f} s")
+    t0 = time.time()
     try:
         pin = PinnaclePublic(JsonClient(root / ".cache_odds", ttl_s=60, min_interval_s=0.6))
         pevs = pinnacle_nba(pin, hours)
@@ -314,7 +317,7 @@ def nba_scan(root: Path, settings_path: Path) -> dict:
             n += len(qs)
             qs_all += qs
             names.update(nm)
-        diag.log(f"Pinnacle NBA: {len(pevs)} matcher, {n} spelarodds")
+        diag.log(f"Pinnacle NBA: {len(pevs)} matcher, {n} spelarodds ({time.time() - t0:.0f} s)")
     except Exception as e:
         diag.log(f"Pinnacle NBA: FEL {type(e).__name__}: {e}")
     rows = []

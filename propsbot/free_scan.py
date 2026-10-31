@@ -241,7 +241,10 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
     cfg = Config()
     diag = Diag(dir=root / "diagnos")
     diag.log(time.strftime("Skanning %Y-%m-%d %H:%M"))
+    t0 = time.time()
     data = collect(settings, diag, root / ".cache_odds")
+    diag.log(f"Tid: hämtning {time.time() - t0:.0f} s")
+    t1 = time.time()
     rows: list[ScanRow] = []
     shadow_rows: list[ScanRow] = []
     margin_logged = False
@@ -318,6 +321,7 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
                 edge=d.cand.edge, play_from=d.play_from, playable=int(d.playable),
                 shown=int(d.show), stake=d.stake, reasons="; ".join(d.reasons)))
     rows.sort(key=lambda r: -r.row.decision.cand.edge)
+    diag.log(f"Tid: modell och utvärdering {time.time() - t1:.0f} s")
     diag.log(f"Bolag med spelarodds: {', '.join(sorted(books)) or 'inga'}")
     from collections import Counter
     mc = Counter(q.market for _, qs, _ in data for q in qs)
@@ -429,7 +433,7 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
     import os
     if os.environ.get("GITHUB_ACTIONS"):
         keep = [l for l in diag.lines if l.startswith(("Kambi", "Pinnacle", "Bolag", "VARNING"))
-                or l.startswith(("SPEL:", "Exempel", "Marginal över", "Bästa edge", "Spelarodds", "Spelarmodell", "Modellens", "Modelltest", "Parlays", "Skuggspel", "Rätt",
+                or l.startswith(("SPEL:", "Tid:", "Exempel", "Marginal över", "Bästa edge", "Spelarodds", "Spelarmodell", "Modellens", "Modelltest", "Parlays", "Skuggspel", "Rätt",
                                  "Struken", "Bokförda"))
                 or "spelbara" in l or "otis" in l][:45]
         print("::notice title=diagnos::" + "%0A".join(x.replace("%", "%25") for x in keep))
