@@ -1,4 +1,4 @@
-Skanning 2026-10-31 14:17
+Skanning 2026-10-31 14:22
 Kambi unibet (ubse): OK, 33 matcher i valda ligor
 Kambi paf (paf): OK
 Kambi atg (atg): OK
@@ -90,12 +90,12 @@ Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
   Malmö FF – Hammarby IF: modell swe.1, 28 spelare
   Djurgårdens IF – Degerfors IF: modell swe.1, 29 spelare
   Getafe – Sevilla: modell esp.1, 29 spelare
-Modellens nivåavvikelse mot marknaden (log-odds, dras bort): assist -0.70, goal -0.70, shots -0.51, shots_on_target -0.35
+Modellens nivåavvikelse mot marknaden (log-odds, dras bort): assist -0.70, goal -0.59, shots -0.51, shots_on_target -0.35
   Bayer Leverkusen – VfB Stuttgart: väntade mål Pinnacle 3.90 mot Kambi 3.85 (kvot 1.014)
-  Borussia Mönchengladbach – SC Paderborn 07: väntade mål Pinnacle 3.17 mot Kambi 3.22 (kvot 0.986)
+  Borussia Mönchengladbach – SC Paderborn 07: väntade mål Pinnacle 3.17 mot Kambi 3.22 (kvot 0.985)
   FC Schalke 04 – RB Leipzig: väntade mål Pinnacle 3.13 mot Kambi 3.22 (kvot 0.971)
   Werder Bremen – TSG Hoffenheim: väntade mål Pinnacle 3.57 mot Kambi 3.58 (kvot 0.998)
-  FC Augsburg – SC Freiburg: väntade mål Pinnacle 3.20 mot Kambi 3.24 (kvot 0.986)
+  FC Augsburg – SC Freiburg: väntade mål Pinnacle 3.23 mot Kambi 3.24 (kvot 0.998)
   Bournemouth – Leeds United: väntade mål Pinnacle 2.78 mot Kambi 2.71 (kvot 1.023)
   Brentford – Nottingham Forest: väntade mål Pinnacle 2.90 mot Kambi 3.00 (kvot 0.968)
   Coventry City – Sunderland: väntade mål Pinnacle 2.74 mot Kambi 2.61 (kvot 1.048)
@@ -119,12 +119,12 @@ Modellens nivåavvikelse mot marknaden (log-odds, dras bort): assist -0.70, goal
   Djurgårdens IF – Degerfors IF: väntade mål Pinnacle 3.21 mot Kambi 3.24 (kvot 0.990)
   Getafe – Sevilla: väntade mål Pinnacle 2.09 mot Kambi 2.07 (kvot 1.011)
 Bolag med spelarodds: atg, expekt, leovegas, paf, svenskaspel, unibet
-Spelarodds per marknad: assist 3156, goal 7246, shots 7139, shots_on_target 5108
-Kambi-marknader: assist='to give an assist (settled using opta data)':3156; goal='to score':4463; goal='to score at least 2 goals':2297; goal='to score at least 3 goals':420; goal='to score at least 4 goals':60; goal='to score at least 5 goals':6; shots="player's shots (settled using opta data)":7139; shots_on_target="player's shots on target (settled using opta data)":5108
+Spelarodds per marknad: assist 3156, goal 7156, shots 7135, shots_on_target 5108
+Kambi-marknader: assist='to give an assist (settled using opta data)':3156; goal='to score':4373; goal='to score at least 2 goals':2297; goal='to score at least 3 goals':420; goal='to score at least 4 goals':60; goal='to score at least 5 goals':6; shots="player's shots (settled using opta data)":7135; shots_on_target="player's shots on target (settled using opta data)":5108
 Pinnacle har inga spelarprops här – använder linjejustering mot Pinnacles matchlinjer.
 Spelarmodell: 0 av 3443 ben har modell, 0 nya matcher hämtade från ESPN
 0 spelbara ben.
 Bokförda nya spel: 0
-Modelltest: 43 spelbara enligt modellen, 2 nya testspel bokförda
+Modelltest: 44 spelbara enligt modellen, 1 nya testspel bokförda
 Parlays: 0 förslag, 0 nya bokförda
 Notiser skickade: 0
