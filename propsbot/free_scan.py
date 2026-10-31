@@ -362,7 +362,7 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
     ledger.save()
     diag.log(f"Bokförda nya spel: {len(new_bets)}")
     # Skuggspel: ben med minst 2 % edge inom oddsramen som stoppades av reglerna.
-    shadow_ledger = Ledger(root / "bokforing_skugga_v2.json")
+    shadow_ledger = Ledger(root / "bokforing_skugga_v3.json")
     new_shadow = shadow_ledger.record(
         rows, evd_by_id,
         predicate=lambda r: (not r.row.decision.playable and r.row.decision.show

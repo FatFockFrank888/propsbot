@@ -289,6 +289,21 @@ def evaluate_line_adjusted(evd: dict, quotes: list[OddsQuote], names: dict[str, 
                          dataclasses.replace(best, ts=now), consensus_odds=1.0 / p, now=now,
                          lineup_confirmed=True, minutes_to_kickoff=mtk)
         d = evaluate(cand, dcfg)
+        # Försiktighetsregel för skott: edgen måste hålla även med marginal k ≥ golvet.
+        floor = settings.get("min_power_k_shots", 1.20)
+        if d.playable and mm is not None and market in ("shots", "shots_on_target"):
+            cons = MarginModel(power={k: max(v, floor) for k, v in mm.power.items()},
+                               curve=mm.curve)
+            fk2 = kambi_fair(qs, market, cfg, cons)
+            if fk2:
+                p_c = fk2[0]
+                if model and p_mod == p_mod:
+                    from .market import inv_logit, logit
+                    p_c = inv_logit(logit(p) - logit(p_adj) + logit(p_c))   # samma modellpåslag
+                e_c = p_c * best.odds - 1
+                if e_c < dcfg.min_edge_by_market.get(market, dcfg.min_edge):
+                    d.playable, d.stake = False, 0.0
+                    d.reasons.append(f"försiktig marginal (k ≥ {floor:.2f}) ger edge {e_c:.1%} – skuggspel")
         d.reasons.append(f"linjejusterat: {info}")
         if note:
             d.reasons.append(note)

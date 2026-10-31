@@ -68,6 +68,7 @@ DEFAULT_SETTINGS = {
     "max_kambi_events": 30,
     # Hoppa över matcher där Kambis och Pinnacles målförväntan skiljer mer än så.
     "max_line_ratio_dev": 0.10,
+    "min_power_k_shots": 1.20,  # försiktig skottmarginal för live-spel (annars skuggspel)
     "min_edge_display": 0.02,   # webbsidan visar bara ben med minst så här stor edge
     # Egen spelarmodell (ESPN-statistik). Vikt mot marknaden i log-odds.
     "use_player_model": True,
