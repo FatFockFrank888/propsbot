@@ -65,4 +65,4 @@ def test_interpolate_pinnacle_moves_line():
     assert interpolate_pinnacle(qs) == 1              # 30,5 ligger för långt bort
     new = {q.side: q.odds for q in qs if q.line == 23.5 and q.book == "pinnacle"}
     p_over = 1 / new["over"]
-    assert 0.6 < p_over < 0.7 and abs(1 / new["over"] + 1 / new["under"] - 1) < 1e-9
+    assert 0.55 < p_over < 0.7 and abs(1 / new["over"] + 1 / new["under"] - 1) < 1e-9

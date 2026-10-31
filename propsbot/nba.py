@@ -191,12 +191,12 @@ def pinnacle_nba_props(pin: PinnaclePublic, ev, match_id: str) -> tuple[list[Odd
 
 # ---------------------------------------------------------------- linjeflytt
 # Överspridning per marknad (negativ binomial, form r): varians = μ + μ²/r.
-NB_R = {"points": 40, "rebounds": 25, "assists": 25, "threes": 40, "steals": 100, "blocks": 100,
-        "pra": 40, "pr": 40, "ra": 30}
+NB_R = {"points": 15, "rebounds": 10, "assists": 10, "threes": 8, "steals": 30, "blocks": 15,
+        "pra": 15, "pr": 15, "ra": 12}
 MAX_LINE_GAP = {"points": 3.0, "pra": 4.0, "pr": 3.5, "ra": 2.5}   # övriga: 1,5
 
 
-def interpolate_pinnacle(quotes: list[OddsQuote]) -> int:
+def interpolate_pinnacle(quotes: list[OddsQuote], moved: set | None = None) -> int:
     """Lägg till Pinnacle-sannolikhet på Kambis linjer när Pinnacle har en närliggande linje.
 
     Pinnacles marginalfria pris på deras linje ger spelarens väntade värde μ; därifrån
@@ -238,6 +238,8 @@ def interpolate_pinnacle(quotes: list[OddsQuote]) -> int:
         p_new = nb_over(mu_for(p_over, ln, r), line, r)
         if not 0.03 < p_new < 0.97:
             continue
+        if moved is not None:
+            moved.add((pid, mk, line))
         for side, pr in (("over", p_new), ("under", 1 - p_new)):
             quotes.append(OddsQuote("pinnacle", match_id, pid, mk, line, side, 1 / pr, now,
                                     provider="pinnacle", variant=f"flyttad från {ln:g}"))
@@ -395,10 +397,19 @@ def nba_scan(root: Path, settings_path: Path) -> dict:
         _unify_players(qs_all, names)
         pin_keys = {(q.player_id, q.market, q.line) for q in qs_all if q.book == "pinnacle"}
         n_exact += len({(q.player_id, q.market, q.line) for q in qs_all if q.provider == "kambi"} & pin_keys)
-        n_moved += interpolate_pinnacle(qs_all)
+        moved_keys: set = set()
+        n_moved += interpolate_pinnacle(qs_all, moved_keys)
+        evd["_moved"] = moved_keys
         mc.update(f"{q.book}:{q.market}" for q in qs_all if q.book in ("unibet", "pinnacle"))
         if qs_all:
-            rows += evaluate_event_market_only(evd, qs_all, names, settings, cfg, time.time(), "NBA")
+            res = evaluate_event_market_only(evd, qs_all, names, settings, cfg, time.time(), "NBA")
+            for r in res:
+                c = r.row.decision.cand
+                if (c.player_id, c.market, c.line) in evd.get("_moved", set()):
+                    r.row.decision.reasons.append("Pinnacles linje flyttad – skuggspel tills flytten är verifierad")
+                    if r.row.decision.playable:
+                        r.row.decision.playable, r.row.decision.stake = False, 0.0
+            rows += res
     if SAMPLE.get("pin_desc"):
         diag.log(f"NBA Pinnacle-exempel: {SAMPLE['pin_desc']}")
     diag.log(f"NBA linjer: {n_exact} med samma linje hos Pinnacle, {n_moved} flyttade från närliggande linje")
