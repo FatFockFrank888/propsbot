@@ -126,6 +126,10 @@ def parse_betoffers(raw: dict, book: str, match_id: str) -> tuple[list[OddsQuote
                 continue
             if o.get("line") is not None:
                 line = o["line"] / 1000.0
+                # Kambi anger "minst N" som heltalslinje (1000 = minst 1 mål).
+                # Vi räknar alltid med "över X,5": minst 1 = över 0,5.
+                if abs(line - round(line)) < 1e-9:
+                    line -= 0.5
             elif fixed_line is not None:
                 line = fixed_line
             else:

@@ -297,3 +297,17 @@ def test_kambi_real_labels():
     assert m("most shots on target (settled using opta data)") is None
     assert m("to give an assist (settled using opta data)") == ("assist", None)
     assert m("player's shots on target (settled using opta data)") == ("shots_on_target", None)
+
+
+def test_kambi_integer_line_means_at_least():
+    raw = {"betOffers": [{"criterion": {"englishLabel": "To score"}, "outcomes": [
+        {"englishLabel": "Saka, Bukayo", "participant": "Saka, Bukayo", "participantId": 1,
+         "odds": 2900, "line": 1000, "status": "OPEN"}]},
+        {"criterion": {"englishLabel": "to score at least 2 goals"}, "outcomes": [
+        {"englishLabel": "Saka, Bukayo", "participant": "Saka, Bukayo", "participantId": 1,
+         "odds": 9000, "line": 2000, "status": "OPEN"}]},
+        {"criterion": {"englishLabel": "Player's shots on target"}, "outcomes": [
+        {"englishLabel": "Over", "type": "OT_OVER", "participant": "Saka, Bukayo", "participantId": 1,
+         "odds": 1800, "line": 1500, "status": "OPEN"}]}]}
+    qs, _ = parse_betoffers(raw, "unibet", "k1")
+    assert sorted((q.market, q.line) for q in qs) == [("goal", 0.5), ("goal", 1.5), ("shots_on_target", 1.5)]
