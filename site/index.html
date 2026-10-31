@@ -51,7 +51,8 @@
   <div class="sub">Skott, skott på mål, mål och assist per spelare hos Kambi-bolagen. Sannolikheten är
     Kambis rättvisa pris justerat mot Pinnacles matchlinjer och gäller givet att spelaren spelar
     (annars stryks spelet). Spelbart från 2 % edge (4 % för mål och assist, +3 procentenheter vid ensidigt pris),
-    odds 1,40–6,00. "Spela från" = lägsta odds som räcker. Insats = ¼ Kelly, högst 2 % av bankrullen.</div>
+    odds 1,40–6,00. "Spela från" = lägsta odds som räcker. Insats = föreslagen andel av bankrullen efter EV (¼ Kelly, högst 2 % per spel och 5 % per match).
+    Grön = spelbar, grå = positivt EV men under edgekravet, 0 % = negativt EV.</div>
 </header>
 <div class="tabs">
   <button class="tab on" data-tab="radar">Radar</button>
@@ -77,7 +78,7 @@
         <th data-k="spel">Spel</th><th class="n" data-k="prognos">Prognos</th><th class="n" data-k="odds">Odds</th>
         <th data-k="bolag">Bolag</th><th class="n" data-k="sannolikhet">Sannolikhet</th>
         <th class="n" data-k="ratt_odds">Rätt odds</th><th class="n" data-k="edge">Edge</th>
-        <th class="n" data-k="spela_fran">Spela från</th><th class="n" data-k="insats_pct">Insats</th>
+        <th class="n" data-k="spela_fran">Spela från</th><th class="n" data-k="insats_forslag" title="Föreslagen insats i % av bankrullen: ¼ Kelly efter EV, högst 2 %. Grön = spelbar, grå = positivt EV men under edgekravet.">Insats</th>
       </tr></thead>
       <tbody id="rows"></tbody>
     </table></div>
@@ -103,7 +104,12 @@
 const nf = (x, d = 2) => x == null || isNaN(x) ? "–" : x.toLocaleString("sv-SE", {minimumFractionDigits: d, maximumFractionDigits: d});
 const pct = (x, d = 1) => x == null || isNaN(x) ? "–" : nf(x * 100, d) + "%";
 const tz = {timeZone: "Europe/Stockholm"};
-const fmtTs = ts => ts ? new Date(ts * 1000).toLocaleString("sv-SE", {...tz, weekday: "short", hour: "2-digit", minute: "2-digit"}) : "–";
+const fmtTs = ts => {
+  if (!ts) return "–";
+  const d = new Date(ts * 1000);
+  const p = o => d.toLocaleString("sv-SE", {...tz, ...o});
+  return `${p({weekday: "short"})} ${p({day: "numeric"})}/${p({month: "numeric"})} ${p({hour: "2-digit", minute: "2-digit"})}`;
+};
 const fmtUtc = s => fmtTs(Date.parse(s.replace(" ", "T") + ":00Z") / 1000);
 const label = (m, l) => m === "goal" && l === 0.5 ? "gör mål" : m === "assist" && l === 0.5 ? "assist" :
   ({shots: "skott", shots_on_target: "skott på mål", goal: "mål", assist: "assist"}[m] || m) + " över " + l;
@@ -124,7 +130,7 @@ function renderRadar() {
       <td class="n">${nf(r.prognos)}</td><td class="n">${nf(r.odds)}</td><td>${esc(r.bolag)}</td>
       <td class="n">${pct(r.sannolikhet)}</td><td class="n">${nf(r.ratt_odds)}</td>
       <td class="n ${r.edge > 0 ? "pos" : "neg"}">${pct(r.edge)}</td><td class="n">${nf(r.spela_fran)}</td>
-      <td class="n">${r.spelbar ? pct(r.insats_pct, 2) : "–"}</td>
+      <td class="n ${r.spelbar ? "pos" : "neg"}" style="${r.spelbar ? "font-weight:600" : ""}">${r.insats_forslag > 0 ? pct(r.spelbar ? r.insats_pct : r.insats_forslag, 2) : "0%"}</td>
     </tr>`).join("") || `<tr><td colspan="12" class="empty">Inga ben matchar filtret.</td></tr>`;
 }
 
