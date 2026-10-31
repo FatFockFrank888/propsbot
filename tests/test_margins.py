@@ -22,3 +22,11 @@ def test_goal_margin_recovered_from_pinnacle_total():
     assert abs(mm.power[("unibet", "goal")] - k_true) < 0.01
     p0, measured = kambi_fair([qs[0]], "goal", Config(), mm)
     assert measured and abs(p0 - (1 - math.exp(-rates[0]))) < 1e-3
+
+
+def test_ladder_k_recovers_margin():
+    from propsbot.line_adjust import _ladder_k
+    from propsbot.player_model import nb_over
+    mu, k_true = 1.8, 1.4
+    ladder = {ln: (1 / nb_over(mu, ln, 6.0)) ** (1 / k_true) for ln in (0.5, 1.5, 2.5, 3.5)}
+    assert abs(_ladder_k(ladder, "shots") - k_true) < 0.03

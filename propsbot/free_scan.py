@@ -369,7 +369,7 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
         diag.log(f"Rättning (skuggspel): {type(e).__name__}: {e}")
     shadow_ledger.save()
     diag.log(f"Skuggspel: {len(new_shadow)} nya bokförda (stoppade av reglerna, minst 2 % edge)")
-    test_ledger = Ledger(root / "bokforing_modell.json")
+    test_ledger = Ledger(root / "bokforing_modell_v2.json")   # v2: efter uppmätt marginal
     new_test = test_ledger.record(shadow_rows, evd_by_id)
     test_ledger.update_closing(shadow_rows, time.time())
     try:

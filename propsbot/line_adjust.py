@@ -73,6 +73,34 @@ def _power_k(prices: list[float], target: float) -> float | None:
     return (lo + hi) / 2
 
 
+def _ladder_k(ladder: dict[float, float], market: str) -> float | None:
+    """Power-k som gör spelarens stege inre konsistent (samma μ på alla linjer)."""
+    from .player_model import NB_SHAPE, nb_over
+    shape = NB_SHAPE.get(market, 8.0)
+
+    def mu_for(p: float, line: float) -> float:
+        lo, hi = 1e-3, 25.0
+        for _ in range(50):
+            mid = (lo + hi) / 2
+            if nb_over(mid, line, shape) < p:
+                lo = mid
+            else:
+                hi = mid
+        return (lo + hi) / 2
+
+    best, best_k = None, None
+    k = 1.0
+    while k <= 3.0001:
+        mus = [mu_for(min((1 / o) ** k, 0.999), ln) for ln, o in ladder.items()]
+        lm = [math.log(m) for m in mus]
+        mean = sum(lm) / len(lm)
+        var = sum((x - mean) ** 2 for x in lm)
+        if best is None or var < best:
+            best, best_k = var, k
+        k += 0.02
+    return best_k if best_k and 1.0 < best_k < 2.99 else None
+
+
 @dataclasses.dataclass
 class MarginModel:
     """Uppmätt marginal för en match: power-k per bolag för målskytt/assist och
@@ -101,6 +129,27 @@ def measure_margins(quotes: list[OddsQuote], total_goals: float, cfg: Config) ->
         ks = [k for (b, m), k in mm.power.items() if m == market]
         if ks:
             parts.append(f"{market} k={median(ks):.2f}")
+    # Stege: samma spelare har ensidiga över-priser på flera linjer (0,5 / 1,5 / 2,5 …).
+    # Med rätt marginal (power k) ska alla linjer ge samma väntade antal μ.
+    for market in ("shots", "shots_on_target"):
+        ladders: dict[tuple, dict[float, float]] = defaultdict(dict)
+        for q in quotes:
+            if q.provider == "kambi" and q.market == market and q.side == "over":
+                ladders[(q.book, q.player_id, q.variant)][q.line] = q.odds
+        ks_by_book: dict[str, list[float]] = defaultdict(list)
+        for (book, _pid, _v), lad in ladders.items():
+            if len(lad) >= 3:
+                k = _ladder_k(lad, market)
+                if k:
+                    ks_by_book[book].append(k)
+        for book, ks in ks_by_book.items():
+            if len(ks) >= 5:
+                mm.power[(book, market)] = median(ks)
+        allk = [k for ks in ks_by_book.values() for k in ks]
+        if len(allk) >= 5:
+            kk = median(allk)
+            parts.append(f"{market} stege k={kk:.2f} ({len(allk)} spelare; marginal vid 3,00 ≈ "
+                         f"{1 / (3.0 * (1 / 3.0) ** kk) - 1:.0%})")
     for market in ("shots", "shots_on_target"):
         pairs_by: dict[tuple, dict] = defaultdict(dict)
         for q in quotes:
@@ -133,7 +182,7 @@ def kambi_fair(qs: list[OddsQuote], market: str, cfg: Config,
             if "over" not in d:
                 continue
             k = mm.power.get((book, market))
-            if k and qs[0].line == 0.5:
+            if k and (qs[0].line == 0.5 or market in ("shots", "shots_on_target")):
                 measured.append((1 / d["over"]) ** k)
             elif market in mm.curve:
                 b, sl = mm.curve[market]
@@ -196,7 +245,7 @@ def evaluate_line_adjusted(evd: dict, quotes: list[OddsQuote], names: dict[str, 
             continue
         p_k, two_sided = fk
         # Målskytt/assist som normaliserats mot Pinnacles mål behöver ingen extra kvotjustering.
-        normalized = mm is not None and line == 0.5 and any(
+        normalized = mm is not None and line == 0.5 and market in ("goal", "assist") and any(
             (q.book, market) in mm.power for q in qs)
         p_adj = p_k if normalized else adjust_prob(p_k, line, ratio, market)
         p, p_mod, note = p_adj, float("nan"), ""
