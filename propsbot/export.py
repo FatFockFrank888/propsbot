@@ -7,6 +7,8 @@ import time
 from datetime import datetime, timezone
 from pathlib import Path
 
+from .config import DecisionConfig
+from .decision import kelly_stake
 from .ledger import Ledger
 from .line_adjust import rate_for_prob
 from .pipeline import MARKET_LABEL
@@ -36,7 +38,11 @@ def radar_rows(rows: list[ScanRow], settings: dict, limit: int = 800) -> list[di
             "prognos": round(rate_for_prob(min(max(c.p, 1e-4), 0.999), c.line), 2),
             "odds": c.best.odds, "bolag": c.best.book, "sannolikhet": c.p,
             "ratt_odds": 1.0 / c.p, "edge": c.edge, "spela_fran": d.play_from,
-            "insats_pct": d.stake if d.playable else 0.0, "spelbar": d.playable,
+            "insats_pct": d.stake if d.playable else 0.0,
+            # Förslag efter EV för alla rader: ¼ Kelly, högst 2 %, 0 vid negativt EV.
+            "insats_forslag": kelly_stake(c.p, c.best.odds, DecisionConfig().kelly_fraction,
+                                          DecisionConfig().max_stake_per_bet),
+            "spelbar": d.playable,
             "kommentar": "; ".join(d.reasons),
         })
     out.sort(key=lambda x: -x["edge"])
