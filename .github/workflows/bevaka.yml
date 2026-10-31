@@ -2,7 +2,7 @@ name: bevaka-odds
 
 on:
   schedule:
-    - cron: "*/10 6-22 * * *"   # var 10:e minut 06–22 UTC (GitHub kan fördröja några minuter)
+    - cron: "7-59/10 6-22 * * *"   # var 10:e minut (:07, :17 …) 06–22 UTC, undviker rusningen på hela minuter
   workflow_dispatch: {}
 
 permissions:
