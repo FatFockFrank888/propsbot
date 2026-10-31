@@ -48,6 +48,11 @@ jobs:
           PROPSBOT_STATE_DIR: state
         run: python -m propsbot skanna
 
+      - name: Prova datakällor
+        if: github.event_name == 'workflow_dispatch'
+        continue-on-error: true
+        run: python -m propsbot.probe
+
       - name: Spara läge
         if: always()
         run: |
