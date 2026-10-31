@@ -37,8 +37,9 @@ def radar_rows(rows: list[ScanRow], settings: dict, limit: int = 800) -> list[di
         out.append({
             "spelare": c.player_name, "match": r.match, "avspark": r.kickoff,
             "spel": _spel(c.market, c.line), "marknad": c.market,
-            "prognos": round(rate_for_prob(min(max(c.p, 1e-4), 0.999), c.line), 2)
-            if c.market in ("shots", "shots_on_target", "goal", "assist") else None,
+            "prognos": round(r.expected, 1) if r.expected is not None else (
+                round(rate_for_prob(min(max(c.p, 1e-4), 0.999), c.line), 2)
+                if c.market in ("shots", "shots_on_target", "goal", "assist") else None),
             "odds": c.best.odds, "bolag": c.best.book, "sannolikhet": c.p,
             "ratt_odds": 1.0 / c.p, "edge": c.edge, "spela_fran": d.play_from,
             "insats_pct": d.stake if d.playable else 0.0,

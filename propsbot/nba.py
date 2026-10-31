@@ -415,6 +415,14 @@ def nba_scan(root: Path, settings_path: Path) -> dict:
     diag.log(f"NBA linjer: {n_exact} med samma linje hos Pinnacle, {n_moved} flyttade från närliggande linje")
     diag.log("NBA-odds (unibet/pinnacle) per marknad: " + ", ".join(f"{k} {v}" for k, v in sorted(mc.items())))
     rows.sort(key=lambda r: -r.row.decision.cand.edge)
+    test_rows = []
+    if settings.get("nba_model", True):
+        try:
+            test_rows = model_test_rows(root, rows, per, settings, cfg, diag)
+        except Exception as e:  # modellen får aldrig stoppa skanningen
+            import traceback
+            diag.log(f"NBA-modell: FEL {type(e).__name__}: {e}")
+            diag.lines.append(traceback.format_exc())
     playable = [r for r in rows if r.row.decision.playable and r.row.decision.show]
     diag.log(f"NBA: {len(playable)} spelbara ben av {len(rows)}")
     for r in playable[:10]:
@@ -429,8 +437,11 @@ def nba_scan(root: Path, settings_path: Path) -> dict:
     shadow.record(rows, evd_by_id, predicate=lambda r: (not r.row.decision.playable and r.row.decision.show
                                                        and r.row.decision.cand.edge >= 0.02))
     shadow.update_closing(rows, time.time())
+    test = Ledger(root / "nba_modelltest.json")
+    test.record(test_rows, evd_by_id)
+    test.update_closing(test_rows, time.time())
     ec = JsonClient(root / ".cache_odds", ttl_s=900)
-    for lg in (ledger, shadow):
+    for lg in (ledger, shadow, test):
         try:
             for line in settle_nba(lg, ec):
                 diag.log(line)
@@ -438,5 +449,85 @@ def nba_scan(root: Path, settings_path: Path) -> dict:
             diag.log(f"NBA rättning: {type(e).__name__}: {e}")
         lg.save()
     diag.save()
-    return {"rows": rows, "playable": playable, "ledger": ledger, "shadow": shadow,
+    return {"rows": rows, "playable": playable, "ledger": ledger, "shadow": shadow, "test": test,
             "evd": evd_by_id, "diag": diag, "new": new}
+
+
+# ---------------------------------------------------------------- modelltest
+def model_test_rows(root: Path, rows: list, per: dict, settings: dict, cfg: Config, diag) -> list:
+    """Modellens sannolikhet vägd mot marknaden (log-odds). Nivån kalibreras mot marknaden
+    per marknad (trimmat snitt), så modellen bara bidrar med skillnader mellan spelare."""
+    import dataclasses
+    from statistics import mean
+
+    from .decision import Candidate, evaluate
+    from .market import inv_logit, logit
+    from .nba_model import NbaModel, match_model_player
+    from .pipeline import Row
+    from .player_model import nb_over
+    from .scan import ScanRow
+
+    nm = NbaModel(JsonClient(root / ".cache_odds", ttl_s=3600, min_interval_s=0.2), root / "espn_nba")
+    models: dict[str, dict] = {}
+    teams = {}
+    n_found = 0
+    for evd, _qs, _names in per.values():
+        hit = nm.find_event(evd["home_team"], evd["away_team"], evd["commence_time"])
+        if not hit:
+            continue
+        n_found += 1
+        th, ta = (nm.team(t, evd["commence_time"]) for t in hit)
+        teams[evd["id"]] = (th, ta)
+    allowed = [t.allowed for pair in teams.values() for t in pair if t]
+    league = mean(allowed) if allowed else 114.0
+    for mid, (th, ta) in teams.items():
+        evd = next(v[0] for v in per.values() if v[0]["id"] == mid)
+        m = {}
+        if th:
+            m.update(nm.expected(th, ta, evd["commence_time"], league))
+        if ta:
+            m.update(nm.expected(ta, th, evd["commence_time"], league))
+        models[mid] = m
+    n_inj = sum(1 for v in nm.injuries().values() if any(s in v for s in ("out", "doubtful")))
+    diag.log(f"NBA-modell: {n_found} matcher hos ESPN, {sum(len(m) for m in models.values())} spelare, "
+             f"{nm.fetched} nya boxscores, {n_inj} skadade (out/doubtful)")
+
+    # Förpass: nivåavvikelse per marknad
+    gaps: dict[str, list[float]] = {}
+    pairs = []
+    for r in rows:
+        c = r.row.decision.cand
+        m = models.get(c.match_id)
+        if not m or any("flyttad" in x for x in r.row.decision.reasons):
+            continue
+        k = match_model_player(m, c.player_id)
+        if not k or c.market not in m[k]:
+            continue
+        mu = m[k][c.market]
+        p_mod = min(max(nb_over(mu, c.line, NB_R.get(c.market, 15)), 0.01), 0.99)
+        pairs.append((r, p_mod, mu))
+        if 0.15 <= c.p <= 0.85:
+            gaps.setdefault(c.market, []).append(logit(p_mod) - logit(c.p))
+    off = {}
+    for mk, g in gaps.items():
+        if len(g) >= 20:
+            g = sorted(g)
+            cut = len(g) // 5
+            core = g[cut:len(g) - cut] or g
+            off[mk] = max(-0.7, min(0.7, sum(core) / len(core)))
+    diag.log("NBA-modell nivåavvikelse (dras bort): " + ", ".join(f"{k} {v:+.2f}" for k, v in sorted(off.items())))
+    w0 = settings.get("nba_model_weight", 0.3)
+    out = []
+    for r, p_mod, mu in pairs:
+        c = r.row.decision.cand
+        r.expected = mu
+        pm = inv_logit(logit(p_mod) - off.get(c.market, 0.0))
+        w = w0 * (0.5 if abs(logit(pm) - logit(c.p)) > 1.0 else 1.0)
+        p = inv_logit(w * logit(pm) + (1 - w) * logit(c.p))
+        cand = dataclasses.replace(c, p=p)
+        d = evaluate(cand, cfg.decision)
+        d.reasons.append(f"modell {pm:.0%} (väntat {mu:.1f}), marknad {c.p:.0%}, vikt {w:.2f}")
+        out.append(ScanRow(r.sport, r.match, r.kickoff, Row(d, pm, c.p, w), r.n_groups, mu))
+    n_play = sum(1 for x in out if x.row.decision.playable and x.row.decision.show)
+    diag.log(f"NBA-modelltest: {n_play} spelbara enligt modellen av {len(out)} ben med modell")
+    return out

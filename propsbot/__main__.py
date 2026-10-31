@@ -140,7 +140,7 @@ def run_nba(root: Path, settings_path: Path) -> None:
         res["diag"].log(f"NBA parlay-rättning: {e}")
     pl.update_status()
     pl.save()
-    write_site(root / "site" / "nba", res["rows"], res["ledger"], settings, None,
+    write_site(root / "site" / "nba", res["rows"], res["ledger"], settings, res.get("test"),
                {"parlay_forslag": sugg, "parlay_bokforing": sorted(pl.items, key=lambda x: -x["bokford"]),
                 "parlay_sammanfattning": pl.summary()}, res["shadow"], sport="NBA")
     if settings.get("ntfy_topic"):

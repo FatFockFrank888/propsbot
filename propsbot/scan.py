@@ -191,6 +191,7 @@ class ScanRow:
     kickoff: str
     row: Row
     n_groups: int
+    expected: float | None = None   # modellens väntade värde (visas som Prognos)
 
 
 def evaluate_event_market_only(event: dict, quotes: list[OddsQuote], names: dict[str, str],
