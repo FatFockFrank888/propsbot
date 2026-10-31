@@ -1,4 +1,4 @@
-Skanning 2026-10-31 19:15
+Skanning 2026-10-31 19:37
 Kambi unibet (ubse): OK, 29 matcher i valda ligor
 Kambi paf (paf): OK
 Kambi atg (atg): OK
@@ -8,8 +8,8 @@ Kambi expekt (expektse): OK
 Kambi betmgm (betmgmse): OK
 Kambi betmgm (mgmse): FEL URLError för https://eu-offering.kambicdn.org/offering/v2018/mgmse/listView/football/all/all/all/matches.json: <urlopen error timed out>
 Kambi betmgm (bmse): FEL URLError för https://eu-offering.kambicdn.org/offering/v2018/bmse/listView/football/all/all/all/matches.json: <urlopen error timed out>
-Pinnacle: OK, 11 ligor
-Pinnacle: 32 matcher, matchlinjer för 23 av 29 Kambi-matcher, 0 spelarodds som används
+Pinnacle: OK, 10 ligor
+Pinnacle: 31 matcher, matchlinjer för 23 av 29 Kambi-matcher, 0 spelarodds som används
 Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
   Double Chance 1st Half | units=Regular | kategori=Team Props | deltagare=Troyes Or Le Mans,Draw Or Le Mans,Draw Or Troyes  ->  används inte (lagmarknad)
   Moneyline and Total Goals | units=Regular | kategori=Team Props | deltagare=Troyes & Over 2.5,Troyes & Under 2.5,Draw & Over 2.5,Draw & Under 2.5,Le Mans & Over 2.5,Le Mans & Under 2.5  ->  används inte (lagmarknad)
@@ -71,8 +71,8 @@ Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
   Fulham To Win To Nil 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
   Correct Score 1st Half | units=Regular | kategori=Team Props | deltagare=Aston Villa 0, Fulham 0,Aston Villa 0, Fulham 1,Aston Villa 0, Fulham 2,Aston Villa 0, Fulham 3,Aston Villa 1, Fulham 0,Aston Villa 1, Fulham 1,Aston Villa 1, Fulham 2,Aston Villa 1, Fulham 3,Aston Villa 2, Fulham 0,Aston Villa 2, Fulham 1,Aston Villa 2, Fulham 2,Aston Villa 2, Fulham 3,Aston Villa 3, Fulham 0,Aston Villa 3, Fulham 1,Aston Villa 3, Fulham 2,Aston Villa 3, Fulham 3  ->  används inte (lagmarknad)
   Winning Margin 1st Half | units=Regular | kategori=Team Props | deltagare=Aston Villa By 1,Aston Villa By 2+,Fulham By 1,Fulham By 2+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
-Tid: hämtning 405 s
-Marginal över alla matcher: uppmätt marginal: shots stege k=1.10 (17 spelare; marginal vid 3,00 ≈ 12%), shots_on_target stege k=1.10 (94 spelare; marginal vid 3,00 ≈ 12%)
+Tid: hämtning 279 s
+Marginal över alla matcher: uppmätt marginal: shots stege k=1.12 (17 spelare; marginal vid 3,00 ≈ 14%), shots_on_target stege k=1.10 (87 spelare; marginal vid 3,00 ≈ 12%)
   Troyes – Le Mans: modell fra.1, 33 spelare
   Aston Villa – Fulham: modell eng.1, 28 spelare
   FC Barcelona – Alaves: modell esp.1, 30 spelare
@@ -94,13 +94,13 @@ Marginal över alla matcher: uppmätt marginal: shots stege k=1.10 (17 spelare; 
   Eintracht Frankfurt – Hamburger SV: modell ger.1, 31 spelare
   Lecce – Genoa: modell ita.1, 33 spelare
   Elche – Valencia: modell esp.1, 29 spelare
-Modellens nivåavvikelse mot marknaden (log-odds, dras bort): assist -0.54, goal -0.11, shots -0.65, shots_on_target -0.35
+Modellens nivåavvikelse mot marknaden (log-odds, dras bort): assist -0.54, goal -0.12, shots -0.65, shots_on_target -0.35
   AC Milan – Inter: saknar matchlinjer från Pinnacle
-  Troyes – Le Mans: väntade mål Pinnacle 2.63 mot Kambi 2.65 (kvot 0.994); uppmätt marginal: goal k=1.23, assist k=1.15, shots stege k=1.12 (7 spelare; marginal vid 3,00 ≈ 14%), shots_on_target stege k=1.14 (7 spelare; marginal vid 3,00 ≈ 17%)
-Exempel uppmätt marginal: goal k=1.23, assist k=1.15, shots stege k=1.12 (7 spelare; marginal vid 3,00 ≈ 14%), shots_on_target stege k=1.14 (7 spelare; marginal vid 3,00 ≈ 17%)
-  Aston Villa – Fulham: väntade mål Pinnacle 2.95 mot Kambi 2.83 (kvot 1.041); uppmätt marginal: goal k=1.17, assist k=1.25
+  Troyes – Le Mans: väntade mål Pinnacle 2.64 mot Kambi 2.65 (kvot 0.996); uppmätt marginal: goal k=1.23, assist k=1.14, shots stege k=1.12 (7 spelare; marginal vid 3,00 ≈ 14%), shots_on_target stege k=1.14 (7 spelare; marginal vid 3,00 ≈ 17%)
+Exempel uppmätt marginal: goal k=1.23, assist k=1.14, shots stege k=1.12 (7 spelare; marginal vid 3,00 ≈ 14%), shots_on_target stege k=1.14 (7 spelare; marginal vid 3,00 ≈ 17%)
+  Aston Villa – Fulham: väntade mål Pinnacle 2.91 mot Kambi 2.89 (kvot 1.006); uppmätt marginal: goal k=1.19, assist k=1.27
   Albacete Balompié – Sabadell FC: saknar matchlinjer från Pinnacle
-  FC Barcelona – Alaves: väntade mål Pinnacle 4.27 mot Kambi 4.30 (kvot 0.992); uppmätt marginal: goal k=1.25, assist k=1.25, shots stege k=1.02 (7 spelare; marginal vid 3,00 ≈ 2%)
+  FC Barcelona – Alaves: väntade mål Pinnacle 4.46 mot Kambi 4.34 (kvot 1.029); uppmätt marginal: goal k=1.22, assist k=1.21, shots stege k=1.12 (7 spelare; marginal vid 3,00 ≈ 14%)
   Como – Venezia: väntade mål Pinnacle 3.55 mot Kambi 3.57 (kvot 0.995); uppmätt marginal: goal k=1.44, assist k=1.70
   CD Eldense – Granada: saknar matchlinjer från Pinnacle
   Malmö FF – Hammarby IF: väntade mål Pinnacle 3.13 mot Kambi 3.07 (kvot 1.017); uppmätt marginal: goal k=1.57
@@ -122,23 +122,23 @@ Exempel uppmätt marginal: goal k=1.23, assist k=1.15, shots stege k=1.12 (7 spe
   Lecce – Genoa: väntade mål Pinnacle 2.23 mot Kambi 2.23 (kvot 0.999); uppmätt marginal: goal k=1.46, assist k=1.60
   Burgos – CD Castellon: saknar matchlinjer från Pinnacle
   Elche – Valencia: väntade mål Pinnacle 2.65 mot Kambi 2.70 (kvot 0.981); uppmätt marginal: goal k=1.65, assist k=1.70
-Tid: modell och utvärdering 184 s
+Tid: modell och utvärdering 149 s
 Bolag med spelarodds: atg, betmgm, expekt, leovegas, paf, svenskaspel, unibet
-Spelarodds per marknad: assist 3353, goal 8639, shots 6754, shots_on_target 5320
-Kambi-marknader: assist='to give an assist (settled using opta data)':3353; goal='to score':5573; goal='to score at least 2 goals':2611; goal='to score at least 3 goals':350; goal='to score at least 4 goals':77; goal='to score at least 5 goals':21; goal='to score at least 6 goals':7; shots="player's shots (settled using opta data)":6754; shots_on_target="player's shots on target (settled using opta data)":5320
+Spelarodds per marknad: assist 3353, goal 8639, shots 6745, shots_on_target 5327
+Kambi-marknader: assist='to give an assist (settled using opta data)':3353; goal='to score':5573; goal='to score at least 2 goals':2611; goal='to score at least 3 goals':350; goal='to score at least 4 goals':77; goal='to score at least 5 goals':21; goal='to score at least 6 goals':7; shots="player's shots (settled using opta data)":6745; shots_on_target="player's shots on target (settled using opta data)":5327
 Pinnacle har inga spelarprops här – använder linjejustering mot Pinnacles matchlinjer.
 Spelarmodell: 0 av 3171 ben har modell, 0 nya matcher hämtade från ESPN
-Bästa edge marknad goal: -6.5%, -6.6%, -7.7% (av 300 ben)
-Bästa edge marknad assist: -16.4%, -17.1%, -18.9% (av 215 ben)
-Bästa edge marknad shots_on_target: +4.8%, +3.3%, +3.1% (av 650 ben)
-Bästa edge marknad shots: +0.5%, -0.7%, -0.8% (av 651 ben)
-Bästa edge modelltest goal: -1.5%, -8.2%, -8.8% (av 282 ben)
-Bästa edge modelltest assist: -12.3%, -14.6%, -17.2% (av 198 ben)
-Bästa edge modelltest shots_on_target: +8.4%, +6.0%, +5.9% (av 605 ben)
-Bästa edge modelltest shots: +9.6%, +8.6%, +8.5% (av 609 ben)
+Bästa edge marknad goal: -6.4%, -6.6%, -6.7% (av 302 ben)
+Bästa edge marknad assist: -15.0%, -16.3%, -16.6% (av 215 ben)
+Bästa edge marknad shots_on_target: +3.3%, +3.1%, +2.9% (av 651 ben)
+Bästa edge marknad shots: -2.2%, -2.8%, -2.8% (av 651 ben)
+Bästa edge modelltest goal: -5.5%, -7.8%, -8.2% (av 284 ben)
+Bästa edge modelltest assist: -10.0%, -14.5%, -14.8% (av 198 ben)
+Bästa edge modelltest shots_on_target: +6.5%, +5.9%, +5.5% (av 606 ben)
+Bästa edge modelltest shots: +9.7%, +9.6%, +8.7% (av 609 ben)
 0 spelbara ben.
 Bokförda nya spel: 0
 Skuggspel: 0 nya bokförda (stoppade av reglerna, minst 2 % edge)
 Modelltest: 26 spelbara enligt modellen, 0 nya testspel bokförda
-Parlays: 1 förslag, 0 nya bokförda
-Notiser skickade: 0
+Parlays: 1 förslag, 1 nya bokförda
+Notiser skickade: 1
