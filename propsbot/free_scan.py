@@ -242,6 +242,12 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
         diag.log("Pinnacle har inga spelarprops här – använder linjejustering mot Pinnacles matchlinjer.")
     playable = [r for r in rows if r.row.decision.playable and r.row.decision.show]
     diag.log(f"{len(playable)} spelbara ben.")
+    for r in playable:
+        c, d = r.row.decision.cand, r.row.decision
+        diag.log(f"SPEL: {r.match} ({r.kickoff} UTC) | {c.player_name} | "
+                 f"{MARKET_LABEL.get(c.market, c.market)} över {c.line} | {c.best.book} {c.best.odds:.2f} | "
+                 f"Kambi rättvis {r.row.p_market:.1%} -> justerad {c.p:.1%} | edge {c.edge:.1%} | "
+                 f"spela från {d.play_from:.2f} | {'; '.join(d.reasons)}")
     out_dir = root / "resultat"
     out_dir.mkdir(exist_ok=True)
     write_csv(rows, out_dir / f"spel_{time.strftime('%Y%m%d_%H%M')}.csv", settings["bankroll"], False)
@@ -261,7 +267,7 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
     import os
     if os.environ.get("GITHUB_ACTIONS"):
         keep = [l for l in diag.lines if l.startswith(("Kambi", "Pinnacle", "Bolag", "VARNING"))
-                or "spelbara" in l or "kvot" in l or "saknar" in l or "otis" in l][:45]
+                or l.startswith("SPEL:") or "spelbara" in l or "otis" in l][:45]
         print("::notice title=diagnos::" + "%0A".join(x.replace("%", "%25") for x in keep))
     return rows
 
