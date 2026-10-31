@@ -177,8 +177,10 @@ def test_play_from_and_thresholds():
     assert play_from_odds(0.5, 0.02, 1.40) == pytest.approx(2.04)
     d = evaluate(_cand(0.55, 2.00), cfg)
     assert d.playable and d.show and d.stake > 0
-    d = evaluate(_cand(0.75, 1.45), cfg)        # edge 8.75 % men visas inte (< 1,60)
-    assert d.playable and not d.show
+    d = evaluate(_cand(0.75, 1.45), cfg)        # inom ramen 1,40–6,00
+    assert d.playable and d.show
+    d = evaluate(_cand(0.25, 7.00), cfg)        # över 6,00
+    assert not d.playable and not d.show
     d = evaluate(_cand(0.80, 1.35), cfg)        # under 1,40
     assert not d.playable
     d = evaluate(_cand(0.55, 2.00, ts=0, now=1000), cfg)  # gammalt odds

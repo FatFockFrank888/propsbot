@@ -248,6 +248,11 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
     if notify and settings.get("ntfy_topic"):
         notify_new(playable, settings, root)
     diag.save()
+    import os
+    if os.environ.get("GITHUB_ACTIONS"):
+        keep = [l for l in diag.lines if l.startswith(("Kambi", "Pinnacle", "Bolag", "VARNING"))
+                or "spelbara" in l or "kvot" in l or "saknar" in l][:40]
+        print("::notice title=diagnos::" + "%0A".join(x.replace("%", "%25") for x in keep))
     return rows
 
 

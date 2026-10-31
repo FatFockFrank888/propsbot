@@ -25,7 +25,7 @@ Kambi-bolagen (en röst) ────┴─> marknadens p ──> blandning i lo
 | `propsbot/market.py` | Marginalborttagning (power/Shin), Pinnacle → λ, Unibets ensidiga marginal m(odds), skattning av m mot Pinnacle, konsensus |
 | `propsbot/kambi.py` | Hittar bolag med samma leverantör, Kambis huvudpris (median), eftersläpning per bolag, eftersläpande priser |
 | `propsbot/blend.py` | Modellvikt (startelva, Pinnacle, oenighet, marknad), nivåkalibrering, klustrat standardfel per match |
-| `propsbot/decision.py` | Edge ≥ 2 % (4 % mål/assist), odds ≥ 1,40, visas ≥ 1,60, spela från, ¼ Kelly, ett ben per spelare och familj, tak per match, stoppregler |
+| `propsbot/decision.py` | Edge ≥ 2 % (4 % mål/assist), odds 1,40–6,00, spela från, ¼ Kelly, ett ben per spelare och familj, tak per match, stoppregler |
 | `propsbot/store.py` | SQLite-logg: beräkningar, stängning, utfall → CLV och kalibrering |
 | `propsbot/sources/` | Inläsning. `json_source.py` läser formatet i `examples/match.json` |
 

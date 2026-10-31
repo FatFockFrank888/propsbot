@@ -60,6 +60,9 @@ def evaluate(c: Candidate, cfg: DecisionConfig) -> Decision:
     if c.best.odds < cfg.min_odds_play:
         ok = False
         reasons.append(f"odds {c.best.odds:.2f} < {cfg.min_odds_play:.2f}")
+    if c.best.odds > cfg.max_odds_play:
+        ok = False
+        reasons.append(f"odds {c.best.odds:.2f} > {cfg.max_odds_play:.2f}")
     age = c.now - c.best.ts
     if age > cfg.max_odds_age_s:
         ok = False
@@ -72,7 +75,7 @@ def evaluate(c: Candidate, cfg: DecisionConfig) -> Decision:
     if not c.lineup_confirmed and c.minutes_to_kickoff < cfg.lineup_required_minutes:
         ok = False
         reasons.append("startelvan okänd nära avspark")
-    show = c.best.odds >= cfg.min_odds_show
+    show = cfg.min_odds_show <= c.best.odds <= cfg.max_odds_play
     stake = kelly_stake(c.p, c.best.odds, cfg.kelly_fraction, cfg.max_stake_per_bet) if ok else 0.0
     return Decision(c, ok, show, pf, stake, reasons)
 

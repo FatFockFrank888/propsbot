@@ -117,7 +117,8 @@ class DecisionConfig:
         "shots": 0.02, "shots_on_target": 0.02, "goal": 0.04, "assist": 0.04,
     })
     min_odds_play: float = 1.40
-    min_odds_show: float = 1.60
+    min_odds_show: float = 1.40
+    max_odds_play: float = 6.0       # spel över detta odds föreslås inte
     kelly_fraction: float = 0.25
     max_stake_per_bet: float = 0.02      # andel av bankrulle
     max_stake_per_match: float = 0.05

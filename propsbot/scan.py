@@ -308,7 +308,7 @@ def write_csv(rows: list[ScanRow], path: Path, bankroll: float, only_playable: b
             if not d.show and not d.playable:
                 continue
             w.writerow([
-                "SPELA" if d.playable and d.show else ("SPELA (under 1,60)" if d.playable else "-"),
+                "SPELA" if d.playable and d.show else "-",
                 r.kickoff, r.match, c.player_name, MARKET_LABEL.get(c.market, c.market),
                 f"över {c.line}".replace(".", ","), c.best.book, f"{c.best.odds:.2f}".replace(".", ","),
                 f"{c.p:.1%}".replace(".", ","), f"{c.edge:.1%}".replace(".", ","),
