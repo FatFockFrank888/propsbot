@@ -1,5 +1,5 @@
-Skanning 2026-10-31 19:56
-Kambi unibet (ubse): OK, 29 matcher i valda ligor
+Skanning 2026-10-31 20:17
+Kambi unibet (ubse): OK, 28 matcher i valda ligor
 Kambi paf (paf): OK
 Kambi atg (atg): OK
 Kambi leovegas (leose): OK
@@ -8,74 +8,72 @@ Kambi expekt (expektse): OK
 Kambi betmgm (betmgmse): OK
 Kambi betmgm (mgmse): FEL URLError för https://eu-offering.kambicdn.org/offering/v2018/mgmse/listView/football/all/all/all/matches.json: <urlopen error timed out>
 Kambi betmgm (bmse): FEL URLError för https://eu-offering.kambicdn.org/offering/v2018/bmse/listView/football/all/all/all/matches.json: <urlopen error timed out>
-Pinnacle: OK, 13 ligor
-  Como FC (W) – Milan (W): Pinnacle FEL HTTP 403 för https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639273707/related
-Pinnacle: 29 matcher, matchlinjer för 23 av 29 Kambi-matcher, 0 spelarodds som används
+Pinnacle: OK, 15 ligor
+  Como FC (W) – Milan (W): Pinnacle FEL HTTP 403 för https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639273707/markets/related/straight
+Pinnacle: 27 matcher, matchlinjer för 22 av 28 Kambi-matcher, 0 spelarodds som används
 Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
-  Double Chance 1st Half | units=Regular | kategori=Team Props | deltagare=Barcelona Or Alaves,Draw Or Alaves,Draw Or Barcelona  ->  används inte (lagmarknad)
-  Moneyline and Total Goals | units=Regular | kategori=Team Props | deltagare=Barcelona & Over 4.5,Barcelona & Under 4.5,Draw & Over 4.5,Draw & Under 4.5,Alaves & Over 4.5,Alaves & Under 4.5  ->  används inte (lagmarknad)
-  Double Chance | units=Regular | kategori=Team Props | deltagare=Barcelona Or Alaves,Draw Or Alaves,Draw Or Barcelona  ->  används inte (lagmarknad)
-  Barcelona Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
-  Alaves To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Correct Score | units=Regular | kategori=Team Props | deltagare=Barcelona 0, Alaves 0,Barcelona 0, Alaves 1,Barcelona 0, Alaves 2,Barcelona 0, Alaves 3,Barcelona 0, Alaves 4,Barcelona 0, Alaves 5,Barcelona 0, Alaves 6,Barcelona 1, Alaves 0,Barcelona 1, Alaves 1,Barcelona 1, Alaves 2,Barcelona 1, Alaves 3,Barcelona 1, Alaves 4,Barcelona 1, Alaves 5,Barcelona 1, Alaves 6,Barcelona 2, Alaves 0,Barcelona 2, Alaves 1,Barcelona 2, Alaves 2,Barcelona 2, Alaves 3,Barcelona 2, Alaves 4,Barcelona 2, Alaves 5,Barcelona 2, Alaves 6,Barcelona 3, Alaves 0,Barcelona 3, Alaves 1,Barcelona 3, Alaves 2,Barcelona 3, Alaves 3,Barcelona 3, Alaves 4,Barcelona 3, Alaves 5,Barcelona 3, Alaves 6,Barcelona 4, Alaves 0,Barcelona 4, Alaves 1,Barcelona 4, Alaves 2,Barcelona 4, Alaves 3,Barcelona 4, Alaves 4,Barcelona 4, Alaves 5,Barcelona 4, Alaves 6,Barcelona 5, Alaves 0,Barcelona 5, Alaves 1,Barcelona 5, Alaves 2,Barcelona 5, Alaves 3,Barcelona 5, Alaves 4,Barcelona 5, Alaves 5,Barcelona 5, Alaves 6,Barcelona 6, Alaves 0,Barcelona 6, Alaves 1,Barcelona 6, Alaves 2,Barcelona 6, Alaves 3,Barcelona 6, Alaves 4,Barcelona 6, Alaves 5,Barcelona 6, Alaves 6  ->  används inte (lagmarknad)
-  Alaves To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  3-Way Handicap Barcelona -6 | units=Regular | kategori=Team Props | deltagare=Barcelona (-6),Draw - (Barcelona -6),Alaves (+6)  ->  används inte (lagmarknad)
-  Draw No Bet 1st Half | units=Regular | kategori=Team Props | deltagare=Barcelona,Alaves  ->  används inte (lagmarknad)
-  Barcelona To Win To Nil | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Barcelona To Win To Nil 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Either Team To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Both Teams To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Draw No Bet | units=Regular | kategori=Team Props | deltagare=Barcelona,Alaves  ->  används inte (lagmarknad)
-  3-Way Handicap Barcelona -2 | units=Regular | kategori=Team Props | deltagare=Barcelona (-2),Draw - (Barcelona -2),Alaves (+2)  ->  används inte (lagmarknad)
-  Barcelona To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Total Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
-  3-Way Handicap Barcelona -4 | units=Regular | kategori=Team Props | deltagare=Barcelona (-4),Draw - (Barcelona -4),Alaves (+4)  ->  används inte (lagmarknad)
-  Total Goals Range 1st Half | units=Regular | kategori=Team Props | deltagare=0 - 1,2 - 3,4+  ->  används inte (lagmarknad)
-  Exact Total Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
-  3-Way Handicap Barcelona -5 | units=Regular | kategori=Team Props | deltagare=Barcelona (-5),Draw - (Barcelona -5),Alaves (+5)  ->  används inte (lagmarknad)
-  Alaves Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
-  Correct Score 1st Half | units=Regular | kategori=Team Props | deltagare=Barcelona 0, Alaves 0,Barcelona 0, Alaves 1,Barcelona 0, Alaves 2,Barcelona 0, Alaves 3,Barcelona 1, Alaves 0,Barcelona 1, Alaves 1,Barcelona 1, Alaves 2,Barcelona 1, Alaves 3,Barcelona 2, Alaves 0,Barcelona 2, Alaves 1,Barcelona 2, Alaves 2,Barcelona 2, Alaves 3,Barcelona 3, Alaves 0,Barcelona 3, Alaves 1,Barcelona 3, Alaves 2,Barcelona 3, Alaves 3  ->  används inte (lagmarknad)
-  Winning Margin 1st Half | units=Regular | kategori=Team Props | deltagare=Barcelona By 1,Barcelona By 2+,Alaves By 1,Alaves By 2+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
-  Winning Margin | units=Regular | kategori=Team Props | deltagare=Barcelona By 1,Barcelona By 2,Barcelona By 3,Barcelona By 4+,Alaves By 1,Alaves By 2,Alaves By 3,Alaves By 4+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
-  Exact Total Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5,6+  ->  används inte (lagmarknad)
-  3-Way Handicap Barcelona -1 | units=Regular | kategori=Team Props | deltagare=Barcelona (-1),Draw - (Barcelona -1),Alaves (+1)  ->  används inte (lagmarknad)
-  Alaves Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
-  First Team To Score 1st Half | units=1st Goal | kategori=Team Props | deltagare=Barcelona,Alaves,Neither  ->  används inte (lagmarknad)
-  First Team To Score | units=1st Goal | kategori=Team Props | deltagare=Barcelona,Alaves,Neither  ->  används inte (lagmarknad)
-  Alaves Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
-  Barcelona Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
-  3-Way Handicap Barcelona -3 | units=Regular | kategori=Team Props | deltagare=Barcelona (-3),Draw - (Barcelona -3),Alaves (+3)  ->  används inte (lagmarknad)
-  Barcelona To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Double Chance 1st Half | units=Regular | kategori=Team Props | deltagare=Como Or Venezia,Draw Or Venezia,Draw Or Como  ->  används inte (lagmarknad)
+  Moneyline and Total Goals | units=Regular | kategori=Team Props | deltagare=Como & Over 3.5,Como & Under 3.5,Draw & Over 3.5,Draw & Under 3.5,Venezia & Over 3.5,Venezia & Under 3.5  ->  används inte (lagmarknad)
+  Double Chance | units=Regular | kategori=Team Props | deltagare=Como Or Venezia,Draw Or Venezia,Draw Or Como  ->  används inte (lagmarknad)
+  Correct Score 1st Half | units=Regular | kategori=Team Props | deltagare=Como 0, Venezia 0,Como 0, Venezia 1,Como 0, Venezia 2,Como 0, Venezia 3,Como 1, Venezia 0,Como 1, Venezia 1,Como 1, Venezia 2,Como 1, Venezia 3,Como 2, Venezia 0,Como 2, Venezia 1,Como 2, Venezia 2,Como 2, Venezia 3,Como 3, Venezia 0,Como 3, Venezia 1,Como 3, Venezia 2,Como 3, Venezia 3  ->  används inte (lagmarknad)
+  3-Way Handicap Como -3 | units=Regular | kategori=Team Props | deltagare=Como (-3),Draw - (Como -3),Venezia (+3)  ->  används inte (lagmarknad)
+  Correct Score | units=Regular | kategori=Team Props | deltagare=Como 0, Venezia 0,Como 0, Venezia 1,Como 0, Venezia 2,Como 0, Venezia 3,Como 0, Venezia 4,Como 0, Venezia 5,Como 0, Venezia 6,Como 1, Venezia 0,Como 1, Venezia 1,Como 1, Venezia 2,Como 1, Venezia 3,Como 1, Venezia 4,Como 1, Venezia 5,Como 1, Venezia 6,Como 2, Venezia 0,Como 2, Venezia 1,Como 2, Venezia 2,Como 2, Venezia 3,Como 2, Venezia 4,Como 2, Venezia 5,Como 2, Venezia 6,Como 3, Venezia 0,Como 3, Venezia 1,Como 3, Venezia 2,Como 3, Venezia 3,Como 3, Venezia 4,Como 3, Venezia 5,Como 3, Venezia 6,Como 4, Venezia 0,Como 4, Venezia 1,Como 4, Venezia 2,Como 4, Venezia 3,Como 4, Venezia 4,Como 4, Venezia 5,Como 4, Venezia 6,Como 5, Venezia 0,Como 5, Venezia 1,Como 5, Venezia 2,Como 5, Venezia 3,Como 5, Venezia 4,Como 5, Venezia 5,Como 5, Venezia 6,Como 6, Venezia 0,Como 6, Venezia 1,Como 6, Venezia 2,Como 6, Venezia 3,Como 6, Venezia 4,Como 6, Venezia 5,Como 6, Venezia 6  ->  används inte (lagmarknad)
+  Either Team To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  First Team To Score | units=1st Goal | kategori=Team Props | deltagare=Como,Venezia,Neither  ->  används inte (lagmarknad)
   Both Teams To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Total Goals Odd/Even 1st Half | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  Como To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Venezia Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
+  Venezia To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  3-Way Handicap Como -4 | units=Regular | kategori=Team Props | deltagare=Como (-4),Draw - (Como -4),Venezia (+4)  ->  används inte (lagmarknad)
   Total Goals Range | units=Regular | kategori=Team Props | deltagare=0 - 1,2 - 3,4 - 6,7+  ->  används inte (lagmarknad)
-  Barcelona Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
-  Both Teams To Score and Moneyline | units=Regular | kategori=Team Props | deltagare=Yes & Barcelona,Yes & Draw,Yes & Alaves,No & Barcelona,No & Draw,No & Alaves  ->  används inte (lagmarknad)
-  Odd/Even and Total Goals | units=Regular | kategori=Team Props | deltagare=Odd & Over 4.5,Odd & Under 4.5,Even & Over 4.5,Even & Under 4.5  ->  används inte (lagmarknad)
-  Alaves To Win To Nil 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Both Teams To Score and Total Goals | units=Regular | kategori=Team Props | deltagare=Yes & Over 4.5,Yes & Under 4.5,No & Over 4.5,No & Under 4.5  ->  används inte (lagmarknad)
-  Raphinha To Score | units=Regular | kategori=Player Props | deltagare=Yes,No  ->  goal 0.5
-  Lamine Yamal To Score | units=Regular | kategori=Player Props | deltagare=Yes,No  ->  goal 0.5
-  Double Chance 1st Half | units=Regular | kategori=Team Props | deltagare=Aston Villa Or Fulham,Draw Or Fulham,Draw Or Aston Villa  ->  används inte (lagmarknad)
-  Moneyline and Total Goals | units=Regular | kategori=Team Props | deltagare=Aston Villa & Over 2.5,Aston Villa & Under 2.5,Draw & Over 2.5,Draw & Under 2.5,Fulham & Over 2.5,Fulham & Under 2.5  ->  används inte (lagmarknad)
-  Double Chance | units=Regular | kategori=Team Props | deltagare=Aston Villa Or Fulham,Draw Or Fulham,Draw Or Aston Villa  ->  används inte (lagmarknad)
-  Aston Villa Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
-  Fulham To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Correct Score | units=Regular | kategori=Team Props | deltagare=Aston Villa 0, Fulham 0,Aston Villa 0, Fulham 1,Aston Villa 0, Fulham 2,Aston Villa 0, Fulham 3,Aston Villa 0, Fulham 4,Aston Villa 0, Fulham 5,Aston Villa 0, Fulham 6,Aston Villa 1, Fulham 0,Aston Villa 1, Fulham 1,Aston Villa 1, Fulham 2,Aston Villa 1, Fulham 3,Aston Villa 1, Fulham 4,Aston Villa 1, Fulham 5,Aston Villa 1, Fulham 6,Aston Villa 2, Fulham 0,Aston Villa 2, Fulham 1,Aston Villa 2, Fulham 2,Aston Villa 2, Fulham 3,Aston Villa 2, Fulham 4,Aston Villa 2, Fulham 5,Aston Villa 2, Fulham 6,Aston Villa 3, Fulham 0,Aston Villa 3, Fulham 1,Aston Villa 3, Fulham 2,Aston Villa 3, Fulham 3,Aston Villa 3, Fulham 4,Aston Villa 3, Fulham 5,Aston Villa 3, Fulham 6,Aston Villa 4, Fulham 0,Aston Villa 4, Fulham 1,Aston Villa 4, Fulham 2,Aston Villa 4, Fulham 3,Aston Villa 4, Fulham 4,Aston Villa 4, Fulham 5,Aston Villa 4, Fulham 6,Aston Villa 5, Fulham 0,Aston Villa 5, Fulham 1,Aston Villa 5, Fulham 2,Aston Villa 5, Fulham 3,Aston Villa 5, Fulham 4,Aston Villa 5, Fulham 5,Aston Villa 5, Fulham 6,Aston Villa 6, Fulham 0,Aston Villa 6, Fulham 1,Aston Villa 6, Fulham 2,Aston Villa 6, Fulham 3,Aston Villa 6, Fulham 4,Aston Villa 6, Fulham 5,Aston Villa 6, Fulham 6  ->  används inte (lagmarknad)
-  Fulham To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Draw No Bet 1st Half | units=Regular | kategori=Team Props | deltagare=Aston Villa,Fulham  ->  används inte (lagmarknad)
-  Draw No Bet | units=Regular | kategori=Team Props | deltagare=Aston Villa,Fulham  ->  används inte (lagmarknad)
-  3-Way Handicap Aston Villa -2 | units=Regular | kategori=Team Props | deltagare=Aston Villa (-2),Draw - (Aston Villa -2),Fulham (+2)  ->  används inte (lagmarknad)
-  Aston Villa To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  3-Way Handicap Aston Villa +1 | units=Regular | kategori=Team Props | deltagare=Aston Villa (+1),Draw - (Aston Villa +1),Fulham (-1)  ->  används inte (lagmarknad)
-  Both Teams To Score and Moneyline | units=Regular | kategori=Team Props | deltagare=Yes & Aston Villa,Yes & Draw,Yes & Fulham,No & Aston Villa,No & Draw,No & Fulham  ->  används inte (lagmarknad)
-  Odd/Even and Total Goals | units=Regular | kategori=Team Props | deltagare=Odd & Over 2.5,Odd & Under 2.5,Even & Over 2.5,Even & Under 2.5  ->  används inte (lagmarknad)
-  Aston Villa To Win To Nil | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Aston Villa To Win To Nil 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-Tid: hämtning 279 s
-Marginal över alla matcher: uppmätt marginal: shots stege k=1.08 (10 spelare; marginal vid 3,00 ≈ 9%), shots_on_target stege k=1.10 (108 spelare; marginal vid 3,00 ≈ 12%)
-  FC Barcelona – Alaves: modell esp.1, 30 spelare
-  Aston Villa – Fulham: modell eng.1, 28 spelare
+  Como To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Total Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  Winning Margin 1st Half | units=Regular | kategori=Team Props | deltagare=Como By 1,Como By 2+,Venezia By 1,Venezia By 2+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
+  Exact Total Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
+  Draw No Bet 1st Half | units=Regular | kategori=Team Props | deltagare=Como,Venezia  ->  används inte (lagmarknad)
+  First Team To Score 1st Half | units=1st Goal | kategori=Team Props | deltagare=Como,Venezia,Neither  ->  används inte (lagmarknad)
+  Total Goals Range 1st Half | units=Regular | kategori=Team Props | deltagare=0 - 1,2 - 3,4+  ->  används inte (lagmarknad)
+  Como Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
+  Venezia To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Venezia Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  Como Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  Both Teams To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Venezia Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
+  3-Way Handicap Como -2 | units=Regular | kategori=Team Props | deltagare=Como (-2),Draw - (Como -2),Venezia (+2)  ->  används inte (lagmarknad)
+  Either Team To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Exact Total Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5,6+  ->  används inte (lagmarknad)
+  Total Goals Odd/Even 1st Half | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  3-Way Handicap Como -1 | units=Regular | kategori=Team Props | deltagare=Como (-1),Draw - (Como -1),Venezia (+1)  ->  används inte (lagmarknad)
+  Both Teams To Score and Moneyline | units=Regular | kategori=Team Props | deltagare=Yes & Como,Yes & Draw,Yes & Venezia,No & Como,No & Draw,No & Venezia  ->  används inte (lagmarknad)
+  Odd/Even and Total Goals | units=Regular | kategori=Team Props | deltagare=Odd & Over 3.5,Odd & Under 3.5,Even & Over 3.5,Even & Under 3.5  ->  används inte (lagmarknad)
+  Como To Win To Nil | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Como Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
+  Venezia To Win To Nil | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Venezia To Win To Nil 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Draw No Bet | units=Regular | kategori=Team Props | deltagare=Como,Venezia  ->  används inte (lagmarknad)
+  Como To Win To Nil 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Both Teams To Score and Total Goals | units=Regular | kategori=Team Props | deltagare=Yes & Over 3.5,Yes & Under 3.5,No & Over 3.5,No & Under 3.5  ->  används inte (lagmarknad)
+  Winning Margin | units=Regular | kategori=Team Props | deltagare=Como By 1,Como By 2,Como By 3,Como By 4+,Venezia By 1,Venezia By 2,Venezia By 3,Venezia By 4+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
+  Correct Score 1st Half | units=Regular | kategori=Team Props | deltagare=Malmo 0, Hammarby 0,Malmo 0, Hammarby 1,Malmo 0, Hammarby 2,Malmo 0, Hammarby 3,Malmo 1, Hammarby 0,Malmo 1, Hammarby 1,Malmo 1, Hammarby 2,Malmo 1, Hammarby 3,Malmo 2, Hammarby 0,Malmo 2, Hammarby 1,Malmo 2, Hammarby 2,Malmo 2, Hammarby 3,Malmo 3, Hammarby 0,Malmo 3, Hammarby 1,Malmo 3, Hammarby 2,Malmo 3, Hammarby 3  ->  används inte (lagmarknad)
+  Correct Score | units=Regular | kategori=Team Props | deltagare=Malmo 0, Hammarby 0,Malmo 0, Hammarby 1,Malmo 0, Hammarby 2,Malmo 0, Hammarby 3,Malmo 0, Hammarby 4,Malmo 0, Hammarby 5,Malmo 0, Hammarby 6,Malmo 1, Hammarby 0,Malmo 1, Hammarby 1,Malmo 1, Hammarby 2,Malmo 1, Hammarby 3,Malmo 1, Hammarby 4,Malmo 1, Hammarby 5,Malmo 1, Hammarby 6,Malmo 2, Hammarby 0,Malmo 2, Hammarby 1,Malmo 2, Hammarby 2,Malmo 2, Hammarby 3,Malmo 2, Hammarby 4,Malmo 2, Hammarby 5,Malmo 2, Hammarby 6,Malmo 3, Hammarby 0,Malmo 3, Hammarby 1,Malmo 3, Hammarby 2,Malmo 3, Hammarby 3,Malmo 3, Hammarby 4,Malmo 3, Hammarby 5,Malmo 3, Hammarby 6,Malmo 4, Hammarby 0,Malmo 4, Hammarby 1,Malmo 4, Hammarby 2,Malmo 4, Hammarby 3,Malmo 4, Hammarby 4,Malmo 4, Hammarby 5,Malmo 4, Hammarby 6,Malmo 5, Hammarby 0,Malmo 5, Hammarby 1,Malmo 5, Hammarby 2,Malmo 5, Hammarby 3,Malmo 5, Hammarby 4,Malmo 5, Hammarby 5,Malmo 5, Hammarby 6,Malmo 6, Hammarby 0,Malmo 6, Hammarby 1,Malmo 6, Hammarby 2,Malmo 6, Hammarby 3,Malmo 6, Hammarby 4,Malmo 6, Hammarby 5,Malmo 6, Hammarby 6  ->  används inte (lagmarknad)
+  First Team To Score | units=1st Goal | kategori=Team Props | deltagare=Malmo,Hammarby,Neither  ->  används inte (lagmarknad)
+  Malmo To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Hammarby Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
+  Hammarby To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  3-Way Handicap Malmo +1 | units=Regular | kategori=Team Props | deltagare=Malmo (+1),Draw - (Malmo +1),Hammarby (-1)  ->  används inte (lagmarknad)
+  Malmo To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Winning Margin 1st Half | units=Regular | kategori=Team Props | deltagare=Malmo By 1,Malmo By 2+,Hammarby By 1,Hammarby By 2+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
+  Draw No Bet 1st Half | units=Regular | kategori=Team Props | deltagare=Malmo,Hammarby  ->  används inte (lagmarknad)
+  First Team To Score 1st Half | units=1st Goal | kategori=Team Props | deltagare=Malmo,Hammarby,Neither  ->  används inte (lagmarknad)
+  Malmo Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
+  Hammarby To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Hammarby Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  3-Way Handicap Malmo +2 | units=Regular | kategori=Team Props | deltagare=Malmo (+2),Draw - (Malmo +2),Hammarby (-2)  ->  används inte (lagmarknad)
+  Malmo Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  Hammarby Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
+  3-Way Handicap Malmo -1 | units=Regular | kategori=Team Props | deltagare=Malmo (-1),Draw - (Malmo -1),Hammarby (+1)  ->  används inte (lagmarknad)
+Tid: hämtning 288 s
+Marginal över alla matcher: uppmätt marginal: shots_on_target stege k=1.10 (104 spelare; marginal vid 3,00 ≈ 12%)
   Como – Venezia: modell ita.1, 29 spelare
   Malmö FF – Hammarby IF: modell swe.1, 28 spelare
   Djurgårdens IF – Degerfors IF: modell swe.1, 29 spelare
@@ -96,12 +94,10 @@ Marginal över alla matcher: uppmätt marginal: shots stege k=1.08 (10 spelare; 
   Elche – Valencia: modell esp.1, 29 spelare
   Juventus – Napoli: modell ita.1, 32 spelare
   Marseille – Toulouse: modell fra.1, 28 spelare
-Modellens nivåavvikelse mot marknaden (log-odds, dras bort): assist -0.41, goal -0.09, shots -0.67, shots_on_target -0.34
-  Albacete Balompié – Sabadell FC: saknar matchlinjer från Pinnacle
-  FC Barcelona – Alaves: väntade mål Pinnacle 4.50 mot Kambi 4.34 (kvot 1.038); uppmätt marginal: goal k=1.22, assist k=1.21, shots stege k=1.08 (7 spelare; marginal vid 3,00 ≈ 9%)
-Exempel uppmätt marginal: goal k=1.22, assist k=1.21, shots stege k=1.08 (7 spelare; marginal vid 3,00 ≈ 9%)
-  Aston Villa – Fulham: väntade mål Pinnacle 2.95 mot Kambi 2.95 (kvot 0.998); uppmätt marginal: goal k=1.20, assist k=1.28
+  Athletic Bilbao – Real Sociedad: modell esp.1, 33 spelare
+Modellens nivåavvikelse mot marknaden (log-odds, dras bort): goal +0.01, shots -0.64, shots_on_target -0.34
   Como – Venezia: väntade mål Pinnacle 3.55 mot Kambi 3.57 (kvot 0.995); uppmätt marginal: goal k=1.44, assist k=1.70
+Exempel uppmätt marginal: goal k=1.44, assist k=1.70
   CD Eldense – Granada: saknar matchlinjer från Pinnacle
   Malmö FF – Hammarby IF: väntade mål Pinnacle 3.13 mot Kambi 3.07 (kvot 1.017); uppmätt marginal: goal k=1.57
   Djurgårdens IF – Degerfors IF: väntade mål Pinnacle 3.21 mot Kambi 3.24 (kvot 0.990); uppmätt marginal: goal k=1.62
@@ -123,26 +119,26 @@ Exempel uppmätt marginal: goal k=1.22, assist k=1.21, shots stege k=1.08 (7 spe
   Burgos – CD Castellon: saknar matchlinjer från Pinnacle
   Elche – Valencia: väntade mål Pinnacle 2.65 mot Kambi 2.70 (kvot 0.981); uppmätt marginal: goal k=1.65, assist k=1.70
   Juventus – Napoli: väntade mål Pinnacle 2.58 mot Kambi 2.52 (kvot 1.027); uppmätt marginal: goal k=1.48, assist k=1.52, shots_on_target stege k=1.14 (7 spelare; marginal vid 3,00 ≈ 17%)
-  Marseille – Toulouse: väntade mål Pinnacle 3.20 mot Kambi 3.17 (kvot 1.012); uppmätt marginal: goal k=1.30, assist k=1.30, shots_on_target stege k=1.08 (21 spelare; marginal vid 3,00 ≈ 9%)
-Tid: modell och utvärdering 250 s
+  Marseille – Toulouse: väntade mål Pinnacle 3.21 mot Kambi 3.17 (kvot 1.013); uppmätt marginal: goal k=1.30, assist k=1.30, shots_on_target stege k=1.08 (21 spelare; marginal vid 3,00 ≈ 9%)
+  CD Tenerife – FC Andorra: saknar matchlinjer från Pinnacle
+  Athletic Bilbao – Real Sociedad: väntade mål Pinnacle 2.98 mot Kambi 2.95 (kvot 1.009); uppmätt marginal: goal k=1.52, assist k=1.63
+Tid: modell och utvärdering 125 s
 Bolag med spelarodds: atg, betmgm, expekt, leovegas, paf, svenskaspel, unibet
-Spelarodds per marknad: assist 3500, goal 8765, shots 6746, shots_on_target 5558
-Kambi-marknader: assist='to give an assist (settled using opta data)':3500; goal='to score':5699; goal='to score at least 2 goals':2625; goal='to score at least 3 goals':343; goal='to score at least 4 goals':70; goal='to score at least 5 goals':21; goal='to score at least 6 goals':7; shots="player's shots (settled using opta data)":6746; shots_on_target="player's shots on target (settled using opta data)":5558
+Spelarodds per marknad: assist 3528, goal 8695, shots 6468, shots_on_target 5488
+Kambi-marknader: assist='to give an assist (settled using opta data)':3528; goal='to score':5804; goal='to score at least 2 goals':2569; goal='to score at least 3 goals':280; goal='to score at least 4 goals':35; goal='to score at least 5 goals':7; shots="player's shots (settled using opta data)":6468; shots_on_target="player's shots on target (settled using opta data)":5488
 Pinnacle har inga spelarprops här – använder linjejustering mot Pinnacles matchlinjer.
-Spelarmodell: 0 av 3394 ben har modell, 15 nya matcher hämtade från ESPN
-Bästa edge marknad goal: -5.3%, -5.6%, -6.5% (av 321 ben)
-Bästa edge marknad assist: -14.9%, -16.1%, -16.8% (av 233 ben)
-Bästa edge marknad shots_on_target: +3.8%, +3.4%, +3.4% (av 701 ben)
-Bästa edge marknad shots: -2.2%, -2.4%, -2.4% (av 687 ben)
-Bästa edge modelltest goal: -5.6%, -8.1%, -9.1% (av 303 ben)
-Bästa edge modelltest assist: -10.8%, -15.6%, -17.3% (av 216 ben)
-Bästa edge modelltest shots_on_target: +7.7%, +7.1%, +6.9% (av 656 ben)
-Bästa edge modelltest shots: +11.3%, +10.0%, +9.2% (av 645 ben)
+Spelarmodell: 0 av 3318 ben har modell, 7 nya matcher hämtade från ESPN
+Bästa edge marknad goal: -6.5%, -7.5%, -8.1% (av 317 ben)
+Bästa edge marknad assist: -28.9%, -31.5%, -33.2% (av 236 ben)
+Bästa edge marknad shots_on_target: +3.4%, +3.2%, +1.2% (av 707 ben)
+Bästa edge marknad shots: -2.2%, -2.9%, -3.1% (av 654 ben)
+Bästa edge modelltest goal: -8.1%, -10.4%, -10.7% (av 299 ben)
+Bästa edge modelltest assist: -31.8%, -33.3%, -33.6% (av 219 ben)
+Bästa edge modelltest shots_on_target: +7.8%, +7.0%, +6.9% (av 662 ben)
+Bästa edge modelltest shots: +9.6%, +9.4%, +8.3% (av 612 ben)
 0 spelbara ben.
-Rättad: Dominic Solanke shots_on_target över 0.5 -> vunnen (1.0)
-Rättad: Jean-Philippe Mateta shots_on_target över 0.5 -> förlorad (0.0)
 Bokförda nya spel: 0
 Skuggspel: 0 nya bokförda (stoppade av reglerna, minst 2 % edge)
-Modelltest: 40 spelbara enligt modellen, 8 nya testspel bokförda
-Parlays: 1 förslag, 0 nya bokförda
+Modelltest: 43 spelbara enligt modellen, 3 nya testspel bokförda
+Parlays: 0 förslag, 0 nya bokförda
 Notiser skickade: 0
