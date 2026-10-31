@@ -24,11 +24,12 @@ from .sources.kambi_public import BASES, KambiEvent
 from .sources.pinnacle_public import BASE as PIN_BASE, PinnaclePublic, american_to_decimal
 from .sources.props_text import name_key, person_name, same_match, same_person
 
-NBA_MARKETS = ("points", "rebounds", "assists", "threes", "pra")
+NBA_MARKETS = ("points", "rebounds", "assists", "threes", "steals", "blocks", "pra", "pr", "ra")
 NBA_LABEL = {"points": "Poäng", "rebounds": "Returer", "assists": "Assist",
-             "threes": "Trepoängare", "pra": "PRA"}
+             "threes": "Trepoängare", "steals": "Steals", "blocks": "Blocks",
+             "pra": "PRA", "pr": "Poäng + returer", "ra": "Returer + assist"}
 EXCLUDE = ("quarter", "half", "1st", "2nd", "3rd", "4th", "first", "double", "triple",
-           "steal", "block", "turnover", "most", "team", "race", "odd", "even", "milestone",
+           "turnover", "most", "team", "race", "odd", "even", "milestone",
            "highest", "lowest", "exact", "both", " or ", "&nbsp")
 PIN_BASKETBALL = 4
 
@@ -39,8 +40,16 @@ def nba_market(label: str) -> str | None:
         return None
     if re.search(r"points?,? rebounds?,? (and|&|\+) assists?|pts\s*\+\s*rebs?\s*\+\s*asts?|\bpra\b", s):
         return "pra"
-    if re.search(r"\+|&| and ", s):          # andra kombinationer (P+R, P+A …) används inte
+    if re.search(r"points?\s*(and|&|\+)\s*rebounds?|pts\s*\+\s*rebs?|\bp\+r\b", s):
+        return "pr"
+    if re.search(r"rebounds?\s*(and|&|\+)\s*assists?|rebs?\s*\+\s*asts?|\br\+a\b", s):
+        return "ra"
+    if re.search(r"\+|&| and ", s):          # andra kombinationer (P+A, S+B …) används inte
         return None
+    if "steal" in s:
+        return "steals"
+    if "block" in s:
+        return "blocks"
     if "3-point" in s or "3 point" in s or "three" in s or "3pt" in s:
         return "threes"
     if "rebound" in s:
@@ -176,7 +185,9 @@ def pinnacle_nba_props(pin: PinnaclePublic, ev, match_id: str) -> tuple[list[Odd
 
 # ---------------------------------------------------------------- rättning
 ESPN_NBA = "https://site.api.espn.com/apis/site/v2/sports/basketball/nba"
-BOX_KEYS = {"points": ("PTS",), "rebounds": ("REB",), "assists": ("AST",), "threes": ("3PT",)}
+BOX_KEYS = {"points": ("PTS",), "rebounds": ("REB",), "assists": ("AST",), "threes": ("3PT",),
+            "steals": ("STL",), "blocks": ("BLK",)}
+COMBOS = {"pra": ("PTS", "REB", "AST"), "pr": ("PTS", "REB"), "ra": ("REB", "AST")}
 
 
 def _box_value(labels: list[str], stats: list[str], market: str) -> float | None:
@@ -190,8 +201,8 @@ def _box_value(labels: list[str], stats: list[str], market: str) -> float | None
             return float(v)
         except ValueError:
             return None
-    if market == "pra":
-        parts = [get("PTS"), get("REB"), get("AST")]
+    if market in COMBOS:
+        parts = [get(k) for k in COMBOS[market]]
         return None if None in parts else sum(parts)
     return get(BOX_KEYS[market][0])
 

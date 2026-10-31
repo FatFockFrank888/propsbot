@@ -9,7 +9,11 @@ def test_nba_market_labels():
     assert nba_market("3-point field goals made by the player - Including Overtime") == "threes"
     assert nba_market("Points, rebounds & assists by the player - Including Overtime") == "pra"
     assert nba_market("Pts+Rebs+Asts") == "pra"
-    assert nba_market("Points + Rebounds") is None
+    assert nba_market("Points + Rebounds") == "pr"
+    assert nba_market("Rebounds + Assists by the player") == "ra"
+    assert nba_market("Steals by the player - Including Overtime") == "steals"
+    assert nba_market("Blocks by the player") == "blocks"
+    assert nba_market("Points + Assists") is None
     assert nba_market("Points scored by the player - 1st Quarter") is None
     assert nba_market("To record a double double") is None
 
@@ -20,6 +24,8 @@ def test_box_value():
     assert _box_value(labels, stats, "points") == 27
     assert _box_value(labels, stats, "threes") == 3
     assert _box_value(labels, stats, "pra") == 43
+    assert _box_value(labels, stats, "pr") == 34 and _box_value(labels, stats, "ra") == 16
+    assert _box_value(labels, stats, "steals") == 1 and _box_value(labels, stats, "blocks") == 0
 
 
 class _Pin:

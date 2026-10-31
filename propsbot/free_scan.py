@@ -448,7 +448,7 @@ def notify_new(playable: list[ScanRow], settings: dict, root: Path) -> int:
         key = f"{c.match_id}|{c.player_id}|{c.market}|{c.line}|{c.best.book}"
         if not seen.is_new(key, c.best.odds):
             continue
-        nba = c.market in ("points", "rebounds", "assists", "threes", "pra")
+        nba = c.market in ("points", "rebounds", "assists", "threes", "steals", "blocks", "pra", "pr", "ra")
         title = (f"{'NBA ' if nba else ''}SPELA: {c.player_name} "
                  f"{MARKET_LABEL.get(c.market, c.market)} över {c.line}")
         msg = (f"{r.match} ({r.kickoff} UTC)\n"
