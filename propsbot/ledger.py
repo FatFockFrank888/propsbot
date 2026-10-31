@@ -11,6 +11,7 @@ import json
 import time
 from pathlib import Path
 
+from .decision import kelly_stake
 from .scan import ScanRow
 
 
@@ -33,12 +34,13 @@ class Ledger:
     def save(self) -> None:
         self.path.write_text(json.dumps(self.bets, ensure_ascii=False, indent=0), encoding="utf-8")
 
-    def record(self, rows: list[ScanRow], evd_by_id: dict[str, dict]) -> list[dict]:
-        """Bokför nya spelbara ben. Returnerar de nya."""
+    def record(self, rows: list[ScanRow], evd_by_id: dict[str, dict], predicate=None) -> list[dict]:
+        """Bokför nya ben (standard: spelbara inom oddsramen). Returnerar de nya."""
         new = []
         for r in rows:
             d = r.row.decision
-            if not (d.playable and d.show):
+            ok = predicate(r) if predicate else (d.playable and d.show)
+            if not ok:
                 continue
             k = bet_key(r)
             if k in self.by_key:
@@ -53,7 +55,8 @@ class Ledger:
                 "spelare_id": c.player_id, "marknad": c.market, "linje": c.line,
                 "bolag": c.best.book, "odds": c.best.odds, "sannolikhet": c.p,
                 "ratt_odds": 1.0 / c.p, "edge": c.edge, "spela_fran": d.play_from,
-                "insats_pct": d.stake, "stangning": c.best.odds, "status": "öppen",
+                "insats_pct": d.stake or kelly_stake(c.p, c.best.odds, 0.25, 0.02),
+                "stangning": c.best.odds, "status": "öppen", "stopp": "; ".join(d.reasons),
                 "utfall": None, "resultat_enheter": None,
             }
             self.bets.append(b)
@@ -85,6 +88,9 @@ class Ledger:
         staked = sum(b["insats_pct"] for b in settled)
         profit = sum(b["resultat_enheter"] for b in settled)
         clv = [b["odds"] / b["stangning"] - 1 for b in self.bets if b.get("stangning")]
+        # CLV i procentenheter: stängningens implicita sannolikhet minus vid spelet (positivt = bra)
+        clv_pp = [(1 / b["stangning"] - 1 / b["odds"]) * 100 for b in self.bets
+                  if b.get("stangning") and b.get("avspark") and b["avspark"] < time.time()]
         per_book: dict[str, dict] = {}
         for b in settled:
             s = per_book.setdefault(b["bolag"], {"spel": 0, "insats": 0.0, "resultat": 0.0})
@@ -98,6 +104,8 @@ class Ledger:
             "insats_pct": staked, "resultat_pct": profit,
             "roi": profit / staked if staked else None,
             "clv_snitt": sum(clv) / len(clv) if clv else None,
+            "clv_pp": sum(clv_pp) / len(clv_pp) if clv_pp else None,
+            "clv_antal": len(clv_pp),
             "forvantat_pct": sum(b["edge"] * b["insats_pct"] for b in settled),
             "per_bolag": per_book,
         }

@@ -54,8 +54,72 @@ def adjust_prob(p_k: float, line: float, ratio: float, market: str) -> float:
     return poisson_over(mu * ratio ** ELASTICITY.get(market, 1.0), line)
 
 
-def kambi_fair(qs: list[OddsQuote], market: str, cfg: Config) -> tuple[float, bool] | None:
-    """Median över Kambi-bolagen av rättvis sannolikhet; True om tvåsidigt."""
+def _power_k(prices: list[float], target: float) -> float | None:
+    """k så att Σ -ln(1 - (1/o)^k) = target (Poisson: summan av spelarnas takt = lagens väntade antal).
+    Power-metoden lägger mer marginal på långa odds, vilket stämmer med hur bolag prissätter."""
+    if len(prices) < 12 or target <= 0:
+        return None
+    def total(k):
+        return sum(-math.log(max(1e-9, 1 - (1 / o) ** k)) for o in prices)
+    lo, hi = 1.0, 6.0
+    if total(lo) < target:          # redan under målet utan marginal – orimligt, avstå
+        return None
+    for _ in range(60):
+        mid = (lo + hi) / 2
+        if total(mid) > target:
+            lo = mid
+        else:
+            hi = mid
+    return (lo + hi) / 2
+
+
+@dataclasses.dataclass
+class MarginModel:
+    """Uppmätt marginal för en match: power-k per bolag för målskytt/assist och
+    marginalkurva m(odds) per marknad för skott (från tvåsidiga linjer)."""
+    power: dict = dataclasses.field(default_factory=dict)      # (bolag, marknad) -> k
+    curve: dict = dataclasses.field(default_factory=dict)      # marknad -> (bas, lutning)
+    info: str = ""
+
+
+def measure_margins(quotes: list[OddsQuote], total_goals: float, cfg: Config) -> MarginModel:
+    from .market import estimate_one_sided_margin
+    mm = MarginModel()
+    parts = []
+    targets = {"goal": total_goals * 0.97, "assist": total_goals * 0.97 * 0.72}
+    by: dict[tuple[str, str], list[float]] = defaultdict(list)
+    for q in quotes:
+        if q.provider == "kambi" and q.market in targets and q.line == 0.5 and q.side == "over" \
+                and q.variant in ("to score", "to give an assist (settled using opta data)",
+                                  "to give an assist"):
+            by[(q.book, q.market)].append(q.odds)
+    for (book, market), prices in by.items():
+        k = _power_k(prices, targets[market])
+        if k:
+            mm.power[(book, market)] = k
+    for market in ("goal", "assist"):
+        ks = [k for (b, m), k in mm.power.items() if m == market]
+        if ks:
+            parts.append(f"{market} k={median(ks):.2f}")
+    for market in ("shots", "shots_on_target"):
+        pairs_by: dict[tuple, dict] = defaultdict(dict)
+        for q in quotes:
+            if q.provider == "kambi" and q.market == market:
+                pairs_by[(q.book, q.player_id, q.line, q.variant)][q.side] = q.odds
+        pairs = [(d["over"], devig_power((d["over"], d["under"]))[0])
+                 for d in pairs_by.values() if "over" in d and "under" in d]
+        if len(pairs) >= 20:
+            mm.curve[market] = estimate_one_sided_margin(
+                pairs, cfg.market.one_sided_margin.get(market, (0.08, 0.015)), prior_n=20)
+            b, sl = mm.curve[market]
+            parts.append(f"{market} m(2,0)={b:.0%} m(4,0)={b + 2 * sl:.0%}")
+    mm.info = "uppmätt marginal: " + (", ".join(parts) or "otillräckligt underlag")
+    return mm
+
+
+def kambi_fair(qs: list[OddsQuote], market: str, cfg: Config,
+               mm: MarginModel | None = None) -> tuple[float, bool] | None:
+    """Median över Kambi-bolagen av rättvis sannolikhet; True om tvåsidigt eller uppmätt."""
     by_book: dict[str, dict[str, float]] = defaultdict(dict)
     for q in qs:
         by_book[q.book][q.side] = q.odds
@@ -63,6 +127,20 @@ def kambi_fair(qs: list[OddsQuote], market: str, cfg: Config) -> tuple[float, bo
            if "over" in d and "under" in d]
     if two:
         return median(two), True
+    if mm is not None:
+        measured = []
+        for book, d in by_book.items():
+            if "over" not in d:
+                continue
+            k = mm.power.get((book, market))
+            if k and qs[0].line == 0.5:
+                measured.append((1 / d["over"]) ** k)
+            elif market in mm.curve:
+                b, sl = mm.curve[market]
+                m = min(max(b + sl * (d["over"] - 2.0), 0.0), 2.0)
+                measured.append(1.0 / (d["over"] * (1 + m)))
+        if measured:
+            return median(measured), True
     overs = [d["over"] for d in by_book.values() if "over" in d]
     if not overs:
         return None
@@ -99,6 +177,9 @@ def evaluate_line_adjusted(evd: dict, quotes: list[OddsQuote], names: dict[str, 
     title = f"{evd['home_team']} – {evd['away_team']}"
     kickoff = datetime.fromtimestamp(evd["commence_time"], timezone.utc).strftime("%Y-%m-%d %H:%M")
 
+    mm = measure_margins(quotes, lh_p + la_p, cfg) if settings.get("measure_margins", True) else None
+    if mm:
+        info += f"; {mm.info}"
     by_line: dict[tuple, list[OddsQuote]] = defaultdict(list)
     for q in quotes:
         if q.provider == "kambi":
@@ -110,11 +191,14 @@ def evaluate_line_adjusted(evd: dict, quotes: list[OddsQuote], names: dict[str, 
         if not cands:
             continue
         best = max(cands, key=lambda q: q.odds)
-        fk = kambi_fair(qs, market, cfg)
+        fk = kambi_fair(qs, market, cfg, mm)
         if not fk:
             continue
         p_k, two_sided = fk
-        p_adj = adjust_prob(p_k, line, ratio, market)
+        # Målskytt/assist som normaliserats mot Pinnacles mål behöver ingen extra kvotjustering.
+        normalized = mm is not None and line == 0.5 and any(
+            (q.book, market) in mm.power for q in qs)
+        p_adj = p_k if normalized else adjust_prob(p_k, line, ratio, market)
         p, p_mod, note = p_adj, float("nan"), ""
         if model:
             from .market import inv_logit, logit
@@ -150,7 +234,7 @@ def evaluate_line_adjusted(evd: dict, quotes: list[OddsQuote], names: dict[str, 
         if note:
             d.reasons.append(note)
         if not two_sided:
-            d.reasons.append("ensidigt pris – högre edgekrav")
+            d.reasons.append("ensidigt pris med gissad marginal – högre edgekrav")
         if d.cand.edge > settings["max_plausible_edge"]:
             d.playable, d.stake = False, 0.0
             d.reasons.append(f"edge över {settings['max_plausible_edge']:.0%} – orimligt, kontrollera")

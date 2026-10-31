@@ -53,7 +53,8 @@ def radar_rows(rows: list[ScanRow], settings: dict, limit: int = 800) -> list[di
 
 
 def write_site(site: Path, rows: list[ScanRow], ledger: Ledger, settings: dict,
-               test_ledger: Ledger | None = None, parlays: dict | None = None) -> None:
+               test_ledger: Ledger | None = None, parlays: dict | None = None,
+               shadow_ledger: Ledger | None = None) -> None:
     site.mkdir(parents=True, exist_ok=True)
     data = {
         "uppdaterad": datetime.now(timezone.utc).isoformat(timespec="seconds"),
@@ -65,6 +66,8 @@ def write_site(site: Path, rows: list[ScanRow], ledger: Ledger, settings: dict,
         "sammanfattning": ledger.summary(),
         "modelltest": sorted(test_ledger.bets, key=lambda b: -b["bokford"]) if test_ledger else [],
         "modelltest_sammanfattning": test_ledger.summary() if test_ledger else None,
+        "skuggspel": sorted(shadow_ledger.bets, key=lambda b: -b["bokford"]) if shadow_ledger else [],
+        "skuggspel_sammanfattning": shadow_ledger.summary() if shadow_ledger else None,
         **(parlays or {}),
     }
     (site / "data.json").write_text(json.dumps(data, ensure_ascii=False), encoding="utf-8")

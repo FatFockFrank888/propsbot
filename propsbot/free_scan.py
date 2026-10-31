@@ -244,6 +244,7 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
     data = collect(settings, diag, root / ".cache_odds")
     rows: list[ScanRow] = []
     shadow_rows: list[ScanRow] = []
+    margin_logged = False
     books: set[str] = set()
     store = Store(root / "propsbot.sqlite")
     pm = None
@@ -292,6 +293,9 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
                                                    offsets)
                 shadow_rows += shadow
             diag.lines.append(f"  {evd['home_team']} – {evd['away_team']}: {info}")
+            if "uppmätt marginal" in info and not margin_logged:
+                diag.log("Exempel " + info.split("; ", 1)[-1])
+                margin_logged = True
         else:
             miss = "Pinnacle" if "pin_lines" not in evd else "Kambi"
             diag.lines.append(f"  {evd['home_team']} – {evd['away_team']}: saknar matchlinjer från {miss}")
@@ -345,6 +349,19 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
         diag.log(f"Rättning: oväntat fel {type(e).__name__}: {e}")
     ledger.save()
     diag.log(f"Bokförda nya spel: {len(new_bets)}")
+    # Skuggspel: ben med minst 2 % edge inom oddsramen som stoppades av reglerna.
+    shadow_ledger = Ledger(root / "bokforing_skugga.json")
+    new_shadow = shadow_ledger.record(
+        rows, evd_by_id,
+        predicate=lambda r: (not r.row.decision.playable and r.row.decision.show
+                             and r.row.decision.cand.edge >= 0.02))
+    shadow_ledger.update_closing(rows, time.time())
+    try:
+        settle_open(shadow_ledger, JsonClient(root / ".cache_odds", ttl_s=900))
+    except Exception as e:
+        diag.log(f"Rättning (skuggspel): {type(e).__name__}: {e}")
+    shadow_ledger.save()
+    diag.log(f"Skuggspel: {len(new_shadow)} nya bokförda (stoppade av reglerna, minst 2 % edge)")
     test_ledger = Ledger(root / "bokforing_modell.json")
     new_test = test_ledger.record(shadow_rows, evd_by_id)
     test_ledger.update_closing(shadow_rows, time.time())
@@ -371,7 +388,7 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
         parlay_data = {"parlay_forslag": sugg,
                        "parlay_bokforing": sorted(pl.items, key=lambda x: -x["bokford"]),
                        "parlay_sammanfattning": pl.summary()}
-    write_site(root / "site", rows, ledger, settings, test_ledger, parlay_data)
+    write_site(root / "site", rows, ledger, settings, test_ledger, parlay_data, shadow_ledger)
 
     if notify and settings.get("ntfy_topic"):
         # Första körningen mot en ny kanal: skicka ett test så att man ser att det fungerar.
@@ -397,7 +414,7 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
     import os
     if os.environ.get("GITHUB_ACTIONS"):
         keep = [l for l in diag.lines if l.startswith(("Kambi", "Pinnacle", "Bolag", "VARNING"))
-                or l.startswith(("SPEL:", "Spelarodds", "Spelarmodell", "Modellens", "Modelltest", "Parlays", "Rätt",
+                or l.startswith(("SPEL:", "Exempel", "Spelarodds", "Spelarmodell", "Modellens", "Modelltest", "Parlays", "Skuggspel", "Rätt",
                                  "Struken", "Bokförda"))
                 or "spelbara" in l or "otis" in l][:45]
         print("::notice title=diagnos::" + "%0A".join(x.replace("%", "%25") for x in keep))

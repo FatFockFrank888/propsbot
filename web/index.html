@@ -58,6 +58,7 @@
   <button class="tab on" data-tab="radar">Radar</button>
   <button class="tab" data-tab="bok">Bokföring</button>
   <button class="tab" data-tab="parlay">Parlays</button>
+  <button class="tab" data-tab="skugga">Skuggspel</button>
   <button class="tab" data-tab="test">Modelltest</button>
   <span class="upd" id="upd"></span>
 </div>
@@ -119,6 +120,19 @@
       <tbody id="pbets"></tbody></table></div>
   </section>
 
+  <section id="skugga" class="hidden">
+    <div class="sub" style="margin-bottom:10px">Ben med minst 2 % edge som stoppades av reglerna (t.ex. edgekrav för mål,
+      orimligt stor edge). De rättas precis som riktiga spel men räknas inte som spelbara. Efter 1–2 veckor visar
+      siffrorna om reglerna kostar pengar eller sparar dem. Kolumnen Stopp visar varför.</div>
+    <div class="tiles" id="stiles"></div>
+    <div class="wrap"><table>
+      <thead><tr><th>Bokförd</th><th>Avspark</th><th>Match</th><th>Spelare</th><th>Spel</th>
+        <th>Bolag</th><th class="n">Odds</th><th class="n">Stängning</th><th class="n">CLV</th>
+        <th class="n">Sannolikhet</th><th class="n">Edge</th><th class="n">Insats</th>
+        <th>Status</th><th class="n">Utfall</th><th class="n">Resultat</th><th>Stopp</th></tr></thead>
+      <tbody id="sbets"></tbody></table></div>
+  </section>
+
   <section id="test" class="hidden">
     <div class="sub" style="margin-bottom:10px">Spel som den egna spelarmodellen (ESPN-statistik) hade valt. Bokförs separat
       utan notiser tills modellen har visat positiv ROI och CLV över många rättade spel.</div>
@@ -173,13 +187,15 @@ function tilesHtml(s, br) {
     ["Insats totalt", pct(s.insats_pct, 2)], ["Resultat", pct(s.resultat_pct, 2)],
     ["ROI", pct(s.roi)], ["Resultat i kr", nf((s.resultat_pct || 0) * br, 0) + " kr"],
   ];
-  if (s.clv_snitt !== undefined) t.push(["Snitt-CLV", pct(s.clv_snitt)]);
+  if (s.clv_pp !== undefined) t.push(["CLV (procentenheter, krav ≥ 1,0)",
+    s.clv_pp == null ? "–" : (s.clv_pp >= 0 ? "+" : "") + nf(s.clv_pp, 2) + ` (${s.clv_antal} st)`]);
   return t.map(([k, v]) => `<div class="tile"><div class="k">${k}</div><div class="v">${v}</div></div>`).join("");
 }
 
-function betRows(bets) {
+function betRows(bets, withStop) {
   return bets.map(b => {
     const clv = b.stangning ? b.odds / b.stangning - 1 : null;
+    const stop = (b.stopp || "").split("; ").filter(x => x && !x.startsWith("linjejusterat")).join("; ");
     return `<tr><td>${fmtTs(b.bokford)}</td><td>${fmtTs(b.avspark)}</td><td>${esc(b.match)}</td>
       <td>${esc(b.spelare)}</td><td>${label(b.marknad, b.linje)}</td><td>${esc(b.bolag)}</td>
       <td class="n">${nf(b.odds)}</td><td class="n">${nf(b.stangning)}</td>
@@ -187,8 +203,9 @@ function betRows(bets) {
       <td class="n">${pct(b.sannolikhet)}</td><td class="n">${pct(b.edge)}</td>
       <td class="n">${pct(b.insats_pct, 2)}</td><td><span class="pill ${b.status}">${b.status}</span></td>
       <td class="n">${b.utfall ?? "–"}</td>
-      <td class="n ${b.resultat_enheter > 0 ? "pos" : b.resultat_enheter < 0 ? "loss" : ""}">${pct(b.resultat_enheter, 2)}</td></tr>`;
-  }).join("") || `<tr><td colspan="15" class="empty">Inga bokförda spel än.</td></tr>`;
+      <td class="n ${b.resultat_enheter > 0 ? "pos" : b.resultat_enheter < 0 ? "loss" : ""}">${pct(b.resultat_enheter, 2)}</td>
+      ${withStop ? `<td class="neg" style="white-space:normal;min-width:260px">${esc(stop)}</td>` : ""}</tr>`;
+  }).join("") || `<tr><td colspan="16" class="empty">Inga bokförda spel än.</td></tr>`;
 }
 
 function renderExtra() {
@@ -209,38 +226,22 @@ function renderExtra() {
     <td><span class="pill ${x.status}">${x.status}</span></td>
     <td class="n ${x.resultat_enheter > 0 ? "pos" : x.resultat_enheter < 0 ? "loss" : ""}">${pct(x.resultat_enheter, 2)}</td></tr>`).join("")
     || `<tr><td colspan="8" class="empty">Inga bokförda parlays än.</td></tr>`;
+  document.getElementById("stiles").innerHTML = tilesHtml(DATA.skuggspel_sammanfattning, br);
+  document.getElementById("sbets").innerHTML = betRows(DATA.skuggspel || [], true);
   document.getElementById("ttiles").innerHTML = tilesHtml(DATA.modelltest_sammanfattning, br);
   document.getElementById("tbets").innerHTML = betRows(DATA.modelltest || []);
 }
 
 function renderBok() {
   const s = DATA.sammanfattning, br = DATA.regler.bankrulle;
-  const tiles = [
-    ["Bokförda spel", s.antal], ["Rättade", s.rattade], ["Öppna", s.oppna],
-    ["Träffprocent", s.rattade ? pct(s.vunna / s.rattade) : "–"],
-    ["Insats totalt", pct(s.insats_pct, 2)], ["Resultat", pct(s.resultat_pct, 2)],
-    ["ROI", pct(s.roi)], ["Snitt-CLV", pct(s.clv_snitt)],
-    ["Väntat resultat", pct(s.forvantat_pct, 2)], ["Resultat i kr", nf(s.resultat_pct * br, 0) + " kr"],
-  ];
-  document.getElementById("tiles").innerHTML = tiles.map(([k, v]) =>
-    `<div class="tile"><div class="k">${k}</div><div class="v">${v}</div></div>`).join("");
+  document.getElementById("tiles").innerHTML = tilesHtml(s, br);
   const pb = Object.entries(s.per_bolag || {});
   document.getElementById("books").innerHTML = pb.map(([b, x]) => `<tr><td>${esc(b)}</td>
     <td class="n">${x.spel}</td><td class="n">${pct(x.insats, 2)}</td>
     <td class="n ${x.resultat >= 0 ? "pos" : "loss"}">${pct(x.resultat, 2)}</td>
     <td class="n">${pct(x.insats ? x.resultat / x.insats : null)}</td></tr>`).join("")
     || `<tr><td colspan="5" class="empty">Inga rättade spel än.</td></tr>`;
-  document.getElementById("bets").innerHTML = DATA.bokforing.map(b => {
-    const clv = b.stangning ? b.odds / b.stangning - 1 : null;
-    return `<tr><td>${fmtTs(b.bokford)}</td><td>${fmtTs(b.avspark)}</td><td>${esc(b.match)}</td>
-      <td>${esc(b.spelare)}</td><td>${label(b.marknad, b.linje)}</td><td>${esc(b.bolag)}</td>
-      <td class="n">${nf(b.odds)}</td><td class="n">${nf(b.stangning)}</td>
-      <td class="n ${clv > 0 ? "pos" : clv < 0 ? "loss" : ""}">${pct(clv)}</td>
-      <td class="n">${pct(b.sannolikhet)}</td><td class="n">${pct(b.edge)}</td>
-      <td class="n">${pct(b.insats_pct, 2)}</td><td><span class="pill ${b.status}">${b.status}</span></td>
-      <td class="n">${b.utfall ?? "–"}</td>
-      <td class="n ${b.resultat_enheter > 0 ? "pos" : b.resultat_enheter < 0 ? "loss" : ""}">${pct(b.resultat_enheter, 2)}</td></tr>`;
-  }).join("") || `<tr><td colspan="15" class="empty">Inga bokförda spel än.</td></tr>`;
+  document.getElementById("bets").innerHTML = betRows(DATA.bokforing);
 }
 
 async function load() {
@@ -253,10 +254,10 @@ async function load() {
   } catch (e) { document.getElementById("upd").textContent = "Kunde inte läsa data."; }
 }
 
-const HASH = {radar: "", bok: "bokforing", parlay: "parlays", test: "modelltest"};
+const HASH = {radar: "", bok: "bokforing", parlay: "parlays", skugga: "skuggspel", test: "modelltest"};
 function showTab(tab) {
   document.querySelectorAll(".tab").forEach(x => x.classList.toggle("on", x.dataset.tab === tab));
-  ["radar", "bok", "parlay", "test"].forEach(id =>
+  ["radar", "bok", "parlay", "skugga", "test"].forEach(id =>
     document.getElementById(id).classList.toggle("hidden", tab !== id));
 }
 document.querySelectorAll(".tab").forEach(t => t.onclick = () => {
