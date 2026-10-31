@@ -50,8 +50,8 @@ class JsonClient:
                 f.write_text(body, encoding="utf-8")
                 return data
             except urllib.error.HTTPError as e:
-                if e.code in (429, 500, 502, 503) and attempt < 2:
-                    time.sleep(2 * (attempt + 1))
+                if e.code in (403, 429, 500, 502, 503) and attempt < 2:
+                    time.sleep(3 * (attempt + 1))
                     continue
                 if e.code == 404:
                     return None

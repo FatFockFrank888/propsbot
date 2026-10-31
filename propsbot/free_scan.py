@@ -126,12 +126,19 @@ def collect(settings: dict, diag: Diag, cache_dir: Path) -> list[tuple[dict, lis
     # -------------------------------------------------------------- Pinnacle
     if settings["use_pinnacle"] and per_event:
         try:
-            pin = PinnaclePublic(JsonClient(cache_dir, ttl_s=60))
+            pin = PinnaclePublic(JsonClient(cache_dir, ttl_s=60, min_interval_s=0.6))
             leagues = pin.leagues(settings["pinnacle_league_words"])
             diag.log(f"Pinnacle: OK, {len(leagues)} ligor")
             pevs = []
+            failed = []
             for lg in leagues:
-                pevs += pin.events(lg, hours)
+                try:
+                    pevs += pin.events(lg, hours)
+                except SourceError as e:
+                    failed.append(f"{lg.get('name')} ({e})")
+            if failed:
+                diag.log(f"Pinnacle: {len(failed)} ligor svarade inte och hoppas över: "
+                         + "; ".join(failed)[:300])
             n_props = 0
             for kid, (evd, quotes, names) in per_event.items():
                 pe = next((p for p in pevs if same_match(evd["home_team"], evd["away_team"],
@@ -139,7 +146,11 @@ def collect(settings: dict, diag: Diag, cache_dir: Path) -> list[tuple[dict, lis
                                                          p.start)), None)
                 if not pe:
                     continue
-                qs, nm, raw = pin.event_props(pe, evd["id"])
+                try:
+                    qs, nm, raw = pin.event_props(pe, evd["id"])
+                except SourceError as e:
+                    diag.lines.append(f"  {evd['home_team']} – {evd['away_team']}: Pinnacle FEL {e}")
+                    continue
                 pl = pinnacle_match_lines(raw.get("markets") or [], pe.matchup_id)
                 if pl:
                     evd["pin_lines"] = pl
