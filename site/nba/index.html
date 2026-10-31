@@ -79,7 +79,11 @@
         <option value="rebounds">Returer (NBA)</option>
         <option value="assists">Assist (NBA)</option>
         <option value="threes">Trepoängare (NBA)</option>
+        <option value="steals">Steals (NBA)</option>
+        <option value="blocks">Blocks (NBA)</option>
         <option value="pra">PRA (NBA)</option>
+        <option value="pr">Poäng + returer (NBA)</option>
+        <option value="ra">Returer + assist (NBA)</option>
       </select>
       <label><input type="checkbox" id="only"> Bara spelbara</label>
       <span class="sub">Visar bara ben med minst 2 % edge. Grön = spelbar (uppfyller marknadens edgekrav).</span>
@@ -166,7 +170,8 @@ const fmtTs = ts => {
 const fmtUtc = s => fmtTs(Date.parse(s.replace(" ", "T") + ":00Z") / 1000);
 const label = (m, l) => m === "goal" && l === 0.5 ? "gör mål" : m === "assist" && l === 0.5 ? "assist" :
   ({shots: "skott", shots_on_target: "skott på mål", goal: "mål", assist: "assist", points: "poäng",
-    rebounds: "returer", assists: "assist", threes: "trepoängare", pra: "PRA"}[m] || m) + " över " + l;
+    rebounds: "returer", assists: "assist", threes: "trepoängare", steals: "steals", blocks: "blocks",
+    pra: "PRA", pr: "poäng + returer", ra: "returer + assist"}[m] || m) + " över " + l;
 const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"}[c]));
 
 let DATA = null, sortKey = "edge", sortDir = -1;
