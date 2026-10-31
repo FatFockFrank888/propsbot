@@ -345,7 +345,7 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
     from .export import write_site
     from .ledger import Ledger
     from .results import settle_open
-    ledger = Ledger(root / "bokforing.json")
+    ledger = Ledger(root / "bokforing_v2.json")   # v2: ren start 31/10 efter rättade buggar
     evd_by_id = {evd["id"]: evd for evd, _, _ in data}
     new_bets = ledger.record(rows, evd_by_id)
     ledger.update_closing(rows, time.time())
@@ -357,7 +357,7 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
     ledger.save()
     diag.log(f"Bokförda nya spel: {len(new_bets)}")
     # Skuggspel: ben med minst 2 % edge inom oddsramen som stoppades av reglerna.
-    shadow_ledger = Ledger(root / "bokforing_skugga.json")
+    shadow_ledger = Ledger(root / "bokforing_skugga_v2.json")
     new_shadow = shadow_ledger.record(
         rows, evd_by_id,
         predicate=lambda r: (not r.row.decision.playable and r.row.decision.show
@@ -383,7 +383,7 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
     if settings.get("parlays_enabled"):
         from .parlays import ParlayLedger, suggest
         sugg = suggest(rows, evd_by_id, settings)
-        pl = ParlayLedger(root / "parlays.json")
+        pl = ParlayLedger(root / "parlays_v2.json")
         new_parlays = pl.record(sugg)
         try:
             settle_open(pl.legs_ledger(), JsonClient(root / ".cache_odds", ttl_s=900))
