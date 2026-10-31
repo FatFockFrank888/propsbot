@@ -422,10 +422,10 @@ def nba_scan(root: Path, settings_path: Path) -> dict:
         diag.log(f"NBA SPEL: {r.match} | {c.player_name} {c.market} över {c.line} | {c.best.book} "
                  f"{c.best.odds:.2f} | p {c.p:.1%} | edge {c.edge:.1%}")
     evd_by_id = {v[0]["id"]: v[0] for v in per.values()}
-    ledger = Ledger(root / "nba_bokforing.json")
+    ledger = Ledger(root / "nba_bokforing_v2.json")   # v2: efter rättad linjeflytt
     new = ledger.record(rows, evd_by_id)
     ledger.update_closing(rows, time.time())
-    shadow = Ledger(root / "nba_skugga.json")
+    shadow = Ledger(root / "nba_skugga_v2.json")
     shadow.record(rows, evd_by_id, predicate=lambda r: (not r.row.decision.playable and r.row.decision.show
                                                        and r.row.decision.cand.edge >= 0.02))
     shadow.update_closing(rows, time.time())

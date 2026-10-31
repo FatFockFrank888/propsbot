@@ -84,9 +84,26 @@ def _print_topic(topic: str) -> None:
     print("=" * 64)
 
 
+OBSOLETE = ("bokforing.json", "bokforing_skugga.json", "bokforing_skugga_v2.json", "parlays.json",
+            "bokforing_modell.json", "bokforing_modell_v2.json", "nba_bokforing.json",
+            "nba_skugga.json", "nba_parlays.json", "resultat")
+
+
+def _cleanup(root: Path) -> None:
+    """Ta bort bokföringar från tidigare, felaktiga versioner (och gamla CSV-filer)."""
+    import shutil
+    for name in OBSOLETE:
+        f = root / name
+        if f.is_dir():
+            shutil.rmtree(f, ignore_errors=True)
+        elif f.exists():
+            f.unlink()
+
+
 def cmd_free(args) -> None:
     from .free_scan import scan_once
     from .scan import format_scan
+    _cleanup(_state_root())
     topic = _ensure_topic(Path(args.settings))
     _print_topic(topic)
     rows = scan_once(_state_root(), Path(args.settings))
@@ -113,7 +130,7 @@ def run_nba(root: Path, settings_path: Path) -> None:
         return
     res = nba_scan(root, settings_path)
     sugg = suggest(res["rows"], res["evd"], settings)
-    pl = ParlayLedger(root / "nba_parlays.json")
+    pl = ParlayLedger(root / "nba_parlays_v2.json")
     new_p = pl.record(sugg)
     from .nba import settle_nba
     from .sources.http import JsonClient

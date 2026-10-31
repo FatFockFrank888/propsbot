@@ -349,9 +349,10 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
                  f"{MARKET_LABEL.get(c.market, c.market)} över {c.line} | {c.best.book} {c.best.odds:.2f} | "
                  f"Kambi rättvis {r.row.p_market:.1%} -> justerad {c.p:.1%} | edge {c.edge:.1%} | "
                  f"spela från {d.play_from:.2f} | {'; '.join(d.reasons)}")
-    out_dir = root / "resultat"
-    out_dir.mkdir(exist_ok=True)
-    write_csv(rows, out_dir / f"spel_{time.strftime('%Y%m%d_%H%M')}.csv", settings["bankroll"], False)
+    if not __import__("os").environ.get("GITHUB_ACTIONS"):   # CSV bara vid lokal körning
+        out_dir = root / "resultat"
+        out_dir.mkdir(exist_ok=True)
+        write_csv(rows, out_dir / f"spel_{time.strftime('%Y%m%d_%H%M')}.csv", settings["bankroll"], False)
     # ---- bokföring, stängningsodds, rättning och webbsida
     from .export import write_site
     from .ledger import Ledger
