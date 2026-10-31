@@ -4,12 +4,15 @@ import urllib.request
 from .sources.http import UA
 
 URLS = {
-    "sofascore": "https://api.sofascore.com/api/v1/sport/football/scheduled-events/2026-11-01",
-    "sofascore_www": "https://www.sofascore.com/api/v1/sport/football/scheduled-events/2026-11-01",
-    "fotmob": "https://www.fotmob.com/api/data/matches?date=20261101",
-    "fotmob_old": "https://www.fotmob.com/api/matches?date=20261101",
-    "understat": "https://understat.com/league/EPL/2025",
-    "fbref": "https://fbref.com/en/comps/9/Premier-League-Stats",
+    "nba_stats": "https://stats.nba.com/stats/leaguedashplayerstats?LeagueID=00&Season=2025-26&SeasonType=Regular%20Season&PerMode=PerGame&MeasureType=Base",
+    "nba_cdn_schedule": "https://cdn.nba.com/static/json/staticData/scheduleLeagueV2.json",
+    "nba_cdn_scoreboard": "https://cdn.nba.com/static/json/liveData/scoreboard/todaysScoreboard_00.json",
+    "basketball_reference": "https://www.basketball-reference.com/leagues/NBA_2026_per_game.html",
+    "hashtag_basketball": "https://hashtagbasketball.com/nba-defense-vs-position",
+    "rotowire_injuries": "https://www.rotowire.com/basketball/tables/injury-report.php?team=ALL&pos=ALL",
+    "props_cash": "https://www.props.cash/",
+    "balldontlie": "https://api.balldontlie.io/v1/players?per_page=1",
+    "espn_nba_injuries": "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/injuries",
 }
 
 
@@ -17,7 +20,11 @@ def main() -> None:
     out = []
     for name, url in URLS.items():
         try:
-            req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept": "application/json,text/html"})
+            h = {"User-Agent": UA, "Accept": "application/json,text/html"}
+            if "stats.nba.com" in url:
+                h.update({"Referer": "https://www.nba.com/", "Origin": "https://www.nba.com",
+                          "x-nba-stats-origin": "stats", "x-nba-stats-token": "true"})
+            req = urllib.request.Request(url, headers=h)
             with urllib.request.urlopen(req, timeout=20) as r:
                 body = r.read(400).decode("utf-8", "replace").replace("\n", " ")
                 out.append(f"{name}: {r.status} {body[:120]}")
