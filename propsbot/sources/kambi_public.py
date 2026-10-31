@@ -120,8 +120,9 @@ def parse_betoffers(raw: dict, book: str, match_id: str) -> tuple[list[OddsQuote
                 side = "over" if low == "yes" else "under"
             else:
                 side = "over"            # utfallet är själva spelaren (t.ex. målskytt)
-                player = player or olabel
-            if not player:
+            # Bara utfall där Kambi uttryckligen anger en spelare räknas. Lagmarknader
+            # ("Same amount of goals", "Both teams to score" …) saknar participant.
+            if not player or not (o.get("participantId") or o.get("participant")):
                 continue
             if o.get("line") is not None:
                 line = o["line"] / 1000.0

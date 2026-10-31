@@ -238,6 +238,9 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
                 shown=int(d.show), stake=d.stake, reasons="; ".join(d.reasons)))
     rows.sort(key=lambda r: -r.row.decision.cand.edge)
     diag.log(f"Bolag med spelarodds: {', '.join(sorted(books)) or 'inga'}")
+    from collections import Counter
+    mc = Counter(q.market for _, qs, _ in data for q in qs)
+    diag.log("Spelarodds per marknad: " + ", ".join(f"{k} {v}" for k, v in sorted(mc.items())))
     if "pinnacle" not in books:
         diag.log("Pinnacle har inga spelarprops här – använder linjejustering mot Pinnacles matchlinjer.")
     playable = [r for r in rows if r.row.decision.playable and r.row.decision.show]
@@ -267,7 +270,7 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
     import os
     if os.environ.get("GITHUB_ACTIONS"):
         keep = [l for l in diag.lines if l.startswith(("Kambi", "Pinnacle", "Bolag", "VARNING"))
-                or l.startswith("SPEL:") or "spelbara" in l or "otis" in l][:45]
+                or l.startswith(("SPEL:", "Spelarodds")) or "spelbara" in l or "otis" in l][:45]
         print("::notice title=diagnos::" + "%0A".join(x.replace("%", "%25") for x in keep))
     return rows
 

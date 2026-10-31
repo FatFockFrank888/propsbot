@@ -270,3 +270,16 @@ def test_asian_total_lines_ignored_and_big_ratio_skipped():
                                         Lines((1.95, 3.7, 4.0), 2.5, (1.30, 3.60)),
                                         Lines((2.0, 3.5, 3.8), 2.5, (2.10, 1.75)))
     assert rows == [] and "hoppas över" in info
+
+
+def test_kambi_team_markets_without_participant_ignored():
+    raw = {"betOffers": [
+        {"criterion": {"englishLabel": "Same amount of goals in both halves"},
+         "outcomes": [{"englishLabel": "Same amount of goals", "odds": 1650, "status": "OPEN"}]},
+        {"criterion": {"englishLabel": "To score"},
+         "outcomes": [{"englishLabel": "Bournemouth", "odds": 1300, "status": "OPEN"}]},
+        {"criterion": {"englishLabel": "To score"},
+         "outcomes": [{"englishLabel": "Semenyo, Antoine", "participant": "Semenyo, Antoine",
+                       "participantId": 1, "odds": 2900, "status": "OPEN"}]}]}
+    qs, names = parse_betoffers(raw, "unibet", "k1")
+    assert [(q.player_id, q.market) for q in qs] == [("antoine semenyo", "goal")]

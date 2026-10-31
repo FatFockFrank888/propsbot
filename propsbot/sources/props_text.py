@@ -9,7 +9,9 @@ from .the_odds_api import normalize_name
 
 EXCLUDE_WORDS = ("first", "last", "team", "header", "outside", "inside", "hat", "brace",
                  "half", "minute", "card", "foul", "tackle", "save", "pass", "offside",
-                 "corner", "combined", "both", "and ", "headed", "penalt", "own goal", "exactly", " or ")
+                 "corner", "combined", "both", "and ", "headed", "penalt", "own goal", "exactly", " or ",
+                 "same", "match", "total goals", "both teams", "draw", "winner", "handicap",
+                 "clean sheet", "win to nil", "odd", "even", "correct score")
 
 
 def market_from_label(label: str) -> tuple[str, float | None] | None:
