@@ -1,4 +1,4 @@
-Skanning 2026-10-31 14:01
+Skanning 2026-10-31 14:07
 Kambi unibet (ubse): OK, 33 matcher i valda ligor
 Kambi paf (paf): OK
 Kambi atg (atg): OK
@@ -6,8 +6,8 @@ Kambi leovegas (leose): OK
 Kambi svenskaspel (svenskaspel): OK
 Kambi expekt (expektse): OK
 Pinnacle: OK, 14 ligor
-  Malmö FF – Hammarby IF: Pinnacle FEL HTTP 403 för https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639253097/markets/related/straight
-Pinnacle: 50 matcher, matchlinjer för 23 av 30 Kambi-matcher, 0 spelarodds som används
+  Como – Venezia: Pinnacle FEL HTTP 403 för https://guest.api.arcadia.pinnacle.com/0.1/matchups/1638721281/related
+Pinnacle: 49 matcher, matchlinjer för 23 av 30 Kambi-matcher, 0 spelarodds som används
 Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
   Double Chance 1st Half | units=Regular | kategori=Team Props | deltagare=Bayer Leverkusen Or Stuttgart,Draw Or Stuttgart,Draw Or Bayer Leverkusen  ->  används inte (lagmarknad)
   Moneyline and Total Goals | units=Regular | kategori=Team Props | deltagare=Bayer Leverkusen & Over 3.5,Bayer Leverkusen & Under 3.5,Draw & Over 3.5,Draw & Under 3.5,Stuttgart & Over 3.5,Stuttgart & Under 3.5  ->  används inte (lagmarknad)
@@ -70,70 +70,102 @@ Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
   Borussia Monchengladbach To Win To Nil 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
   Paderborn To Win To Nil 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
   Bayer Leverkusen – VfB Stuttgart: modell ger.1, 29 spelare
-  Bayer Leverkusen – VfB Stuttgart: väntade mål Pinnacle 3.88 mot Kambi 3.88 (kvot 1.001)
   Borussia Mönchengladbach – SC Paderborn 07: modell ger.1, 27 spelare
-  Borussia Mönchengladbach – SC Paderborn 07: väntade mål Pinnacle 3.21 mot Kambi 3.20 (kvot 1.004)
   FC Schalke 04 – RB Leipzig: modell ger.1, 30 spelare
-  FC Schalke 04 – RB Leipzig: väntade mål Pinnacle 3.11 mot Kambi 3.22 (kvot 0.966)
   Werder Bremen – TSG Hoffenheim: modell ger.1, 25 spelare
-  Werder Bremen – TSG Hoffenheim: väntade mål Pinnacle 3.61 mot Kambi 3.57 (kvot 1.012)
   FC Augsburg – SC Freiburg: modell ger.1, 27 spelare
-  FC Augsburg – SC Freiburg: väntade mål Pinnacle 3.17 mot Kambi 3.24 (kvot 0.980)
   Bournemouth – Leeds United: modell eng.1, 27 spelare
-  Bournemouth – Leeds United: väntade mål Pinnacle 2.75 mot Kambi 2.71 (kvot 1.014)
   Brentford – Nottingham Forest: modell eng.1, 28 spelare
-  Brentford – Nottingham Forest: väntade mål Pinnacle 3.03 mot Kambi 3.00 (kvot 1.009)
   Coventry City – Sunderland: modell eng.1, 27 spelare
-  Coventry City – Sunderland: väntade mål Pinnacle 2.64 mot Kambi 2.61 (kvot 1.012)
   Manchester City – Brighton: modell – hittar inte matchen hos ESPN
-  Manchester City – Brighton: väntade mål Pinnacle 3.31 mot Kambi 3.38 (kvot 0.979)
   Hull City – Ipswich Town: modell eng.1, 29 spelare
+  Rayo Vallecano – Celta Vigo: modell esp.1, 32 spelare
+  Udinese – Roma: modell ita.1, 33 spelare
+  Bayern Munich – Borussia Dortmund: modell ger.1, 31 spelare
+  Tottenham – Crystal Palace: modell eng.1, 28 spelare
+  Real Betis – Málaga: modell esp.1, 34 spelare
+  Troyes – Le Mans: modell fra.1, 33 spelare
+  Aston Villa – Fulham: modell eng.1, 28 spelare
+  FC Barcelona – Alaves: modell esp.1, 30 spelare
+  Malmö FF – Hammarby IF: modell swe.1, 28 spelare
+  Djurgårdens IF – Degerfors IF: modell swe.1, 29 spelare
+  Getafe – Sevilla: modell esp.1, 29 spelare
+Modellens nivåavvikelse mot marknaden (log-odds, dras bort): assist -3.09, goal -2.44, shots -0.61, shots_on_target -0.39
+  Bayer Leverkusen – VfB Stuttgart: väntade mål Pinnacle 3.88 mot Kambi 3.88 (kvot 1.001)
+  Borussia Mönchengladbach – SC Paderborn 07: väntade mål Pinnacle 3.21 mot Kambi 3.20 (kvot 1.004)
+  FC Schalke 04 – RB Leipzig: väntade mål Pinnacle 3.11 mot Kambi 3.22 (kvot 0.966)
+  Werder Bremen – TSG Hoffenheim: väntade mål Pinnacle 3.61 mot Kambi 3.57 (kvot 1.012)
+  FC Augsburg – SC Freiburg: väntade mål Pinnacle 3.20 mot Kambi 3.24 (kvot 0.986)
+  Bournemouth – Leeds United: väntade mål Pinnacle 2.75 mot Kambi 2.71 (kvot 1.014)
+  Brentford – Nottingham Forest: väntade mål Pinnacle 3.03 mot Kambi 3.00 (kvot 1.009)
+  Coventry City – Sunderland: väntade mål Pinnacle 2.64 mot Kambi 2.61 (kvot 1.012)
+  Manchester City – Brighton: väntade mål Pinnacle 3.31 mot Kambi 3.44 (kvot 0.962)
   Hull City – Ipswich Town: väntade mål Pinnacle 2.72 mot Kambi 2.70 (kvot 1.010)
   Eibar – Almeria: saknar matchlinjer från Pinnacle
-  Rayo Vallecano – Celta Vigo: modell esp.1, 32 spelare
   Rayo Vallecano – Celta Vigo: väntade mål Pinnacle 2.42 mot Kambi 2.48 (kvot 0.974)
-  Udinese – Roma: modell ita.1, 33 spelare
   Udinese – Roma: väntade mål Pinnacle 3.16 mot Kambi 3.16 (kvot 1.003)
-  Bayern Munich – Borussia Dortmund: modell ger.1, 31 spelare
   Bayern Munich – Borussia Dortmund: väntade mål Pinnacle 3.91 mot Kambi 4.02 (kvot 0.973)
-  Tottenham – Crystal Palace: modell eng.1, 28 spelare
   Tottenham – Crystal Palace: väntade mål Pinnacle 2.92 mot Kambi 2.95 (kvot 0.988)
   Celta Vigo B – Córdoba CF: saknar matchlinjer från Pinnacle
-  Real Betis – Málaga: modell esp.1, 34 spelare
   Real Betis – Málaga: väntade mål Pinnacle 3.35 mot Kambi 3.37 (kvot 0.993)
   AC Milan – Inter: saknar matchlinjer från Pinnacle
-  Troyes – Le Mans: modell fra.1, 33 spelare
   Troyes – Le Mans: väntade mål Pinnacle 2.55 mot Kambi 2.62 (kvot 0.971)
-  Aston Villa – Fulham: modell eng.1, 28 spelare
   Aston Villa – Fulham: väntade mål Pinnacle 2.81 mot Kambi 2.83 (kvot 0.995)
   Albacete Balompié – Sabadell FC: saknar matchlinjer från Pinnacle
-  FC Barcelona – Alaves: modell esp.1, 30 spelare
   FC Barcelona – Alaves: väntade mål Pinnacle 4.18 mot Kambi 4.19 (kvot 0.998)
-  Como – Venezia: modell ita.1, 29 spelare
-  Como – Venezia: väntade mål Pinnacle 3.55 mot Kambi 3.67 (kvot 0.968)
+  Como – Venezia: saknar matchlinjer från Pinnacle
   CD Eldense – Granada: saknar matchlinjer från Pinnacle
-  Malmö FF – Hammarby IF: saknar matchlinjer från Pinnacle
-  Djurgårdens IF – Degerfors IF: modell swe.1, 29 spelare
+  Malmö FF – Hammarby IF: väntade mål Pinnacle 3.13 mot Kambi 3.07 (kvot 1.017)
   Djurgårdens IF – Degerfors IF: väntade mål Pinnacle 3.21 mot Kambi 3.24 (kvot 0.990)
-  Getafe – Sevilla: modell esp.1, 29 spelare
   Getafe – Sevilla: väntade mål Pinnacle 2.09 mot Kambi 2.07 (kvot 1.011)
 Bolag med spelarodds: atg, expekt, leovegas, paf, svenskaspel, unibet
-Spelarodds per marknad: assist 3138, goal 7240, shots 7135, shots_on_target 5084
-Kambi-marknader: assist='to give an assist (settled using opta data)':3138; goal='to score':4457; goal='to score at least 2 goals':2297; goal='to score at least 3 goals':420; goal='to score at least 4 goals':60; goal='to score at least 5 goals':6; shots="player's shots (settled using opta data)":7135; shots_on_target="player's shots on target (settled using opta data)":5084
+Spelarodds per marknad: assist 3138, goal 7240, shots 7131, shots_on_target 5084
+Kambi-marknader: assist='to give an assist (settled using opta data)':3138; goal='to score':4457; goal='to score at least 2 goals':2297; goal='to score at least 3 goals':420; goal='to score at least 4 goals':60; goal='to score at least 5 goals':6; shots="player's shots (settled using opta data)":7131; shots_on_target="player's shots on target (settled using opta data)":5084
 Pinnacle har inga spelarprops här – använder linjejustering mot Pinnacles matchlinjer.
-Spelarmodell: 2501 av 3393 ben har modell, 242 nya matcher hämtade från ESPN
-12 spelbara ben.
-SPEL: Getafe – Sevilla (2026-11-01 13:00 UTC) | Nemanja Gudelj | Skott över 1.5 | unibet 4.00 | Kambi rättvis 22.7% -> justerad 27.4% | edge 9.8% | spela från 3.83 | linjejusterat: väntade mål Pinnacle 2.09 mot Kambi 2.07 (kvot 1.011); modell 44% (väntat 1.55, 8 matcher, 7 starter), marknad 23%, modellvikt 0.25; ensidigt pris – högre edgekrav
-SPEL: Udinese – Roma (2026-10-31 17:00 UTC) | Leonardo Balerdi | Skott på mål över 0.5 | unibet 4.00 | Kambi rättvis 22.5% -> justerad 27.0% | edge 8.0% | spela från 3.89 | linjejusterat: väntade mål Pinnacle 3.16 mot Kambi 3.16 (kvot 1.003); modell 43% (väntat 0.58, 6 matcher, 3 starter), marknad 23%, modellvikt 0.25; ensidigt pris – högre edgekrav
-SPEL: Getafe – Sevilla (2026-11-01 13:00 UTC) | Ramon Terrats | Skott på mål över 0.5 | unibet 2.70 | Kambi rättvis 34.0% -> justerad 39.9% | edge 7.9% | spela från 2.63 | linjejusterat: väntade mål Pinnacle 2.09 mot Kambi 2.07 (kvot 1.011); modell 58% (väntat 0.92, 7 matcher, 7 starter), marknad 34%, modellvikt 0.25; ensidigt pris – högre edgekrav
-SPEL: Aston Villa – Fulham (2026-10-31 20:00 UTC) | Ian Maatsen | Skott över 1.5 | unibet 3.50 | Kambi rättvis 26.2% -> justerad 30.6% | edge 7.0% | spela från 3.43 | linjejusterat: väntade mål Pinnacle 2.81 mot Kambi 2.83 (kvot 0.995); modell 46% (väntat 1.64, 5 matcher, 5 starter), marknad 26%, modellvikt 0.25; ensidigt pris – högre edgekrav
-SPEL: Borussia Mönchengladbach – SC Paderborn 07 (2026-10-31 14:30 UTC) | Raphael Obermair | Skott över 1.5 | unibet 3.10 | Kambi rättvis 29.7% -> justerad 34.4% | edge 6.7% | spela från 3.05 | linjejusterat: väntade mål Pinnacle 3.21 mot Kambi 3.20 (kvot 1.004); modell 50% (väntat 1.77, 7 matcher, 7 starter), marknad 30%, modellvikt 0.25; ensidigt pris – högre edgekrav
-SPEL: Udinese – Roma (2026-10-31 17:00 UTC) | Hassane Kamara | Skott på mål över 0.5 | unibet 4.00 | Kambi rättvis 22.5% -> justerad 26.6% | edge 6.6% | spela från 3.94 | linjejusterat: väntade mål Pinnacle 3.16 mot Kambi 3.16 (kvot 1.003); modell 41% (väntat 0.55, 8 matcher, 8 starter), marknad 23%, modellvikt 0.25; ensidigt pris – högre edgekrav
-SPEL: Bayer Leverkusen – VfB Stuttgart (2026-10-31 14:30 UTC) | Grischa Prömel | Skott över 2.5 | unibet 5.40 | Kambi rättvis 16.5% -> justerad 19.7% | edge 6.4% | spela från 5.33 | linjejusterat: väntade mål Pinnacle 3.88 mot Kambi 3.88 (kvot 1.001); modell 32% (väntat 1.99, 7 matcher, 4 starter), marknad 17%, modellvikt 0.25; ensidigt pris – högre edgekrav
-SPEL: Como – Venezia (2026-11-01 11:30 UTC) | Jacobo Ramón | Skott på mål över 0.5 | unibet 2.95 | Kambi rättvis 31.0% -> justerad 35.9% | edge 6.0% | spela från 2.92 | linjejusterat: väntade mål Pinnacle 3.55 mot Kambi 3.67 (kvot 0.968); modell 54% (väntat 0.81, 8 matcher, 6 starter), marknad 30%, modellvikt 0.25; ensidigt pris – högre edgekrav
-SPEL: Tottenham – Crystal Palace (2026-10-31 17:30 UTC) | Conor Gallagher | Skott på mål över 0.5 | atg 2.30 | Kambi rättvis 41.0% -> justerad 46.0% | edge 5.9% | spela från 2.28 | linjejusterat: väntade mål Pinnacle 2.92 mot Kambi 2.95 (kvot 0.988); modell 62% (väntat 1.01, 6 matcher, 3 starter), marknad 41%, modellvikt 0.25; ensidigt pris – högre edgekrav
-SPEL: Brentford – Nottingham Forest (2026-10-31 15:00 UTC) | Murillo | Skott på mål över 0.5 | unibet 5.00 | Kambi rättvis 17.8% -> justerad 21.2% | edge 5.9% | spela från 4.96 | linjejusterat: väntade mål Pinnacle 3.03 mot Kambi 3.00 (kvot 1.009); modell 54% (väntat 0.81, 8 matcher, 8 starter), marknad 18%, modellvikt 0.12; ensidigt pris – högre edgekrav
-SPEL: Brentford – Nottingham Forest (2026-10-31 15:00 UTC) | James McAtee | Skott över 2.5 | unibet 4.30 | Kambi rättvis 21.1% -> justerad 24.6% | edge 5.6% | spela från 4.27 | linjejusterat: väntade mål Pinnacle 3.03 mot Kambi 3.00 (kvot 1.009); modell 36% (väntat 2.19, 8 matcher, 8 starter), marknad 21%, modellvikt 0.25; ensidigt pris – högre edgekrav
-SPEL: Bayer Leverkusen – VfB Stuttgart (2026-10-31 14:30 UTC) | Julian Chabot | Skott på mål över 0.5 | unibet 4.70 | Kambi rättvis 19.0% -> justerad 22.4% | edge 5.2% | spela från 4.69 | linjejusterat: väntade mål Pinnacle 3.88 mot Kambi 3.88 (kvot 1.001); modell 35% (väntat 0.44, 7 matcher, 6 starter), marknad 19%, modellvikt 0.25; ensidigt pris – högre edgekrav
-Bokförda nya spel: 12
-Notiser skickade: 12
+Spelarmodell: 2402 av 3213 ben har modell, 14 nya matcher hämtade från ESPN
+43 spelbara ben.
+SPEL: Hull City – Ipswich Town (2026-10-31 15:00 UTC) | Nobel Mendy | Skott på mål över 0.5 | unibet 4.20 | Kambi rättvis 21.4% -> justerad 26.0% | edge 9.1% | spela från 4.04 | linjejusterat: väntade mål Pinnacle 2.72 mot Kambi 2.70 (kvot 1.010); modell 43% (rå 33%, väntat 0.42, 5 matcher, 5 starter), marknad 22%, modellvikt 0.25; ensidigt pris – högre edgekrav
+SPEL: Werder Bremen – TSG Hoffenheim (2026-10-31 14:30 UTC) | Wouter Burger | Skott över 1.5 | unibet 3.00 | Kambi rättvis 30.7% -> justerad 36.4% | edge 9.1% | spela från 2.89 | linjejusterat: väntade mål Pinnacle 3.61 mot Kambi 3.57 (kvot 1.012); modell 54% (rå 39%, väntat 1.39, 6 matcher, 6 starter), marknad 31%, modellvikt 0.25; ensidigt pris – högre edgekrav
+SPEL: Brentford – Nottingham Forest (2026-10-31 15:00 UTC) | Murillo | Skott på mål över 0.5 | unibet 5.00 | Kambi rättvis 17.8% -> justerad 21.8% | edge 8.9% | spela från 4.82 | linjejusterat: väntade mål Pinnacle 3.03 mot Kambi 3.00 (kvot 1.009); modell 61% (rå 51%, väntat 0.75, 8 matcher, 8 starter), marknad 18%, modellvikt 0.12; ensidigt pris – högre edgekrav
+SPEL: Bournemouth – Leeds United (2026-10-31 15:00 UTC) | António Silva | Skott över 1.5 | unibet 4.50 | Kambi rättvis 20.1% -> justerad 24.2% | edge 8.8% | spela från 4.34 | linjejusterat: väntade mål Pinnacle 2.75 mot Kambi 2.71 (kvot 1.014); modell 39% (rå 25%, väntat 0.97, 8 matcher, 8 starter), marknad 20%, modellvikt 0.25; ensidigt pris – högre edgekrav
+SPEL: Bournemouth – Leeds United (2026-10-31 15:00 UTC) | James Justin | Skott på mål över 0.5 | unibet 4.80 | Kambi rättvis 18.6% -> justerad 22.6% | edge 8.6% | spela från 4.64 | linjejusterat: väntade mål Pinnacle 2.75 mot Kambi 2.71 (kvot 1.014); modell 37% (rå 29%, väntat 0.35, 8 matcher, 8 starter), marknad 19%, modellvikt 0.25; ensidigt pris – högre edgekrav
+SPEL: Bayer Leverkusen – VfB Stuttgart (2026-10-31 14:30 UTC) | Jarell Quansah | Skott över 1.5 | unibet 4.50 | Kambi rättvis 20.1% -> justerad 24.1% | edge 8.6% | spela från 4.35 | linjejusterat: väntade mål Pinnacle 3.88 mot Kambi 3.88 (kvot 1.001); modell 39% (rå 26%, väntat 0.99, 7 matcher, 6 starter), marknad 20%, modellvikt 0.25; ensidigt pris – högre edgekrav
+SPEL: Brentford – Nottingham Forest (2026-10-31 15:00 UTC) | Liam Delap | Skott över 4.5 | unibet 4.00 | Kambi rättvis 22.7% -> justerad 27.1% | edge 8.6% | spela från 3.87 | linjejusterat: väntade mål Pinnacle 3.03 mot Kambi 3.00 (kvot 1.009); modell 42% (rå 28%, väntat 3.44, 7 matcher, 6 starter), marknad 23%, modellvikt 0.25; ensidigt pris – högre edgekrav
+SPEL: Udinese – Roma (2026-10-31 17:00 UTC) | Gianluca Mancini | Skott på mål över 0.5 | unibet 4.00 | Kambi rättvis 22.5% -> justerad 27.1% | edge 8.6% | spela från 3.87 | linjejusterat: väntade mål Pinnacle 3.16 mot Kambi 3.16 (kvot 1.003); modell 44% (rå 35%, väntat 0.43, 7 matcher, 7 starter), marknad 23%, modellvikt 0.25; ensidigt pris – högre edgekrav
+SPEL: Getafe – Sevilla (2026-11-01 13:00 UTC) | Juan Iglesias | Skott på mål över 0.5 | unibet 5.00 | Kambi rättvis 17.8% -> justerad 21.7% | edge 8.5% | spela från 4.84 | linjejusterat: väntade mål Pinnacle 2.09 mot Kambi 2.07 (kvot 1.011); modell 36% (rå 28%, väntat 0.33, 8 matcher, 8 starter), marknad 18%, modellvikt 0.25; ensidigt pris – högre edgekrav
+SPEL: Borussia Mönchengladbach – SC Paderborn 07 (2026-10-31 14:30 UTC) | Mattes Hansen | Skott över 1.5 | unibet 4.40 | Kambi rättvis 20.5% -> justerad 24.6% | edge 8.4% | spela från 4.26 | linjejusterat: väntade mål Pinnacle 3.21 mot Kambi 3.20 (kvot 1.004); modell 39% (rå 26%, väntat 0.99, 7 matcher, 7 starter), marknad 21%, modellvikt 0.25; ensidigt pris – högre edgekrav
+SPEL: Coventry City – Sunderland (2026-10-31 15:00 UTC) | Jay Dasilva | Skott på mål över 0.5 | unibet 5.20 | Kambi rättvis 17.0% -> justerad 20.8% | edge 8.4% | spela från 5.04 | linjejusterat: väntade mål Pinnacle 2.64 mot Kambi 2.61 (kvot 1.012); modell 35% (rå 27%, väntat 0.32, 8 matcher, 8 starter), marknad 17%, modellvikt 0.25; ensidigt pris – högre edgekrav
+SPEL: Borussia Mönchengladbach – SC Paderborn 07 (2026-10-31 14:30 UTC) | Lukas Ullrich | Skott över 1.5 | unibet 2.90 | Kambi rättvis 31.8% -> justerad 37.4% | edge 8.3% | spela från 2.81 | linjejusterat: väntade mål Pinnacle 3.21 mot Kambi 3.20 (kvot 1.004); modell 55% (rå 40%, väntat 1.42, 6 matcher, 6 starter), marknad 32%, modellvikt 0.25; ensidigt pris – högre edgekrav
+SPEL: Brentford – Nottingham Forest (2026-10-31 15:00 UTC) | Xaver Schlager | Skott över 1.5 | unibet 3.30 | Kambi rättvis 27.8% -> justerad 32.7% | edge 8.0% | spela från 3.21 | linjejusterat: väntade mål Pinnacle 3.03 mot Kambi 3.00 (kvot 1.009); modell 70% (rå 56%, väntat 2.01, 8 matcher, 7 starter), marknad 28%, modellvikt 0.12; ensidigt pris – högre edgekrav
+SPEL: Werder Bremen – TSG Hoffenheim (2026-10-31 14:30 UTC) | Ozan Kabak | Skott över 2.5 | unibet 5.30 | Kambi rättvis 16.9% -> justerad 20.4% | edge 7.9% | spela från 5.16 | linjejusterat: väntade mål Pinnacle 3.61 mot Kambi 3.57 (kvot 1.012); modell 33% (rå 21%, väntat 1.53, 7 matcher, 6 starter), marknad 17%, modellvikt 0.25; ensidigt pris – högre edgekrav
+SPEL: Udinese – Roma (2026-10-31 17:00 UTC) | Jakub Piotrowski | Skott över 1.5 | unibet 2.50 | Kambi rättvis 37.1% -> justerad 43.2% | edge 7.9% | spela från 2.43 | linjejusterat: väntade mål Pinnacle 3.16 mot Kambi 3.16 (kvot 1.003); modell 62% (rå 46%, väntat 1.64, 5 matcher, 3 starter), marknad 37%, modellvikt 0.25; ensidigt pris – högre edgekrav
+SPEL: Udinese – Roma (2026-10-31 17:00 UTC) | Jesper Karlström | Skott på mål över 0.5 | unibet 4.50 | Kambi rättvis 19.9% -> justerad 24.0% | edge 7.9% | spela från 4.38 | linjejusterat: väntade mål Pinnacle 3.16 mot Kambi 3.16 (kvot 1.003); modell 39% (rå 30%, väntat 0.37, 8 matcher, 8 starter), marknad 20%, modellvikt 0.25; ensidigt pris – högre edgekrav
+SPEL: Real Betis – Málaga (2026-10-31 17:30 UTC) | Diego Llorente | Skott över 1.5 | unibet 4.40 | Kambi rättvis 20.5% -> justerad 24.5% | edge 7.7% | spela från 4.29 | linjejusterat: väntade mål Pinnacle 3.35 mot Kambi 3.37 (kvot 0.993); modell 39% (rå 26%, väntat 0.99, 4 matcher, 4 starter), marknad 20%, modellvikt 0.25; ensidigt pris – högre edgekrav
+SPEL: Tottenham – Crystal Palace (2026-10-31 17:30 UTC) | Sandro Tonali | Skott över 2.5 | unibet 3.50 | Kambi rättvis 26.2% -> justerad 30.8% | edge 7.7% | spela från 3.41 | linjejusterat: väntade mål Pinnacle 2.92 mot Kambi 2.95 (kvot 0.988); modell 48% (rå 33%, väntat 2.05, 8 matcher, 8 starter), marknad 26%, modellvikt 0.25; ensidigt pris – högre edgekrav
+SPEL: Bayer Leverkusen – VfB Stuttgart (2026-10-31 14:30 UTC) | Ermedin Demirovic | Skott över 3.5 | unibet 3.50 | Kambi rättvis 26.2% -> justerad 30.7% | edge 7.4% | spela från 3.42 | linjejusterat: väntade mål Pinnacle 3.88 mot Kambi 3.88 (kvot 1.001); modell 46% (rå 32%, väntat 2.83, 7 matcher, 5 starter), marknad 26%, modellvikt 0.25; ensidigt pris – högre edgekrav
+SPEL: Brentford – Nottingham Forest (2026-10-31 15:00 UTC) | Neco Williams | Skott på mål över 0.5 | unibet 3.60 | Kambi rättvis 25.2% -> justerad 29.8% | edge 7.2% | spela från 3.53 | linjejusterat: väntade mål Pinnacle 3.03 mot Kambi 3.00 (kvot 1.009); modell 45% (rå 36%, väntat 0.46, 8 matcher, 8 starter), marknad 25%, modellvikt 0.25; ensidigt pris – högre edgekrav
+SPEL: Werder Bremen – TSG Hoffenheim (2026-10-31 14:30 UTC) | Marco Friedl | Skott över 1.5 | unibet 6.00 | Kambi rättvis 14.7% -> justerad 17.8% | edge 7.1% | spela från 5.88 | linjejusterat: väntade mål Pinnacle 3.61 mot Kambi 3.57 (kvot 1.012); modell 29% (rå 18%, väntat 0.77, 7 matcher, 7 starter), marknad 15%, modellvikt 0.25; ensidigt pris – högre edgekrav
+SPEL: Troyes – Le Mans (2026-10-31 19:45 UTC) | Lucas Buadés | Skott över 1.5 | unibet 4.50 | Kambi rättvis 20.1% -> justerad 23.8% | edge 7.1% | spela från 4.41 | linjejusterat: väntade mål Pinnacle 2.55 mot Kambi 2.62 (kvot 0.971); modell 39% (rå 26%, väntat 0.99, 4 matcher, 4 starter), marknad 20%, modellvikt 0.25; ensidigt pris – högre edgekrav
+SPEL: Borussia Mönchengladbach – SC Paderborn 07 (2026-10-31 14:30 UTC) | Laurin Curda | Skott över 2.5 | unibet 4.60 | Kambi rättvis 19.6% -> justerad 23.3% | edge 7.0% | spela från 4.51 | linjejusterat: väntade mål Pinnacle 3.21 mot Kambi 3.20 (kvot 1.004); modell 36% (rå 24%, väntat 1.64, 7 matcher, 7 starter), marknad 20%, modellvikt 0.25; ensidigt pris – högre edgekrav
+SPEL: Udinese – Roma (2026-10-31 17:00 UTC) | Mergim Vojvoda | Skott över 1.5 | unibet 4.10 | Kambi rättvis 22.1% -> justerad 26.1% | edge 7.0% | spela från 4.02 | linjejusterat: väntade mål Pinnacle 3.16 mot Kambi 3.16 (kvot 1.003); modell 40% (rå 27%, väntat 1.01, 8 matcher, 7 starter), marknad 22%, modellvikt 0.25; ensidigt pris – högre edgekrav
+SPEL: Bournemouth – Leeds United (2026-10-31 15:00 UTC) | Ao Tanaka | Skott på mål över 0.5 | unibet 3.30 | Kambi rättvis 27.6% -> justerad 32.4% | edge 7.0% | spela från 3.24 | linjejusterat: väntade mål Pinnacle 2.75 mot Kambi 2.71 (kvot 1.014); modell 48% (rå 39%, väntat 0.50, 7 matcher, 6 starter), marknad 28%, modellvikt 0.25; ensidigt pris – högre edgekrav
+SPEL: Udinese – Roma (2026-10-31 17:00 UTC) | Giorgi Chakvetadze | Skott över 1.5 | unibet 2.90 | Kambi rättvis 31.8% -> justerad 36.9% | edge 7.0% | spela från 2.85 | linjejusterat: väntade mål Pinnacle 3.16 mot Kambi 3.16 (kvot 1.003); modell 53% (rå 38%, väntat 1.36, 6 matcher, 4 starter), marknad 32%, modellvikt 0.25; ensidigt pris – högre edgekrav
+SPEL: Udinese – Roma (2026-10-31 17:00 UTC) | Christian Kabasele | Skott på mål över 0.5 | unibet 5.50 | Kambi rättvis 16.1% -> justerad 19.4% | edge 6.9% | spela från 5.40 | linjejusterat: väntade mål Pinnacle 3.16 mot Kambi 3.16 (kvot 1.003); modell 33% (rå 25%, väntat 0.29, 5 matcher, 4 starter), marknad 16%, modellvikt 0.25; ensidigt pris – högre edgekrav
+SPEL: Bayern Munich – Borussia Dortmund (2026-10-31 17:30 UTC) | Kim Min-jae | Skott på mål över 0.5 | unibet 3.50 | Kambi rättvis 25.9% -> justerad 30.5% | edge 6.8% | spela från 3.44 | linjejusterat: väntade mål Pinnacle 3.91 mot Kambi 4.02 (kvot 0.973); modell 48% (rå 38%, väntat 0.50, 4 matcher, 3 starter), marknad 26%, modellvikt 0.25; ensidigt pris – högre edgekrav
+SPEL: Bayer Leverkusen – VfB Stuttgart (2026-10-31 14:30 UTC) | Miguel Gutiérrez | Skott över 1.5 | unibet 2.90 | Kambi rättvis 31.8% -> justerad 36.8% | edge 6.8% | spela från 2.85 | linjejusterat: väntade mål Pinnacle 3.88 mot Kambi 3.88 (kvot 1.001); modell 53% (rå 38%, väntat 1.36, 7 matcher, 7 starter), marknad 32%, modellvikt 0.25; ensidigt pris – högre edgekrav
+SPEL: FC Augsburg – SC Freiburg (2026-10-31 14:30 UTC) | Matthias Ginter | Skott över 1.5 | unibet 3.10 | Kambi rättvis 29.7% -> justerad 34.5% | edge 6.8% | spela från 3.05 | linjejusterat: väntade mål Pinnacle 3.20 mot Kambi 3.24 (kvot 0.986); modell 51% (rå 36%, väntat 1.30, 7 matcher, 7 starter), marknad 29%, modellvikt 0.25; ensidigt pris – högre edgekrav
+SPEL: Borussia Mönchengladbach – SC Paderborn 07 (2026-10-31 14:30 UTC) | Raphael Obermair | Skott på mål över 0.5 | unibet 2.70 | Kambi rättvis 34.0% -> justerad 39.5% | edge 6.7% | spela från 2.66 | linjejusterat: väntade mål Pinnacle 3.21 mot Kambi 3.20 (kvot 1.004); modell 57% (rå 47%, väntat 0.66, 7 matcher, 7 starter), marknad 34%, modellvikt 0.25; ensidigt pris – högre edgekrav
+SPEL: Borussia Mönchengladbach – SC Paderborn 07 (2026-10-31 14:30 UTC) | Santiago Castañeda | Skott över 1.5 | unibet 3.00 | Kambi rättvis 30.7% -> justerad 35.5% | edge 6.6% | spela från 2.96 | linjejusterat: väntade mål Pinnacle 3.21 mot Kambi 3.20 (kvot 1.004); modell 71% (rå 57%, väntat 2.07, 7 matcher, 7 starter), marknad 31%, modellvikt 0.12; ensidigt pris – högre edgekrav
+SPEL: Tottenham – Crystal Palace (2026-10-31 17:30 UTC) | Conor Gallagher | Skott över 2.5 | unibet 3.40 | Kambi rättvis 27.0% -> justerad 31.3% | edge 6.4% | spela från 3.36 | linjejusterat: väntade mål Pinnacle 2.92 mot Kambi 2.95 (kvot 0.988); modell 47% (rå 33%, väntat 2.02, 6 matcher, 3 starter), marknad 27%, modellvikt 0.25; ensidigt pris – högre edgekrav
+SPEL: Werder Bremen – TSG Hoffenheim (2026-10-31 14:30 UTC) | Ludovit Reis | Skott på mål över 0.5 | unibet 2.80 | Kambi rättvis 32.7% -> justerad 38.0% | edge 6.3% | spela från 2.77 | linjejusterat: väntade mål Pinnacle 3.61 mot Kambi 3.57 (kvot 1.012); modell 54% (rå 45%, väntat 0.61, 7 matcher, 7 starter), marknad 33%, modellvikt 0.25; ensidigt pris – högre edgekrav
+SPEL: Bournemouth – Leeds United (2026-10-31 15:00 UTC) | Tyler Adams | Skott över 1.5 | unibet 6.00 | Kambi rättvis 14.7% -> justerad 17.7% | edge 6.2% | spela från 5.93 | linjejusterat: väntade mål Pinnacle 2.75 mot Kambi 2.71 (kvot 1.014); modell 28% (rå 18%, väntat 0.75, 8 matcher, 6 starter), marknad 15%, modellvikt 0.25; ensidigt pris – högre edgekrav
+SPEL: Bournemouth – Leeds United (2026-10-31 15:00 UTC) | Gabriel Gudmundsson | Skott på mål över 0.5 | unibet 5.80 | Kambi rättvis 15.2% -> justerad 18.3% | edge 6.1% | spela från 5.74 | linjejusterat: väntade mål Pinnacle 2.75 mot Kambi 2.71 (kvot 1.014); modell 30% (rå 23%, väntat 0.26, 6 matcher, 6 starter), marknad 15%, modellvikt 0.25; ensidigt pris – högre edgekrav
+SPEL: Rayo Vallecano – Celta Vigo (2026-10-31 15:15 UTC) | Andrei Ratiu | Skott på mål över 0.5 | unibet 4.30 | Kambi rättvis 20.9% -> justerad 24.6% | edge 5.9% | spela från 4.26 | linjejusterat: väntade mål Pinnacle 2.42 mot Kambi 2.48 (kvot 0.974); modell 40% (rå 31%, väntat 0.37, 5 matcher, 5 starter), marknad 21%, modellvikt 0.25; ensidigt pris – högre edgekrav
+SPEL: Udinese – Roma (2026-10-31 17:00 UTC) | Devyne Rensch | Skott över 0.5 | unibet 2.00 | Kambi rättvis 46.7% -> justerad 52.9% | edge 5.7% | spela från 1.99 | linjejusterat: väntade mål Pinnacle 3.16 mot Kambi 3.16 (kvot 1.003); modell 70% (rå 56%, väntat 0.87, 6 matcher, 2 starter), marknad 47%, modellvikt 0.25; ensidigt pris – högre edgekrav
+SPEL: Udinese – Roma (2026-10-31 17:00 UTC) | James Abankwah | Skott över 0.5 | unibet 2.02 | Kambi rättvis 46.3% -> justerad 52.3% | edge 5.6% | spela från 2.01 | linjejusterat: väntade mål Pinnacle 3.16 mot Kambi 3.16 (kvot 1.003); modell 69% (rå 55%, väntat 0.85, 7 matcher, 7 starter), marknad 46%, modellvikt 0.25; ensidigt pris – högre edgekrav
+SPEL: Getafe – Sevilla (2026-11-01 13:00 UTC) | Nemanja Gudelj | Skott över 1.5 | unibet 4.00 | Kambi rättvis 22.7% -> justerad 26.4% | edge 5.6% | spela från 3.98 | linjejusterat: väntade mål Pinnacle 2.09 mot Kambi 2.07 (kvot 1.011); modell 57% (rå 42%, väntat 1.49, 8 matcher, 7 starter), marknad 23%, modellvikt 0.12; ensidigt pris – högre edgekrav
+SPEL: Werder Bremen – TSG Hoffenheim (2026-10-31 14:30 UTC) | Mitchell Weiser | Skott över 2.5 | unibet 5.30 | Kambi rättvis 16.9% -> justerad 19.9% | edge 5.5% | spela från 5.28 | linjejusterat: väntade mål Pinnacle 3.61 mot Kambi 3.57 (kvot 1.012); modell 48% (rå 34%, väntat 2.06, 5 matcher, 1 starter), marknad 17%, modellvikt 0.12; ensidigt pris – högre edgekrav
+SPEL: Udinese – Roma (2026-10-31 17:00 UTC) | Oumar Solet | Skott över 1.5 | unibet 3.05 | Kambi rättvis 30.2% -> justerad 34.5% | edge 5.3% | spela från 3.04 | linjejusterat: väntade mål Pinnacle 3.16 mot Kambi 3.16 (kvot 1.003); modell 49% (rå 34%, väntat 1.23, 4 matcher, 4 starter), marknad 30%, modellvikt 0.25; ensidigt pris – högre edgekrav
+SPEL: Real Betis – Málaga (2026-10-31 17:30 UTC) | Fran García | Skott över 1.5 | unibet 4.50 | Kambi rättvis 20.1% -> justerad 23.4% | edge 5.2% | spela från 4.49 | linjejusterat: väntade mål Pinnacle 3.35 mot Kambi 3.37 (kvot 0.993); modell 36% (rå 23%, väntat 0.91, 6 matcher, 6 starter), marknad 20%, modellvikt 0.25; ensidigt pris – högre edgekrav
+Bokförda nya spel: 41
+Notiser skickade: 41
