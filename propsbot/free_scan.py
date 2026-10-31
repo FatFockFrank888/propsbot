@@ -250,6 +250,26 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
         from .player_model import PlayerModel
         pm = PlayerModel(JsonClient(root / ".cache_odds", ttl_s=3600, min_interval_s=0.25),
                          root / "espn")
+    # Förpass: modellens nivåavvikelse mot marknaden per marknad (median i log-odds).
+    models: dict[str, dict | None] = {}
+    offsets: dict[str, float] = {}
+    if pm:
+        gaps: list = []
+        for evd, quotes, names in data:
+            if quotes and "pin_lines" in evd and "kambi_lines" in evd \
+                    and not any(q.book == settings["sharp_book"] for q in quotes):
+                models[evd["id"]] = player_models(evd, settings, pm, diag)
+                if models[evd["id"]]:
+                    evaluate_line_adjusted(evd, quotes, names, settings, cfg, time.time(),
+                                           evd["pin_lines"], evd["kambi_lines"],
+                                           models[evd["id"]], None, gaps)
+        from statistics import median
+        for mk in {m for m, _ in gaps}:
+            g = [x for m, x in gaps if m == mk]
+            if len(g) >= 30:
+                offsets[mk] = median(g)
+        diag.log("Modellens nivåavvikelse mot marknaden (log-odds, dras bort): "
+                 + ", ".join(f"{k} {v:+.2f}" for k, v in sorted(offsets.items())))
     for evd, quotes, names in data:
         if not quotes:
             continue
@@ -258,9 +278,10 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
         if has_pin_props:
             res = evaluate_event_market_only(evd, quotes, names, settings, cfg, time.time(), "fotboll")
         elif "pin_lines" in evd and "kambi_lines" in evd:
-            model = player_models(evd, settings, pm, diag) if pm else None
+            model = models.get(evd["id"]) if pm else None
             res, info = evaluate_line_adjusted(evd, quotes, names, settings, cfg, time.time(),
-                                               evd["pin_lines"], evd["kambi_lines"], model)
+                                               evd["pin_lines"], evd["kambi_lines"], model,
+                                               offsets)
             diag.lines.append(f"  {evd['home_team']} – {evd['away_team']}: {info}")
         else:
             miss = "Pinnacle" if "pin_lines" not in evd else "Kambi"
@@ -335,8 +356,8 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
     import os
     if os.environ.get("GITHUB_ACTIONS"):
         keep = [l for l in diag.lines if l.startswith(("Kambi", "Pinnacle", "Bolag", "VARNING"))
-                or l.startswith(("SPEL:", "Spelarodds", "Spelarmodell", "Rätt", "Struken", "Bokförda"))
-                or "modell" in l
+                or l.startswith(("SPEL:", "Spelarodds", "Spelarmodell", "Modellens", "Rätt", "Struken",
+                                 "Bokförda"))
                 or "spelbara" in l or "otis" in l][:45]
         print("::notice title=diagnos::" + "%0A".join(x.replace("%", "%25") for x in keep))
     return rows

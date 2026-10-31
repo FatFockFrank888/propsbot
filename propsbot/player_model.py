@@ -102,7 +102,7 @@ class EspnStore:
 
 class PlayerModel:
     def __init__(self, client: JsonClient, cache_dir: Path, n_matches: int = 8,
-                 half_life: float = 5.0, prior_apps: float = 1.5, sub_weight: float = 0.35):
+                 half_life: float = 5.0, prior_apps: float = 3.0, sub_weight: float = 0.35):
         self.c = client
         self.store = EspnStore(client, cache_dir)
         self.n = n_matches

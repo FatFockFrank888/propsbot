@@ -43,6 +43,7 @@ def radar_rows(rows: list[ScanRow], settings: dict, limit: int = 800) -> list[di
             "insats_forslag": kelly_stake(c.p, c.best.odds, DecisionConfig().kelly_fraction,
                                           DecisionConfig().max_stake_per_bet),
             "spelbar": d.playable,
+            "p_modell": None if r.row.p_model != r.row.p_model else r.row.p_model,
             "kommentar": "; ".join(d.reasons),
         })
     out.sort(key=lambda x: -x["edge"])

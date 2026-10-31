@@ -82,7 +82,8 @@ class Lines:
 def evaluate_line_adjusted(evd: dict, quotes: list[OddsQuote], names: dict[str, str],
                            settings: dict, cfg: Config, now: float,
                            pin_lines: Lines, kambi_lines: Lines,
-                           model: dict | None = None) -> tuple[list[ScanRow], str]:
+                           model: dict | None = None, model_offset: dict | None = None,
+                           gaps_out: list | None = None) -> tuple[list[ScanRow], str]:
     lh_p, la_p = pin_lines.lambdas()
     lh_k, la_k = kambi_lines.lambdas()
     ratio = (lh_p + la_p) / (lh_k + la_k)
@@ -121,13 +122,19 @@ def evaluate_line_adjusted(evd: dict, quotes: list[OddsQuote], names: dict[str, 
             mk = match_player(model, pid)
             if mk and (mk, market) in model:
                 mu, pr = model[(mk, market)]
-                p_mod = min(max(prob_over(market, mu, line), 0.005), 0.995)
+                p_raw = min(max(prob_over(market, mu, line), 0.005), 0.995)
+                if gaps_out is not None:
+                    gaps_out.append((market, logit(p_raw) - logit(p_adj)))
+                # Nivån tas från marknaden: modellens snittavvikelse per marknad dras bort,
+                # så att modellen bara bidrar med skillnader mellan spelare.
+                off = (model_offset or {}).get(market, 0.0)
+                p_mod = inv_logit(logit(p_raw) - off)
                 w = settings.get("model_weight", 0.25) * \
                     settings.get("model_market_mult", {}).get(market, 1.0)
                 if abs(logit(p_mod) - logit(p_adj)) > 1.0:
                     w *= 0.5   # stor oenighet: modellen saknar troligen info (roll, skada)
                 p = inv_logit(w * logit(p_mod) + (1 - w) * logit(p_adj))
-                note = (f"modell {p_mod:.0%} (väntat {mu:.2f}, {pr.n_matches} matcher, "
+                note = (f"modell {p_mod:.0%} (rå {p_raw:.0%}, väntat {mu:.2f}, {pr.n_matches} matcher, "
                         f"{pr.starts} starter), marknad {p_adj:.0%}, modellvikt {w:.2f}")
         dcfg = dataclasses.replace(cfg.decision,
                                    min_edge_by_market=dict(cfg.decision.min_edge_by_market))
