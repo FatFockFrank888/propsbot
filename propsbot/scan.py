@@ -43,7 +43,7 @@ DEFAULT_SETTINGS = {
     "sharp_book": "pinnacle",
     "kambi_hint_prefixes": ["unibet", "leovegas", "paf", "betrivers", "svenskaspel", "atg"],
     "max_events_per_run": 8,
-    "bankroll": 1000,
+    "bankroll": 1000,   # används inte för visning; all insats visas som units (1u = 0,2 %)
     "extra_edge_without_sharp": 0.03,
     "min_groups_without_sharp": 3,
     "max_plausible_edge": 0.25,
@@ -329,10 +329,11 @@ def run_scan(settings_path: Path, out_dir: Path, db_path: Path | None = None,
 
 
 def write_csv(rows: list[ScanRow], path: Path, bankroll: float, only_playable: bool) -> None:
+    from .clv_signal import units   # insats visas alltid som units, aldrig kronor
     with path.open("w", newline="", encoding="utf-8-sig") as f:
         w = csv.writer(f, delimiter=";")
         w.writerow(["Status", "Avspark (UTC)", "Match", "Spelare", "Marknad", "Linje", "Bolag",
-                    "Odds", "Sannolikhet", "Edge", "Spela från", "Insats", "Källor", "Kommentar"])
+                    "Odds", "Sannolikhet", "Edge", "Spela från", "Insats (units 1–10)", "Källor", "Kommentar"])
         for r in rows:
             d = r.row.decision
             c = d.cand
@@ -345,7 +346,7 @@ def write_csv(rows: list[ScanRow], path: Path, bankroll: float, only_playable: b
                 r.kickoff, r.match, c.player_name, MARKET_LABEL.get(c.market, c.market),
                 f"över {c.line}".replace(".", ","), c.best.book, f"{c.best.odds:.2f}".replace(".", ","),
                 f"{c.p:.1%}".replace(".", ","), f"{c.edge:.1%}".replace(".", ","),
-                f"{d.play_from:.2f}".replace(".", ","), f"{d.stake * bankroll:.0f}",
+                f"{d.play_from:.2f}".replace(".", ","), f"{units(d.stake)}u",
                 r.n_groups, "; ".join(d.reasons)])
     print(f"Sparat: {path}")
 

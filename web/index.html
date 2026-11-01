@@ -3,6 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <title>Fotboll Prop-radarn</title>
 <style>
   :root { --bg:#141414; --panel:#1c1c1c; --line:#2a2a2a; --text:#ececec; --dim:#8a8a8a;
@@ -283,7 +286,7 @@ function betRows(bets, withStop) {
 }
 
 function renderExtra() {
-  const br = DATA.regler.bankrulle;
+  const br = null;
   const legs = x => x.ben.map(l => `${esc(l.spelare)} – ${label(l.marknad, l.linje, l.sida)} @ ${nf(l.odds)}
     <span class="neg">(${esc(l.match)}, ${fmtTs(l.avspark)})</span>`).join("<br>");
   document.getElementById("psug").innerHTML = (DATA.parlay_forslag || []).map(x => `<tr>
@@ -307,7 +310,7 @@ function renderExtra() {
 }
 
 function renderBok() {
-  const s = DATA.sammanfattning, br = DATA.regler.bankrulle;
+  const s = DATA.sammanfattning, br = null;
   document.getElementById("tiles").innerHTML = tilesHtml(s, br);
   const pb = Object.entries(s.per_bolag || {});
   document.getElementById("books").innerHTML = pb.map(([b, x]) => `<tr><td>${esc(b)}</td>
@@ -330,7 +333,7 @@ async function load() {
     document.getElementById("navnba").href = nba ? "./" : "nba/";
     document.getElementById("navxlsx").href = (nba ? "../" : "") + "propsbot_bokforing.xlsx";
     const mins = Math.round((Date.now() / 1000 - DATA.uppdaterad_ts) / 60);
-    document.getElementById("upd").textContent = `Uppdaterad för ${mins} min sedan`;
+    document.getElementById("upd").textContent = `Uppdaterad för ${mins} min sedan · insats i units (1u = 0,2 %)`;
     renderRadar(); renderBok(); renderExtra(); loadAll();
   } catch (e) { document.getElementById("upd").textContent = "Kunde inte läsa data."; }
 }
