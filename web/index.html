@@ -57,6 +57,8 @@
     Kambis linjestege). Spelbart från 2 % edge (4 % för mål och assist, +3 procentenheter när marginalen inte kan mätas),
     odds 1,40–6,00. "Spela från" = lägsta odds som räcker. Insats i units 1–10 efter EV (¼ Kelly; 1u = 0,2 % av bankrullen, 10u = taket). Grön = spelbar, grå = positivt EV men under edgekravet. ⚡ = CLV-signal: Pinnacle har rört sig åt vårt håll och priset väntas korta in.</div>
 </header>
+<div id="pausbanner" class="hidden" style="margin:6px 24px 0;padding:10px 14px;border:1px solid #b45309;border-radius:10px;color:#fbbf24;background:rgba(180,83,9,.12)">
+  Live-spel är pausade: inga notiser skickas. Spel som hade varit spelbara bokförs som skuggspel (fliken Skuggspel) och rättas som vanligt.</div>
 <div class="tabs">
   <button class="tab on" data-tab="radar">Radar</button>
   <button class="tab" data-tab="bok">Bokföring</button>
@@ -321,6 +323,7 @@ async function load() {
     const r = await fetch("data.json?t=" + Date.now(), {cache: "no-store"});
     DATA = await r.json();
     const nba = DATA.sport === "NBA";
+    document.getElementById("pausbanner").classList.toggle("hidden", DATA.live_enabled !== false);
     document.getElementById("title").textContent = (nba ? "NBA" : "Fotboll") + " Prop-radarn";
     document.title = (nba ? "NBA" : "Fotboll") + " Prop-radarn";
     document.getElementById("navfb").href = nba ? "../" : "./";

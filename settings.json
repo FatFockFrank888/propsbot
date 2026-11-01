@@ -54,9 +54,7 @@
     "leose": "leovegas",
     "svenskaspel": "svenskaspel",
     "expektse": "expekt",
-    "betmgmse": "betmgm",
-    "mgmse": "betmgm",
-    "bmse": "betmgm"
+    "betmgmse": "betmgm"
   },
   "pinnacle_trusted_markets": [
     "shots",
@@ -86,6 +84,7 @@
   "max_line_ratio_dev": 0.1,
   "min_power_k_shots": 1.2,
   "min_edge_display": 0.02,
+  "live_enabled": false,
   "use_player_model": true,
   "model_mode": "test",
   "model_weight": 0.25,
@@ -95,6 +94,9 @@
     "goal": 0.7,
     "assist": 0.6
   },
+  "nba_enabled": true,
+  "nba_hours_ahead": 30,
+  "nba_max_events": 15,
   "parlays_enabled": true,
   "parlay_max_legs": 5,
   "parlay_min_leg_edge": 0.02,

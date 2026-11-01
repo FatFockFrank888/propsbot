@@ -154,7 +154,7 @@ def run_nba(root: Path, settings_path: Path) -> None:
         n = notify_new(res["playable"], nba_settings, root)
         from .clv_signal import units
         from .notify import send
-        for x in new_p:
+        for x in (new_p if settings.get("live_enabled", True) else []):
             legs = "\n".join(f"• {l['spelare']} {l['marknad']} {'under' if l.get('sida') == 'under' else 'över'} {l['linje']:g} ({l['odds']:.2f})"
                              for l in x["ben"])
             send(settings["ntfy_topic"], f"NBA PARLAY {x['antal_ben']} ben @ {x['odds']:.2f} hos {x['bolag']}",

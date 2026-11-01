@@ -173,7 +173,7 @@ def test_free_scan_end_to_end(tmp_path, monkeypatch):
     monkeypatch.setattr(httpmod.time, "sleep", lambda s: None)
 
     settings = tmp_path / "settings.json"
-    settings.write_text(json.dumps({"playable_books": [], "kambi_offerings": {"ubse": "unibet", "paf": "paf",
+    settings.write_text(json.dumps({"live_enabled": True, "playable_books": [], "kambi_offerings": {"ubse": "unibet", "paf": "paf",
                                                         "nope": "finnsinte"},
                                     "ntfy_topic": "propsbot-test"}), encoding="utf-8")
     rows = scan_once(tmp_path, settings)
@@ -312,3 +312,23 @@ def test_kambi_integer_line_means_at_least():
          "odds": 1800, "line": 1500, "status": "OPEN"}]}]}
     qs, _ = parse_betoffers(raw, "unibet", "k1")
     assert sorted((q.market, q.line) for q in qs) == [("goal", 0.5), ("goal", 1.5), ("shots_on_target", 1.5)]
+
+
+def test_live_paused_routes_to_shadow(tmp_path, monkeypatch):
+    sent: list = []
+    fake = _fake_urlopen({"ubse": 1850, "paf": 2100}, sent)
+    monkeypatch.setattr(httpmod.urllib.request, "urlopen", fake)
+    import propsbot.notify as nmod
+    monkeypatch.setattr(nmod.urllib.request, "urlopen", fake)
+    monkeypatch.setattr(httpmod.time, "sleep", lambda s: None)
+    settings = tmp_path / "settings.json"
+    settings.write_text(json.dumps({"live_enabled": False, "playable_books": [],
+                                    "kambi_offerings": {"ubse": "unibet", "paf": "paf"},
+                                    "ntfy_topic": "propsbot-test"}), encoding="utf-8")
+    rows = scan_once(tmp_path, settings)
+    assert not any(r.row.decision.playable for r in rows)
+    shadow = json.loads((tmp_path / "bokforing_skugga_v3.json").read_text(encoding="utf-8"))
+    assert shadow and "live pausat" in shadow[0]["stopp"]
+    assert not (tmp_path / "bokforing_v2.json").exists() or \
+        json.loads((tmp_path / "bokforing_v2.json").read_text(encoding="utf-8")) == []
+    assert all("SPELA" not in m.get("title", "") for m in sent)

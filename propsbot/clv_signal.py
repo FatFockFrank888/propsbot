@@ -90,3 +90,17 @@ def units(stake_frac: float) -> int:
     if not stake_frac or stake_frac <= 0:
         return 0
     return max(1, min(10, round(stake_frac / 0.002)))
+
+
+def pause_live(rows, settings: dict) -> int:
+    """När live är pausat blir alla spelbara ben skuggspel (bokförs och rättas, ingen notis)."""
+    if settings.get("live_enabled", True):
+        return 0
+    n = 0
+    for r in rows:
+        d = r.row.decision
+        if d.playable:
+            d.playable = False
+            d.reasons.append("live pausat – skuggspel")
+            n += 1
+    return n

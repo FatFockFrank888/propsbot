@@ -64,6 +64,7 @@ def write_site(site: Path, rows: list[ScanRow], ledger: Ledger, settings: dict,
     site.mkdir(parents=True, exist_ok=True)
     data = {
         "sport": sport,
+        "live_enabled": settings.get("live_enabled", True),
         "uppdaterad": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "uppdaterad_ts": time.time(),
         "regler": {"min_odds": 1.40, "max_odds": 6.0, "kelly": 0.25,

@@ -429,6 +429,10 @@ def nba_scan(root: Path, settings_path: Path) -> dict:
     n_clv = clv_apply(rows, hist, settings)
     hist.save(time.time())
     diag.log(f"NBA CLV-signal: {n_clv} ben släppta")
+    from .clv_signal import pause_live
+    n_paused = pause_live(rows, settings)
+    if n_paused:
+        diag.log(f"Live pausat: {n_paused} spelbara ben bokförs som skuggspel")
     playable = [r for r in rows if r.row.decision.playable and r.row.decision.show]
     diag.log(f"NBA: {len(playable)} spelbara ben av {len(rows)}")
     for r in playable[:10]:
@@ -441,7 +445,8 @@ def nba_scan(root: Path, settings_path: Path) -> dict:
     ledger.update_closing(rows, time.time())
     shadow = Ledger(root / "nba_skugga_v2.json")
     shadow.record(rows, evd_by_id, predicate=lambda r: (not r.row.decision.playable and r.row.decision.show
-                                                       and r.row.decision.cand.edge >= 0.02))
+                                                       and (r.row.decision.cand.edge >= 0.02 or any(
+                                                           "live pausat" in x for x in r.row.decision.reasons))))
     shadow.update_closing(rows, time.time())
     test = Ledger(root / "nba_modelltest.json")
     test.record(test_rows, evd_by_id)

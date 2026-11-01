@@ -73,6 +73,8 @@ DEFAULT_SETTINGS = {
     "min_power_k_shots": 1.20,  # försiktig skottmarginal för live-spel (annars skuggspel)
     "min_edge_display": 0.02,   # webbsidan visar bara ben med minst så här stor edge
     # Egen spelarmodell (ESPN-statistik). Vikt mot marknaden i log-odds.
+    # Live-spel (notiser + bokföring). Pausat: allt som hade spelats bokförs som skuggspel.
+    "live_enabled": False,
     "use_player_model": True,
     # "test" = modellens spel bokförs separat utan notiser; "aktiv" = modellen styr spelen.
     "model_mode": "test",

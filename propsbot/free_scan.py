@@ -336,6 +336,10 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
     n_clv = clv_apply(rows, hist, settings)
     hist.save(time.time())
     diag.log(f"CLV-signal: {n_clv} ben släppta (Pinnacle rör sig åt vårt håll)")
+    from .clv_signal import pause_live
+    n_paused = pause_live(rows, settings)
+    if n_paused:
+        diag.log(f"Live pausat: {n_paused} spelbara ben bokförs som skuggspel")
     playable = [r for r in rows if r.row.decision.playable and r.row.decision.show]
     if pm:
         n_mod = sum(1 for r in rows if r.row.p_model == r.row.p_model)  # inte NaN
@@ -379,7 +383,8 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
     new_shadow = shadow_ledger.record(
         rows, evd_by_id,
         predicate=lambda r: (not r.row.decision.playable and r.row.decision.show
-                             and r.row.decision.cand.edge >= 0.02
+                             and (r.row.decision.cand.edge >= 0.02
+                                  or any("live pausat" in x for x in r.row.decision.reasons))
                              and not any("kunde inte mätas" in x for x in r.row.decision.reasons)))
     shadow_ledger.update_closing(rows, time.time())
     try:
@@ -430,7 +435,7 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
                 diag.log("Testnotis skickad till mobilen.")
         n = notify_new(playable, settings, root)
         from .clv_signal import units
-        for x in new_parlays:
+        for x in (new_parlays if settings.get("live_enabled", True) else []):
             legs = "\n".join(f"• {l['spelare']} {MARKET_LABEL.get(l['marknad'], l['marknad']).lower()} "
                              f"{'under' if l.get('sida') == 'under' else 'över'} {l['linje']:g} ({l['odds']:.2f}) – {l['match']}"
                              for l in x["ben"])
