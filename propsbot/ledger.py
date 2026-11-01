@@ -57,6 +57,8 @@ class Ledger:
                 "ratt_odds": 1.0 / c.p, "edge": c.edge, "spela_fran": d.play_from,
                 "insats_pct": d.stake or kelly_stake(c.p, c.best.odds, 0.25, 0.02),
                 "stangning": c.best.odds, "status": "öppen", "stopp": "; ".join(d.reasons),
+                "clv_signal": any("CLV-signal" in x for x in d.reasons),
+                "forv_clv_pp": getattr(r, "clv_pp", None),
                 "utfall": None, "resultat_enheter": None,
             }
             self.bets.append(b)

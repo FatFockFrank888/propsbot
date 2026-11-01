@@ -423,6 +423,12 @@ def nba_scan(root: Path, settings_path: Path) -> dict:
             import traceback
             diag.log(f"NBA-modell: FEL {type(e).__name__}: {e}")
             diag.lines.append(traceback.format_exc())
+    from .clv_signal import History, apply as clv_apply
+    hist = History(root / "nba_historik.json")
+    hist.update(rows, time.time())
+    n_clv = clv_apply(rows, hist, settings)
+    hist.save(time.time())
+    diag.log(f"NBA CLV-signal: {n_clv} ben släppta")
     playable = [r for r in rows if r.row.decision.playable and r.row.decision.show]
     diag.log(f"NBA: {len(playable)} spelbara ben av {len(rows)}")
     for r in playable[:10]:

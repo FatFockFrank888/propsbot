@@ -330,6 +330,12 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
     diag.log("Kambi-marknader: " + "; ".join(f"{m}={v!r}:{n}" for (m, v), n in sorted(vc.items())))
     if "pinnacle" not in books:
         diag.log("Pinnacle har inga spelarprops här – använder linjejustering mot Pinnacles matchlinjer.")
+    from .clv_signal import History, apply as clv_apply
+    hist = History(root / "pinnacle_historik.json")
+    hist.update(rows, time.time())
+    n_clv = clv_apply(rows, hist, settings)
+    hist.save(time.time())
+    diag.log(f"CLV-signal: {n_clv} ben släppta (Pinnacle rör sig åt vårt håll)")
     playable = [r for r in rows if r.row.decision.playable and r.row.decision.show]
     if pm:
         n_mod = sum(1 for r in rows if r.row.p_model == r.row.p_model)  # inte NaN
@@ -423,18 +429,19 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
                 tf.write_text(th, encoding="utf-8")
                 diag.log("Testnotis skickad till mobilen.")
         n = notify_new(playable, settings, root)
+        from .clv_signal import units
         for x in new_parlays:
             legs = "\n".join(f"• {l['spelare']} {MARKET_LABEL.get(l['marknad'], l['marknad']).lower()} "
                              f"över {l['linje']:g} ({l['odds']:.2f}) – {l['match']}" for l in x["ben"])
             if send(settings["ntfy_topic"], f"PARLAY {x['antal_ben']} ben @ {x['odds']:.2f} hos {x['bolag']}",
-                    f"{legs}\nEV {x['ev']:.1%}, insats {x['insats_pct']:.2%} av bankrullen"):
+                    f"{legs}\nEV {x['ev']:.1%}, insats {units(x['insats_pct'])}/10 units"):
                 n += 1
         diag.log(f"Notiser skickade: {n}")
     diag.save()
     import os
     if os.environ.get("GITHUB_ACTIONS"):
         keep = [l for l in diag.lines if l.startswith(("Kambi", "Pinnacle", "Bolag", "VARNING"))
-                or l.startswith(("SPEL:", "Tid:", "Exempel", "Marginal över", "Bästa edge", "Spelarodds", "Spelarmodell", "Modellens", "Modelltest", "Parlays", "Skuggspel", "Rätt",
+                or l.startswith(("SPEL:", "CLV-signal", "Tid:", "Exempel", "Marginal över", "Bästa edge", "Spelarodds", "Spelarmodell", "Modellens", "Modelltest", "Parlays", "Skuggspel", "Rätt",
                                  "Struken", "Bokförda"))
                 or "spelbara" in l or "otis" in l][:45]
         print("::notice title=diagnos::" + "%0A".join(x.replace("%", "%25") for x in keep))
@@ -456,9 +463,14 @@ def notify_new(playable: list[ScanRow], settings: dict, root: Path) -> int:
         nba = c.market in ("points", "rebounds", "assists", "threes", "steals", "blocks", "pra", "pr", "ra")
         title = (f"{'NBA ' if nba else ''}SPELA: {c.player_name} "
                  f"{MARKET_LABEL.get(c.market, c.market)} över {c.line}")
+        from .clv_signal import units
+        clv = getattr(r, "clv_pp", None)
         msg = (f"{r.match} ({r.kickoff} UTC)\n"
                f"{c.best.book}: {c.best.odds:.2f}  (spela från {d.play_from:.2f})\n"
-               f"Sannolikhet {c.p:.1%}, edge {c.edge:.1%}, insats {d.stake * settings['bankroll']:.0f} kr")
+               f"Sannolikhet {c.p:.1%}, edge {c.edge:.1%}"
+               + (f", förväntad CLV {clv:+.1f}" if clv is not None else "")
+               + f"\nInsats: {units(d.stake)}/10 units"
+               + ("\n(CLV-signal)" if any("CLV-signal" in x for x in d.reasons) else ""))
         if send(settings["ntfy_topic"], title, msg):
             seen.mark(key, c.best.odds)
             sent += 1

@@ -146,12 +146,13 @@ def run_nba(root: Path, settings_path: Path) -> None:
     if settings.get("ntfy_topic"):
         nba_settings = dict(settings, ntfy_topic=settings["ntfy_topic"])
         n = notify_new(res["playable"], nba_settings, root)
+        from .clv_signal import units
         from .notify import send
         for x in new_p:
             legs = "\n".join(f"• {l['spelare']} {l['marknad']} över {l['linje']:g} ({l['odds']:.2f})"
                              for l in x["ben"])
             send(settings["ntfy_topic"], f"NBA PARLAY {x['antal_ben']} ben @ {x['odds']:.2f} hos {x['bolag']}",
-                 f"{legs}\nEV {x['ev']:.1%}, insats {x['insats_pct']:.2%}")
+                 f"{legs}\nEV {x['ev']:.1%}, insats {units(x['insats_pct'])}/10 units")
         res["diag"].log(f"NBA notiser: {n}")
     if os.environ.get("GITHUB_ACTIONS"):
         keep = [l for l in res["diag"].lines if l.startswith(("Kambi NBA", "Pinnacle NBA", "NBA"))][:30]
