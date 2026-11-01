@@ -49,7 +49,8 @@
 <header>
   <h1 id="title">Prop-radarn</h1>
   <div class="sub" style="margin-bottom:6px"><a href="../" style="color:#8ab4ff" id="navfb">Fotboll</a> ·
-    <a href="nba/" style="color:#8ab4ff" id="navnba">NBA</a></div>
+    <a href="nba/" style="color:#8ab4ff" id="navnba">NBA</a> ·
+    <a href="propsbot_bokforing.xlsx" style="color:#4cc38a;font-weight:600" id="navxlsx">⬇ Excel-bokföring (alla spel)</a></div>
   <div class="sub">Skott, skott på mål, mål och assist per spelare hos Kambi-bolagen. Sannolikheten är
     Kambis rättvisa pris justerat mot Pinnacles matchlinjer och gäller givet att spelaren spelar
     (annars stryks spelet). Kambis marginal mäts i varje match (målskytt/assist mot Pinnacles väntade mål, skott ur
@@ -184,7 +185,8 @@
         <option value="edgeband">edgeintervall</option><option value="typ">typ</option><option value="sport">sport</option>
         <option value="clvsig">CLV-signal</option><option value="sida">över/under</option>
         <option value="vecka">vecka</option></select>
-      <button id="aCsv" class="tab" style="color:var(--text)">Ladda ner kalkylark (CSV)</button>
+      <a id="aXlsx" class="tab" style="color:var(--text);text-decoration:none" href="propsbot_bokforing.xlsx">⬇ Excel-bokföring</a>
+      <button id="aCsv" class="tab" style="color:var(--text)">CSV av filtret</button>
     </div>
     <div class="tiles" id="aTiles"></div>
     <h2>Sammanställning</h2>
@@ -323,6 +325,7 @@ async function load() {
     document.title = (nba ? "NBA" : "Fotboll") + " Prop-radarn";
     document.getElementById("navfb").href = nba ? "../" : "./";
     document.getElementById("navnba").href = nba ? "./" : "nba/";
+    document.getElementById("navxlsx").href = (nba ? "../" : "") + "propsbot_bokforing.xlsx";
     const mins = Math.round((Date.now() / 1000 - DATA.uppdaterad_ts) / 60);
     document.getElementById("upd").textContent = `Uppdaterad för ${mins} min sedan`;
     renderRadar(); renderBok(); renderExtra(); loadAll();
@@ -377,6 +380,7 @@ function normParlay(x, sport) {
 }
 async function loadAll() {
   const other = DATA.sport === "NBA" ? "../data.json" : "nba/data.json";
+  document.getElementById("aXlsx").href = (DATA.sport === "NBA" ? "../" : "") + "propsbot_bokforing.xlsx";
   let o = null;
   try { o = await (await fetch(other + "?t=" + Date.now(), {cache: "no-store"})).json(); } catch (e) {}
   ALL = [];
