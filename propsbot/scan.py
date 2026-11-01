@@ -213,37 +213,43 @@ def evaluate_event_market_only(event: dict, quotes: list[OddsQuote], names: dict
 
     out: list[ScanRow] = []
     for (pid, market, line), qs in by_line.items():
-        cands = [q for q in qs if q.side == "over" and q.book in playable]
-        if not cands:
-            continue
-        best = max(cands, key=lambda q: q.odds)
-        cons = consensus(qs, gid, gid[best.book], sharp, market, cfg)
-        if cons is None:
-            continue  # ingen oberoende källa att jämföra mot
-        dcfg = dataclasses.replace(cfg.decision,
-                                   min_edge_by_market=dict(cfg.decision.min_edge_by_market))
-        if not cons.has_sharp_or_two_sided:
-            for k in dcfg.min_edge_by_market:
-                dcfg.min_edge_by_market[k] += settings["extra_edge_without_sharp"]
-        cand = Candidate(event["id"], pid, names.get(pid, pid), market, line, cons.p,
-                         dataclasses.replace(best, ts=fetch_ts), consensus_odds=1.0 / cons.p,
-                         now=fetch_ts, lineup_confirmed=True, minutes_to_kickoff=mtk)
-        d = evaluate(cand, dcfg)
-        weak = not cons.has_sharp_or_two_sided
-        if weak:
-            d.reasons.append("ingen Pinnacle/tvåsidig källa – högre edgekrav")
-        # Spärr 1: en enda ensidig jämförelsekälla räcker inte. Då jämförs bara två
-        # bolags marginaler och skillnader i regler, inte en verklig sannolikhet.
-        if weak and cons.n_groups < settings["min_groups_without_sharp"]:
-            d.playable, d.stake = False, 0.0
-            d.reasons.append(f"bara {cons.n_groups} jämförelsekälla – inte spelbart")
-        # Spärr 2: orimligt stor edge betyder nästan alltid olika regler, fel linje,
-        # gammalt pris eller att spelaren inte spelar – inte ett fynd.
-        if d.cand.edge > settings["max_plausible_edge"]:
-            d.playable, d.stake = False, 0.0
-            d.reasons.append(f"edge över {settings['max_plausible_edge']:.0%} – orimligt, kontrollera")
-        out.append(ScanRow(sport, title, datetime.fromtimestamp(ko, timezone.utc).strftime(
-            "%Y-%m-%d %H:%M"), Row(d, float("nan"), cons.p, 0.0), cons.n_groups))
+        for side in ("over", "under"):
+            cands = [q for q in qs if q.side == side and q.book in playable]
+            if not cands:
+                continue
+            best = max(cands, key=lambda q: q.odds)
+            cons = consensus(qs, gid, gid[best.book], sharp, market, cfg)
+            if cons is None:
+                continue  # ingen oberoende källa att jämföra mot
+            if side == "under":
+                # Under kräver tvåsidig/skarp referens (annars okänd marginal på undersidan).
+                if not cons.has_sharp_or_two_sided:
+                    continue
+                cons = Consensus(1.0 - cons.p, cons.n_groups, cons.has_sharp_or_two_sided)
+            dcfg = dataclasses.replace(cfg.decision,
+                                       min_edge_by_market=dict(cfg.decision.min_edge_by_market))
+            if not cons.has_sharp_or_two_sided:
+                for k in dcfg.min_edge_by_market:
+                    dcfg.min_edge_by_market[k] += settings["extra_edge_without_sharp"]
+            cand = Candidate(event["id"], pid, names.get(pid, pid), market, line, cons.p,
+                             dataclasses.replace(best, ts=fetch_ts), consensus_odds=1.0 / cons.p,
+                             now=fetch_ts, lineup_confirmed=True, minutes_to_kickoff=mtk)
+            d = evaluate(cand, dcfg)
+            weak = not cons.has_sharp_or_two_sided
+            if weak:
+                d.reasons.append("ingen Pinnacle/tvåsidig källa – högre edgekrav")
+            # Spärr 1: en enda ensidig jämförelsekälla räcker inte. Då jämförs bara två
+            # bolags marginaler och skillnader i regler, inte en verklig sannolikhet.
+            if weak and cons.n_groups < settings["min_groups_without_sharp"]:
+                d.playable, d.stake = False, 0.0
+                d.reasons.append(f"bara {cons.n_groups} jämförelsekälla – inte spelbart")
+            # Spärr 2: orimligt stor edge betyder nästan alltid olika regler, fel linje,
+            # gammalt pris eller att spelaren inte spelar – inte ett fynd.
+            if d.cand.edge > settings["max_plausible_edge"]:
+                d.playable, d.stake = False, 0.0
+                d.reasons.append(f"edge över {settings['max_plausible_edge']:.0%} – orimligt, kontrollera")
+            out.append(ScanRow(sport, title, datetime.fromtimestamp(ko, timezone.utc).strftime(
+                "%Y-%m-%d %H:%M"), Row(d, float("nan"), cons.p, 0.0), cons.n_groups))
     apply_portfolio_limits([r.row.decision for r in out], cfg.decision)
     return out
 

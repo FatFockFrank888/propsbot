@@ -85,6 +85,9 @@
         <option value="pr">Poäng + returer (NBA)</option>
         <option value="ra">Returer + assist (NBA)</option>
       </select>
+      <select id="side">
+        <option value="">Över och under</option><option value="over">Bara över</option><option value="under">Bara under</option>
+      </select>
       <label><input type="checkbox" id="only"> Bara spelbara</label>
       <span class="sub">Visar bara ben med minst 2 % edge. Grön = spelbar (uppfyller marknadens edgekrav).</span>
     </div>
@@ -167,6 +170,7 @@
         <option>Modelltest</option><option>Parlay</option></select>
       <select id="aMk"><option value="">Alla marknader</option></select>
       <select id="aBook"><option value="">Alla bolag</option></select>
+      <select id="aSida"><option value="">Över och under</option><option>Över</option><option>Under</option></select>
       <select id="aStatus"><option value="">Alla statusar</option><option>öppen</option><option>vunnen</option>
         <option>förlorad</option><option>struken</option></select>
       <select id="aClv"><option value="">CLV-signal: alla</option><option value="1">Bara CLV-signal</option>
@@ -178,7 +182,8 @@
         <option value="marknad">Gruppera: marknad</option><option value="bolag">bolag</option>
         <option value="oddsband">oddsintervall</option><option value="pband">sannolikhetsintervall</option>
         <option value="edgeband">edgeintervall</option><option value="typ">typ</option><option value="sport">sport</option>
-        <option value="clvsig">CLV-signal</option><option value="vecka">vecka</option></select>
+        <option value="clvsig">CLV-signal</option><option value="sida">över/under</option>
+        <option value="vecka">vecka</option></select>
       <button id="aCsv" class="tab" style="color:var(--text)">Ladda ner kalkylark (CSV)</button>
     </div>
     <div class="tiles" id="aTiles"></div>
@@ -208,7 +213,10 @@ const fmtTs = ts => {
   return `${p({weekday: "short"})} ${p({day: "numeric"})}/${p({month: "numeric"})} ${p({hour: "2-digit", minute: "2-digit"})}`;
 };
 const fmtUtc = s => fmtTs(Date.parse(s.replace(" ", "T") + ":00Z") / 1000);
-const label = (m, l) => m === "goal" && l === 0.5 ? "gör mål" : m === "assist" && l === 0.5 ? "assist" :
+const label = (m, l, side) => side === "under" ? ({shots: "skott", shots_on_target: "skott på mål", goal: "mål",
+    assist: "assist", points: "poäng", rebounds: "returer", assists: "assist", threes: "trepoängare",
+    steals: "steals", blocks: "blocks", pra: "PRA", pr: "poäng + returer", ra: "returer + assist"}[m] || m) + " under " + l :
+  m === "goal" && l === 0.5 ? "gör mål" : m === "assist" && l === 0.5 ? "assist" :
   ({shots: "skott", shots_on_target: "skott på mål", goal: "mål", assist: "assist", points: "poäng",
     rebounds: "returer", assists: "assist", threes: "trepoängare", steals: "steals", blocks: "blocks",
     pra: "PRA", pr: "poäng + returer", ra: "returer + assist"}[m] || m) + " över " + l;
@@ -224,7 +232,9 @@ function renderRadar() {
   const q = document.getElementById("q").value.toLowerCase();
   const mk = document.getElementById("mk").value;
   const only = document.getElementById("only").checked;
+  const side = document.getElementById("side").value;
   let rows = DATA.radar.filter(r => (!mk || r.marknad === mk) && (!only || r.spelbar) &&
+    (!side || (r.sida || "over") === side) &&
     (!q || (r.spelare + " " + r.match).toLowerCase().includes(q)));
   rows.sort((a, b) => (a[sortKey] > b[sortKey] ? 1 : a[sortKey] < b[sortKey] ? -1 : 0) * sortDir);
   document.getElementById("rows").innerHTML = rows.map(r => `
@@ -257,7 +267,7 @@ function betRows(bets, withStop) {
     const clv = b.stangning ? b.odds / b.stangning - 1 : null;
     const stop = (b.stopp || "").split("; ").filter(x => x && !x.startsWith("linjejusterat")).join("; ");
     return `<tr><td>${fmtTs(b.bokford)}</td><td>${fmtTs(b.avspark)}</td><td>${esc(b.match)}</td>
-      <td>${esc(b.spelare)}</td><td>${label(b.marknad, b.linje)}</td><td>${esc(b.bolag)}</td>
+      <td>${esc(b.spelare)}</td><td>${label(b.marknad, b.linje, b.sida)}</td><td>${esc(b.bolag)}</td>
       <td class="n">${nf(b.odds)}</td><td class="n">${nf(b.stangning)}</td>
       <td class="n ${clv > 0 ? "pos" : clv < 0 ? "loss" : ""}">${pct(clv)}</td>
       <td class="n">${pct(b.sannolikhet)}</td><td class="n">${pct(b.edge)}</td>
@@ -270,7 +280,7 @@ function betRows(bets, withStop) {
 
 function renderExtra() {
   const br = DATA.regler.bankrulle;
-  const legs = x => x.ben.map(l => `${esc(l.spelare)} – ${label(l.marknad, l.linje)} @ ${nf(l.odds)}
+  const legs = x => x.ben.map(l => `${esc(l.spelare)} – ${label(l.marknad, l.linje, l.sida)} @ ${nf(l.odds)}
     <span class="neg">(${esc(l.match)}, ${fmtTs(l.avspark)})</span>`).join("<br>");
   document.getElementById("psug").innerHTML = (DATA.parlay_forslag || []).map(x => `<tr>
     <td>${esc(x.bolag)}</td><td style="white-space:normal">${legs(x)}</td><td class="n">${nf(x.odds)}</td>
@@ -280,7 +290,7 @@ function renderExtra() {
   document.getElementById("ptiles").innerHTML = tilesHtml(DATA.parlay_sammanfattning, br);
   document.getElementById("pbets").innerHTML = (DATA.parlay_bokforing || []).map(x => `<tr>
     <td>${fmtTs(x.bokford)}</td><td>${esc(x.bolag)}</td>
-    <td style="white-space:normal">${x.ben.map(l => `${esc(l.spelare)} – ${label(l.marknad, l.linje)} @ ${nf(l.odds)}
+    <td style="white-space:normal">${x.ben.map(l => `${esc(l.spelare)} – ${label(l.marknad, l.linje, l.sida)} @ ${nf(l.odds)}
       <span class="pill ${l.status}">${l.status}</span>`).join("<br>")}</td>
     <td class="n">${nf(x.slutodds || x.odds)}</td><td class="n">${pct(x.ev)}</td><td class="n">${uFmt(x.insats_pct)}</td>
     <td><span class="pill ${x.status}">${x.status}</span></td>
@@ -335,7 +345,7 @@ document.querySelectorAll("#radar th").forEach(th => th.onclick = () => {
   const k = th.dataset.k; sortDir = sortKey === k ? -sortDir : (th.classList.contains("n") ? -1 : 1);
   sortKey = k; renderRadar();
 });
-["q", "mk", "only"].forEach(id => document.getElementById(id).oninput = renderRadar);
+["q", "mk", "only", "side"].forEach(id => document.getElementById(id).oninput = renderRadar);
 // ---------------------------------------------------------------- Analys
 let ALL = [];
 const band = (x, edges, fmt) => { if (x == null) return "–"; for (let i = 0; i < edges.length - 1; i++)
@@ -353,13 +363,14 @@ function norm(b, sport, typ) {
   const done = b.avspark && b.avspark < Date.now() / 1000;
   const clv = b.stangning && done ? (1 / b.stangning - 1 / b.odds) * 100 : null;
   return {sport, typ, bokford: b.bokford, avspark: b.avspark, match: b.match, spelare: b.spelare,
-    marknad: MKN[b.marknad] || b.marknad, spel: label(b.marknad, b.linje), bolag: b.bolag, odds: b.odds, stangning: b.stangning,
+    marknad: MKN[b.marknad] || b.marknad, spel: label(b.marknad, b.linje, b.sida), bolag: b.bolag, odds: b.odds, stangning: b.stangning,
     clv, p: b.sannolikhet, edge: b.edge, u: (b.insats_pct || 0) / U, status: b.status,
+    sida: b.sida === "under" ? "Under" : "Över",
     res: b.resultat_enheter == null ? null : b.resultat_enheter / U, clvsig: !!b.clv_signal};
 }
 function normParlay(x, sport) {
   return {sport, typ: "Parlay", bokford: x.bokford, avspark: Math.max(...x.ben.map(l => l.avspark || 0)),
-    match: x.ben.map(l => l.match).join(" | "), spelare: x.ben.map(l => `${l.spelare} ${label(l.marknad, l.linje)}`).join(" + "),
+    match: x.ben.map(l => l.match).join(" | "), spelare: x.ben.map(l => `${l.spelare} ${label(l.marknad, l.linje, l.sida)}`).join(" + "),
     marknad: `parlay ${x.antal_ben} ben`, spel: `${x.antal_ben} ben`, bolag: x.bolag, odds: x.slutodds || x.odds,
     stangning: null, clv: null, p: x.sannolikhet, edge: x.ev, u: (x.insats_pct || 0) / U, status: x.status,
     res: x.resultat_enheter == null ? null : x.resultat_enheter / U, clvsig: false};
@@ -388,6 +399,7 @@ function filtered() {
   const omin = parseFloat(v("aOmin")), omax = parseFloat(v("aOmax")), pmin = parseFloat(v("aPmin"));
   return ALL.filter(r => (!v("aSport") || r.sport === v("aSport")) && (!v("aTyp") || r.typ === v("aTyp")) &&
     (!v("aMk") || r.marknad === v("aMk")) && (!v("aBook") || r.bolag === v("aBook")) &&
+    (!v("aSida") || r.sida === v("aSida")) &&
     (!v("aStatus") || r.status === v("aStatus")) && (v("aClv") === "" || String(+r.clvsig) === v("aClv")) &&
     (isNaN(omin) || r.odds >= omin) && (isNaN(omax) || r.odds <= omax) && (isNaN(pmin) || r.p * 100 >= pmin));
 }
@@ -447,7 +459,7 @@ function csv() {
   a.download = `propsbot_spel_${new Date().toISOString().slice(0, 10)}.csv`;
   a.click();
 }
-["aSport", "aTyp", "aMk", "aBook", "aStatus", "aClv", "aOmin", "aOmax", "aPmin", "aGroup"].forEach(id =>
+["aSport", "aTyp", "aMk", "aBook", "aSida", "aStatus", "aClv", "aOmin", "aOmax", "aPmin", "aGroup"].forEach(id =>
   document.getElementById(id).oninput = renderAnalys);
 document.getElementById("aCsv").onclick = csv;
 

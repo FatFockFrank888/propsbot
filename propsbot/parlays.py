@@ -28,7 +28,7 @@ def leg_from_row(r: ScanRow, evd_by_id: dict) -> dict:
     return {"key": bet_key(r), "match_id": c.match_id, "match": r.match,
             "hemma": ev.get("home_team"), "borta": ev.get("away_team"),
             "avspark": ev.get("commence_time"), "spelare": c.player_name,
-            "spelare_id": c.player_id, "marknad": c.market, "linje": c.line,
+            "spelare_id": c.player_id, "marknad": c.market, "linje": c.line, "sida": c.best.side,
             "bolag": c.best.book, "odds": c.best.odds, "sannolikhet": c.p, "edge": c.edge,
             "insats_pct": 0.0, "status": "öppen", "utfall": None, "resultat_enheter": None}
 

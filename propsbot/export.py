@@ -17,7 +17,9 @@ from .scan import ScanRow
 WEB = Path(__file__).resolve().parent.parent / "web"
 
 
-def _spel(market: str, line: float) -> str:
+def _spel(market: str, line: float, side: str = "over") -> str:
+    if side == "under":
+        return f"{MARKET_LABEL.get(market, market).lower()} under {line:g}"
     if market == "goal" and line == 0.5:
         return "gör mål"
     if market == "assist" and line == 0.5:
@@ -36,7 +38,7 @@ def radar_rows(rows: list[ScanRow], settings: dict, limit: int = 800) -> list[di
             continue
         out.append({
             "spelare": c.player_name, "match": r.match, "avspark": r.kickoff,
-            "spel": _spel(c.market, c.line), "marknad": c.market,
+            "spel": _spel(c.market, c.line, c.best.side), "marknad": c.market, "sida": c.best.side,
             "prognos": round(r.expected, 1) if r.expected is not None else (
                 round(rate_for_prob(min(max(c.p, 1e-4), 0.999), c.line), 2)
                 if c.market in ("shots", "shots_on_target", "goal", "assist") else None),

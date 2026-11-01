@@ -21,7 +21,8 @@ from .decision import kelly_stake
 
 
 def line_key(c) -> str:
-    return f"{c.match_id}|{c.player_id}|{c.market}|{c.line}"
+    side = "|under" if c.best.side == "under" else ""
+    return f"{c.match_id}|{c.player_id}|{c.market}|{c.line}{side}"
 
 
 class History:

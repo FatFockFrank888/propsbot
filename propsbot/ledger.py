@@ -15,9 +15,14 @@ from .decision import kelly_stake
 from .scan import ScanRow
 
 
+def side_suffix(side: str | None) -> str:
+    """Över saknar suffix (bakåtkompatibelt med äldre nycklar), under får '|under'."""
+    return "|under" if side == "under" else ""
+
+
 def bet_key(r: ScanRow) -> str:
     c = r.row.decision.cand
-    return f"{c.match_id}|{c.player_id}|{c.market}|{c.line}|{c.best.book}"
+    return f"{c.match_id}|{c.player_id}|{c.market}|{c.line}|{c.best.book}{side_suffix(c.best.side)}"
 
 
 class Ledger:
@@ -53,6 +58,7 @@ class Ledger:
                 "borta": ev.get("away_team"), "liga": ev.get("league", ""),
                 "avspark": ev.get("commence_time"), "spelare": c.player_name,
                 "spelare_id": c.player_id, "marknad": c.market, "linje": c.line,
+                "sida": c.best.side,
                 "bolag": c.best.book, "odds": c.best.odds, "sannolikhet": c.p,
                 "ratt_odds": 1.0 / c.p, "edge": c.edge, "spela_fran": d.play_from,
                 "insats_pct": d.stake or kelly_stake(c.p, c.best.odds, 0.25, 0.02),
@@ -70,8 +76,7 @@ class Ledger:
         """Senaste odds före avspark hos samma bolag = stängningsodds."""
         latest = {}
         for r in rows:
-            c = r.row.decision.cand
-            latest[f"{c.match_id}|{c.player_id}|{c.market}|{c.line}|{c.best.book}"] = c.best.odds
+            latest[bet_key(r)] = r.row.decision.cand.best.odds
         for b in self.bets:
             if b["status"] == "öppen" and b.get("avspark") and now < b["avspark"] and b["key"] in latest:
                 b["stangning"] = latest[b["key"]]
@@ -80,7 +85,10 @@ class Ledger:
         if not played:
             bet.update(status="struken", utfall=None, resultat_enheter=0.0)
             return
-        won = count is not None and count > bet["linje"]
+        if bet.get("sida") == "under":
+            won = count is not None and count < bet["linje"]
+        else:
+            won = count is not None and count > bet["linje"]
         bet.update(status="vunnen" if won else "förlorad", utfall=count,
                    resultat_enheter=(bet["odds"] - 1.0) * bet["insats_pct"] if won
                    else -bet["insats_pct"])

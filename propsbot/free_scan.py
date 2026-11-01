@@ -432,7 +432,8 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
         from .clv_signal import units
         for x in new_parlays:
             legs = "\n".join(f"• {l['spelare']} {MARKET_LABEL.get(l['marknad'], l['marknad']).lower()} "
-                             f"över {l['linje']:g} ({l['odds']:.2f}) – {l['match']}" for l in x["ben"])
+                             f"{'under' if l.get('sida') == 'under' else 'över'} {l['linje']:g} ({l['odds']:.2f}) – {l['match']}"
+                             for l in x["ben"])
             if send(settings["ntfy_topic"], f"PARLAY {x['antal_ben']} ben @ {x['odds']:.2f} hos {x['bolag']}",
                     f"{legs}\nEV {x['ev']:.1%}, insats {units(x['insats_pct'])}/10 units"):
                 n += 1
@@ -457,12 +458,13 @@ def notify_new(playable: list[ScanRow], settings: dict, root: Path) -> int:
     for r in playable:
         c = r.row.decision.cand
         d = r.row.decision
-        key = f"{c.match_id}|{c.player_id}|{c.market}|{c.line}|{c.best.book}"
+        key = f"{c.match_id}|{c.player_id}|{c.market}|{c.line}|{c.best.book}" + \
+            ("|under" if c.best.side == "under" else "")
         if not seen.is_new(key, c.best.odds):
             continue
         nba = c.market in ("points", "rebounds", "assists", "threes", "steals", "blocks", "pra", "pr", "ra")
         title = (f"{'NBA ' if nba else ''}SPELA: {c.player_name} "
-                 f"{MARKET_LABEL.get(c.market, c.market)} över {c.line}")
+                 f"{MARKET_LABEL.get(c.market, c.market)} {'under' if c.best.side == 'under' else 'över'} {c.line}")
         from .clv_signal import units
         clv = getattr(r, "clv_pp", None)
         msg = (f"{r.match} ({r.kickoff} UTC)\n"

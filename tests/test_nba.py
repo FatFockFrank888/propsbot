@@ -66,3 +66,27 @@ def test_interpolate_pinnacle_moves_line():
     new = {q.side: q.odds for q in qs if q.line == 23.5 and q.book == "pinnacle"}
     p_over = 1 / new["over"]
     assert 0.55 < p_over < 0.7 and abs(1 / new["over"] + 1 / new["under"] - 1) < 1e-9
+
+
+def test_under_is_evaluated_and_settled(tmp_path):
+    import time
+    from propsbot.config import Config
+    from propsbot.ledger import Ledger
+    from propsbot.models import OddsQuote
+    from propsbot.scan import DEFAULT_SETTINGS, evaluate_event_market_only
+    now = time.time()
+    ev = {"id": "nba1", "home_team": "A", "away_team": "B", "commence_time": now + 7200}
+    q = [OddsQuote("pinnacle", "nba1", "x", "points", 24.5, "over", 2.10, now, provider="pinnacle"),
+         OddsQuote("pinnacle", "nba1", "x", "points", 24.5, "under", 1.78, now, provider="pinnacle"),
+         OddsQuote("unibet", "nba1", "x", "points", 24.5, "over", 1.80, now, provider="kambi"),
+         OddsQuote("unibet", "nba1", "x", "points", 24.5, "under", 1.98, now, provider="kambi")]
+    rows = evaluate_event_market_only(ev, q, {"x": "X"}, dict(DEFAULT_SETTINGS, playable_books=[]),
+                                      Config(), now, "NBA")
+    under = [r for r in rows if r.row.decision.cand.best.side == "under"]
+    assert under and under[0].row.decision.playable and under[0].row.decision.cand.edge > 0.02
+    lg = Ledger(tmp_path / "b.json")
+    lg.record(rows, {"nba1": ev})
+    b = next(b for b in lg.bets if b["sida"] == "under")
+    assert b["key"].endswith("|under")
+    lg.settle(b, 20, True)
+    assert b["status"] == "vunnen"                       # 20 poäng < 24,5

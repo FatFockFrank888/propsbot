@@ -433,7 +433,7 @@ def nba_scan(root: Path, settings_path: Path) -> dict:
     diag.log(f"NBA: {len(playable)} spelbara ben av {len(rows)}")
     for r in playable[:10]:
         c = r.row.decision.cand
-        diag.log(f"NBA SPEL: {r.match} | {c.player_name} {c.market} över {c.line} | {c.best.book} "
+        diag.log(f"NBA SPEL: {r.match} | {c.player_name} {c.market} {'under' if c.best.side == 'under' else 'över'} {c.line} | {c.best.book} "
                  f"{c.best.odds:.2f} | p {c.p:.1%} | edge {c.edge:.1%}")
     evd_by_id = {v[0]["id"]: v[0] for v in per.values()}
     ledger = Ledger(root / "nba_bokforing_v2.json")   # v2: efter rättad linjeflytt
@@ -511,6 +511,8 @@ def model_test_rows(root: Path, rows: list, per: dict, settings: dict, cfg: Conf
             continue
         mu = m[k][c.market]
         p_mod = min(max(nb_over(mu, c.line, NB_R.get(c.market, 15)), 0.01), 0.99)
+        if c.best.side == "under":
+            p_mod = 1.0 - p_mod
         pairs.append((r, p_mod, mu))
         if 0.15 <= c.p <= 0.85:
             gaps.setdefault(c.market, []).append(logit(p_mod) - logit(c.p))

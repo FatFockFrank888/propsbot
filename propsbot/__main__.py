@@ -149,7 +149,7 @@ def run_nba(root: Path, settings_path: Path) -> None:
         from .clv_signal import units
         from .notify import send
         for x in new_p:
-            legs = "\n".join(f"• {l['spelare']} {l['marknad']} över {l['linje']:g} ({l['odds']:.2f})"
+            legs = "\n".join(f"• {l['spelare']} {l['marknad']} {'under' if l.get('sida') == 'under' else 'över'} {l['linje']:g} ({l['odds']:.2f})"
                              for l in x["ben"])
             send(settings["ntfy_topic"], f"NBA PARLAY {x['antal_ben']} ben @ {x['odds']:.2f} hos {x['bolag']}",
                  f"{legs}\nEV {x['ev']:.1%}, insats {units(x['insats_pct'])}/10 units")
