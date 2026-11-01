@@ -61,7 +61,7 @@ class PinnaclePublic:
                 start = _ts(m["startTime"])
             except (KeyError, ValueError):
                 continue
-            if not (now - 600 < start < now + hours_ahead * 3600):
+            if not (now < start < now + hours_ahead * 3600):
                 continue
             parts = {p.get("alignment"): p.get("name") for p in m.get("participants", [])}
             if "home" in parts and "away" in parts:

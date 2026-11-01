@@ -84,7 +84,7 @@ def kambi_nba_events(c: JsonClient, offering: str, market: str, hours: float
             start = datetime.fromisoformat(ev["start"].replace("Z", "+00:00")).timestamp()
         except (KeyError, ValueError):
             continue
-        if not (now - 600 < start < now + hours * 3600) or ev.get("state") not in (None, "NOT_STARTED"):
+        if not (now < start < now + hours * 3600) or ev.get("state") not in (None, "NOT_STARTED"):
             continue
         out.append(KambiEvent(int(ev["id"]), ev.get("homeName", ""), ev.get("awayName", ""), start, "NBA"))
     return out, True

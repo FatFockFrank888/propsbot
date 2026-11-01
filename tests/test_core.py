@@ -276,3 +276,10 @@ def test_store_roundtrip(tmp_path):
     assert mk == "shots" and n == 1 and clv == pytest.approx(0.06)
     (l,) = s.settled_lines()
     assert l.outcome == 1 and l.p == 0.55
+
+
+def test_no_bets_after_kickoff():
+    cfg = DecisionConfig()
+    d = evaluate(_cand(0.55, 2.00, mtk=-5), cfg)
+    assert not d.playable and any("startat" in r for r in d.reasons)
+    assert evaluate(_cand(0.55, 2.00, mtk=30), cfg).playable

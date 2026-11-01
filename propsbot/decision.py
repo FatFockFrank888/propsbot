@@ -72,6 +72,9 @@ def evaluate(c: Candidate, cfg: DecisionConfig) -> Decision:
         if dev > cfg.max_dev_from_consensus:
             ok = False
             reasons.append(f"avviker {dev:.0%} från konsensus – kontrollera manuellt")
+    if c.minutes_to_kickoff <= 0:
+        ok = False
+        reasons.append("matchen har startat – inga spel under match")
     if not c.lineup_confirmed and c.minutes_to_kickoff < cfg.lineup_required_minutes:
         ok = False
         reasons.append("startelvan okänd nära avspark")

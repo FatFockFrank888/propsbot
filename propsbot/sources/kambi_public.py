@@ -71,7 +71,7 @@ class KambiPublic:
                 start = _ts(ev["start"])
             except (KeyError, ValueError):
                 continue
-            if not (now - 600 < start < now + hours_ahead * 3600):
+            if not (now < start < now + hours_ahead * 3600):
                 continue
             if ev.get("state") not in (None, "NOT_STARTED"):
                 continue
