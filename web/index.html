@@ -167,12 +167,12 @@
       <tbody id="tbets"></tbody></table></div>
   </section>
   <section id="analys" class="hidden">
-    <div class="sub" style="margin-bottom:10px">Alla bokförda spel från båda botarna (fotboll och NBA): live, skuggspel,
-      modelltest och parlays. Filtrera och gruppera för att se var vi vinner, förlorar eller inte slår marknaden.
+    <div class="sub" style="margin-bottom:10px">Alla bokförda spel från båda botarna (fotboll och NBA): riktiga spel, skuggspel,
+      modelltest och parlays. Inga spel görs under pågående match. Filtrera och gruppera för att se var vi vinner, förlorar eller inte slår marknaden.
       CLV = stängningens sannolikhet minus vår, i procentenheter (positivt = vi slog stängningen). 1u = 0,2 % av bankrullen.</div>
     <div class="controls">
       <select id="aSport"><option value="">Alla sporter</option><option>Fotboll</option><option>NBA</option></select>
-      <select id="aTyp"><option value="">Alla typer</option><option>Live</option><option>Skugga</option>
+      <select id="aTyp"><option value="">Alla typer</option><option>Spel</option><option>Skugga</option>
         <option>Modelltest</option><option>Parlay</option></select>
       <select id="aMk"><option value="">Alla marknader</option></select>
       <select id="aBook"><option value="">Alla bolag</option></select>
@@ -392,7 +392,7 @@ async function loadAll() {
   ALL = [];
   for (const d of [DATA, o].filter(Boolean)) {
     const sp = d.sport === "NBA" ? "NBA" : "Fotboll";
-    (d.bokforing || []).forEach(b => ALL.push(norm(b, sp, "Live")));
+    (d.bokforing || []).forEach(b => ALL.push(norm(b, sp, "Spel")));
     (d.skuggspel || []).forEach(b => ALL.push(norm(b, sp, "Skugga")));
     (d.modelltest || []).forEach(b => ALL.push(norm(b, sp, "Modelltest")));
     (d.parlay_bokforing || []).forEach(x => ALL.push(normParlay(x, sp)));

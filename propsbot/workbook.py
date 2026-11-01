@@ -28,9 +28,9 @@ MK = {"shots": "Skott", "shots_on_target": "Skott på mål", "goal": "Mål", "as
       "steals": "Steals", "blocks": "Blocks", "pra": "PRA", "pr": "Poäng + returer", "ra": "Returer + assist"}
 
 LEDGERS = [  # (fil, sport, typ)
-    ("bokforing_v2.json", "Fotboll", "Live"), ("bokforing_skugga_v3.json", "Fotboll", "Skugga"),
+    ("bokforing_v2.json", "Fotboll", "Spel"), ("bokforing_skugga_v3.json", "Fotboll", "Skugga"),
     ("bokforing_modell_v3.json", "Fotboll", "Modelltest"), ("parlays_v2.json", "Fotboll", "Parlay"),
-    ("nba_bokforing_v2.json", "NBA", "Live"), ("nba_skugga_v2.json", "NBA", "Skugga"),
+    ("nba_bokforing_v2.json", "NBA", "Spel"), ("nba_skugga_v2.json", "NBA", "Skugga"),
     ("nba_modelltest.json", "NBA", "Modelltest"), ("nba_parlays_v2.json", "NBA", "Parlay"),
 ]
 
@@ -248,7 +248,7 @@ def build(root: Path, path: Path) -> int:
     group_sheet("Per oddsintervall", "Oddsintervall", odds_b)
     group_sheet("Per sannolikhet", "Sannolikhetsintervall", prob_b)
     group_sheet("Per edge", "Edgeintervall", edge_b)
-    group_sheet("Per typ", "Typ", ["Live", "Skugga", "Modelltest", "Parlay"])
+    group_sheet("Per typ", "Typ", ["Spel", "Skugga", "Modelltest", "Parlay"])
     group_sheet("Per sport", "Sport", ["Fotboll", "NBA"])
     group_sheet("Per CLV-signal", "CLV-signal", ["ja", "nej"])
     group_sheet("Per vecka", "Vecka", weeks)
@@ -261,7 +261,7 @@ def build(root: Path, path: Path) -> int:
     o["A2"].font = Font(name=FONT, size=9, color="6B7280")
     kpis = [
         ("Bokförda spel", f"=COUNTA({R('Status')})", "0"),
-        ("Varav live", f'=COUNTIFS({R("Typ")},"Live")', "0"),
+        ("Varav riktiga spel", f'=COUNTIFS({R("Typ")},"Spel")', "0"),
         ("Rättade (vunna + förlorade)", f'=COUNTIF({R("Status")},"vunnen")+COUNTIF({R("Status")},"förlorad")', "0"),
         ("Öppna", f'=COUNTIF({R("Status")},"öppen")', "0"),
         ("Träffprocent", '=IF(B6=0,"",COUNTIF(' + R("Status") + ',"vunnen")/B6)', "0.0%"),
@@ -281,7 +281,8 @@ def build(root: Path, path: Path) -> int:
         o[f"A{i}"].border = o[f"B{i}"].border = thin
     o.column_dimensions["A"].width = 34
     o.column_dimensions["B"].width = 16
-    o["A18"] = "Live = spel som skickats som notis. Skugga = stoppade av reglerna. Modelltest = modellens val (ingen notis)."
+    o["A18"] = ("Spel = riktiga spel före matchstart (notis skickad). Skugga = stoppade av en regel. "
+                "Modelltest = modellens val (ingen notis). Inga spel görs under pågående match (live/in-play).")
     o["A19"] = "Filtrera i fliken 'Alla spel' (pilarna i rubrikraden). Övriga flikar sammanställer per grupp."
     for c in ("A18", "A19"):
         o[c].font = Font(name=FONT, size=9, italic=True, color="6B7280")
@@ -290,7 +291,7 @@ def build(root: Path, path: Path) -> int:
     e = wb.create_sheet("Förklaring")
     expl = [
         ("Kolumn", "Betydelse"),
-        ("Typ", "Live = notifierat spel. Skugga = minst 2 % edge men stoppat av en regel. Modelltest = spelarmodellens val. Parlay = kombinationsspel."),
+        ("Typ", "Spel = riktigt spel före matchstart (notis skickad). Skugga = minst 2 % edge men stoppat av en regel. Modelltest = spelarmodellens val. Parlay = kombinationsspel. Boten spelar aldrig live (under pågående match)."),
         ("Odds", "Bästa pris hos våra spelbolag när spelet bokfördes."),
         ("Stängning", "Senaste pris hos samma bolag före avspark (visas efter avspark)."),
         ("CLV (pe)", "Stängningens implicita sannolikhet minus vår, i procentenheter. Positivt = vi fick bättre pris än stängningen."),
