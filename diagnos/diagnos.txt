@@ -1,4 +1,4 @@
-Skanning 2026-11-01 20:25
+Skanning 2026-11-01 20:36
 Kambi unibet (ubse): OK, 11 matcher i valda ligor
 Kambi paf (paf): OK
 Kambi atg (atg): OK
@@ -7,7 +7,8 @@ Kambi svenskaspel (svenskaspel): OK
 Kambi expekt (expektse): OK
 Kambi betmgm (betmgmse): OK
 Pinnacle: OK, 14 ligor
-Pinnacle: 14 matcher, matchlinjer för 8 av 11 Kambi-matcher, 0 spelarodds som används
+  Fiorentina (W) – Juventus (W): Pinnacle FEL HTTP 403 för https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639304884/related
+Pinnacle: 14 matcher, matchlinjer för 7 av 11 Kambi-matcher, 0 spelarodds som används
 Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
   Double Chance 1st Half | units=Regular | kategori=Team Props | deltagare=Sassuolo Or Fiorentina,Draw Or Fiorentina,Draw Or Sassuolo  ->  används inte (lagmarknad)
   Moneyline and Total Goals | units=Regular | kategori=Team Props | deltagare=Sassuolo & Over 2.5,Sassuolo & Under 2.5,Draw & Over 2.5,Draw & Under 2.5,Fiorentina & Over 2.5,Fiorentina & Under 2.5  ->  används inte (lagmarknad)
@@ -69,7 +70,7 @@ Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
   AIK To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
   AIK Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
   GAIS Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
-Tid: hämtning 56 s
+Tid: hämtning 64 s
 Marginal över alla matcher: uppmätt marginal: shots_on_target stege k=1.16 (41 spelare; marginal vid 3,00 ≈ 19%)
   Sassuolo – Fiorentina: modell ita.1, 29 spelare
   GAIS – AIK: modell swe.1, 30 spelare
@@ -90,7 +91,7 @@ Exempel uppmätt marginal: goal k=1.52, assist k=1.63, shots_on_target stege k=1
   Newcastle United – Everton: väntade mål Pinnacle 2.92 mot Kambi 2.89 (kvot 1.009); uppmätt marginal: goal k=1.44, assist k=1.53, shots_on_target stege k=1.18 (6 spelare; marginal vid 3,00 ≈ 22%)
   Mallorca – Cadiz: saknar matchlinjer från Pinnacle
   Deportivo A Coruña – Osasuna: väntade mål Pinnacle 2.39 mot Kambi 2.39 (kvot 0.998); uppmätt marginal: goal k=1.44, assist k=1.57
-Tid: modell och utvärdering 43 s
+Tid: modell och utvärdering 55 s
 Bolag med spelarodds: atg, betmgm, expekt, leovegas, paf, svenskaspel, unibet
 Spelarodds per marknad: assist 1197, goal 3354, shots 2087, shots_on_target 1729
 Kambi-marknader: assist='to give an assist (settled using opta data)':1197; goal='to score':2437; goal='to score at least 2 goals':812; goal='to score at least 3 goals':105; shots="player's shots (settled using opta data)":2087; shots_on_target="player's shots on target (settled using opta data)":1729
