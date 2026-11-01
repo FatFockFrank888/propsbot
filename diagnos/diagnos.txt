@@ -1,4 +1,4 @@
-Skanning 2026-11-01 09:58
+Skanning 2026-11-01 10:11
 Kambi unibet (ubse): OK, 31 matcher i valda ligor
 Kambi paf (paf): OK
 Kambi atg (atg): OK
@@ -7,7 +7,7 @@ Kambi svenskaspel (svenskaspel): OK
 Kambi expekt (expektse): OK
 Kambi betmgm (betmgmse): OK
 Pinnacle: FEL HTTP 503 för https://guest.api.arcadia.pinnacle.com/0.1/sports/29/leagues (kan vara geoblockerat från er uppkoppling)
-Tid: hämtning 203 s
+Tid: hämtning 107 s
 Marginal över alla matcher: uppmätt marginal: shots_on_target stege k=1.12 (118 spelare; marginal vid 3,00 ≈ 14%)
 Modellens nivåavvikelse mot marknaden (log-odds, dras bort): 
   Como – Venezia: saknar matchlinjer från Pinnacle
@@ -34,10 +34,10 @@ Modellens nivåavvikelse mot marknaden (log-odds, dras bort):
   Juventus – Napoli: saknar matchlinjer från Pinnacle
   Marseille – Toulouse: saknar matchlinjer från Pinnacle
   CD Tenerife – FC Andorra: saknar matchlinjer från Pinnacle
-Tid: modell och utvärdering 31 s
+Tid: modell och utvärdering 23 s
 Bolag med spelarodds: atg, betmgm, expekt, leovegas, paf, svenskaspel, unibet
-Spelarodds per marknad: assist 3190, goal 8210, shots 6059, shots_on_target 5073
-Kambi-marknader: assist='to give an assist (settled using opta data)':3190; goal='to score':5487; goal='to score at least 2 goals':2401; goal='to score at least 3 goals':280; goal='to score at least 4 goals':35; goal='to score at least 5 goals':7; shots="player's shots (settled using opta data)":6059; shots_on_target="player's shots on target (settled using opta data)":5073
+Spelarodds per marknad: assist 3185, goal 8212, shots 6047, shots_on_target 5068
+Kambi-marknader: assist='to give an assist (settled using opta data)':3185; goal='to score':5482; goal='to score at least 2 goals':2408; goal='to score at least 3 goals':280; goal='to score at least 4 goals':35; goal='to score at least 5 goals':7; shots="player's shots (settled using opta data)":6047; shots_on_target="player's shots on target (settled using opta data)":5068
 Pinnacle har inga spelarprops här – använder linjejustering mot Pinnacles matchlinjer.
 CLV-signal: 0 ben släppta (Pinnacle rör sig åt vårt håll)
 Spelarmodell: 0 av 0 ben har modell, 0 nya matcher hämtade från ESPN
