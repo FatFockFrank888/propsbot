@@ -88,55 +88,92 @@ def build(root: Path, path: Path) -> int:
     green = Font(name=FONT, size=10, color="15803D")
     red = Font(name=FONT, size=10, color="B91C1C")
 
-    # ------------------------------------------------------------ Alla spel
+    # ------------------------------------------------------------ spelblad
+    def write_sheet(ws, rows, table_name):
+        ws.append(HEAD)
+        n = max(len(rows), 1)
+        last = n + 1
+        for i, r in enumerate(rows, start=2):
+            c = COL
+            ws.append(r + [None] * (len(HEAD) - len(r)))
+            ws[f"{c['CLV (pe)']}{i}"] = f'=IF({c["Stängning"]}{i}="","",(1/{c["Stängning"]}{i}-1/{c["Odds"]}{i})*100)'
+            ws[f"{c['Resultat (u)']}{i}"] = (
+                f'=IF({c["Status"]}{i}="vunnen",({c["Odds"]}{i}-1)*{c["Insats (u)"]}{i},'
+                f'IF({c["Status"]}{i}="förlorad",-{c["Insats (u)"]}{i},IF({c["Status"]}{i}="struken",0,"")))')
+            ws[f"{c['Oddsintervall']}{i}"] = (
+                f'=LOOKUP({c["Odds"]}{i},{{1,1.6,2,2.5,3,4,6}},'
+                f'{{"1,00–1,59","1,60–1,99","2,00–2,49","2,50–2,99","3,00–3,99","4,00–5,99","6,00+"}})')
+            ws[f"{c['Sannolikhetsintervall']}{i}"] = (
+                f'=LOOKUP({c["Sannolikhet"]}{i}*100,{{0,30,40,50,60,70}},'
+                f'{{"under 30 %","30–39 %","40–49 %","50–59 %","60–69 %","70 %+"}})')
+            ws[f"{c['Edgeintervall']}{i}"] = (
+                f'=LOOKUP({c["Edge"]}{i}*100,{{-100,0,2,4,6,10}},'
+                f'{{"under 0 %","0–1,9 %","2–3,9 %","4–5,9 %","6–9,9 %","10 %+"}})')
+            ws[f"{c['Vecka']}{i}"] = f'=YEAR({c["Bokförd"]}{i})&" v"&TEXT(WEEKNUM({c["Bokförd"]}{i},21),"00")'
+        if not rows:
+            ws.append(["(inga spel bokförda än)"])
+        fmt = {"Bokförd": "yyyy-mm-dd hh:mm", "Avspark": "yyyy-mm-dd hh:mm", "Odds": "0.00", "Stängning": "0.00",
+               "CLV (pe)": '+0.00;-0.00;0.00', "Sannolikhet": "0.0%", "Edge": "0.0%", "Insats (u)": '0.0"u"',
+               "Resultat (u)": '+0.00"u";-0.00"u";0.00"u"', "Linje": "0.0"}
+        widths = {"Bokförd": 16, "Avspark": 16, "Match": 34, "Spelare": 34, "Marknad": 16, "Bolag": 12,
+                  "Status": 10, "Oddsintervall": 13, "Sannolikhetsintervall": 15, "Edgeintervall": 12, "Vecka": 10}
+        for h, col in COL.items():
+            ws.column_dimensions[col].width = widths.get(h, 11)
+            for cell in ws[col][1:last]:
+                cell.font = base
+                if h in fmt:
+                    cell.number_format = fmt[h]
+        for cell in ws[1]:
+            cell.font, cell.fill = head_font, head_fill
+            cell.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
+        ws.row_dimensions[1].height = 30
+        ws.freeze_panes = "A2"
+        if rows:
+            tab = Table(displayName=table_name, ref=f"A1:{get_column_letter(len(HEAD))}{last}")
+            tab.tableStyleInfo = TableStyleInfo(name="TableStyleMedium2", showRowStripes=True)
+            ws.add_table(tab)
+        for h in ("CLV (pe)", "Resultat (u)"):
+            rng = f"{COL[h]}2:{COL[h]}{last}"
+            ws.conditional_formatting.add(rng, CellIsRule(operator="greaterThan", formula=["0"], font=green))
+            ws.conditional_formatting.add(rng, CellIsRule(operator="lessThan", formula=["0"], font=red))
+        return last
+
+    def kpi_box(ws, last):
+        """Nyckeltal till höger om tabellen, med formler mot bladets egna kolumner."""
+        def r(h):
+            return f"${COL[h]}$2:${COL[h]}${last}"
+        box = [
+            ("Spel", f"=COUNTA({r('Status')})", "0"),
+            ("Rättade", f'=COUNTIF({r("Status")},"vunnen")+COUNTIF({r("Status")},"förlorad")', "0"),
+            ("Öppna", f'=COUNTIF({r("Status")},"öppen")', "0"),
+            ("Träff", f'=IF(AA3=0,"",COUNTIF({r("Status")},"vunnen")/AA3)', "0.0%"),
+            ("Insats rättade (u)", f'=SUMIFS({r("Insats (u)")},{r("Status")},"vunnen")+SUMIFS({r("Insats (u)")},{r("Status")},"förlorad")', '0.0"u"'),
+            ("Resultat (u)", f"=SUM({r('Resultat (u)')})", '+0.00"u";-0.00"u";0.00"u"'),
+            ("ROI", '=IF(AA6=0,"",AA7/AA6)', "0.0%"),
+            ("Snitt-CLV (pe)", f'=IFERROR(AVERAGE({r("CLV (pe)")}),"")', '+0.00;-0.00;0.00'),
+            ("Slog stängningen", f'=IFERROR(COUNTIF({r("CLV (pe)")},">0")/COUNT({r("CLV (pe)")}),"")', "0.0%"),
+        ]
+        ws["Z1"], ws["AA1"] = "Nyckeltal", ""
+        ws["Z1"].font, ws["Z1"].fill = head_font, head_fill
+        ws["AA1"].fill = head_fill
+        for i, (k, f, nfm) in enumerate(box, start=2):
+            ws[f"Z{i}"], ws[f"AA{i}"] = k, f
+            ws[f"Z{i}"].font, ws[f"AA{i}"].font = base, bold
+            ws[f"AA{i}"].number_format = nfm
+        ws.column_dimensions["Z"].width = 20
+        ws.column_dimensions["AA"].width = 12
+
     ws = wb.active
     ws.title = "Alla spel"
-    ws.append(HEAD)
-    n = max(len(rows), 1)
-    last = n + 1
-    for i, r in enumerate(rows, start=2):
-        c = COL
-        ws.append(r + [None] * (len(HEAD) - len(r)))
-        ws[f"{c['CLV (pe)']}{i}"] = f'=IF({c["Stängning"]}{i}="","",(1/{c["Stängning"]}{i}-1/{c["Odds"]}{i})*100)'
-        ws[f"{c['Resultat (u)']}{i}"] = (
-            f'=IF({c["Status"]}{i}="vunnen",({c["Odds"]}{i}-1)*{c["Insats (u)"]}{i},'
-            f'IF({c["Status"]}{i}="förlorad",-{c["Insats (u)"]}{i},IF({c["Status"]}{i}="struken",0,"")))')
-        ws[f"{c['Oddsintervall']}{i}"] = (
-            f'=LOOKUP({c["Odds"]}{i},{{1,1.6,2,2.5,3,4,6}},'
-            f'{{"1,00–1,59","1,60–1,99","2,00–2,49","2,50–2,99","3,00–3,99","4,00–5,99","6,00+"}})')
-        ws[f"{c['Sannolikhetsintervall']}{i}"] = (
-            f'=LOOKUP({c["Sannolikhet"]}{i}*100,{{0,30,40,50,60,70}},'
-            f'{{"under 30 %","30–39 %","40–49 %","50–59 %","60–69 %","70 %+"}})')
-        ws[f"{c['Edgeintervall']}{i}"] = (
-            f'=LOOKUP({c["Edge"]}{i}*100,{{-100,0,2,4,6,10}},'
-            f'{{"under 0 %","0–1,9 %","2–3,9 %","4–5,9 %","6–9,9 %","10 %+"}})')
-        ws[f"{c['Vecka']}{i}"] = f'=YEAR({c["Bokförd"]}{i})&" v"&TEXT(WEEKNUM({c["Bokförd"]}{i},21),"00")'
-    if not rows:
-        ws.append(["(inga spel bokförda än)"])
-    fmt = {"Bokförd": "yyyy-mm-dd hh:mm", "Avspark": "yyyy-mm-dd hh:mm", "Odds": "0.00", "Stängning": "0.00",
-           "CLV (pe)": '+0.00;-0.00;0.00', "Sannolikhet": "0.0%", "Edge": "0.0%", "Insats (u)": '0.0"u"',
-           "Resultat (u)": '+0.00"u";-0.00"u";0.00"u"', "Linje": "0.0"}
-    widths = {"Bokförd": 16, "Avspark": 16, "Match": 34, "Spelare": 34, "Marknad": 16, "Bolag": 12,
-              "Status": 10, "Oddsintervall": 13, "Sannolikhetsintervall": 15, "Edgeintervall": 12, "Vecka": 10}
-    for h, col in COL.items():
-        ws.column_dimensions[col].width = widths.get(h, 11)
-        for cell in ws[col][1:last]:
-            cell.font = base
-            if h in fmt:
-                cell.number_format = fmt[h]
-    for cell in ws[1]:
-        cell.font, cell.fill = head_font, head_fill
-        cell.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
-    ws.row_dimensions[1].height = 30
-    ws.freeze_panes = "A2"
-    if rows:
-        tab = Table(displayName="AllaSpel", ref=f"A1:{get_column_letter(len(HEAD))}{last}")
-        tab.tableStyleInfo = TableStyleInfo(name="TableStyleMedium2", showRowStripes=True)
-        ws.add_table(tab)
-    for h in ("CLV (pe)", "Resultat (u)"):
-        rng = f"{COL[h]}2:{COL[h]}{last}"
-        ws.conditional_formatting.add(rng, CellIsRule(operator="greaterThan", formula=["0"], font=green))
-        ws.conditional_formatting.add(rng, CellIsRule(operator="lessThan", formula=["0"], font=red))
+    last = write_sheet(ws, rows, "AllaSpel")
+    kpi_box(ws, last)
+    for title, tname, pick in (
+            ("NBA", "NBA", lambda r: r[1] == "NBA" and r[2] != "Parlay"),
+            ("Fotboll", "Fotboll", lambda r: r[1] == "Fotboll" and r[2] != "Parlay"),
+            ("Parlays", "Parlays", lambda r: r[2] == "Parlay")):
+        sub = [r for r in rows if pick(r)]
+        w = wb.create_sheet(title)
+        kpi_box(w, write_sheet(w, sub, tname))
 
     def R(h):  # absolut område i 'Alla spel'
         return f"'Alla spel'!${COL[h]}$2:${COL[h]}${last}"
