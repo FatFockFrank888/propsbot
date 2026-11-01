@@ -115,6 +115,12 @@ def cmd_free(args) -> None:
         import traceback
         print(f"NBA: fel {type(e).__name__}: {e}")
         traceback.print_exc()
+    try:
+        from .workbook import build
+        n = build(_state_root(), _state_root() / "site" / "propsbot_bokforing.xlsx")
+        print(f"Excel-bokföring: {n} spel")
+    except Exception as e:
+        print(f"Excel-bokföring: fel {type(e).__name__}: {e}")
 
 
 def run_nba(root: Path, settings_path: Path) -> None:
