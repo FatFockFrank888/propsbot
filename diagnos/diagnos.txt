@@ -1,4 +1,4 @@
-Skanning 2026-11-01 23:05
+Skanning 2026-11-01 23:16
 Kambi unibet (ubse): OK, 17 matcher i valda ligor
 Kambi paf (paf): OK
 Kambi atg (atg): OK
@@ -69,7 +69,7 @@ Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
   AIK To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
   AIK Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
   GAIS Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
-Tid: hämtning 77 s
+Tid: hämtning 76 s
 Marginal över alla matcher: uppmätt marginal: shots_on_target stege k=1.22 (41 spelare; marginal vid 3,00 ≈ 27%)
   Sassuolo – Fiorentina: modell ita.1, 29 spelare
   GAIS – AIK: modell swe.1, 30 spelare
@@ -80,7 +80,7 @@ Marginal över alla matcher: uppmätt marginal: shots_on_target stege k=1.22 (41
   Deportivo A Coruña – Osasuna: modell esp.1, 31 spelare
 Modellens nivåavvikelse mot marknaden (log-odds, dras bort): shots -0.70, shots_on_target -0.33
   Real Oviedo – UD Las Palmas: saknar matchlinjer från Pinnacle
-  Sassuolo – Fiorentina: väntade mål Pinnacle 3.19 mot Kambi 3.17 (kvot 1.007); uppmätt marginal: goal k=1.53, assist k=1.63, shots_on_target stege k=1.26 (21 spelare; marginal vid 3,00 ≈ 33%)
+  Sassuolo – Fiorentina: väntade mål Pinnacle 3.20 mot Kambi 3.17 (kvot 1.009); uppmätt marginal: goal k=1.53, assist k=1.63, shots_on_target stege k=1.26 (21 spelare; marginal vid 3,00 ≈ 33%)
 Exempel uppmätt marginal: goal k=1.53, assist k=1.63, shots_on_target stege k=1.26 (21 spelare; marginal vid 3,00 ≈ 33%)
   Valladolid – Leganés: saknar matchlinjer från Pinnacle
   GAIS – AIK: väntade mål Pinnacle 3.08 mot Kambi 3.07 (kvot 1.003); uppmätt marginal: goal k=1.69
@@ -90,7 +90,7 @@ Exempel uppmätt marginal: goal k=1.53, assist k=1.63, shots_on_target stege k=1
   Newcastle United – Everton: väntade mål Pinnacle 2.92 mot Kambi 2.89 (kvot 1.009); uppmätt marginal: goal k=1.45, assist k=1.53, shots_on_target stege k=1.18 (6 spelare; marginal vid 3,00 ≈ 22%)
   Mallorca – Cadiz: saknar matchlinjer från Pinnacle
   Deportivo A Coruña – Osasuna: väntade mål Pinnacle 2.39 mot Kambi 2.39 (kvot 0.998); uppmätt marginal: goal k=1.44, assist k=1.57
-Tid: modell och utvärdering 74 s
+Tid: modell och utvärdering 55 s
 Bolag med spelarodds: atg, betmgm, expekt, leovegas, paf, svenskaspel, unibet
 Spelarodds per marknad: assist 1197, goal 3354, shots 2093, shots_on_target 1743
 Kambi-marknader: assist='to give an assist (settled using opta data)':1197; goal='to score':2444; goal='to score at least 2 goals':805; goal='to score at least 3 goals':105; shots="player's shots (settled using opta data)":2093; shots_on_target="player's shots on target (settled using opta data)":1743
@@ -104,7 +104,7 @@ Bästa edge marknad shots: -2.1%, -2.3%, -2.9% (av 212 ben)
 Bästa edge modelltest goal: -30.0%, -33.2%, -33.7% (av 108 ben)
 Bästa edge modelltest assist: -46.6%, -48.1%, -48.6% (av 66 ben)
 Bästa edge modelltest shots_on_target: +3.1%, -0.5%, -6.1% (av 224 ben)
-Bästa edge modelltest shots: +8.5%, +8.3%, +7.8% (av 212 ben)
+Bästa edge modelltest shots: +8.5%, +8.3%, +7.9% (av 212 ben)
 0 spelbara ben.
 Bokförda nya spel: 0
 Skuggspel: 0 nya bokförda (stoppade av reglerna, minst 2 % edge)
