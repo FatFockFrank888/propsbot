@@ -62,6 +62,7 @@
   <button class="tab" data-tab="parlay">Parlays</button>
   <button class="tab" data-tab="skugga">Skuggspel</button>
   <button class="tab" data-tab="test">Modelltest</button>
+  <button class="tab" data-tab="analys">Analys</button>
   <span class="upd" id="upd"></span>
 </div>
 <main>
@@ -83,6 +84,9 @@
         <option value="pra">PRA (NBA)</option>
         <option value="pr">Poäng + returer (NBA)</option>
         <option value="ra">Returer + assist (NBA)</option>
+      </select>
+      <select id="side">
+        <option value="">Över och under</option><option value="over">Bara över</option><option value="under">Bara under</option>
       </select>
       <label><input type="checkbox" id="only"> Bara spelbara</label>
       <span class="sub">Visar bara ben med minst 2 % edge. Grön = spelbar (uppfyller marknadens edgekrav).</span>
@@ -156,6 +160,47 @@
         <th>Status</th><th class="n">Utfall</th><th class="n">Resultat</th></tr></thead>
       <tbody id="tbets"></tbody></table></div>
   </section>
+  <section id="analys" class="hidden">
+    <div class="sub" style="margin-bottom:10px">Alla bokförda spel från båda botarna (fotboll och NBA): live, skuggspel,
+      modelltest och parlays. Filtrera och gruppera för att se var vi vinner, förlorar eller inte slår marknaden.
+      CLV = stängningens sannolikhet minus vår, i procentenheter (positivt = vi slog stängningen). 1u = 0,2 % av bankrullen.</div>
+    <div class="controls">
+      <select id="aSport"><option value="">Alla sporter</option><option>Fotboll</option><option>NBA</option></select>
+      <select id="aTyp"><option value="">Alla typer</option><option>Live</option><option>Skugga</option>
+        <option>Modelltest</option><option>Parlay</option></select>
+      <select id="aMk"><option value="">Alla marknader</option></select>
+      <select id="aBook"><option value="">Alla bolag</option></select>
+      <select id="aSida"><option value="">Över och under</option><option>Över</option><option>Under</option></select>
+      <select id="aStatus"><option value="">Alla statusar</option><option>öppen</option><option>vunnen</option>
+        <option>förlorad</option><option>struken</option></select>
+      <select id="aClv"><option value="">CLV-signal: alla</option><option value="1">Bara CLV-signal</option>
+        <option value="0">Utan CLV-signal</option></select>
+      <label>Odds <input id="aOmin" type="number" step="0.05" placeholder="från" style="width:70px;background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:8px">
+        – <input id="aOmax" type="number" step="0.05" placeholder="till" style="width:70px;background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:8px"></label>
+      <label>Sannolikhet ≥ <input id="aPmin" type="number" step="1" placeholder="%" style="width:60px;background:var(--panel);color:var(--text);border:1px solid var(--line);border-radius:8px;padding:8px"></label>
+      <select id="aGroup">
+        <option value="marknad">Gruppera: marknad</option><option value="bolag">bolag</option>
+        <option value="oddsband">oddsintervall</option><option value="pband">sannolikhetsintervall</option>
+        <option value="edgeband">edgeintervall</option><option value="typ">typ</option><option value="sport">sport</option>
+        <option value="clvsig">CLV-signal</option><option value="sida">över/under</option>
+        <option value="vecka">vecka</option></select>
+      <button id="aCsv" class="tab" style="color:var(--text)">Ladda ner kalkylark (CSV)</button>
+    </div>
+    <div class="tiles" id="aTiles"></div>
+    <h2>Sammanställning</h2>
+    <div class="wrap" style="max-height:none"><table>
+      <thead><tr><th>Grupp</th><th class="n">Spel</th><th class="n">Rättade</th><th class="n">Träff</th>
+        <th class="n">Insats</th><th class="n">Resultat</th><th class="n">ROI</th><th class="n">Snitt-CLV</th>
+        <th class="n">Slog CLV</th><th class="n">Snitt edge</th></tr></thead>
+      <tbody id="aGroupRows"></tbody></table></div>
+    <h2>Alla spel</h2>
+    <div class="wrap"><table>
+      <thead><tr><th>Bokförd</th><th>Sport</th><th>Typ</th><th>Avspark</th><th>Match</th><th>Spelare / ben</th>
+        <th>Spel</th><th>Bolag</th><th class="n">Odds</th><th class="n">Stängning</th><th class="n">CLV</th>
+        <th class="n">Sannolikhet</th><th class="n">Edge</th><th class="n">Insats</th><th>Status</th>
+        <th class="n">Resultat</th></tr></thead>
+      <tbody id="aRows"></tbody></table></div>
+  </section>
 </main>
 <script>
 const nf = (x, d = 2) => x == null || isNaN(x) ? "–" : x.toLocaleString("sv-SE", {minimumFractionDigits: d, maximumFractionDigits: d});
@@ -168,7 +213,10 @@ const fmtTs = ts => {
   return `${p({weekday: "short"})} ${p({day: "numeric"})}/${p({month: "numeric"})} ${p({hour: "2-digit", minute: "2-digit"})}`;
 };
 const fmtUtc = s => fmtTs(Date.parse(s.replace(" ", "T") + ":00Z") / 1000);
-const label = (m, l) => m === "goal" && l === 0.5 ? "gör mål" : m === "assist" && l === 0.5 ? "assist" :
+const label = (m, l, side) => side === "under" ? ({shots: "skott", shots_on_target: "skott på mål", goal: "mål",
+    assist: "assist", points: "poäng", rebounds: "returer", assists: "assist", threes: "trepoängare",
+    steals: "steals", blocks: "blocks", pra: "PRA", pr: "poäng + returer", ra: "returer + assist"}[m] || m) + " under " + l :
+  m === "goal" && l === 0.5 ? "gör mål" : m === "assist" && l === 0.5 ? "assist" :
   ({shots: "skott", shots_on_target: "skott på mål", goal: "mål", assist: "assist", points: "poäng",
     rebounds: "returer", assists: "assist", threes: "trepoängare", steals: "steals", blocks: "blocks",
     pra: "PRA", pr: "poäng + returer", ra: "returer + assist"}[m] || m) + " över " + l;
@@ -184,7 +232,9 @@ function renderRadar() {
   const q = document.getElementById("q").value.toLowerCase();
   const mk = document.getElementById("mk").value;
   const only = document.getElementById("only").checked;
+  const side = document.getElementById("side").value;
   let rows = DATA.radar.filter(r => (!mk || r.marknad === mk) && (!only || r.spelbar) &&
+    (!side || (r.sida || "over") === side) &&
     (!q || (r.spelare + " " + r.match).toLowerCase().includes(q)));
   rows.sort((a, b) => (a[sortKey] > b[sortKey] ? 1 : a[sortKey] < b[sortKey] ? -1 : 0) * sortDir);
   document.getElementById("rows").innerHTML = rows.map(r => `
@@ -217,7 +267,7 @@ function betRows(bets, withStop) {
     const clv = b.stangning ? b.odds / b.stangning - 1 : null;
     const stop = (b.stopp || "").split("; ").filter(x => x && !x.startsWith("linjejusterat")).join("; ");
     return `<tr><td>${fmtTs(b.bokford)}</td><td>${fmtTs(b.avspark)}</td><td>${esc(b.match)}</td>
-      <td>${esc(b.spelare)}</td><td>${label(b.marknad, b.linje)}</td><td>${esc(b.bolag)}</td>
+      <td>${esc(b.spelare)}</td><td>${label(b.marknad, b.linje, b.sida)}</td><td>${esc(b.bolag)}</td>
       <td class="n">${nf(b.odds)}</td><td class="n">${nf(b.stangning)}</td>
       <td class="n ${clv > 0 ? "pos" : clv < 0 ? "loss" : ""}">${pct(clv)}</td>
       <td class="n">${pct(b.sannolikhet)}</td><td class="n">${pct(b.edge)}</td>
@@ -230,7 +280,7 @@ function betRows(bets, withStop) {
 
 function renderExtra() {
   const br = DATA.regler.bankrulle;
-  const legs = x => x.ben.map(l => `${esc(l.spelare)} – ${label(l.marknad, l.linje)} @ ${nf(l.odds)}
+  const legs = x => x.ben.map(l => `${esc(l.spelare)} – ${label(l.marknad, l.linje, l.sida)} @ ${nf(l.odds)}
     <span class="neg">(${esc(l.match)}, ${fmtTs(l.avspark)})</span>`).join("<br>");
   document.getElementById("psug").innerHTML = (DATA.parlay_forslag || []).map(x => `<tr>
     <td>${esc(x.bolag)}</td><td style="white-space:normal">${legs(x)}</td><td class="n">${nf(x.odds)}</td>
@@ -240,7 +290,7 @@ function renderExtra() {
   document.getElementById("ptiles").innerHTML = tilesHtml(DATA.parlay_sammanfattning, br);
   document.getElementById("pbets").innerHTML = (DATA.parlay_bokforing || []).map(x => `<tr>
     <td>${fmtTs(x.bokford)}</td><td>${esc(x.bolag)}</td>
-    <td style="white-space:normal">${x.ben.map(l => `${esc(l.spelare)} – ${label(l.marknad, l.linje)} @ ${nf(l.odds)}
+    <td style="white-space:normal">${x.ben.map(l => `${esc(l.spelare)} – ${label(l.marknad, l.linje, l.sida)} @ ${nf(l.odds)}
       <span class="pill ${l.status}">${l.status}</span>`).join("<br>")}</td>
     <td class="n">${nf(x.slutodds || x.odds)}</td><td class="n">${pct(x.ev)}</td><td class="n">${uFmt(x.insats_pct)}</td>
     <td><span class="pill ${x.status}">${x.status}</span></td>
@@ -275,14 +325,14 @@ async function load() {
     document.getElementById("navnba").href = nba ? "./" : "nba/";
     const mins = Math.round((Date.now() / 1000 - DATA.uppdaterad_ts) / 60);
     document.getElementById("upd").textContent = `Uppdaterad för ${mins} min sedan`;
-    renderRadar(); renderBok(); renderExtra();
+    renderRadar(); renderBok(); renderExtra(); loadAll();
   } catch (e) { document.getElementById("upd").textContent = "Kunde inte läsa data."; }
 }
 
-const HASH = {radar: "", bok: "bokforing", parlay: "parlays", skugga: "skuggspel", test: "modelltest"};
+const HASH = {radar: "", bok: "bokforing", parlay: "parlays", skugga: "skuggspel", test: "modelltest", analys: "analys"};
 function showTab(tab) {
   document.querySelectorAll(".tab").forEach(x => x.classList.toggle("on", x.dataset.tab === tab));
-  ["radar", "bok", "parlay", "skugga", "test"].forEach(id =>
+  ["radar", "bok", "parlay", "skugga", "test", "analys"].forEach(id =>
     document.getElementById(id).classList.toggle("hidden", tab !== id));
 }
 document.querySelectorAll(".tab").forEach(t => t.onclick = () => {
@@ -295,7 +345,124 @@ document.querySelectorAll("#radar th").forEach(th => th.onclick = () => {
   const k = th.dataset.k; sortDir = sortKey === k ? -sortDir : (th.classList.contains("n") ? -1 : 1);
   sortKey = k; renderRadar();
 });
-["q", "mk", "only"].forEach(id => document.getElementById(id).oninput = renderRadar);
+["q", "mk", "only", "side"].forEach(id => document.getElementById(id).oninput = renderRadar);
+// ---------------------------------------------------------------- Analys
+let ALL = [];
+const band = (x, edges, fmt) => { if (x == null) return "–"; for (let i = 0; i < edges.length - 1; i++)
+  if (x >= edges[i] && x < edges[i + 1]) return fmt(edges[i], edges[i + 1]); return fmt(edges[edges.length - 1], null); };
+const oddsBand = o => band(o, [1, 1.6, 2, 2.5, 3, 4, 6], (a, b) => b ? `${nf(a)}–${nf(b)}` : `${nf(a)}+`);
+const pBand = p => band(p * 100, [0, 30, 40, 50, 60, 70], (a, b) => b ? `${a}–${b} %` : `${a}+ %`);
+const eBand = e => band(e * 100, [-100, 0, 2, 4, 6, 10], (a, b) => a === -100 ? "under 0 %" : b ? `${a}–${b} %` : `${a}+ %`);
+const week = ts => { const d = new Date(ts * 1000); const j = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+  return `${d.getUTCFullYear()} v${Math.ceil(((d - j) / 864e5 + j.getUTCDay() + 1) / 7)}`; };
+
+const MKN = {shots: "Skott", shots_on_target: "Skott på mål", goal: "Mål", assist: "Assist",
+  points: "Poäng", rebounds: "Returer", assists: "Assist (NBA)", threes: "Trepoängare", steals: "Steals",
+  blocks: "Blocks", pra: "PRA", pr: "Poäng + returer", ra: "Returer + assist"};
+function norm(b, sport, typ) {
+  const done = b.avspark && b.avspark < Date.now() / 1000;
+  const clv = b.stangning && done ? (1 / b.stangning - 1 / b.odds) * 100 : null;
+  return {sport, typ, bokford: b.bokford, avspark: b.avspark, match: b.match, spelare: b.spelare,
+    marknad: MKN[b.marknad] || b.marknad, spel: label(b.marknad, b.linje, b.sida), bolag: b.bolag, odds: b.odds, stangning: b.stangning,
+    clv, p: b.sannolikhet, edge: b.edge, u: (b.insats_pct || 0) / U, status: b.status,
+    sida: b.sida === "under" ? "Under" : "Över",
+    res: b.resultat_enheter == null ? null : b.resultat_enheter / U, clvsig: !!b.clv_signal};
+}
+function normParlay(x, sport) {
+  return {sport, typ: "Parlay", bokford: x.bokford, avspark: Math.max(...x.ben.map(l => l.avspark || 0)),
+    match: x.ben.map(l => l.match).join(" | "), spelare: x.ben.map(l => `${l.spelare} ${label(l.marknad, l.linje, l.sida)}`).join(" + "),
+    marknad: `parlay ${x.antal_ben} ben`, spel: `${x.antal_ben} ben`, bolag: x.bolag, odds: x.slutodds || x.odds,
+    stangning: null, clv: null, p: x.sannolikhet, edge: x.ev, u: (x.insats_pct || 0) / U, status: x.status,
+    res: x.resultat_enheter == null ? null : x.resultat_enheter / U, clvsig: false};
+}
+async function loadAll() {
+  const other = DATA.sport === "NBA" ? "../data.json" : "nba/data.json";
+  let o = null;
+  try { o = await (await fetch(other + "?t=" + Date.now(), {cache: "no-store"})).json(); } catch (e) {}
+  ALL = [];
+  for (const d of [DATA, o].filter(Boolean)) {
+    const sp = d.sport === "NBA" ? "NBA" : "Fotboll";
+    (d.bokforing || []).forEach(b => ALL.push(norm(b, sp, "Live")));
+    (d.skuggspel || []).forEach(b => ALL.push(norm(b, sp, "Skugga")));
+    (d.modelltest || []).forEach(b => ALL.push(norm(b, sp, "Modelltest")));
+    (d.parlay_bokforing || []).forEach(x => ALL.push(normParlay(x, sp)));
+  }
+  const fill = (id, vals, first) => { const el = document.getElementById(id); const cur = el.value;
+    el.innerHTML = `<option value="">${first}</option>` + [...new Set(vals)].sort().map(v => `<option>${esc(v)}</option>`).join("");
+    el.value = cur; };
+  fill("aMk", ALL.map(r => r.marknad), "Alla marknader");
+  fill("aBook", ALL.map(r => r.bolag), "Alla bolag");
+  renderAnalys();
+}
+function filtered() {
+  const v = id => document.getElementById(id).value;
+  const omin = parseFloat(v("aOmin")), omax = parseFloat(v("aOmax")), pmin = parseFloat(v("aPmin"));
+  return ALL.filter(r => (!v("aSport") || r.sport === v("aSport")) && (!v("aTyp") || r.typ === v("aTyp")) &&
+    (!v("aMk") || r.marknad === v("aMk")) && (!v("aBook") || r.bolag === v("aBook")) &&
+    (!v("aSida") || r.sida === v("aSida")) &&
+    (!v("aStatus") || r.status === v("aStatus")) && (v("aClv") === "" || String(+r.clvsig) === v("aClv")) &&
+    (isNaN(omin) || r.odds >= omin) && (isNaN(omax) || r.odds <= omax) && (isNaN(pmin) || r.p * 100 >= pmin));
+}
+function stats(rows) {
+  const done = rows.filter(r => r.status === "vunnen" || r.status === "förlorad");
+  const st = done.reduce((a, r) => a + r.u, 0), res = done.reduce((a, r) => a + (r.res || 0), 0);
+  const clv = rows.filter(r => r.clv != null);
+  return {n: rows.length, done: done.length, won: done.filter(r => r.status === "vunnen").length, st, res,
+    roi: st ? res / st : null, clv: clv.length ? clv.reduce((a, r) => a + r.clv, 0) / clv.length : null,
+    beat: clv.length ? clv.filter(r => r.clv > 0).length / clv.length : null, nclv: clv.length,
+    edge: rows.length ? rows.reduce((a, r) => a + (r.edge || 0), 0) / rows.length : null};
+}
+const sgn = (x, d) => x == null ? "–" : (x > 0 ? "+" : "") + nf(x, d);
+function renderAnalys() {
+  const rows = filtered(), s = stats(rows);
+  document.getElementById("aTiles").innerHTML = [
+    ["Spel", s.n], ["Rättade", s.done], ["Träff", s.done ? pct(s.won / s.done) : "–"],
+    ["Insats", nf(s.st, 1) + "u"], ["Resultat", sgn(s.res, 1) + "u"], ["ROI", pct(s.roi)],
+    ["Snitt-CLV (krav ≥ 1,0)", sgn(s.clv, 2) + (s.nclv ? ` (${s.nclv})` : "")],
+    ["Slog stängningen", pct(s.beat)]].map(([k, v]) =>
+    `<div class="tile"><div class="k">${k}</div><div class="v">${v}</div></div>`).join("");
+  const g = document.getElementById("aGroup").value;
+  const key = r => g === "oddsband" ? oddsBand(r.odds) : g === "pband" ? pBand(r.p) : g === "edgeband" ? eBand(r.edge)
+    : g === "clvsig" ? (r.clvsig ? "CLV-signal" : "Utan signal") : g === "vecka" ? week(r.bokford) : r[g];
+  const groups = {};
+  rows.forEach(r => (groups[key(r)] = groups[key(r)] || []).push(r));
+  document.getElementById("aGroupRows").innerHTML = Object.entries(groups).sort((a, b) => b[1].length - a[1].length)
+    .map(([k, rs]) => { const x = stats(rs); return `<tr><td>${esc(k)}</td><td class="n">${x.n}</td>
+      <td class="n">${x.done}</td><td class="n">${x.done ? pct(x.won / x.done) : "–"}</td>
+      <td class="n">${nf(x.st, 1)}u</td><td class="n ${x.res > 0 ? "pos" : x.res < 0 ? "loss" : ""}">${sgn(x.res, 1)}u</td>
+      <td class="n">${pct(x.roi)}</td><td class="n ${x.clv > 0 ? "pos" : x.clv < 0 ? "loss" : ""}">${sgn(x.clv, 2)}</td>
+      <td class="n">${pct(x.beat)}</td><td class="n">${pct(x.edge)}</td></tr>`; }).join("")
+    || `<tr><td colspan="10" class="empty">Inga spel matchar filtret.</td></tr>`;
+  document.getElementById("aRows").innerHTML = rows.sort((a, b) => b.bokford - a.bokford).slice(0, 1000).map(r => `<tr>
+    <td>${fmtTs(r.bokford)}</td><td>${r.sport}</td><td>${r.typ}</td><td>${fmtTs(r.avspark)}</td>
+    <td style="white-space:normal;max-width:260px">${esc(r.match)}</td><td style="white-space:normal;max-width:300px">${esc(r.spelare)}</td>
+    <td>${esc(r.spel)}</td><td>${esc(r.bolag)}</td><td class="n">${nf(r.odds)}</td><td class="n">${nf(r.stangning)}</td>
+    <td class="n ${r.clv > 0 ? "pos" : r.clv < 0 ? "loss" : ""}">${sgn(r.clv, 1)}</td><td class="n">${pct(r.p)}</td>
+    <td class="n">${pct(r.edge)}</td><td class="n">${nf(r.u, 1)}u${r.clvsig ? " ⚡" : ""}</td>
+    <td><span class="pill ${r.status}">${r.status}</span></td>
+    <td class="n ${r.res > 0 ? "pos" : r.res < 0 ? "loss" : ""}">${sgn(r.res, 1)}u</td></tr>`).join("")
+    || `<tr><td colspan="16" class="empty">Inga spel.</td></tr>`;
+}
+function csv() {
+  const rows = filtered();
+  const head = ["Bokförd", "Sport", "Typ", "Avspark", "Match", "Spelare/ben", "Spel", "Marknad", "Bolag", "Odds",
+    "Stängning", "CLV (pe)", "Sannolikhet", "Edge", "Insats (u)", "CLV-signal", "Status", "Resultat (u)"];
+  const n = (x, d = 2) => x == null ? "" : x.toFixed(d).replace(".", ",");
+  const d = ts => ts ? new Date(ts * 1000).toLocaleString("sv-SE", tz) : "";
+  const q = v => `"${String(v ?? "").replace(/"/g, '""')}"`;
+  const lines = [head.join(";")].concat(rows.map(r => [d(r.bokford), r.sport, r.typ, d(r.avspark), q(r.match),
+    q(r.spelare), q(r.spel), r.marknad, r.bolag, n(r.odds), n(r.stangning), n(r.clv), n(r.p * 100, 1),
+    n(r.edge * 100, 1), n(r.u, 1), r.clvsig ? "ja" : "nej", r.status, n(r.res, 2)].join(";")));
+  const blob = new Blob(["\ufeff" + lines.join("\n")], {type: "text/csv;charset=utf-8"});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = `propsbot_spel_${new Date().toISOString().slice(0, 10)}.csv`;
+  a.click();
+}
+["aSport", "aTyp", "aMk", "aBook", "aSida", "aStatus", "aClv", "aOmin", "aOmax", "aPmin", "aGroup"].forEach(id =>
+  document.getElementById(id).oninput = renderAnalys);
+document.getElementById("aCsv").onclick = csv;
+
 load(); setInterval(load, 120000);
 </script>
 </body>
