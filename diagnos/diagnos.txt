@@ -1,4 +1,4 @@
-Skanning 2026-11-01 08:35
+Skanning 2026-11-01 08:53
 Kambi unibet (ubse): OK, 31 matcher i valda ligor
 Kambi paf (paf): OK
 Kambi atg (atg): OK
@@ -8,132 +8,41 @@ Kambi expekt (expektse): OK
 Kambi betmgm (betmgmse): OK
 Kambi betmgm (mgmse): FEL URLError för https://eu-offering.kambicdn.org/offering/v2018/mgmse/listView/football/all/all/all/matches.json: <urlopen error timed out>
 Kambi betmgm (bmse): FEL URLError för https://eu-offering.kambicdn.org/offering/v2018/bmse/listView/football/all/all/all/matches.json: <urlopen error timed out>
-Pinnacle: OK, 11 ligor
-Pinnacle: 36 matcher, matchlinjer för 22 av 30 Kambi-matcher, 0 spelarodds som används
-Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
-  Double Chance 1st Half | units=Regular | kategori=Team Props | deltagare=Como Or Venezia,Draw Or Venezia,Draw Or Como  ->  används inte (lagmarknad)
-  Moneyline and Total Goals | units=Regular | kategori=Team Props | deltagare=Como & Over 3.5,Como & Under 3.5,Draw & Over 3.5,Draw & Under 3.5,Venezia & Over 3.5,Venezia & Under 3.5  ->  används inte (lagmarknad)
-  Double Chance | units=Regular | kategori=Team Props | deltagare=Como Or Venezia,Draw Or Venezia,Draw Or Como  ->  används inte (lagmarknad)
-  Correct Score 1st Half | units=Regular | kategori=Team Props | deltagare=Como 0, Venezia 0,Como 0, Venezia 1,Como 0, Venezia 2,Como 0, Venezia 3,Como 1, Venezia 0,Como 1, Venezia 1,Como 1, Venezia 2,Como 1, Venezia 3,Como 2, Venezia 0,Como 2, Venezia 1,Como 2, Venezia 2,Como 2, Venezia 3,Como 3, Venezia 0,Como 3, Venezia 1,Como 3, Venezia 2,Como 3, Venezia 3  ->  används inte (lagmarknad)
-  3-Way Handicap Como -3 | units=Regular | kategori=Team Props | deltagare=Como (-3),Draw - (Como -3),Venezia (+3)  ->  används inte (lagmarknad)
-  Correct Score | units=Regular | kategori=Team Props | deltagare=Como 0, Venezia 0,Como 0, Venezia 1,Como 0, Venezia 2,Como 0, Venezia 3,Como 0, Venezia 4,Como 0, Venezia 5,Como 0, Venezia 6,Como 1, Venezia 0,Como 1, Venezia 1,Como 1, Venezia 2,Como 1, Venezia 3,Como 1, Venezia 4,Como 1, Venezia 5,Como 1, Venezia 6,Como 2, Venezia 0,Como 2, Venezia 1,Como 2, Venezia 2,Como 2, Venezia 3,Como 2, Venezia 4,Como 2, Venezia 5,Como 2, Venezia 6,Como 3, Venezia 0,Como 3, Venezia 1,Como 3, Venezia 2,Como 3, Venezia 3,Como 3, Venezia 4,Como 3, Venezia 5,Como 3, Venezia 6,Como 4, Venezia 0,Como 4, Venezia 1,Como 4, Venezia 2,Como 4, Venezia 3,Como 4, Venezia 4,Como 4, Venezia 5,Como 4, Venezia 6,Como 5, Venezia 0,Como 5, Venezia 1,Como 5, Venezia 2,Como 5, Venezia 3,Como 5, Venezia 4,Como 5, Venezia 5,Como 5, Venezia 6,Como 6, Venezia 0,Como 6, Venezia 1,Como 6, Venezia 2,Como 6, Venezia 3,Como 6, Venezia 4,Como 6, Venezia 5,Como 6, Venezia 6  ->  används inte (lagmarknad)
-  Either Team To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  First Team To Score | units=1st Goal | kategori=Team Props | deltagare=Como,Venezia,Neither  ->  används inte (lagmarknad)
-  Both Teams To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Como To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Venezia Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
-  Venezia To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  3-Way Handicap Como -4 | units=Regular | kategori=Team Props | deltagare=Como (-4),Draw - (Como -4),Venezia (+4)  ->  används inte (lagmarknad)
-  Total Goals Range | units=Regular | kategori=Team Props | deltagare=0 - 1,2 - 3,4 - 6,7+  ->  används inte (lagmarknad)
-  Como To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Total Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
-  Winning Margin 1st Half | units=Regular | kategori=Team Props | deltagare=Como By 1,Como By 2+,Venezia By 1,Venezia By 2+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
-  Exact Total Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
-  Draw No Bet 1st Half | units=Regular | kategori=Team Props | deltagare=Como,Venezia  ->  används inte (lagmarknad)
-  First Team To Score 1st Half | units=1st Goal | kategori=Team Props | deltagare=Como,Venezia,Neither  ->  används inte (lagmarknad)
-  Total Goals Range 1st Half | units=Regular | kategori=Team Props | deltagare=0 - 1,2 - 3,4+  ->  används inte (lagmarknad)
-  Como Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
-  Venezia To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Venezia Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
-  Como Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
-  Both Teams To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Venezia Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
-  3-Way Handicap Como -2 | units=Regular | kategori=Team Props | deltagare=Como (-2),Draw - (Como -2),Venezia (+2)  ->  används inte (lagmarknad)
-  Either Team To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Exact Total Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5,6+  ->  används inte (lagmarknad)
-  Total Goals Odd/Even 1st Half | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
-  3-Way Handicap Como -1 | units=Regular | kategori=Team Props | deltagare=Como (-1),Draw - (Como -1),Venezia (+1)  ->  används inte (lagmarknad)
-  Both Teams To Score and Moneyline | units=Regular | kategori=Team Props | deltagare=Yes & Como,Yes & Draw,Yes & Venezia,No & Como,No & Draw,No & Venezia  ->  används inte (lagmarknad)
-  Odd/Even and Total Goals | units=Regular | kategori=Team Props | deltagare=Odd & Over 3.5,Odd & Under 3.5,Even & Over 3.5,Even & Under 3.5  ->  används inte (lagmarknad)
-  Como To Win To Nil | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Como Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
-  Venezia To Win To Nil | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Venezia To Win To Nil 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Draw No Bet | units=Regular | kategori=Team Props | deltagare=Como,Venezia  ->  används inte (lagmarknad)
-  Como To Win To Nil 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Both Teams To Score and Total Goals | units=Regular | kategori=Team Props | deltagare=Yes & Over 3.5,Yes & Under 3.5,No & Over 3.5,No & Under 3.5  ->  används inte (lagmarknad)
-  Winning Margin | units=Regular | kategori=Team Props | deltagare=Como By 1,Como By 2,Como By 3,Como By 4+,Venezia By 1,Venezia By 2,Venezia By 3,Venezia By 4+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
-  Correct Score 1st Half | units=Regular | kategori=Team Props | deltagare=Malmo 0, Hammarby 0,Malmo 0, Hammarby 1,Malmo 0, Hammarby 2,Malmo 0, Hammarby 3,Malmo 1, Hammarby 0,Malmo 1, Hammarby 1,Malmo 1, Hammarby 2,Malmo 1, Hammarby 3,Malmo 2, Hammarby 0,Malmo 2, Hammarby 1,Malmo 2, Hammarby 2,Malmo 2, Hammarby 3,Malmo 3, Hammarby 0,Malmo 3, Hammarby 1,Malmo 3, Hammarby 2,Malmo 3, Hammarby 3  ->  används inte (lagmarknad)
-  Correct Score | units=Regular | kategori=Team Props | deltagare=Malmo 0, Hammarby 0,Malmo 0, Hammarby 1,Malmo 0, Hammarby 2,Malmo 0, Hammarby 3,Malmo 0, Hammarby 4,Malmo 0, Hammarby 5,Malmo 0, Hammarby 6,Malmo 1, Hammarby 0,Malmo 1, Hammarby 1,Malmo 1, Hammarby 2,Malmo 1, Hammarby 3,Malmo 1, Hammarby 4,Malmo 1, Hammarby 5,Malmo 1, Hammarby 6,Malmo 2, Hammarby 0,Malmo 2, Hammarby 1,Malmo 2, Hammarby 2,Malmo 2, Hammarby 3,Malmo 2, Hammarby 4,Malmo 2, Hammarby 5,Malmo 2, Hammarby 6,Malmo 3, Hammarby 0,Malmo 3, Hammarby 1,Malmo 3, Hammarby 2,Malmo 3, Hammarby 3,Malmo 3, Hammarby 4,Malmo 3, Hammarby 5,Malmo 3, Hammarby 6,Malmo 4, Hammarby 0,Malmo 4, Hammarby 1,Malmo 4, Hammarby 2,Malmo 4, Hammarby 3,Malmo 4, Hammarby 4,Malmo 4, Hammarby 5,Malmo 4, Hammarby 6,Malmo 5, Hammarby 0,Malmo 5, Hammarby 1,Malmo 5, Hammarby 2,Malmo 5, Hammarby 3,Malmo 5, Hammarby 4,Malmo 5, Hammarby 5,Malmo 5, Hammarby 6,Malmo 6, Hammarby 0,Malmo 6, Hammarby 1,Malmo 6, Hammarby 2,Malmo 6, Hammarby 3,Malmo 6, Hammarby 4,Malmo 6, Hammarby 5,Malmo 6, Hammarby 6  ->  används inte (lagmarknad)
-  First Team To Score | units=1st Goal | kategori=Team Props | deltagare=Malmo,Hammarby,Neither  ->  används inte (lagmarknad)
-  Malmo To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Hammarby Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
-  Hammarby To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  3-Way Handicap Malmo +1 | units=Regular | kategori=Team Props | deltagare=Malmo (+1),Draw - (Malmo +1),Hammarby (-1)  ->  används inte (lagmarknad)
-  Malmo To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Winning Margin 1st Half | units=Regular | kategori=Team Props | deltagare=Malmo By 1,Malmo By 2+,Hammarby By 1,Hammarby By 2+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
-  Draw No Bet 1st Half | units=Regular | kategori=Team Props | deltagare=Malmo,Hammarby  ->  används inte (lagmarknad)
-  First Team To Score 1st Half | units=1st Goal | kategori=Team Props | deltagare=Malmo,Hammarby,Neither  ->  används inte (lagmarknad)
-  Malmo Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
-  Hammarby To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Hammarby Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
-  3-Way Handicap Malmo +2 | units=Regular | kategori=Team Props | deltagare=Malmo (+2),Draw - (Malmo +2),Hammarby (-2)  ->  används inte (lagmarknad)
-  Malmo Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
-  Hammarby Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
-  3-Way Handicap Malmo -1 | units=Regular | kategori=Team Props | deltagare=Malmo (-1),Draw - (Malmo -1),Hammarby (+1)  ->  används inte (lagmarknad)
-Tid: hämtning 282 s
-Marginal över alla matcher: uppmätt marginal: shots_on_target stege k=1.19 (88 spelare; marginal vid 3,00 ≈ 23%)
-  Como – Venezia: modell ita.1, 29 spelare
-  Malmö FF – Hammarby IF: modell swe.1, 28 spelare
-  Djurgårdens IF – Degerfors IF: modell swe.1, 29 spelare
-  Getafe – Sevilla: modell esp.1, 29 spelare
-  Frosinone – Torino: modell ita.1, 26 spelare
-  Lazio – Cagliari: modell ita.1, 24 spelare
-  Strasbourg – Auxerre: modell fra.1, 28 spelare
-  1. FC Union Berlin – 1. FC Köln: modell – hittar inte matchen hos ESPN
-  Racing Santander – Real Madrid: modell esp.1, 27 spelare
-  BK Häcken – IFK Göteborg: modell swe.1, 24 spelare
-  Västerås SK FK – IF Brommapojkarna: modell swe.1, 27 spelare
-  IF Elfsborg – Örgryte IS: modell swe.1, 29 spelare
-  Paris FC – AS Monaco: modell fra.1, 28 spelare
-  Lyon – Angers: modell fra.1, 27 spelare
-  Liverpool – Arsenal: modell eng.1, 28 spelare
-  Eintracht Frankfurt – Hamburger SV: modell ger.1, 31 spelare
-  Lecce – Genoa: modell ita.1, 33 spelare
-  Elche – Valencia: modell esp.1, 29 spelare
-  Juventus – Napoli: modell ita.1, 32 spelare
-  Marseille – Toulouse: modell fra.1, 28 spelare
-Modellens nivåavvikelse mot marknaden (log-odds, dras bort): goal -0.01, shots -0.65, shots_on_target -0.26
-  Como – Venezia: väntade mål Pinnacle 3.60 mot Kambi 3.57 (kvot 1.009); uppmätt marginal: goal k=1.44, assist k=1.67, shots_on_target stege k=1.28 (7 spelare; marginal vid 3,00 ≈ 36%)
-Exempel uppmätt marginal: goal k=1.44, assist k=1.67, shots_on_target stege k=1.28 (7 spelare; marginal vid 3,00 ≈ 36%)
+Pinnacle: FEL HTTP 503 för https://guest.api.arcadia.pinnacle.com/0.1/sports/29/leagues (kan vara geoblockerat från er uppkoppling)
+Tid: hämtning 244 s
+Marginal över alla matcher: uppmätt marginal: shots_on_target stege k=1.10 (102 spelare; marginal vid 3,00 ≈ 12%)
+Modellens nivåavvikelse mot marknaden (log-odds, dras bort): 
+  Como – Venezia: saknar matchlinjer från Pinnacle
   CD Eldense – Granada: saknar matchlinjer från Pinnacle
-  Malmö FF – Hammarby IF: väntade mål Pinnacle 3.24 mot Kambi 3.10 (kvot 1.045); uppmätt marginal: goal k=1.56
-  Djurgårdens IF – Degerfors IF: väntade mål Pinnacle 3.21 mot Kambi 3.24 (kvot 0.991); uppmätt marginal: goal k=1.62
-  Getafe – Sevilla: väntade mål Pinnacle 2.14 mot Kambi 2.06 (kvot 1.036); uppmätt marginal: goal k=1.47, assist k=1.52
-  Frosinone – Torino: väntade mål Pinnacle 3.60 mot Kambi 3.49 (kvot 1.034); uppmätt marginal: goal k=1.57, assist k=1.69
-  Lazio – Cagliari: väntade mål Pinnacle 2.90 mot Kambi 2.86 (kvot 1.017); uppmätt marginal: goal k=1.57, assist k=1.67
-  Strasbourg – Auxerre: väntade mål Pinnacle 3.12 mot Kambi 3.15 (kvot 0.992); uppmätt marginal: goal k=1.43, assist k=1.36, shots_on_target stege k=1.09 (28 spelare; marginal vid 3,00 ≈ 10%)
-  1. FC Union Berlin – 1. FC Köln: väntade mål Pinnacle 2.95 mot Kambi 3.04 (kvot 0.972); uppmätt marginal: goal k=1.64, assist k=1.67
+  Malmö FF – Hammarby IF: saknar matchlinjer från Pinnacle
+  Djurgårdens IF – Degerfors IF: saknar matchlinjer från Pinnacle
+  Getafe – Sevilla: saknar matchlinjer från Pinnacle
+  Frosinone – Torino: saknar matchlinjer från Pinnacle
+  Lazio – Cagliari: saknar matchlinjer från Pinnacle
+  Strasbourg – Auxerre: saknar matchlinjer från Pinnacle
+  1. FC Union Berlin – 1. FC Köln: saknar matchlinjer från Pinnacle
   AD Ceuta FC – Sporting de Gijón: saknar matchlinjer från Pinnacle
-  Racing Santander – Real Madrid: väntade mål Pinnacle 4.21 mot Kambi 4.25 (kvot 0.991); uppmätt marginal: goal k=1.72, assist k=1.78
-  BK Häcken – IFK Göteborg: väntade mål Pinnacle 3.30 mot Kambi 3.33 (kvot 0.991); uppmätt marginal: goal k=1.61
-  Västerås SK FK – IF Brommapojkarna: väntade mål Pinnacle 3.00 mot Kambi 3.07 (kvot 0.974); uppmätt marginal: goal k=1.55
-  IF Elfsborg – Örgryte IS: väntade mål Pinnacle 3.13 mot Kambi 3.12 (kvot 1.002); uppmätt marginal: goal k=1.67
-  Paris FC – AS Monaco: väntade mål Pinnacle 2.83 mot Kambi 2.82 (kvot 1.001); uppmätt marginal: goal k=1.38, assist k=1.38, shots_on_target stege k=1.24 (14 spelare; marginal vid 3,00 ≈ 30%)
-  Lyon – Angers: väntade mål Pinnacle 3.05 mot Kambi 3.17 (kvot 0.964); uppmätt marginal: goal k=1.47, assist k=1.47, shots_on_target stege k=1.04 (7 spelare; marginal vid 3,00 ≈ 4%)
-  Liverpool – Arsenal: väntade mål Pinnacle 2.66 mot Kambi 2.73 (kvot 0.978); uppmätt marginal: goal k=1.46, assist k=1.51
-  Eintracht Frankfurt – Hamburger SV: väntade mål Pinnacle 3.52 mot Kambi 3.45 (kvot 1.019); uppmätt marginal: goal k=1.48, assist k=1.49, shots_on_target stege k=1.34 (7 spelare; marginal vid 3,00 ≈ 45%)
-  Lecce – Genoa: väntade mål Pinnacle 2.24 mot Kambi 2.20 (kvot 1.016); uppmätt marginal: goal k=1.45, assist k=1.59
+  Racing Santander – Real Madrid: saknar matchlinjer från Pinnacle
+  BK Häcken – IFK Göteborg: saknar matchlinjer från Pinnacle
+  Västerås SK FK – IF Brommapojkarna: saknar matchlinjer från Pinnacle
+  IF Elfsborg – Örgryte IS: saknar matchlinjer från Pinnacle
+  Paris FC – AS Monaco: saknar matchlinjer från Pinnacle
+  Lyon – Angers: saknar matchlinjer från Pinnacle
+  Liverpool – Arsenal: saknar matchlinjer från Pinnacle
+  Eintracht Frankfurt – Hamburger SV: saknar matchlinjer från Pinnacle
+  Lecce – Genoa: saknar matchlinjer från Pinnacle
   Burgos – CD Castellon: saknar matchlinjer från Pinnacle
-  Elche – Valencia: väntade mål Pinnacle 2.63 mot Kambi 2.70 (kvot 0.973); uppmätt marginal: goal k=1.65, assist k=1.70
-  Juventus – Napoli: väntade mål Pinnacle 2.63 mot Kambi 2.55 (kvot 1.030); uppmätt marginal: goal k=1.48, assist k=1.52, shots_on_target stege k=1.10 (7 spelare; marginal vid 3,00 ≈ 12%)
-  Marseille – Toulouse: väntade mål Pinnacle 3.30 mot Kambi 3.23 (kvot 1.021); uppmätt marginal: goal k=1.30, assist k=1.31, shots_on_target stege k=1.21 (14 spelare; marginal vid 3,00 ≈ 26%)
+  Elche – Valencia: saknar matchlinjer från Pinnacle
+  Juventus – Napoli: saknar matchlinjer från Pinnacle
+  Marseille – Toulouse: saknar matchlinjer från Pinnacle
   CD Tenerife – FC Andorra: saknar matchlinjer från Pinnacle
-Tid: modell och utvärdering 122 s
+Tid: modell och utvärdering 42 s
 Bolag med spelarodds: atg, betmgm, expekt, leovegas, paf, svenskaspel, unibet
-Spelarodds per marknad: assist 3241, goal 8296, shots 6090, shots_on_target 5124
-Kambi-marknader: assist='to give an assist (settled using opta data)':3241; goal='to score':5531; goal='to score at least 2 goals':2450; goal='to score at least 3 goals':273; goal='to score at least 4 goals':35; goal='to score at least 5 goals':7; shots="player's shots (settled using opta data)":6090; shots_on_target="player's shots on target (settled using opta data)":5124
+Spelarodds per marknad: assist 3234, goal 8275, shots 6124, shots_on_target 5131
+Kambi-marknader: assist='to give an assist (settled using opta data)':3234; goal='to score':5531; goal='to score at least 2 goals':2429; goal='to score at least 3 goals':273; goal='to score at least 4 goals':35; goal='to score at least 5 goals':7; shots="player's shots (settled using opta data)":6124; shots_on_target="player's shots on target (settled using opta data)":5131
 Pinnacle har inga spelarprops här – använder linjejustering mot Pinnacles matchlinjer.
 CLV-signal: 0 ben släppta (Pinnacle rör sig åt vårt håll)
-Spelarmodell: 0 av 3114 ben har modell, 0 nya matcher hämtade från ESPN
-Bästa edge marknad goal: -9.4%, -10.3%, -10.5% (av 309 ben)
-Bästa edge marknad assist: -28.8%, -31.5%, -32.7% (av 218 ben)
-Bästa edge marknad shots_on_target: +0.6%, -0.5%, -2.5% (av 648 ben)
-Bästa edge marknad shots: -3.2%, -3.7%, -3.8% (av 612 ben)
-Bästa edge modelltest goal: -10.3%, -10.9%, -12.8% (av 291 ben)
-Bästa edge modelltest assist: -31.9%, -33.4%, -34.0% (av 201 ben)
-Bästa edge modelltest shots_on_target: +1.7%, +0.8%, +0.6% (av 603 ben)
-Bästa edge modelltest shots: +10.8%, +10.7%, +10.2% (av 571 ben)
+Spelarmodell: 0 av 0 ben har modell, 0 nya matcher hämtade från ESPN
 0 spelbara ben.
 Bokförda nya spel: 0
 Skuggspel: 0 nya bokförda (stoppade av reglerna, minst 2 % edge)
