@@ -3,6 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <title>Fotboll Prop-radarn</title>
 <style>
   :root { --bg:#141414; --panel:#1c1c1c; --line:#2a2a2a; --text:#ececec; --dim:#8a8a8a;
@@ -57,6 +60,8 @@
     Kambis linjestege). Spelbart från 2 % edge (4 % för mål och assist, +3 procentenheter när marginalen inte kan mätas),
     odds 1,40–6,00. "Spela från" = lägsta odds som räcker. Insats i units 1–10 efter EV (¼ Kelly; 1u = 0,2 % av bankrullen, 10u = taket). Grön = spelbar, grå = positivt EV men under edgekravet. ⚡ = CLV-signal: Pinnacle har rört sig åt vårt håll och priset väntas korta in.</div>
 </header>
+<div id="pausbanner" class="hidden" style="margin:6px 24px 0;padding:10px 14px;border:1px solid #b45309;border-radius:10px;color:#fbbf24;background:rgba(180,83,9,.12)">
+  Live-spel är pausade: inga notiser skickas. Spel som hade varit spelbara bokförs som skuggspel (fliken Skuggspel) och rättas som vanligt.</div>
 <div class="tabs">
   <button class="tab on" data-tab="radar">Radar</button>
   <button class="tab" data-tab="bok">Bokföring</button>
@@ -281,7 +286,7 @@ function betRows(bets, withStop) {
 }
 
 function renderExtra() {
-  const br = DATA.regler.bankrulle;
+  const br = null;
   const legs = x => x.ben.map(l => `${esc(l.spelare)} – ${label(l.marknad, l.linje, l.sida)} @ ${nf(l.odds)}
     <span class="neg">(${esc(l.match)}, ${fmtTs(l.avspark)})</span>`).join("<br>");
   document.getElementById("psug").innerHTML = (DATA.parlay_forslag || []).map(x => `<tr>
@@ -305,7 +310,7 @@ function renderExtra() {
 }
 
 function renderBok() {
-  const s = DATA.sammanfattning, br = DATA.regler.bankrulle;
+  const s = DATA.sammanfattning, br = null;
   document.getElementById("tiles").innerHTML = tilesHtml(s, br);
   const pb = Object.entries(s.per_bolag || {});
   document.getElementById("books").innerHTML = pb.map(([b, x]) => `<tr><td>${esc(b)}</td>
@@ -321,13 +326,14 @@ async function load() {
     const r = await fetch("data.json?t=" + Date.now(), {cache: "no-store"});
     DATA = await r.json();
     const nba = DATA.sport === "NBA";
+    document.getElementById("pausbanner").classList.toggle("hidden", DATA.live_enabled !== false);
     document.getElementById("title").textContent = (nba ? "NBA" : "Fotboll") + " Prop-radarn";
     document.title = (nba ? "NBA" : "Fotboll") + " Prop-radarn";
     document.getElementById("navfb").href = nba ? "../" : "./";
     document.getElementById("navnba").href = nba ? "./" : "nba/";
     document.getElementById("navxlsx").href = (nba ? "../" : "") + "propsbot_bokforing.xlsx";
     const mins = Math.round((Date.now() / 1000 - DATA.uppdaterad_ts) / 60);
-    document.getElementById("upd").textContent = `Uppdaterad för ${mins} min sedan`;
+    document.getElementById("upd").textContent = `Uppdaterad för ${mins} min sedan · insats i units (1u = 0,2 %)`;
     renderRadar(); renderBok(); renderExtra(); loadAll();
   } catch (e) { document.getElementById("upd").textContent = "Kunde inte läsa data."; }
 }
