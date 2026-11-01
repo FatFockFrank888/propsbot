@@ -1,4 +1,4 @@
-Skanning 2026-11-01 18:00
+Skanning 2026-11-01 18:11
 Kambi unibet (ubse): OK, 8 matcher i valda ligor
 Kambi paf (paf): OK
 Kambi atg (atg): OK
@@ -6,8 +6,9 @@ Kambi leovegas (leose): OK
 Kambi svenskaspel (svenskaspel): OK
 Kambi expekt (expektse): OK
 Kambi betmgm (betmgmse): OK
-Pinnacle: OK, 16 ligor
-Pinnacle: 17 matcher, matchlinjer för 6 av 8 Kambi-matcher, 0 spelarodds som används
+Pinnacle: OK, 14 ligor
+  Sassuolo – Fiorentina: Pinnacle FEL HTTP 403 för https://guest.api.arcadia.pinnacle.com/0.1/matchups/1638771049/related
+Pinnacle: 17 matcher, matchlinjer för 5 av 8 Kambi-matcher, 0 spelarodds som används
 Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
   Double Chance 1st Half | units=Regular | kategori=Team Props | deltagare=Juventus Or Napoli,Draw Or Napoli,Draw Or Juventus  ->  används inte (lagmarknad)
   Moneyline and Total Goals | units=Regular | kategori=Team Props | deltagare=Juventus & Over 2.5,Juventus & Under 2.5,Draw & Over 2.5,Draw & Under 2.5,Napoli & Over 2.5,Napoli & Under 2.5  ->  används inte (lagmarknad)
@@ -69,39 +70,38 @@ Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
   3-Way Handicap Marseille -2 | units=Regular | kategori=Team Props | deltagare=Marseille (-2),Draw - (Marseille -2),Toulouse (+2)  ->  används inte (lagmarknad)
   Correct Score | units=Regular | kategori=Team Props | deltagare=Marseille 0, Toulouse 0,Marseille 0, Toulouse 1,Marseille 0, Toulouse 2,Marseille 0, Toulouse 3,Marseille 0, Toulouse 4,Marseille 0, Toulouse 5,Marseille 0, Toulouse 6,Marseille 1, Toulouse 0,Marseille 1, Toulouse 1,Marseille 1, Toulouse 2,Marseille 1, Toulouse 3,Marseille 1, Toulouse 4,Marseille 1, Toulouse 5,Marseille 1, Toulouse 6,Marseille 2, Toulouse 0,Marseille 2, Toulouse 1,Marseille 2, Toulouse 2,Marseille 2, Toulouse 3,Marseille 2, Toulouse 4,Marseille 2, Toulouse 5,Marseille 2, Toulouse 6,Marseille 3, Toulouse 0,Marseille 3, Toulouse 1,Marseille 3, Toulouse 2,Marseille 3, Toulouse 3,Marseille 3, Toulouse 4,Marseille 3, Toulouse 5,Marseille 3, Toulouse 6,Marseille 4, Toulouse 0,Marseille 4, Toulouse 1,Marseille 4, Toulouse 2,Marseille 4, Toulouse 3,Marseille 4, Toulouse 4,Marseille 4, Toulouse 5,Marseille 4, Toulouse 6,Marseille 5, Toulouse 0,Marseille 5, Toulouse 1,Marseille 5, Toulouse 2,Marseille 5, Toulouse 3,Marseille 5, Toulouse 4,Marseille 5, Toulouse 5,Marseille 5, Toulouse 6,Marseille 6, Toulouse 0,Marseille 6, Toulouse 1,Marseille 6, Toulouse 2,Marseille 6, Toulouse 3,Marseille 6, Toulouse 4,Marseille 6, Toulouse 5,Marseille 6, Toulouse 6  ->  används inte (lagmarknad)
   Winning Margin 1st Half | units=Regular | kategori=Team Props | deltagare=Marseille By 1,Marseille By 2+,Toulouse By 1,Toulouse By 2+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
-Tid: hämtning 51 s
+Tid: hämtning 92 s
 Marginal över alla matcher: uppmätt marginal: shots_on_target stege k=1.19 (42 spelare; marginal vid 3,00 ≈ 23%)
   Juventus – Napoli: modell ita.1, 32 spelare
   Marseille – Toulouse: modell fra.1, 28 spelare
   Athletic Bilbao – Real Sociedad: modell esp.1, 33 spelare
-  Sassuolo – Fiorentina: modell ita.1, 29 spelare
   GAIS – AIK: modell swe.1, 30 spelare
   Mjällby AIF – Kalmar FF: modell swe.1, 28 spelare
-Modellens nivåavvikelse mot marknaden (log-odds, dras bort): shots -0.65, shots_on_target -0.32
-  Juventus – Napoli: väntade mål Pinnacle 2.72 mot Kambi 2.64 (kvot 1.030); uppmätt marginal: goal k=1.49, assist k=1.52, shots_on_target stege k=1.18 (7 spelare; marginal vid 3,00 ≈ 22%)
-Exempel uppmätt marginal: goal k=1.49, assist k=1.52, shots_on_target stege k=1.18 (7 spelare; marginal vid 3,00 ≈ 22%)
+Modellens nivåavvikelse mot marknaden (log-odds, dras bort): shots -0.61, shots_on_target -0.27
+  Juventus – Napoli: väntade mål Pinnacle 2.71 mot Kambi 2.70 (kvot 1.006); uppmätt marginal: goal k=1.50, assist k=1.53, shots_on_target stege k=1.18 (7 spelare; marginal vid 3,00 ≈ 22%)
+Exempel uppmätt marginal: goal k=1.50, assist k=1.53, shots_on_target stege k=1.18 (7 spelare; marginal vid 3,00 ≈ 22%)
   Marseille – Toulouse: väntade mål Pinnacle 3.31 mot Kambi 3.23 (kvot 1.025); uppmätt marginal: goal k=1.30, assist k=1.31, shots_on_target stege k=1.21 (14 spelare; marginal vid 3,00 ≈ 26%)
   Athletic Bilbao – Real Sociedad: väntade mål Pinnacle 2.80 mot Kambi 2.78 (kvot 1.008); uppmätt marginal: goal k=1.51, assist k=1.61
   Real Oviedo – UD Las Palmas: saknar matchlinjer från Pinnacle
-  Sassuolo – Fiorentina: väntade mål Pinnacle 3.19 mot Kambi 3.16 (kvot 1.011); uppmätt marginal: goal k=1.52, assist k=1.63, shots_on_target stege k=1.16 (21 spelare; marginal vid 3,00 ≈ 19%)
+  Sassuolo – Fiorentina: saknar matchlinjer från Pinnacle
   Valladolid – Leganés: saknar matchlinjer från Pinnacle
-  GAIS – AIK: väntade mål Pinnacle 3.11 mot Kambi 3.07 (kvot 1.010); uppmätt marginal: goal k=1.69
+  GAIS – AIK: väntade mål Pinnacle 3.10 mot Kambi 3.07 (kvot 1.009); uppmätt marginal: goal k=1.69
   Mjällby AIF – Kalmar FF: väntade mål Pinnacle 2.69 mot Kambi 2.66 (kvot 1.012); uppmätt marginal: goal k=1.52
-Tid: modell och utvärdering 59 s
+Tid: modell och utvärdering 48 s
 Bolag med spelarodds: atg, betmgm, expekt, leovegas, paf, svenskaspel, unibet
 Spelarodds per marknad: assist 910, goal 2605, shots 1561, shots_on_target 1379
 Kambi-marknader: assist='to give an assist (settled using opta data)':910; goal='to score':1933; goal='to score at least 2 goals':595; goal='to score at least 3 goals':77; shots="player's shots (settled using opta data)":1561; shots_on_target="player's shots on target (settled using opta data)":1379
 Pinnacle har inga spelarprops här – använder linjejustering mot Pinnacles matchlinjer.
 CLV-signal: 0 ben släppta (Pinnacle rör sig åt vårt håll)
-Spelarmodell: 0 av 844 ben har modell, 7 nya matcher hämtade från ESPN
-Bästa edge marknad goal: -19.9%, -25.7%, -26.1% (av 97 ben)
-Bästa edge marknad assist: -28.6%, -31.3%, -32.5% (av 60 ben)
-Bästa edge marknad shots_on_target: -5.6%, -6.0%, -6.6% (av 176 ben)
-Bästa edge marknad shots: -4.2%, -4.2%, -4.4% (av 149 ben)
-Bästa edge modelltest goal: -19.6%, -23.2%, -26.2% (av 97 ben)
-Bästa edge modelltest assist: -31.6%, -33.1%, -33.9% (av 60 ben)
-Bästa edge modelltest shots_on_target: -2.7%, -3.1%, -3.3% (av 176 ben)
-Bästa edge modelltest shots: +9.8%, +8.7%, +7.8% (av 149 ben)
+Spelarmodell: 0 av 625 ben har modell, 0 nya matcher hämtade från ESPN
+Bästa edge marknad goal: -19.9%, -25.7%, -26.1% (av 80 ben)
+Bästa edge marknad assist: -28.6%, -31.3%, -32.5% (av 44 ben)
+Bästa edge marknad shots_on_target: -6.0%, -6.3%, -6.6% (av 129 ben)
+Bästa edge marknad shots: -4.5%, -4.7%, -4.7% (av 108 ben)
+Bästa edge modelltest goal: -19.6%, -23.2%, -26.2% (av 80 ben)
+Bästa edge modelltest assist: -31.6%, -33.1%, -33.9% (av 44 ben)
+Bästa edge modelltest shots_on_target: -2.6%, -4.5%, -4.5% (av 129 ben)
+Bästa edge modelltest shots: +7.7%, +6.6%, +5.7% (av 108 ben)
 0 spelbara ben.
 Bokförda nya spel: 0
 Skuggspel: 0 nya bokförda (stoppade av reglerna, minst 2 % edge)
