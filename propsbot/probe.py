@@ -26,16 +26,37 @@ def kalshi() -> str:
     nba = [s for s in series if re.search(r"\bNBA\b|basketball", s.get("title", ""), re.I)]
     props = [s for s in nba if PROP_WORDS.search(s.get("title", ""))]
     soc = [s for s in series if re.search(r"premier|la liga|soccer|football club|EPL", s.get("title", ""), re.I)]
-    ex = "; ".join(f"{s.get('ticker')}={s.get('title')}" for s in props[:6])
-    return f"{len(series)} sportserier, NBA {len(nba)}, NBA-props {len(props)}, fotboll {len(soc)} | {ex}"
+    pl = [s for s in nba if re.search(r"player", s.get("title", ""), re.I)]
+    out = [f"{len(series)} sportserier, NBA {len(nba)}, spelarserier {len(pl)}: "
+           + ", ".join(s.get("ticker", "") for s in pl[:40])]
+    # Öppna marknader i spelarserierna: antal, volym, spread (är de levande och likvida?)
+    tot_n = tot_vol = 0
+    samples = []
+    for s in pl[:25]:
+        try:
+            _, b = _get(f"{base}/markets?series_ticker={s['ticker']}&status=open&limit=200")
+        except Exception:
+            continue
+        ms = json.loads(b).get("markets", [])
+        vol = sum(int(m.get("volume") or 0) for m in ms)
+        oi = sum(int(m.get("open_interest") or 0) for m in ms)
+        tot_n += len(ms); tot_vol += vol
+        if ms:
+            m = max(ms, key=lambda m: int(m.get("volume") or 0))
+            samples.append(f"{s['ticker']}: {len(ms)} öppna, volym {vol}, OI {oi}, ex '{m.get('title','')[:60]}' "
+                           f"{m.get('subtitle') or m.get('yes_sub_title') or ''} bid {m.get('yes_bid')} ask {m.get('yes_ask')} "
+                           f"stänger {m.get('close_time','')[:16]}")
+    out.append(f"öppna spelarmarknader {tot_n}, total volym {tot_vol}")
+    return " || ".join(out + samples[:12])
 
 
 def polymarket() -> str:
     _, body = _get("https://gamma-api.polymarket.com/events?closed=false&limit=100&tag_slug=nba")
     evs = json.loads(body)
     mk = [m for e in evs for m in e.get("markets", [])]
-    props = [m for m in mk if PROP_WORDS.search(m.get("question", "")) and
-             re.search(r"points|rebounds|assists|threes", m.get("question", ""), re.I)]
+    # Bara matchprops ("X: Points O/U 24.5" o.d.), inte säsongsmarknader.
+    props = [m for m in mk if re.search(r"points|rebounds|assists|threes", m.get("question", ""), re.I)
+             and not re.search(r"season|career|lead the nba|mvp|20\d\d-\d\d", m.get("question", ""), re.I)]
     liq = sum(float(m.get("liquidity") or 0) for m in props)
     ex = "; ".join(m.get("question", "")[:70] for m in props[:5])
     return f"NBA-event {len(evs)}, marknader {len(mk)}, spelarprops {len(props)} (likviditet ~{liq:,.0f} USD) | {ex}"
