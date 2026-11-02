@@ -1,4 +1,4 @@
-"""DraftKings + FanDuel som extra referens för NBA-props (via The Odds API).
+"""DraftKings, FanDuel, BetMGM m.fl. (USA) som extra referens för NBA-props (via The Odds API).
 
 bet365 finns inte i The Odds API (testat 2/11 i alla regioner). DraftKings och FanDuel
 är de största marknaderna för amerikanska spelarprops och ger en tvåsidig referens
@@ -26,7 +26,10 @@ from .props_text import same_match
 from .the_odds_api import TheOddsApi, normalize_name
 
 SPORT = "basketball_nba"
-BOOKS = ["draftkings", "fanduel"]
+# Upp till 10 bolag i samma anrop kostar som EN region – fler bolag är alltså gratis.
+# BetRivers är Kambi (samma prissättning som Unibet) och tas inte med. bet365 finns inte i API:t.
+BOOKS = ["draftkings", "fanduel", "betmgm", "williamhill_us", "fanatics", "espnbet",
+         "hardrockbet", "betonlineag"]
 # Prioritetsordning: marknaderna där vi spelar mest först.
 MARKETS = [
     ("player_points", "points"), ("player_threes", "threes"), ("player_assists", "assists"),
@@ -58,7 +61,8 @@ def parse(event: dict, match_id: str, fetch_ts: float) -> tuple[list[OddsQuote],
                     continue
                 pid = normalize_name(player)
                 names.setdefault(pid, player)
-                quotes.append(OddsQuote(book=bm["key"], match_id=match_id, player_id=pid, market=ours,
+                # us_-prefix: amerikanska BetMGM får aldrig blandas ihop med svenska BetMGM (Kambi).
+                quotes.append(OddsQuote(book="us_" + bm["key"], match_id=match_id, player_id=pid, market=ours,
                                         line=float(point), side=side, odds=float(price), ts=fetch_ts,
                                         provider="oddsapi", variant=m["key"]))
     return quotes, names

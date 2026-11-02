@@ -10,5 +10,5 @@ def test_parse_dk_fd_two_sided():
             {"name": "Over", "description": "X", "price": 1.9, "point": 1.5}]}]}]}
     q, names = parse(ev, "nba1", 5.0)
     assert [(x.book, x.market, x.side, x.line, x.odds) for x in q] == [
-        ("draftkings", "threes", "over", 3.5, 1.87), ("draftkings", "threes", "under", 3.5, 1.95)]
+        ("us_draftkings", "threes", "over", 3.5, 1.87), ("us_draftkings", "threes", "under", 3.5, 1.95)]
     assert names == {"donovan mitchell": "Donovan Mitchell"} and q[0].ts == 5.0
