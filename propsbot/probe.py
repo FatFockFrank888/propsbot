@@ -13,7 +13,7 @@ PROP_WORDS = re.compile(r"points|rebounds|assists|threes|3-pointers|pts|shots on
                         r"player|o/u|over|anytime", re.I)
 
 
-def _get(url: str, n: int = 2_000_000):
+def _get(url: str, n: int = 60_000_000):
     req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept": "application/json,text/html"})
     with urllib.request.urlopen(req, timeout=25) as r:
         return r.status, r.read(n).decode("utf-8", "replace")
@@ -31,7 +31,7 @@ def kalshi() -> str:
 
 
 def polymarket() -> str:
-    _, body = _get("https://gamma-api.polymarket.com/events?closed=false&limit=200&tag_slug=nba")
+    _, body = _get("https://gamma-api.polymarket.com/events?closed=false&limit=100&tag_slug=nba")
     evs = json.loads(body)
     mk = [m for e in evs for m in e.get("markets", [])]
     props = [m for m in mk if PROP_WORDS.search(m.get("question", "")) and
