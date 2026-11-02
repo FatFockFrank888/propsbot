@@ -108,9 +108,11 @@
   "watch_interval_minutes": 10,
   "min_edge_all": 0.05,
   "max_odds_drop": 0.03,
-  "football_shadow": true,
+  "football_shadow": false,
   "football_odds_window": [
     1.6,
     2.5
-  ]
+  ],
+  "sharp_against_pp": 2.0,
+  "sharp_with_pp": 1.5
 }

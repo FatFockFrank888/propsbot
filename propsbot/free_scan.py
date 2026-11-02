@@ -444,7 +444,7 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
         n = notify_new(playable, settings, root)
         from .clv_signal import units
         for x in (new_parlays if settings.get("live_enabled", True)
-                  and not settings.get("football_shadow", True) else []):
+                  and not settings.get("football_shadow", False) else []):
             legs = "\n".join(f"• {l['spelare']} {MARKET_LABEL.get(l['marknad'], l['marknad']).lower()} "
                              f"{'under' if l.get('sida') == 'under' else 'över'} {l['linje']:g} ({l['odds']:.2f}) – {l['match']}"
                              for l in x["ben"])
@@ -486,7 +486,8 @@ def notify_new(playable: list[ScanRow], settings: dict, root: Path) -> int:
                f"Sannolikhet {c.p:.1%}, edge {c.edge:.1%}"
                + (f", förväntad CLV {clv:+.1f}" if clv is not None else "")
                + f"\nInsats: {units(d.stake)}/10 units"
-               + ("\n(CLV-signal)" if any("CLV-signal" in x for x in d.reasons) else ""))
+               + ("\n(CLV-signal)" if any("CLV-signal" in x for x in d.reasons) else "")
+               + ("\nSharp money med oss ⬆" if any(x.startswith("sharp money med") for x in d.reasons) else ""))
         if send(settings["ntfy_topic"], title, msg):
             seen.mark(key, c.best.odds)
             sent += 1

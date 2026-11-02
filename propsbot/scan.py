@@ -85,6 +85,10 @@ DEFAULT_SETTINGS = {
     "nba_enabled": True,
     "nba_hours_ahead": 30,
     "nba_max_events": 15,
+    # DraftKings/FanDuel m.fl. via The Odds API (gratiskvot, kreditbudget per dag).
+    "nba_us_books": True,
+    "nba_us_fetch_window": [40, 240],
+    "nba_us_reserve": 20,
     # Parlays: 2–3 ben, olika matcher, samma bolag, minst 5 % edge per ben.
     "parlays_enabled": True,
     "parlay_max_legs": 3,
@@ -94,11 +98,13 @@ DEFAULT_SETTINGS = {
     "parlay_pool_per_book": 8,
     "parlay_max_suggestions": 5,
     # Gemensamma spelregler (2/11, efter 210 spel): minst 5 % edge överallt, ett spel per
-    # spelare och match, inget spel om oddset fallit > 3 %. Fotbollen i skuggläge: bara spel
-    # med skarp spelarreferens och odds 1,60–2,50, resten bokförs som skuggspel.
+    # spelare och match, inget spel om oddset fallit > 3 %, inget spel när sharp money
+    # (Pinnacle/konsensus) har rört sig mot oss. Fotbollen spelas på samma regler.
     "min_edge_all": 0.05,
     "max_odds_drop": 0.03,
-    "football_shadow": True,
+    "sharp_against_pp": 2.0,
+    "sharp_with_pp": 1.5,
+    "football_shadow": False,
     "football_odds_window": [1.60, 2.50],
     # Notiser till mobilen via ntfy (gratis app). Tomt = av.
     "ntfy_topic": "",

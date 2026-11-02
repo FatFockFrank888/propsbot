@@ -40,15 +40,19 @@ class History:
             c = r.row.decision.cand
             k = line_key(c)
             o = c.best.odds
+            g = getattr(r, "n_groups", None)
             if k not in self.d:
-                self.d[k] = [c.p, now, c.p, now, o]
+                self.d[k] = [c.p, now, c.p, now, o, g]
             else:
                 h = self.d[k]
-                h[2], h[3] = c.p, now
-                if len(h) < 5:
-                    h.append(o)          # äldre poster saknar oddshistorik: börja mäta nu
-                else:
-                    h[4] = max(h[4] or 0.0, o)
+                while len(h) < 6:        # äldre poster saknar odds-/källhistorik: börja mäta nu
+                    h.append(o if len(h) == 4 else g)
+                if g is not None and h[5] is not None and g != h[5]:
+                    # Andra källor än förut (t.ex. DK/FD tillkom nära start): referensen är inte
+                    # jämförbar bakåt, så rörelsen mäts från och med nu.
+                    h[0], h[1] = c.p, now
+                h[2], h[3], h[5] = c.p, now, g
+                h[4] = max(h[4] or 0.0, o)
 
     def momentum_pp(self, c, min_age_s: float = 1800) -> float:
         h = self.d.get(line_key(c))
@@ -136,11 +140,12 @@ def final_rules(rows, settings: dict, hist: "History | None" = None, sport: str 
     2. ett enda spel per spelare och match (störst edge vinner) – ingen dubbel/trippel på samma spelare
        (taken = redan bokförda spel {(match_id, spelare_id): nyckel} – även från tidigare körningar)
     3. inget spel om bästa oddset fallit mer än max_odds_drop (3 %) från det högsta vi sett
-    4. fotboll i skuggläge: bara spel med skarp spelarreferens och odds inom football_odds_window
+    3b. sharp money: inget spel om den skarpa referensen rört sig mer än sharp_against_pp mot oss
+    4. (avstängt som standard) fotboll i skuggläge: bara spel med skarp spelarreferens och odds inom football_odds_window
     """
     min_edge = settings.get("min_edge_all", 0.05)
     max_drop = settings.get("max_odds_drop", 0.03)
-    n = {"edge": 0, "spelare": 0, "oddsfall": 0, "fotboll": 0}
+    n = {"edge": 0, "spelare": 0, "oddsfall": 0, "sharp": 0, "fotboll": 0}
     for r in rows:
         d = r.row.decision
         if not d.playable:
@@ -155,7 +160,17 @@ def final_rules(rows, settings: dict, hist: "History | None" = None, sport: str 
             _block(d, f"oddset har fallit {drop:.1%} från {c.best.odds / (1 - drop):.2f} – för sent")
             n["oddsfall"] += 1
             continue
-        if sport == "fotboll" and settings.get("football_shadow", True):
+        # Sharp money: hur den skarpa referensen (Pinnacle/konsensus) har rört sig sedan vi
+        # först såg linjen. Mot oss = de skarpa spelarna sitter på andra sidan -> inget spel.
+        mom = hist.momentum_pp(c, settings.get("sharp_min_age_s", 1800)) if hist is not None else 0.0
+        r.sharp_pp = mom
+        if mom <= -settings.get("sharp_against_pp", 2.0):
+            _block(d, f"sharp money mot oss: referensen har rört sig {mom:+.1f} enheter")
+            n["sharp"] += 1
+            continue
+        if mom >= settings.get("sharp_with_pp", 1.5):
+            d.reasons.append(f"sharp money med oss: referensen {mom:+.1f} enheter")
+        if sport == "fotboll" and settings.get("football_shadow", False):
             lo, hi = settings.get("football_odds_window", [1.60, 2.50])
             sharp = getattr(r, "sharp_ref", False)
             if not (sharp and lo <= c.best.odds <= hi):

@@ -54,3 +54,26 @@ def test_football_shadow_unless_sharp_and_window():
     c = row("m", "z", "shots", 3.0, 0.40, sharp=True)
     final_rules([a, b, c], S, None, "fotboll")
     assert [r.row.decision.playable for r in (a, b, c)] == [False, True, False]
+
+
+def test_sharp_money_against_blocks_and_with_tags(tmp_path):
+    a = row("m", "x", "points", 2.0, 0.60)
+    b = row("m", "y", "points", 2.0, 0.60)
+    h = History(tmp_path / "h.json")
+    h.update([a, b], 0.0)
+    a.row.decision.cand.p = 0.57          # referensen har gått 3 enheter mot oss
+    b.row.decision.cand.p = 0.62          # 2 enheter med oss
+    h.update([a, b], 4000.0)
+    final_rules([a, b], S, h, "nba")
+    assert not a.row.decision.playable
+    assert b.row.decision.playable and any("sharp money med" in x for x in b.row.decision.reasons)
+
+
+def test_source_change_resets_baseline(tmp_path):
+    a = row("m", "x", "points", 2.0, 0.60)
+    a.n_groups = 2
+    h = History(tmp_path / "h.json")
+    h.update([a], 0.0)
+    a.row.decision.cand.p, a.n_groups = 0.55, 3     # DK/FD tillkom
+    h.update([a], 4000.0)
+    assert h.momentum_pp(a.row.decision.cand) == 0.0
