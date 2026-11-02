@@ -87,6 +87,10 @@ DEFAULT_SETTINGS = {
     "nba_max_events": 15,
     # DraftKings/FanDuel m.fl. via The Odds API (gratiskvot, kreditbudget per dag).
     "nba_us_books": True,
+    # Kalshi (prediktionsbörs, gratis): bara likvida linjer räknas som referens.
+    "use_kalshi": True,
+    "kalshi_max_spread": 0.04,
+    "kalshi_min_volume": 500,
     "nba_us_fetch_window": [40, 240],
     "nba_us_reserve": 20,
     # Parlays: 2–3 ben, olika matcher, samma bolag, minst 5 % edge per ben.

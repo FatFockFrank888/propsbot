@@ -384,6 +384,13 @@ def nba_scan(root: Path, settings_path: Path) -> dict:
         diag.log(f"Pinnacle NBA: {len(pevs)} matcher, {n} spelarodds ({time.time() - t0:.0f} s)")
     except Exception as e:
         diag.log(f"Pinnacle NBA: FEL {type(e).__name__}: {e}")
+    if settings.get("use_kalshi", True):
+        try:
+            from .sources import kalshi
+            kl = kalshi.fetch(JsonClient(root / ".cache_odds", ttl_s=120, min_interval_s=1.2), settings, diag)
+            diag.log(f"Kalshi: {kalshi.add_to_events(per, kl, time.time())} linjer kopplade till matcher")
+        except Exception as e:   # tillägg – får aldrig stoppa skanningen
+            diag.log(f"Kalshi: FEL {type(e).__name__}: {str(e)[:200]}")
     try:
         from .sources.us_books import add_us_books
         add_us_books(root, per, settings, diag)
