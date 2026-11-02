@@ -562,12 +562,12 @@
 "spela_fran": 1.9780948869370756,
 "insats_pct": 0.010198106249788749,
 "stangning": 2.02,
-"status": "öppen",
+"status": "struken",
 "stopp": "",
 "clv_signal": false,
 "forv_clv_pp": 2.0598155197593115,
 "utfall": null,
-"resultat_enheter": null
+"resultat_enheter": 0.0
 },
 {
 "key": "nba1028754181|darius garland|points|23.5|unibet|under",
@@ -712,12 +712,12 @@
 "spela_fran": 1.9201742910289024,
 "insats_pct": 0.006779417765734484,
 "stangning": 1.85,
-"status": "öppen",
+"status": "vunnen",
 "stopp": "",
 "clv_signal": false,
 "forv_clv_pp": 1.306706429457627,
-"utfall": null,
-"resultat_enheter": null
+"utfall": 20,
+"resultat_enheter": 0.006304858522133069
 },
 {
 "key": "nba1028754181|brandon williams|assists|3.5|unibet|under",
@@ -1012,12 +1012,12 @@
 "spela_fran": 1.6783906940099864,
 "insats_pct": 0.007712505697656786,
 "stangning": 1.67,
-"status": "öppen",
+"status": "vunnen",
 "stopp": "",
 "clv_signal": false,
 "forv_clv_pp": 1.2130915049672897,
-"utfall": null,
-"resultat_enheter": null
+"utfall": 2,
+"resultat_enheter": 0.005244503874406614
 },
 {
 "key": "nba1028754181|darius garland|points|23.5|atg|under",
@@ -1252,12 +1252,12 @@
 "spela_fran": 1.7973237599874536,
 "insats_pct": 0.006724623171957163,
 "stangning": 1.83,
-"status": "öppen",
+"status": "vunnen",
 "stopp": "",
 "clv_signal": false,
 "forv_clv_pp": 6.969989784258129,
-"utfall": null,
-"resultat_enheter": null
+"utfall": 16,
+"resultat_enheter": 0.00537969853756573
 },
 {
 "key": "nba1028754087|wendell carter jr|rebounds|7.5|unibet",
@@ -1312,12 +1312,12 @@
 "spela_fran": 2.5374296789551574,
 "insats_pct": 0.004040812509176529,
 "stangning": 2.0,
-"status": "öppen",
+"status": "förlorad",
 "stopp": "",
 "clv_signal": false,
 "forv_clv_pp": 4.040086374831809,
-"utfall": null,
-"resultat_enheter": null
+"utfall": 1,
+"resultat_enheter": -0.004040812509176529
 },
 {
 "key": "nba1028754180|luka doncic|points|34.5|unibet|under",
@@ -1432,12 +1432,12 @@
 "spela_fran": 2.2484521447956376,
 "insats_pct": 0.007440656515008215,
 "stangning": 2.28,
-"status": "öppen",
+"status": "vunnen",
 "stopp": "",
 "clv_signal": false,
 "forv_clv_pp": 0.9106137863597125,
-"utfall": null,
-"resultat_enheter": null
+"utfall": 4,
+"resultat_enheter": 0.009672853469510679
 },
 {
 "key": "nba1028754085|moritz wagner|rebounds|4.5|unibet|under",
@@ -1462,12 +1462,12 @@
 "spela_fran": 1.9118974527302701,
 "insats_pct": 0.005894471246189546,
 "stangning": 1.91,
-"status": "öppen",
+"status": "förlorad",
 "stopp": "",
 "clv_signal": false,
 "forv_clv_pp": 1.3817902357131318,
-"utfall": null,
-"resultat_enheter": null
+"utfall": 6,
+"resultat_enheter": -0.005894471246189546
 },
 {
 "key": "nba1028754085|julius randle|rebounds|7.5|unibet|under",
@@ -1492,12 +1492,12 @@
 "spela_fran": 1.7825052292690493,
 "insats_pct": 0.006854851846059702,
 "stangning": 1.8,
-"status": "öppen",
+"status": "vunnen",
 "stopp": "",
 "clv_signal": false,
 "forv_clv_pp": 3.103961170187597,
-"utfall": null,
-"resultat_enheter": null
+"utfall": 5,
+"resultat_enheter": 0.005415332958387165
 },
 {
 "key": "nba1028754085|pascal siakam|rebounds|7.5|unibet|under",
@@ -1522,12 +1522,12 @@
 "spela_fran": 1.7908369434649685,
 "insats_pct": 0.010153527078228189,
 "stangning": 1.7,
-"status": "öppen",
+"status": "vunnen",
 "stopp": "",
 "clv_signal": false,
 "forv_clv_pp": 5.028287372339774,
-"utfall": null,
-"resultat_enheter": null
+"utfall": 5,
+"resultat_enheter": 0.00852896274571168
 },
 {
 "key": "nba1028754181|derrick jones jr|threes|1.5|unibet",
@@ -1886,6 +1886,36 @@
 "stopp": "edge 1.4% < 2%; CLV-signal: Pinnacle +5.3 enheter, förväntad CLV +3.3",
 "clv_signal": true,
 "forv_clv_pp": 3.339484928519079,
+"utfall": null,
+"resultat_enheter": null
+},
+{
+"key": "nba1028754181|georges niang|threes|1.5|unibet",
+"id": 66,
+"bokford": 1793583050.0247133,
+"match_id": "nba1028754181",
+"match": "Golden State Warriors – LA Clippers",
+"hemma": "Golden State Warriors",
+"borta": "LA Clippers",
+"liga": "NBA",
+"avspark": 1793583360.0,
+"spelare": "Georges Niang",
+"spelare_id": "georges niang",
+"marknad": "threes",
+"linje": 1.5,
+"sida": "over",
+"bolag": "unibet",
+"odds": 1.97,
+"sannolikhet": 0.5179921215121042,
+"ratt_odds": 1.9305312927942526,
+"edge": 0.020444479378845193,
+"spela_fran": 1.9691419186501375,
+"insats_pct": 0.0040239271630051815,
+"stangning": 1.97,
+"status": "öppen",
+"stopp": "",
+"clv_signal": false,
+"forv_clv_pp": 2.775661995238737,
 "utfall": null,
 "resultat_enheter": null
 }
