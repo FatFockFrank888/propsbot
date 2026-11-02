@@ -1,4 +1,4 @@
-Skanning 2026-11-02 10:26
+Skanning 2026-11-02 10:39
 Kambi unibet (ubse): OK, 17 matcher i valda ligor
 Kambi paf (paf): OK
 Kambi atg (atg): OK
@@ -69,7 +69,7 @@ Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
   AIK To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
   AIK Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
   GAIS Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
-Tid: hämtning 68 s
+Tid: hämtning 63 s
 Marginal över alla matcher: uppmätt marginal: shots_on_target stege k=1.14 (48 spelare; marginal vid 3,00 ≈ 17%)
   Sassuolo – Fiorentina: modell ita.1, 29 spelare
   GAIS – AIK: modell swe.1, 30 spelare
@@ -80,17 +80,17 @@ Marginal över alla matcher: uppmätt marginal: shots_on_target stege k=1.14 (48
   Deportivo A Coruña – Osasuna: modell esp.1, 31 spelare
 Modellens nivåavvikelse mot marknaden (log-odds, dras bort): shots -0.70, shots_on_target -0.45
   Real Oviedo – UD Las Palmas: saknar matchlinjer från Pinnacle
-  Sassuolo – Fiorentina: väntade mål Pinnacle 3.12 mot Kambi 3.16 (kvot 0.988); uppmätt marginal: goal k=1.55, assist k=1.65, shots_on_target stege k=1.13 (14 spelare; marginal vid 3,00 ≈ 15%)
-Exempel uppmätt marginal: goal k=1.55, assist k=1.65, shots_on_target stege k=1.13 (14 spelare; marginal vid 3,00 ≈ 15%)
+  Sassuolo – Fiorentina: väntade mål Pinnacle 3.19 mot Kambi 3.16 (kvot 1.007); uppmätt marginal: goal k=1.53, assist k=1.64, shots_on_target stege k=1.13 (14 spelare; marginal vid 3,00 ≈ 15%)
+Exempel uppmätt marginal: goal k=1.53, assist k=1.64, shots_on_target stege k=1.13 (14 spelare; marginal vid 3,00 ≈ 15%)
   Valladolid – Leganés: saknar matchlinjer från Pinnacle
   GAIS – AIK: väntade mål Pinnacle 3.02 mot Kambi 3.07 (kvot 0.984); uppmätt marginal: goal k=1.71
   Mjällby AIF – Kalmar FF: väntade mål Pinnacle 2.66 mot Kambi 2.66 (kvot 1.001); uppmätt marginal: goal k=1.52
   Atalanta – Parma: väntade mål Pinnacle 3.15 mot Kambi 3.11 (kvot 1.014); uppmätt marginal: goal k=1.59, assist k=1.64, shots_on_target stege k=1.11 (14 spelare; marginal vid 3,00 ≈ 13%)
-  Lorient – Brest: väntade mål Pinnacle 2.45 mot Kambi 2.48 (kvot 0.986); uppmätt marginal: goal k=1.30, assist k=1.32, shots_on_target stege k=1.09 (14 spelare; marginal vid 3,00 ≈ 10%)
+  Lorient – Brest: väntade mål Pinnacle 2.44 mot Kambi 2.48 (kvot 0.984); uppmätt marginal: goal k=1.30, assist k=1.32, shots_on_target stege k=1.09 (14 spelare; marginal vid 3,00 ≈ 10%)
   Newcastle United – Everton: väntade mål Pinnacle 2.92 mot Kambi 2.94 (kvot 0.993); uppmätt marginal: goal k=1.45, assist k=1.54, shots_on_target stege k=1.26 (6 spelare; marginal vid 3,00 ≈ 33%)
   Mallorca – Cadiz: saknar matchlinjer från Pinnacle
   Deportivo A Coruña – Osasuna: väntade mål Pinnacle 2.37 mot Kambi 2.39 (kvot 0.990); uppmätt marginal: goal k=1.44, assist k=1.58
-Tid: modell och utvärdering 70 s
+Tid: modell och utvärdering 74 s
 Bolag med spelarodds: atg, betmgm, expekt, leovegas, paf, svenskaspel, unibet
 Spelarodds per marknad: assist 1162, goal 3319, shots 2056, shots_on_target 1666
 Kambi-marknader: assist='to give an assist (settled using opta data)':1162; goal='to score':2409; goal='to score at least 2 goals':798; goal='to score at least 3 goals':105; goal='to score at least 4 goals':7; shots="player's shots (settled using opta data)":2056; shots_on_target="player's shots on target (settled using opta data)":1666
@@ -98,14 +98,14 @@ Pinnacle har inga spelarprops här – använder linjejustering mot Pinnacles ma
 CLV-signal: 0 ben släppta (Pinnacle rör sig åt vårt håll)
 Spelregler: stoppade {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0} (modelltest {'edge': 2, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0})
 Spelarmodell: 0 av 1059 ben har modell, 0 nya matcher hämtade från ESPN
-Bästa edge marknad goal: -25.6%, -28.5%, -32.7% (av 108 ben)
-Bästa edge marknad assist: -35.4%, -38.7%, -40.7% (av 64 ben)
+Bästa edge marknad goal: -25.6%, -28.6%, -32.8% (av 108 ben)
+Bästa edge marknad assist: -35.5%, -38.8%, -40.8% (av 64 ben)
 Bästa edge marknad shots_on_target: +3.1%, +2.3%, +1.0% (av 212 ben)
 Bästa edge marknad shots: -2.8%, -3.3%, -3.4% (av 211 ben)
-Bästa edge modelltest goal: -27.9%, -29.5%, -33.1% (av 108 ben)
-Bästa edge modelltest assist: -38.1%, -38.7%, -41.9% (av 64 ben)
-Bästa edge modelltest shots_on_target: +3.9%, +3.1%, -0.3% (av 212 ben)
-Bästa edge modelltest shots: -1.4%, -1.6%, -1.8% (av 211 ben)
+Bästa edge modelltest goal: -28.0%, -29.6%, -33.1% (av 108 ben)
+Bästa edge modelltest assist: -38.2%, -38.8%, -42.0% (av 64 ben)
+Bästa edge modelltest shots_on_target: +3.9%, +3.1%, -0.2% (av 212 ben)
+Bästa edge modelltest shots: -1.4%, -1.6%, -1.6% (av 211 ben)
 0 spelbara ben.
 Bokförda nya spel: 0
 Skuggspel: 0 nya bokförda (stoppade av reglerna, minst 2 % edge)
