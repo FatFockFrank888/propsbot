@@ -1,24 +1,113 @@
-Skanning 2026-11-02 19:44
-Kambi unibet (ubse): FEL URLError för https://eu-offering.kambicdn.org/offering/v2018/ubse/listView/football/all/all/all/matches.json: <urlopen error timed out>
-Kambi paf (paf): FEL URLError för https://eu-offering.kambicdn.org/offering/v2018/paf/listView/football/all/all/all/matches.json: <urlopen error timed out>
-Kambi atg (atg): FEL URLError för https://eu-offering.kambicdn.org/offering/v2018/atg/listView/football/all/all/all/matches.json: <urlopen error timed out>
-Kambi leovegas (leose): FEL URLError för https://eu-offering.kambicdn.org/offering/v2018/leose/listView/football/all/all/all/matches.json: <urlopen error timed out>
-Kambi svenskaspel (svenskaspel): FEL URLError för https://eu-offering.kambicdn.org/offering/v2018/svenskaspel/listView/football/all/all/all/matches.json: <urlopen error timed out>
-Kambi expekt (expektse): FEL URLError för https://eu-offering.kambicdn.org/offering/v2018/expektse/listView/football/all/all/all/matches.json: <urlopen error timed out>
-Kambi betmgm (betmgmse): FEL URLError för https://eu-offering.kambicdn.org/offering/v2018/betmgmse/listView/football/all/all/all/matches.json: <urlopen error timed out>
-VARNING: inget Kambi-bolag svarade.
+Skanning 2026-11-02 20:09
+Kambi unibet (ubse): OK, 16 matcher i valda ligor
+Kambi paf (paf): OK
+Kambi atg (atg): OK
+Kambi leovegas (leose): OK
+Kambi svenskaspel (svenskaspel): OK
+Kambi expekt (expektse): OK
+Kambi betmgm (betmgmse): OK
+Pinnacle: OK, 13 ligor
+Pinnacle: 12 matcher, matchlinjer för 8 av 16 Kambi-matcher, 0 spelarodds som används
+Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
+  Double Chance 1st Half | units=Regular | kategori=Team Props | deltagare=Shakhtar Donetsk Or Sporting CP,Draw Or Sporting CP,Draw Or Shakhtar Donetsk  ->  används inte (lagmarknad)
+  Moneyline and Total Goals | units=Regular | kategori=Team Props | deltagare=Shakhtar Donetsk & Over 2.5,Shakhtar Donetsk & Under 2.5,Draw & Over 2.5,Draw & Under 2.5,Sporting CP & Over 2.5,Sporting CP & Under 2.5  ->  används inte (lagmarknad)
+  Double Chance | units=Regular | kategori=Team Props | deltagare=Shakhtar Donetsk Or Sporting CP,Draw Or Sporting CP,Draw Or Shakhtar Donetsk  ->  används inte (lagmarknad)
+  Shakhtar Donetsk Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
+  Sporting CP To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Correct Score | units=Regular | kategori=Team Props | deltagare=Shakhtar Donetsk 0, Sporting CP 0,Shakhtar Donetsk 0, Sporting CP 1,Shakhtar Donetsk 0, Sporting CP 2,Shakhtar Donetsk 0, Sporting CP 3,Shakhtar Donetsk 0, Sporting CP 4,Shakhtar Donetsk 0, Sporting CP 5,Shakhtar Donetsk 0, Sporting CP 6,Shakhtar Donetsk 1, Sporting CP 0,Shakhtar Donetsk 1, Sporting CP 1,Shakhtar Donetsk 1, Sporting CP 2,Shakhtar Donetsk 1, Sporting CP 3,Shakhtar Donetsk 1, Sporting CP 4,Shakhtar Donetsk 1, Sporting CP 5,Shakhtar Donetsk 1, Sporting CP 6,Shakhtar Donetsk 2, Sporting CP 0,Shakhtar Donetsk 2, Sporting CP 1,Shakhtar Donetsk 2, Sporting CP 2,Shakhtar Donetsk 2, Sporting CP 3,Shakhtar Donetsk 2, Sporting CP 4,Shakhtar Donetsk 2, Sporting CP 5,Shakhtar Donetsk 2, Sporting CP 6,Shakhtar Donetsk 3, Sporting CP 0,Shakhtar Donetsk 3, Sporting CP 1,Shakhtar Donetsk 3, Sporting CP 2,Shakhtar Donetsk 3, Sporting CP 3,Shakhtar Donetsk 3, Sporting CP 4,Shakhtar Donetsk 3, Sporting CP 5,Shakhtar Donetsk 3, Sporting CP 6,Shakhtar Donetsk 4, Sporting CP 0,Shakhtar Donetsk 4, Sporting CP 1,Shakhtar Donetsk 4, Sporting CP 2,Shakhtar Donetsk 4, Sporting CP 3,Shakhtar Donetsk 4, Sporting CP 4,Shakhtar Donetsk 4, Sporting CP 5,Shakhtar Donetsk 4, Sporting CP 6,Shakhtar Donetsk 5, Sporting CP 0,Shakhtar Donetsk 5, Sporting CP 1,Shakhtar Donetsk 5, Sporting CP 2,Shakhtar Donetsk 5, Sporting CP 3,Shakhtar Donetsk 5, Sporting CP 4,Shakhtar Donetsk 5, Sporting CP 5,Shakhtar Donetsk 5, Sporting CP 6,Shakhtar Donetsk 6, Sporting CP 0,Shakhtar Donetsk 6, Sporting CP 1,Shakhtar Donetsk 6, Sporting CP 2,Shakhtar Donetsk 6, Sporting CP 3,Shakhtar Donetsk 6, Sporting CP 4,Shakhtar Donetsk 6, Sporting CP 5,Shakhtar Donetsk 6, Sporting CP 6  ->  används inte (lagmarknad)
+  Shakhtar Donetsk To Win To Nil | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Sporting CP To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Draw No Bet 1st Half | units=Regular | kategori=Team Props | deltagare=Shakhtar Donetsk,Sporting CP  ->  används inte (lagmarknad)
+  Either Team To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Both Teams To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  3-Way Handicap Shakhtar Donetsk +2 | units=Regular | kategori=Team Props | deltagare=Shakhtar Donetsk (+2),Draw - (Shakhtar Donetsk +2),Sporting CP (-2)  ->  används inte (lagmarknad)
+  3-Way Handicap Shakhtar Donetsk +3 | units=Regular | kategori=Team Props | deltagare=Shakhtar Donetsk (+3),Draw - (Shakhtar Donetsk +3),Sporting CP (-3)  ->  används inte (lagmarknad)
+  Draw No Bet | units=Regular | kategori=Team Props | deltagare=Shakhtar Donetsk,Sporting CP  ->  används inte (lagmarknad)
+  3-Way Handicap Shakhtar Donetsk -2 | units=Regular | kategori=Team Props | deltagare=Shakhtar Donetsk (-2),Draw - (Shakhtar Donetsk -2),Sporting CP (+2)  ->  används inte (lagmarknad)
+  Shakhtar Donetsk To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Total Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  3-Way Handicap Shakhtar Donetsk +1 | units=Regular | kategori=Team Props | deltagare=Shakhtar Donetsk (+1),Draw - (Shakhtar Donetsk +1),Sporting CP (-1)  ->  används inte (lagmarknad)
+  Total Goals Range 1st Half | units=Regular | kategori=Team Props | deltagare=0 - 1,2 - 3,4+  ->  används inte (lagmarknad)
+  Exact Total Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
+  Sporting CP Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
+  Correct Score 1st Half | units=Regular | kategori=Team Props | deltagare=Shakhtar Donetsk 0, Sporting CP 0,Shakhtar Donetsk 0, Sporting CP 1,Shakhtar Donetsk 0, Sporting CP 2,Shakhtar Donetsk 0, Sporting CP 3,Shakhtar Donetsk 1, Sporting CP 0,Shakhtar Donetsk 1, Sporting CP 1,Shakhtar Donetsk 1, Sporting CP 2,Shakhtar Donetsk 1, Sporting CP 3,Shakhtar Donetsk 2, Sporting CP 0,Shakhtar Donetsk 2, Sporting CP 1,Shakhtar Donetsk 2, Sporting CP 2,Shakhtar Donetsk 2, Sporting CP 3,Shakhtar Donetsk 3, Sporting CP 0,Shakhtar Donetsk 3, Sporting CP 1,Shakhtar Donetsk 3, Sporting CP 2,Shakhtar Donetsk 3, Sporting CP 3  ->  används inte (lagmarknad)
+  Winning Margin 1st Half | units=Regular | kategori=Team Props | deltagare=Shakhtar Donetsk By 1,Shakhtar Donetsk By 2+,Sporting CP By 1,Sporting CP By 2+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
+  Winning Margin | units=Regular | kategori=Team Props | deltagare=Shakhtar Donetsk By 1,Shakhtar Donetsk By 2,Shakhtar Donetsk By 3,Shakhtar Donetsk By 4+,Sporting CP By 1,Sporting CP By 2,Sporting CP By 3,Sporting CP By 4+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
+  Exact Total Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5,6+  ->  används inte (lagmarknad)
+  3-Way Handicap Shakhtar Donetsk -1 | units=Regular | kategori=Team Props | deltagare=Shakhtar Donetsk (-1),Draw - (Shakhtar Donetsk -1),Sporting CP (+1)  ->  används inte (lagmarknad)
+  Sporting CP Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
+  First Team To Score 1st Half | units=1st Goal | kategori=Team Props | deltagare=Shakhtar Donetsk,Sporting CP,Neither  ->  används inte (lagmarknad)
+  First Team To Score | units=1st Goal | kategori=Team Props | deltagare=Shakhtar Donetsk,Sporting CP,Neither  ->  används inte (lagmarknad)
+  Either Team To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Sporting CP Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  Shakhtar Donetsk Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
+  Shakhtar Donetsk To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Both Teams To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Total Goals Odd/Even 1st Half | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  Total Goals Range | units=Regular | kategori=Team Props | deltagare=0 - 1,2 - 3,4 - 6,7+  ->  används inte (lagmarknad)
+  Shakhtar Donetsk Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  Both Teams To Score and Moneyline | units=Regular | kategori=Team Props | deltagare=Yes & Shakhtar Donetsk,Yes & Draw,Yes & Sporting CP,No & Shakhtar Donetsk,No & Draw,No & Sporting CP  ->  används inte (lagmarknad)
+  Odd/Even and Total Goals | units=Regular | kategori=Team Props | deltagare=Odd & Over 2.5,Odd & Under 2.5,Even & Over 2.5,Even & Under 2.5  ->  används inte (lagmarknad)
+  Sporting CP To Win To Nil | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Shakhtar Donetsk To Win To Nil 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Sporting CP To Win To Nil 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Both Teams To Score and Total Goals | units=Regular | kategori=Team Props | deltagare=Yes & Over 2.5,Yes & Under 2.5,No & Over 2.5,No & Under 2.5  ->  används inte (lagmarknad)
+  Double Chance 1st Half | units=Regular | kategori=Team Props | deltagare=Galatasaray Or Stuttgart,Draw Or Stuttgart,Draw Or Galatasaray  ->  används inte (lagmarknad)
+  Moneyline and Total Goals | units=Regular | kategori=Team Props | deltagare=Galatasaray & Over 3.5,Galatasaray & Under 3.5,Draw & Over 3.5,Draw & Under 3.5,Stuttgart & Over 3.5,Stuttgart & Under 3.5  ->  används inte (lagmarknad)
+  Double Chance | units=Regular | kategori=Team Props | deltagare=Galatasaray Or Stuttgart,Draw Or Stuttgart,Draw Or Galatasaray  ->  används inte (lagmarknad)
+  Galatasaray Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
+  Stuttgart To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Galatasaray To Win To Nil | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Correct Score | units=Regular | kategori=Team Props | deltagare=Galatasaray 0, Stuttgart 0,Galatasaray 0, Stuttgart 1,Galatasaray 0, Stuttgart 2,Galatasaray 0, Stuttgart 3,Galatasaray 0, Stuttgart 4,Galatasaray 0, Stuttgart 5,Galatasaray 0, Stuttgart 6,Galatasaray 1, Stuttgart 0,Galatasaray 1, Stuttgart 1,Galatasaray 1, Stuttgart 2,Galatasaray 1, Stuttgart 3,Galatasaray 1, Stuttgart 4,Galatasaray 1, Stuttgart 5,Galatasaray 1, Stuttgart 6,Galatasaray 2, Stuttgart 0,Galatasaray 2, Stuttgart 1,Galatasaray 2, Stuttgart 2,Galatasaray 2, Stuttgart 3,Galatasaray 2, Stuttgart 4,Galatasaray 2, Stuttgart 5,Galatasaray 2, Stuttgart 6,Galatasaray 3, Stuttgart 0,Galatasaray 3, Stuttgart 1,Galatasaray 3, Stuttgart 2,Galatasaray 3, Stuttgart 3,Galatasaray 3, Stuttgart 4,Galatasaray 3, Stuttgart 5,Galatasaray 3, Stuttgart 6,Galatasaray 4, Stuttgart 0,Galatasaray 4, Stuttgart 1,Galatasaray 4, Stuttgart 2,Galatasaray 4, Stuttgart 3,Galatasaray 4, Stuttgart 4,Galatasaray 4, Stuttgart 5,Galatasaray 4, Stuttgart 6,Galatasaray 5, Stuttgart 0,Galatasaray 5, Stuttgart 1,Galatasaray 5, Stuttgart 2,Galatasaray 5, Stuttgart 3,Galatasaray 5, Stuttgart 4,Galatasaray 5, Stuttgart 5,Galatasaray 5, Stuttgart 6,Galatasaray 6, Stuttgart 0,Galatasaray 6, Stuttgart 1,Galatasaray 6, Stuttgart 2,Galatasaray 6, Stuttgart 3,Galatasaray 6, Stuttgart 4,Galatasaray 6, Stuttgart 5,Galatasaray 6, Stuttgart 6  ->  används inte (lagmarknad)
+  Stuttgart To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Draw No Bet 1st Half | units=Regular | kategori=Team Props | deltagare=Galatasaray,Stuttgart  ->  används inte (lagmarknad)
+  3-Way Handicap Galatasaray +2 | units=Regular | kategori=Team Props | deltagare=Galatasaray (+2),Draw - (Galatasaray +2),Stuttgart (-2)  ->  används inte (lagmarknad)
+  Draw No Bet | units=Regular | kategori=Team Props | deltagare=Galatasaray,Stuttgart  ->  används inte (lagmarknad)
+  3-Way Handicap Galatasaray -2 | units=Regular | kategori=Team Props | deltagare=Galatasaray (-2),Draw - (Galatasaray -2),Stuttgart (+2)  ->  används inte (lagmarknad)
+  Galatasaray To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  3-Way Handicap Galatasaray +1 | units=Regular | kategori=Team Props | deltagare=Galatasaray (+1),Draw - (Galatasaray +1),Stuttgart (-1)  ->  används inte (lagmarknad)
+  Stuttgart Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
+  Correct Score 1st Half | units=Regular | kategori=Team Props | deltagare=Galatasaray 0, Stuttgart 0,Galatasaray 0, Stuttgart 1,Galatasaray 0, Stuttgart 2,Galatasaray 0, Stuttgart 3,Galatasaray 1, Stuttgart 0,Galatasaray 1, Stuttgart 1,Galatasaray 1, Stuttgart 2,Galatasaray 1, Stuttgart 3,Galatasaray 2, Stuttgart 0,Galatasaray 2, Stuttgart 1,Galatasaray 2, Stuttgart 2,Galatasaray 2, Stuttgart 3,Galatasaray 3, Stuttgart 0,Galatasaray 3, Stuttgart 1,Galatasaray 3, Stuttgart 2,Galatasaray 3, Stuttgart 3  ->  används inte (lagmarknad)
+  Winning Margin 1st Half | units=Regular | kategori=Team Props | deltagare=Galatasaray By 1,Galatasaray By 2+,Stuttgart By 1,Stuttgart By 2+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
 Fotboll extra bolag: 0 nya hämtningar, 0 odds i bruk, krediter kvar 481, dagsbudget 16 (andel 40%), förbrukat idag 5
-Tid: hämtning 465 s
-Marginal över alla matcher: uppmätt marginal: otillräckligt underlag i matchen
-Modellens nivåavvikelse mot marknaden (log-odds, dras bort): 
-Tid: modell och utvärdering 0 s
-Bolag med spelarodds: inga
-Spelarodds per marknad: 
-Kambi-marknader: 
+Tid: hämtning 69 s
+Marginal över alla matcher: uppmätt marginal: shots_on_target stege k=1.19 (48 spelare; marginal vid 3,00 ≈ 23%)
+  Shakhtar Donetsk – Sporting Lisbon: modell uefa.champions, 18 spelare
+  Galatasaray – VfB Stuttgart: modell uefa.champions, 18 spelare
+  IK Sirius FK – Halmstads BK: modell swe.1, 28 spelare
+  LASK – Slovan Bratislava: modell uefa.champions, 15 spelare
+  Manchester United – Roma: modell uefa.champions, 11 spelare
+  Atlético Madrid – Bayern Munich: modell uefa.champions, 14 spelare
+  Bodø/Glimt – Lille: modell uefa.champions, 17 spelare
+  FC Barcelona – Aston Villa: modell uefa.champions, 14 spelare
+Modellens nivåavvikelse mot marknaden (log-odds, dras bort): shots -0.70, shots_on_target -0.42
+  Shakhtar Donetsk – Sporting Lisbon: väntade mål Pinnacle 2.96 mot Kambi 2.95 (kvot 1.003); uppmätt marginal: goal k=1.31, assist k=1.38
+Exempel uppmätt marginal: goal k=1.31, assist k=1.38
+  Galatasaray – VfB Stuttgart: väntade mål Pinnacle 3.67 mot Kambi 3.53 (kvot 1.039); uppmätt marginal: goal k=1.38, assist k=1.45, shots_on_target stege k=1.28 (8 spelare; marginal vid 3,00 ≈ 36%)
+  IK Sirius FK – Halmstads BK: väntade mål Pinnacle 3.65 mot Kambi 3.51 (kvot 1.041); uppmätt marginal: goal k=1.51
+  LASK – Slovan Bratislava: väntade mål Pinnacle 3.65 mot Kambi 3.59 (kvot 1.018); uppmätt marginal: goal k=1.54, assist k=1.52
+  Manchester United – Roma: väntade mål Pinnacle 3.32 mot Kambi 3.21 (kvot 1.033); uppmätt marginal: goal k=1.35, assist k=1.49, shots_on_target stege k=1.15 (8 spelare; marginal vid 3,00 ≈ 18%)
+  Feyenoord – Inter: saknar matchlinjer från Pinnacle
+  Atlético Madrid – Bayern Munich: väntade mål Pinnacle 3.46 mot Kambi 3.39 (kvot 1.020); uppmätt marginal: goal k=1.42, assist k=1.47
+  Bodø/Glimt – Lille: väntade mål Pinnacle 3.36 mot Kambi 3.38 (kvot 0.993); uppmätt marginal: goal k=1.35, assist k=1.44
+  FC Barcelona – Aston Villa: väntade mål Pinnacle 4.19 mot Kambi 4.34 (kvot 0.965); uppmätt marginal: goal k=1.58, assist k=1.59
+  Villarreal – PSG: saknar matchlinjer från Pinnacle
+Tid: modell och utvärdering 143 s
+Bolag med spelarodds: atg, betmgm, expekt, leovegas, paf, svenskaspel, unibet
+Spelarodds per marknad: assist 1729, goal 3955, shots 3680, shots_on_target 2902
+Kambi-marknader: assist='to give an assist (settled using opta data)':1729; goal='to score':1932; goal='to score at least 2 goals':1505; goal='to score at least 3 goals':399; goal='to score at least 4 goals':98; goal='to score at least 5 goals':21; shots="player's shots (settled using opta data)":3680; shots_on_target="player's shots on target (settled using opta data)":2902
 Pinnacle har inga spelarprops här – använder linjejustering mot Pinnacles matchlinjer.
 CLV-signal: 0 ben släppta (Pinnacle rör sig åt vårt håll)
 Spelregler: stoppade {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0} (modelltest {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0})
-Spelarmodell: 0 av 0 ben har modell, 0 nya matcher hämtade från ESPN
+Spelarmodell: 0 av 1365 ben har modell, 22 nya matcher hämtade från ESPN
+Bästa edge marknad goal: -5.2%, -6.3%, -8.2% (av 116 ben)
+Bästa edge marknad assist: -34.6%, -36.2%, -37.3% (av 99 ben)
+Bästa edge marknad shots_on_target: -5.6%, -5.8%, -6.3% (av 257 ben)
+Bästa edge marknad shots: -0.8%, -0.8%, -1.0% (av 284 ben)
+Bästa edge modelltest goal: -6.3%, -8.2%, -10.5% (av 116 ben)
+Bästa edge modelltest assist: -34.6%, -35.4%, -37.9% (av 99 ben)
+Bästa edge modelltest shots_on_target: -5.3%, -5.6%, -5.7% (av 257 ben)
+Bästa edge modelltest shots: -0.5%, -0.8%, -0.9% (av 284 ben)
 0 spelbara ben.
 Bokförda nya spel: 0
 Skuggspel: 0 nya bokförda (stoppade av reglerna, minst 2 % edge)
