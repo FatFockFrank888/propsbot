@@ -1,7 +1,7 @@
 """NBA-props: Kambi-bolagen mot Pinnacles tvåsidiga spelarodds.
 
 Marknader: poäng, returer, assist, trepoängare, PRA (poäng + returer + assist).
-Samma regler som fotboll: odds 1,40–6,00, minst 2 % edge, ¼ Kelly, bokföring,
+Samma regler som fotboll: odds 1,60–6,00, minst 5 % edge, ¼ Kelly, bokföring,
 skuggspel, parlays och notiser. Bästa pris jämförs mot konsensus från de ANDRA
 källorna (Pinnacle väger tyngst, Kambi räknas som en röst).
 Rättning mot ESPN:s NBA-boxscore.

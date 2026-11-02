@@ -110,6 +110,7 @@ DEFAULT_SETTINGS = {
     # spelare och match, inget spel om oddset fallit > 3 %, inget spel när sharp money
     # (Pinnacle/konsensus) har rört sig mot oss. Fotbollen spelas på samma regler.
     "min_edge_all": 0.05,
+    "odds_window_all": [1.60, 6.0],     # inga spel under 1,60 eller över 6,00 (båda sporterna)
     "max_odds_drop": 0.03,
     "sharp_against_pp": 2.0,
     "sharp_with_pp": 1.5,

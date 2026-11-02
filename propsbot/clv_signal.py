@@ -151,6 +151,11 @@ def final_rules(rows, settings: dict, hist: "History | None" = None, sport: str 
         if not d.playable:
             continue
         c = d.cand
+        lo, hi = settings.get("odds_window_all", [1.60, 6.0])
+        if not (lo <= c.best.odds <= hi):
+            _block(d, f"odds {c.best.odds:.2f} utanför {lo:.2f}–{hi:.2f}")
+            n["edge"] += 1
+            continue
         if c.edge < min_edge:
             _block(d, f"edge {c.edge:.1%} < {min_edge:.0%} (gemensamt krav)")
             n["edge"] += 1

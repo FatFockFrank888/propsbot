@@ -461,7 +461,7 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
         tf = root / "ntfy_kanal.txt"   # bara en hash – kanalnamnet ska inte synas publikt
         if not tf.exists() or tf.read_text(encoding="utf-8").strip() != th:
             ok = send(settings["ntfy_topic"], "propsbot är igång",
-                      "Notiser fungerar. Du får en notis för varje nytt spelbart ben (odds 1,40–6,00).",
+                      "Notiser fungerar. Du får en notis för varje nytt spelbart ben (odds 1,60–6,00).",
                       priority=3, tags="white_check_mark")
             if ok:
                 tf.write_text(th, encoding="utf-8")

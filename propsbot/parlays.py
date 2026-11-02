@@ -3,7 +3,7 @@
 Regler:
 - Benen kommer från OLIKA matcher (ben i samma match hänger ihop och kan inte
   multipliceras som oberoende) och från SAMMA bolag (en kupong läggs hos ett bolag).
-- Varje ben måste ha positiv edge av minst parlay_min_leg_edge och odds 1,40–6,00.
+- Varje ben måste ha positiv edge av minst parlay_min_leg_edge och odds 1,60–6,00.
 - Parlayns sannolikhet = produkten av benens sannolikheter, odds = produkten av odds.
 - Insats = ¼ Kelly på parlayn, högst parlay_max_stake (lägre tak än singlar).
 - Rättning: ett förlorat ben = förlorad parlay. Strukna ben tas bort och oddset
