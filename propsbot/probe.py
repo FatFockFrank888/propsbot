@@ -20,41 +20,26 @@ def _get(url: str, n: int = 60_000_000):
 
 
 def kalshi() -> str:
+    """Få anrop (Kalshi begränsar): poäng- och assistmarknader, alla fält med pris/volym."""
+    import time
     base = "https://api.elections.kalshi.com/trade-api/v2"
-    _, body = _get(f"{base}/series?category=Sports")
-    series = json.loads(body).get("series", [])
-    nba = [s for s in series if re.search(r"\bNBA\b|basketball", s.get("title", ""), re.I)]
-    props = [s for s in nba if PROP_WORDS.search(s.get("title", ""))]
-    soc = [s for s in series if re.search(r"premier|la liga|soccer|football club|EPL", s.get("title", ""), re.I)]
-    pl = [s for s in nba if re.search(r"player", s.get("title", ""), re.I)]
-    out = [f"{len(series)} sportserier, NBA {len(nba)}, spelarserier {len(pl)}: "
-           + ", ".join(s.get("ticker", "") for s in pl[:40])]
-    # Öppna marknader i spelarserierna: antal, volym, spread (är de levande och likvida?)
-    tot_n = tot_vol = 0
-    samples = []
-    for s in pl[:25]:
-        try:
-            _, b = _get(f"{base}/markets?series_ticker={s['ticker']}&status=open&limit=200")
-        except Exception:
-            continue
+    out = []
+    for ser in ("KXNBAPTS", "KXNBAAST", "KXNBAREB"):
+        time.sleep(1.5)
+        _, b = _get(f"{base}/markets?series_ticker={ser}&status=open&limit=1000")
         ms = json.loads(b).get("markets", [])
-        vol = sum(int(m.get("volume") or 0) for m in ms)
-        oi = sum(int(m.get("open_interest") or 0) for m in ms)
-        tot_n += len(ms); tot_vol += vol
-        if ms:
-            m = max(ms, key=lambda m: int(m.get("volume") or 0))
-            samples.append(f"{s['ticker']}: {len(ms)} öppna, volym {vol}, OI {oi}, ex '{m.get('title','')[:60]}' "
-                           f"{m.get('subtitle') or m.get('yes_sub_title') or ''} bid {m.get('yes_bid')} ask {m.get('yes_ask')} "
-                           f"stänger {m.get('close_time','')[:16]}")
-    out.append(f"öppna spelarmarknader {tot_n}, total volym {tot_vol}")
-    try:   # fältnamnen (API:t har bytt till *_dollars / *_fp i nyare versioner)
-        _, b = _get(f"{base}/markets?series_ticker=KXNBAAST&status=open&limit=3")
-        m0 = json.loads(b).get("markets", [{}])[0]
-        out.append("fält: " + ", ".join(f"{k}={v}" for k, v in m0.items()
-                                          if any(w in k for w in ("bid", "ask", "vol", "interest", "liquid", "price"))))
-    except Exception as e:
-        out.append(f"fält: FEL {e}")
-    return " || ".join(out + samples[:12])
+        num = lambda m, *ks: next((float(m[k]) for k in ks if m.get(k) not in (None, "")), 0.0)
+        vol = sum(num(m, "volume_fp", "volume") for m in ms)
+        oi = sum(num(m, "open_interest_fp", "open_interest") for m in ms)
+        quoted = [m for m in ms if num(m, "yes_bid_dollars", "yes_bid") > 0 and num(m, "yes_ask_dollars", "yes_ask") > 0]
+        sp = sorted(num(m, "yes_ask_dollars", "yes_ask") - num(m, "yes_bid_dollars", "yes_bid") for m in quoted)
+        top = sorted(ms, key=lambda m: -num(m, "volume_fp", "volume"))[:3]
+        out.append(f"{ser}: {len(ms)} öppna, med bud {len(quoted)}, volym {vol:,.0f}, OI {oi:,.0f}, "
+                   f"median spread {sp[len(sp)//2] if sp else None}")
+        out += ["   " + m.get("title", "")[:45] + " | " + ", ".join(
+            f"{k}={v}" for k, v in m.items() if any(w in k for w in ("bid", "ask", "volume", "interest", "close_time")))[:260]
+            for m in top]
+    return " || ".join(out)
 
 
 def polymarket() -> str:
