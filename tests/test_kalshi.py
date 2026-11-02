@@ -26,14 +26,20 @@ def test_fetch_filters_liquid_and_parses_line():
 
 
 def test_add_to_events_matches_player_and_time():
-    ko = 1793750400.0      # 2026-11-04 23:00 UTC
+    ko = 1793750400.0      # 2026-11-04 00:00 UTC = 3 nov amerikansk tid
     kq = OddsQuote(book="unibet", match_id="nba1", player_id="trey murphy iii", market="points",
                    line=19.5, side="over", odds=2.6, ts=0, provider="kambi")
     per = {1: ({"id": "nba1", "commence_time": ko}, [kq], {})}
     lines = [{"namn": "Trey Murphy III", "pid": "trey murphy iii", "marknad": "points", "linje": 19.5,
-              "p_over": 0.335, "stanger": ko + 7200, "volym": 2000, "glapp": 0.03},
+              "p_over": 0.335, "stanger": ko + 2 * 86400, "volym": 2000, "glapp": 0.03, "datum": "2026-11-03"},
              {"namn": "Trey Murphy III", "pid": "trey murphy iii", "marknad": "points", "linje": 24.5,
-              "p_over": 0.12, "stanger": ko + 3 * 86400, "volym": 2000, "glapp": 0.03}]   # annan match
+              "p_over": 0.12, "stanger": ko + 3 * 86400, "volym": 2000, "glapp": 0.03, "datum": "2026-11-06"}]   # annan match
     assert add_to_events(per, lines, 0.0) == 1
     qs = [q for q in per[1][1] if q.book == "kalshi"]
     assert {q.side for q in qs} == {"over", "under"} and abs(1 / qs[0].odds + 1 / qs[1].odds - 1) < 1e-9
+
+
+def test_game_date_from_ticker():
+    from propsbot.sources.kalshi import game_date
+    assert game_date("KXNBAPTS-26NOV02MEMNOP-ZWILLIAMSON-20") == "2026-11-02"
+    assert game_date("nothing") is None

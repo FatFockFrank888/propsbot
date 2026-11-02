@@ -27,6 +27,19 @@ SERIES = {
 TITLE = re.compile(r"^\s*(.+?):\s*(\d+(?:\.\d+)?)\+")
 
 
+MONTHS = {m: i for i, m in enumerate(("JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP",
+                                       "OCT", "NOV", "DEC"), 1)}
+TICKER_DATE = re.compile(r"-(\d{2})([A-Z]{3})(\d{2})")
+
+
+def game_date(ticker: str) -> str | None:
+    """'KXNBAPTS-26NOV02MEMNOP-...' -> '2026-11-02' (matchdag, amerikansk tid)."""
+    t = TICKER_DATE.search(ticker or "")
+    if not t or t.group(2) not in MONTHS:
+        return None
+    return f"20{t.group(1)}-{MONTHS[t.group(2)]:02d}-{t.group(3)}"
+
+
 def _num(m: dict, *keys) -> float:
     for k in keys:
         v = m.get(k)
@@ -70,7 +83,8 @@ def fetch(c: JsonClient, settings: dict, diag=None) -> list[dict]:
             name = t.group(1).strip()
             out.append({"namn": name, "pid": name_key(name), "marknad": market,
                         "linje": float(t.group(2)) - 0.5, "p_over": (bid + ask) / 2,
-                        "stanger": close, "volym": vol, "glapp": ask - bid})
+                        "stanger": close, "volym": vol, "glapp": ask - bid,
+                        "datum": game_date(m.get("event_ticker") or m.get("ticker") or "")})
     if diag:
         diag.log(f"Kalshi: {len(out)} likvida linjer av {n_all} öppna marknader")
     return out
@@ -85,7 +99,13 @@ def add_to_events(per: dict, lines: list[dict], now: float) -> int:
         players = {q.player_id for q in qs_all if q.provider == "kambi"}
         ko = float(evd["commence_time"])
         for x in lines:
-            if not (ko - 3600 <= x["stanger"] <= ko + 8 * 3600):
+            # Matchdagen står i tickern (t.ex. KXNBAPTS-26NOV02MEMNOP = 2 nov, amerikansk tid).
+            # close_time ligger ofta flera dagar efter matchen och duger inte för matchning.
+            us_day = time.strftime("%Y-%m-%d", time.gmtime(ko - 6 * 3600))
+            if x.get("datum"):
+                if x["datum"] != us_day:
+                    continue
+            elif not (ko - 3600 <= x["stanger"] <= ko + 3 * 86400):
                 continue
             pid = x["pid"] if x["pid"] in players else next(
                 (k for k in players if same_person(x["pid"], k)), None)
