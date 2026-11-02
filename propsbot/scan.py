@@ -79,20 +79,27 @@ DEFAULT_SETTINGS = {
     "use_player_model": True,
     # "test" = modellens spel bokförs separat utan notiser; "aktiv" = modellen styr spelen.
     "model_mode": "test",
-    "model_weight": 0.25,
+    "model_weight": 0.10,
     "model_market_mult": {"shots": 1.0, "shots_on_target": 1.0, "goal": 0.7, "assist": 0.6},
     # NBA (Kambi-bolagen mot Pinnacles tvåsidiga spelarodds)
     "nba_enabled": True,
     "nba_hours_ahead": 30,
     "nba_max_events": 15,
-    # Parlays: 2–5 ben, olika matcher, samma bolag.
+    # Parlays: 2–3 ben, olika matcher, samma bolag, minst 5 % edge per ben.
     "parlays_enabled": True,
-    "parlay_max_legs": 5,
-    "parlay_min_leg_edge": 0.02,
+    "parlay_max_legs": 3,
+    "parlay_min_leg_edge": 0.05,
     "parlay_max_odds": 40.0,
     "parlay_max_stake": 0.005,
     "parlay_pool_per_book": 8,
     "parlay_max_suggestions": 5,
+    # Gemensamma spelregler (2/11, efter 210 spel): minst 5 % edge överallt, ett spel per
+    # spelare och match, inget spel om oddset fallit > 3 %. Fotbollen i skuggläge: bara spel
+    # med skarp spelarreferens och odds 1,60–2,50, resten bokförs som skuggspel.
+    "min_edge_all": 0.05,
+    "max_odds_drop": 0.03,
+    "football_shadow": True,
+    "football_odds_window": [1.60, 2.50],
     # Notiser till mobilen via ntfy (gratis app). Tomt = av.
     "ntfy_topic": "",
     "watch_interval_minutes": 10,

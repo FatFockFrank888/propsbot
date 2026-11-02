@@ -433,6 +433,10 @@ def nba_scan(root: Path, settings_path: Path) -> dict:
     n_paused = pause_live(rows, settings)
     if n_paused:
         diag.log(f"Live pausat: {n_paused} spelbara ben bokförs som skuggspel")
+    from .clv_signal import final_rules, taken_players
+    nr = final_rules(rows, settings, hist, "nba", taken_players(Ledger(root / "nba_bokforing_v2.json")))
+    nt = final_rules(test_rows, settings, None, "", taken_players(Ledger(root / "nba_modelltest.json")))
+    diag.log(f"NBA spelregler: stoppade {nr} (modelltest {nt})")
     playable = [r for r in rows if r.row.decision.playable and r.row.decision.show]
     diag.log(f"NBA: {len(playable)} spelbara ben av {len(rows)}")
     for r in playable[:10]:

@@ -310,6 +310,8 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
             miss = "Pinnacle" if "pin_lines" not in evd else "Kambi"
             diag.lines.append(f"  {evd['home_team']} – {evd['away_team']}: saknar matchlinjer från {miss}")
             continue
+        for r in res:
+            r.sharp_ref = has_pin_props
         rows += res
         for r in res:
             d = r.row.decision
@@ -340,6 +342,12 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
     n_paused = pause_live(rows, settings)
     if n_paused:
         diag.log(f"Live pausat: {n_paused} spelbara ben bokförs som skuggspel")
+    from .clv_signal import final_rules, taken_players
+    from .ledger import Ledger as _L
+    taken = taken_players(_L(root / "bokforing_v2.json"))
+    nr = final_rules(rows, settings, hist, "fotboll", taken)
+    nt = final_rules(shadow_rows, settings, None, "", taken_players(_L(root / "bokforing_modell_v3.json")))
+    diag.log(f"Spelregler: stoppade {nr} (modelltest {nt})")
     playable = [r for r in rows if r.row.decision.playable and r.row.decision.show]
     if pm:
         n_mod = sum(1 for r in rows if r.row.p_model == r.row.p_model)  # inte NaN
@@ -435,7 +443,8 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
                 diag.log("Testnotis skickad till mobilen.")
         n = notify_new(playable, settings, root)
         from .clv_signal import units
-        for x in (new_parlays if settings.get("live_enabled", True) else []):
+        for x in (new_parlays if settings.get("live_enabled", True)
+                  and not settings.get("football_shadow", True) else []):
             legs = "\n".join(f"• {l['spelare']} {MARKET_LABEL.get(l['marknad'], l['marknad']).lower()} "
                              f"{'under' if l.get('sida') == 'under' else 'över'} {l['linje']:g} ({l['odds']:.2f}) – {l['match']}"
                              for l in x["ben"])

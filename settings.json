@@ -87,7 +87,7 @@
   "live_enabled": true,
   "use_player_model": true,
   "model_mode": "test",
-  "model_weight": 0.25,
+  "model_weight": 0.1,
   "model_market_mult": {
     "shots": 1.0,
     "shots_on_target": 1.0,
@@ -98,12 +98,19 @@
   "nba_hours_ahead": 30,
   "nba_max_events": 15,
   "parlays_enabled": true,
-  "parlay_max_legs": 5,
-  "parlay_min_leg_edge": 0.02,
+  "parlay_max_legs": 3,
+  "parlay_min_leg_edge": 0.05,
   "parlay_max_odds": 40.0,
   "parlay_max_stake": 0.005,
   "parlay_pool_per_book": 8,
   "parlay_max_suggestions": 5,
   "ntfy_topic": "",
-  "watch_interval_minutes": 10
+  "watch_interval_minutes": 10,
+  "min_edge_all": 0.05,
+  "max_odds_drop": 0.03,
+  "football_shadow": true,
+  "football_odds_window": [
+    1.6,
+    2.5
+  ]
 }

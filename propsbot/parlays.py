@@ -1,4 +1,4 @@
-"""Parlays (kombinationsspel) med 2–5 ben och egen bokföring.
+"""Parlays (kombinationsspel) med 2–3 ben och egen bokföring.
 
 Regler:
 - Benen kommer från OLIKA matcher (ben i samma match hänger ihop och kan inte
@@ -35,7 +35,7 @@ def leg_from_row(r: ScanRow, evd_by_id: dict) -> dict:
 
 def suggest(rows: list[ScanRow], evd_by_id: dict, settings: dict) -> list[dict]:
     min_edge = settings.get("parlay_min_leg_edge", 0.02)
-    max_legs = min(5, settings.get("parlay_max_legs", 5))
+    max_legs = min(3, settings.get("parlay_max_legs", 3))
     top_k = settings.get("parlay_pool_per_book", 8)
     max_odds = settings.get("parlay_max_odds", 40.0)
     cap = settings.get("parlay_max_stake", 0.005)
@@ -44,6 +44,8 @@ def suggest(rows: list[ScanRow], evd_by_id: dict, settings: dict) -> list[dict]:
         d = r.row.decision
         c = d.cand
         if not d.show or c.edge < min_edge:
+            continue
+        if any(x.startswith(("oddset har fallit", "redan ett spel")) for x in d.reasons):
             continue
         best_in_match = by_book.setdefault(c.best.book, {})
         cur = best_in_match.get(c.match_id)
