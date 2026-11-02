@@ -47,6 +47,13 @@ def kalshi() -> str:
                            f"{m.get('subtitle') or m.get('yes_sub_title') or ''} bid {m.get('yes_bid')} ask {m.get('yes_ask')} "
                            f"stänger {m.get('close_time','')[:16]}")
     out.append(f"öppna spelarmarknader {tot_n}, total volym {tot_vol}")
+    try:   # fältnamnen (API:t har bytt till *_dollars / *_fp i nyare versioner)
+        _, b = _get(f"{base}/markets?series_ticker=KXNBAAST&status=open&limit=3")
+        m0 = json.loads(b).get("markets", [{}])[0]
+        out.append("fält: " + ", ".join(f"{k}={v}" for k, v in m0.items()
+                                          if any(w in k for w in ("bid", "ask", "vol", "interest", "liquid", "price"))))
+    except Exception as e:
+        out.append(f"fält: FEL {e}")
     return " || ".join(out + samples[:12])
 
 
@@ -57,9 +64,16 @@ def polymarket() -> str:
     # Bara matchprops ("X: Points O/U 24.5" o.d.), inte säsongsmarknader.
     props = [m for m in mk if re.search(r"points|rebounds|assists|threes", m.get("question", ""), re.I)
              and not re.search(r"season|career|lead the nba|mvp|20\d\d-\d\d", m.get("question", ""), re.I)]
-    liq = sum(float(m.get("liquidity") or 0) for m in props)
-    ex = "; ".join(m.get("question", "")[:70] for m in props[:5])
-    return f"NBA-event {len(evs)}, marknader {len(mk)}, spelarprops {len(props)} (likviditet ~{liq:,.0f} USD) | {ex}"
+    ou = [m for m in props if re.search(r"O/U", m.get("question", ""))]
+    f = lambda m, k: float(m.get(k) or 0)
+    liq = sum(f(m, "liquidity") for m in ou)
+    vol = sum(f(m, "volume") for m in ou)
+    top = sorted(ou, key=lambda m: -f(m, "volume"))[:8]
+    ex = " || ".join(f"{m.get('question','')[:50]}: pris {m.get('outcomePrices')} bid {m.get('bestBid')} ask {m.get('bestAsk')} "
+                     f"vol {f(m,'volume'):,.0f} likv {f(m,'liquidity'):,.0f}" for m in top)
+    spreads = sorted(f(m, "bestAsk") - f(m, "bestBid") for m in ou if m.get("bestAsk") and m.get("bestBid"))
+    med = spreads[len(spreads) // 2] if spreads else None
+    return (f"spelar-O/U {len(ou)} (volym {vol:,.0f} USD, likviditet {liq:,.0f} USD, median spread {med}) || {ex}")
 
 
 def plain(url: str) -> str:
