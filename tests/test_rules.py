@@ -77,3 +77,12 @@ def test_source_change_resets_baseline(tmp_path):
     a.row.decision.cand.p, a.n_groups = 0.55, 3     # DK/FD tillkom
     h.update([a], 4000.0)
     assert h.momentum_pp(a.row.decision.cand) == 0.0
+
+
+def test_csv_row_result_and_clv():
+    from datetime import datetime
+    from propsbot.workbook import _csv_row
+    r = [datetime(2026, 11, 2), "NBA", "Spel", datetime(2026, 11, 3), "A – B", "X", "Poäng", "Över", 9.5,
+         "unibet", 2.0, 1.8, None, 0.55, 0.1, 5.0, "nej", "vunnen", 12]
+    row = _csv_row(r)
+    assert row[12] == 11.11 and row[18] == 5.0 and row[16] == "vunnen"

@@ -119,6 +119,8 @@ def cmd_free(args) -> None:
         from .workbook import build
         n = build(_state_root(), _state_root() / "site" / "propsbot_bokforing.xlsx")
         print(f"Excel-bokföring: {n} spel")
+        from .workbook import write_csv_exports
+        write_csv_exports(_state_root(), _state_root() / "site" / "csv")
     except Exception as e:
         print(f"Excel-bokföring: fel {type(e).__name__}: {e}")
 

@@ -314,3 +314,63 @@ def build(root: Path, path: Path) -> int:
     path.parent.mkdir(parents=True, exist_ok=True)
     wb.save(path)
     return len(rows)
+
+
+# ------------------------------------------------------------------ CSV för Google Sheets
+CSV_HEAD = ["Bokförd", "Sport", "Typ", "Avspark", "Match", "Spelare", "Marknad", "Sida", "Linje", "Bolag",
+            "Odds", "Stängning", "CLV (%)", "Sannolikhet", "Edge", "Insats (u)", "Status", "Utfall", "Resultat (u)"]
+
+
+def _csv_row(r: list) -> list:
+    """Samma rad som i Excel, men med CLV och resultat uträknade (CSV har inga formler)."""
+    odds, close, units, status = r[10], r[11], r[15] or 0, r[17]
+    clv = (odds / close - 1) if odds and close else None
+    if status == "vunnen":
+        res = units * (odds - 1)
+    elif status == "förlorad":
+        res = -units
+    elif status in ("struken",):
+        res = 0.0
+    else:
+        res = None
+    f = lambda d: d.strftime("%Y-%m-%d %H:%M") if d else ""
+    n = lambda x, k=4: "" if x is None or x == "" else round(float(x), k)
+    return [f(r[0]), r[1], r[2], f(r[3]), r[4], r[5], r[6], r[7], n(r[8], 1), r[9], n(odds, 2), n(close, 2),
+            n(clv * 100 if clv is not None else None, 2), n(r[13]), n(r[14]), n(units, 1), status or "", n(r[18], 1),
+            n(res, 2)]
+
+
+def write_csv_exports(root: Path, out_dir: Path) -> int:
+    """site/csv/*.csv – läses in i Google Sheets med =IMPORTDATA(url; ","; "en_US") och uppdateras av sig själv."""
+    import csv
+    out_dir.mkdir(parents=True, exist_ok=True)
+    rows = [_csv_row(r) for r in _rows(root)]
+    sets = {"alla_spel": rows,
+            "nba": [r for r in rows if r[1] == "NBA" and r[2] != "Parlay"],
+            "fotboll": [r for r in rows if r[1] == "Fotboll" and r[2] != "Parlay"],
+            "parlays": [r for r in rows if r[2] == "Parlay"]}
+    for name, rs in sets.items():
+        with open(out_dir / f"{name}.csv", "w", newline="", encoding="utf-8") as fh:
+            w = csv.writer(fh)
+            w.writerow(CSV_HEAD)
+            w.writerows(rs)
+    # Sammanfattning per sport och typ
+    from collections import defaultdict
+    g = defaultdict(list)
+    for r in rows:
+        g[(r[1], r[2])].append(r)
+    with open(out_dir / "sammanfattning.csv", "w", newline="", encoding="utf-8") as fh:
+        w = csv.writer(fh)
+        w.writerow(["Sport", "Typ", "Spel", "Avgjorda", "Vunna", "Träff %", "Insats (u)", "Resultat (u)", "ROI %",
+                    "Snitt-CLV %", "Öppna", "Uppdaterad (UTC)"])
+        now = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M")
+        for (sport, typ), rs in sorted(g.items()):
+            done = [r for r in rs if r[16] in ("vunnen", "förlorad")]
+            won = sum(r[16] == "vunnen" for r in done)
+            stake = sum(r[15] or 0 for r in done)
+            res = sum(r[18] or 0 for r in done)
+            clv = [r[12] for r in rs if r[12] != ""]
+            w.writerow([sport, typ, len(rs), len(done), won, round(100 * won / len(done), 1) if done else "",
+                        round(stake, 1), round(res, 1), round(100 * res / stake, 1) if stake else "",
+                        round(sum(clv) / len(clv), 2) if clv else "", sum(r[16] == "öppen" for r in rs), now])
+    return len(rows)
