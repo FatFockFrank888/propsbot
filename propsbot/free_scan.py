@@ -243,6 +243,13 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
     diag.log(time.strftime("Skanning %Y-%m-%d %H:%M"))
     t0 = time.time()
     data = collect(settings, diag, root / ".cache_odds")
+    try:   # fler bolag (William Hill, 1xBet, FanDuel, Betfair, Coolbet …) via The Odds API, inom kreditbudget
+        from .sources.us_books import add_football_books
+        add_football_books(root, data, settings, diag)
+        for _evd, _qs, _nm in data:
+            _unify_players(_qs, _nm)
+    except Exception as e:
+        diag.log(f"Fotboll extra bolag: FEL {type(e).__name__}: {str(e)[:200]}")
     diag.log(f"Tid: hämtning {time.time() - t0:.0f} s")
     t1 = time.time()
     rows: list[ScanRow] = []
@@ -302,6 +309,24 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
                                                    evd["pin_lines"], evd["kambi_lines"], model,
                                                    offsets, None, global_mm)
                 shadow_rows += shadow
+            # Dubbelkoll: finns andra bolags spelarodds (William Hill, 1xBet, FanDuel …) måste
+            # även de visa edge. Annars är det troligen Kambis marginal vi mäter, inte en verklig edge.
+            if any(q.provider == "oddsapi" for q in quotes):
+                other = evaluate_event_market_only(evd, quotes, names, settings, cfg, time.time(), "fotboll")
+                p_other = {(o.row.decision.cand.player_id, o.row.decision.cand.market, o.row.decision.cand.line,
+                            o.row.decision.cand.best.side): o.row.decision.cand for o in other}
+                need = settings.get("min_edge_all", 0.05)
+                for r in res:
+                    c = r.row.decision.cand
+                    oc = p_other.get((c.player_id, c.market, c.line, c.best.side))
+                    if oc is None:
+                        continue
+                    r.sharp_ref = True
+                    e2 = oc.p * c.best.odds - 1
+                    if r.row.decision.playable and e2 < need:
+                        d_ = r.row.decision
+                        d_.playable, d_.stake = False, 0.0
+                        d_.reasons.append(f"andra bolag håller inte med: edge mot dem {e2:+.1%}")
             diag.lines.append(f"  {evd['home_team']} – {evd['away_team']}: {info}")
             if "uppmätt marginal" in info and not margin_logged:
                 diag.log("Exempel " + info.split("; ", 1)[-1])

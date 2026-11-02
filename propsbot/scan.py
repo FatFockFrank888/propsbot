@@ -87,12 +87,17 @@ DEFAULT_SETTINGS = {
     "nba_max_events": 15,
     # DraftKings/FanDuel m.fl. via The Odds API (gratiskvot, kreditbudget per dag).
     "nba_us_books": True,
+    # The Odds API-krediterna delas: NBA 60 %, fotboll 40 % av dagsbudgeten.
+    "oddsapi_share_nba": 0.6,
+    "oddsapi_share_football": 0.4,
+    "oddsapi_reserve": 20,
+    "football_extra_books": True,
+    "football_fetch_window": [45, 300],
     # Kalshi (prediktionsbörs, gratis): bara likvida linjer räknas som referens.
     "use_kalshi": True,
     "kalshi_max_spread": 0.04,
     "kalshi_min_volume": 500,
     "nba_us_fetch_window": [40, 240],
-    "nba_us_reserve": 20,
     # Parlays: 2–3 ben, olika matcher, samma bolag, minst 5 % edge per ben.
     "parlays_enabled": True,
     "parlay_max_legs": 3,
