@@ -46,6 +46,7 @@ jobs:
       - name: Skanna, bokför, rätta och skicka notiser
         env:
           NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
           PROPSBOT_STATE_DIR: state
         run: python -m propsbot skanna
 

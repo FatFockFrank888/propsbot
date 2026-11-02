@@ -384,6 +384,11 @@ def nba_scan(root: Path, settings_path: Path) -> dict:
         diag.log(f"Pinnacle NBA: {len(pevs)} matcher, {n} spelarodds ({time.time() - t0:.0f} s)")
     except Exception as e:
         diag.log(f"Pinnacle NBA: FEL {type(e).__name__}: {e}")
+    try:
+        from .sources.us_books import add_us_books
+        add_us_books(root, per, settings, diag)
+    except Exception as e:   # DK/FD är ett tillägg – får aldrig stoppa skanningen
+        diag.log(f"DK/FD: FEL {type(e).__name__}: {str(e)[:200]}")
     rows = []
     mc = Counter()
     n_exact = n_moved = 0
