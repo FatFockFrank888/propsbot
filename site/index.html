@@ -54,7 +54,7 @@
   <div class="sub" style="margin-bottom:6px"><a href="../" style="color:#8ab4ff" id="navfb">Fotboll</a> ·
     <a href="nba/" style="color:#8ab4ff" id="navnba">NBA</a> ·
     <a href="propsbot_bokforing.xlsx" style="color:#4cc38a;font-weight:600" id="navxlsx">⬇ Excel-bokföring (alla spel)</a></div>
-  <div class="sub">Skott, skott på mål, mål och assist per spelare hos Kambi-bolagen. Sannolikheten är
+  <div class="sub" id="rules">Skott, skott på mål, mål och assist per spelare hos Kambi-bolagen. Sannolikheten är
     Kambis rättvisa pris justerat mot Pinnacles matchlinjer och gäller givet att spelaren spelar
     (annars stryks spelet). Kambis marginal mäts i varje match (målskytt/assist mot Pinnacles väntade mål, skott ur
     Kambis linjestege). Spelbart från 5 % edge (alla marknader), ett spel per spelare och match, inget spel om oddset redan fallit mer än 3 %. Inget spel när sharp money (Pinnacle/konsensus) har rört sig mot oss;
@@ -95,6 +95,7 @@
         <option value="">Över och under</option><option value="over">Bara över</option><option value="under">Bara under</option>
       </select>
       <label><input type="checkbox" id="only"> Bara spelbara</label>
+      <label id="onlyLiveL" class="hidden"><input type="checkbox" id="onlyLive" checked> Bara LIVE-spel</label>
       <span class="sub">Visar bara ben med minst 2 % edge. Grön = spelbar (uppfyller marknadens edgekrav).</span>
     </div>
     <div class="wrap"><table>
@@ -167,12 +168,12 @@
       <tbody id="tbets"></tbody></table></div>
   </section>
   <section id="analys" class="hidden">
-    <div class="sub" style="margin-bottom:10px">Alla bokförda spel från båda botarna (fotboll och NBA): riktiga spel, skuggspel,
+    <div class="sub" style="margin-bottom:10px">Alla bokförda spel för den här sporten (fotboll och NBA har var sin sida): riktiga spel, skuggspel,
       modelltest och parlays. Inga spel görs under pågående match. Filtrera och gruppera för att se var vi vinner, förlorar eller inte slår marknaden.
       CLV = stängningens sannolikhet minus vår, i procentenheter (positivt = vi slog stängningen). 1u = 0,2 % av bankrullen.</div>
     <div class="controls">
       <select id="aSport"><option value="">Alla sporter</option><option>Fotboll</option><option>NBA</option></select>
-      <select id="aTyp"><option value="">Alla typer</option><option>Spel</option><option>Skugga</option>
+      <select id="aTyp"><option value="">Alla typer</option><option>Live</option><option>Spel</option><option>Skugga</option>
         <option>Modelltest</option><option>Parlay</option></select>
       <select id="aMk"><option value="">Alla marknader</option></select>
       <select id="aBook"><option value="">Alla bolag</option></select>
@@ -248,20 +249,21 @@ function renderRadar() {
   const mk = document.getElementById("mk").value;
   const only = document.getElementById("only").checked;
   const side = document.getElementById("side").value;
-  let rows = DATA.radar.filter(r => (!mk || r.marknad === mk) && (!only || r.spelbar) &&
+  const onlyLive = DATA.live && document.getElementById("onlyLive").checked;
+  let rows = DATA.radar.filter(r => (!mk || r.marknad === mk) && (!only || r.spelbar) && (!onlyLive || r.live) &&
     (!side || (r.sida || "over") === side) &&
     (!q || (r.spelare + " " + r.match).toLowerCase().includes(q)));
   rows.sort((a, b) => (a[sortKey] > b[sortKey] ? 1 : a[sortKey] < b[sortKey] ? -1 : 0) * sortDir);
   document.getElementById("rows").innerHTML = rows.map(r => `
     <tr class="${r.spelbar ? "play" : ""}" title="${esc(r.kommentar)}">
-      <td>${esc(r.spelare)}</td><td>${esc(r.match)}</td><td>${fmtUtc(r.avspark)}</td><td>${esc(r.spel)}</td>
+      <td>${r.live ? "⚡ " : ""}${esc(r.spelare)}</td><td>${esc(r.match)}</td><td>${fmtUtc(r.avspark)}</td><td>${esc(r.spel)}</td>
       <td class="n">${nf(r.prognos)}</td><td class="n">${nf(r.odds)}</td><td>${esc(r.bolag)}</td>
       <td class="n">${pct(r.sannolikhet)}</td><td class="n">${nf(r.ratt_odds)}</td>
       <td class="n ${r.edge > 0 ? "pos" : "neg"}">${pct(r.edge)}</td>
       <td class="n ${r.forv_clv_pp > 0 ? "pos" : "neg"}">${r.forv_clv_pp == null ? "–" : (r.forv_clv_pp > 0 ? "+" : "") + nf(r.forv_clv_pp, 1)}${r.clv_signal ? " ⚡" : ""}</td>
       <td class="n">${nf(r.spela_fran)}</td>
       <td class="n ${r.spelbar ? "pos" : "neg"}" style="${r.spelbar ? "font-weight:600" : ""}">${uFmt(r.spelbar ? r.insats_pct : r.insats_forslag)}</td>
-    </tr>`).join("") || `<tr><td colspan="13" class="empty">Inga spel med minst 2 % edge just nu. Sidan uppdateras automatiskt var 10:e minut.</td></tr>`;
+    </tr>`).join("") || `<tr><td colspan="13" class="empty">${onlyLive ? "Inga LIVE-spel just nu. Bocka ur \"Bara LIVE-spel\" för att se alla ben (data)." : "Inga spel med minst 2 % edge just nu."} Sidan uppdateras automatiskt var 10:e minut.</td></tr>`;
 }
 
 function tilesHtml(s, br) {
@@ -340,6 +342,13 @@ async function load() {
     document.getElementById("navfb").href = nba ? "../" : "./";
     document.getElementById("navnba").href = nba ? "./" : "nba/";
     document.getElementById("navxlsx").href = (nba ? "../" : "") + "propsbot_bokforing.xlsx";
+    if (DATA.live) {
+      document.getElementById("onlyLiveL").classList.remove("hidden");
+      document.querySelector('.tab[data-tab="bok"]').textContent = "⚡ LIVE-spel";
+      document.getElementById("rules").innerHTML = "<b>LIVE</b> = de spel vi faktiskt spelar (bara dessa skickas som notis). Krav: edge minst 10 % på poäng och 6 % på trepoängare, assist och returer; " +
+        "modellen måste hålla med (≥ 3 %); minst två jämförelsekällor (Pinnacle, Kalshi, DraftKings/FanDuel …); odds 1,60–3,00; inget oddsfall eller sharp money mot oss; ett spel per spelare. " +
+        "Risk: högst 5u per spel, 2 per match, 8 spel och 25u per matchdag (1u = 0,2 % av bankrullen). Allt annat bokförs bara som data (Skuggspel, Modelltest, Analys).";
+    }
     const mins = Math.round((Date.now() / 1000 - DATA.uppdaterad_ts) / 60);
     document.getElementById("upd").textContent = `Uppdaterad för ${mins} min sedan · insats i units (1u = 0,2 %)`;
     renderRadar(); renderBok(); renderExtra(); loadAll();
@@ -362,7 +371,7 @@ document.querySelectorAll("#radar th").forEach(th => th.onclick = () => {
   const k = th.dataset.k; sortDir = sortKey === k ? -sortDir : (th.classList.contains("n") ? -1 : 1);
   sortKey = k; renderRadar();
 });
-["q", "mk", "only", "side"].forEach(id => document.getElementById(id).oninput = renderRadar);
+["q", "mk", "only", "side", "onlyLive"].forEach(id => document.getElementById(id).oninput = renderRadar);
 // ---------------------------------------------------------------- Analys
 let ALL = [];
 const band = (x, edges, fmt) => { if (x == null) return "–"; for (let i = 0; i < edges.length - 1; i++)
@@ -395,12 +404,13 @@ function normParlay(x, sport) {
 async function loadAll() {
   const other = DATA.sport === "NBA" ? "../data.json" : "nba/data.json";
   document.getElementById("aXlsx").href = (DATA.sport === "NBA" ? "../" : "") + "propsbot_bokforing.xlsx";
-  let o = null;
-  try { o = await (await fetch(other + "?t=" + Date.now(), {cache: "no-store"})).json(); } catch (e) {}
+  // Varje sida visar bara sin egen sport (fotbollssidan = fotboll, NBA-sidan = NBA).
+  const o = null;
   ALL = [];
   for (const d of [DATA, o].filter(Boolean)) {
     const sp = d.sport === "NBA" ? "NBA" : "Fotboll";
-    (d.bokforing || []).forEach(b => ALL.push(norm(b, sp, "Spel")));
+    (d.bokforing || []).forEach(b => ALL.push(norm(b, sp, d.live ? "Live" : "Spel")));
+    (d.spel_data || []).forEach(b => ALL.push(norm(b, sp, "Spel")));
     (d.skuggspel || []).forEach(b => ALL.push(norm(b, sp, "Skugga")));
     (d.modelltest || []).forEach(b => ALL.push(norm(b, sp, "Modelltest")));
     (d.parlay_bokforing || []).forEach(x => ALL.push(normParlay(x, sp)));
@@ -409,7 +419,12 @@ async function loadAll() {
     el.innerHTML = `<option value="">${first}</option>` + [...new Set(vals)].sort().map(v => `<option>${esc(v)}</option>`).join("");
     el.value = cur; };
   fill("aMk", ALL.map(r => r.marknad), "Alla marknader");
-  if (!loadAll.done && DATA.sport === "NBA") document.getElementById("aSport").value = "NBA";
+  if (!loadAll.done) {
+    const sel = document.getElementById("aSport");
+    sel.value = DATA.sport === "NBA" ? "NBA" : "Fotboll";
+    sel.closest("select").style.display = "none";      // en sport per sida
+    if (DATA.live) document.getElementById("aTyp").value = "Live";
+  }
   loadAll.done = true;
   fill("aBook", ALL.map(r => r.bolag), "Alla bolag");
   renderAnalys();
