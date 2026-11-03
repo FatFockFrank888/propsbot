@@ -68,6 +68,7 @@
   <button class="tab" data-tab="parlay">Parlays</button>
   <button class="tab" data-tab="skugga">Skuggspel</button>
   <button class="tab" data-tab="test">Modelltest</button>
+  <button class="tab hidden" data-tab="fouls" id="foulsTab">Fouls (test)</button>
   <button class="tab" data-tab="analys">Analys</button>
   <span class="upd" id="upd"></span>
 </div>
@@ -167,6 +168,18 @@
         <th>Status</th><th class="n">Utfall</th><th class="n">Resultat</th></tr></thead>
       <tbody id="tbets"></tbody></table></div>
   </section>
+  <section id="fouls" class="hidden">
+    <div class="sub" style="margin-bottom:10px">Fouls (Player's fouls conceded) hos Kambi-bolagen – testmarknad, bara datainsamling,
+      inga notiser. Egen modell: spelarens fouls per match (ESPN), krympt mot lagsnitt, justerad för motståndarens dragna fouls.
+      Bokförs från 5 % edge, odds 1,60–6,00, ett spel per spelare. Rättas mot matchstatistiken.</div>
+    <div class="tiles" id="ftiles"></div>
+    <div class="wrap"><table>
+      <thead><tr><th>Bokförd</th><th>Avspark</th><th>Match</th><th>Spelare</th><th>Spel</th>
+        <th>Bolag</th><th class="n">Odds</th><th class="n">Stängning</th><th class="n">CLV</th>
+        <th class="n">Sannolikhet</th><th class="n">Edge</th><th class="n">Insats</th>
+        <th>Status</th><th class="n">Utfall</th><th class="n">Resultat</th></tr></thead>
+      <tbody id="fbets"></tbody></table></div>
+  </section>
   <section id="analys" class="hidden">
     <div class="sub" style="margin-bottom:10px">Alla bokförda spel för den här sporten (fotboll och NBA har var sin sida): riktiga spel, skuggspel,
       modelltest och parlays. Inga spel görs under pågående match. Filtrera och gruppera för att se var vi vinner, förlorar eller inte slår marknaden.
@@ -174,7 +187,7 @@
     <div class="controls">
       <select id="aSport"><option value="">Alla sporter</option><option>Fotboll</option><option>NBA</option></select>
       <select id="aTyp"><option value="">Alla typer</option><option>Live</option><option>Spel</option><option>Skugga</option>
-        <option>Modelltest</option><option>Parlay</option></select>
+        <option>Modelltest</option><option>Fouls-test</option><option>Parlay</option></select>
       <select id="aMk"><option value="">Alla marknader</option></select>
       <select id="aBook"><option value="">Alla bolag</option></select>
       <select id="aSida"><option value="">Över och under</option><option>Över</option><option>Under</option></select>
@@ -231,11 +244,11 @@ const fmtTs = ts => {
 const fmtUtc = s => fmtTs(Date.parse(s.replace(" ", "T") + ":00Z") / 1000);
 const label = (m, l, side) => side === "under" ? ({shots: "skott", shots_on_target: "skott på mål", goal: "mål",
     assist: "assist", points: "poäng", rebounds: "returer", assists: "assist", threes: "trepoängare",
-    steals: "steals", blocks: "blocks", pra: "PRA", pr: "poäng + returer", ra: "returer + assist"}[m] || m) + " under " + l :
+    steals: "steals", blocks: "blocks", pra: "PRA", pr: "poäng + returer", ra: "returer + assist", fouls: "fouls"}[m] || m) + " under " + l :
   m === "goal" && l === 0.5 ? "gör mål" : m === "assist" && l === 0.5 ? "assist" :
   ({shots: "skott", shots_on_target: "skott på mål", goal: "mål", assist: "assist", points: "poäng",
     rebounds: "returer", assists: "assist", threes: "trepoängare", steals: "steals", blocks: "blocks",
-    pra: "PRA", pr: "poäng + returer", ra: "returer + assist"}[m] || m) + " över " + l;
+    pra: "PRA", pr: "poäng + returer", ra: "returer + assist", fouls: "fouls"}[m] || m) + " över " + l;
 const U = 0.002;   // 1 unit = 0,2 % av bankrullen, 10 units = taket 2 %
 const units = f => !f || f <= 0 ? 0 : Math.max(1, Math.min(10, Math.round(f / U)));
 const uFmt = f => f == null ? "–" : units(f) + "u";
@@ -317,6 +330,10 @@ function renderExtra() {
   document.getElementById("sbets").innerHTML = betRows(DATA.skuggspel || [], true);
   document.getElementById("ttiles").innerHTML = tilesHtml(DATA.modelltest_sammanfattning, br);
   document.getElementById("tbets").innerHTML = betRows(DATA.modelltest || []);
+  const hasF = !!(DATA.fouls_test && DATA.fouls_test.length) || DATA.fouls_sammanfattning;
+  document.getElementById("foulsTab").classList.toggle("hidden", !hasF);
+  document.getElementById("ftiles").innerHTML = tilesHtml(DATA.fouls_sammanfattning, br);
+  document.getElementById("fbets").innerHTML = betRows(DATA.fouls_test || []);
 }
 
 function renderBok() {
@@ -355,10 +372,10 @@ async function load() {
   } catch (e) { document.getElementById("upd").textContent = "Kunde inte läsa data."; }
 }
 
-const HASH = {radar: "", bok: "bokforing", parlay: "parlays", skugga: "skuggspel", test: "modelltest", analys: "analys"};
+const HASH = {radar: "", bok: "bokforing", parlay: "parlays", skugga: "skuggspel", test: "modelltest", fouls: "fouls", analys: "analys"};
 function showTab(tab) {
   document.querySelectorAll(".tab").forEach(x => x.classList.toggle("on", x.dataset.tab === tab));
-  ["radar", "bok", "parlay", "skugga", "test", "analys"].forEach(id =>
+  ["radar", "bok", "parlay", "skugga", "test", "fouls", "analys"].forEach(id =>
     document.getElementById(id).classList.toggle("hidden", tab !== id));
 }
 document.querySelectorAll(".tab").forEach(t => t.onclick = () => {
@@ -384,7 +401,7 @@ const week = ts => { const d = new Date(ts * 1000); const j = new Date(Date.UTC(
 
 const MKN = {shots: "Skott", shots_on_target: "Skott på mål", goal: "Mål", assist: "Assist",
   points: "Poäng", rebounds: "Returer", assists: "Assist (NBA)", threes: "Trepoängare", steals: "Steals",
-  blocks: "Blocks", pra: "PRA", pr: "Poäng + returer", ra: "Returer + assist"};
+  blocks: "Blocks", pra: "PRA", pr: "Poäng + returer", ra: "Returer + assist", fouls: "Fouls"};
 function norm(b, sport, typ) {
   const done = b.avspark && b.avspark < Date.now() / 1000;
   const clv = b.stangning && done ? (1 / b.stangning - 1 / b.odds) * 100 : null;
@@ -413,6 +430,7 @@ async function loadAll() {
     (d.spel_data || []).forEach(b => ALL.push(norm(b, sp, "Spel")));
     (d.skuggspel || []).forEach(b => ALL.push(norm(b, sp, "Skugga")));
     (d.modelltest || []).forEach(b => ALL.push(norm(b, sp, "Modelltest")));
+    (d.fouls_test || []).forEach(b => ALL.push(norm(b, sp, "Fouls-test")));
     (d.parlay_bokforing || []).forEach(x => ALL.push(normParlay(x, sp)));
   }
   const fill = (id, vals, first) => { const el = document.getElementById(id); const cur = el.value;
