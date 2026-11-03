@@ -218,7 +218,42 @@ def api_football() -> str:
     return " | ".join(out)
 
 
+def transfermarkt() -> str:
+    """dcaribou/transfermarkt-datasets: storlek, och om games.csv.gz har domare + kommande matcher."""
+    import gzip, io, csv
+    base = "https://pub-e682421888d945d684bcae8890b0ec20.r2.dev/data/"
+    out = []
+    req = urllib.request.Request(base + "transfermarkt-datasets.duckdb", method="HEAD", headers={"User-Agent": UA})
+    try:
+        with urllib.request.urlopen(req, timeout=25) as r:
+            out.append(f"duckdb {int(r.headers.get('Content-Length', 0)) / 1e6:.0f} MB")
+    except Exception as e:
+        out.append(f"duckdb FEL {e}")
+    for name in ("games.csv.gz", "game_events.csv.gz", "appearances.csv.gz"):
+        try:
+            req = urllib.request.Request(base + name, headers={"User-Agent": UA})
+            with urllib.request.urlopen(req, timeout=60) as r:
+                raw = r.read()
+            txt = gzip.decompress(raw).decode("utf-8", "replace")
+            rows = list(csv.DictReader(io.StringIO(txt)))
+            cols = list(rows[0].keys()) if rows else []
+            info = f"{name}: {len(raw) / 1e6:.0f} MB, {len(rows)} rader"
+            if name == "games.csv.gz" and rows:
+                dates = sorted(r.get("date", "") for r in rows)
+                ref = sum(1 for r in rows if r.get("referee"))
+                fut = sum(1 for r in rows if r.get("date", "") >= "2026-11-04")
+                comps = len({r.get("competition_id") for r in rows})
+                cl = [r for r in rows if r.get("competition_id") == "CL" and r.get("date", "") >= "2026-09-01"]
+                info += f", domare i {ref}, senaste {dates[-1]}, framtida {fut}, tävlingar {comps}, CL i år {len(cl)}"
+            info += f", kolumner {cols[:14]}"
+            out.append(info)
+        except Exception as e:
+            out.append(f"{name}: FEL {type(e).__name__} {e}")
+    return " | ".join(out)
+
+
 def main() -> None:
+    CHECKS["transfermarkt"] = transfermarkt
     CHECKS["football_data"] = football_data
     CHECKS["api_football"] = api_football
     CHECKS["statsbomb_open"] = lambda: plain("https://raw.githubusercontent.com/statsbomb/open-data/master/data/competitions.json")
