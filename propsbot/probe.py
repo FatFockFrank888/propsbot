@@ -94,8 +94,29 @@ def espn_fouls_fields() -> str:
     return ", ".join(sorted({s.get("name") or s.get("abbreviation") for s in r.get("stats", [])}))
 
 
+def pinnacle_special_leagues() -> str:
+    """Finns fouls/kort/hörnor som egna Pinnacle-ligor (t.ex. 'England - Premier League Bookings')?"""
+    from .sources.pinnacle_public import BASE as base, GUEST_KEY
+    req = urllib.request.Request(f"{base}/sports/29/leagues?all=false",
+                                 headers={"User-Agent": UA, "Accept": "application/json", "X-API-Key": GUEST_KEY,
+                                          "Referer": "https://www.pinnacle.com/"})
+    with urllib.request.urlopen(req, timeout=25) as r:
+        lg = json.loads(r.read().decode())
+    from collections import Counter
+    kinds = Counter()
+    ex = {}
+    for x in lg:
+        n = x.get("name", "")
+        for w in ("Foul", "Booking", "Card", "Corner", "Offside", "Shots", "Throw"):
+            if w.lower() in n.lower():
+                kinds[w] += 1
+                ex.setdefault(w, []).append(f"{n}({x.get('matchupCount')})")
+    return f"{len(lg)} ligor; " + "; ".join(f"{k}: {v} t.ex. {', '.join(ex[k][:4])}" for k, v in kinds.items())
+
+
 def main() -> None:
     CHECKS["espn_stat_names"] = espn_fouls_fields
+    CHECKS["pinnacle_special_leagues"] = pinnacle_special_leagues
     out = []
     for name, fn in CHECKS.items():
         try:
