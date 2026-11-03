@@ -367,6 +367,12 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
     n_paused = pause_live(rows, settings)
     if n_paused:
         diag.log(f"Live pausat: {n_paused} spelbara ben bokförs som skuggspel")
+    # Fotboll: bara de marknader vi valt (3/11: endast skott på mål). Övriga odds används
+    # fortfarande för att mäta Kambis marginal, men blir aldrig spel eller bokföring.
+    allowed = set(settings.get("football_markets", ["shots_on_target"]))
+    rows = [r for r in rows if r.row.decision.cand.market in allowed]
+    shadow_rows = [r for r in shadow_rows if r.row.decision.cand.market in allowed]
+    playable = [r for r in rows if r.row.decision.playable and r.row.decision.show]
     from .clv_signal import final_rules, taken_players
     from .ledger import Ledger as _L
     taken = taken_players(_L(root / "bokforing_v2.json"))

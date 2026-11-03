@@ -128,6 +128,7 @@ DEFAULT_SETTINGS = {
     "live_max_per_day": 8,
     "live_max_units_day": 25,     # högst 5 % av bankrullen i spel per matchdag
     "football_live": False,       # fotbollen samlar bara data
+    "football_markets": ["shots_on_target"],   # bara skott på mål (3/11)
     "parlays_notify": False,      # parlays bokförs som test, ingen notis
     # Notiser till mobilen via ntfy (gratis app). Tomt = av.
     "ntfy_topic": "",
