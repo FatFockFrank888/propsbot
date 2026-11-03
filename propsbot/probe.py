@@ -183,9 +183,44 @@ def football_data() -> str:
     return " | ".join(out)
 
 
+def api_football() -> str:
+    """API-Football med nyckel (secret API_FOOTBALL_KEY): kvot, aktuell säsong, spelarfouls."""
+    import os
+    key = os.environ.get("API_FOOTBALL_KEY")
+    if not key:
+        return "ingen API_FOOTBALL_KEY"
+    def get(path):
+        req = urllib.request.Request("https://v3.football.api-sports.io" + path,
+                                     headers={"x-apisports-key": key, "User-Agent": UA})
+        with urllib.request.urlopen(req, timeout=25) as r:
+            return json.loads(r.read().decode())
+    out = []
+    st = get("/status")
+    resp = st.get("response") or {}
+    out.append(f"status: plan {((resp.get('subscription') or {}).get('plan'))}, anrop idag "
+               f"{((resp.get('requests') or {}).get('current'))}/{((resp.get('requests') or {}).get('limit_day'))}, fel {st.get('errors')}")
+    lg = get("/leagues?id=39&current=true")
+    seasons = [(x.get("year"), (x.get("coverage") or {}).get("fixtures", {}).get("statistics_players"))
+               for r in lg.get("response", []) for x in r.get("seasons", [])]
+    out.append(f"PL aktuell säsong {seasons}, fel {lg.get('errors')}")
+    year = seasons[0][0] if seasons else 2026
+    fx = get(f"/fixtures?league=39&season={year}&status=FT&from=2026-10-01&to=2026-11-03")
+    out.append(f"fixtures {year}: {fx.get('results')} st, fel {fx.get('errors')}")
+    if fx.get("response"):
+        fid = fx["response"][-1]["fixture"]["id"]
+        pl = get(f"/fixtures/players?fixture={fid}")
+        ps = [p for t in pl.get("response", []) for p in t.get("players", [])]
+        if ps:
+            f0 = ps[0]["statistics"][0].get("fouls")
+            out.append(f"spelare i match {fid}: {len(ps)}, fouls-fält t.ex. {f0}")
+        else:
+            out.append(f"spelarstatistik: tom, fel {pl.get('errors')}")
+    return " | ".join(out)
+
+
 def main() -> None:
     CHECKS["football_data"] = football_data
-    CHECKS["api_football"] = lambda: plain("https://v3.football.api-sports.io/status")
+    CHECKS["api_football"] = api_football
     CHECKS["statsbomb_open"] = lambda: plain("https://raw.githubusercontent.com/statsbomb/open-data/master/data/competitions.json")
     CHECKS["opta_player_stats"] = lambda: plain("https://optaplayerstats.statsperform.com/en_GB/soccer")
     CHECKS["kambi_league_props"] = kambi_league_props
