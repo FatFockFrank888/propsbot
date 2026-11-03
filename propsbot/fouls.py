@@ -108,7 +108,7 @@ def team_rates(pm, store: FoulsStore, league: str, team_id: str, before: float,
 
 
 def evaluate_fouls(evd: dict, quotes: list, names: dict, pm, store: FoulsStore, settings: dict,
-                   cfg: Config, now: float, diag) -> list[ScanRow]:
+                   cfg: Config, now: float, diag, ref_mult: float = 1.0, ref_note: str = "") -> list[ScanRow]:
     fq = [q for q in quotes if q.market == "fouls" and q.book in set(settings["playable_books"])]
     if not fq:
         return []
@@ -126,7 +126,7 @@ def evaluate_fouls(evd: dict, quotes: list, names: dict, pm, store: FoulsStore, 
     for rates, mult in ((rh, opp(da)), (ra, opp(dh))):      # hemmaspelare möter bortalagets dragna fouls
         for k, (nm, rate, apps, starts) in rates.items():
             if apps >= settings.get("fouls_min_apps", 2.5) and starts >= 2:
-                model[k] = (rate * mult, nm)
+                model[k] = (rate * mult * ref_mult, nm)
     ko = float(evd["commence_time"])
     best: dict = {}
     for q in fq:
@@ -149,7 +149,7 @@ def evaluate_fouls(evd: dict, quotes: list, names: dict, pm, store: FoulsStore, 
             continue
         cand = Candidate(evd["id"], pid, names.get(pid, nm), "fouls", line, p, q, None, now, True, (ko - now) / 60)
         d = evaluate(cand, dcfg)
-        d.reasons.append(f"fouls-modell: väntat {mu:.2f}")
+        d.reasons.append(f"fouls-modell: väntat {mu:.2f}" + (f"; domare {ref_note}" if ref_note else ""))
         out.append(ScanRow("fotboll", f"{evd['home_team']} – {evd['away_team']}",
                            time.strftime("%Y-%m-%d %H:%M", time.gmtime(ko)), Row(d, p, float("nan"), 1.0), 1,
                            expected=mu))
@@ -163,10 +163,26 @@ def run(root: Path, data: list, pm, settings: dict, cfg: Config, diag) -> None:
     from .results import settle_open
     from .sources.http import JsonClient
     store = FoulsStore(pm.c, root / "espn_fouls")
-    rows = []
-    for evd, quotes, names in data:
+    ref_stats, ups = {}, []
+    if settings.get("fouls_referee", True) and any(any(q.market == "fouls" for q in qs) for _, qs, _ in data):
         try:
-            rows += evaluate_fouls(evd, quotes, names, pm, store, settings, cfg, time.time(), diag)
+            from . import referees
+            ref_stats = referees.load_stats(root, diag)
+            ups = referees.upcoming(time.time(), diag=diag)
+        except Exception as e:
+            diag.log(f"Domare: FEL {type(e).__name__}: {str(e)[:150]}")
+    rows = []
+    n_ref = 0
+    for evd, quotes, names in data:
+        mult, note = 1.0, ""
+        if ups:
+            from . import referees
+            ref = referees.referee_for(evd, ups)
+            if ref:
+                mult, note = referees.factor(ref_stats, ref)
+                n_ref += 1
+        try:
+            rows += evaluate_fouls(evd, quotes, names, pm, store, settings, cfg, time.time(), diag, mult, note)
         except Exception as e:     # testmarknad – får aldrig stoppa skanningen
             diag.lines.append(f"  fouls {evd.get('home_team')}: FEL {type(e).__name__}: {e}")
     lg = Ledger(root / "bokforing_fouls_test.json")
@@ -181,4 +197,4 @@ def run(root: Path, data: list, pm, settings: dict, cfg: Config, diag) -> None:
     es = sorted((r.row.decision.cand.edge for r in rows), reverse=True)[:3]
     diag.log(f"Fouls (test): {len(rows)} ben med modell, {sum(r.row.decision.playable for r in rows)} klarar kraven, "
              f"{len(new)} nya bokförda, bästa edge {', '.join(f'{e:+.1%}' for e in es) or '–'}, "
-             f"{store.fetched} nya ESPN-matcher")
+             f"{store.fetched} nya ESPN-matcher, domare känd i {n_ref} matcher")
