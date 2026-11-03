@@ -28,9 +28,9 @@ MK = {"shots": "Skott", "shots_on_target": "Skott på mål", "goal": "Mål", "as
       "steals": "Steals", "blocks": "Blocks", "pra": "PRA", "pr": "Poäng + returer", "ra": "Returer + assist", "fouls": "Fouls"}
 
 LEDGERS = [  # (fil, sport, typ)
-    ("bokforing_v2.json", "Fotboll", "Spel"), ("bokforing_skugga_v3.json", "Fotboll", "Skugga"),
-    ("bokforing_modell_v3.json", "Fotboll", "Modelltest"), ("parlays_v2.json", "Fotboll", "Parlay"),
-    ("nba_bokforing_v2.json", "NBA", "Spel"), ("nba_skugga_v2.json", "NBA", "Skugga"),
+    ("bokforing_v3.json", "Fotboll", "Spel"), ("bokforing_skugga_v4.json", "Fotboll", "Skugga"),
+    ("bokforing_modell_v4.json", "Fotboll", "Modelltest"), ("parlays_v3.json", "Fotboll", "Parlay"),
+    ("nba_bokforing_v3.json", "NBA", "Spel"), ("nba_skugga_v2.json", "NBA", "Skugga"),
     ("nba_modelltest.json", "NBA", "Modelltest"), ("nba_parlays_v2.json", "NBA", "Parlay"),
     ("nba_live.json", "NBA", "Live"),
     ("bokforing_fouls_test.json", "Fotboll", "Fouls-test"),   # de riktiga spelen (från 3/11)

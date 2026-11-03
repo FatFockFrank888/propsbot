@@ -327,8 +327,8 @@ def test_live_paused_routes_to_shadow(tmp_path, monkeypatch):
                                     "ntfy_topic": "propsbot-test"}), encoding="utf-8")
     rows = scan_once(tmp_path, settings)
     assert not any(r.row.decision.playable for r in rows)
-    shadow = json.loads((tmp_path / "bokforing_skugga_v3.json").read_text(encoding="utf-8"))
+    shadow = json.loads((tmp_path / "bokforing_skugga_v4.json").read_text(encoding="utf-8"))
     assert shadow and "live pausat" in shadow[0]["stopp"]
-    assert not (tmp_path / "bokforing_v2.json").exists() or \
-        json.loads((tmp_path / "bokforing_v2.json").read_text(encoding="utf-8")) == []
+    assert not (tmp_path / "bokforing_v3.json").exists() or \
+        json.loads((tmp_path / "bokforing_v3.json").read_text(encoding="utf-8")) == []
     assert all("SPELA" not in m.get("title", "") for m in sent)

@@ -84,7 +84,7 @@ def _print_topic(topic: str) -> None:
     print("=" * 64)
 
 
-OBSOLETE = ("nba_usodds.json", "bokforing.json", "bokforing_skugga.json", "bokforing_skugga_v2.json", "parlays.json",
+OBSOLETE = ("nba_usodds.json", "bokforing_v2.json", "bokforing_skugga_v3.json", "bokforing_modell_v3.json", "parlays_v2.json", "bokforing.json", "bokforing_skugga.json", "bokforing_skugga_v2.json", "parlays.json",
             "bokforing_modell.json", "bokforing_modell_v2.json", "nba_bokforing.json",
             "nba_skugga.json", "nba_parlays.json", "resultat")
 

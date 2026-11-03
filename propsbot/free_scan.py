@@ -378,9 +378,9 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
     playable = [r for r in rows if r.row.decision.playable and r.row.decision.show]
     from .clv_signal import final_rules, taken_players
     from .ledger import Ledger as _L
-    taken = taken_players(_L(root / "bokforing_v2.json"))
+    taken = taken_players(_L(root / "bokforing_v3.json"))
     nr = final_rules(rows, settings, hist, "fotboll", taken)
-    nt = final_rules(shadow_rows, settings, None, "", taken_players(_L(root / "bokforing_modell_v3.json")))
+    nt = final_rules(shadow_rows, settings, None, "", taken_players(_L(root / "bokforing_modell_v4.json")))
     diag.log(f"Spelregler: stoppade {nr} (modelltest {nt})")
     playable = [r for r in rows if r.row.decision.playable and r.row.decision.show]
     if pm:
@@ -409,7 +409,7 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
     from .export import write_site
     from .ledger import Ledger
     from .results import settle_open
-    ledger = Ledger(root / "bokforing_v2.json")   # v2: ren start 31/10 efter rättade buggar
+    ledger = Ledger(root / "bokforing_v3.json")   # v3: ren start 3/11 (bara skott på mål, nya regler)
     evd_by_id = {evd["id"]: evd for evd, _, _ in data}
     new_bets = ledger.record(rows, evd_by_id)
     ledger.update_closing(rows, time.time())
@@ -421,7 +421,7 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
     ledger.save()
     diag.log(f"Bokförda nya spel: {len(new_bets)}")
     # Skuggspel: ben med minst 2 % edge inom oddsramen som stoppades av reglerna.
-    shadow_ledger = Ledger(root / "bokforing_skugga_v3.json")
+    shadow_ledger = Ledger(root / "bokforing_skugga_v4.json")
     new_shadow = shadow_ledger.record(
         rows, evd_by_id,
         predicate=lambda r: (not r.row.decision.playable and r.row.decision.show
@@ -435,7 +435,7 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
         diag.log(f"Rättning (skuggspel): {type(e).__name__}: {e}")
     shadow_ledger.save()
     diag.log(f"Skuggspel: {len(new_shadow)} nya bokförda (stoppade av reglerna, minst 2 % edge)")
-    test_ledger = Ledger(root / "bokforing_modell_v3.json")   # v3: bara uppmätt marginal
+    test_ledger = Ledger(root / "bokforing_modell_v4.json")   # v4: ren start 3/11
     new_test = test_ledger.record(shadow_rows, evd_by_id)
     test_ledger.update_closing(shadow_rows, time.time())
     try:
@@ -455,7 +455,7 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
     if settings.get("parlays_enabled"):
         from .parlays import ParlayLedger, suggest
         sugg = suggest(rows, evd_by_id, settings)
-        pl = ParlayLedger(root / "parlays_v2.json")
+        pl = ParlayLedger(root / "parlays_v3.json")
         new_parlays = pl.record(sugg)
         try:
             settle_open(pl.legs_ledger(), JsonClient(root / ".cache_odds", ttl_s=900))
