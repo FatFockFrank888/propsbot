@@ -252,7 +252,35 @@ def transfermarkt() -> str:
     return " | ".join(out)
 
 
+def uefa_referees() -> str:
+    """UEFA:s öppna match-API: står domaren för kommande CL/EL/ECL-matcher?"""
+    url = ("https://match.uefa.com/v5/matches?competitionId=1&fromDate=2026-11-04&toDate=2026-11-06"
+           "&order=ASC&offset=0&limit=40")
+    st, body = _get(url)
+    ms = json.loads(body)
+    out = []
+    for m in ms[:20]:
+        refs = [r for r in (m.get("referees") or []) if (r.get("role") or "").upper() == "REFEREE"]
+        name = ((refs[0].get("person") or {}).get("translations", {}).get("name", {}).get("EN")) if refs else None
+        out.append(f"{m.get('homeTeam', {}).get('internationalName')}–{m.get('awayTeam', {}).get('internationalName')}: {name or '–'}")
+    return f"{st}, {len(ms)} matcher | " + " | ".join(out)
+
+
+def pl_officials() -> str:
+    """Premier Leagues officiella API (pulselive): domare för kommande matcher?"""
+    req = urllib.request.Request(
+        "https://footballapi.pulselive.com/football/fixtures?comps=1&pageSize=20&statuses=U&altIds=true",
+        headers={"User-Agent": UA, "Origin": "https://www.premierleague.com", "Accept": "application/json"})
+    with urllib.request.urlopen(req, timeout=25) as r:
+        d = json.loads(r.read().decode())
+    fx = d.get("content", [])
+    with_ref = [f for f in fx if any((o.get("role") or "").upper() in ("MAIN", "REFEREE") for o in f.get("matchOfficials", []) or [])]
+    return f"{len(fx)} kommande, domare satt i {len(with_ref)}"
+
+
 def main() -> None:
+    CHECKS["uefa_referees"] = uefa_referees
+    CHECKS["pl_officials"] = pl_officials
     CHECKS["transfermarkt"] = transfermarkt
     CHECKS["football_data"] = football_data
     CHECKS["api_football"] = api_football
