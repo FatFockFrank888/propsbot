@@ -278,7 +278,39 @@ def pl_officials() -> str:
     return f"{len(fx)} kommande, domare satt i {len(with_ref)}"
 
 
+def espn_officials() -> str:
+    """ESPN: står domaren (gameInfo.officials) i kommande och spelade matcher? Då kan vi bygga
+    domarens fouls per match direkt ur ESPN i alla ligor, och veta domaren före avspark."""
+    base = "https://site.api.espn.com/apis/site/v2/sports/soccer"
+    out = []
+    for lg, day in (("uefa.champions", "20261104"), ("uefa.champions", "20261105"), ("eng.1", "20261107"),
+                    ("esp.1", "20261108"), ("eng.1", "20261101")):
+        try:
+            sb = json.loads(_get(f"{base}/{lg}/scoreboard?dates={day}")[1])
+        except Exception as e:
+            out.append(f"{lg} {day}: FEL {e}")
+            continue
+        evs = sb.get("events", [])[:4]
+        got = []
+        for ev in evs:
+            try:
+                sm = json.loads(_get(f"{base}/{lg}/summary?event={ev['id']}")[1])
+            except Exception:
+                continue
+            offs = (sm.get("gameInfo") or {}).get("officials") or []
+            ref = next((o.get("displayName") or o.get("fullName") for o in offs), None)
+            got.append(f"{ev.get('shortName')}: {ref or '–'}")
+        out.append(f"{lg} {day} ({len(sb.get('events', []))} matcher): " + "; ".join(got))
+    return " | ".join(out)
+
+
+def worldfootball() -> str:
+    return plain("https://www.worldfootball.net/schedule/champions-league-2026-2027-gruppe-a/0/")
+
+
 def main() -> None:
+    CHECKS["espn_officials"] = espn_officials
+    CHECKS["worldfootball"] = worldfootball
     CHECKS["uefa_referees"] = uefa_referees
     CHECKS["pl_officials"] = pl_officials
     CHECKS["transfermarkt"] = transfermarkt
