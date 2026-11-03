@@ -168,7 +168,7 @@
       <tbody id="tbets"></tbody></table></div>
   </section>
   <section id="analys" class="hidden">
-    <div class="sub" style="margin-bottom:10px">Alla bokförda spel från båda botarna (fotboll och NBA): riktiga spel, skuggspel,
+    <div class="sub" style="margin-bottom:10px">Alla bokförda spel för den här sporten (fotboll och NBA har var sin sida): riktiga spel, skuggspel,
       modelltest och parlays. Inga spel görs under pågående match. Filtrera och gruppera för att se var vi vinner, förlorar eller inte slår marknaden.
       CLV = stängningens sannolikhet minus vår, i procentenheter (positivt = vi slog stängningen). 1u = 0,2 % av bankrullen.</div>
     <div class="controls">
@@ -404,8 +404,8 @@ function normParlay(x, sport) {
 async function loadAll() {
   const other = DATA.sport === "NBA" ? "../data.json" : "nba/data.json";
   document.getElementById("aXlsx").href = (DATA.sport === "NBA" ? "../" : "") + "propsbot_bokforing.xlsx";
-  let o = null;
-  try { o = await (await fetch(other + "?t=" + Date.now(), {cache: "no-store"})).json(); } catch (e) {}
+  // Varje sida visar bara sin egen sport (fotbollssidan = fotboll, NBA-sidan = NBA).
+  const o = null;
   ALL = [];
   for (const d of [DATA, o].filter(Boolean)) {
     const sp = d.sport === "NBA" ? "NBA" : "Fotboll";
@@ -419,8 +419,10 @@ async function loadAll() {
     el.innerHTML = `<option value="">${first}</option>` + [...new Set(vals)].sort().map(v => `<option>${esc(v)}</option>`).join("");
     el.value = cur; };
   fill("aMk", ALL.map(r => r.marknad), "Alla marknader");
-  if (!loadAll.done && DATA.sport === "NBA") {
-    document.getElementById("aSport").value = "NBA";
+  if (!loadAll.done) {
+    const sel = document.getElementById("aSport");
+    sel.value = DATA.sport === "NBA" ? "NBA" : "Fotboll";
+    sel.closest("select").style.display = "none";      // en sport per sida
     if (DATA.live) document.getElementById("aTyp").value = "Live";
   }
   loadAll.done = true;
