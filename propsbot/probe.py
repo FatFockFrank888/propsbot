@@ -308,7 +308,23 @@ def worldfootball() -> str:
     return plain("https://www.worldfootball.net/schedule/champions-league-2026-2027-gruppe-a/0/")
 
 
+def with_headers(url: str, headers: dict, n: int = 400) -> str:
+    req = urllib.request.Request(url, headers={"User-Agent": UA, **headers})
+    with urllib.request.urlopen(req, timeout=25) as r:
+        body = r.read(n).decode("utf-8", "replace").replace("\n", " ")
+        return f"{r.status} {body[:160]!r}"
+
+
 def main() -> None:
+    CHECKS["pl_compseasons"] = lambda: with_headers(
+        "https://footballapi.pulselive.com/football/competitions/1/compseasons?page=0&pageSize=3",
+        {"Origin": "https://www.premierleague.com", "Accept": "application/json"})
+    CHECKS["uefa_who_is_ref"] = lambda: plain(
+        "https://www.uefa.com/uefachampionsleague/news/0285-1901e8868056-42ef504cf9d0-1000--who-is-the-referee-which-officials-are-in-charge-of-the-uefa/")
+    CHECKS["rfef_designaciones"] = lambda: plain("https://rfef.es/es/noticias/arbitros/designaciones")
+    CHECKS["dfb_datencenter"] = lambda: plain("https://datencenter.dfb.de/en/rankings/bundesliga/2025-26")
+    CHECKS["legaseriea"] = lambda: plain("https://www.legaseriea.it/it/serie-a/comunicati-ufficiali")
+    CHECKS["sportmonks_noauth"] = lambda: plain("https://api.sportmonks.com/v3/football/referees")
     CHECKS["espn_officials"] = espn_officials
     CHECKS["worldfootball"] = worldfootball
     CHECKS["uefa_referees"] = uefa_referees
