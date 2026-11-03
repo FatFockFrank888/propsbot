@@ -150,7 +150,9 @@ def run_nba(root: Path, settings_path: Path) -> None:
     pl.save()
     write_site(root / "site" / "nba", res["rows"], res["ledger"], settings, res.get("test"),
                {"parlay_forslag": sugg, "parlay_bokforing": sorted(pl.items, key=lambda x: -x["bokford"]),
-                "parlay_sammanfattning": pl.summary()}, res["shadow"], sport="NBA")
+                "parlay_sammanfattning": pl.summary()}, res["shadow"], sport="NBA",
+               live_ledger=res.get("live") if settings.get("live_on", True) else None,
+               live_keys={__import__("propsbot.ledger", fromlist=["bet_key"]).bet_key(r) for r in res.get("live_rows", [])})
     if settings.get("ntfy_topic"):
         nba_settings = dict(settings, ntfy_topic=settings["ntfy_topic"])
         # Bara LIVE-spelen skickas som notis; övrigt bokförs som data.

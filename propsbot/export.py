@@ -27,7 +27,8 @@ def _spel(market: str, line: float, side: str = "over") -> str:
     return f"{MARKET_LABEL.get(market, market).lower()} över {line:g}"
 
 
-def radar_rows(rows: list[ScanRow], settings: dict, limit: int = 800) -> list[dict]:
+def radar_rows(rows: list[ScanRow], settings: dict, limit: int = 800, live_keys: set | None = None) -> list[dict]:
+    from .ledger import bet_key
     out = []
     for r in rows:
         d = r.row.decision
@@ -49,6 +50,7 @@ def radar_rows(rows: list[ScanRow], settings: dict, limit: int = 800) -> list[di
             "insats_forslag": kelly_stake(c.p, c.best.odds, DecisionConfig().kelly_fraction,
                                           DecisionConfig().max_stake_per_bet),
             "spelbar": d.playable,
+            "live": bool(live_keys) and bet_key(r) in live_keys,
             "forv_clv_pp": getattr(r, "clv_pp", None),
             "clv_signal": any("CLV-signal" in x for x in d.reasons),
             "p_modell": None if r.row.p_model != r.row.p_model else r.row.p_model,
@@ -60,7 +62,8 @@ def radar_rows(rows: list[ScanRow], settings: dict, limit: int = 800) -> list[di
 
 def write_site(site: Path, rows: list[ScanRow], ledger: Ledger, settings: dict,
                test_ledger: Ledger | None = None, parlays: dict | None = None,
-               shadow_ledger: Ledger | None = None, sport: str = "Fotboll") -> None:
+               shadow_ledger: Ledger | None = None, sport: str = "Fotboll",
+               live_ledger: Ledger | None = None, live_keys: set | None = None) -> None:
     site.mkdir(parents=True, exist_ok=True)
     data = {
         "sport": sport,
@@ -68,9 +71,12 @@ def write_site(site: Path, rows: list[ScanRow], ledger: Ledger, settings: dict,
         "uppdaterad": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "uppdaterad_ts": time.time(),
         "regler": {"min_odds": 1.40, "max_odds": 6.0, "kelly": 0.25, "unit": 0.002},
-        "radar": radar_rows(rows, settings),
-        "bokforing": sorted(ledger.bets, key=lambda b: -b["bokford"]),
-        "sammanfattning": ledger.summary(),
+        "radar": radar_rows(rows, settings, live_keys=live_keys),
+        # Med live: fliken Bokföring = de riktiga (live) spelen; övriga spel är data (spel_data).
+        "live": live_ledger is not None,
+        "bokforing": sorted((live_ledger or ledger).bets, key=lambda b: -b["bokford"]),
+        "sammanfattning": (live_ledger or ledger).summary(),
+        "spel_data": sorted(ledger.bets, key=lambda b: -b["bokford"]) if live_ledger is not None else [],
         "modelltest": sorted(test_ledger.bets, key=lambda b: -b["bokford"]) if test_ledger else [],
         "modelltest_sammanfattning": test_ledger.summary() if test_ledger else None,
         "skuggspel": sorted(shadow_ledger.bets, key=lambda b: -b["bokford"]) if shadow_ledger else [],
