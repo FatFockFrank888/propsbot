@@ -114,7 +114,52 @@ def pinnacle_special_leagues() -> str:
     return f"{len(lg)} ligor; " + "; ".join(f"{k}: {v} t.ex. {', '.join(ex[k][:4])}" for k, v in kinds.items())
 
 
+def kambi_league_props() -> str:
+    """Vilka ligor har spelarprops (skott på mål / fouls) hos Unibet, ATG och Svenska Spel?"""
+    import time as _t
+    from .sources.kambi_public import BASES
+    from .sources.props_text import market_from_label
+
+    def get(off, path, extra=""):
+        url = f"{BASES[0]}/{off}/{path}?lang=en_GB&market=SE{extra}"
+        _t.sleep(0.25)
+        return json.loads(_get(url)[1])
+    now = _t.time()
+    leagues = {}
+    paths_by_off = {}
+    for off in ("ubse", "atg", "svenskaspel"):
+        raw = get(off, "listView/football/all/all/all/matches.json", "&useCombined=true")
+        ps = set()
+        for it in raw.get("events", []):
+            ev = it.get("event", it)
+            if ev.get("state") not in (None, "NOT_STARTED"):
+                continue
+            path = " / ".join(p.get("englishName", p.get("name", "")) for p in ev.get("path", []))
+            ps.add(path)
+            if off == "ubse":
+                leagues.setdefault(path, ev["id"])
+        paths_by_off[off] = ps
+    rows = []
+    for path, eid in sorted(leagues.items())[:150]:
+        try:
+            bo = get("ubse", f"betoffer/event/{eid}.json", "&includeParticipants=true")
+        except Exception:
+            continue
+        sot = fouls = 0
+        for b in bo.get("betOffers", []):
+            mk = market_from_label((b.get("criterion") or {}).get("englishLabel", ""))
+            if mk and mk[0] == "shots_on_target":
+                sot += 1
+            elif mk and mk[0] == "fouls":
+                fouls += 1
+        if sot or fouls:
+            on = "".join(x[0].upper() for x in ("atg", "svenskaspel") if path in paths_by_off[x])
+            rows.append(f"{path} [SOT {sot}, fouls {fouls}, även {on or '-'}]")
+    return f"{len(leagues)} ligor hos Unibet, {len(rows)} med SOT/fouls-props: " + " | ".join(rows)
+
+
 def main() -> None:
+    CHECKS["kambi_league_props"] = kambi_league_props
     CHECKS["espn_stat_names"] = espn_fouls_fields
     CHECKS["pinnacle_special_leagues"] = pinnacle_special_leagues
     out = []
