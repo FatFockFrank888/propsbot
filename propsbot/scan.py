@@ -60,14 +60,9 @@ DEFAULT_SETTINGS = {
     # Pinnacle-marknader som får användas som referens. Mål är avstängt tills
     # tolkningen av Pinnacles målmarknad är verifierad mot riktiga råsvar.
     "pinnacle_trusted_markets": ["shots", "shots_on_target"],
-    "league_words": ["England / Premier League", "Spain / La Liga", "Germany / Bundesliga",
-                     "Italy / Serie A", "France / Ligue 1", "Champions League", "Europa League",
-                     "Sweden / Allsvenskan"],
-    "pinnacle_league_words": ["England - Premier League", "Spain - La Liga",
-                              "Germany - Bundesliga", "Italy - Serie A", "France - Ligue 1",
-                              "UEFA - Champions League", "UEFA - Europa League",
-                              "Sweden - Allsvenskan"],
-    "max_kambi_events": 30,
+    "league_words": ["England / Premier League", "England / The Championship", "England / Championship", "Spain / La Liga", "Spain / LaLiga", "Germany / Bundesliga", "Germany / 2. Bundesliga", "Italy / Serie A", "Italy / Serie B", "France / Ligue 1", "France / Ligue 2", "Netherlands / Eredivisie", "Portugal / Liga Portugal", "Portugal / Primeira Liga", "Belgium / Pro League", "Belgium / Jupiler", "Scotland / Premiership", "Turkey / Süper Lig", "Turkey / Super Lig", "Denmark / Superliga", "Norway / Eliteserien", "Sweden / Allsvenskan", "Austria / Bundesliga", "Switzerland / Super League", "Greece / Super League", "USA / MLS", "Brazil / Serie A", "Argentina / Liga Profesional", "Champions League", "Europa League", "Conference League"],
+    "pinnacle_league_words": ["England - Premier League", "England - Championship", "Spain - La Liga", "Germany - Bundesliga", "Germany - 2. Bundesliga", "Italy - Serie A", "Italy - Serie B", "France - Ligue 1", "France - Ligue 2", "Netherlands - Eredivisie", "Portugal - Primeira Liga", "Portugal - Liga Portugal", "Belgium - Pro League", "Belgium - First Division A", "Scotland - Premiership", "Turkey - Super Lig", "Denmark - Superliga", "Norway - Eliteserien", "Sweden - Allsvenskan", "Austria - Bundesliga", "Switzerland - Super League", "Greece - Super League", "USA - Major League Soccer", "Brazil - Serie A", "Argentina - Liga Profesional", "UEFA - Champions League", "UEFA - Europa League", "UEFA - Conference League"],
+    "max_kambi_events": 60,
     # Hoppa över matcher där Kambis och Pinnacles målförväntan skiljer mer än så.
     "max_line_ratio_dev": 0.10,
     "min_power_k_shots": 1.20,  # försiktig skottmarginal för live-spel (annars skuggspel)

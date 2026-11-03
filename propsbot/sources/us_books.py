@@ -70,7 +70,12 @@ def parse(event: dict, match_id: str, fetch_ts: float) -> tuple[list[OddsQuote],
 
 FOOTBALL_SPORTS = ["soccer_epl", "soccer_spain_la_liga", "soccer_germany_bundesliga", "soccer_italy_serie_a",
                    "soccer_france_ligue_one", "soccer_uefa_champs_league", "soccer_uefa_europa_league",
-                   "soccer_sweden_allsvenskan"]
+                   "soccer_sweden_allsvenskan", "soccer_efl_champ", "soccer_netherlands_eredivisie",
+                   "soccer_portugal_primeira_liga", "soccer_belgium_first_div", "soccer_spl",
+                   "soccer_turkey_super_league", "soccer_denmark_superliga", "soccer_norway_eliteserien",
+                   "soccer_uefa_europa_conference_league", "soccer_usa_mls", "soccer_germany_bundesliga2",
+                   "soccer_italy_serie_b", "soccer_france_ligue_two", "soccer_austria_bundesliga",
+                   "soccer_switzerland_superleague", "soccer_brazil_campeonato"]
 FOOTBALL_MARKETS = [("player_shots_on_target", "shots_on_target"), ("player_shots", "shots")]
 # Bolag med fotbollsprops i The Odds API (testat 2/11) + börser/nordiska bolag ifall de lägger ut props.
 # Kambi-bolagen (unibet_*, leovegas_*) tas inte med – de är redan våra egna odds.

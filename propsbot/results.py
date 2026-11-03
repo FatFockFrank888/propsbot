@@ -19,7 +19,8 @@ BASE = "https://site.api.espn.com/apis/site/v2/sports/soccer"
 LEAGUES = ["eng.1", "esp.1", "ger.1", "ita.1", "fra.1", "uefa.champions", "uefa.europa",
            "uefa.europa.conf", "swe.1", "eng.2", "esp.2", "ger.2", "ita.2", "fra.2",
            "ned.1", "por.1", "eng.fa", "esp.copa_del_rey", "ger.dfb_pokal", "ita.coppa_italia",
-           "fra.coupe_de_france", "eng.league_cup"]
+           "fra.coupe_de_france", "eng.league_cup", "bel.1", "sco.1", "tur.1", "den.1", "nor.1", "aut.1",
+           "sui.1", "gre.1", "usa.1", "bra.1", "arg.1"]
 
 STAT_NAMES = {
     "goal": ("totalGoals", "goals"),

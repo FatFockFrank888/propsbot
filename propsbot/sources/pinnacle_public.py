@@ -47,8 +47,9 @@ class PinnaclePublic:
 
     def leagues(self, words: list[str]) -> list[dict]:
         raw = self.c.get(f"{BASE}/sports/{SOCCER}/leagues", {"all": "false"}, ttl=3600) or []
-        return [lg for lg in raw if not words or any(w.lower() in lg.get("name", "").lower()
-                                                     for w in words)]
+        side = ("corners", "bookings", "cards", "specials", "women", "u21", "u19", "u23")
+        return [lg for lg in raw if not any(x in lg.get("name", "").lower() for x in side)
+                and (not words or any(w.lower() in lg.get("name", "").lower() for w in words))]
 
     def events(self, league: dict, hours_ahead: float) -> list[PinEvent]:
         raw = self.c.get(f"{BASE}/leagues/{league['id']}/matchups") or []
