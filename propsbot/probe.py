@@ -316,6 +316,10 @@ def with_headers(url: str, headers: dict, n: int = 400) -> str:
 
 
 def main() -> None:
+    CHECKS["statshub"] = lambda: plain("https://www.statshub.com/")
+    CHECKS["footiqo"] = lambda: plain("https://footiqo.com/")
+    CHECKS["statz_ai"] = lambda: plain("https://statz.ai/")
+    CHECKS["refsradar"] = lambda: plain("https://refsradar.com/")
     CHECKS["pl_compseasons"] = lambda: with_headers(
         "https://footballapi.pulselive.com/football/competitions/1/compseasons?page=0&pageSize=3",
         {"Origin": "https://www.premierleague.com", "Accept": "application/json"})
