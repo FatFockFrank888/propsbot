@@ -1,4 +1,4 @@
-Skanning 2026-11-03 14:34
+Skanning 2026-11-03 14:46
 Kambi unibet (ubse): OK, 16 matcher i valda ligor
 Kambi paf (paf): OK
 Kambi atg (atg): OK
@@ -21,7 +21,6 @@ Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
   Either Team To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
   Both Teams To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
   3-Way Handicap Shakhtar Donetsk +2 | units=Regular | kategori=Team Props | deltagare=Shakhtar Donetsk (+2),Draw - (Shakhtar Donetsk +2),Sporting CP (-2)  ->  används inte (lagmarknad)
-  3-Way Handicap Shakhtar Donetsk +3 | units=Regular | kategori=Team Props | deltagare=Shakhtar Donetsk (+3),Draw - (Shakhtar Donetsk +3),Sporting CP (-3)  ->  används inte (lagmarknad)
   Draw No Bet | units=Regular | kategori=Team Props | deltagare=Shakhtar Donetsk,Sporting CP  ->  används inte (lagmarknad)
   Shakhtar Donetsk To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
   Total Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
@@ -69,9 +68,10 @@ Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
   Correct Score 1st Half | units=Regular | kategori=Team Props | deltagare=Galatasaray 0, Stuttgart 0,Galatasaray 0, Stuttgart 1,Galatasaray 0, Stuttgart 2,Galatasaray 0, Stuttgart 3,Galatasaray 1, Stuttgart 0,Galatasaray 1, Stuttgart 1,Galatasaray 1, Stuttgart 2,Galatasaray 1, Stuttgart 3,Galatasaray 2, Stuttgart 0,Galatasaray 2, Stuttgart 1,Galatasaray 2, Stuttgart 2,Galatasaray 2, Stuttgart 3,Galatasaray 3, Stuttgart 0,Galatasaray 3, Stuttgart 1,Galatasaray 3, Stuttgart 2,Galatasaray 3, Stuttgart 3  ->  används inte (lagmarknad)
   Winning Margin 1st Half | units=Regular | kategori=Team Props | deltagare=Galatasaray By 1,Galatasaray By 2+,Stuttgart By 1,Stuttgart By 2+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
   Winning Margin | units=Regular | kategori=Team Props | deltagare=Galatasaray By 1,Galatasaray By 2,Galatasaray By 3,Galatasaray By 4+,Stuttgart By 1,Stuttgart By 2,Stuttgart By 3,Stuttgart By 4+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
+  3-Way Handicap Galatasaray -1 | units=Regular | kategori=Team Props | deltagare=Galatasaray (-1),Draw - (Galatasaray -1),Stuttgart (+1)  ->  används inte (lagmarknad)
 Fotboll extra bolag: 0 nya hämtningar, 102 odds i bruk, krediter kvar 461, dagsbudget 16 (andel 40%), förbrukat idag 2
-Tid: hämtning 65 s
-Marginal över alla matcher: uppmätt marginal: shots_on_target stege k=1.22 (48 spelare; marginal vid 3,00 ≈ 27%)
+Tid: hämtning 74 s
+Marginal över alla matcher: uppmätt marginal: shots_on_target stege k=1.22 (46 spelare; marginal vid 3,00 ≈ 27%)
   Shakhtar Donetsk – Sporting Lisbon: modell uefa.champions, 18 spelare
   Galatasaray – VfB Stuttgart: modell uefa.champions, 18 spelare
   IK Sirius FK – Halmstads BK: modell swe.1, 28 spelare
@@ -81,33 +81,33 @@ Marginal över alla matcher: uppmätt marginal: shots_on_target stege k=1.22 (48
   Bodø/Glimt – Lille: modell uefa.champions, 17 spelare
   FC Barcelona – Aston Villa: modell uefa.champions, 14 spelare
 Modellens nivåavvikelse mot marknaden (log-odds, dras bort): goal -0.53, shots -0.70, shots_on_target -0.42
-  Shakhtar Donetsk – Sporting Lisbon: väntade mål Pinnacle 2.98 mot Kambi 2.92 (kvot 1.018); uppmätt marginal: goal k=1.35, assist k=1.42
-Exempel uppmätt marginal: goal k=1.35, assist k=1.42
-  Galatasaray – VfB Stuttgart: väntade mål Pinnacle 3.93 mot Kambi 3.83 (kvot 1.024); uppmätt marginal: goal k=1.41, assist k=1.46, shots_on_target stege k=1.26 (6 spelare; marginal vid 3,00 ≈ 33%)
-  IK Sirius FK – Halmstads BK: väntade mål Pinnacle 3.43 mot Kambi 3.48 (kvot 0.983); uppmätt marginal: goal k=1.55
+  Shakhtar Donetsk – Sporting Lisbon: väntade mål Pinnacle 2.97 mot Kambi 2.92 (kvot 1.016); uppmätt marginal: goal k=1.36, assist k=1.42
+Exempel uppmätt marginal: goal k=1.36, assist k=1.42
+  Galatasaray – VfB Stuttgart: väntade mål Pinnacle 3.97 mot Kambi 3.83 (kvot 1.036); uppmätt marginal: goal k=1.40, assist k=1.46, shots_on_target stege k=1.26 (6 spelare; marginal vid 3,00 ≈ 33%)
+  IK Sirius FK – Halmstads BK: väntade mål Pinnacle 3.42 mot Kambi 3.48 (kvot 0.981); uppmätt marginal: goal k=1.56
   LASK – Slovan Bratislava: väntade mål Pinnacle 3.73 mot Kambi 3.70 (kvot 1.008); uppmätt marginal: goal k=1.50, assist k=1.48
-  Manchester United – Roma: väntade mål Pinnacle 3.25 mot Kambi 3.28 (kvot 0.993); uppmätt marginal: goal k=1.19, assist k=1.35, shots_on_target stege k=1.22 (6 spelare; marginal vid 3,00 ≈ 27%)
+  Manchester United – Roma: väntade mål Pinnacle 3.29 mot Kambi 3.28 (kvot 1.003); uppmätt marginal: goal k=1.19, assist k=1.34, shots_on_target stege k=1.22 (6 spelare; marginal vid 3,00 ≈ 27%)
   Feyenoord – Inter: saknar matchlinjer från Pinnacle
   Atlético Madrid – Bayern Munich: väntade mål Pinnacle 3.27 mot Kambi 3.38 (kvot 0.969); uppmätt marginal: goal k=1.32, assist k=1.47, shots_on_target stege k=1.22 (6 spelare; marginal vid 3,00 ≈ 27%)
   Bodø/Glimt – Lille: väntade mål Pinnacle 3.47 mot Kambi 3.44 (kvot 1.007); uppmätt marginal: goal k=1.33, assist k=1.42
-  FC Barcelona – Aston Villa: väntade mål Pinnacle 4.49 mot Kambi 4.43 (kvot 1.013); uppmätt marginal: goal k=1.33, assist k=1.44
+  FC Barcelona – Aston Villa: väntade mål Pinnacle 4.49 mot Kambi 4.42 (kvot 1.016); uppmätt marginal: goal k=1.34, assist k=1.44
   Villarreal – PSG: saknar matchlinjer från Pinnacle
-Tid: modell och utvärdering 139 s
+Tid: modell och utvärdering 140 s
 Bolag med spelarodds: atg, betmgm, expekt, leovegas, oa_fanduel, paf, svenskaspel, unibet
-Spelarodds per marknad: assist 1617, goal 3787, shots 3597, shots_on_target 2853
-Kambi-marknader: assist='to give an assist (settled using opta data)':1617; goal='to score':1820; goal='to score at least 2 goals':1456; goal='to score at least 3 goals':399; goal='to score at least 4 goals':98; goal='to score at least 5 goals':14; shots="player's shots (settled using opta data)":3597; shots_on_target="player's shots on target (settled using opta data)":2751
+Spelarodds per marknad: assist 1617, goal 3787, shots 3597, shots_on_target 2846
+Kambi-marknader: assist='to give an assist (settled using opta data)':1617; goal='to score':1820; goal='to score at least 2 goals':1456; goal='to score at least 3 goals':399; goal='to score at least 4 goals':98; goal='to score at least 5 goals':14; shots="player's shots (settled using opta data)":3597; shots_on_target="player's shots on target (settled using opta data)":2744
 Pinnacle har inga spelarprops här – använder linjejustering mot Pinnacles matchlinjer.
 CLV-signal: 0 ben släppta (Pinnacle rör sig åt vårt håll)
 Spelregler: stoppade {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0} (modelltest {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0})
 Spelarmodell: 0 av 1300 ben har modell, 0 nya matcher hämtade från ESPN
-Bästa edge marknad goal: -7.9%, -8.8%, -9.3% (av 115 ben)
-Bästa edge marknad assist: -28.3%, -31.3%, -31.6% (av 94 ben)
-Bästa edge marknad shots_on_target: -9.0%, -9.1%, -9.7% (av 230 ben)
-Bästa edge marknad shots: -2.5%, -2.9%, -3.2% (av 243 ben)
-Bästa edge modelltest goal: -7.9%, -8.8%, -9.2% (av 115 ben)
-Bästa edge modelltest assist: -29.1%, -31.0%, -31.6% (av 94 ben)
-Bästa edge modelltest shots_on_target: -9.1%, -9.4%, -9.8% (av 230 ben)
-Bästa edge modelltest shots: -1.2%, -1.2%, -1.3% (av 243 ben)
+Bästa edge marknad goal: -6.3%, -8.4%, -8.8% (av 115 ben)
+Bästa edge marknad assist: -27.9%, -31.5%, -31.6% (av 94 ben)
+Bästa edge marknad shots_on_target: -8.6%, -9.0%, -9.7% (av 230 ben)
+Bästa edge marknad shots: -1.7%, -2.3%, -2.7% (av 243 ben)
+Bästa edge modelltest goal: -6.3%, -8.4%, -8.8% (av 115 ben)
+Bästa edge modelltest assist: -29.3%, -30.6%, -31.6% (av 94 ben)
+Bästa edge modelltest shots_on_target: -9.0%, -9.0%, -9.6% (av 230 ben)
+Bästa edge modelltest shots: -0.6%, -1.1%, -1.2% (av 243 ben)
 0 spelbara ben.
 Bokförda nya spel: 0
 Skuggspel: 0 nya bokförda (stoppade av reglerna, minst 2 % edge)
