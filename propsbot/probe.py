@@ -186,7 +186,7 @@ def football_data() -> str:
 def api_football() -> str:
     """API-Football med nyckel (secret API_FOOTBALL_KEY): kvot, aktuell säsong, spelarfouls."""
     import os
-    key = os.environ.get("API_FOOTBALL_KEY")
+    key = (os.environ.get("API_FOOTBALL_KEY") or "").strip()
     if not key:
         return "ingen API_FOOTBALL_KEY"
     def get(path):

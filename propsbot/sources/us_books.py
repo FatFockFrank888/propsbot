@@ -75,7 +75,8 @@ FOOTBALL_SPORTS = ["soccer_epl", "soccer_spain_la_liga", "soccer_germany_bundesl
                    "soccer_turkey_super_league", "soccer_denmark_superliga", "soccer_norway_eliteserien",
                    "soccer_uefa_europa_conference_league", "soccer_usa_mls", "soccer_germany_bundesliga2",
                    "soccer_italy_serie_b", "soccer_france_ligue_two", "soccer_austria_bundesliga",
-                   "soccer_switzerland_superleague", "soccer_brazil_campeonato"]
+                   "soccer_switzerland_superleague", "soccer_brazil_campeonato", "soccer_australia_aleague",
+                   "soccer_mexico_ligamx", "soccer_argentina_primera_division"]
 FOOTBALL_MARKETS = [("player_shots_on_target", "shots_on_target"), ("player_shots", "shots")]
 # Bolag med fotbollsprops i The Odds API (testat 2/11) + börser/nordiska bolag ifall de lägger ut props.
 # Kambi-bolagen (unibet_*, leovegas_*) tas inte med – de är redan våra egna odds.
