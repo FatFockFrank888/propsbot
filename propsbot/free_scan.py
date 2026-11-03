@@ -243,6 +243,9 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
     diag.log(time.strftime("Skanning %Y-%m-%d %H:%M"))
     t0 = time.time()
     data = collect(settings, diag, root / ".cache_odds")
+    # Fouls hålls utanför den vanliga kedjan (egen modell, egen testbokföring).
+    fouls_data = [(evd, [q for q in qs if q.market == "fouls"], nm) for evd, qs, nm in data]
+    data = [(evd, [q for q in qs if q.market != "fouls"], nm) for evd, qs, nm in data]
     try:   # fler bolag (William Hill, 1xBet, FanDuel, Betfair, Coolbet …) via The Odds API, inom kreditbudget
         from .sources.us_books import add_football_books
         add_football_books(root, data, settings, diag)
@@ -442,6 +445,12 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
     test_ledger.save()
     n_test = sum(r.row.decision.playable and r.row.decision.show for r in shadow_rows)
     diag.log(f"Modelltest: {n_test} spelbara enligt modellen, {len(new_test)} nya testspel bokförda")
+    if settings.get("fouls_enabled", True) and pm:
+        try:
+            from .fouls import run as fouls_run
+            fouls_run(root, fouls_data, pm, settings, cfg, diag)
+        except Exception as e:
+            diag.log(f"Fouls (test): FEL {type(e).__name__}: {str(e)[:200]}")
     parlay_data, new_parlays = None, []
     if settings.get("parlays_enabled"):
         from .parlays import ParlayLedger, suggest
@@ -488,7 +497,7 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
     import os
     if os.environ.get("GITHUB_ACTIONS"):
         keep = [l for l in diag.lines if l.startswith(("Kambi", "Pinnacle", "Bolag", "VARNING"))
-                or l.startswith(("SPEL:", "CLV-signal", "Tid:", "Exempel", "Marginal över", "Bästa edge", "Spelarodds", "Spelarmodell", "Modellens", "Modelltest", "Parlays", "Skuggspel", "Rätt",
+                or l.startswith(("SPEL:", "Fouls", "CLV-signal", "Tid:", "Exempel", "Marginal över", "Bästa edge", "Spelarodds", "Spelarmodell", "Modellens", "Modelltest", "Parlays", "Skuggspel", "Rätt",
                                  "Struken", "Bokförda"))
                 or "spelbara" in l or "otis" in l][:45]
         print("::notice title=diagnos::" + "%0A".join(x.replace("%", "%25") for x in keep))

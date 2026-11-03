@@ -25,14 +25,15 @@ UNIT = 0.002
 FONT = "Arial"
 MK = {"shots": "Skott", "shots_on_target": "Skott på mål", "goal": "Mål", "assist": "Assist",
       "points": "Poäng", "rebounds": "Returer", "assists": "Assist (NBA)", "threes": "Trepoängare",
-      "steals": "Steals", "blocks": "Blocks", "pra": "PRA", "pr": "Poäng + returer", "ra": "Returer + assist"}
+      "steals": "Steals", "blocks": "Blocks", "pra": "PRA", "pr": "Poäng + returer", "ra": "Returer + assist", "fouls": "Fouls"}
 
 LEDGERS = [  # (fil, sport, typ)
     ("bokforing_v2.json", "Fotboll", "Spel"), ("bokforing_skugga_v3.json", "Fotboll", "Skugga"),
     ("bokforing_modell_v3.json", "Fotboll", "Modelltest"), ("parlays_v2.json", "Fotboll", "Parlay"),
     ("nba_bokforing_v2.json", "NBA", "Spel"), ("nba_skugga_v2.json", "NBA", "Skugga"),
     ("nba_modelltest.json", "NBA", "Modelltest"), ("nba_parlays_v2.json", "NBA", "Parlay"),
-    ("nba_live.json", "NBA", "Live"),   # de riktiga spelen (från 3/11)
+    ("nba_live.json", "NBA", "Live"),
+    ("bokforing_fouls_test.json", "Fotboll", "Fouls-test"),   # de riktiga spelen (från 3/11)
 ]
 
 HEAD = ["Bokförd", "Sport", "Typ", "Avspark", "Match", "Spelare", "Marknad", "Sida", "Linje", "Bolag",

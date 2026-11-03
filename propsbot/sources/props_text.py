@@ -19,6 +19,11 @@ def market_from_label(label: str) -> tuple[str, float | None] | None:
     'To have 2+ shots' -> ('shots', 1.5). None för marknader vi inte använder
     (första/sista målskytt, halvlek, nick, utanför boxen, kort, kombinationer m.m.)."""
     s = label.lower()
+    # Fouls (3/11, datainsamling): "Player's fouls conceded" – bara hela matchen.
+    if "foul" in s and ("conceded" in s or "committed" in s) and not any(
+            w in s for w in ("half", "minute", "team", "most", "total", "and ", " or ")):
+        m = re.search(r"(\d+)\s*\+", s) or re.search(r"at least (\d+)", s)
+        return "fouls", (int(m.group(1)) - 0.5 if m else None)
     if any(w in s for w in EXCLUDE_WORDS):
         return None
     if re.search(r"\d{1,2}:\d{2}", s):     # tidsintervall, t.ex. "0:00-14:59"

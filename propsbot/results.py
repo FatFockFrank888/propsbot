@@ -26,6 +26,7 @@ STAT_NAMES = {
     "assist": ("goalAssists", "assists"),
     "shots_on_target": ("shotsOnTarget", "shotsOnGoal"),
     "shots": ("totalShots", "shots"),
+    "fouls": ("foulsCommitted", "fouls", "FC"),
 }
 
 
