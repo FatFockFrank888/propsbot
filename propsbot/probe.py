@@ -158,7 +158,36 @@ def kambi_league_props() -> str:
     return f"{len(leagues)} ligor hos Unibet, {len(rows)} med SOT/fouls-props: " + " | ".join(rows)
 
 
+def football_data() -> str:
+    """football-data.co.uk: lagfouls (HF/AF), kort och domare per match + kommande matcher."""
+    out = []
+    for season in ("2627", "2526"):
+        for div in ("E0", "E1", "SP1", "D1", "I1", "F1", "N1", "P1", "B1", "SC0", "T1", "G1"):
+            try:
+                st, body = _get(f"https://www.football-data.co.uk/mmz4281/{season}/{div}.csv", 2_000_000)
+            except Exception as e:
+                out.append(f"{season}/{div}: FEL {getattr(e, 'code', '')}")
+                continue
+            lines = body.strip().splitlines()
+            head = lines[0].split(",") if lines else []
+            has = [c for c in ("HF", "AF", "HY", "AY", "Referee") if c in head]
+            out.append(f"{season}/{div}: {len(lines) - 1} matcher, {'/'.join(has)}")
+        if any("matcher" in x and not x.endswith(": 0 matcher, ") for x in out if x.startswith(season)):
+            break
+    st, body = _get("https://www.football-data.co.uk/fixtures.csv", 2_000_000)
+    lines = body.strip().splitlines()
+    head = lines[0].split(",")
+    ref = head.index("Referee") if "Referee" in head else None
+    n_ref = sum(1 for l in lines[1:] if ref is not None and len(l.split(",")) > ref and l.split(",")[ref].strip())
+    out.append(f"fixtures.csv: {len(lines) - 1} kommande, domare angiven i {n_ref}")
+    return " | ".join(out)
+
+
 def main() -> None:
+    CHECKS["football_data"] = football_data
+    CHECKS["api_football"] = lambda: plain("https://v3.football.api-sports.io/status")
+    CHECKS["statsbomb_open"] = lambda: plain("https://raw.githubusercontent.com/statsbomb/open-data/master/data/competitions.json")
+    CHECKS["opta_player_stats"] = lambda: plain("https://optaplayerstats.statsperform.com/en_GB/soccer")
     CHECKS["kambi_league_props"] = kambi_league_props
     CHECKS["espn_stat_names"] = espn_fouls_fields
     CHECKS["pinnacle_special_leagues"] = pinnacle_special_leagues
