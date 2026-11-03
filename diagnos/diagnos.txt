@@ -1,4 +1,4 @@
-Skanning 2026-11-03 10:17
+Skanning 2026-11-03 10:29
 Kambi unibet (ubse): OK, 18 matcher i valda ligor
 Kambi paf (paf): OK
 Kambi atg (atg): OK
@@ -70,7 +70,7 @@ Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
   Correct Score 1st Half | units=Regular | kategori=Team Props | deltagare=Galatasaray 0, Stuttgart 0,Galatasaray 0, Stuttgart 1,Galatasaray 0, Stuttgart 2,Galatasaray 0, Stuttgart 3,Galatasaray 1, Stuttgart 0,Galatasaray 1, Stuttgart 1,Galatasaray 1, Stuttgart 2,Galatasaray 1, Stuttgart 3,Galatasaray 2, Stuttgart 0,Galatasaray 2, Stuttgart 1,Galatasaray 2, Stuttgart 2,Galatasaray 2, Stuttgart 3,Galatasaray 3, Stuttgart 0,Galatasaray 3, Stuttgart 1,Galatasaray 3, Stuttgart 2,Galatasaray 3, Stuttgart 3  ->  används inte (lagmarknad)
   Winning Margin 1st Half | units=Regular | kategori=Team Props | deltagare=Galatasaray By 1,Galatasaray By 2+,Stuttgart By 1,Stuttgart By 2+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
 Fotboll extra bolag: 0 nya hämtningar, 0 odds i bruk, krediter kvar 463, dagsbudget 16 (andel 40%), förbrukat idag 0
-Tid: hämtning 82 s
+Tid: hämtning 75 s
 Marginal över alla matcher: uppmätt marginal: shots_on_target stege k=1.20 (52 spelare; marginal vid 3,00 ≈ 25%)
   Shakhtar Donetsk – Sporting Lisbon: modell uefa.champions, 18 spelare
   Galatasaray – VfB Stuttgart: modell uefa.champions, 18 spelare
@@ -80,7 +80,7 @@ Marginal över alla matcher: uppmätt marginal: shots_on_target stege k=1.20 (52
   Atlético Madrid – Bayern Munich: modell uefa.champions, 14 spelare
   Bodø/Glimt – Lille: modell uefa.champions, 17 spelare
   FC Barcelona – Aston Villa: modell uefa.champions, 14 spelare
-Modellens nivåavvikelse mot marknaden (log-odds, dras bort): shots -0.70, shots_on_target -0.45
+Modellens nivåavvikelse mot marknaden (log-odds, dras bort): shots -0.70, shots_on_target -0.44
   Shakhtar Donetsk – Sporting Lisbon: väntade mål Pinnacle 2.96 mot Kambi 2.95 (kvot 1.002); uppmätt marginal: goal k=1.36, assist k=1.43
 Exempel uppmätt marginal: goal k=1.36, assist k=1.43
   Galatasaray – VfB Stuttgart: väntade mål Pinnacle 3.85 mot Kambi 3.75 (kvot 1.028); uppmätt marginal: goal k=1.40, assist k=1.47, shots_on_target stege k=1.16 (8 spelare; marginal vid 3,00 ≈ 19%)
@@ -92,7 +92,7 @@ Exempel uppmätt marginal: goal k=1.36, assist k=1.43
   Bodø/Glimt – Lille: väntade mål Pinnacle 3.38 mot Kambi 3.46 (kvot 0.975); uppmätt marginal: goal k=1.35, assist k=1.44
   FC Barcelona – Aston Villa: väntade mål Pinnacle 4.28 mot Kambi 4.39 (kvot 0.974); uppmätt marginal: goal k=1.57, assist k=1.60
   Villarreal – PSG: saknar matchlinjer från Pinnacle
-Tid: modell och utvärdering 140 s
+Tid: modell och utvärdering 83 s
 Bolag med spelarodds: atg, betmgm, expekt, leovegas, paf, svenskaspel, unibet
 Spelarodds per marknad: assist 1631, goal 3850, shots 3604, shots_on_target 2796
 Kambi-marknader: assist='to give an assist (settled using opta data)':1631; goal='to score':1841; goal='to score at least 2 goals':1491; goal='to score at least 3 goals':399; goal='to score at least 4 goals':98; goal='to score at least 5 goals':21; shots="player's shots (settled using opta data)":3604; shots_on_target="player's shots on target (settled using opta data)":2796
