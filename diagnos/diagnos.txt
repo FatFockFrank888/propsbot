@@ -1,4 +1,4 @@
-Skanning 2026-11-03 14:59
+Skanning 2026-11-03 15:11
 Kambi unibet (ubse): OK, 15 matcher i valda ligor
 Kambi paf (paf): OK
 Kambi atg (atg): OK
@@ -22,6 +22,7 @@ Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
   Both Teams To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
   3-Way Handicap Shakhtar Donetsk +2 | units=Regular | kategori=Team Props | deltagare=Shakhtar Donetsk (+2),Draw - (Shakhtar Donetsk +2),Sporting CP (-2)  ->  används inte (lagmarknad)
   Draw No Bet | units=Regular | kategori=Team Props | deltagare=Shakhtar Donetsk,Sporting CP  ->  används inte (lagmarknad)
+  3-Way Handicap Shakhtar Donetsk -2 | units=Regular | kategori=Team Props | deltagare=Shakhtar Donetsk (-2),Draw - (Shakhtar Donetsk -2),Sporting CP (+2)  ->  används inte (lagmarknad)
   Shakhtar Donetsk To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
   Total Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
   3-Way Handicap Shakhtar Donetsk +1 | units=Regular | kategori=Team Props | deltagare=Shakhtar Donetsk (+1),Draw - (Shakhtar Donetsk +1),Sporting CP (-1)  ->  används inte (lagmarknad)
@@ -68,9 +69,8 @@ Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
   Correct Score 1st Half | units=Regular | kategori=Team Props | deltagare=Galatasaray 0, Stuttgart 0,Galatasaray 0, Stuttgart 1,Galatasaray 0, Stuttgart 2,Galatasaray 0, Stuttgart 3,Galatasaray 1, Stuttgart 0,Galatasaray 1, Stuttgart 1,Galatasaray 1, Stuttgart 2,Galatasaray 1, Stuttgart 3,Galatasaray 2, Stuttgart 0,Galatasaray 2, Stuttgart 1,Galatasaray 2, Stuttgart 2,Galatasaray 2, Stuttgart 3,Galatasaray 3, Stuttgart 0,Galatasaray 3, Stuttgart 1,Galatasaray 3, Stuttgart 2,Galatasaray 3, Stuttgart 3  ->  används inte (lagmarknad)
   Winning Margin 1st Half | units=Regular | kategori=Team Props | deltagare=Galatasaray By 1,Galatasaray By 2+,Stuttgart By 1,Stuttgart By 2+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
   Winning Margin | units=Regular | kategori=Team Props | deltagare=Galatasaray By 1,Galatasaray By 2,Galatasaray By 3,Galatasaray By 4+,Stuttgart By 1,Stuttgart By 2,Stuttgart By 3,Stuttgart By 4+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
-  3-Way Handicap Galatasaray -1 | units=Regular | kategori=Team Props | deltagare=Galatasaray (-1),Draw - (Galatasaray -1),Stuttgart (+1)  ->  används inte (lagmarknad)
-Fotboll extra bolag: 4 nya hämtningar, 360 odds i bruk, krediter kvar 457, dagsbudget 16 (andel 40%), förbrukat idag 6
-Tid: hämtning 73 s
+Fotboll extra bolag: 0 nya hämtningar, 360 odds i bruk, krediter kvar 457, dagsbudget 16 (andel 40%), förbrukat idag 6
+Tid: hämtning 68 s
 Marginal över alla matcher: uppmätt marginal: shots_on_target stege k=1.21 (52 spelare; marginal vid 3,00 ≈ 26%)
   Shakhtar Donetsk – Sporting Lisbon: modell uefa.champions, 18 spelare
   Galatasaray – VfB Stuttgart: modell uefa.champions, 18 spelare
@@ -92,7 +92,7 @@ Exempel uppmätt marginal: goal k=1.36, assist k=1.42
   Bodø/Glimt – Lille: väntade mål Pinnacle 3.47 mot Kambi 3.44 (kvot 1.007); uppmätt marginal: goal k=1.33, assist k=1.42
   FC Barcelona – Aston Villa: väntade mål Pinnacle 4.49 mot Kambi 4.42 (kvot 1.016); uppmätt marginal: goal k=1.34, assist k=1.44
   Villarreal – PSG: saknar matchlinjer från Pinnacle
-Tid: modell och utvärdering 107 s
+Tid: modell och utvärdering 141 s
 Bolag med spelarodds: atg, betmgm, expekt, leovegas, oa_fanduel, oa_onexbet, paf, svenskaspel, unibet
 Spelarodds per marknad: assist 1617, goal 3787, shots 3597, shots_on_target 3118
 Kambi-marknader: assist='to give an assist (settled using opta data)':1617; goal='to score':1820; goal='to score at least 2 goals':1456; goal='to score at least 3 goals':399; goal='to score at least 4 goals':98; goal='to score at least 5 goals':14; shots="player's shots (settled using opta data)":3597; shots_on_target="player's shots on target (settled using opta data)":2758
