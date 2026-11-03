@@ -175,7 +175,7 @@ def test_free_scan_end_to_end(tmp_path, monkeypatch):
     settings = tmp_path / "settings.json"
     settings.write_text(json.dumps({"live_enabled": True, "playable_books": [], "kambi_offerings": {"ubse": "unibet", "paf": "paf",
                                                         "nope": "finnsinte"},
-                                    "ntfy_topic": "propsbot-test"}), encoding="utf-8")
+                                    "ntfy_topic": "propsbot-test", "football_live": True}), encoding="utf-8")
     rows = scan_once(tmp_path, settings)
     playable = [r for r in rows if r.row.decision.playable and r.row.decision.show]
     assert len(playable) == 1

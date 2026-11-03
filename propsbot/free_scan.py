@@ -466,10 +466,11 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
             if ok:
                 tf.write_text(th, encoding="utf-8")
                 diag.log("Testnotis skickad till mobilen.")
-        n = notify_new(playable, settings, root)
+        # Fotbollen är inte live (bara datainsamling) tills den visar edge och CLV.
+        n = notify_new(playable, settings, root) if settings.get("football_live", False) else 0
         from .clv_signal import units
-        for x in (new_parlays if settings.get("live_enabled", True)
-                  and not settings.get("football_shadow", False) else []):
+        for x in (new_parlays if settings.get("live_enabled", True) and settings.get("parlays_notify", False)
+                  and settings.get("football_live", False) else []):
             legs = "\n".join(f"• {l['spelare']} {MARKET_LABEL.get(l['marknad'], l['marknad']).lower()} "
                              f"{'under' if l.get('sida') == 'under' else 'över'} {l['linje']:g} ({l['odds']:.2f}) – {l['match']}"
                              for l in x["ben"])
@@ -488,7 +489,7 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
     return rows
 
 
-def notify_new(playable: list[ScanRow], settings: dict, root: Path) -> int:
+def notify_new(playable: list[ScanRow], settings: dict, root: Path, live: bool = False) -> int:
     # Separat minne per kanal, så att byte av kanal inte tappar notiser.
     import hashlib
     th = hashlib.sha1(settings["ntfy_topic"].encode()).hexdigest()[:12]
@@ -502,7 +503,7 @@ def notify_new(playable: list[ScanRow], settings: dict, root: Path) -> int:
         if not seen.is_new(key, c.best.odds):
             continue
         nba = c.market in ("points", "rebounds", "assists", "threes", "steals", "blocks", "pra", "pr", "ra")
-        title = (f"{'NBA ' if nba else ''}SPELA: {c.player_name} "
+        title = (f"{'LIVE ' if live else ''}{'NBA ' if nba else ''}SPELA: {c.player_name} "
                  f"{MARKET_LABEL.get(c.market, c.market)} {'under' if c.best.side == 'under' else 'över'} {c.line}")
         from .clv_signal import units
         clv = getattr(r, "clv_pp", None)
@@ -510,7 +511,7 @@ def notify_new(playable: list[ScanRow], settings: dict, root: Path) -> int:
                f"{c.best.book}: {c.best.odds:.2f}  (spela från {d.play_from:.2f})\n"
                f"Sannolikhet {c.p:.1%}, edge {c.edge:.1%}"
                + (f", förväntad CLV {clv:+.1f}" if clv is not None else "")
-               + f"\nInsats: {units(d.stake)}/10 units"
+               + f"\nInsats: {units(getattr(r, 'live_stake', None) or d.stake)}/10 units"
                + ("\n(CLV-signal)" if any("CLV-signal" in x for x in d.reasons) else "")
                + ("\nSharp money med oss ⬆" if any(x.startswith("sharp money med") for x in d.reasons) else ""))
         if send(settings["ntfy_topic"], title, msg):

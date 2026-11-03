@@ -32,6 +32,7 @@ LEDGERS = [  # (fil, sport, typ)
     ("bokforing_modell_v3.json", "Fotboll", "Modelltest"), ("parlays_v2.json", "Fotboll", "Parlay"),
     ("nba_bokforing_v2.json", "NBA", "Spel"), ("nba_skugga_v2.json", "NBA", "Skugga"),
     ("nba_modelltest.json", "NBA", "Modelltest"), ("nba_parlays_v2.json", "NBA", "Parlay"),
+    ("nba_live.json", "NBA", "Live"),   # de riktiga spelen (från 3/11)
 ]
 
 HEAD = ["Bokförd", "Sport", "Typ", "Avspark", "Match", "Spelare", "Marknad", "Sida", "Linje", "Bolag",
@@ -164,7 +165,9 @@ def build(root: Path, path: Path) -> int:
         ws.column_dimensions["AA"].width = 12
 
     ws = wb.active
-    ws.title = "Alla spel"
+    ws.title = "LIVE"
+    kpi_box(ws, write_sheet(ws, [r for r in rows if r[2] == "Live"], "Live"))
+    ws = wb.create_sheet("Alla spel")
     last = write_sheet(ws, rows, "AllaSpel")
     kpi_box(ws, last)
     for title, tname, pick in (
@@ -345,7 +348,7 @@ def write_csv_exports(root: Path, out_dir: Path) -> int:
     import csv
     out_dir.mkdir(parents=True, exist_ok=True)
     rows = [_csv_row(r) for r in _rows(root)]
-    sets = {"alla_spel": rows,
+    sets = {"live": [r for r in rows if r[2] == "Live"], "alla_spel": rows,
             "nba": [r for r in rows if r[1] == "NBA" and r[2] != "Parlay"],
             "fotboll": [r for r in rows if r[1] == "Fotboll" and r[2] != "Parlay"],
             "parlays": [r for r in rows if r[2] == "Parlay"]}

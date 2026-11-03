@@ -467,8 +467,17 @@ def nba_scan(root: Path, settings_path: Path) -> dict:
     test = Ledger(root / "nba_modelltest.json")
     test.record(test_rows, evd_by_id)
     test.update_closing(test_rows, time.time())
+    # LIVE: hårt sållade spel som faktiskt spelas (bara dessa skickas som notis)
+    from .live import record_live, select_live
+    live = Ledger(root / "nba_live.json")
+    live_rows = select_live(rows, test_rows, settings, live) if settings.get("live_on", True) else []
+    new_live = record_live(live, live_rows, rows, evd_by_id)
+    diag.log(f"NBA LIVE: {len(live_rows)} spel uppfyller live-kraven, {len(new_live)} nya bokförda live")
+    for b in new_live:
+        diag.log(f"NBA LIVE SPEL: {b['match']} | {b['spelare']} {b['marknad']} {b['sida']} {b['linje']} | "
+                 f"{b['bolag']} {b['odds']:.2f} | edge {b['edge']:.1%} | {round(b['insats_pct'] / 0.002)}u")
     ec = JsonClient(root / ".cache_odds", ttl_s=900)
-    for lg in (ledger, shadow, test):
+    for lg in (ledger, shadow, test, live):
         try:
             for line in settle_nba(lg, ec):
                 diag.log(line)
@@ -477,6 +486,7 @@ def nba_scan(root: Path, settings_path: Path) -> dict:
         lg.save()
     diag.save()
     return {"rows": rows, "playable": playable, "ledger": ledger, "shadow": shadow, "test": test,
+            "live": live, "live_rows": live_rows,
             "evd": evd_by_id, "diag": diag, "new": new}
 
 

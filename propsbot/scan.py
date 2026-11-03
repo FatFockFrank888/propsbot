@@ -116,6 +116,19 @@ DEFAULT_SETTINGS = {
     "sharp_with_pp": 1.5,
     "football_shadow": False,
     "football_odds_window": [1.60, 2.50],
+    # LIVE (3/11): bara dessa spel skickas som notis och bokförs i nba_live.json.
+    # Övriga bokföringar fortsätter med 5 %-reglerna för att samla data.
+    "live_on": True,
+    "live_min_edge": {"points": 0.10, "threes": 0.06, "assists": 0.06, "rebounds": 0.06},
+    "live_model_min_edge": 0.03,
+    "live_min_groups": 2,
+    "live_odds_window": [1.60, 3.00],
+    "live_max_units": 5,          # 5u = 1 % av bankrullen per spel
+    "live_max_per_match": 2,
+    "live_max_per_day": 8,
+    "live_max_units_day": 25,     # högst 5 % av bankrullen i spel per matchdag
+    "football_live": False,       # fotbollen samlar bara data
+    "parlays_notify": False,      # parlays bokförs som test, ingen notis
     # Notiser till mobilen via ntfy (gratis app). Tomt = av.
     "ntfy_topic": "",
     "watch_interval_minutes": 10,

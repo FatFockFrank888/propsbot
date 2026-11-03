@@ -153,10 +153,12 @@ def run_nba(root: Path, settings_path: Path) -> None:
                 "parlay_sammanfattning": pl.summary()}, res["shadow"], sport="NBA")
     if settings.get("ntfy_topic"):
         nba_settings = dict(settings, ntfy_topic=settings["ntfy_topic"])
-        n = notify_new(res["playable"], nba_settings, root)
+        # Bara LIVE-spelen skickas som notis; övrigt bokförs som data.
+        n = notify_new(res.get("live_rows", []) if settings.get("live_on", True) else res["playable"],
+                       nba_settings, root, live=True)
         from .clv_signal import units
         from .notify import send
-        for x in (new_p if settings.get("live_enabled", True) else []):
+        for x in (new_p if settings.get("live_enabled", True) and settings.get("parlays_notify", False) else []):
             legs = "\n".join(f"• {l['spelare']} {l['marknad']} {'under' if l.get('sida') == 'under' else 'över'} {l['linje']:g} ({l['odds']:.2f})"
                              for l in x["ben"])
             send(settings["ntfy_topic"], f"NBA PARLAY {x['antal_ben']} ben @ {x['odds']:.2f} hos {x['bolag']}",
