@@ -189,11 +189,19 @@
         <option value="oddsband">oddsintervall</option><option value="pband">sannolikhetsintervall</option>
         <option value="edgeband">edgeintervall</option><option value="typ">typ</option><option value="sport">sport</option>
         <option value="clvsig">CLV-signal</option><option value="sida">över/under</option>
+        <option value="mksida">marknad × över/under</option>
         <option value="vecka">vecka</option></select>
       <a id="aXlsx" class="tab" style="color:var(--text);text-decoration:none" href="propsbot_bokforing.xlsx">⬇ Excel-bokföring</a>
       <button id="aCsv" class="tab" style="color:var(--text)">CSV av filtret</button>
     </div>
     <div class="tiles" id="aTiles"></div>
+    <h2>Över vs under</h2>
+    <div class="sub" style="margin-bottom:8px">Samma filter som ovan (utom över/under). Rättade spel, resultat i units och CLV per sida och marknad.</div>
+    <div class="wrap" style="max-height:none"><table>
+      <thead><tr><th rowspan="2">Marknad</th><th colspan="5" style="text-align:center">Över</th><th colspan="5" style="text-align:center">Under</th></tr>
+        <tr><th class="n">Rättade</th><th class="n">Träff</th><th class="n">Resultat</th><th class="n">ROI</th><th class="n">CLV</th>
+          <th class="n">Rättade</th><th class="n">Träff</th><th class="n">Resultat</th><th class="n">ROI</th><th class="n">CLV</th></tr></thead>
+      <tbody id="aSideRows"></tbody></table></div>
     <h2>Sammanställning</h2>
     <div class="wrap" style="max-height:none"><table>
       <thead><tr><th>Grupp</th><th class="n">Spel</th><th class="n">Rättade</th><th class="n">Träff</th>
@@ -401,6 +409,8 @@ async function loadAll() {
     el.innerHTML = `<option value="">${first}</option>` + [...new Set(vals)].sort().map(v => `<option>${esc(v)}</option>`).join("");
     el.value = cur; };
   fill("aMk", ALL.map(r => r.marknad), "Alla marknader");
+  if (!loadAll.done && DATA.sport === "NBA") document.getElementById("aSport").value = "NBA";
+  loadAll.done = true;
   fill("aBook", ALL.map(r => r.bolag), "Alla bolag");
   renderAnalys();
 }
@@ -433,7 +443,8 @@ function renderAnalys() {
     `<div class="tile"><div class="k">${k}</div><div class="v">${v}</div></div>`).join("");
   const g = document.getElementById("aGroup").value;
   const key = r => g === "oddsband" ? oddsBand(r.odds) : g === "pband" ? pBand(r.p) : g === "edgeband" ? eBand(r.edge)
-    : g === "clvsig" ? (r.clvsig ? "CLV-signal" : "Utan signal") : g === "vecka" ? week(r.bokford) : r[g];
+    : g === "clvsig" ? (r.clvsig ? "CLV-signal" : "Utan signal") : g === "vecka" ? week(r.bokford)
+    : g === "mksida" ? `${r.marknad} · ${r.sida || "–"}` : r[g];
   const groups = {};
   rows.forEach(r => (groups[key(r)] = groups[key(r)] || []).push(r));
   document.getElementById("aGroupRows").innerHTML = Object.entries(groups).sort((a, b) => b[1].length - a[1].length)
@@ -443,6 +454,7 @@ function renderAnalys() {
       <td class="n">${pct(x.roi)}</td><td class="n ${x.clv > 0 ? "pos" : x.clv < 0 ? "loss" : ""}">${sgn(x.clv, 2)}</td>
       <td class="n">${pct(x.beat)}</td><td class="n">${pct(x.edge)}</td></tr>`; }).join("")
     || `<tr><td colspan="10" class="empty">Inga spel matchar filtret.</td></tr>`;
+  renderSides();
   document.getElementById("aRows").innerHTML = rows.sort((a, b) => b.bokford - a.bokford).slice(0, 1000).map(r => `<tr>
     <td>${fmtTs(r.bokford)}</td><td>${r.sport}</td><td>${r.typ}</td><td>${fmtTs(r.avspark)}</td>
     <td style="white-space:normal;max-width:260px">${esc(r.match)}</td><td style="white-space:normal;max-width:300px">${esc(r.spelare)}</td>
@@ -452,6 +464,23 @@ function renderAnalys() {
     <td><span class="pill ${r.status}">${r.status}</span></td>
     <td class="n ${r.res > 0 ? "pos" : r.res < 0 ? "loss" : ""}">${sgn(r.res, 1)}u</td></tr>`).join("")
     || `<tr><td colspan="16" class="empty">Inga spel.</td></tr>`;
+}
+function renderSides() {
+  const sel = document.getElementById("aSida"), keep = sel.value;
+  sel.value = "";
+  const rows = filtered().filter(r => r.typ !== "Parlay");
+  sel.value = keep;
+  const by = {};
+  rows.forEach(r => { (by[r.marknad] = by[r.marknad] || {Över: [], Under: []})[r.sida === "Under" ? "Under" : "Över"].push(r); });
+  const tot = {Över: rows.filter(r => r.sida !== "Under"), Under: rows.filter(r => r.sida === "Under")};
+  const cells = rs => { const x = stats(rs); return `<td class="n">${x.done}</td><td class="n">${x.done ? pct(x.won / x.done) : "–"}</td>
+    <td class="n ${x.res > 0 ? "pos" : x.res < 0 ? "loss" : ""}">${x.done ? sgn(x.res, 1) + "u" : "–"}</td>
+    <td class="n">${pct(x.roi)}</td><td class="n ${x.clv > 0 ? "pos" : x.clv < 0 ? "loss" : ""}">${sgn(x.clv, 2)}</td>`; };
+  const list = Object.entries(by).sort((a, b) => (b[1].Över.length + b[1].Under.length) - (a[1].Över.length + a[1].Under.length));
+  document.getElementById("aSideRows").innerHTML = list.length
+    ? `<tr style="font-weight:700"><td>Totalt</td>${cells(tot.Över)}${cells(tot.Under)}</tr>` +
+      list.map(([mk, v]) => `<tr><td>${esc(mk)}</td>${cells(v.Över)}${cells(v.Under)}</tr>`).join("")
+    : `<tr><td colspan="11" class="empty">Inga spel matchar filtret.</td></tr>`;
 }
 function csv() {
   const rows = filtered();
