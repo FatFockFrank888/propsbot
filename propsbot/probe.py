@@ -66,18 +66,36 @@ def plain(url: str) -> str:
     return f"{st} {body[:100]!r}"
 
 
+def jsonish(url: str, keys=()) -> str:
+    st, body = _get(url, 3_000_000)
+    try:
+        d = json.loads(body)
+        info = ", ".join(f"{k}={len(d.get(k, []))}" for k in keys) if isinstance(d, dict) else f"lista {len(d)}"
+        return f"{st} JSON ok {info}"
+    except ValueError:
+        return f"{st} inte JSON: {body[:80]!r}"
+
+
 CHECKS = {
-    "kalshi": kalshi,
-    "polymarket": polymarket,
-    "novig_web": lambda: plain("https://novig.us/"),
-    "novig_api": lambda: plain("https://api.novig.us/"),
-    "prophetx_web": lambda: plain("https://www.prophetx.co/"),
-    "prophetx_api": lambda: plain("https://api.prophetx.co/"),
-    "rotowire_smart_money": lambda: plain("https://www.rotowire.com/betting/nba/smart-money.php"),
+    # Fotbollsstatistik (fouls per spelare): vilka svarar från GitHub?
+    "sofascore_events": lambda: jsonish("https://api.sofascore.com/api/v1/sport/football/scheduled-events/2026-11-01", ("events",)),
+    "sofascore_lineups": lambda: jsonish("https://api.sofascore.com/api/v1/event/12436870/lineups", ("home",)),
+    "fotmob_matches": lambda: jsonish("https://www.fotmob.com/api/matches?date=20261101", ("leagues",)),
+    "fbref_pl": lambda: plain("https://fbref.com/en/comps/9/misc/Premier-League-Stats"),
+    "understat": lambda: plain("https://understat.com/league/EPL"),
+    "espn_summary": lambda: jsonish("https://site.api.espn.com/apis/site/v2/sports/soccer/eng.1/summary?event=401878764", ("rosters",)),
 }
 
 
+def espn_fouls_fields() -> str:
+    _, body = _get("https://site.api.espn.com/apis/site/v2/sports/soccer/eng.1/summary?event=401878764")
+    d = json.loads(body)
+    r = d["rosters"][0]["roster"][0]
+    return ", ".join(sorted({s.get("name") or s.get("abbreviation") for s in r.get("stats", [])}))
+
+
 def main() -> None:
+    CHECKS["espn_stat_names"] = espn_fouls_fields
     out = []
     for name, fn in CHECKS.items():
         try:
