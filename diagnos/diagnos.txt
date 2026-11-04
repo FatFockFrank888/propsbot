@@ -1,4 +1,4 @@
-Skanning 2026-11-04 04:08
+Skanning 2026-11-04 05:10
 Kambi unibet (ubse): OK, 33 matcher i valda ligor
 Kambi paf (paf): OK
 Kambi atg (atg): OK
@@ -70,7 +70,7 @@ Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
   Real Madrid To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
   Odd/Even and Total Goals | units=Regular | kategori=Team Props | deltagare=Odd & Over 3.5,Odd & Under 3.5,Even & Over 3.5,Even & Under 3.5  ->  används inte (lagmarknad)
 Fotboll extra bolag: 0 nya hämtningar, 0 odds i bruk, krediter kvar 457, dagsbudget 16 (andel 40%), förbrukat idag 0
-Tid: hämtning 144 s
+Tid: hämtning 193 s
 Marginal över alla matcher: uppmätt marginal: shots stege k=1.04 (16 spelare; marginal vid 3,00 ≈ 4%), shots_on_target stege k=1.16 (97 spelare; marginal vid 3,00 ≈ 19%)
   Rennes – Olympiakos Piraeus: modell – hittar inte matchen hos ESPN
   AEK Athens – Real Madrid: modell uefa.champions, 14 spelare
@@ -87,35 +87,35 @@ Marginal över alla matcher: uppmätt marginal: shots stege k=1.04 (16 spelare; 
   Athletico Paranaense-PR – Vasco da Gama-RJ: modell bra.1, 26 spelare
   Botafogo-RJ – Atlético Mineiro-MG: modell – hittar inte matchen hos ESPN
   São Paulo-SP – Corinthians-SP: modell – hittar inte matchen hos ESPN
-Modellens nivåavvikelse mot marknaden (log-odds, dras bort): goal -0.38, shots -0.42, shots_on_target -0.25
-  Rennes – Olympiakos Piraeus: väntade mål Pinnacle 2.86 mot Kambi 2.75 (kvot 1.042); uppmätt marginal: goal k=1.41, assist k=1.54, shots_on_target stege k=1.18 (14 spelare; marginal vid 3,00 ≈ 22%)
+Modellens nivåavvikelse mot marknaden (log-odds, dras bort): goal -0.38, shots -0.40, shots_on_target -0.25
+  Rennes – Olympiakos Piraeus: väntade mål Pinnacle 2.87 mot Kambi 2.75 (kvot 1.045); uppmätt marginal: goal k=1.41, assist k=1.54, shots_on_target stege k=1.18 (14 spelare; marginal vid 3,00 ≈ 22%)
 Exempel uppmätt marginal: goal k=1.41, assist k=1.54, shots_on_target stege k=1.18 (14 spelare; marginal vid 3,00 ≈ 22%)
-  AEK Athens – Real Madrid: väntade mål Pinnacle 3.99 mot Kambi 3.95 (kvot 1.011); uppmätt marginal: goal k=1.45, assist k=1.43, shots_on_target stege k=1.14 (6 spelare; marginal vid 3,00 ≈ 17%)
-  Fenerbahçe – Liverpool: väntade mål Pinnacle 3.63 mot Kambi 3.60 (kvot 1.008); uppmätt marginal: goal k=1.56, assist k=1.60
-  Kortrijk – KV Mechelen: väntade mål Pinnacle 2.79 mot Kambi 2.79 (kvot 1.002); uppmätt marginal: goal k=1.48, assist k=1.37
-  Cardiff City – West Ham: väntade mål Pinnacle 3.62 mot Kambi 3.56 (kvot 1.016); uppmätt marginal: goal k=1.59, assist k=1.54
-  Wrexham – Middlesbrough: väntade mål Pinnacle 3.09 mot Kambi 3.04 (kvot 1.015); uppmätt marginal: goal k=1.61, assist k=1.55
+  AEK Athens – Real Madrid: väntade mål Pinnacle 4.00 mot Kambi 3.95 (kvot 1.013); uppmätt marginal: goal k=1.44, assist k=1.43, shots_on_target stege k=1.14 (6 spelare; marginal vid 3,00 ≈ 17%)
+  Fenerbahçe – Liverpool: väntade mål Pinnacle 3.59 mot Kambi 3.61 (kvot 0.993); uppmätt marginal: goal k=1.57, assist k=1.62
+  Kortrijk – KV Mechelen: väntade mål Pinnacle 2.71 mot Kambi 2.79 (kvot 0.973); uppmätt marginal: goal k=1.50, assist k=1.39
+  Cardiff City – West Ham: väntade mål Pinnacle 3.64 mot Kambi 3.56 (kvot 1.022); uppmätt marginal: goal k=1.59, assist k=1.54
+  Wrexham – Middlesbrough: väntade mål Pinnacle 3.10 mot Kambi 3.04 (kvot 1.018); uppmätt marginal: goal k=1.60, assist k=1.55
   Viking Stavanger – Sabah FK: saknar matchlinjer från Pinnacle
-  Slavia Prague – Arsenal: väntade mål Pinnacle 3.18 mot Kambi 3.24 (kvot 0.981); uppmätt marginal: goal k=1.50, assist k=1.65
+  Slavia Prague – Arsenal: väntade mål Pinnacle 3.04 mot Kambi 3.13 (kvot 0.972); uppmätt marginal: goal k=1.50, assist k=1.64
   RB Leipzig – Manchester City: väntade mål Pinnacle 3.85 mot Kambi 3.76 (kvot 1.023); uppmätt marginal: goal k=1.44, assist k=1.50, shots_on_target stege k=1.32 (13 spelare; marginal vid 3,00 ≈ 42%)
-  Lens – Como: väntade mål Pinnacle 3.20 mot Kambi 3.23 (kvot 0.990); uppmätt marginal: goal k=1.40, assist k=1.54, shots_on_target stege k=1.18 (6 spelare; marginal vid 3,00 ≈ 22%)
+  Lens – Como: väntade mål Pinnacle 3.20 mot Kambi 3.23 (kvot 0.992); uppmätt marginal: goal k=1.40, assist k=1.54, shots_on_target stege k=1.18 (6 spelare; marginal vid 3,00 ≈ 22%)
   PSV Eindhoven – Club Brugge: saknar matchlinjer från Pinnacle
-  FC Porto – Napoli: väntade mål Pinnacle 2.89 mot Kambi 2.89 (kvot 0.997); uppmätt marginal: goal k=1.41, assist k=1.49, shots_on_target stege k=1.20 (6 spelare; marginal vid 3,00 ≈ 25%)
+  FC Porto – Napoli: väntade mål Pinnacle 2.89 mot Kambi 2.89 (kvot 1.000); uppmätt marginal: goal k=1.41, assist k=1.49, shots_on_target stege k=1.20 (6 spelare; marginal vid 3,00 ≈ 25%)
   Borussia Dortmund – Real Betis: väntade mål Pinnacle 3.33 mot Kambi 3.30 (kvot 1.011); uppmätt marginal: goal k=1.33, assist k=1.43, shots_on_target stege k=1.34 (6 spelare; marginal vid 3,00 ≈ 45%)
   Bristol City – Wolves: saknar matchlinjer från Pinnacle
-  Flamengo-RJ – Grêmio-RS: väntade mål Pinnacle 3.72 mot Kambi 3.49 (kvot 1.063); uppmätt marginal: goal k=1.44, assist k=1.48, shots stege k=1.04 (7 spelare; marginal vid 3,00 ≈ 4%), shots_on_target stege k=1.06 (14 spelare; marginal vid 3,00 ≈ 7%)
-  Athletico Paranaense-PR – Vasco da Gama-RJ: väntade mål Pinnacle 2.79 mot Kambi 2.76 (kvot 1.010); uppmätt marginal: goal k=1.60, assist k=1.60
-  Botafogo-RJ – Atlético Mineiro-MG: väntade mål Pinnacle 2.92 mot Kambi 3.09 (kvot 0.946); uppmätt marginal: goal k=1.68, assist k=1.66, shots_on_target stege k=1.14 (7 spelare; marginal vid 3,00 ≈ 17%)
-  São Paulo-SP – Corinthians-SP: väntade mål Pinnacle 2.32 mot Kambi 2.17 (kvot 1.071); uppmätt marginal: goal k=1.45, assist k=1.41, shots stege k=1.04 (7 spelare; marginal vid 3,00 ≈ 4%), shots_on_target stege k=1.16 (7 spelare; marginal vid 3,00 ≈ 19%)
-Tid: modell och utvärdering 114 s
+  Flamengo-RJ – Grêmio-RS: väntade mål Pinnacle 3.66 mot Kambi 3.49 (kvot 1.048); uppmätt marginal: goal k=1.45, assist k=1.49, shots stege k=1.04 (7 spelare; marginal vid 3,00 ≈ 4%), shots_on_target stege k=1.06 (14 spelare; marginal vid 3,00 ≈ 7%)
+  Athletico Paranaense-PR – Vasco da Gama-RJ: väntade mål Pinnacle 2.78 mot Kambi 2.76 (kvot 1.006); uppmätt marginal: goal k=1.60, assist k=1.60
+  Botafogo-RJ – Atlético Mineiro-MG: väntade mål Pinnacle 2.89 mot Kambi 3.09 (kvot 0.937); uppmätt marginal: goal k=1.69, assist k=1.67, shots_on_target stege k=1.14 (7 spelare; marginal vid 3,00 ≈ 17%)
+  São Paulo-SP – Corinthians-SP: väntade mål Pinnacle 2.32 mot Kambi 2.17 (kvot 1.068); uppmätt marginal: goal k=1.45, assist k=1.41, shots stege k=1.04 (7 spelare; marginal vid 3,00 ≈ 4%), shots_on_target stege k=1.16 (7 spelare; marginal vid 3,00 ≈ 19%)
+Tid: modell och utvärdering 118 s
 Bolag med spelarodds: atg, betmgm, expekt, leovegas, paf, svenskaspel, unibet
-Spelarodds per marknad: assist 3206, goal 6868, shots 5826, shots_on_target 5303
-Kambi-marknader: assist='to give an assist (settled using opta data)':3206; goal='to score':3983; goal='to score at least 2 goals':2303; goal='to score at least 3 goals':484; goal='to score at least 4 goals':84; goal='to score at least 5 goals':14; shots="player's shots (settled using opta data)":5826; shots_on_target="player's shots on target (settled using opta data)":5303
+Spelarodds per marknad: assist 3192, goal 6882, shots 5793, shots_on_target 5310
+Kambi-marknader: assist='to give an assist (settled using opta data)':3192; goal='to score':3983; goal='to score at least 2 goals':2310; goal='to score at least 3 goals':491; goal='to score at least 4 goals':84; goal='to score at least 5 goals':14; shots="player's shots (settled using opta data)":5793; shots_on_target="player's shots on target (settled using opta data)":5310
 Pinnacle har inga spelarprops här – använder linjejustering mot Pinnacles matchlinjer.
 CLV-signal: 0 ben släppta (Pinnacle rör sig åt vårt håll)
 Spelregler: stoppade {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0} (modelltest {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0})
-Spelarmodell: 0 av 652 ben har modell, 0 nya matcher hämtade från ESPN
-Bästa edge marknad shots_on_target: +0.9%, +0.9%, +0.5% (av 519 ben)
+Spelarmodell: 0 av 653 ben har modell, 0 nya matcher hämtade från ESPN
+Bästa edge marknad shots_on_target: +0.9%, +0.5%, +0.2% (av 519 ben)
 Bästa edge modelltest shots_on_target: +0.5%, +0.5%, +0.3% (av 392 ben)
 0 spelbara ben.
 Bokförda nya spel: 0
