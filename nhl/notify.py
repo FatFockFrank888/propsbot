@@ -21,11 +21,17 @@ def send(topic: str, title: str, message: str, priority: int = 4, tags: str = "i
     ).encode("utf-8")
     req = urllib.request.Request(NTFY, data=body, method="POST", headers={"Content-Type": "application/json"})
     try:
-        with urllib.request.urlopen(req, timeout=15):
-            return True
+        with urllib.request.urlopen(req, timeout=15) as r:
+            raw = r.read()
     except Exception as exc:  # noqa: BLE001 - a failed notification must never stop scanning
         log.warning("Could not send notification: %s", exc)
         return False
+    try:
+        from propsbot.notify import log_receipt
+        log_receipt(raw, title)
+    except ImportError:  # the nhl package run on its own
+        pass
+    return True
 
 
 SIDE_SV = {"over": "över", "under": "under"}

@@ -26,11 +26,25 @@ def send(topic: str, title: str, message: str, priority: int = 4, tags: str = "s
     req = urllib.request.Request(NTFY, data=body, method="POST",
                                  headers={"Content-Type": "application/json"})
     try:
-        with urllib.request.urlopen(req, timeout=15):
-            return True
+        with urllib.request.urlopen(req, timeout=15) as r:
+            raw = r.read()
     except Exception as e:  # notiser får aldrig stoppa skanningen
         print(f"  (kunde inte skicka notis: {e})")
         return False
+    log_receipt(raw, title)
+    return True
+
+
+def log_receipt(raw: bytes, title: str) -> None:
+    """Skriver ntfy:s kvitto (meddelande-id + servertid) i loggen, så att en notis som inte
+    syns på telefonen kan spåras: samma id står i appens meddelandedetaljer."""
+    try:
+        from datetime import datetime, timezone
+        m = json.loads(raw.decode("utf-8"))
+        t = datetime.fromtimestamp(m["time"], timezone.utc).strftime("%H:%M:%S")
+        print(f"  ntfy-kvitto: id {m.get('id')} kl {t} UTC – {title}", flush=True)
+    except Exception:
+        print(f"  ntfy-kvitto: (oläsligt svar) – {title}", flush=True)
 
 
 class SeenStore:
