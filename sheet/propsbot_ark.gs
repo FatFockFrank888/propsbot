@@ -85,8 +85,17 @@ function getOrCreate_(ss, name) {
   return ss.getSheetByName(name) || ss.insertSheet(name);
 }
 
+function retry_(fn) {
+  for (let i = 0; i < 4; i++) {
+    try { return fn(); } catch (e) {
+      if (i === 3) throw e;
+      SpreadsheetApp.flush(); Utilities.sleep(3000 * (i + 1));
+    }
+  }
+}
+
 function reset_(sh) {
-  sh.clear();
+  retry_(() => sh.clear());
   sh.clearConditionalFormatRules();
   sh.getCharts().forEach(c => sh.removeChart(c));
   sh.setFrozenRows(0);
@@ -113,7 +122,7 @@ function buildOverview_(ss) {
   const sh = getOrCreate_(ss, "Översikt");
   reset_(sh);
   sh.getRange("A1").setValue("Propsbot – översikt").setFontSize(18).setFontWeight("bold");
-  sh.getRange("A2").setFormula('="Senast uppdaterad (UTC): "&IFERROR(INDEX(\'' + RAW.sammanfattning + '\'!L:L, 2), "–")')
+  sh.getRange("A2").setFormula('="Senast uppdaterad (UTC): "&IFERROR(TEXT(INDEX(\'' + RAW.sammanfattning + '\'!L:L, 2), "yyyy-mm-dd hh:mm"), "–")')
     .setFontColor("#6b7280");
   sh.getRange("A3").setValue("1u = 0,2 % av bankrullen. CLV i procentenheter (positivt = vi slog stängningsoddset). " +
     "Webbsida: https://fatfockfrank888.github.io/propsbot/").setFontColor("#6b7280");
@@ -143,6 +152,10 @@ function buildOverview_(ss) {
   sh.setFrozenRows(0);
   sh.setColumnWidths(1, 11, 105);
   sh.setColumnWidth(2, 110);
+  sh.getRange("A5:K200").setNumberFormat("General");
+  ["C", "D", "E", "K"].forEach(c => sh.getRange(c + "5:" + c + "200").setNumberFormat("0"));
+  ["F", "G", "H", "I"].forEach(c => sh.getRange(c + "5:" + c + "200").setNumberFormat("0.0"));
+  sh.getRange("J5:J200").setNumberFormat("0.00");
   addResultColors_(sh, "H6:H200");
   addResultColors_(sh, "J6:J200");
 }
