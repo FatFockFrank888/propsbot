@@ -23,7 +23,7 @@ Genereras från de värden boten använder (`python -m propsbot parametrar`).
 
 | Parameter | Värde | Förklaring |
 |---|---|---|
-| Status | bara datainsamling (inga notiser) | Slås på med football_live när fotbollen visat edge och CLV. |
+| Status | LIVE (notiser) | football_live i settings.json. Påslaget 2026-11-04 på användarens begäran. Spelen är regelspelen (alla gemensamma krav); risktak: högst 10u per spel och 5 % per match. |
 | Marknader som spelas | shots_on_target | Övriga marknader används bara för att mäta Kambis marginal. |
 | Edgekrav per marknad (före gemensamt krav) | shots 2 %, shots_on_target 2 %, goal 4 %, assist 4 % | Gemensamma kravet 5 % gäller ovanpå. |
 | Utan Pinnacle/tvåsidig källa | +3 % edge, minst 3 källor |  |

@@ -489,7 +489,7 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
                 tf.write_text(th, encoding="utf-8")
                 diag.log("Testnotis skickad till mobilen.")
         # Fotbollen är inte live (bara datainsamling) tills den visar edge och CLV.
-        n = notify_new(playable, settings, root) if settings.get("football_live", False) else 0
+        n = notify_new(playable, settings, root, live=True) if settings.get("football_live", False) else 0
         from .clv_signal import units
         for x in (new_parlays if settings.get("live_enabled", True) and settings.get("parlays_notify", False)
                   and settings.get("football_live", False) else []):
@@ -529,7 +529,7 @@ def notify_new(playable: list[ScanRow], settings: dict, root: Path, live: bool =
         # bättre odds eller annat bolag) och ingen annan marknad/linje/sida på samma spelare.
         if key in seen.seen or guard.already_sent(sport, c.match_id, c.player_name):
             continue
-        title = (f"{'LIVE ' if live else ''}{'NBA ' if nba else ''}SPELA: {c.player_name} "
+        title = (f"{'LIVE ' if live else ''}{'NBA ' if nba else 'FOTBOLL '}SPELA: {c.player_name} "
                  f"{MARKET_LABEL.get(c.market, c.market)} {'under' if c.best.side == 'under' else 'över'} {c.line}")
         from .clv_signal import units
         clv = getattr(r, "clv_pp", None)

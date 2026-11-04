@@ -16,8 +16,8 @@
 
 const BASE = "https://fatfockfrank888.github.io/propsbot/csv/";
 const SPORTS = [
-  {key: "fotboll", name: "Fotboll", tab: "⚽ Fotboll", color: "#d1fae5", main: "Spel",
-   note: "Fotbollen samlar bara data (inga notiser) – huvudraden är regelspelen."},
+  {key: "fotboll", name: "Fotboll", tab: "⚽ Fotboll", color: "#d1fae5", main: "Live",
+   note: "LIVE = spelade spel (notis). Skott på mål."},
   {key: "nba", name: "NBA", tab: "🏀 NBA", color: "#fef3c7", main: "Live", note: "LIVE = spelade spel (notis)."},
   {key: "nhl", name: "NHL", tab: "🏒 NHL", color: "#dbeafe", main: "Live", note: "LIVE = spelade spel (notis). Skott på mål."},
 ];
@@ -128,7 +128,7 @@ function buildOverview_(ss) {
     "Webbsida: https://fatfockfrank888.github.io/propsbot/").setFontColor("#6b7280");
   let row = 5;
   const cols = ["Sport", "Typ", "Spel", "Avgjorda", "Vunna", "Träff %", "Insats (u)", "Resultat (u)", "ROI %", "Snitt-CLV %", "Öppna"];
-  row = section_(sh, row, "Huvudsiffror per sport", "LIVE-spelen för NBA och NHL, regelspelen för fotbollen (samlar data).");
+  row = section_(sh, row, "Huvudsiffror per sport", "LIVE-spelen (de som skickas som notis) för varje sport.");
   sh.getRange(row, 1, 1, cols.length).setValues([cols]);
   headerRow_(sh, row, cols.length);
   SPORTS.forEach((s, i) => {

@@ -61,7 +61,14 @@ def _dt(ts):
 
 def _rows(root: Path) -> list[list]:
     out = []
+    try:   # Fotboll LIVE: regelspelen (bokforing_v3) är de spelade spelen
+        from .scan import load_settings
+        football_live = bool(load_settings(Path(__file__).resolve().parent.parent / "settings.json").get("football_live"))
+    except Exception:
+        football_live = False
     for fname, sport, typ in LEDGERS:
+        if fname == "bokforing_v3.json" and football_live:
+            typ = "Live"
         f = root / fname
         if not f.exists():
             continue

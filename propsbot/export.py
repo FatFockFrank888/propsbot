@@ -73,7 +73,8 @@ def write_site(site: Path, rows: list[ScanRow], ledger: Ledger, settings: dict,
         "regler": {"min_odds": 1.40, "max_odds": 6.0, "kelly": 0.25, "unit": 0.002},
         "radar": radar_rows(rows, settings, live_keys=live_keys),
         # Med live: fliken Bokföring = de riktiga (live) spelen; övriga spel är data (spel_data).
-        "live": live_ledger is not None,
+        # Fotboll LIVE (football_live): regelspelen är de spelade spelen (notis) och visas som Live.
+        "live": live_ledger is not None or (sport == "Fotboll" and bool(settings.get("football_live"))),
         "bokforing": sorted((live_ledger or ledger).bets, key=lambda b: -b["bokford"]),
         "sammanfattning": (live_ledger or ledger).summary(),
         "spel_data": sorted(ledger.bets, key=lambda b: -b["bokford"]) if live_ledger is not None else [],

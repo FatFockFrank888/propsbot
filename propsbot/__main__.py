@@ -200,7 +200,7 @@ def push_overview(settings: dict) -> str:
         "NBA: LIVE-spel (" + ", ".join(f"{k} ≥{v:.0%}" for k, v in th.items()) + ")"
         if settings.get("live_on", True) and settings.get("nba_enabled", True) else "NBA: av",
         f"NHL: LIVE-spel skott på mål (≥{n.live_min_edge:.0%})" if n.live_on else "NHL: av",
-        "Fotboll: LIVE-spel" if settings.get("football_live") else "Fotboll: bara data (ingen notis)",
+        f"Fotboll: LIVE-spel {', '.join(settings.get('football_markets', ['shots_on_target']))} (≥{settings.get('min_edge_all', 0.05):.0%})" if settings.get("football_live") else "Fotboll: bara data (ingen notis)",
         "Test (fouls, kort, NHL-poäng/assist/mål), skuggspel, modelltest, parlays: bara data",
         "Ett spel per spelare och match – aldrig två notiser på samma spelare.",
     ]
@@ -217,11 +217,12 @@ def _announce_merge(root: Path, settings_path: Path) -> None:
     if not topic:
         return
     f = root / "notis_sammanslagen.txt"
-    th = hashlib.sha1(topic.encode()).hexdigest()[:12]
+    overview = push_overview(s)
+    th = hashlib.sha1((topic + overview).encode()).hexdigest()[:12]   # ny notis när reglerna ändras
     if f.exists() and f.read_text(encoding="utf-8").strip() == th:
         return
-    if send(topic, "Propsbot: fotboll, NBA och NHL i en bot",
-            "Notiserna fungerar från den sammanslagna boten.\n" + push_overview(s), priority=3, tags="white_check_mark"):
+    if send(topic, "Propsbot: så här skickas notiser",
+            "Fotboll, NBA och NHL i en bot.\n" + overview, priority=3, tags="white_check_mark"):
         f.write_text(th, encoding="utf-8")
         print("Testnotis (sammanslagen bot) skickad.")
 
