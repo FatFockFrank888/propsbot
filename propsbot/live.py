@@ -3,9 +3,11 @@
 Allt annat bokförs som förut (Spel/Skugga/Modelltest) för att samla data – men bara
 LIVE-spelen skickas som notis. Kraven bygger på 509 unika avgjorda NBA-spel (3/11):
 
-  * edgekrav per marknad (live_min_edge): poäng 10 %, trepoängare/assist/returer 6 %.
+  * edge 5–15 % på poäng, returer, assist och trepoängare (live_min_edge / live_max_edge).
     Marknader som saknas i listan (steals, blocks, PRA …) spelas inte live – för lite data.
-  * modellen måste hålla med: modelltestets edge på samma linje ≥ live_model_min_edge (3 %)
+    Ändrat 4/11 efter ~400 avgjorda spel: edge över 15 % slog inte stängningen, och poängkravet
+    10 % gav inte bättre CLV än 5 % när modellen höll med.
+  * modellen måste hålla med: modelltestets edge på samma linje ≥ live_model_min_edge (5 %)
   * minst två oberoende jämförelsekällor (Pinnacle, Kalshi, DK/FD …)
   * odds live_odds_window (1,60–3,00)
   * alla vanliga spärrar (oddsfall, sharp money mot oss, ett spel per spelare) gäller redan
@@ -33,7 +35,8 @@ def _key(c) -> tuple:
 def select_live(rows, model_rows, settings: dict, live_ledger) -> list:
     th = settings.get("live_min_edge", {"points": 0.10, "threes": 0.06, "assists": 0.06, "rebounds": 0.06})
     lo, hi = settings.get("live_odds_window", [1.60, 3.00])
-    m_min = settings.get("live_model_min_edge", 0.03)
+    m_min = settings.get("live_model_min_edge", 0.05)
+    max_edge = settings.get("live_max_edge", 0.15)
     min_groups = settings.get("live_min_groups", 2)
     max_u = settings.get("live_max_units", 5)
     per_match = settings.get("live_max_per_match", 2)
@@ -52,7 +55,7 @@ def select_live(rows, model_rows, settings: dict, live_ledger) -> list:
         if not (d.playable and d.show):
             continue
         need = th.get(c.market)
-        if need is None or c.edge < need or not (lo <= c.best.odds <= hi):
+        if need is None or c.edge < need or c.edge > max_edge or not (lo <= c.best.odds <= hi):
             continue
         if (r.n_groups or 0) < min_groups:
             continue

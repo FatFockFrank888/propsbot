@@ -383,6 +383,13 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
     nr = final_rules(rows, settings, hist, "fotboll", taken)
     nt = final_rules(shadow_rows, settings, None, "", taken_players(_L(root / "bokforing_modell_v4.json")))
     diag.log(f"Spelregler: stoppade {nr} (modelltest {nt})")
+    # Fotboll LIVE saknar historik: insatsen kapas (football_live_max_units) tills CLV har visats.
+    from .clv_signal import units as _units
+    cap_u = settings.get("football_live_max_units", 2)
+    for r in rows:
+        d = r.row.decision
+        if d.playable and _units(d.stake) > cap_u:
+            d.stake = cap_u * 0.002
     playable = [r for r in rows if r.row.decision.playable and r.row.decision.show]
     if pm:
         n_mod = sum(1 for r in rows if r.row.p_model == r.row.p_model)  # inte NaN

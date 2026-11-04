@@ -234,6 +234,9 @@ def _apply_rules(leg: Leg, hist, s: BotSettings, now: float) -> None:
         lb.append("live off")
     if leg.edge is not None and leg.edge < s.live_min_edge:
         lb.append(f"edge {leg.edge:.1%} < live {s.live_min_edge:.0%}")
+    if leg.edge is not None and leg.edge > s.live_max_edge:
+        # NBA data (4/11): edges above ~15% did not beat the close – usually a model/line error.
+        lb.append(f"edge {leg.edge:.1%} > live max {s.live_max_edge:.0%}")
     if not leg.model_ok:
         lb.append(f"model: {leg.projection.estimate.games_used} games (< {s.model_min_games})")
     elif leg.model_edge < s.live_model_min_edge:

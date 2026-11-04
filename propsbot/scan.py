@@ -114,8 +114,12 @@ DEFAULT_SETTINGS = {
     # LIVE (3/11): bara dessa spel skickas som notis och bokförs i nba_live.json.
     # Övriga bokföringar fortsätter med 5 %-reglerna för att samla data.
     "live_on": True,
-    "live_min_edge": {"points": 0.10, "threes": 0.06, "assists": 0.06, "rebounds": 0.06},
-    "live_model_min_edge": 0.03,
+    # 4/11 (ca 400 avgjorda NBA-spel): modellens stöd är det som skiljer – edge 5–15 % + modell ≥ 5 %
+    # gav ROI +20 % och CLV +2,7 pe; edge över 15 % slog inte stängningen.
+    "live_min_edge": {"points": 0.05, "threes": 0.05, "assists": 0.05, "rebounds": 0.05},
+    "live_model_min_edge": 0.05,
+    "live_max_edge": 0.15,
+    "football_live_max_units": 2,   # fotboll LIVE utan historik: högst 2u per spel tills CLV visats
     "live_min_groups": 2,
     "live_odds_window": [1.60, 3.00],
     "live_max_units": 5,          # 5u = 1 % av bankrullen per spel

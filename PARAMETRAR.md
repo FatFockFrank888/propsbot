@@ -24,6 +24,7 @@ Genereras från de värden boten använder (`python -m propsbot parametrar`).
 | Parameter | Värde | Förklaring |
 |---|---|---|
 | Status | LIVE (notiser) | football_live i settings.json. Påslaget 2026-11-04 på användarens begäran. Spelen är regelspelen (alla gemensamma krav); risktak: högst 10u per spel och 5 % per match. |
+| LIVE: högsta insats | 2u per spel | Fotbollen saknar historik med edge och CLV. Höjs när ca 50 avgjorda spel visar positiv CLV. |
 | Marknader som spelas | shots_on_target | Övriga marknader används bara för att mäta Kambis marginal. |
 | Edgekrav per marknad (före gemensamt krav) | shots 2 %, shots_on_target 2 %, goal 4 %, assist 4 % | Gemensamma kravet 5 % gäller ovanpå. |
 | Utan Pinnacle/tvåsidig källa | +3 % edge, minst 3 källor |  |
@@ -43,8 +44,9 @@ Genereras från de värden boten använder (`python -m propsbot parametrar`).
 | Parameter | Värde | Förklaring |
 |---|---|---|
 | Status | LIVE (notiser) |  |
-| LIVE: edgekrav per marknad | points 10 %, threes 6 %, assists 6 %, rebounds 6 % | Marknader som saknas här (steals, blocks, PRA …) spelas inte live. |
-| LIVE: modellen måste hålla med | modellens edge ≥ 3 % |  |
+| LIVE: edgekrav per marknad | points 5 %, threes 5 %, assists 5 %, rebounds 5 % | Marknader som saknas här (steals, blocks, PRA …) spelas inte live. |
+| LIVE: högsta edge | 15 % | Större edge slog inte stängningen i datan (oftast fel i linje/modell). |
+| LIVE: modellen måste hålla med | modellens edge ≥ 5 % | Det starkaste filtret i datan: med modellens stöd ROI +20 %, CLV +2,7 pe (34 spel, 4/11). |
 | LIVE: jämförelsekällor | minst 2 | Pinnacle, Kalshi, DraftKings/FanDuel … |
 | LIVE: oddsram | 1,60–3,00 |  |
 | LIVE: risk | max 5u/spel, 2/match, 8 spel och 25u per matchdag |  |
@@ -57,8 +59,9 @@ Genereras från de värden boten använder (`python -m propsbot parametrar`).
 | Parameter | Värde | Förklaring |
 |---|---|---|
 | Status | LIVE (notiser) | Skott på mål (SOG) hos Kambi-bolagen. |
-| LIVE: edge | 6 % |  |
-| LIVE: modellen måste hålla med | modellens edge ≥ 3 % |  |
+| LIVE: edge | 5 % |  |
+| LIVE: högsta edge | 15 % | Samma tak som NBA. |
+| LIVE: modellen måste hålla med | modellens edge ≥ 5 % | Samma krav som NBA (4/11). |
 | LIVE: jämförelsekällor | minst 2 | Bovada, Pinnacle (vikt ×2), US-bolag via The Odds API. |
 | LIVE: oddsram | 1,60–3,00 |  |
 | LIVE: risk | max 5u/spel, 2/match, 8 spel och 25u per matchdag, högst 5 % per match |  |

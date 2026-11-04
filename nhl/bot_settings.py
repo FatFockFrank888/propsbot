@@ -19,8 +19,9 @@ SETTINGS_PATH = PROJECT_ROOT / "settings.json"
 class BotSettings:
     # ---- LIVE bets (the only ones that send notifications) ------------------
     live_on: bool = True
-    live_min_edge: float = 0.06
-    live_model_min_edge: float = 0.03
+    live_min_edge: float = 0.05
+    live_max_edge: float = 0.15
+    live_model_min_edge: float = 0.05
     live_min_groups: int = 2
     live_odds_min: float = 1.60
     live_odds_max: float = 3.00

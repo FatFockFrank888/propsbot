@@ -49,6 +49,8 @@ def all_params(settings_path: Path) -> dict:
         ("Status", "LIVE (notiser)" if s.get("football_live") else "bara datainsamling (inga notiser)",
          "football_live i settings.json. Påslaget 2026-11-04 på användarens begäran. Spelen är regelspelen "
          "(alla gemensamma krav); risktak: högst 10u per spel och 5 % per match."),
+        ("LIVE: högsta insats", f"{s.get('football_live_max_units', 2)}u per spel",
+         "Fotbollen saknar historik med edge och CLV. Höjs när ca 50 avgjorda spel visar positiv CLV."),
         ("Marknader som spelas", ", ".join(s.get("football_markets", ["shots_on_target"])),
          "Övriga marknader används bara för att mäta Kambis marginal."),
         ("Edgekrav per marknad (före gemensamt krav)", ", ".join(f"{k} {_pct(v)}" for k, v in dc.min_edge_by_market.items()),
@@ -74,7 +76,9 @@ def all_params(settings_path: Path) -> dict:
         ("Status", "LIVE (notiser)" if s.get("live_on", True) and s.get("nba_enabled", True) else "av", ""),
         ("LIVE: edgekrav per marknad", ", ".join(f"{k} {_pct(v)}" for k, v in live_th.items()),
          "Marknader som saknas här (steals, blocks, PRA …) spelas inte live."),
-        ("LIVE: modellen måste hålla med", f"modellens edge ≥ {_pct(s.get('live_model_min_edge', 0.03))}", ""),
+        ("LIVE: högsta edge", _pct(s.get("live_max_edge", 0.15)), "Större edge slog inte stängningen i datan (oftast fel i linje/modell)."),
+        ("LIVE: modellen måste hålla med", f"modellens edge ≥ {_pct(s.get('live_model_min_edge', 0.05))}",
+         "Det starkaste filtret i datan: med modellens stöd ROI +20 %, CLV +2,7 pe (34 spel, 4/11)."),
         ("LIVE: jämförelsekällor", f"minst {s.get('live_min_groups', 2)}", "Pinnacle, Kalshi, DraftKings/FanDuel …"),
         ("LIVE: oddsram", _odds(llo, lhi), ""),
         ("LIVE: risk", f"max {_u(s.get('live_max_units', 5))}/spel, {s.get('live_max_per_match', 2)}/match, "
@@ -90,7 +94,8 @@ def all_params(settings_path: Path) -> dict:
         nhl = [
             ("Status", "LIVE (notiser)" if n.live_on else "av", "Skott på mål (SOG) hos Kambi-bolagen."),
             ("LIVE: edge", _pct(n.live_min_edge), ""),
-            ("LIVE: modellen måste hålla med", f"modellens edge ≥ {_pct(n.live_model_min_edge)}", ""),
+            ("LIVE: högsta edge", _pct(n.live_max_edge), "Samma tak som NBA."),
+            ("LIVE: modellen måste hålla med", f"modellens edge ≥ {_pct(n.live_model_min_edge)}", "Samma krav som NBA (4/11)."),
             ("LIVE: jämförelsekällor", f"minst {n.live_min_groups}", "Bovada, Pinnacle (vikt ×2), US-bolag via The Odds API."),
             ("LIVE: oddsram", _odds(n.live_odds_min, n.live_odds_max), ""),
             ("LIVE: risk", f"max {_u(n.live_max_units)}/spel, {n.live_max_per_match}/match, {n.live_max_per_day} spel och "
