@@ -1,0 +1,123 @@
+"""Alla parametrar per sport, med förklaring – läses från de värden boten faktiskt använder.
+
+Används av webbsidans flik Parametrar (site/parametrar.json) och av `python -m propsbot parametrar`.
+"""
+from __future__ import annotations
+
+from pathlib import Path
+
+
+def _pct(x, d=0) -> str:
+    return "–" if x is None else f"{x * 100:.{d}f} %".replace(".", ",")
+
+
+def _odds(lo, hi) -> str:
+    return f"{lo:.2f}–{hi:.2f}".replace(".", ",")
+
+
+def _u(x) -> str:
+    return f"{x}u"
+
+
+def all_params(settings_path: Path) -> dict:
+    from .config import DecisionConfig
+    from .scan import load_settings
+    s = load_settings(settings_path)
+    dc = DecisionConfig()
+    lo, hi = s.get("odds_window_all", [1.60, 6.0])
+    live_th = s.get("live_min_edge", {})
+    llo, lhi = s.get("live_odds_window", [1.60, 3.00])
+
+    shared = [
+        ("Spelbara bolag", ", ".join(s["playable_books"]), "Bara Kambi-bolag. Paf och LeoVegas läses bara för att mäta marginalen."),
+        ("Minsta edge (alla spel)", _pct(s.get("min_edge_all", 0.05)), "edge = sannolikhet × odds − 1. Gäller alla marknader och sporter."),
+        ("Oddsram", _odds(lo, hi), "Inga spel utanför."),
+        ("Max oddsfall", _pct(s.get("max_odds_drop", 0.03)), "Inget spel om bästa oddset fallit mer än så från det högsta vi sett (för sent)."),
+        ("Sharp money mot oss", f"{s.get('sharp_against_pp', 2.0):g} procentenheter",
+         "Inget spel om den skarpa referensen (Pinnacle/konsensus) rört sig så mycket mot oss efter 30 min."),
+        ("Sharp money med oss", f"{s.get('sharp_with_pp', 1.5):g} procentenheter", "Markeras i notisen (⬆)."),
+        ("Orimlig edge", _pct(s.get("max_plausible_edge", 0.25)), "Större edge = nästan alltid fel linje, olika regler eller spelaren spelar inte. Inte spelbart."),
+        ("Ett spel per spelare och match", "ja, över allt",
+         "Över alla marknader, linjer, sidor (över/under), bolag och körningar. Störst edge vinner; det som redan skickats står kvar."),
+        ("Över eller under", "den sida som har EV+",
+         "Båda sidor prövas på samma krav. Under kräver en tvåsidig eller skarp referens (annars är marginalen på undersidan okänd)."),
+        ("Notiser", "bara LIVE-spel", "En notis per spel, aldrig två på samma spelare i samma match. Misslyckad notis skickas igen nästa körning (före start)."),
+        ("Unit", "1u = 0,2 % av bankrullen", "Insats 1–10u efter ¼ Kelly (taket 10u = 2 %)."),
+        ("Skuggspel", "≥ 2 % edge, stoppat av en regel", "Bokförs och rättas för att se om reglerna kostar eller sparar pengar. Ingen notis."),
+    ]
+    football = [
+        ("Status", "LIVE (notiser)" if s.get("football_live") else "bara datainsamling (inga notiser)",
+         "Slås på med football_live när fotbollen visat edge och CLV."),
+        ("Marknader som spelas", ", ".join(s.get("football_markets", ["shots_on_target"])),
+         "Övriga marknader används bara för att mäta Kambis marginal."),
+        ("Edgekrav per marknad (före gemensamt krav)", ", ".join(f"{k} {_pct(v)}" for k, v in dc.min_edge_by_market.items()),
+         "Gemensamma kravet 5 % gäller ovanpå."),
+        ("Utan Pinnacle/tvåsidig källa", f"+{_pct(s.get('extra_edge_without_sharp', 0.03))} edge, minst {s.get('min_groups_without_sharp', 3)} källor", ""),
+        ("Försiktig skottmarginal", f"k ≥ {s.get('min_power_k_shots', 1.2):g}", "Edgen måste hålla även med en försiktig marginal, annars skuggspel."),
+        ("Kambi mot Pinnacle (målförväntan)", f"max {_pct(s.get('max_line_ratio_dev', 0.10))} skillnad", "Annars hoppas matchen över (olika regler, gamla linjer)."),
+        ("Spelarmodell", f"{s.get('model_mode', 'test')}, vikt {s.get('model_weight', 0.1):g}",
+         "ESPN-statistik. I läget test bokförs modellens spel separat (Modelltest)."),
+        ("CLV-signal", f"edge ≥ {_pct(s.get('clv_min_edge', 0.01))}, förväntad CLV ≥ {s.get('clv_min_expected_pp', 2.0):g}, Pinnacle ≥ +{s.get('clv_min_momentum_pp', 1.5):g}",
+         "Släpper igenom ben som bara stoppades av edgekravet när Pinnacle rör sig åt vårt håll."),
+        ("Max odds-ålder", f"{dc.max_odds_age_s:.0f} s", ""),
+        ("Max avvikelse från konsensus", _pct(dc.max_dev_from_consensus), ""),
+        ("Ligor", f"{len(s.get('league_words', []))} st", ", ".join(s.get("league_words", []))),
+        ("Fouls (test)", f"på, minst {_pct(s.get('fouls_min_edge', 0.05))} edge" if s.get("fouls_enabled", True) else "av",
+         "Egen modell (ESPN), domarfaktor ±15 %. Bara datainsamling."),
+        ("Kort (test)", "på, datainsamling" if s.get("cards_enabled", True) else "av",
+         "\"To Get a Card\" hos Kambi. Egen modell: spelarens kort per match (ESPN) × domarens stränghet. Bara datainsamling."),
+        ("Parlays", f"{'på' if s.get('parlays_enabled') else 'av'}, max {s.get('parlay_max_legs', 3)} ben, minst {_pct(s.get('parlay_min_leg_edge', 0.05))} edge per ben",
+         "Notiser för parlays: " + ("på" if s.get("parlays_notify") else "av") + "."),
+    ]
+    nba = [
+        ("Status", "LIVE (notiser)" if s.get("live_on", True) and s.get("nba_enabled", True) else "av", ""),
+        ("LIVE: edgekrav per marknad", ", ".join(f"{k} {_pct(v)}" for k, v in live_th.items()),
+         "Marknader som saknas här (steals, blocks, PRA …) spelas inte live."),
+        ("LIVE: modellen måste hålla med", f"modellens edge ≥ {_pct(s.get('live_model_min_edge', 0.03))}", ""),
+        ("LIVE: jämförelsekällor", f"minst {s.get('live_min_groups', 2)}", "Pinnacle, Kalshi, DraftKings/FanDuel …"),
+        ("LIVE: oddsram", _odds(llo, lhi), ""),
+        ("LIVE: risk", f"max {_u(s.get('live_max_units', 5))}/spel, {s.get('live_max_per_match', 2)}/match, "
+                       f"{s.get('live_max_per_day', 8)} spel och {_u(s.get('live_max_units_day', 25))} per matchdag", ""),
+        ("Modellvikt", f"{s.get('nba_model_weight', 0.3):g}", "Blandas med marknaden i log-odds."),
+        ("Matcher", f"inom {s.get('nba_hours_ahead', 30)} h, max {s.get('nba_max_events', 15)}", ""),
+        ("US-bolag via The Odds API", f"{s.get('nba_us_fetch_window', [40, 240])[0]}–{s.get('nba_us_fetch_window', [40, 240])[1]} min före start",
+         f"Andel av krediterna: {_pct(s.get('oddsapi_share_nba', 0.6))}."),
+    ]
+    try:
+        from nhl.bot_settings import BotSettings
+        n = BotSettings.load(settings_path)
+        nhl = [
+            ("Status", "LIVE (notiser)" if n.live_on else "av", "Skott på mål (SOG) hos Kambi-bolagen."),
+            ("LIVE: edge", _pct(n.live_min_edge), ""),
+            ("LIVE: modellen måste hålla med", f"modellens edge ≥ {_pct(n.live_model_min_edge)}", ""),
+            ("LIVE: jämförelsekällor", f"minst {n.live_min_groups}", "Bovada, Pinnacle (vikt ×2), US-bolag via The Odds API."),
+            ("LIVE: oddsram", _odds(n.live_odds_min, n.live_odds_max), ""),
+            ("LIVE: risk", f"max {_u(n.live_max_units)}/spel, {n.live_max_per_match}/match, {n.live_max_per_day} spel och "
+                           f"{_u(n.live_max_units_day)} per matchdag, högst {_pct(n.max_stake_per_match_pct)} per match", ""),
+            ("LIVE: spelaren i senaste uppställningen", "ja" if n.live_require_active else "nej", ""),
+            ("Gemensamt edgekrav", _pct(n.min_edge_all), f"+{_pct(n.extra_edge_without_sharp)} utan skarp/tvåsidig källa."),
+            ("Oddsram", _odds(n.odds_min_all, n.odds_max_all), ""),
+            ("Max oddsfall / sharp mot / med", f"{_pct(n.max_odds_drop)} / {n.sharp_against_pp:g} / {n.sharp_with_pp:g} pe (efter {n.sharp_min_age_min:g} min)", ""),
+            ("Orimlig edge / konsensusavvikelse", f"{_pct(n.max_plausible_edge)} / {_pct(n.max_dev_from_consensus)}", ""),
+            ("Ensidig marginal (antagen)", _pct(n.one_sided_margin), "För ensidiga priser (t.ex. Bovadas \"N+ skott\"-stege)."),
+            ("Modellvikt", f"{n.model_weight:g} (minst {n.model_min_games} matcher)", "NHL-statistik: skott per 60 × istid, motstånd, hemmaplan."),
+            ("Pinnacle", "på" if n.use_pinnacle else "av", f"liga {n.pinnacle_league_id}"),
+            ("US-bolag via The Odds API", f"{n.us_fetch_window_min[0]:g}–{n.us_fetch_window_min[1]:g} min före start",
+             f"Andel av krediterna: {_pct(n.odds_api_share)}."),
+            ("Bankrulle", f"{n.bankroll:,.0f} {n.currency}".replace(",", " "), f"1u = {n.unit_value():.0f} {n.currency}."),
+            ("Test-marknader (data)", "poäng, assist, mål", "Kambis NHL-poäng/assist/mål bokförs mot en egen modell. Inga notiser."),
+        ]
+    except Exception as e:  # noqa: BLE001
+        nhl = [("Fel", f"{type(e).__name__}: {e}", "")]
+    sec = lambda rows: [{"namn": a, "varde": b, "forklaring": c} for a, b, c in rows]
+    return {"Gemensamt": sec(shared), "Fotboll": sec(football), "NBA": sec(nba), "NHL": sec(nhl)}
+
+
+def as_markdown(settings_path: Path) -> str:
+    out = ["# Propsbot – alla parametrar", "",
+           "Genereras från de värden boten använder (`python -m propsbot parametrar`).", ""]
+    for sport, rows in all_params(settings_path).items():
+        out += [f"## {sport}", "", "| Parameter | Värde | Förklaring |", "|---|---|---|"]
+        out += [f"| {r['namn']} | {r['varde']} | {r['forklaring'].replace('|', '/')} |" for r in rows]
+        out.append("")
+    return "\n".join(out)

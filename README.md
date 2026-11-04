@@ -1,4 +1,27 @@
-# propsbot – player props för fotboll
+# propsbot – en bot för fotboll, NBA och NHL
+
+**En körning, tre sporter.** `python -m propsbot skanna` kör fotboll (skott på mål, fouls, kort),
+NBA (poäng, returer, assist, trepoängare …) och NHL (skott på mål + poäng/assist/mål som test) efter
+varandra. Ett fel i en sport stoppar aldrig de andra. GitHub Actions kör den var tionde minut dygnet runt.
+
+| Var | Vad |
+|---|---|
+| Webbsida | https://fatfockfrank888.github.io/propsbot/ – Spela nu · Radar · Resultat · Bokföring & analys · Parlays · Parametrar, med sportväljare (Alla/Fotboll/NBA/NHL) |
+| Notiser | ntfy, en kanal. Bara LIVE-spel, **ett spel per spelare och match** över alla marknader, linjer, sidor och bolag. Misslyckad notis skickas igen nästa körning. |
+| Google-arket | `sheet/propsbot_ark.gs` (Apps Script) bygger en flik per sport från `…/propsbot/csv/*.csv` |
+| Parametrar | [PARAMETRAR.md](PARAMETRAR.md) (`python -m propsbot parametrar`) och fliken Parametrar på webbsidan |
+| Kod | `propsbot/` fotboll + NBA · `nhl/` NHL · `propsbot/site.py` webbsidan · `web/index.html` sidan |
+| Läge | grenen `data` (fotboll/NBA i roten, NHL under `nhl/`) |
+
+**Över eller under:** båda sidor prövas på samma krav; den sida som har EV+ och klarar alla regler spelas.
+Under kräver en tvåsidig eller skarp referens. Fotbollens Kambi-marknader (skott på mål, kort) är bara
+"över/ja", så där finns ingen undersida att spela.
+
+**Secrets** (Settings → Secrets → Actions): `NTFY_TOPIC`, `ODDS_API_KEY`, `API_FOOTBALL_KEY`. Pinnacle använder den publika gästnyckeln i koden.
+
+---
+
+## Fotbollsdelen
 
 Skott, skott på mål, mål och assist per spelare. Sannolikheterna gäller **givet
 att spelaren spelar** (annars stryks spelet).

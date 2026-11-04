@@ -168,5 +168,91 @@
   "odds_window_all": [
     1.6,
     6.0
-  ]
+  ],
+  "nhl": {
+    "live_on": true,
+    "live_min_edge": 0.06,
+    "live_model_min_edge": 0.03,
+    "live_min_groups": 2,
+    "live_odds_min": 1.6,
+    "live_odds_max": 3.0,
+    "live_max_units": 5,
+    "live_max_per_match": 2,
+    "live_max_per_day": 8,
+    "live_max_units_day": 25,
+    "live_require_active": true,
+    "min_edge_all": 0.05,
+    "odds_min_all": 1.6,
+    "odds_max_all": 6.0,
+    "shadow_min_edge": 0.02,
+    "max_odds_drop": 0.03,
+    "sharp_against_pp": 2.0,
+    "sharp_with_pp": 1.5,
+    "sharp_min_age_min": 30.0,
+    "max_plausible_edge": 0.25,
+    "max_dev_from_consensus": 0.18,
+    "max_odds_age_s": 180.0,
+    "extra_edge_without_sharp": 0.03,
+    "min_groups_without_sharp": 3,
+    "pre_match_cutoff_min": 2.0,
+    "bankroll": 10000.0,
+    "currency": "SEK",
+    "unit_pct": 0.002,
+    "kelly_fraction": 0.25,
+    "max_units_per_bet": 10,
+    "max_stake_per_match_pct": 0.05,
+    "playable_books": [
+      "svenskaspel",
+      "betmgm",
+      "expekt",
+      "atg",
+      "unibet"
+    ],
+    "kambi_offerings": {
+      "ubse": "unibet",
+      "paf": "paf",
+      "atg": "atg",
+      "leose": "leovegas",
+      "svenskaspel": "svenskaspel",
+      "expektse": "expekt",
+      "betmgmse": "betmgm"
+    },
+    "kambi_market": "SE",
+    "use_pinnacle": true,
+    "pinnacle_league_id": 1456,
+    "sharp_weight": 2.0,
+    "one_sided_margin": 0.08,
+    "max_interp_distance": 1.0,
+    "us_books": [
+      "draftkings",
+      "fanduel",
+      "betmgm",
+      "williamhill_us",
+      "fanatics",
+      "espnbet",
+      "hardrockbet",
+      "betonlineag"
+    ],
+    "us_fetch_window_min": [
+      40.0,
+      240.0
+    ],
+    "odds_api_monthly_credits": 500,
+    "odds_api_share": 0.25,
+    "odds_api_reserve": 20,
+    "model_weight": 0.3,
+    "model_min_games": 8,
+    "hours_ahead": 30.0,
+    "max_events": 15,
+    "scan_interval_min": 8.0,
+    "quiet_hours_utc": [
+      4,
+      6
+    ],
+    "quiet_interval_min": 55.0,
+    "data_dir": "data"
+  },
+  "oddsapi_share_nba": 0.45,
+  "oddsapi_share_football": 0.3,
+  "cards_enabled": true
 }

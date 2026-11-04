@@ -106,14 +106,34 @@ def cmd_free(args) -> None:
     _cleanup(_state_root())
     topic = _ensure_topic(Path(args.settings))
     _print_topic(topic)
-    rows = scan_once(_state_root(), Path(args.settings))
-    print()
-    print(format_scan(rows))
+    import traceback
+    try:
+        _announce_merge(_state_root(), Path(args.settings))
+    except Exception as e:
+        print(f"Testnotis: fel {type(e).__name__}: {e}")
+    # En bot, tre sporter: varje sport körs för sig så att ett fel i en aldrig stoppar de andra.
+    try:
+        rows = scan_once(_state_root(), Path(args.settings))
+        print()
+        print(format_scan(rows))
+    except Exception as e:
+        print(f"Fotboll: fel {type(e).__name__}: {e}")
+        traceback.print_exc()
     try:
         run_nba(_state_root(), Path(args.settings))
-    except Exception as e:  # NBA får aldrig stoppa fotbollen
-        import traceback
+    except Exception as e:
         print(f"NBA: fel {type(e).__name__}: {e}")
+        traceback.print_exc()
+    try:
+        run_nhl(_state_root())
+    except Exception as e:
+        print(f"NHL: fel {type(e).__name__}: {e}")
+        traceback.print_exc()
+    try:
+        from .site import build_site
+        build_site(_state_root(), Path(args.settings))
+    except Exception as e:
+        print(f"Webbsidan: fel {type(e).__name__}: {e}")
         traceback.print_exc()
     try:
         from .workbook import build
@@ -171,6 +191,69 @@ def run_nba(root: Path, settings_path: Path) -> None:
         print("::notice title=nba::" + "%0A".join(x.replace("%", "%25") for x in keep))
 
 
+def push_overview(settings: dict) -> str:
+    """Vilka spel som ger notis, per sport."""
+    from nhl.bot_settings import BotSettings
+    n = BotSettings.load()
+    th = settings.get("live_min_edge", {})
+    lines = [
+        "NBA: LIVE-spel (" + ", ".join(f"{k} ≥{v:.0%}" for k, v in th.items()) + ")"
+        if settings.get("live_on", True) and settings.get("nba_enabled", True) else "NBA: av",
+        f"NHL: LIVE-spel skott på mål (≥{n.live_min_edge:.0%})" if n.live_on else "NHL: av",
+        "Fotboll: LIVE-spel" if settings.get("football_live") else "Fotboll: bara data (ingen notis)",
+        "Test (fouls, kort, NHL-poäng/assist/mål), skuggspel, modelltest, parlays: bara data",
+        "Ett spel per spelare och match – aldrig två notiser på samma spelare.",
+    ]
+    return "\n".join(lines)
+
+
+def _announce_merge(root: Path, settings_path: Path) -> None:
+    """Första körningen av den sammanslagna boten: en notis som visar att kanalen fungerar."""
+    import hashlib
+    from .notify import send
+    from .scan import load_settings
+    s = load_settings(settings_path)
+    topic = s.get("ntfy_topic")
+    if not topic:
+        return
+    f = root / "notis_sammanslagen.txt"
+    th = hashlib.sha1(topic.encode()).hexdigest()[:12]
+    if f.exists() and f.read_text(encoding="utf-8").strip() == th:
+        return
+    if send(topic, "Propsbot: fotboll, NBA och NHL i en bot",
+            "Notiserna fungerar från den sammanslagna boten.\n" + push_overview(s), priority=3, tags="white_check_mark"):
+        f.write_text(th, encoding="utf-8")
+        print("Testnotis (sammanslagen bot) skickad.")
+
+
+def nhl_env(root: Path) -> None:
+    """NHL-delen (paketet nhl) sparar allt under <läge>/nhl och cachar under <läge>/.cache_odds/nhl."""
+    import os
+    d = root / "nhl"
+    os.environ.setdefault("NHL_DATA_DIR", str(d))
+    os.environ.setdefault("OUTPUT_DIR", str(d / "output"))
+    os.environ.setdefault("ODDS_DIR", str(d / "odds"))
+    os.environ.setdefault("CACHE_DIR", str(root / ".cache_odds" / "nhl"))
+    os.environ.setdefault("NOTIS_SPELARE", str(root / "notis_spelare.json"))
+
+
+def run_nhl(root: Path) -> None:
+    import argparse
+    nhl_env(root)
+    from nhl import bot_cli
+    from nhl.bot_settings import BotSettings
+    from nhl.config import Settings
+    cfg = Settings.from_env()
+    s = BotSettings.load()
+    if s.use_pinnacle and not s.pinnacle_api_key:   # samma publika gästnyckel som fotbollen/NBA
+        from .sources.pinnacle_public import GUEST_KEY
+        s.pinnacle_api_key = GUEST_KEY
+    if not s.ntfy_topic:   # samma kanal som fotboll och NBA
+        from .scan import load_settings
+        s.ntfy_topic = (load_settings(ROOT / "settings.json").get("ntfy_topic") or "").strip()
+    bot_cli.cmd_scan(argparse.Namespace(diagnose=False, no_notify=False), s, cfg)
+
+
 def cmd_watch(args) -> None:
     from .free_scan import watch
     topic = _ensure_topic(Path(args.settings))
@@ -179,6 +262,13 @@ def cmd_watch(args) -> None:
         watch(_state_root(), Path(args.settings))
     except KeyboardInterrupt:
         print("Avslutad.")
+
+
+def cmd_params(args) -> None:
+    from .params import as_markdown
+    md = as_markdown(Path(args.settings))
+    (ROOT / "PARAMETRAR.md").write_text(md + chr(10), encoding="utf-8")
+    print(md)
 
 
 def cmd_books(args) -> None:
@@ -211,6 +301,10 @@ def main() -> None:
     s.add_argument("--db", default=str(ROOT / "propsbot.sqlite"))
     s.add_argument("--bara-spel", action="store_true")
     s.set_defaults(func=cmd_scan)
+
+    pa = sub.add_parser("parametrar", help="skriv alla parametrar per sport till PARAMETRAR.md")
+    pa.add_argument("--settings", default=str(ROOT / "settings.json"))
+    pa.set_defaults(func=cmd_params)
 
     b = sub.add_parser("bolag", help="visa bolag och marknader för nyckeln")
     b.add_argument("--settings", default=str(ROOT / "settings.json"))

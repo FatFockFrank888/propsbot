@@ -24,6 +24,9 @@ def market_from_label(label: str) -> tuple[str, float | None] | None:
             w in s for w in ("half", "minute", "team", "most", "total", "and ", " or ")):
         m = re.search(r"(\d+)\s*\+", s) or re.search(r"at least (\d+)", s)
         return "fouls", (int(m.group(1)) - 0.5 if m else None)
+    # Kort (4/11, datainsamling): "To Get a Card" – gult eller rött, hela matchen.
+    if s.strip() in ("to get a card", "to be carded", "player to be carded", "to be booked", "player to be booked"):
+        return "cards", 0.5
     if any(w in s for w in EXCLUDE_WORDS):
         return None
     if re.search(r"\d{1,2}:\d{2}", s):     # tidsintervall, t.ex. "0:00-14:59"

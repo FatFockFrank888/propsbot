@@ -89,6 +89,12 @@ def write_site(site: Path, rows: list[ScanRow], ledger: Ledger, settings: dict,
         f_ledger = _L(fl)
         data["fouls_test"] = sorted(f_ledger.bets, key=lambda b: -b["bokford"])
         data["fouls_sammanfattning"] = f_ledger.summary()
+    kl = site.parent / "bokforing_kort_test.json" if sport == "Fotboll" else None
+    if kl and kl.exists():
+        from .ledger import Ledger as _L
+        k_ledger = _L(kl)
+        data["kort_test"] = sorted(k_ledger.bets, key=lambda b: -b["bokford"])
+        data["kort_sammanfattning"] = k_ledger.summary()
     (site / "data.json").write_text(json.dumps(data, ensure_ascii=False), encoding="utf-8")
     if (WEB / "index.html").exists():
         shutil.copy(WEB / "index.html", site / "index.html")

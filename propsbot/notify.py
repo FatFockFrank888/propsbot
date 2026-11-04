@@ -55,3 +55,40 @@ class SeenStore:
 
     def save(self) -> None:
         self.path.write_text(json.dumps(self.seen), encoding="utf-8")
+
+
+class PlayerGuard:
+    """Ett enda spel (en notis) per spelare och match – över alla marknader, linjer, sidor,
+    bolag, körningar och sporter. Delas av fotboll, NBA och NHL (samma fil)."""
+
+    def __init__(self, path: Path):
+        self.path = path
+        self.d: dict[str, dict] = {}
+        if path.exists():
+            try:
+                self.d = json.loads(path.read_text(encoding="utf-8"))
+            except json.JSONDecodeError:
+                self.d = {}
+
+    @staticmethod
+    def key(sport: str, match_id, player: str) -> str:
+        from .sources.props_text import name_key
+        return f"{sport.lower()}|{match_id}|{name_key(player)}"
+
+    def allows(self, sport: str, match_id, player: str, bet: str) -> bool:
+        """True om spelaren är fri i matchen, eller om det är exakt samma spel som redan skickats."""
+        x = self.d.get(self.key(sport, match_id, player))
+        return x is None or x.get("spel") == bet
+
+    def already_sent(self, sport: str, match_id, player: str) -> bool:
+        return self.key(sport, match_id, player) in self.d
+
+    def mark(self, sport: str, match_id, player: str, bet: str) -> None:
+        import time
+        self.d[self.key(sport, match_id, player)] = {"spel": bet, "ts": time.time()}
+
+    def save(self) -> None:
+        import time
+        now = time.time()
+        self.d = {k: v for k, v in self.d.items() if now - v.get("ts", now) < 4 * 86400}
+        self.path.write_text(json.dumps(self.d, ensure_ascii=False), encoding="utf-8")

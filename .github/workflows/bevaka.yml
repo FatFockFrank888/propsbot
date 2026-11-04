@@ -2,7 +2,8 @@ name: bevaka-odds
 
 on:
   schedule:
-    - cron: "7-59/10 6-22 * * *"   # var 10:e minut (:07, :17 …) 06–22 UTC, undviker rusningen på hela minuter
+    # Reserv om kedjan bryts. Fotboll/NBA/NHL i samma körning, dygnet runt (NHL-kvällar till 05 svensk tid).
+    - cron: "7-59/10 * * * *"
   workflow_dispatch: {}
 
 permissions:
@@ -41,7 +42,16 @@ jobs:
           else
             git worktree add --orphan -b data state
           fi
-          printf '.cache_odds/\n*.sqlite\n' > state/.gitignore
+          # NHL:s linjehistorik (nhl/line_history.sqlite) sparas; fotbollens stora SQLite-logg gör det inte.
+          printf '.cache_odds/\n/*.sqlite\nnhl/output/\nnhl/odds/\n' > state/.gitignore
+
+      # NHL-statistiken (spelarloggar, scheman) cachas mellan körningar så att skanningen går fort.
+      - name: HTTP-cache (NHL)
+        uses: actions/cache@v4
+        with:
+          path: state/.cache_odds/nhl
+          key: nhl-http-${{ github.run_id }}
+          restore-keys: nhl-http-
 
       - name: Skanna, bokför, rätta och skicka notiser
         env:
@@ -73,9 +83,10 @@ jobs:
       - uses: actions/deploy-pages@v4
 
       # GitHubs schema startar inte pålitligt. Därför startar varje körning nästa:
-      # 10 min mellan skanningarna (även NBA-kvällar), 60 min 04–06 UTC. Schemat ovan är reserv.
+      # 8 min paus mellan skanningarna, 55 min 04–06 UTC. Schemat ovan är reserv.
+      # En avbruten körning (Cancel) startar ingen ny; stäng av arbetsflödet för att stoppa boten helt.
       - name: Starta nästa körning
-        if: always()
+        if: ${{ !cancelled() }}
         env:
           GH_TOKEN: ${{ github.token }}
         run: |

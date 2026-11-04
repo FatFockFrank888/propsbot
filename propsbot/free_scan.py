@@ -245,7 +245,8 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
     data = collect(settings, diag, root / ".cache_odds")
     # Fouls hålls utanför den vanliga kedjan (egen modell, egen testbokföring).
     fouls_data = [(evd, [q for q in qs if q.market == "fouls"], nm) for evd, qs, nm in data]
-    data = [(evd, [q for q in qs if q.market != "fouls"], nm) for evd, qs, nm in data]
+    cards_data = [(evd, [q for q in qs if q.market == "cards"], nm) for evd, qs, nm in data]
+    data = [(evd, [q for q in qs if q.market not in ("fouls", "cards")], nm) for evd, qs, nm in data]
     try:   # fler bolag (William Hill, 1xBet, FanDuel, Betfair, Coolbet …) via The Odds API, inom kreditbudget
         from .sources.us_books import add_football_books
         add_football_books(root, data, settings, diag)
@@ -451,6 +452,12 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
             fouls_run(root, fouls_data, pm, settings, cfg, diag)
         except Exception as e:
             diag.log(f"Fouls (test): FEL {type(e).__name__}: {str(e)[:200]}")
+    if settings.get("cards_enabled", True) and pm:
+        try:
+            from .cards import run as cards_run
+            cards_run(root, cards_data, pm, settings, cfg, diag)
+        except Exception as e:
+            diag.log(f"Kort (test): FEL {type(e).__name__}: {str(e)[:200]}")
     parlay_data, new_parlays = None, []
     if settings.get("parlays_enabled"):
         from .parlays import ParlayLedger, suggest
@@ -497,7 +504,7 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
     import os
     if os.environ.get("GITHUB_ACTIONS"):
         keep = [l for l in diag.lines if l.startswith(("Kambi", "Pinnacle", "Bolag", "VARNING"))
-                or l.startswith(("SPEL:", "Fouls", "CLV-signal", "Tid:", "Exempel", "Marginal över", "Bästa edge", "Spelarodds", "Spelarmodell", "Modellens", "Modelltest", "Parlays", "Skuggspel", "Rätt",
+                or l.startswith(("SPEL:", "Fouls", "Kort", "CLV-signal", "Tid:", "Exempel", "Marginal över", "Bästa edge", "Spelarodds", "Spelarmodell", "Modellens", "Modelltest", "Parlays", "Skuggspel", "Rätt",
                                  "Struken", "Bokförda"))
                 or "spelbara" in l or "otis" in l][:45]
         print("::notice title=diagnos::" + "%0A".join(x.replace("%", "%25") for x in keep))
@@ -507,17 +514,21 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
 def notify_new(playable: list[ScanRow], settings: dict, root: Path, live: bool = False) -> int:
     # Separat minne per kanal, så att byte av kanal inte tappar notiser.
     import hashlib
+    from .notify import PlayerGuard
     th = hashlib.sha1(settings["ntfy_topic"].encode()).hexdigest()[:12]
     seen = SeenStore(root / f"notifierade_{th}.json")
+    guard = PlayerGuard(root / "notis_spelare.json")
     sent = 0
     for r in playable:
         c = r.row.decision.cand
         d = r.row.decision
-        key = f"{c.match_id}|{c.player_id}|{c.market}|{c.line}|{c.best.book}" + \
-            ("|under" if c.best.side == "under" else "")
-        if not seen.is_new(key, c.best.odds):
-            continue
+        key = f"{c.match_id}|{c.player_id}|{c.market}|{c.line}" + ("|under" if c.best.side == "under" else "")
         nba = c.market in ("points", "rebounds", "assists", "threes", "steals", "blocks", "pra", "pr", "ra")
+        sport = "nba" if nba else "fotboll"
+        # Ett spel per spelare och match, över allt: samma ben skickas aldrig igen (inte ens vid
+        # bättre odds eller annat bolag) och ingen annan marknad/linje/sida på samma spelare.
+        if key in seen.seen or guard.already_sent(sport, c.match_id, c.player_name):
+            continue
         title = (f"{'LIVE ' if live else ''}{'NBA ' if nba else ''}SPELA: {c.player_name} "
                  f"{MARKET_LABEL.get(c.market, c.market)} {'under' if c.best.side == 'under' else 'över'} {c.line}")
         from .clv_signal import units
@@ -529,10 +540,12 @@ def notify_new(playable: list[ScanRow], settings: dict, root: Path, live: bool =
                + f"\nInsats: {units(getattr(r, 'live_stake', None) or d.stake)}/10 units"
                + ("\n(CLV-signal)" if any("CLV-signal" in x for x in d.reasons) else "")
                + ("\nSharp money med oss ⬆" if any(x.startswith("sharp money med") for x in d.reasons) else ""))
-        if send(settings["ntfy_topic"], title, msg):
+        if send(settings["ntfy_topic"], title, msg, tags="basketball" if nba else "soccer"):
             seen.mark(key, c.best.odds)
+            guard.mark(sport, c.match_id, c.player_name, key)
             sent += 1
     seen.save()
+    guard.save()
     if sent:
         print(f"Skickade {sent} notiser till mobilen.")
     return sent

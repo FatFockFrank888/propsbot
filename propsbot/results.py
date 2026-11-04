@@ -28,6 +28,7 @@ STAT_NAMES = {
     "shots_on_target": ("shotsOnTarget", "shotsOnGoal"),
     "shots": ("totalShots", "shots"),
     "fouls": ("foulsCommitted", "fouls", "FC"),
+    "cards": ("cards",),          # gula + röda, räknas i player_stats
 }
 
 
@@ -86,6 +87,10 @@ class EspnResults:
             for e in team.get("roster", []) or []:
                 name = (e.get("athlete") or {}).get("displayName", "")
                 st = _stats(e)
+                yc = next((st[k] for k in ("yellowCards", "YC") if k in st), None)
+                rc = next((st[k] for k in ("redCards", "RC") if k in st), None)
+                if yc is not None or rc is not None:
+                    st["cards"] = (yc or 0.0) + (rc or 0.0)
                 out.append((name, st, _played(e, st)))
         return out
 
