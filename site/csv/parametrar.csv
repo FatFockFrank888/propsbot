@@ -11,7 +11,7 @@ Gemensamt,Över eller under,den sida som har EV+,Båda sidor prövas på samma k
 Gemensamt,Notiser,bara LIVE-spel,"En notis per spel, aldrig två på samma spelare i samma match. Misslyckad notis skickas igen nästa körning (före start)."
 Gemensamt,Unit,"1u = 0,2 % av bankrullen",Insats 1–10u efter ¼ Kelly (taket 10u = 2 %).
 Gemensamt,Skuggspel,"≥ 2 % edge, stoppat av en regel",Bokförs och rättas för att se om reglerna kostar eller sparar pengar. Ingen notis.
-Fotboll,Status,bara datainsamling (inga notiser),Slås på med football_live när fotbollen visat edge och CLV.
+Fotboll,Status,LIVE (notiser),football_live i settings.json. Påslaget 2026-11-04 på användarens begäran. Spelen är regelspelen (alla gemensamma krav); risktak: högst 10u per spel och 5 % per match.
 Fotboll,Marknader som spelas,shots_on_target,Övriga marknader används bara för att mäta Kambis marginal.
 Fotboll,Edgekrav per marknad (före gemensamt krav),"shots 2 %, shots_on_target 2 %, goal 4 %, assist 4 %",Gemensamma kravet 5 % gäller ovanpå.
 Fotboll,Utan Pinnacle/tvåsidig källa,"+3 % edge, minst 3 källor",
