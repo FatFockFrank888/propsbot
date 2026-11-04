@@ -1,0 +1,53 @@
+Sport,Parameter,Värde,Förklaring
+Gemensamt,Spelbara bolag,"svenskaspel, betmgm, expekt, atg, unibet",Bara Kambi-bolag. Paf och LeoVegas läses bara för att mäta marginalen.
+Gemensamt,Minsta edge (alla spel),5 %,edge = sannolikhet × odds − 1. Gäller alla marknader och sporter.
+Gemensamt,Oddsram,"1,60–6,00",Inga spel utanför.
+Gemensamt,Max oddsfall,3 %,Inget spel om bästa oddset fallit mer än så från det högsta vi sett (för sent).
+Gemensamt,Sharp money mot oss,2 procentenheter,Inget spel om den skarpa referensen (Pinnacle/konsensus) rört sig så mycket mot oss efter 30 min.
+Gemensamt,Sharp money med oss,1.5 procentenheter,Markeras i notisen (⬆).
+Gemensamt,Orimlig edge,25 %,"Större edge = nästan alltid fel linje, olika regler eller spelaren spelar inte. Inte spelbart."
+Gemensamt,Ett spel per spelare och match,"ja, över allt","Över alla marknader, linjer, sidor (över/under), bolag och körningar. Störst edge vinner; det som redan skickats står kvar."
+Gemensamt,Över eller under,den sida som har EV+,Båda sidor prövas på samma krav. Under kräver en tvåsidig eller skarp referens (annars är marginalen på undersidan okänd).
+Gemensamt,Notiser,bara LIVE-spel,"En notis per spel, aldrig två på samma spelare i samma match. Misslyckad notis skickas igen nästa körning (före start)."
+Gemensamt,Unit,"1u = 0,2 % av bankrullen",Insats 1–10u efter ¼ Kelly (taket 10u = 2 %).
+Gemensamt,Skuggspel,"≥ 2 % edge, stoppat av en regel",Bokförs och rättas för att se om reglerna kostar eller sparar pengar. Ingen notis.
+Fotboll,Status,bara datainsamling (inga notiser),Slås på med football_live när fotbollen visat edge och CLV.
+Fotboll,Marknader som spelas,shots_on_target,Övriga marknader används bara för att mäta Kambis marginal.
+Fotboll,Edgekrav per marknad (före gemensamt krav),"shots 2 %, shots_on_target 2 %, goal 4 %, assist 4 %",Gemensamma kravet 5 % gäller ovanpå.
+Fotboll,Utan Pinnacle/tvåsidig källa,"+3 % edge, minst 3 källor",
+Fotboll,Försiktig skottmarginal,k ≥ 1.2,"Edgen måste hålla även med en försiktig marginal, annars skuggspel."
+Fotboll,Kambi mot Pinnacle (målförväntan),max 10 % skillnad,"Annars hoppas matchen över (olika regler, gamla linjer)."
+Fotboll,Spelarmodell,"test, vikt 0.1",ESPN-statistik. I läget test bokförs modellens spel separat (Modelltest).
+Fotboll,CLV-signal,"edge ≥ 1 %, förväntad CLV ≥ 2, Pinnacle ≥ +1.5",Släpper igenom ben som bara stoppades av edgekravet när Pinnacle rör sig åt vårt håll.
+Fotboll,Max odds-ålder,180 s,
+Fotboll,Max avvikelse från konsensus,18 %,
+Fotboll,Ligor,35 st,"England / Premier League, England / The Championship, England / Championship, Spain / La Liga, Spain / LaLiga, Germany / Bundesliga, Germany / 2. Bundesliga, Italy / Serie A, Italy / Serie B, France / Ligue 1, France / Ligue 2, Netherlands / Eredivisie, Portugal / Liga Portugal, Portugal / Primeira Liga, Belgium / Pro League, Belgium / Jupiler, Scotland / Premiership, Turkey / Süper Lig, Turkey / Super Lig, Denmark / Superliga, Norway / Eliteserien, Sweden / Allsvenskan, Austria / Bundesliga, Switzerland / Super League, Greece / Super League, USA / MLS, Brazil / Serie A, Argentina / Liga Profesional, Champions League, Europa League, Conference League, Australia / A-League, Brazil / Brasileirao, Brazil / Copa do Brasil, Mexico / Liga MX"
+Fotboll,Fouls (test),"på, minst 5 % edge","Egen modell (ESPN), domarfaktor ±15 %. Bara datainsamling."
+Fotboll,Kort (test),"på, datainsamling","""To Get a Card"" hos Kambi. Egen modell: spelarens kort per match (ESPN) × domarens stränghet. Bara datainsamling."
+Fotboll,Parlays,"på, max 3 ben, minst 5 % edge per ben",Notiser för parlays: av.
+NBA,Status,LIVE (notiser),
+NBA,LIVE: edgekrav per marknad,"points 10 %, threes 6 %, assists 6 %, rebounds 6 %","Marknader som saknas här (steals, blocks, PRA …) spelas inte live."
+NBA,LIVE: modellen måste hålla med,modellens edge ≥ 3 %,
+NBA,LIVE: jämförelsekällor,minst 2,"Pinnacle, Kalshi, DraftKings/FanDuel …"
+NBA,LIVE: oddsram,"1,60–3,00",
+NBA,LIVE: risk,"max 5u/spel, 2/match, 8 spel och 25u per matchdag",
+NBA,Modellvikt,0.3,Blandas med marknaden i log-odds.
+NBA,Matcher,"inom 30 h, max 15",
+NBA,US-bolag via The Odds API,40–240 min före start,Andel av krediterna: 45 %.
+NHL,Status,LIVE (notiser),Skott på mål (SOG) hos Kambi-bolagen.
+NHL,LIVE: edge,6 %,
+NHL,LIVE: modellen måste hålla med,modellens edge ≥ 3 %,
+NHL,LIVE: jämförelsekällor,minst 2,"Bovada, Pinnacle (vikt ×2), US-bolag via The Odds API."
+NHL,LIVE: oddsram,"1,60–3,00",
+NHL,LIVE: risk,"max 5u/spel, 2/match, 8 spel och 25u per matchdag, högst 5 % per match",
+NHL,LIVE: spelaren i senaste uppställningen,ja,
+NHL,Gemensamt edgekrav,5 %,+3 % utan skarp/tvåsidig källa.
+NHL,Oddsram,"1,60–6,00",
+NHL,Max oddsfall / sharp mot / med,3 % / 2 / 1.5 pe (efter 30 min),
+NHL,Orimlig edge / konsensusavvikelse,25 % / 18 %,
+NHL,Ensidig marginal (antagen),8 %,"För ensidiga priser (t.ex. Bovadas ""N+ skott""-stege)."
+NHL,Modellvikt,0.3 (minst 8 matcher),"NHL-statistik: skott per 60 × istid, motstånd, hemmaplan."
+NHL,Pinnacle,på,liga 1456
+NHL,US-bolag via The Odds API,40–240 min före start,Andel av krediterna: 25 %.
+NHL,Bankrulle,10 000 SEK,1u = 20 SEK.
+NHL,Test-marknader (data),"poäng, assist, mål",Kambis NHL-poäng/assist/mål bokförs mot en egen modell. Inga notiser.
