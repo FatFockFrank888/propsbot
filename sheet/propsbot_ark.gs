@@ -165,8 +165,10 @@ function buildSport_(ss, s) {
   const sh = getOrCreate_(ss, s.tab);
   reset_(sh);
   const raw = RAW[s.key];
+  const DT = "yyyy-mm-dd hh:mm", PCT = "0.0%";
+  const fmt = (r, col, n, f) => sh.getRange(r, col, n, 1).setNumberFormat(f);
   sh.getRange("A1").setValue(s.tab).setFontSize(18).setFontWeight("bold");
-  sh.getRange("A2").setValue(s.note).setFontColor("#6b7280");
+  sh.getRange("A2").setValue(s.note + " Alla bokförda spel (även data) finns i sektion 4.").setFontColor("#6b7280");
   let row = 4;
 
   row = section_(sh, row, "1. Nyckeltal per typ", null, s.color);
@@ -175,28 +177,36 @@ function buildSport_(ss, s) {
   headerRow_(sh, row, 10);
   addResultColors_(sh, "G" + (row + 1) + ":G" + (row + 9));
   addResultColors_(sh, "I" + (row + 1) + ":I" + (row + 9));
-  row += 11;
+  row += 10;
 
-  const openTitle = s.main === "Live" ? "2. Öppna LIVE-spel (det vi spelar)" : "2. Öppna regelspel (data)";
-  row = section_(sh, row, openTitle, "Spela till lägst oddset i notisen. Sorterat på start.", s.color);
-  sh.getRange(row, 1).setFormula(q_(raw, "select D,E,F,G,H,I,J,K,O,P where C='" + s.main + "' and Q='öppen' order by D limit 20 label D 'Start'"));
+  row = section_(sh, row, "2. Öppna LIVE-spel (det vi spelar)",
+    "Spela till lägst oddset i notisen. Tomt = inget LIVE-spel just nu (du får en notis när något klarar kraven).", s.color);
+  sh.getRange(row, 1).setFormula("=IFERROR(QUERY('" + raw + "'!A:S, \"select D,E,F,G,H,I,J,K,O,P where C='Live' and Q='öppen' " +
+    "order by D limit 12 label D 'Start'\", 1), \"(inga öppna LIVE-spel just nu)\")");
   headerRow_(sh, row, 10);
+  fmt(row + 1, 1, 12, DT); fmt(row + 1, 9, 12, PCT);
+  row += 14;
+
+  row = section_(sh, row, "3. Senaste avgjorda LIVE-spel", "De 20 senaste.", s.color);
+  sh.getRange(row, 1).setFormula("=IFERROR(QUERY('" + raw + "'!A:S, \"select D,F,G,H,I,J,K,L,M,Q,R,S where C='Live' and Q<>'öppen' " +
+    "order by D desc limit 20 label D 'Start'\", 1), \"(inga avgjorda LIVE-spel än)\")");
+  headerRow_(sh, row, 12);
+  fmt(row + 1, 1, 20, DT);
+  addResultColors_(sh, "L" + (row + 1) + ":L" + (row + 20));
+  addResultColors_(sh, "I" + (row + 1) + ":I" + (row + 20));
   row += 22;
 
-  row = section_(sh, row, "3. Avgjorda " + (s.main === "Live" ? "LIVE-spel" : "regelspel"), "Senaste först.", s.color);
-  sh.getRange(row, 1).setFormula(q_(raw, "select D,F,G,H,I,J,K,L,M,Q,R,S where C='" + s.main +
-    "' and Q<>'öppen' order by D desc limit 300 label D 'Start'"));
-  headerRow_(sh, row, 12);
-  addResultColors_(sh, "L" + (row + 1) + ":L" + (row + 300));
-  addResultColors_(sh, "I" + (row + 1) + ":I" + (row + 300));
-  row += 302;
-
-  row = section_(sh, row, "4. Alla spel (alla typer)", "Live, Spel, Skugga, Modelltest och testmarknader. Filtrera med Data → Skapa ett filter.", s.color);
+  row = section_(sh, row, "4. Alla spel (alla typer, senaste först)",
+    "Live = spelat · Spel = klarar reglerna (data) · Skugga = stoppat av en regel · Modelltest · testmarknader. " +
+    "Filtrera med Data → Skapa ett filter.", s.color);
   sh.getRange(row, 1).setFormula(q_(raw, "select A,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S order by A desc"));
   headerRow_(sh, row, 18);
+  fmt(row + 1, 1, 5000, DT); fmt(row + 1, 3, 5000, DT); fmt(row + 1, 13, 5000, PCT); fmt(row + 1, 14, 5000, PCT);
+  addResultColors_(sh, "R" + (row + 1) + ":R" + (row + 5000));
   sh.setColumnWidths(1, 18, 95);
-  sh.setColumnWidth(2, 150);
-  sh.setColumnWidth(3, 170);
+  sh.setColumnWidth(1, 125);
+  sh.setColumnWidth(4, 190);
+  sh.setColumnWidth(5, 150);
 }
 
 // ------------------------------------------------------------------ Parametrar
