@@ -326,7 +326,6 @@ class Scanner:
     def _test_markets(self, game: Game, gid: int, off_maps: dict, projections: list, playable: set[str],
                       now: float, rep: ScanReport) -> None:
         """Points/assists/goals at Kambi vs our own model (data only, never notified)."""
-        from .slate import _history_for
         from .test_markets import parse_kambi
         try:
             tq = []
@@ -337,9 +336,16 @@ class Scanner:
                     tq += parse_kambi(raw, book)
             if tq:
                 rep.test_new += self.tests.evaluate(
-                    game, projections, tq, lambda p: _history_for(self.nhl, p.skater, p.game, self.cfg)[0], playable, now)
+                    game, projections, tq, lambda p: self._scoring_history(p), playable, now)
         except Exception as exc:  # noqa: BLE001 - test markets must never stop the scan
             rep.errors.append(f"test markets {game.away}@{game.home}: {exc}")
+
+    def _scoring_history(self, p) -> list:
+        """Current + previous regular season before game day (scoring rates need a long window)."""
+        from .config import previous_season
+        from .nhl_api import REGULAR_SEASON
+        logs = self.nhl.game_log(p.skater.player_id, p.game.season, REGULAR_SEASON) +             self.nhl.game_log(p.skater.player_id, previous_season(p.game.season), REGULAR_SEASON)
+        return [e for e in logs if e.game_date < p.game.game_date]
 
     def _settle(self, now_dt: datetime, rep: ScanReport) -> None:
         if self.tests is not None:

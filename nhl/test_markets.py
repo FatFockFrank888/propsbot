@@ -4,8 +4,8 @@ Kambi posts, per game, "Player to score at least N points" (yes/no, N = 1-3), "P
 least 1 assists" (yes/no), "To score" and "To score at least N goals" (yes only). No sharp book prices
 these for the Swedish market, so the edge can only come from our own model:
 
-  rate  = weighted goals/assists/points per game over the last 25 games (half-life 10 games),
-          shrunk toward a position prior worth 10 games (F: 0.22 / 0.32 / 0.54, D: 0.06 / 0.24 / 0.30)
+  rate  = weighted goals/assists/points per game over the last 82 games incl. last season (half-life 25),
+          shrunk toward a position prior worth 5 games (F: 0.22 / 0.32 / 0.54, D: 0.06 / 0.24 / 0.30)
   p     = Poisson P(X >= N) at that rate
   edge  = p x best playable odds - 1   (both yes and no are tried; the side with EV+ is the one we log)
 
@@ -88,7 +88,7 @@ def poisson_at_least(k: int, mu: float) -> float:
     return 1.0 - sum(math.exp(-mu) * mu ** i / math.factorial(i) for i in range(k))
 
 
-def player_rates(logs: list, position: str, n: int = 25, half_life: float = 10.0, prior_games: float = 10.0) -> dict[str, float]:
+def player_rates(logs: list, position: str, n: int = 82, half_life: float = 25.0, prior_games: float = 5.0) -> dict[str, float]:
     recent = sorted(logs, key=lambda e: (e.game_date, e.game_id), reverse=True)[:n]
     prior = PRIOR.get(position, PRIOR["F"])
     out = {}
