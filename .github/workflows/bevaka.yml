@@ -74,7 +74,11 @@ jobs:
           cd state
           git add -A
           git commit -q -m "läge $(date -u +%FT%TZ)" || echo "inget nytt"
-          git push -q origin data || echo "kunde inte spara"
+          # Har grenen ändrats under körningen läggs vårt läge ovanpå (vid krock vinner vårt nyare läge).
+          for i in 1 2 3; do
+            git push -q origin data && break
+            git fetch -q --deepen=50 origin data && git rebase -q -X theirs FETCH_HEAD               || { git rebase --abort 2>/dev/null; echo "kunde inte spara"; break; }
+          done
 
       - uses: actions/upload-pages-artifact@v3
         with:
