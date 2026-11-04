@@ -1,5 +1,5 @@
-Skanning 2026-11-04 22:09
-Kambi unibet (ubse): OK, 47 matcher i valda ligor
+Skanning 2026-11-04 22:38
+Kambi unibet (ubse): OK, 48 matcher i valda ligor
 Kambi paf (paf): OK
 Kambi atg (atg): OK
 Kambi leovegas (leose): OK
@@ -7,74 +7,71 @@ Kambi svenskaspel (svenskaspel): OK
 Kambi expekt (expektse): OK
 Kambi betmgm (betmgmse): OK
 Pinnacle: OK, 25 ligor
-  AZ Alkmaar – Juventus: Pinnacle FEL HTTP 403 för https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639017712/related
-Pinnacle: 41 matcher, matchlinjer för 35 av 47 Kambi-matcher, 0 spelarodds som används
+Pinnacle: 39 matcher, matchlinjer för 35 av 48 Kambi-matcher, 0 spelarodds som används
 Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
-  Double Chance 1st Half | units=Regular | kategori=Team Props | deltagare=Flamengo Or Gremio,Draw Or Gremio,Draw Or Flamengo  ->  används inte (lagmarknad)
-  Moneyline and Total Goals | units=Regular | kategori=Team Props | deltagare=Flamengo & Over 3.5,Flamengo & Under 3.5,Draw & Over 3.5,Draw & Under 3.5,Gremio & Over 3.5,Gremio & Under 3.5  ->  används inte (lagmarknad)
-  Double Chance | units=Regular | kategori=Team Props | deltagare=Flamengo Or Gremio,Draw Or Gremio,Draw Or Flamengo  ->  används inte (lagmarknad)
-  Correct Score 1st Half | units=Regular | kategori=Team Props | deltagare=Flamengo 0, Gremio 0,Flamengo 0, Gremio 1,Flamengo 0, Gremio 2,Flamengo 0, Gremio 3,Flamengo 1, Gremio 0,Flamengo 1, Gremio 1,Flamengo 1, Gremio 2,Flamengo 1, Gremio 3,Flamengo 2, Gremio 0,Flamengo 2, Gremio 1,Flamengo 2, Gremio 2,Flamengo 2, Gremio 3,Flamengo 3, Gremio 0,Flamengo 3, Gremio 1,Flamengo 3, Gremio 2,Flamengo 3, Gremio 3  ->  används inte (lagmarknad)
-  3-Way Handicap Flamengo -3 | units=Regular | kategori=Team Props | deltagare=Flamengo (-3),Draw - (Flamengo -3),Gremio (+3)  ->  används inte (lagmarknad)
-  Correct Score | units=Regular | kategori=Team Props | deltagare=Flamengo 0, Gremio 0,Flamengo 0, Gremio 1,Flamengo 0, Gremio 2,Flamengo 0, Gremio 3,Flamengo 0, Gremio 4,Flamengo 0, Gremio 5,Flamengo 0, Gremio 6,Flamengo 1, Gremio 0,Flamengo 1, Gremio 1,Flamengo 1, Gremio 2,Flamengo 1, Gremio 3,Flamengo 1, Gremio 4,Flamengo 1, Gremio 5,Flamengo 1, Gremio 6,Flamengo 2, Gremio 0,Flamengo 2, Gremio 1,Flamengo 2, Gremio 2,Flamengo 2, Gremio 3,Flamengo 2, Gremio 4,Flamengo 2, Gremio 5,Flamengo 2, Gremio 6,Flamengo 3, Gremio 0,Flamengo 3, Gremio 1,Flamengo 3, Gremio 2,Flamengo 3, Gremio 3,Flamengo 3, Gremio 4,Flamengo 3, Gremio 5,Flamengo 3, Gremio 6,Flamengo 4, Gremio 0,Flamengo 4, Gremio 1,Flamengo 4, Gremio 2,Flamengo 4, Gremio 3,Flamengo 4, Gremio 4,Flamengo 4, Gremio 5,Flamengo 4, Gremio 6,Flamengo 5, Gremio 0,Flamengo 5, Gremio 1,Flamengo 5, Gremio 2,Flamengo 5, Gremio 3,Flamengo 5, Gremio 4,Flamengo 5, Gremio 5,Flamengo 5, Gremio 6,Flamengo 6, Gremio 0,Flamengo 6, Gremio 1,Flamengo 6, Gremio 2,Flamengo 6, Gremio 3,Flamengo 6, Gremio 4,Flamengo 6, Gremio 5,Flamengo 6, Gremio 6  ->  används inte (lagmarknad)
-  First Team To Score | units=1st Goal | kategori=Team Props | deltagare=Flamengo,Gremio,Neither  ->  används inte (lagmarknad)
+  Double Chance 1st Half | units=Regular | kategori=Team Props | deltagare=Botafogo FR RJ Or Atletico Mineiro,Draw Or Atletico Mineiro,Draw Or Botafogo FR RJ  ->  används inte (lagmarknad)
+  Moneyline and Total Goals | units=Regular | kategori=Team Props | deltagare=Botafogo FR RJ & Over 2.5,Botafogo FR RJ & Under 2.5,Draw & Over 2.5,Draw & Under 2.5,Atletico Mineiro & Over 2.5,Atletico Mineiro & Under 2.5  ->  används inte (lagmarknad)
+  Double Chance | units=Regular | kategori=Team Props | deltagare=Botafogo FR RJ Or Atletico Mineiro,Draw Or Atletico Mineiro,Draw Or Botafogo FR RJ  ->  används inte (lagmarknad)
+  Atletico Mineiro Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
   Both Teams To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Flamengo To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Gremio Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
-  Gremio To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  3-Way Handicap Flamengo -4 | units=Regular | kategori=Team Props | deltagare=Flamengo (-4),Draw - (Flamengo -4),Gremio (+4)  ->  används inte (lagmarknad)
-  Total Goals Range | units=Regular | kategori=Team Props | deltagare=0 - 1,2 - 3,4 - 6,7+  ->  används inte (lagmarknad)
-  Flamengo To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Total Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
-  Winning Margin 1st Half | units=Regular | kategori=Team Props | deltagare=Flamengo By 1,Flamengo By 2+,Gremio By 1,Gremio By 2+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
-  Exact Total Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
-  Draw No Bet 1st Half | units=Regular | kategori=Team Props | deltagare=Flamengo,Gremio  ->  används inte (lagmarknad)
-  First Team To Score 1st Half | units=1st Goal | kategori=Team Props | deltagare=Flamengo,Gremio,Neither  ->  används inte (lagmarknad)
-  Total Goals Range 1st Half | units=Regular | kategori=Team Props | deltagare=0 - 1,2 - 3,4+  ->  används inte (lagmarknad)
-  Flamengo Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
-  Gremio To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Gremio Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
-  Flamengo Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
-  Both Teams To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Gremio Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
-  3-Way Handicap Flamengo -2 | units=Regular | kategori=Team Props | deltagare=Flamengo (-2),Draw - (Flamengo -2),Gremio (+2)  ->  används inte (lagmarknad)
-  Either Team To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Exact Total Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5,6+  ->  används inte (lagmarknad)
   Total Goals Odd/Even 1st Half | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
-  3-Way Handicap Flamengo -1 | units=Regular | kategori=Team Props | deltagare=Flamengo (-1),Draw - (Flamengo -1),Gremio (+1)  ->  används inte (lagmarknad)
-  Flamengo Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
-  Draw No Bet | units=Regular | kategori=Team Props | deltagare=Flamengo,Gremio  ->  används inte (lagmarknad)
-  Winning Margin | units=Regular | kategori=Team Props | deltagare=Flamengo By 1,Flamengo By 2,Flamengo By 3,Flamengo By 4+,Gremio By 1,Gremio By 2,Gremio By 3,Gremio By 4+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
-  Both Teams To Score and Moneyline | units=Regular | kategori=Team Props | deltagare=Yes & Flamengo,Yes & Draw,Yes & Gremio,No & Flamengo,No & Draw,No & Gremio  ->  används inte (lagmarknad)
-  Odd/Even and Total Goals | units=Regular | kategori=Team Props | deltagare=Odd & Over 3.5,Odd & Under 3.5,Even & Over 3.5,Even & Under 3.5  ->  används inte (lagmarknad)
-  Flamengo To Win To Nil | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Flamengo To Win To Nil 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Gremio To Win To Nil 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Both Teams To Score and Total Goals | units=Regular | kategori=Team Props | deltagare=Yes & Over 3.5,Yes & Under 3.5,No & Over 3.5,No & Under 3.5  ->  används inte (lagmarknad)
-  Double Chance 1st Half | units=Regular | kategori=Team Props | deltagare=Athletico Paranaense Or Vasco da Gama,Draw Or Vasco da Gama,Draw Or Athletico Paranaense  ->  används inte (lagmarknad)
-  Moneyline and Total Goals | units=Regular | kategori=Team Props | deltagare=Athletico Paranaense & Over 2.5,Athletico Paranaense & Under 2.5,Draw & Over 2.5,Draw & Under 2.5,Vasco da Gama & Over 2.5,Vasco da Gama & Under 2.5  ->  används inte (lagmarknad)
-  Double Chance | units=Regular | kategori=Team Props | deltagare=Athletico Paranaense Or Vasco da Gama,Draw Or Vasco da Gama,Draw Or Athletico Paranaense  ->  används inte (lagmarknad)
-  Correct Score 1st Half | units=Regular | kategori=Team Props | deltagare=Athletico Paranaense 0, Vasco da Gama 0,Athletico Paranaense 0, Vasco da Gama 1,Athletico Paranaense 0, Vasco da Gama 2,Athletico Paranaense 0, Vasco da Gama 3,Athletico Paranaense 1, Vasco da Gama 0,Athletico Paranaense 1, Vasco da Gama 1,Athletico Paranaense 1, Vasco da Gama 2,Athletico Paranaense 1, Vasco da Gama 3,Athletico Paranaense 2, Vasco da Gama 0,Athletico Paranaense 2, Vasco da Gama 1,Athletico Paranaense 2, Vasco da Gama 2,Athletico Paranaense 2, Vasco da Gama 3,Athletico Paranaense 3, Vasco da Gama 0,Athletico Paranaense 3, Vasco da Gama 1,Athletico Paranaense 3, Vasco da Gama 2,Athletico Paranaense 3, Vasco da Gama 3  ->  används inte (lagmarknad)
-  Correct Score | units=Regular | kategori=Team Props | deltagare=Athletico Paranaense 0, Vasco da Gama 0,Athletico Paranaense 0, Vasco da Gama 1,Athletico Paranaense 0, Vasco da Gama 2,Athletico Paranaense 0, Vasco da Gama 3,Athletico Paranaense 0, Vasco da Gama 4,Athletico Paranaense 0, Vasco da Gama 5,Athletico Paranaense 0, Vasco da Gama 6,Athletico Paranaense 1, Vasco da Gama 0,Athletico Paranaense 1, Vasco da Gama 1,Athletico Paranaense 1, Vasco da Gama 2,Athletico Paranaense 1, Vasco da Gama 3,Athletico Paranaense 1, Vasco da Gama 4,Athletico Paranaense 1, Vasco da Gama 5,Athletico Paranaense 1, Vasco da Gama 6,Athletico Paranaense 2, Vasco da Gama 0,Athletico Paranaense 2, Vasco da Gama 1,Athletico Paranaense 2, Vasco da Gama 2,Athletico Paranaense 2, Vasco da Gama 3,Athletico Paranaense 2, Vasco da Gama 4,Athletico Paranaense 2, Vasco da Gama 5,Athletico Paranaense 2, Vasco da Gama 6,Athletico Paranaense 3, Vasco da Gama 0,Athletico Paranaense 3, Vasco da Gama 1,Athletico Paranaense 3, Vasco da Gama 2,Athletico Paranaense 3, Vasco da Gama 3,Athletico Paranaense 3, Vasco da Gama 4,Athletico Paranaense 3, Vasco da Gama 5,Athletico Paranaense 3, Vasco da Gama 6,Athletico Paranaense 4, Vasco da Gama 0,Athletico Paranaense 4, Vasco da Gama 1,Athletico Paranaense 4, Vasco da Gama 2,Athletico Paranaense 4, Vasco da Gama 3,Athletico Paranaense 4, Vasco da Gama 4,Athletico Paranaense 4, Vasco da Gama 5,Athletico Paranaense 4, Vasco da Gama 6,Athletico Paranaense 5, Vasco da Gama 0,Athletico Paranaense 5, Vasco da Gama 1,Athletico Paranaense 5, Vasco da Gama 2,Athletico Paranaense 5, Vasco da Gama 3,Athletico Paranaense 5, Vasco da Gama 4,Athletico Paranaense 5, Vasco da Gama 5,Athletico Paranaense 5, Vasco da Gama 6,Athletico Paranaense 6, Vasco da Gama 0,Athletico Paranaense 6, Vasco da Gama 1,Athletico Paranaense 6, Vasco da Gama 2,Athletico Paranaense 6, Vasco da Gama 3,Athletico Paranaense 6, Vasco da Gama 4,Athletico Paranaense 6, Vasco da Gama 5,Athletico Paranaense 6, Vasco da Gama 6  ->  används inte (lagmarknad)
+  Botafogo FR RJ Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
+  Atletico Mineiro To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Botafogo FR RJ To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Draw No Bet 1st Half | units=Regular | kategori=Team Props | deltagare=Botafogo FR RJ,Atletico Mineiro  ->  används inte (lagmarknad)
+  First Team To Score | units=1st Goal | kategori=Team Props | deltagare=Botafogo FR RJ,Atletico Mineiro,Neither  ->  används inte (lagmarknad)
+  First Team To Score 1st Half | units=1st Goal | kategori=Team Props | deltagare=Botafogo FR RJ,Atletico Mineiro,Neither  ->  används inte (lagmarknad)
+  Both Teams To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Botafogo FR RJ Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  Correct Score 1st Half | units=Regular | kategori=Team Props | deltagare=Botafogo FR RJ 0, Atletico Mineiro 0,Botafogo FR RJ 0, Atletico Mineiro 1,Botafogo FR RJ 0, Atletico Mineiro 2,Botafogo FR RJ 0, Atletico Mineiro 3,Botafogo FR RJ 1, Atletico Mineiro 0,Botafogo FR RJ 1, Atletico Mineiro 1,Botafogo FR RJ 1, Atletico Mineiro 2,Botafogo FR RJ 1, Atletico Mineiro 3,Botafogo FR RJ 2, Atletico Mineiro 0,Botafogo FR RJ 2, Atletico Mineiro 1,Botafogo FR RJ 2, Atletico Mineiro 2,Botafogo FR RJ 2, Atletico Mineiro 3,Botafogo FR RJ 3, Atletico Mineiro 0,Botafogo FR RJ 3, Atletico Mineiro 1,Botafogo FR RJ 3, Atletico Mineiro 2,Botafogo FR RJ 3, Atletico Mineiro 3  ->  används inte (lagmarknad)
+  Botafogo FR RJ Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
+  Atletico Mineiro Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
+  Botafogo FR RJ To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Total Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  3-Way Handicap Botafogo FR RJ -2 | units=Regular | kategori=Team Props | deltagare=Botafogo FR RJ (-2),Draw - (Botafogo FR RJ -2),Atletico Mineiro (+2)  ->  används inte (lagmarknad)
+  Correct Score | units=Regular | kategori=Team Props | deltagare=Botafogo FR RJ 0, Atletico Mineiro 0,Botafogo FR RJ 0, Atletico Mineiro 1,Botafogo FR RJ 0, Atletico Mineiro 2,Botafogo FR RJ 0, Atletico Mineiro 3,Botafogo FR RJ 0, Atletico Mineiro 4,Botafogo FR RJ 0, Atletico Mineiro 5,Botafogo FR RJ 0, Atletico Mineiro 6,Botafogo FR RJ 1, Atletico Mineiro 0,Botafogo FR RJ 1, Atletico Mineiro 1,Botafogo FR RJ 1, Atletico Mineiro 2,Botafogo FR RJ 1, Atletico Mineiro 3,Botafogo FR RJ 1, Atletico Mineiro 4,Botafogo FR RJ 1, Atletico Mineiro 5,Botafogo FR RJ 1, Atletico Mineiro 6,Botafogo FR RJ 2, Atletico Mineiro 0,Botafogo FR RJ 2, Atletico Mineiro 1,Botafogo FR RJ 2, Atletico Mineiro 2,Botafogo FR RJ 2, Atletico Mineiro 3,Botafogo FR RJ 2, Atletico Mineiro 4,Botafogo FR RJ 2, Atletico Mineiro 5,Botafogo FR RJ 2, Atletico Mineiro 6,Botafogo FR RJ 3, Atletico Mineiro 0,Botafogo FR RJ 3, Atletico Mineiro 1,Botafogo FR RJ 3, Atletico Mineiro 2,Botafogo FR RJ 3, Atletico Mineiro 3,Botafogo FR RJ 3, Atletico Mineiro 4,Botafogo FR RJ 3, Atletico Mineiro 5,Botafogo FR RJ 3, Atletico Mineiro 6,Botafogo FR RJ 4, Atletico Mineiro 0,Botafogo FR RJ 4, Atletico Mineiro 1,Botafogo FR RJ 4, Atletico Mineiro 2,Botafogo FR RJ 4, Atletico Mineiro 3,Botafogo FR RJ 4, Atletico Mineiro 4,Botafogo FR RJ 4, Atletico Mineiro 5,Botafogo FR RJ 4, Atletico Mineiro 6,Botafogo FR RJ 5, Atletico Mineiro 0,Botafogo FR RJ 5, Atletico Mineiro 1,Botafogo FR RJ 5, Atletico Mineiro 2,Botafogo FR RJ 5, Atletico Mineiro 3,Botafogo FR RJ 5, Atletico Mineiro 4,Botafogo FR RJ 5, Atletico Mineiro 5,Botafogo FR RJ 5, Atletico Mineiro 6,Botafogo FR RJ 6, Atletico Mineiro 0,Botafogo FR RJ 6, Atletico Mineiro 1,Botafogo FR RJ 6, Atletico Mineiro 2,Botafogo FR RJ 6, Atletico Mineiro 3,Botafogo FR RJ 6, Atletico Mineiro 4,Botafogo FR RJ 6, Atletico Mineiro 5,Botafogo FR RJ 6, Atletico Mineiro 6  ->  används inte (lagmarknad)
+  Exact Total Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5,6+  ->  används inte (lagmarknad)
+  Winning Margin 1st Half | units=Regular | kategori=Team Props | deltagare=Botafogo FR RJ By 1,Botafogo FR RJ By 2+,Atletico Mineiro By 1,Atletico Mineiro By 2+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
+  Exact Total Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
+  Winning Margin | units=Regular | kategori=Team Props | deltagare=Botafogo FR RJ By 1,Botafogo FR RJ By 2,Botafogo FR RJ By 3,Botafogo FR RJ By 4+,Atletico Mineiro By 1,Atletico Mineiro By 2,Atletico Mineiro By 3,Atletico Mineiro By 4+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
+  Total Goals Range | units=Regular | kategori=Team Props | deltagare=0 - 1,2 - 3,4 - 6,7+  ->  används inte (lagmarknad)
+  Atletico Mineiro Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
   Either Team To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  First Team To Score | units=1st Goal | kategori=Team Props | deltagare=Athletico Paranaense,Vasco da Gama,Neither  ->  används inte (lagmarknad)
-  Athletico Paranaense To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Vasco da Gama Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
-  Vasco da Gama To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  3-Way Handicap Athletico Paranaense +1 | units=Regular | kategori=Team Props | deltagare=Athletico Paranaense (+1),Draw - (Athletico Paranaense +1),Vasco da Gama (-1)  ->  används inte (lagmarknad)
-  Athletico Paranaense To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Winning Margin 1st Half | units=Regular | kategori=Team Props | deltagare=Athletico Paranaense By 1,Athletico Paranaense By 2+,Vasco da Gama By 1,Vasco da Gama By 2+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
-  Draw No Bet 1st Half | units=Regular | kategori=Team Props | deltagare=Athletico Paranaense,Vasco da Gama  ->  används inte (lagmarknad)
-  First Team To Score 1st Half | units=1st Goal | kategori=Team Props | deltagare=Athletico Paranaense,Vasco da Gama,Neither  ->  används inte (lagmarknad)
-  Athletico Paranaense Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
-  Vasco da Gama To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Vasco da Gama Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
-  Athletico Paranaense Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
-  Vasco da Gama Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
+  Draw No Bet | units=Regular | kategori=Team Props | deltagare=Botafogo FR RJ,Atletico Mineiro  ->  används inte (lagmarknad)
+  Total Goals Range 1st Half | units=Regular | kategori=Team Props | deltagare=0 - 1,2 - 3,4+  ->  används inte (lagmarknad)
+  Atletico Mineiro To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Either Team To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  3-Way Handicap Botafogo FR RJ -1 | units=Regular | kategori=Team Props | deltagare=Botafogo FR RJ (-1),Draw - (Botafogo FR RJ -1),Atletico Mineiro (+1)  ->  används inte (lagmarknad)
+  Both Teams To Score and Moneyline | units=Regular | kategori=Team Props | deltagare=Yes & Botafogo FR RJ,Yes & Draw,Yes & Atletico Mineiro,No & Botafogo FR RJ,No & Draw,No & Atletico Mineiro  ->  används inte (lagmarknad)
+  Odd/Even and Total Goals | units=Regular | kategori=Team Props | deltagare=Odd & Over 2.5,Odd & Under 2.5,Even & Over 2.5,Even & Under 2.5  ->  används inte (lagmarknad)
+  Atletico Mineiro To Win To Nil | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Botafogo FR RJ To Win To Nil | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Botafogo FR RJ To Win To Nil 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Atletico Mineiro To Win To Nil 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Both Teams To Score and Total Goals | units=Regular | kategori=Team Props | deltagare=Yes & Over 2.5,Yes & Under 2.5,No & Over 2.5,No & Under 2.5  ->  används inte (lagmarknad)
+  Double Chance 1st Half | units=Regular | kategori=Team Props | deltagare=Sao Paulo Or Corinthians,Draw Or Corinthians,Draw Or Sao Paulo  ->  används inte (lagmarknad)
+  Moneyline and Total Goals | units=Regular | kategori=Team Props | deltagare=Sao Paulo & Over 2.5,Sao Paulo & Under 2.5,Draw & Over 2.5,Draw & Under 2.5,Corinthians & Over 2.5,Corinthians & Under 2.5  ->  används inte (lagmarknad)
+  Double Chance | units=Regular | kategori=Team Props | deltagare=Sao Paulo Or Corinthians,Draw Or Corinthians,Draw Or Sao Paulo  ->  används inte (lagmarknad)
+  Corinthians Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  Sao Paulo Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
+  Corinthians To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Sao Paulo To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Draw No Bet 1st Half | units=Regular | kategori=Team Props | deltagare=Sao Paulo,Corinthians  ->  används inte (lagmarknad)
+  First Team To Score | units=1st Goal | kategori=Team Props | deltagare=Sao Paulo,Corinthians,Neither  ->  används inte (lagmarknad)
+  First Team To Score 1st Half | units=1st Goal | kategori=Team Props | deltagare=Sao Paulo,Corinthians,Neither  ->  används inte (lagmarknad)
+  Sao Paulo Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  Correct Score 1st Half | units=Regular | kategori=Team Props | deltagare=Sao Paulo 0, Corinthians 0,Sao Paulo 0, Corinthians 1,Sao Paulo 0, Corinthians 2,Sao Paulo 0, Corinthians 3,Sao Paulo 1, Corinthians 0,Sao Paulo 1, Corinthians 1,Sao Paulo 1, Corinthians 2,Sao Paulo 1, Corinthians 3,Sao Paulo 2, Corinthians 0,Sao Paulo 2, Corinthians 1,Sao Paulo 2, Corinthians 2,Sao Paulo 2, Corinthians 3,Sao Paulo 3, Corinthians 0,Sao Paulo 3, Corinthians 1,Sao Paulo 3, Corinthians 2,Sao Paulo 3, Corinthians 3  ->  används inte (lagmarknad)
+  Sao Paulo Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
+  Corinthians Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
+  Sao Paulo To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Correct Score | units=Regular | kategori=Team Props | deltagare=Sao Paulo 0, Corinthians 0,Sao Paulo 0, Corinthians 1,Sao Paulo 0, Corinthians 2,Sao Paulo 0, Corinthians 3,Sao Paulo 0, Corinthians 4,Sao Paulo 0, Corinthians 5,Sao Paulo 0, Corinthians 6,Sao Paulo 1, Corinthians 0,Sao Paulo 1, Corinthians 1,Sao Paulo 1, Corinthians 2,Sao Paulo 1, Corinthians 3,Sao Paulo 1, Corinthians 4,Sao Paulo 1, Corinthians 5,Sao Paulo 1, Corinthians 6,Sao Paulo 2, Corinthians 0,Sao Paulo 2, Corinthians 1,Sao Paulo 2, Corinthians 2,Sao Paulo 2, Corinthians 3,Sao Paulo 2, Corinthians 4,Sao Paulo 2, Corinthians 5,Sao Paulo 2, Corinthians 6,Sao Paulo 3, Corinthians 0,Sao Paulo 3, Corinthians 1,Sao Paulo 3, Corinthians 2,Sao Paulo 3, Corinthians 3,Sao Paulo 3, Corinthians 4,Sao Paulo 3, Corinthians 5,Sao Paulo 3, Corinthians 6,Sao Paulo 4, Corinthians 0,Sao Paulo 4, Corinthians 1,Sao Paulo 4, Corinthians 2,Sao Paulo 4, Corinthians 3,Sao Paulo 4, Corinthians 4,Sao Paulo 4, Corinthians 5,Sao Paulo 4, Corinthians 6,Sao Paulo 5, Corinthians 0,Sao Paulo 5, Corinthians 1,Sao Paulo 5, Corinthians 2,Sao Paulo 5, Corinthians 3,Sao Paulo 5, Corinthians 4,Sao Paulo 5, Corinthians 5,Sao Paulo 5, Corinthians 6,Sao Paulo 6, Corinthians 0,Sao Paulo 6, Corinthians 1,Sao Paulo 6, Corinthians 2,Sao Paulo 6, Corinthians 3,Sao Paulo 6, Corinthians 4,Sao Paulo 6, Corinthians 5,Sao Paulo 6, Corinthians 6  ->  används inte (lagmarknad)
+  Winning Margin 1st Half | units=Regular | kategori=Team Props | deltagare=Sao Paulo By 1,Sao Paulo By 2+,Corinthians By 1,Corinthians By 2+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
+  Winning Margin | units=Regular | kategori=Team Props | deltagare=Sao Paulo By 1,Sao Paulo By 2,Sao Paulo By 3,Sao Paulo By 4+,Corinthians By 1,Corinthians By 2,Corinthians By 3,Corinthians By 4+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
+  Corinthians Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
+  Draw No Bet | units=Regular | kategori=Team Props | deltagare=Sao Paulo,Corinthians  ->  används inte (lagmarknad)
 Fotboll extra bolag: 0 nya hämtningar, 0 odds i bruk, krediter kvar 442, dagsbudget 16 (andel 30%), förbrukat idag 6
-Tid: hämtning 208 s
-Marginal över alla matcher: uppmätt marginal: shots stege k=1.04 (7 spelare; marginal vid 3,00 ≈ 4%), shots_on_target stege k=1.16 (168 spelare; marginal vid 3,00 ≈ 19%)
-  Flamengo-RJ – Grêmio-RS: modell bra.1, 30 spelare
-  Athletico Paranaense-PR – Vasco da Gama-RJ: modell bra.1, 26 spelare
+Tid: hämtning 191 s
+Marginal över alla matcher: uppmätt marginal: shots stege k=1.04 (7 spelare; marginal vid 3,00 ≈ 4%), shots_on_target stege k=1.16 (161 spelare; marginal vid 3,00 ≈ 19%)
   Botafogo-RJ – Atlético Mineiro-MG: modell – hittar inte matchen hos ESPN
   São Paulo-SP – Corinthians-SP: modell – hittar inte matchen hos ESPN
   Levski Sofia – Jagiellonia Białystok: modell uefa.europa, 13 spelare
@@ -94,6 +91,7 @@ Marginal över alla matcher: uppmätt marginal: shots stege k=1.04 (7 spelare; m
   Mjällby AIF – Borac Banja Luka: modell uefa.europa.conf, 0 spelare
   Trabzonspor – SC Freiburg: modell uefa.europa.conf, 0 spelare
   Torreense – Ararat-Armenia FC: modell uefa.europa, 14 spelare
+  AZ Alkmaar – Juventus: modell uefa.europa, 10 spelare
   Sturm Graz – NK Celje: modell uefa.europa, 16 spelare
   Celta Vigo – Union Saint-Gilloise: modell uefa.europa, 18 spelare
   Bayer Leverkusen – Marseille: modell uefa.europa, 13 spelare
@@ -108,20 +106,19 @@ Marginal över alla matcher: uppmätt marginal: shots stege k=1.04 (7 spelare; m
   Getafe – Brighton: modell – hittar inte matchen hos ESPN
   Riga FC – FK Baumit Jablonec: modell uefa.europa.conf, 0 spelare
   AS Monaco – FC Nordsjælland: modell uefa.europa.conf, 0 spelare
-Modellens nivåavvikelse mot marknaden (log-odds, dras bort): goal -0.31, shots -0.53, shots_on_target -0.34
-  Flamengo-RJ – Grêmio-RS: väntade mål Pinnacle 3.83 mot Kambi 3.70 (kvot 1.035); uppmätt marginal: goal k=1.13, assist k=1.16
-Exempel uppmätt marginal: goal k=1.13, assist k=1.16
-  Athletico Paranaense-PR – Vasco da Gama-RJ: väntade mål Pinnacle 2.73 mot Kambi 2.70 (kvot 1.011); uppmätt marginal: goal k=1.14, assist k=1.20
-  Botafogo-RJ – Atlético Mineiro-MG: väntade mål Pinnacle 2.90 mot Kambi 3.06 (kvot 0.950); uppmätt marginal: goal k=1.68, assist k=1.65, shots_on_target stege k=1.06 (14 spelare; marginal vid 3,00 ≈ 7%)
+  Palmeiras-SP – Remo-PA: modell bra.1, 32 spelare
+Modellens nivåavvikelse mot marknaden (log-odds, dras bort): goal -0.46, shots -0.54, shots_on_target -0.35
+  Botafogo-RJ – Atlético Mineiro-MG: väntade mål Pinnacle 2.90 mot Kambi 3.07 (kvot 0.947); uppmätt marginal: goal k=1.69, assist k=1.65, shots_on_target stege k=1.16 (7 spelare; marginal vid 3,00 ≈ 19%)
+Exempel uppmätt marginal: goal k=1.69, assist k=1.65, shots_on_target stege k=1.16 (7 spelare; marginal vid 3,00 ≈ 19%)
   São Paulo-SP – Corinthians-SP: väntade mål Pinnacle 2.17 mot Kambi 2.25 (kvot 0.965); uppmätt marginal: goal k=1.55, assist k=1.52, shots_on_target stege k=1.24 (7 spelare; marginal vid 3,00 ≈ 30%)
   Levski Sofia – Jagiellonia Białystok: väntade mål Pinnacle 2.79 mot Kambi 2.82 (kvot 0.986); uppmätt marginal: goal k=1.53, assist k=1.47, shots_on_target stege k=1.21 (28 spelare; marginal vid 3,00 ≈ 26%)
-  Crystal Palace – TSG Hoffenheim: väntade mål Pinnacle 3.23 mot Kambi 3.21 (kvot 1.005); uppmätt marginal: goal k=1.56, assist k=1.52, shots_on_target stege k=1.08 (7 spelare; marginal vid 3,00 ≈ 9%)
-  Lillestrøm – Viktoria Plzeň: väntade mål Pinnacle 3.17 mot Kambi 3.16 (kvot 1.004); uppmätt marginal: goal k=1.61, assist k=1.57, shots_on_target stege k=1.20 (7 spelare; marginal vid 3,00 ≈ 25%)
+  Crystal Palace – TSG Hoffenheim: väntade mål Pinnacle 3.23 mot Kambi 3.21 (kvot 1.007); uppmätt marginal: goal k=1.56, assist k=1.52, shots_on_target stege k=1.08 (7 spelare; marginal vid 3,00 ≈ 9%)
+  Lillestrøm – Viktoria Plzeň: väntade mål Pinnacle 3.16 mot Kambi 3.16 (kvot 1.003); uppmätt marginal: goal k=1.61, assist k=1.57, shots_on_target stege k=1.20 (7 spelare; marginal vid 3,00 ≈ 25%)
   Anderlecht – Red Bull Salzburg: väntade mål Pinnacle 3.10 mot Kambi 3.13 (kvot 0.992); uppmätt marginal: goal k=1.53, assist k=1.48, shots stege k=1.04 (7 spelare; marginal vid 3,00 ≈ 4%), shots_on_target stege k=1.02 (7 spelare; marginal vid 3,00 ≈ 2%)
-  Sparta Prague – Bournemouth: väntade mål Pinnacle 3.15 mot Kambi 3.16 (kvot 0.996); uppmätt marginal: goal k=1.62, assist k=1.54, shots_on_target stege k=1.02 (7 spelare; marginal vid 3,00 ≈ 2%)
+  Sparta Prague – Bournemouth: väntade mål Pinnacle 3.17 mot Kambi 3.16 (kvot 1.001); uppmätt marginal: goal k=1.62, assist k=1.54, shots_on_target stege k=1.02 (7 spelare; marginal vid 3,00 ≈ 2%)
   Real Sociedad – Lyon: väntade mål Pinnacle 3.21 mot Kambi 3.19 (kvot 1.005); uppmätt marginal: goal k=1.50, assist k=1.53
-  AC Milan – Ferencváros: väntade mål Pinnacle 3.16 mot Kambi 3.27 (kvot 0.969); uppmätt marginal: goal k=1.51, assist k=1.55
-  NEC Nijmegen – Omonia Nicosia: väntade mål Pinnacle 3.15 mot Kambi 3.26 (kvot 0.966); uppmätt marginal: goal k=1.61, assist k=1.58
+  AC Milan – Ferencváros: väntade mål Pinnacle 3.17 mot Kambi 3.21 (kvot 0.988); uppmätt marginal: goal k=1.50, assist k=1.53
+  NEC Nijmegen – Omonia Nicosia: väntade mål Pinnacle 3.14 mot Kambi 3.26 (kvot 0.964); uppmätt marginal: goal k=1.61, assist k=1.58
   KuPS – KAA Gent: väntade mål Pinnacle 2.64 mot Kambi 2.62 (kvot 1.005); uppmätt marginal: goal k=1.56, assist k=1.46
   Lincoln Red IMPS FC – Hajduk Split: väntade mål Pinnacle 2.90 mot Kambi 2.90 (kvot 0.998); uppmätt marginal: goal k=1.47, assist k=1.33
   Atalanta – Kairat Almaty: väntade mål Pinnacle 3.58 mot Kambi 3.44 (kvot 1.039); uppmätt marginal: goal k=1.68, assist k=1.59
@@ -132,40 +129,43 @@ Exempel uppmätt marginal: goal k=1.13, assist k=1.16
   Mjällby AIF – Borac Banja Luka: väntade mål Pinnacle 2.58 mot Kambi 2.49 (kvot 1.038); uppmätt marginal: goal k=1.47, assist k=1.27
   Trabzonspor – SC Freiburg: väntade mål Pinnacle 3.23 mot Kambi 3.22 (kvot 1.002); uppmätt marginal: goal k=1.68, assist k=1.56
   Aldosivi – River Plate: saknar matchlinjer från Pinnacle
-  Torreense – Ararat-Armenia FC: väntade mål Pinnacle 2.56 mot Kambi 2.63 (kvot 0.971); uppmätt marginal: goal k=1.68, assist k=1.55
-  AZ Alkmaar – Juventus: saknar matchlinjer från Pinnacle
+  Torreense – Ararat-Armenia FC: väntade mål Pinnacle 2.55 mot Kambi 2.63 (kvot 0.967); uppmätt marginal: goal k=1.68, assist k=1.55
+  AZ Alkmaar – Juventus: väntade mål Pinnacle 2.81 mot Kambi 2.82 (kvot 0.994); uppmätt marginal: goal k=1.54, assist k=1.43, shots_on_target stege k=1.19 (14 spelare; marginal vid 3,00 ≈ 23%)
   Sturm Graz – NK Celje: väntade mål Pinnacle 3.17 mot Kambi 3.13 (kvot 1.014); uppmätt marginal: goal k=1.48, assist k=1.43
   Celta Vigo – Union Saint-Gilloise: väntade mål Pinnacle 2.78 mot Kambi 2.91 (kvot 0.953); uppmätt marginal: goal k=1.56, assist k=1.53, shots_on_target stege k=1.20 (7 spelare; marginal vid 3,00 ≈ 25%)
   Bayer Leverkusen – Marseille: väntade mål Pinnacle 3.48 mot Kambi 3.58 (kvot 0.972); uppmätt marginal: goal k=1.56, assist k=1.55, shots_on_target stege k=1.40 (7 spelare; marginal vid 3,00 ≈ 55%)
   Benfica – Lech Poznań: väntade mål Pinnacle 3.89 mot Kambi 3.83 (kvot 1.016); uppmätt marginal: goal k=1.59, assist k=1.53, shots_on_target stege k=1.10 (14 spelare; marginal vid 3,00 ≈ 12%)
   Hapoel Beer Sheva – OFI Crete: väntade mål Pinnacle 2.99 mot Kambi 3.02 (kvot 0.991); uppmätt marginal: goal k=1.52, assist k=1.42, shots_on_target stege k=1.16 (21 spelare; marginal vid 3,00 ≈ 19%)
-  Celtic – Beşiktaş: väntade mål Pinnacle 3.22 mot Kambi 3.16 (kvot 1.019); uppmätt marginal: goal k=1.54, assist k=1.53, shots_on_target stege k=1.16 (21 spelare; marginal vid 3,00 ≈ 19%)
+  Celtic – Beşiktaş: väntade mål Pinnacle 3.21 mot Kambi 3.16 (kvot 1.015); uppmätt marginal: goal k=1.54, assist k=1.53, shots_on_target stege k=1.16 (21 spelare; marginal vid 3,00 ≈ 19%)
   Sunderland – Dinamo Zagreb: väntade mål Pinnacle 3.00 mot Kambi 3.01 (kvot 0.997); uppmätt marginal: goal k=1.61, assist k=1.55, shots_on_target stege k=1.22 (7 spelare; marginal vid 3,00 ≈ 27%)
   FC Twente – Pafos FC: väntade mål Pinnacle 3.48 mot Kambi 3.39 (kvot 1.026); uppmätt marginal: goal k=1.66, assist k=1.51
-  Lugano – FK Kauno Zalgiris: väntade mål Pinnacle 3.67 mot Kambi 3.64 (kvot 1.008); uppmätt marginal: goal k=1.62, assist k=1.46
+  Lugano – FK Kauno Zalgiris: väntade mål Pinnacle 3.67 mot Kambi 3.55 (kvot 1.035); uppmätt marginal: goal k=1.59, assist k=1.44
   Sint-Truiden – Brann: väntade mål Pinnacle 3.16 mot Kambi 3.20 (kvot 0.988); uppmätt marginal: goal k=1.62, assist k=1.52
-  Panathinaikos – CSKA Sofia: väntade mål Pinnacle 2.94 mot Kambi 3.09 (kvot 0.952); uppmätt marginal: goal k=1.45, assist k=1.34
+  Panathinaikos – CSKA Sofia: väntade mål Pinnacle 2.97 mot Kambi 3.09 (kvot 0.964); uppmätt marginal: goal k=1.44, assist k=1.33
   Getafe – Brighton: väntade mål Pinnacle 2.60 mot Kambi 2.76 (kvot 0.940); uppmätt marginal: goal k=1.78, assist k=1.60
   Riga FC – FK Baumit Jablonec: väntade mål Pinnacle 2.70 mot Kambi 2.74 (kvot 0.985); uppmätt marginal: goal k=1.44, assist k=1.28
   Universitatea Craiova – FK Egnatia: saknar matchlinjer från Pinnacle
   FC Copenhagen – Iberia 1999: saknar matchlinjer från Pinnacle
   AS Monaco – FC Nordsjælland: väntade mål Pinnacle 3.45 mot Kambi 3.53 (kvot 0.976); uppmätt marginal: goal k=1.53, assist k=1.48
-Tid: modell och utvärdering 308 s
+  Gimnasia de La Plata – Belgrano: saknar matchlinjer från Pinnacle
+  Palmeiras-SP – Remo-PA: väntade mål Pinnacle 3.19 mot Kambi 3.14 (kvot 1.016); uppmätt marginal: goal k=1.46, assist k=1.51
+  Botafogo-SP – Londrina-PR: saknar matchlinjer från Pinnacle
+Tid: modell och utvärdering 291 s
 Bolag med spelarodds: atg, betmgm, expekt, leovegas, paf, svenskaspel, unibet
-Spelarodds per marknad: assist 5769, goal 13610, shots 9077, shots_on_target 10630
-Kambi-marknader: assist='to give an assist (settled using opta data)':5769; goal='to score':8780; goal='to score at least 2 goals':4277; goal='to score at least 3 goals':525; goal='to score at least 4 goals':28; shots="player's shots (settled using opta data)":9077; shots_on_target="player's shots on target (settled using opta data)":10630
+Spelarodds per marknad: assist 5832, goal 14100, shots 8822, shots_on_target 10658
+Kambi-marknader: assist='to give an assist (settled using opta data)':5832; goal='to score':9207; goal='to score at least 2 goals':4340; goal='to score at least 3 goals':525; goal='to score at least 4 goals':28; shots="player's shots (settled using opta data)":8822; shots_on_target="player's shots on target (settled using opta data)":10658
 Pinnacle har inga spelarprops här – använder linjejustering mot Pinnacles matchlinjer.
 CLV-signal: 0 ben släppta (Pinnacle rör sig åt vårt håll)
 Spelregler: stoppade {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0} (modelltest {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0})
-Spelarmodell: 0 av 1365 ben har modell, 0 nya matcher hämtade från ESPN
-Bästa edge marknad shots_on_target: -5.9%, -6.1%, -6.1% (av 1123 ben)
-Bästa edge modelltest shots_on_target: -5.7%, -6.3%, -6.6% (av 670 ben)
+Spelarmodell: 0 av 1399 ben har modell, 11 nya matcher hämtade från ESPN
+Bästa edge marknad shots_on_target: -5.8%, -5.9%, -6.1% (av 1147 ben)
+Bästa edge modelltest shots_on_target: -5.7%, -6.1%, -6.2% (av 694 ben)
 0 spelbara ben.
 Bokförda nya spel: 0
 Skuggspel: 0 nya bokförda (stoppade av reglerna, minst 2 % edge)
 Modelltest: 0 spelbara enligt modellen, 0 nya testspel bokförda
 Fouls (test): 0 ben med modell, 0 klarar kraven, 0 nya bokförda, bästa edge –, 0 nya ESPN-matcher, domare känd i 0 matcher
 Domare: 61 kommande matcher med utsedd domare (UEFA + football-data)
-Kort (test): 7057 Kambi-odds, 20 ben med modell, 1 klarar kraven, 0 nya bokförda, bästa edge +7.5%, -8.4%, -16.1%, 0 nya ESPN-matcher
+Kort (test): 7042 Kambi-odds, 14 ben med modell, 0 klarar kraven, 0 nya bokförda, bästa edge +66.7%, +44.1%, +36.0%, 14 nya ESPN-matcher
 Parlays: 0 förslag, 0 nya bokförda
 Notiser skickade: 0
