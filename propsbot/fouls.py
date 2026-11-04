@@ -147,7 +147,8 @@ def evaluate_fouls(evd: dict, quotes: list, names: dict, pm, store: FoulsStore, 
         p = nb_over(mu, line, NB_SHAPE)
         if not 0.02 < p < 0.98:
             continue
-        cand = Candidate(evd["id"], pid, names.get(pid, nm), "fouls", line, p, q, None, now, True, (ko - now) / 60)
+        # Oddsåldern räknas från hämtningen (fouls utvärderas sist i skanningen, minuter efter hämtning).
+        cand = Candidate(evd["id"], pid, names.get(pid, nm), "fouls", line, p, q, None, q.ts, True, (ko - now) / 60)
         d = evaluate(cand, dcfg)
         d.reasons.append(f"fouls-modell: väntat {mu:.2f}" + (f"; domare {ref_note}" if ref_note else ""))
         out.append(ScanRow("fotboll", f"{evd['home_team']} – {evd['away_team']}",
