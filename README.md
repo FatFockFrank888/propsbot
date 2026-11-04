@@ -17,7 +17,7 @@ varandra. Ett fel i en sport stoppar aldrig de andra. GitHub Actions kör den va
 Under kräver en tvåsidig eller skarp referens. Fotbollens Kambi-marknader (skott på mål, kort) är bara
 "över/ja", så där finns ingen undersida att spela.
 
-**Secrets** (Settings → Secrets → Actions): `NTFY_TOPIC`, `ODDS_API_KEY`, `API_FOOTBALL_KEY`. Pinnacle använder den publika gästnyckeln i koden.
+**Secrets** (Settings → Secrets → Actions): `NTFY_TOPIC`, `ODDS_API_KEY`. Pinnacle använder den publika gästnyckeln i koden.
 
 ---
 

@@ -57,16 +57,12 @@ jobs:
         env:
           NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
-          API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
           PROPSBOT_STATE_DIR: state
         run: python -m propsbot skanna
 
-      - name: Prova datakällor
-        if: github.event_name == 'workflow_dispatch'
-        continue-on-error: true
-        env:
-          API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
-        run: python -m propsbot.probe
+      # Källtestet (python -m propsbot.probe) körs inte längre automatiskt: kedjan startar varje
+      # körning som workflow_dispatch, så det gick var 15:e minut och fick API-Football-kontot avstängt.
+      # Kör det för hand vid behov.
 
       - name: Spara läge
         if: always()
