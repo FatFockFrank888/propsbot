@@ -12,6 +12,7 @@ Gemensamt,Notiser,bara LIVE-spel,"En notis per spel, aldrig två på samma spela
 Gemensamt,Unit,"1u = 0,2 % av bankrullen",Insats 1–10u efter ¼ Kelly (taket 10u = 2 %).
 Gemensamt,Skuggspel,"≥ 2 % edge, stoppat av en regel",Bokförs och rättas för att se om reglerna kostar eller sparar pengar. Ingen notis.
 Fotboll,Status,LIVE (notiser),football_live i settings.json. Påslaget 2026-11-04 på användarens begäran. Spelen är regelspelen (alla gemensamma krav); risktak: högst 10u per spel och 5 % per match.
+Fotboll,LIVE: högsta insats,2u per spel,Fotbollen saknar historik med edge och CLV. Höjs när ca 50 avgjorda spel visar positiv CLV.
 Fotboll,Marknader som spelas,shots_on_target,Övriga marknader används bara för att mäta Kambis marginal.
 Fotboll,Edgekrav per marknad (före gemensamt krav),"shots 2 %, shots_on_target 2 %, goal 4 %, assist 4 %",Gemensamma kravet 5 % gäller ovanpå.
 Fotboll,Utan Pinnacle/tvåsidig källa,"+3 % edge, minst 3 källor",
@@ -26,8 +27,9 @@ Fotboll,Fouls (test),"på, minst 5 % edge","Egen modell (ESPN), domarfaktor ±15
 Fotboll,Kort (test),"på, datainsamling","""To Get a Card"" hos Kambi. Egen modell: spelarens kort per match (ESPN) × domarens stränghet. Bara datainsamling."
 Fotboll,Parlays,"på, max 3 ben, minst 5 % edge per ben",Notiser för parlays: av.
 NBA,Status,LIVE (notiser),
-NBA,LIVE: edgekrav per marknad,"points 10 %, threes 6 %, assists 6 %, rebounds 6 %","Marknader som saknas här (steals, blocks, PRA …) spelas inte live."
-NBA,LIVE: modellen måste hålla med,modellens edge ≥ 3 %,
+NBA,LIVE: edgekrav per marknad,"points 5 %, threes 5 %, assists 5 %, rebounds 5 %","Marknader som saknas här (steals, blocks, PRA …) spelas inte live."
+NBA,LIVE: högsta edge,15 %,Större edge slog inte stängningen i datan (oftast fel i linje/modell).
+NBA,LIVE: modellen måste hålla med,modellens edge ≥ 5 %,"Det starkaste filtret i datan: med modellens stöd ROI +20 %, CLV +2,7 pe (34 spel, 4/11)."
 NBA,LIVE: jämförelsekällor,minst 2,"Pinnacle, Kalshi, DraftKings/FanDuel …"
 NBA,LIVE: oddsram,"1,60–3,00",
 NBA,LIVE: risk,"max 5u/spel, 2/match, 8 spel och 25u per matchdag",
@@ -35,8 +37,9 @@ NBA,Modellvikt,0.3,Blandas med marknaden i log-odds.
 NBA,Matcher,"inom 30 h, max 15",
 NBA,US-bolag via The Odds API,40–240 min före start,Andel av krediterna: 45 %.
 NHL,Status,LIVE (notiser),Skott på mål (SOG) hos Kambi-bolagen.
-NHL,LIVE: edge,6 %,
-NHL,LIVE: modellen måste hålla med,modellens edge ≥ 3 %,
+NHL,LIVE: edge,5 %,
+NHL,LIVE: högsta edge,15 %,Samma tak som NBA.
+NHL,LIVE: modellen måste hålla med,modellens edge ≥ 5 %,Samma krav som NBA (4/11).
 NHL,LIVE: jämförelsekällor,minst 2,"Bovada, Pinnacle (vikt ×2), US-bolag via The Odds API."
 NHL,LIVE: oddsram,"1,60–3,00",
 NHL,LIVE: risk,"max 5u/spel, 2/match, 8 spel och 25u per matchdag, högst 5 % per match",
