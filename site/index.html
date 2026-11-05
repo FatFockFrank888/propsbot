@@ -46,6 +46,12 @@
   td.wrapt { white-space:normal; min-width:220px; }
   .pos { color:var(--good); } .neg { color:var(--dim); } .loss { color:var(--bad); }
   tr.play td { background:rgba(76,195,138,.08); }
+  tr.top1 td { background:rgba(245,196,66,.20); } tr.top1 td:first-child { box-shadow:inset 4px 0 #f5c442; }
+  tr.top2 td { background:rgba(76,195,138,.20); } tr.top2 td:first-child { box-shadow:inset 4px 0 #4cc38a; }
+  tr.top3 td { background:rgba(59,130,246,.18); } tr.top3 td:first-child { box-shadow:inset 4px 0 #3b82f6; }
+  tr.weak td { opacity:.55; }
+  .rank { display:inline-block; min-width:20px; text-align:center; font-weight:700; border-radius:99px; padding:0 6px; color:#111; font-size:12px; }
+  .rank.r1 { background:#f5c442; } .rank.r2 { background:#4cc38a; } .rank.r3 { background:#3b82f6; color:#fff; }
   .pill { padding:1px 8px; border-radius:99px; font-size:12px; border:1px solid var(--line); }
   .pill.vunnen { color:var(--good); border-color:var(--good); }
   .pill.förlorad { color:var(--bad); border-color:var(--bad); }
@@ -98,10 +104,16 @@
     <div class="sub">De spel vi faktiskt spelar (LIVE). Bara dessa skickas som notis – en per spelare och match.
       Spela till lägst <b>Spela från</b>-oddset. Allt annat på sidan är data.</div>
     <div id="nuNote" class="sub" style="margin-top:6px"></div>
+    <div class="sub" style="margin-top:6px"><span class="rank r1">1</span> <span class="rank r2">2</span> <span class="rank r3">3</span>
+      = de tre starkaste spelen just nu, räknade om vid varje skanning. <b>Styrka</b> = edge nu + halva modellens edge (högst 15)
+      + hur marknaden rört sig sedan spelet lades (oddsfall åt vårt håll, ±5) + sharp money (+1 med oss, −2 mot oss).
+      Bara spel som fortfarande går att spela (odds nu ≥ spela från, edge nu &gt; 0) kan bli topp 3; övriga är nedtonade.
+      Håll muspekaren över styrkan för uppdelningen.</div>
     <h2>Öppna LIVE-spel (före start)</h2>
     <div class="wrap free"><table>
       <thead><tr><th>Sport</th><th>Start</th><th>Match</th><th>Spelare</th><th>Spel</th><th>Bolag</th>
-        <th class="n">Odds</th><th class="n">Spela från</th><th class="n">Edge</th><th class="n">Insats</th><th>Notis</th></tr></thead>
+        <th class="n">Odds</th><th class="n">Odds nu</th><th class="n">Spela från</th><th class="n">Edge</th><th class="n">Edge nu</th>
+        <th class="n">Styrka</th><th class="n">Insats</th><th>Notis</th></tr></thead>
       <tbody id="nuRows"></tbody></table></div>
     <h2>Senast avgjorda LIVE-spel</h2>
     <div class="wrap free"><table>
@@ -252,7 +264,7 @@ function norm(b, sport, typ) {
     spel: b.spel_text || spel(b.marknad, b.linje, b.sida), bolag: b.bolag, odds: b.odds, stangning: b.stangning,
     clv, p: b.sannolikhet, edge: b.edge, u: (b.insats_pct || 0) / U, status: b.status,
     sida: ({under: "Under", home: "Hemma", draw: "Oavgjort", away: "Borta"})[b.sida] || "Över", utfall: b.utfall, stopp: b.stopp || "",
-    spela_fran: b.spela_fran, notis: b.notis,
+    spela_fran: b.spela_fran, notis: b.notis, linje: b.linje, sidaKey: b.sida || "over", modell_edge: b.modell_edge,
     res: b.resultat_enheter == null ? null : b.resultat_enheter / U};
 }
 function normParlay(x, sport) {
@@ -319,16 +331,42 @@ function verdict(s) {
 }
 
 // --------------------------------------------------------------- SPELA NU
+// Styrka för ett öppet LIVE-spel, räknad från senaste skanningen (radarn + bokföringens senaste odds).
+const lineOf = s => { const m = String(s || "").match(/(-?\d+(?:[.,]\d+)?)\s*$/); return m ? parseFloat(m[1].replace(",", ".")) : null; };
+function strength(r) {
+  const rad = (D[r.sport]?.radar || []).filter(x => x.spelare === r.spelare && (x.sida || "over") === r.sidaKey &&
+    (lineOf(x.spel) ?? x.spel) === (r.linje ?? lineOf(r.spel) ?? r.spel));
+  const cur = rad.sort((a, b) => b.edge - a.edge)[0];
+  const oddsNow = r.stangning || r.odds;
+  const E = cur ? cur.edge * 100 : 0;
+  let M = r.modell_edge != null ? r.modell_edge * 100
+        : cur && cur.p_modell != null && cur.odds ? (cur.p_modell * cur.odds - 1) * 100 : null;
+  const Mp = M == null ? 0 : 0.5 * Math.max(-15, Math.min(15, M));
+  const R = r.odds && oddsNow ? Math.max(-5, Math.min(5, (1 / oddsNow - 1 / r.odds) * 100)) : 0;
+  const k = (cur?.kommentar || "").toLowerCase();
+  const S = /sharp money (with|med) (us|oss)/.test(k) ? 1 : /sharp (money mot oss|moved .* against)/.test(k) ? -2 : 0;
+  const ok = !!cur && E > 0 && (!r.spela_fran || oddsNow >= r.spela_fran - 1e-9);
+  const why = [`edge nu ${cur ? sgn(E) + " %" : "under 2 % (inte på radarn)"}`,
+    `modell ${M == null ? "saknas" : sgn(M) + " % → " + sgn(Mp)}`,
+    `marknaden sedan spelet lades ${sgn(R)}`, `sharp ${S ? sgn(S, 0) : "0"}`,
+    ok ? "" : (oddsNow < r.spela_fran ? `odds nu ${nf(oddsNow)} < spela från ${nf(r.spela_fran)}` : "inte spelbart nu")].filter(Boolean);
+  return {score: E + Mp + R + S, ok, oddsNow, edgeNow: cur ? cur.edge : null, why: why.join(" · ")};
+}
 function renderNu() {
   const now = Date.now() / 1000;
   const live = rows().filter(r => r.typ === "Live");
   const open = live.filter(r => r.status === "öppen" && r.avspark > now).sort((a, b) => a.avspark - b.avspark);
-  document.getElementById("nuRows").innerHTML = open.map(r => `<tr class="play">
-    <td>${tag(r.sport)}</td><td>${fmtTs(r.avspark)}</td><td>${esc(r.match)}</td><td><b>${esc(r.spelare)}</b></td>
-    <td><b>${esc(r.spel)}</b></td><td>${esc(r.bolag)}</td><td class="n">${nf(r.odds)}</td><td class="n">${nf(r.spela_fran)}</td>
-    <td class="n pos">${pct(r.edge)}</td><td class="n"><b>${Math.round(r.u)}u</b></td>
+  open.forEach(r => r.st = strength(r));
+  const top = open.filter(r => r.st.ok).sort((a, b) => b.st.score - a.st.score).slice(0, 3);
+  top.forEach((r, i) => r.rank = i + 1);
+  document.getElementById("nuRows").innerHTML = open.map(r => `<tr class="${r.rank ? "top" + r.rank : r.st.ok ? "play" : "weak"}">
+    <td>${r.rank ? `<span class="rank r${r.rank}">${r.rank}</span> ` : ""}${tag(r.sport)}</td><td>${fmtTs(r.avspark)}</td><td>${esc(r.match)}</td><td><b>${esc(r.spelare)}</b></td>
+    <td><b>${esc(r.spel)}</b></td><td>${esc(r.bolag)}</td><td class="n">${nf(r.odds)}</td>
+    <td class="n ${r.st.oddsNow < (r.spela_fran || 0) ? "loss" : ""}">${nf(r.st.oddsNow)}</td><td class="n">${nf(r.spela_fran)}</td>
+    <td class="n pos">${pct(r.edge)}</td><td class="n ${r.st.edgeNow > 0 ? "pos" : "loss"}">${r.st.edgeNow == null ? "&lt; 2 %" : pct(r.st.edgeNow)}</td>
+    <td class="n" title="${esc(r.st.why)}"><b>${nf(r.st.score, 1)}</b></td><td class="n"><b>${Math.round(r.u)}u</b></td>
     <td>${r.notis === false ? "väntar" : r.notis === null ? "spärrad" : "✓"}</td></tr>`).join("")
-    || `<tr><td colspan="11" class="empty">Inga öppna LIVE-spel just nu. Du får en notis så fort något klarar alla krav.</td></tr>`;
+    || `<tr><td colspan="14" class="empty">Inga öppna LIVE-spel just nu. Du får en notis så fort något klarar alla krav.</td></tr>`;
   const done = live.filter(r => r.status !== "öppen").sort((a, b) => b.avspark - a.avspark).slice(0, 25);
   document.getElementById("nuDone").innerHTML = done.map(r => `<tr>
     <td>${tag(r.sport)}</td><td>${fmtTs(r.avspark)}</td><td>${esc(r.spelare)}</td><td>${esc(r.spel)}</td>
