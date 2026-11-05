@@ -27,11 +27,13 @@ Fotboll,Fouls (test),"på, minst 5 % edge","Egen modell (ESPN), domarfaktor ±15
 Fotboll,Kort (test),"på, datainsamling","""To Get a Card"" hos Kambi. Egen modell: spelarens kort per match (ESPN) × domarens stränghet. Bara datainsamling."
 Fotboll,Parlays,"på, max 3 ben, minst 5 % edge per ben",Notiser för parlays: av.
 Fotboll,Sides/totals: status,datainsamling (inga notiser),"1X2, mål över/under och asiatiskt handikapp hos Kambi mot Pinnacle utan marginal (start 5/11). LIVE slås på när ca 50 spel visar att vi slår Pinnacles stängning."
-Fotboll,Sides/totals: marknader,"1x2, total, ah","Bara halvlinjer (x,5) – aldrig push eller delad insats. 90 minuter + tillägg."
+Fotboll,Sides/totals: marknader,"1x2, total, ah","1X2, mål över/under och asiatiskt handikapp – halvlinjer (x,5) och asiatiska linjer: hela (push = insatsen tillbaka) och kvarts (halva insatsen på var närliggande linje). 90 minuter + tillägg."
+Fotboll,Startelvor (props och sides),krävs,"Spelbart först när båda startelvorna är kända hos ESPN (ca 1 h före avspark), annars inom 55 min före avspark. Props: spelaren måste starta. Skador och avstängningar syns som att spelaren saknas i elvan, och Pinnacle har då prisat in dem. Tidigare edges bokförs som skugga."
 Fotboll,Sides/totals: edgekrav,3 % (alternativ Pinnacle-linje +1 %),Lägre än 5 % eftersom referensen är Pinnacles huvudlinje (skarpast i världen): mot den är 3 % en verklig edge. 1 %–3 % bokförs som Sides-skugga för att mäta nivån.
 Fotboll,Sides/totals: högsta edge,10 %,"Större edge mot Pinnacle = nästan alltid gammal linje, nyhet (uppställning/skada) eller fel match. Bokförs som skugga."
 Fotboll,Sides/totals: oddsram,"1,60–4,00",Bredare än props uppåt så att oavgjort och små skrällar kommer med.
-Fotboll,Sides/totals: Pinnacles insatsgräns,minst 1000,Låg gräns = svag liga där Pinnacles linje inte är skarp.
+Fotboll,Sides/totals: Pinnacles insatsgräns,minst 500; under 2000 krävs +1 % edge,Gränsen visar hur skarp Pinnacles linje är. Låg gräns (ofta lägre divisioner) = svagare referens -> högre krav.
+Fotboll,Sides/totals: mindre ligor,"på – alla Kambi-ligor (ej esport) inom 3 h före avspark, max 60 matcher",Lägre divisioner och mindre ligor har oftare felsatta linjer. Bara huvudmarknaderna hämtas (snabbt). Rättas mot ESPN:s samlade resultattavla.
 Fotboll,Sides/totals: övrigt,"max oddsfall 3 %, sharp money mot oss 2 pe, ett spel per match, inom 24 h före avspark, max 3u",Samma spärrar som övriga sporter. Rättas mot ESPN:s slutresultat.
 NBA,Status,LIVE (notiser),
 NBA,LIVE: edgekrav per marknad,"points 5 %, threes 5 %, assists 5 %, rebounds 5 %","Marknader som saknas här (steals, blocks, PRA …) spelas inte live."
