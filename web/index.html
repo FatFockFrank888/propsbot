@@ -527,7 +527,7 @@ function renderTopp() {
     const lb = ALL.find(b => b.typ === "Live" && b.status === "öppen" && b.sport === r.sport && b.spelare === r.spelare);
     r.liveBet = !!lb;
     // Samma tak som LIVE: 5u (fotbollsprops 2u, sides 3u) – data-spel ska inte se större ut än LIVE.
-    const cap = r.sport === "fotboll" ? (["1x2", "total", "ah"].includes(r.marknad) ? 3 : 2) : 5;
+    const cap = r.sport === "fotboll" && ["1x2", "total", "ah"].includes(r.marknad) ? 3 : 5;
     r.units = lb ? Math.round(lb.u) : Math.min(cap, Math.max(0, Math.round((r.insats_pct || r.insats_forslag || 0) / U)));
   });
   rs.sort((a, b) => b.t.score - a.t.score);

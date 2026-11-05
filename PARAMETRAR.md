@@ -24,8 +24,8 @@ Genereras från de värden boten använder (`python -m propsbot parametrar`).
 
 | Parameter | Värde | Förklaring |
 |---|---|---|
-| Status | LIVE (notiser) | football_live i settings.json. Påslaget 2026-11-04 på användarens begäran. Spelen är regelspelen (alla gemensamma krav); risktak: högst 10u per spel och 5 % per match. |
-| LIVE: högsta insats | 2u per spel | Fotbollen saknar historik med edge och CLV. Höjs när ca 50 avgjorda spel visar positiv CLV. |
+| Status | LIVE (notiser) | football_live i settings.json. Påslaget 2026-11-04 på användarens begäran. Spelen är regelspelen (alla gemensamma krav); risktak: högst 5u per spel och 5 % per match. |
+| LIVE: insats | ¼ Kelly × 0.5, högst 5u per spel | Insatsen följer styrkan (edge och odds) som i NBA/NHL, men i halv storlek eftersom fotbollen saknar historik med edge och CLV. Skalan höjs mot 1 när ca 50 avgjorda spel visar positiv CLV. |
 | Marknader som spelas | shots_on_target | Övriga marknader används bara för att mäta Kambis marginal. |
 | Edgekrav per marknad (före gemensamt krav) | shots 2 %, shots_on_target 2 %, goal 4 %, assist 4 % | Gemensamma kravet 5 % gäller ovanpå. |
 | Utan Pinnacle/tvåsidig källa | +3 % edge, minst 3 källor |  |

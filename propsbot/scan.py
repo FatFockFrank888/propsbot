@@ -138,7 +138,8 @@ DEFAULT_SETTINGS = {
     "live_min_edge": {"points": 0.05, "threes": 0.05, "assists": 0.05, "rebounds": 0.05},
     "live_model_min_edge": 0.05,
     "live_max_edge": 0.15,
-    "football_live_max_units": 2,   # fotboll LIVE utan historik: högst 2u per spel tills CLV visats
+    "football_live_max_units": 5,   # samma tak som NBA/NHL LIVE
+    "football_kelly_scale": 0.5,    # fotboll utan historik: halva Kelly-insatsen tills CLV visats (storleken följer ändå styrkan)
     "live_min_groups": 2,
     "live_odds_window": [1.60, 3.00],
     "live_max_units": 5,          # 5u = 1 % av bankrullen per spel
