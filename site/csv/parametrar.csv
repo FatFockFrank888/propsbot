@@ -62,4 +62,4 @@ NHL,Modellvikt,0.3 (minst 8 matcher),"NHL-statistik: skott per 60 × istid, mots
 NHL,Pinnacle,på,liga 1456
 NHL,US-bolag via The Odds API,40–240 min före start,Andel av krediterna: 25 %.
 NHL,Bankrulle,10 000 SEK,1u = 20 SEK.
-NHL,Test-marknader (data),"poäng, assist, mål",Kambis NHL-poäng/assist/mål bokförs mot en egen modell. Inga notiser.
+NHL,Test-marknader (data),"poäng, assist, mål, power play-poäng","Kambis NHL-poäng/assist/mål och power play-poäng (minst 1/2) bokförs mot en egen modell. PP-poäng: spelarens PP-poäng per PP-minut × lagets väntade PP-minuter × andel från PP-enheten (DailyFaceoff PP1/PP2, flyttad upp/ner) × motståndarens boxplay (och omgjord PK om ordinarie boxplayspelare saknas). Power play-mål per spelare tas med om ett bolag lägger ut dem. Inga notiser."
