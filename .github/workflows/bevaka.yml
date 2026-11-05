@@ -80,7 +80,17 @@ jobs:
         with:
           path: state/site
 
-      - uses: actions/deploy-pages@v4
+      # GitHub hittar ibland inte nyss uppladdade sidan (tillfälligt API-fel) – försök igen efter en paus.
+      - id: deploy
+        uses: actions/deploy-pages@v4
+        continue-on-error: true
+
+      - name: Vänta innan nytt publiceringsförsök
+        if: steps.deploy.outcome == 'failure'
+        run: sleep 30
+
+      - if: steps.deploy.outcome == 'failure'
+        uses: actions/deploy-pages@v4
 
       # GitHubs schema startar inte pålitligt. Därför startar varje körning nästa:
       # 8 min paus mellan skanningarna, 55 min 04–06 UTC. Schemat ovan är reserv.
