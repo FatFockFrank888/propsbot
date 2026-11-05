@@ -93,3 +93,24 @@ def test_dailyfaceoff_pp_units_parse():
     assert p["noah dobson"]["pp"] == 2 and p["noah dobson"]["pk"] == 2
     assert p["ivan demidov"]["out"]
     assert d["source"] == "Projected"
+
+
+def test_news_blocks_and_rechecks(tmp_path):
+    import time
+    from types import SimpleNamespace as NS
+    from propsbot.news import block_nba, nba_status_fn, recheck
+    inj = {"lebron james": "out", "anthony davis": "questionable"}
+    def row(name):
+        d = NS(playable=True, stake=0.01, reasons=[], cand=NS(player_name=name))
+        return NS(row=NS(decision=d))
+    rows = [row("LeBron James"), row("Anthony Davis"), row("Austin Reaves")]
+    assert block_nba(rows, inj) == (1, 1)
+    assert not rows[0].row.decision.playable and rows[1].row.decision.playable and rows[2].row.decision.playable
+    lg = NS(bets=[{"status": "öppen", "avspark": time.time() + 3600, "spelare": "Anthony Davis", "odds": 1.8,
+                   "bolag": "unibet", "match": "LAL – BOS", "marknad": "points", "linje": 20.5}])
+    logs = []
+    assert recheck(lg, nba_status_fn(inj), {}, "NBA", False, logs.append) == 1
+    assert lg.bets[0]["nyhet_status"] == "questionable"
+    assert recheck(lg, nba_status_fn(inj), {}, "NBA", False, logs.append) == 0          # bara en gång
+    assert recheck(lg, nba_status_fn({}), {}, "NBA", False, logs.append) == 1           # borta från listan
+    assert lg.bets[0]["nyhet_status"] == "ok"

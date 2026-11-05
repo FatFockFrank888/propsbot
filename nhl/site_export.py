@@ -85,4 +85,5 @@ def ledger_sv(b: dict[str, Any], unit_pct: float) -> dict[str, Any]:
         "utfall": b.get("result_sog"),
         "resultat_enheter": None if b.get("profit_units") is None else b["profit_units"] * unit_pct,
         "notis": b.get("notified"),
+        "nyhet": b.get("nyhet"), "nyhet_status": b.get("nyhet_status"),
     }

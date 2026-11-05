@@ -130,6 +130,8 @@
     #toppCards .tc.r1 .odds { font-size:54px; } #toppCards .tc.r1 .ring { width:96px; height:96px; }
     #toppCards .tc.r1 .bar { height:9px; }
   }
+  .news { font-size:11px; font-weight:600; color:var(--bad); white-space:normal; margin-top:2px; }
+  .news.ok { color:var(--good); }
   .crown { font-size:12px; font-weight:700; color:#f5c442; letter-spacing:.5px; text-transform:uppercase; }
 </style>
 </head>
@@ -337,7 +339,7 @@ function norm(b, sport, typ) {
     spel: b.spel_text || spel(b.marknad, b.linje, b.sida), bolag: b.bolag, odds: b.odds, stangning: b.stangning,
     clv, p: b.sannolikhet, edge: b.edge, u: (b.insats_pct || 0) / U, status: b.status,
     sida: ({under: "Under", home: "Hemma", draw: "Oavgjort", away: "Borta"})[b.sida] || "Över", utfall: b.utfall, stopp: b.stopp || "",
-    spela_fran: b.spela_fran, notis: b.notis, linje: b.linje, sidaKey: b.sida || "over", modell_edge: b.modell_edge,
+    spela_fran: b.spela_fran, notis: b.notis, linje: b.linje, nyhet: b.nyhet, nyhetStatus: b.nyhet_status, nyhetTs: b.nyhet_ts, sidaKey: b.sida || "over", modell_edge: b.modell_edge,
     res: b.resultat_enheter == null ? null : b.resultat_enheter / U};
 }
 function normParlay(x, sport) {
@@ -435,7 +437,7 @@ function renderNu() {
   // Starkast överst och fallande: spelbara nu först (topp 3 i ordning), sedan resten efter styrka.
   open.sort((a, b) => (b.st.ok - a.st.ok) || (b.st.score - a.st.score) || ((b.st.edgeNow ?? -1) - (a.st.edgeNow ?? -1)));
   document.getElementById("nuRows").innerHTML = open.map(r => `<tr class="${r.rank ? "top" + r.rank : r.st.ok ? "play" : "weak"}">
-    <td>${r.rank ? `<span class="rank r${r.rank}">${r.rank}</span> ` : ""}${tag(r.sport)}</td><td>${fmtTs(r.avspark)}</td><td>${esc(r.match)}</td><td><b>${esc(r.spelare)}</b></td>
+    <td>${r.rank ? `<span class="rank r${r.rank}">${r.rank}</span> ` : ""}${tag(r.sport)}</td><td>${fmtTs(r.avspark)}</td><td>${esc(r.match)}</td><td><b>${esc(r.spelare)}</b>${r.nyhet ? `<div class="news ${r.nyhetStatus === "ok" ? "ok" : ""}">📰 ${esc(r.nyhet)}</div>` : ""}</td>
     <td><b>${esc(r.spel)}</b></td><td>${esc(r.bolag)}</td><td class="n">${nf(r.odds)}</td>
     <td class="n ${r.st.oddsNow < (r.spela_fran || 0) ? "loss" : ""}">${nf(r.st.oddsNow)}</td><td class="n">${nf(r.spela_fran)}</td>
     <td class="n pos">${pct(r.edge)}</td><td class="n ${r.st.edgeNow > 0 ? "pos" : "loss"}">${r.st.edgeNow == null ? "&lt; 2 %" : pct(r.st.edgeNow)}</td>
@@ -489,6 +491,7 @@ function toppCard(r, i, bub) {
     t.M != null ? `<span class="chip ${t.M > 0 ? "g" : "w"}">modell ${sgn(t.M)} %</span>` : "",
     t.S > 0 ? `<span class="chip g">sharp money ⬆</span>` : t.S < 0 ? `<span class="chip w">sharp mot oss</span>` : "",
     t.E > 15 ? `<span class="chip w">misstänkt hög edge</span>` : "",
+    /skadelista|lagnyhet/i.test(r.kommentar || "") ? `<span class="chip w">📰 ${esc((r.kommentar.match(/(skadelista|lagnyhet)[^;]*/i) || [""])[0])}</span>` : "",
     r.prognos != null ? `<span class="chip">prognos ${nf(r.prognos)}</span>` : "",
     `<span class="chip">${esc(r.bolag)}</span>`].join("");
   return `<div class="tc ${bub ? "bub" : "r" + (i + 1)}" title="${esc(r.kommentar)}">

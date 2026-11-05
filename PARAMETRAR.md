@@ -12,6 +12,7 @@ Genereras från de värden boten använder (`python -m propsbot parametrar`).
 | Max oddsfall | 3 % | Inget spel om bästa oddset fallit mer än så från det högsta vi sett (för sent). |
 | Sharp money mot oss | 2 procentenheter | Inget spel om den skarpa referensen (Pinnacle/konsensus) rört sig så mycket mot oss efter 30 min. |
 | Sharp money med oss | 1.5 procentenheter | Markeras i notisen (⬆). |
+| Lagnyheter (varje skanning) | NBA: ESPN skadelista · NHL: DailyFaceoff · fotboll: startelvan | Out/doubtful, ute eller inte i laget/startelvan = inget spel; questionable markeras. Öppna LIVE-spel kontrolleras igen före start och ger en notis (📰) om spelarens status ändras. |
 | Orimlig edge | 25 % | Större edge = nästan alltid fel linje, olika regler eller spelaren spelar inte. Inte spelbart. |
 | Ett spel per spelare och match | ja, över allt | Över alla marknader, linjer, sidor (över/under), bolag och körningar. Störst edge vinner; det som redan skickats står kvar. |
 | Över eller under | den sida som har EV+ | Båda sidor prövas på samma krav. Under kräver en tvåsidig eller skarp referens (annars är marginalen på undersidan okänd). |

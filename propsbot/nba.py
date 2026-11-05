@@ -445,6 +445,12 @@ def nba_scan(root: Path, settings_path: Path) -> dict:
     n_paused = pause_live(rows, settings)
     if n_paused:
         diag.log(f"Live pausat: {n_paused} spelbara ben bokförs som skuggspel")
+    # Lagnyheter: ESPN:s skadelista vid varje skanning (out/doubtful stoppas, questionable markeras)
+    from .news import block_nba, nba_injuries, nba_status_fn, recheck
+    injuries = nba_injuries(JsonClient(root / ".cache_odds", ttl_s=600))
+    nb, nw = block_nba(rows, injuries)
+    nb2, _ = block_nba(test_rows, injuries)
+    diag.log(f"NBA lagnyheter: {len(injuries)} spelare på skadelistan, {nb + nb2} ben stoppade, {nw} markerade (questionable)")
     from .clv_signal import final_rules, taken_players
     nr = final_rules(rows, settings, hist, "nba", taken_players(Ledger(root / "nba_bokforing_v2.json")))
     nt = final_rules(test_rows, settings, None, "", taken_players(Ledger(root / "nba_modelltest.json")))
@@ -472,6 +478,7 @@ def nba_scan(root: Path, settings_path: Path) -> dict:
     live = Ledger(root / "nba_live.json")
     live_rows = select_live(rows, test_rows, settings, live) if settings.get("live_on", True) else []
     new_live = record_live(live, live_rows, rows, evd_by_id)
+    recheck(live, nba_status_fn(injuries), settings, "NBA", True, diag.log)
     diag.log(f"NBA LIVE: {len(live_rows)} spel uppfyller live-kraven, {len(new_live)} nya bokförda live")
     for b in new_live:
         diag.log(f"NBA LIVE SPEL: {b['match']} | {b['spelare']} {b['marknad']} {b['sida']} {b['linje']} | "

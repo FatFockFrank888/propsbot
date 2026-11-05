@@ -15,7 +15,7 @@ from .http import HttpError, JsonClient
 from .ledger import bet_from_leg, boxscore_sog, open_ledgers
 from .market import Quote
 from .nhl_api import WEB, Game, NhlApi
-from .notify import PlayerGuard, format_live_bet, format_recap, send
+from .notify import SIDE_SV, PlayerGuard, format_live_bet, format_recap, send
 from .odds import OddsEvent, match_events
 from .slate import Projection, build_slate
 from .sources.bovada import BovadaClient
@@ -204,7 +204,9 @@ class Scanner:
 
         rep.legs = len(all_legs)
         rep.all_legs = all_legs
+        self._news_block(all_legs, rep)
         self._book(all_legs, rep)
+        self._news_open(rep)
         self._finish(rep, {leg.key: leg for leg in all_legs})
         ctx = getattr(self, "_pp_ctx", None)
         if ctx is not None:
@@ -303,6 +305,49 @@ class Scanner:
                 rep.model_new += 1
 
         rep.top_legs = sorted((l for l in legs if l.edge is not None), key=lambda l: l.edge, reverse=True)[:15]
+
+    # ============================================================ team news (DailyFaceoff)
+    def _news_block(self, legs: list[Leg], rep: ScanReport) -> None:
+        """No bet on a player DailyFaceoff lists as out / not in tonight's lineup (beat reporters, morning skate)."""
+        n = 0
+        for leg in legs:
+            try:
+                st, src = self._pp().player_status(leg.projection.skater.team, leg.projection.skater.name)
+            except Exception:  # noqa: BLE001 - news must never stop the scan
+                continue
+            if st in ("ute", "inte i laget"):
+                leg.blocks.append(f"lagnyhet: {st} ({src})")
+                n += 1
+        if n:
+            print(f"  Lagnyheter: {n} ben stoppade (spelaren ute / inte i laget enligt DailyFaceoff)", flush=True)
+
+    def _news_open(self, rep: ScanReport) -> None:
+        """Re-check every open LIVE bet before puck drop; a change in the player's status is pushed once."""
+        s = self.s
+        now_dt = datetime.now(timezone.utc)
+        live = self.ledgers["live"]
+        for bet in live.bets:
+            if bet.get("status") != "open" or not bet.get("start") or datetime.fromisoformat(bet["start"]) <= now_dt:
+                continue
+            try:
+                st, src = self._pp().player_status(bet.get("team") or "", bet["player"])
+            except Exception:  # noqa: BLE001
+                continue
+            if st is None or st == bet.get("nyhet_status") or (st == "spelar" and bet.get("nyhet_status") is None):
+                continue
+            prev = bet.get("nyhet_status")
+            bet["nyhet_status"] = st
+            bet["nyhet"] = (f"{bet['player']} {st} enligt {src}" if st != "spelar"
+                            else f"{bet['player']} tillbaka i laguppställningen ({src})")
+            bet["nyhet_ts"] = now_dt.isoformat(timespec="seconds")
+            live.dirty = True
+            print(f"  LAGNYHET: {bet['nyhet']} (förut: {prev or 'okänd'})", flush=True)
+            if self.notify and s.ntfy_topic and bet.get("notified"):
+                send(s.ntfy_topic, f"NYHET NHL: {bet['player']} {st}",
+                     f"{bet['nyhet']}.\nDitt LIVE-spel: skott på mål {SIDE_SV.get(bet['side'], bet['side'])} "
+                     f"{bet['line']:g} @ {bet['odds']:.2f} ({bet['book']})."
+                     + ("\nSpelar han inte blir spelet struket (void) hos Kambi." if st != "spelar" else ""),
+                     priority=5 if st != "spelar" else 3, tags="rotating_light" if st != "spelar" else "white_check_mark")
 
     def _push_live(self, rep: ScanReport) -> None:
         """Push every LIVE bet exactly once. A failed send is retried on the next scan until puck drop.

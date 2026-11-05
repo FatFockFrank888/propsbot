@@ -129,6 +129,22 @@ class PPContext:
         self._slugs: dict[str, str] | None = None
         self.errors: list[str] = []
 
+    # ------------------------------------------------------------------ news
+    def player_status(self, team: str, name: str) -> tuple[str | None, str]:
+        """("ute" | "inte i laget" | "spelar" | None, källa) from DailyFaceoff. None = unknown (no data)."""
+        d = self.dfo(team)
+        if not d or not d.get("players"):
+            return None, ""
+        src = f"DailyFaceoff {d.get('source') or ''}".strip()
+        n_lineup = sum(1 for v in d["players"].values() if v.get("lineup"))
+        me = d["players"].get(normalize_name(name))
+        if me is not None and me.get("out"):
+            return "ute", src
+        fresh = not (d.get("source") or "").lower().startswith("last game")   # a real projection, not last game
+        if fresh and n_lineup >= 16 and (me is None or not me.get("lineup")):
+            return "inte i laget", src
+        return ("spelar" if me is not None else None), src
+
     # ------------------------------------------------------------------ sources
     def _stats(self, report: str, cay: str, ttl: float, game: bool = False) -> list[dict]:
         data, _ = self.client.get(f"{STATS}/{report}", {

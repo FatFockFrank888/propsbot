@@ -482,6 +482,11 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
     evd_by_id = {evd["id"]: evd for evd, _, _ in data}
     new_bets = ledger.record(rows, evd_by_id)
     ledger.update_closing(rows, time.time())
+    if settings.get("football_live", False):   # lagnyheter: startelvan för öppna LIVE-spel
+        from .lineups import Lineups
+        from .news import football_status_fn, recheck
+        recheck(ledger, football_status_fn(Lineups(JsonClient(root / ".cache_odds", ttl_s=480, min_interval_s=0.25)),
+                                           settings), settings, "Fotboll", notify, diag.log)
     try:
         for line in settle_open(ledger, JsonClient(root / ".cache_odds", ttl_s=900)):
             diag.log(line)
