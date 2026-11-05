@@ -772,6 +772,9 @@ document.getElementById("aCsv").onclick = csv;
   if (["nu", "topp", "radar", "res", "bok", "parlay", "param"].includes(t)) tab = t;
   if (location.hash === "#bokforing") tab = "bok"; }
 load(); setInterval(load, 120000);
+// Hemskärmsappen (iPhone) pausar timern i bakgrunden: hämta ny data direkt när sidan visas igen.
+document.addEventListener("visibilitychange", () => { if (!document.hidden) load(); });
+window.addEventListener("pageshow", e => { if (e.persisted) load(); });
 </script>
 </body>
 </html>
