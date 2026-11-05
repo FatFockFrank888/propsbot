@@ -124,3 +124,24 @@ def test_graduation_up_and_down(tmp_path):
     assert check(tmp_path, "sides", good, s, "Sides", False, lambda *_: None)
     assert check(tmp_path, "sides", good + [-0.2], s, "Sides", False, lambda *_: None)               # stannar uppe
     assert not check(tmp_path, "sides", [-1.0, -0.5, 0.2] * 12, s, "Sides", False, lambda *_: None)  # vänt -> ner
+
+
+def test_news_teammate_out_role_shift():
+    import time
+    from types import SimpleNamespace as NS
+    from propsbot.news import nba_teammate_fn, recheck
+    now = time.time()
+    team = NS(name="Phoenix Suns", players={"khaman maluach": NS(minutes=22.0), "mark williams": NS(minutes=28.0),
+                                            "bench guy": NS(minutes=6.0)})
+    last = {"models": {"m1": {"khaman maluach": {"rebounds": 7.4, "_min": 30.0}}}, "teams": {"m1": (team, None)}}
+    bet = {"status": "öppen", "avspark": now + 7200, "bokford": now - 3600, "match_id": "m1", "spelare": "Khaman Maluach",
+           "spelare_id": "khaman maluach", "marknad": "rebounds", "linje": 5.5, "sida": "under", "odds": 2.08,
+           "bolag": "unibet", "match": "PHX – ORL", "modell_edge": 0.21}
+    old = {"key": "mark williams", "name": "Mark Williams", "team": "Phoenix Suns", "status": "out", "ts": now - 86400}
+    new = dict(old, ts=now - 60)
+    bench = {"key": "bench guy", "name": "Bench Guy", "team": "Phoenix Suns", "status": "out", "ts": now - 60}
+    lg = NS(bets=[bet])
+    assert recheck(lg, nba_teammate_fn(last, [old, bench], {"rebounds": 10}), {}, "NBA", False, print, field="nyhet_lag") == 0
+    assert recheck(lg, nba_teammate_fn(last, [new], {"rebounds": 10}), {}, "NBA", False, print, field="nyhet_lag") == 1
+    assert "Mark Williams" in bet["nyhet"] and "edge vid 2.08" in bet["nyhet"] and bet["nyhet_status"].startswith("lag:")
+    assert recheck(lg, nba_teammate_fn(last, [new], {"rebounds": 10}), {}, "NBA", False, print, field="nyhet_lag") == 0

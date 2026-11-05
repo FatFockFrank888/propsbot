@@ -37,7 +37,7 @@ def all_params(settings_path: Path) -> dict:
          "Inget spel om den skarpa referensen (Pinnacle/konsensus) rört sig så mycket mot oss efter 30 min."),
         ("Sharp money med oss", f"{s.get('sharp_with_pp', 1.5):g} procentenheter", "Markeras i notisen (⬆)."),
         ("Lagnyheter (varje skanning)", "NBA: ESPN skadelista · NHL: DailyFaceoff · fotboll: startelvan",
-         "Out/doubtful, ute eller inte i laget/startelvan = inget spel; questionable markeras. Öppna LIVE-spel kontrolleras igen före start och ger en notis (📰) om spelarens status ändras."),
+         "Out/doubtful, ute eller inte i laget/startelvan = inget spel; questionable markeras. Öppna LIVE-spel kontrolleras igen före start och ger en notis (📰) om spelarens status ändras – och i NBA även när en lagkamrat (minst 15 min/match) blir out efter att spelet lades, med modellens nya speltid, väntat värde och edge vid vårt odds."),
         ("Orimlig edge", _pct(s.get("max_plausible_edge", 0.25)), "Större edge = nästan alltid fel linje, olika regler eller spelaren spelar inte. Inte spelbart."),
         ("Ett spel per spelare och match", "ja, över allt",
          "Över alla marknader, linjer, sidor (över/under), bolag och körningar. Störst edge vinner; det som redan skickats står kvar."),

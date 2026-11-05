@@ -65,7 +65,7 @@ def block_nba(rows, injuries: dict[str, str]) -> tuple[int, int]:
     return n_block, n_warn
 
 
-def recheck(ledger, status_fn, settings: dict, sport: str, notify: bool, log) -> int:
+def recheck(ledger, status_fn, settings: dict, sport: str, notify: bool, log, field: str = "nyhet") -> int:
     """status_fn(bet) -> (nyckel, text) eller None (okänt). nyckel "ok" = spelar som vanligt.
     Skickar en notis när statusen ändras för ett öppet spel före start. Returnerar antal ändringar."""
     from .notify import send
@@ -81,12 +81,14 @@ def recheck(ledger, status_fn, settings: dict, sport: str, notify: bool, log) ->
         if res is None:
             continue
         key, text = res
-        prev = b.get("nyhet_status")
+        prev = b.get(f"{field}_status")
         if key == prev or (key == "ok" and prev is None):
             continue
-        b["nyhet_status"] = key
-        b["nyhet"] = text
-        b["nyhet_ts"] = datetime.now(timezone.utc).isoformat(timespec="seconds")
+        b[f"{field}_status"] = key
+        b[field] = text
+        b[f"{field}_ts"] = datetime.now(timezone.utc).isoformat(timespec="seconds")
+        if field != "nyhet":            # webbsidan visar "nyhet": senaste nyheten oavsett slag
+            b["nyhet"], b["nyhet_status"] = text, ("ok" if key == "ok" else key)
         n += 1
         log(f"LAGNYHET {sport}: {text} (förut: {prev or 'okänd'})")
         if notify and settings.get("ntfy_topic"):
@@ -125,4 +127,66 @@ def football_status_fn(lineups, settings: dict):
         if starts:
             return ("ok", f"{b.get('spelare')} startar")
         return None
+    return fn
+
+
+# ------------------------------------------------------------------ lagkamrater (NBA)
+def nba_injury_list(client) -> list[dict]:
+    """[{key, name, team, status, ts}] från ESPN:s skadelista (ts = när statusen senast ändrades)."""
+    from .nba_model import name_key
+    try:
+        raw = client.get(f"{ESPN_NBA}/injuries", ttl=600) or {}
+    except Exception:  # noqa: BLE001
+        return []
+    out = []
+    for team in raw.get("injuries", []) or []:
+        for inj in team.get("injuries", []) or []:
+            name = (inj.get("athlete") or {}).get("displayName", "")
+            try:
+                ts = datetime.fromisoformat((inj.get("date") or "").replace("Z", "+00:00")).timestamp()
+            except ValueError:
+                ts = 0.0
+            if name:
+                out.append({"key": name_key(name), "name": name, "team": team.get("displayName", ""),
+                            "status": (inj.get("status") or "").lower(), "ts": ts})
+    return out
+
+
+def nba_teammate_fn(last: dict, injuries: list[dict], nb_r: dict, min_minutes: float = 15.0):
+    """En lagkamrat med minst 15 min/match blir out/doubtful EFTER att spelet lades -> rollförändring.
+    Notisen visar modellens nya förväntan för vår spelare (speltid och väntat värde) och edge vid vårt odds."""
+    from .nba_model import match_model_player
+    from .player_model import nb_over
+
+    def fn(b):
+        models, teams = last.get("models") or {}, last.get("teams") or {}
+        m, pair = models.get(b.get("match_id")), teams.get(b.get("match_id"))
+        if not m or not pair:
+            return None
+        k = match_model_player(m, b.get("spelare_id") or "")
+        if not k:
+            return None
+        team = next((t for t in pair if t and k in t.players), None)
+        if team is None:
+            return None
+        booked = (b.get("bokford") or 0) + 600
+        new_out = [i for i in injuries if i["team"] == team.name and i["key"] != k and i["ts"] > booked
+                   and any(x in i["status"] for x in BAD)
+                   and (team.players.get(i["key"]) is not None and team.players[i["key"]].minutes >= min_minutes)]
+        if not new_out:
+            return None
+        mk, line = b.get("marknad"), b.get("linje")
+        mu = (m.get(k) or {}).get(mk)
+        mins = (m.get(k) or {}).get("_min")
+        who = ", ".join(f"{i['name']} ({i['status']})" for i in new_out)
+        text = f"Lagkamrat ute: {who}."
+        if mu is not None and line is not None:
+            p = nb_over(mu, line, nb_r.get(mk, 15))
+            if b.get("sida") == "under":
+                p = 1 - p
+            edge = p * b.get("odds", 0) - 1
+            text += (f" Modellen nu: {b.get('spelare')} väntat {mu:.1f} ({mins:.0f} min), "
+                     f"{'under' if b.get('sida') == 'under' else 'över'} {line:g} {p:.0%}, edge vid {b.get('odds', 0):.2f}: {edge:+.0%}"
+                     + (f" (vid bokning modell {b['modell_edge']:+.0%})" if b.get("modell_edge") is not None else ""))
+        return ("lag:" + ",".join(sorted(i["key"] for i in new_out)), text)
     return fn

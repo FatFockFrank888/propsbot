@@ -191,6 +191,7 @@ def pinnacle_nba_props(pin: PinnaclePublic, ev, match_id: str) -> tuple[list[Odd
 
 # ---------------------------------------------------------------- linjeflytt
 # Överspridning per marknad (negativ binomial, form r): varians = μ + μ²/r.
+LAST_MODEL: dict = {}    # senaste skanningens modell per match (models, teams) – används av news.nba_teammate_fn
 NB_R = {"points": 15, "rebounds": 10, "assists": 10, "threes": 8, "steals": 30, "blocks": 15,
         "pra": 15, "pr": 15, "ra": 12}
 MAX_LINE_GAP = {"points": 3.0, "pra": 4.0, "pr": 3.5, "ra": 2.5}   # övriga: 1,5
@@ -479,6 +480,9 @@ def nba_scan(root: Path, settings_path: Path) -> dict:
     live_rows = select_live(rows, test_rows, settings, live) if settings.get("live_on", True) else []
     new_live = record_live(live, live_rows, rows, evd_by_id)
     recheck(live, nba_status_fn(injuries), settings, "NBA", True, diag.log)
+    from .news import nba_injury_list, nba_teammate_fn
+    recheck(live, nba_teammate_fn(LAST_MODEL, nba_injury_list(JsonClient(root / ".cache_odds", ttl_s=600)), NB_R),
+            settings, "NBA", True, diag.log, field="nyhet_lag")
     diag.log(f"NBA LIVE: {len(live_rows)} spel uppfyller live-kraven, {len(new_live)} nya bokförda live")
     for b in new_live:
         diag.log(f"NBA LIVE SPEL: {b['match']} | {b['spelare']} {b['marknad']} {b['sida']} {b['linje']} | "
@@ -532,6 +536,7 @@ def model_test_rows(root: Path, rows: list, per: dict, settings: dict, cfg: Conf
         if ta:
             m.update(nm.expected(ta, th, evd["commence_time"], league))
         models[mid] = m
+    LAST_MODEL.update(models=models, teams=teams)   # för lagnyheter (rollförändring när en lagkamrat blir out)
     n_inj = sum(1 for v in nm.injuries().values() if any(s in v for s in ("out", "doubtful")))
     diag.log(f"NBA-modell: {n_found} matcher hos ESPN, {sum(len(m) for m in models.values())} spelare, "
              f"{nm.fetched} nya boxscores, {n_inj} skadade (out/doubtful)")
