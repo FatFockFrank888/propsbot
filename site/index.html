@@ -272,7 +272,8 @@ function buildAll() {
     (d.modelltest || []).forEach(b => ALL.push(norm(b, s, "Modelltest")));
     (d.fouls_test || []).forEach(b => ALL.push(norm(b, s, "Fouls-test")));
     (d.kort_test || []).forEach(b => ALL.push(norm(b, s, "Kort-test")));
-    (d.sides_spel || []).forEach(b => ALL.push(norm(b, s, "Sides")));
+    // Sides-spel med notis är riktiga LIVE-spel (Spela nu, Resultat); övriga är data.
+    (d.sides_spel || []).forEach(b => ALL.push(norm(b, s, b.notis ? "Live" : "Sides")));
     (d.sides_skugga || []).forEach(b => ALL.push(norm(b, s, "Sides-skugga")));
     (d.test_marknader || []).forEach(b => ALL.push(norm(b, s, "NHL-test")));
     (d.parlay_bokforing || []).forEach(x => ALL.push(normParlay(x, s)));
