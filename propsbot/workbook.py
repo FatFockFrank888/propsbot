@@ -27,6 +27,7 @@ MK = {"shots": "Skott", "shots_on_target": "Skott på mål", "goal": "Mål", "as
       "points": "Poäng", "rebounds": "Returer", "assists": "Assist (NBA)", "threes": "Trepoängare",
       "steals": "Steals", "blocks": "Blocks", "pra": "PRA", "pr": "Poäng + returer", "ra": "Returer + assist", "fouls": "Fouls",
       "cards": "Kort", "sog": "Skott på mål", "nhl_points": "Poäng", "nhl_assists": "Assist", "nhl_goals": "Mål",
+      "nhl_pp_points": "Power play-poäng", "nhl_pp_goals": "Power play-mål",
       "1x2": "1X2", "total": "Mål totalt", "ah": "Asiatiskt handikapp"}
 SIDA = {"under": "Under", "home": "Hemma", "draw": "Oavgjort", "away": "Borta"}
 

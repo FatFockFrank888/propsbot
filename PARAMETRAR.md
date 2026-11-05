@@ -84,5 +84,5 @@ Genereras från de värden boten använder (`python -m propsbot parametrar`).
 | Pinnacle | på | liga 1456 |
 | US-bolag via The Odds API | 40–240 min före start | Andel av krediterna: 25 %. |
 | Bankrulle | 10 000 SEK | 1u = 20 SEK. |
-| Test-marknader (data) | poäng, assist, mål | Kambis NHL-poäng/assist/mål bokförs mot en egen modell. Inga notiser. |
+| Test-marknader (data) | poäng, assist, mål, power play-poäng | Kambis NHL-poäng/assist/mål och power play-poäng (minst 1/2) bokförs mot en egen modell (spelarens takt per match, PP1-roll syns i takten). Power play-mål per spelare tas med om ett bolag lägger ut dem. Inga notiser. |
 

@@ -141,7 +141,7 @@ def all_params(settings_path: Path) -> dict:
             ("US-bolag via The Odds API", f"{n.us_fetch_window_min[0]:g}–{n.us_fetch_window_min[1]:g} min före start",
              f"Andel av krediterna: {_pct(n.odds_api_share)}."),
             ("Bankrulle", f"{n.bankroll:,.0f} {n.currency}".replace(",", " "), f"1u = {n.unit_value():.0f} {n.currency}."),
-            ("Test-marknader (data)", "poäng, assist, mål", "Kambis NHL-poäng/assist/mål bokförs mot en egen modell. Inga notiser."),
+            ("Test-marknader (data)", "poäng, assist, mål, power play-poäng", "Kambis NHL-poäng/assist/mål och power play-poäng (minst 1/2) bokförs mot en egen modell (spelarens takt per match, PP1-roll syns i takten). Power play-mål per spelare tas med om ett bolag lägger ut dem. Inga notiser."),
         ]
     except Exception as e:  # noqa: BLE001
         nhl = [("Fel", f"{type(e).__name__}: {e}", "")]

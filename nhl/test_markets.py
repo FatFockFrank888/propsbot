@@ -1,8 +1,11 @@
-"""NHL test markets: points, assists and goals at the Kambi books – data only, never notified.
+"""NHL test markets: points, assists, goals and power-play points/goals at the Kambi books – data only.
 
 Kambi posts, per game, "Player to score at least N points" (yes/no, N = 1-3), "Player to record at
 least 1 assists" (yes/no), "To score" and "To score at least N goals" (yes only). No sharp book prices
-these for the Swedish market, so the edge can only come from our own model:
+these for the Swedish market, so the edge can only come from our own model.
+Power play (added 2026-11-05): "Player To score at least N Power Play Points" (yes/no, N = 1-2), and
+player power-play goals if a book posts them. Same model on the player's power-play points/goals per game
+(PP1 role shows up in the rate); settled from the player's NHL game log (the boxscore has no PP points):
 
   rate  = weighted goals/assists/points per game over the last 82 games incl. last season (half-life 25),
           shrunk toward a position prior worth 5 games (F: 0.22 / 0.32 / 0.54, D: 0.06 / 0.24 / 0.30)
@@ -31,9 +34,11 @@ from .names import normalize_name
 
 log = logging.getLogger(__name__)
 
-PRIOR = {"F": {"nhl_goals": 0.22, "nhl_assists": 0.32, "nhl_points": 0.54},
-         "D": {"nhl_goals": 0.06, "nhl_assists": 0.24, "nhl_points": 0.30}}
-STAT = {"nhl_goals": "goals", "nhl_assists": "assists", "nhl_points": "points"}
+PRIOR = {"F": {"nhl_goals": 0.22, "nhl_assists": 0.32, "nhl_points": 0.54, "nhl_pp_points": 0.13, "nhl_pp_goals": 0.05},
+         "D": {"nhl_goals": 0.06, "nhl_assists": 0.24, "nhl_points": 0.30, "nhl_pp_points": 0.08, "nhl_pp_goals": 0.015}}
+STAT = {"nhl_goals": "goals", "nhl_assists": "assists", "nhl_points": "points",
+        "nhl_pp_points": "pp_points", "nhl_pp_goals": "pp_goals"}
+PP_MARKETS = ("nhl_pp_points", "nhl_pp_goals")
 FILE = "nhl_test_marknader.json"
 _AT_LEAST = re.compile(r"at least (\d+)", re.I)
 
@@ -50,10 +55,18 @@ class TestQuote:
 
 def market_of(label: str) -> tuple[str, float | None] | None:
     s = label.lower()
-    if "power play" in s or "first" in s or "period" in s or "shots" in s:
+    if "first" in s or "period" in s or "shots" in s or "shorthanded" in s:
         return None
     m = _AT_LEAST.search(s)
     n = int(m.group(1)) if m else 1
+    if "power play" in s:
+        if "total" in s or " by " in s:            # team/match totals, not a player market
+            return None
+        if "point" in s:
+            return "nhl_pp_points", n - 0.5
+        if "goal" in s or s.startswith("to score"):
+            return "nhl_pp_goals", n - 0.5
+        return None
     if "point" in s:
         return "nhl_points", n - 0.5
     if "assist" in s:
@@ -180,7 +193,9 @@ class TestMarkets:
                             b["stangning"] = round(o, 3)
         return new
 
-    def settle(self, fetch_boxscore, now: float) -> int:
+    def settle(self, fetch_boxscore, now: float, fetch_pp=None) -> int:
+        """fetch_pp(player_id, game_id) -> {"pp_points": n, "pp_goals": n} from the game log, or None
+        while the log has not caught up (the bet then stays open until a later scan)."""
         due = {b["game_id"] for b in self.bets
                if b["status"] == "öppen" and b.get("avspark") and now > b["avspark"] + 2.5 * 3600}
         n = 0
@@ -199,6 +214,16 @@ class TestMarkets:
                 if st is None:
                     b["status"], b["resultat_enheter"] = "struken", 0.0
                 else:
+                    if b["marknad"] in PP_MARKETS:
+                        pp = None
+                        if fetch_pp is not None:
+                            try:
+                                pp = fetch_pp(int(b["spelare_id"]), gid)
+                            except Exception as exc:  # noqa: BLE001
+                                log.warning("NHL test markets: game log %s: %s", b["spelare_id"], exc)
+                        if pp is None:
+                            continue
+                        st = dict(st, **pp)
                     val = st[STAT[b["marknad"]]]
                     won = val > b["linje"] if b["sida"] == "over" else val < b["linje"]
                     b["utfall"] = val
@@ -219,5 +244,6 @@ def boxscore_scoring(data: dict) -> dict[int, dict[str, int]] | None:
             for p in (stats.get(side, {}) or {}).get(group, []) or []:
                 if "playerId" in p:
                     g, a = int(p.get("goals") or 0), int(p.get("assists") or 0)
-                    out[int(p["playerId"])] = {"goals": g, "assists": a, "points": int(p.get("points", g + a) or 0)}
+                    out[int(p["playerId"])] = {"goals": g, "assists": a, "points": int(p.get("points", g + a) or 0),
+                                               "pp_goals": int(p.get("powerPlayGoals") or 0)}
     return out

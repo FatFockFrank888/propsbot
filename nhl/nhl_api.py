@@ -60,6 +60,8 @@ class LogEntry:
     goals: int = 0
     assists: int = 0
     points: int = 0
+    pp_goals: int = 0
+    pp_points: int = 0
 
 
 @dataclass(frozen=True)
@@ -174,6 +176,8 @@ class NhlApi:
                         goals=int(row.get("goals") or 0),
                         assists=int(row.get("assists") or 0),
                         points=int(row.get("points") or 0),
+                        pp_goals=int(row.get("powerPlayGoals") or 0),
+                        pp_points=int(row.get("powerPlayPoints") or 0),
                     )
                 )
             except (KeyError, ValueError, TypeError) as exc:

@@ -29,7 +29,10 @@ def test_nhl_test_market_parse_and_poisson():
     assert market_of("Player to score at least 2 points - Including Overtime") == ("nhl_points", 1.5)
     assert market_of("Player to record at least 1 assists - Including Overtime") == ("nhl_assists", 0.5)
     assert market_of("To score - Including Overtime") == ("nhl_goals", 0.5)
-    assert market_of("Player To score at least 1 Power Play Points -  Including Overtime") is None
+    assert market_of("Player To score at least 1 Power Play Points -  Including Overtime") == ("nhl_pp_points", 0.5)
+    assert market_of("Player To score at least 2 Power Play Points -  Including Overtime") == ("nhl_pp_points", 1.5)
+    assert market_of("Total Power Play Goals by Utah Mammoth - Including Overtime") is None
+    assert market_of("Total Power Play Goals - Including Overtime") is None
     assert market_of("Player's shots on goal - Including Overtime") is None
     raw = {"betOffers": [{"criterion": {"englishLabel": "Player to score at least 1 points - Including Overtime"},
                           "outcomes": [{"participant": "A B", "englishLabel": "Yes", "line": 1000, "odds": 2950},
@@ -37,6 +40,19 @@ def test_nhl_test_market_parse_and_poisson():
     qs = parse_kambi(raw, "unibet")
     assert {(q.side, q.line, q.odds) for q in qs} == {("over", 0.5, 2.95), ("under", 0.5, 1.36)}
     assert abs(poisson_at_least(1, 0.5) - (1 - math.exp(-0.5))) < 1e-12
+
+
+def test_nhl_pp_points_settle_from_game_log(tmp_path):
+    from nhl.bot_settings import BotSettings
+    from nhl.test_markets import TestMarkets
+    tm = TestMarkets(tmp_path, BotSettings())
+    tm.bets = [{"game_id": 5, "spelare_id": 9, "status": "öppen", "avspark": 1000, "marknad": "nhl_pp_points",
+                "linje": 0.5, "sida": "over", "odds": 3.0, "insats_pct": 0.002}]
+    box = {"gameState": "OFF", "playerByGameStats": {"homeTeam": {"forwards": [{"playerId": 9, "goals": 1, "assists": 0}]}}}
+    assert tm.settle(lambda gid: box, now=1e10, fetch_pp=lambda pid, gid: None) == 0   # game log not updated yet
+    assert tm.bets[0]["status"] == "öppen"
+    assert tm.settle(lambda gid: box, now=1e10, fetch_pp=lambda pid, gid: {"pp_points": 1, "pp_goals": 1}) == 1
+    assert tm.bets[0]["status"] == "vunnen" and tm.bets[0]["utfall"] == 1
 
 
 def test_nhl_test_market_settles_from_boxscore(tmp_path):

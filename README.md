@@ -1,7 +1,7 @@
 # propsbot – en bot för fotboll, NBA och NHL
 
 **En körning, tre sporter.** `python -m propsbot skanna` kör fotboll (skott på mål, fouls, kort),
-NBA (poäng, returer, assist, trepoängare …) och NHL (skott på mål + poäng/assist/mål som test) efter
+NBA (poäng, returer, assist, trepoängare …) och NHL (skott på mål + poäng/assist/mål och power play-poäng som test) efter
 varandra. Ett fel i en sport stoppar aldrig de andra. GitHub Actions kör den var tionde minut dygnet runt.
 
 | Var | Vad |

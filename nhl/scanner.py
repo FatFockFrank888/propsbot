@@ -352,7 +352,15 @@ class Scanner:
             def box(gid: int) -> dict:
                 data, _ = self.client.get(f"{WEB}/gamecenter/{gid}/boxscore", ttl=0)
                 return data
-            rep.test_settled = self.tests.settle(box, now_dt.timestamp())
+            def pp(pid: int, gid: int) -> dict | None:
+                season = f"{gid // 1000000}{gid // 1000000 + 1}"
+                data, _ = self.client.get(f"{WEB}/player/{pid}/game-log/{season}/{(gid // 10000) % 100}", ttl=0)
+                for row in data.get("gameLog", []) or []:
+                    if int(row.get("gameId", 0)) == gid:
+                        return {"pp_points": int(row.get("powerPlayPoints") or 0),
+                                "pp_goals": int(row.get("powerPlayGoals") or 0)}
+                return None
+            rep.test_settled = self.tests.settle(box, now_dt.timestamp(), pp)
         due: set[int] = set(self.history.unsettled_games((now_dt - SETTLE_AFTER).isoformat()))
         for ledger in self.ledgers.values():
             for b in ledger.open_bets():
