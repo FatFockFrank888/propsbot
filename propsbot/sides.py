@@ -173,14 +173,17 @@ def evaluate(evd: dict, kambi_by_book: dict, pin: dict, s: dict, hist: History, 
         hk = f"{evd['id']}|{mk}|{line:g}|{side}"
         h = hist.update(hk, p, odds, now)
         reasons = [wait_reason] if wait_reason else []
-        need = s.get("sides_min_edge", 0.03) + (s.get("sides_alt_extra_edge", 0.01) if alt else 0.0)
+        low = lim < s.get("sides_low_limit", 2000)     # svagare Pinnacle-linje (ofta lägre divisioner)
+        need = (s.get("sides_min_edge", 0.03) + (s.get("sides_alt_extra_edge", 0.01) if alt else 0.0)
+                + (s.get("sides_low_limit_extra_edge", 0.01) if low else 0.0))
         if edge < need:
-            reasons.append(f"edge {edge:.1%} < {need:.0%}" + (" (alternativ linje)" if alt else ""))
+            reasons.append(f"edge {edge:.1%} < {need:.0%}" + (" (alternativ linje)" if alt else "")
+                           + (f" (Pinnacles gräns {lim:.0f})" if low else ""))
         if edge > s.get("sides_max_edge", 0.10):
             reasons.append(f"edge {edge:.1%} orimlig (> {s.get('sides_max_edge', 0.10):.0%}) – gammal linje eller nyhet")
         if not (lo <= odds <= hi):
             reasons.append(f"odds {odds:.2f} utanför {lo:.2f}–{hi:.2f}")
-        if lim < s.get("sides_min_pin_limit", 1000):
+        if lim < s.get("sides_min_pin_limit", 500):
             reasons.append(f"Pinnacles gräns {lim:.0f} – för svag referens")
         if odds < h["max_odds"] * (1 - s.get("max_odds_drop", 0.03)):
             reasons.append(f"oddset har fallit {1 - odds / h['max_odds']:.1%} från {h['max_odds']:.2f} – för sent")
@@ -222,6 +225,7 @@ def _bet(evd: dict, x: dict, s: dict, now: float) -> dict:
         "edge": x["edge"], "spela_fran": round((1 + s.get("sides_min_edge", 0.03)) / x["p"], 2),
         "insats_pct": _stake(x["p"], x["odds"], s), "stangning": x["odds"], "pin_p": x["p"],
         "pin_stang_p": x["p"], "pin_grans": x["limit"], "alternativ_linje": x["alt"],
+        "mindre_liga": bool(evd.get("extra")),
         "status": "öppen", "stopp": "; ".join(x["reasons"]), "utfall": None, "resultat_enheter": None,
     }
 
@@ -299,6 +303,73 @@ def espn_scores(bets: list[dict], client, now: float) -> dict:
         sc = espn.final_score(b["hemma"], b["borta"], b["avspark"])
         if sc:
             out[b["match_id"]] = sc
+    return out
+
+
+ESPORT = ("esport", "e-sport", "esoccer", "virtual", "fifa", "efootball", "cyber")
+
+
+def extra_events(settings: dict, diag, cache_dir: Path, known: set[str]) -> list:
+    """Mindre ligor och lägre divisioner (bara sides/totals): Kambis alla fotbollsmatcher utanför
+    props-ligorna som startar inom sides_extra_hours. Bara huvudmarknaderna hämtas –
+    ett anrop per match och bolag hos Kambi, två anrop totalt hos Pinnacle."""
+    if not settings.get("sides_extra_leagues", True):
+        return []
+    from .sources.http import JsonClient, SourceError
+    from .sources.kambi_public import KambiPublic
+    from .sources.pinnacle_public import BASE as PBASE, SOCCER, PinnaclePublic, _ts
+    from .sources.props_text import same_match
+    now = time.time()
+    hours = settings.get("sides_extra_hours", 3)
+    offerings = {code: book for code, book in settings["kambi_offerings"].items() if book in settings["playable_books"]}
+    kambi = KambiPublic(JsonClient(cache_dir, ttl_s=90), market=settings["kambi_market"])
+    first = next(iter(offerings))
+    evs, _raw = kambi.football_events(first, hours, [])
+    evs = [e for e in evs if f"k{e.event_id}" not in known and not any(w in e.league.lower() for w in ESPORT)]
+    evs = sorted(evs, key=lambda e: e.start)[: settings.get("sides_extra_max_events", 60)]
+    if not evs:
+        diag.log("Sides mindre ligor: inga matcher inom tidsfönstret")
+        return []
+    # Pinnacle: alla fotbollsmatcher och raka marknader i två anrop
+    try:
+        pc = PinnaclePublic(JsonClient(cache_dir, ttl_s=60, min_interval_s=0.6)).c
+        mus = pc.get(f"{PBASE}/sports/{SOCCER}/matchups") or []
+        mks = pc.get(f"{PBASE}/sports/{SOCCER}/markets/straight", {"primaryOnly": "false"}) or []
+    except SourceError as e:
+        diag.log(f"Sides mindre ligor: Pinnacle FEL {e}")
+        return []
+    pins = []
+    for m in mus:
+        if m.get("type") != "matchup" or m.get("parent"):
+            continue
+        parts = {x.get("alignment"): x.get("name") for x in m.get("participants", [])}
+        try:
+            st = _ts(m["startTime"])
+        except (KeyError, ValueError):
+            continue
+        if "home" in parts and "away" in parts and now < st < now + (hours + 1) * 3600:
+            pins.append((int(m["id"]), parts["home"], parts["away"], st, (m.get("league") or {}).get("name", "")))
+    out = []
+    for ev in evs:
+        pm = next((p for p in pins if same_match(ev.home, ev.away, ev.start, p[1], p[2], p[3])), None)
+        if not pm:
+            continue
+        pin = pinnacle_main(mks, pm[0])
+        if not pin:
+            continue
+        evd = {"id": f"k{ev.event_id}", "home_team": ev.home, "away_team": ev.away,
+               "commence_time": ev.start, "league": ev.league, "extra": True, "pin_main": pin, "kambi_main": {}}
+        for code, book in offerings.items():
+            try:
+                raw = kambi._get(code, f"betoffer/event/{ev.event_id}.json", {"includeParticipants": "true"})
+            except SourceError:
+                continue
+            if raw:
+                evd["kambi_main"][book] = kambi_main(raw, ev.home, ev.away)
+        if evd["kambi_main"]:
+            out.append((evd, [], {}))
+    diag.log(f"Sides mindre ligor: {len(evs)} Kambi-matcher inom {hours} h, {len(pins)} Pinnacle-matcher, "
+             f"{len(out)} matchade: " + ", ".join(sorted({e['league'].replace('Football / ', '') for e, _, _ in out}))[:300])
     return out
 
 

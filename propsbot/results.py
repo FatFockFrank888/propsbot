@@ -87,6 +87,24 @@ class EspnResults:
                     continue
                 if same_match(home, away, start, teams.get("home", ""), teams.get("away", ""), st):
                     return lg, ev
+        # Reserv: ESPN:s samlade tavla för all fotboll (mindre ligor och lägre divisioner).
+        key = ("all", day)
+        if key not in self._board:
+            try:
+                raw = self.c.get(f"{BASE}/all/scoreboard", {"dates": day, "limit": 1000}, ttl=1800) or {}
+            except SourceError:
+                raw = {}
+            self._board[key] = raw.get("events", [])
+        for ev in self._board[key]:
+            comp = (ev.get("competitions") or [{}])[0]
+            teams = {c.get("homeAway"): c.get("team", {}).get("displayName", "")
+                     for c in comp.get("competitors", [])}
+            try:
+                st = datetime.fromisoformat(ev["date"].replace("Z", "+00:00")).timestamp()
+            except (KeyError, ValueError):
+                continue
+            if same_match(home, away, start, teams.get("home", ""), teams.get("away", ""), st):
+                return "all", ev
         return None
 
     def final_score(self, home: str, away: str, start: float) -> tuple[int, int] | None:

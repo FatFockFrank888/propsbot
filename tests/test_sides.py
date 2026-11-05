@@ -103,3 +103,15 @@ def test_asian_total_parsed_and_status_push(tmp_path):
                 "odds": 1.9, "insats_pct": 0.004, "status": "öppen", "match": "A – B", "spel_text": "x", "bokford": 1}]
     sides.settle(lg, {"m": (0, 0)})
     assert lg.bets[0]["status"] == "push" and lg.bets[0]["resultat_enheter"] == 0.0
+
+
+def test_pinnacle_limit_tiers(tmp_path):
+    s = dict(S, sides_min_pin_limit=500, sides_low_limit=2000, sides_low_limit_extra_edge=0.01)
+    k = ("total", 2.5, "over")
+    h = sides.History(tmp_path / "h.json")
+    def ev(lim):
+        return sides.evaluate(EVD, {"unibet": {k: 2.07}}, {k: (0.50, lim, False)}, s, h, 0, {"unibet"})[0]
+    assert ev(5000)["playable"]                       # edge 3,5 % >= 3 %
+    low = ev(1000)                                    # svag referens: kräver 4 %
+    assert not low["playable"] and "gräns 1000" in low["reasons"][0]
+    assert any("för svag referens" in r for r in ev(400)["reasons"])

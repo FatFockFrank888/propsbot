@@ -91,8 +91,13 @@ def all_params(settings_path: Path) -> dict:
         ("Sides/totals: högsta edge", _pct(s.get("sides_max_edge", 0.10)),
          "Större edge mot Pinnacle = nästan alltid gammal linje, nyhet (uppställning/skada) eller fel match. Bokförs som skugga."),
         ("Sides/totals: oddsram", _odds(so_lo, so_hi), "Bredare än props uppåt så att oavgjort och små skrällar kommer med."),
-        ("Sides/totals: Pinnacles insatsgräns", f"minst {s.get('sides_min_pin_limit', 1000)}",
-         "Låg gräns = svag liga där Pinnacles linje inte är skarp."),
+        ("Sides/totals: Pinnacles insatsgräns", f"minst {s.get('sides_min_pin_limit', 500)}; under {s.get('sides_low_limit', 2000)} "
+         f"krävs +{_pct(s.get('sides_low_limit_extra_edge', 0.01))} edge",
+         "Gränsen visar hur skarp Pinnacles linje är. Låg gräns (ofta lägre divisioner) = svagare referens -> högre krav."),
+        ("Sides/totals: mindre ligor", (f"på – alla Kambi-ligor (ej esport) inom {s.get('sides_extra_hours', 3)} h före avspark, "
+                                        f"max {s.get('sides_extra_max_events', 60)} matcher") if s.get("sides_extra_leagues", True) else "av",
+         "Lägre divisioner och mindre ligor har oftare felsatta linjer. Bara huvudmarknaderna hämtas (snabbt). "
+         "Rättas mot ESPN:s samlade resultattavla."),
         ("Sides/totals: övrigt", f"max oddsfall {_pct(s.get('max_odds_drop', 0.03))}, sharp money mot oss {s.get('sharp_against_pp', 2.0):g} pe, "
          f"ett spel per match, inom {s.get('sides_max_hours', 24)} h före avspark, max {s.get('sides_max_units', 3)}u",
          "Samma spärrar som övriga sporter. Rättas mot ESPN:s slutresultat."),

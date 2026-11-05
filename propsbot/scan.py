@@ -114,6 +114,9 @@ DEFAULT_SETTINGS = {
     # Startelvor (5/11): fotbollsspel (props och sides) blir spelbara först när båda elvorna är kända
     # hos ESPN, eller inom 55 min före avspark. Props: spelaren måste starta.
     "lineup_required": True, "lineup_fallback_minutes": 55, "lineup_lookup_minutes": 150,
+    "sides_low_limit": 2000, "sides_low_limit_extra_edge": 0.01,
+    # Mindre ligor/lägre divisioner (bara sides): Kambis övriga fotbollsmatcher inom 3 h (ej esport).
+    "sides_extra_leagues": True, "sides_extra_hours": 3, "sides_extra_max_events": 60,
     "sides_enabled": True,
     "sides_live": False,
     "sides_markets": ["1x2", "total", "ah"],
@@ -121,7 +124,7 @@ DEFAULT_SETTINGS = {
     "sides_max_edge": 0.1,
     "sides_alt_extra_edge": 0.01,
     "sides_odds_window": [1.6, 4.0],
-    "sides_min_pin_limit": 1000,
+    "sides_min_pin_limit": 500,
     "sides_max_hours": 24,
     "sides_shadow_min_edge": 0.01,
     "sides_max_units": 3,

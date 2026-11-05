@@ -293,8 +293,13 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
     data = [(evd, [q for q in qs if q.market not in ("fouls", "cards")], nm) for evd, qs, nm in data]
     if settings.get("sides_enabled", True):
         try:   # sides & totals (1X2, mål över/under, asiatiskt handikapp) mot Pinnacle
-            from .sides import run as run_sides
-            run_sides(root, data, settings, diag, notify=notify)
+            from .sides import extra_events, run as run_sides
+            try:
+                extra = extra_events(settings, diag, root / ".cache_odds", {evd["id"] for evd, _q, _n in data})
+            except Exception as e:  # noqa: BLE001
+                diag.log(f"Sides mindre ligor: FEL {type(e).__name__}: {e}")
+                extra = []
+            run_sides(root, data + extra, settings, diag, notify=notify)
         except Exception as e:  # noqa: BLE001 – får aldrig stoppa skanningen
             diag.log(f"Sides/totals: FEL {type(e).__name__}: {e}")
             diag.lines.append(traceback.format_exc())
