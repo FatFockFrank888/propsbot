@@ -5,6 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <title>Propsbot</title>
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Propsbot">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="theme-color" content="#141414">
 <style>
   :root { --bg:#141414; --panel:#1c1c1c; --line:#2a2a2a; --text:#ececec; --dim:#8a8a8a;
           --good:#4cc38a; --bad:#e5484d; --accent:#3b82f6; --warn:#fbbf24;
@@ -76,6 +84,53 @@
   svg text { fill:var(--dim); font-size:11px; }
   .banner { margin:8px 20px 0; padding:9px 13px; border:1px solid var(--warn); border-radius:10px; color:var(--warn); }
   a { color:var(--accent); }
+  /* ---------- TOPP 5 ---------- */
+  .hero { display:flex; flex-wrap:wrap; gap:8px 18px; align-items:flex-end; justify-content:space-between; margin:4px 0 14px; }
+  .hero h2 { font-size:22px; margin:0; letter-spacing:-.3px; }
+  .hero h2 span { background:linear-gradient(90deg,#f5c442,#4cc38a,#3b82f6); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .pulse { display:inline-block; width:8px; height:8px; border-radius:50%; background:var(--good); margin-right:6px;
+           box-shadow:0 0 0 0 rgba(76,195,138,.7); animation:pulse 2s infinite; }
+  @keyframes pulse { 70% { box-shadow:0 0 0 9px rgba(76,195,138,0); } 100% { box-shadow:0 0 0 0 rgba(76,195,138,0); } }
+  .tgrid { display:grid; grid-template-columns:repeat(auto-fill,minmax(290px,1fr)); gap:14px; }
+  .tc { position:relative; background:var(--panel); border:1px solid var(--line); border-radius:16px; padding:16px 16px 14px;
+        overflow:hidden; transition:transform .15s; }
+  .tc:hover { transform:translateY(-2px); }
+  .tc::before { content:""; position:absolute; inset:0 0 auto 0; height:4px; background:var(--rk); }
+  .tc.r1 { --rk:linear-gradient(90deg,#f5c442,#ffe29a); border-color:rgba(245,196,66,.55); box-shadow:0 0 28px rgba(245,196,66,.12); }
+  .tc.r2 { --rk:linear-gradient(90deg,#c9d1d9,#f0f3f6); } .tc.r3 { --rk:linear-gradient(90deg,#cd7f32,#e8a96b); }
+  .tc.r4, .tc.r5 { --rk:var(--accent); }
+  .tc.bub { --rk:repeating-linear-gradient(90deg,var(--warn) 0 10px,transparent 10px 16px); border-style:dashed; }
+  .tc .num { position:absolute; right:12px; top:4px; font-size:64px; font-weight:800; line-height:1; color:var(--text); opacity:.07; }
+  .tc .top { display:flex; gap:6px; align-items:center; flex-wrap:wrap; font-size:12px; color:var(--dim); }
+  .tc .who { font-size:19px; font-weight:700; margin:8px 0 0; }
+  .tc .bet { font-size:14px; margin:2px 0 10px; }
+  .tc .row { display:flex; justify-content:space-between; align-items:center; gap:10px; }
+  .tc .odds { font-size:30px; font-weight:800; font-variant-numeric:tabular-nums; letter-spacing:-.5px; }
+  .tc .odds small { font-size:12px; font-weight:500; color:var(--dim); margin-left:6px; letter-spacing:0; }
+  .ring { width:58px; height:58px; flex:none; }
+  svg.ring text { fill:var(--text); font-size:15px; font-weight:700; }
+  .bar { height:6px; border-radius:99px; background:var(--line); overflow:hidden; margin:3px 0 8px; }
+  .bar i { display:block; height:100%; border-radius:99px; }
+  .lbl { display:flex; justify-content:space-between; font-size:11px; color:var(--dim); }
+  .chips { display:flex; flex-wrap:wrap; gap:5px; margin-top:8px; }
+  .chip { font-size:11px; padding:2px 8px; border-radius:99px; border:1px solid var(--line); color:var(--dim); }
+  .chip.g { color:var(--good); border-color:rgba(76,195,138,.5); } .chip.w { color:var(--warn); border-color:rgba(251,191,36,.5); }
+  .chip.l { color:#111; background:var(--good); border-color:var(--good); font-weight:700; }
+  .cd { font-variant-numeric:tabular-nums; }
+  .subh { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin:26px 0 10px; }
+  .subh h3 { margin:0; font-size:16px; }
+  .tgrid .empty { grid-column:1/-1; }
+  /* #1 som stort hjältekort (2x2) bredvid 2–5 */
+  #toppCards { grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); grid-auto-flow:dense; }
+  @media (min-width:820px) {
+    #toppCards .tc.r1 { grid-column:span 2; grid-row:span 2; padding:24px 26px; display:flex; flex-direction:column; justify-content:space-between;
+      background:radial-gradient(120% 90% at 100% 0%,rgba(245,196,66,.16),transparent 60%),var(--panel); }
+    #toppCards .tc.r1 .num { font-size:150px; opacity:.09; }
+    #toppCards .tc.r1 .who { font-size:30px; } #toppCards .tc.r1 .bet { font-size:18px; }
+    #toppCards .tc.r1 .odds { font-size:54px; } #toppCards .tc.r1 .ring { width:96px; height:96px; }
+    #toppCards .tc.r1 .bar { height:9px; }
+  }
+  .crown { font-size:12px; font-weight:700; color:#f5c442; letter-spacing:.5px; text-transform:uppercase; }
 </style>
 </head>
 <body>
@@ -92,6 +147,7 @@
 <div id="banner" class="banner hidden"></div>
 <div class="tabs" id="tabs">
   <button class="tab on" data-t="nu">⚡ Spela nu</button>
+  <button class="tab" data-t="topp">🏆 Topp 5</button>
   <button class="tab" data-t="radar">Radar</button>
   <button class="tab" data-t="res">Resultat</button>
   <button class="tab" data-t="bok">Bokföring &amp; analys</button>
@@ -120,6 +176,22 @@
       <thead><tr><th>Sport</th><th>Start</th><th>Spelare</th><th>Spel</th><th class="n">Odds</th><th class="n">Stängning</th>
         <th class="n">CLV</th><th>Status</th><th class="n">Utfall</th><th class="n">Resultat</th></tr></thead>
       <tbody id="nuDone"></tbody></table></div>
+  </section>
+
+  <!-- ======================================================= TOPP 5 -->
+  <section id="topp" class="hidden">
+    <div class="hero">
+      <div><h2>🏆 <span>Topp 5 just nu</span></h2>
+        <div class="sub"><span class="pulse"></span>Alla botar och alla marknader, räknat om vid varje skanning. Bara spel som klarar alla regler.</div></div>
+      <div class="sub" id="toppMeta"></div>
+    </div>
+    <div class="tgrid" id="toppCards"></div>
+    <div class="subh"><h3>🫧 På bubblan – reserver</h3>
+      <span class="sub">Klarar också alla regler. Ta dem om något i topp 5 rasar i odds innan du hunnit lägga spelet.</span></div>
+    <div class="tgrid" id="toppBub"></div>
+    <div class="sub" style="margin-top:18px"><b>Styrka</b> (ringen) = edge (högst 15) + halva modellens edge (högst 15) + sharp money
+      (+1 med oss, −2 mot oss) + 1 för LIVE-spel. Edge över 15 % räknas som misstänkt och dras ner.
+      <b>Kudde</b> = hur mycket oddset får falla innan det når spela från-oddset. Håll muspekaren över ett kort för alla detaljer.</div>
   </section>
 
   <!-- ======================================================= RADAR -->
@@ -384,6 +456,76 @@ function renderNu() {
   document.getElementById("nuNote").innerHTML = notes.join("<br>");
 }
 
+
+// --------------------------------------------------------------- TOPP 5
+function toppScore(r) {
+  const E = r.edge * 100, Ec = Math.min(E, 15) - Math.max(0, E - 15) * 0.5;
+  const M = r.p_modell != null && r.odds ? (r.p_modell * r.odds - 1) * 100 : null;
+  const Mp = M == null ? 0 : 0.5 * Math.max(-15, Math.min(15, M));
+  const k = (r.kommentar || "").toLowerCase();
+  const S = /sharp money (with|med) (us|oss)/.test(k) ? 1 : /sharp (money mot oss|moved .* against)/.test(k) ? -2 : 0;
+  const L = r.live ? 1 : 0;
+  return {score: Ec + Mp + S + L, E, M, S, L, cushion: r.spela_fran ? r.odds / r.spela_fran - 1 : null};
+}
+function ring(score, color) {
+  const f = Math.max(0, Math.min(1, score / 20)), C = 2 * Math.PI * 24;
+  return `<svg class="ring" viewBox="0 0 58 58"><circle cx="29" cy="29" r="24" fill="none" stroke="var(--line)" stroke-width="6"/>
+    <circle cx="29" cy="29" r="24" fill="none" stroke="${color}" stroke-width="6" stroke-linecap="round"
+      stroke-dasharray="${(C * f).toFixed(1)} ${C.toFixed(1)}" transform="rotate(-90 29 29)"/>
+    <text x="29" y="34" text-anchor="middle">${nf(score, 1)}</text></svg>`;
+}
+function countdown(ts) {
+  const s = ts - Date.now() / 1000;
+  if (s <= 0) return "startad";
+  const h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60);
+  return h ? `om ${h} h ${m} min` : `om ${m} min`;
+}
+const RK = ["#f5c442", "#c9d1d9", "#cd7f32", "#3b82f6", "#3b82f6"];
+function toppCard(r, i, bub) {
+  const t = r.t, col = bub ? "#fbbf24" : RK[i];
+  const eF = Math.min(1, t.E / 15), cF = t.cushion == null ? 0 : Math.max(0, Math.min(1, t.cushion / 0.08));
+  const chips = [
+    r.live ? `<span class="chip l">⚡ LIVE · notis</span>` : `<span class="chip">data · ingen notis</span>`,
+    t.M != null ? `<span class="chip ${t.M > 0 ? "g" : "w"}">modell ${sgn(t.M)} %</span>` : "",
+    t.S > 0 ? `<span class="chip g">sharp money ⬆</span>` : t.S < 0 ? `<span class="chip w">sharp mot oss</span>` : "",
+    t.E > 15 ? `<span class="chip w">misstänkt hög edge</span>` : "",
+    r.prognos != null ? `<span class="chip">prognos ${nf(r.prognos)}</span>` : "",
+    `<span class="chip">${esc(r.bolag)}</span>`].join("");
+  return `<div class="tc ${bub ? "bub" : "r" + (i + 1)}" title="${esc(r.kommentar)}">
+    <div class="num">${bub ? "R" + (i + 1) : i + 1}</div>
+    ${!bub && i === 0 ? `<div class="crown">👑 Starkast just nu</div>` : ""}
+    <div class="top">${tag(r.sport)} <span>${esc(r.mkName)}</span> · <span>${esc(r.match)}</span></div>
+    <div class="top" style="margin-top:3px">🕒 ${fmtTs(r.ts)} · <b class="cd" data-ts="${r.ts}">${countdown(r.ts)}</b></div>
+    <div class="who">${esc(r.spelare)}</div><div class="bet">${esc(r.spel)}</div>
+    <div class="row"><div class="odds">${nf(r.odds)}<small>spela från ${nf(r.spela_fran)}</small></div>${ring(t.score, col)}</div>
+    <div class="lbl" style="margin-top:8px"><span>Edge</span><b class="pos">${pct(r.edge)}</b></div>
+    <div class="bar"><i style="width:${(eF * 100).toFixed(0)}%;background:linear-gradient(90deg,var(--good),${col})"></i></div>
+    <div class="lbl"><span>Kudde innan spela från</span><b>${t.cushion == null ? "–" : pct(t.cushion)}</b></div>
+    <div class="bar"><i style="width:${(cF * 100).toFixed(0)}%;background:${t.cushion < 0.01 ? "var(--bad)" : "var(--accent)"}"></i></div>
+    <div class="chips">${chips}</div></div>`;
+}
+function renderTopp() {
+  const now = Date.now() / 1000;
+  let rs = [];
+  for (const s of sel()) (D[s]?.radar || []).forEach(r => {
+    const ts = utcTs(r.avspark);
+    if (r.spelbar && ts > now + 60) rs.push({...r, sport: s, ts, mkName: MK[r.marknad] || r.marknad});
+  });
+  rs.forEach(r => r.t = toppScore(r));
+  rs.sort((a, b) => b.t.score - a.t.score);
+  const seen = new Set(), pick = [];
+  for (const r of rs) { const k = `${r.sport}|${r.match}|${r.spelare}`; if (!seen.has(k)) { seen.add(k); pick.push(r); } }
+  const top = pick.slice(0, 5), bub = pick.slice(5, 8);
+  document.getElementById("toppCards").innerHTML = top.map((r, i) => toppCard(r, i, false)).join("")
+    || `<div class="empty">Inget spel klarar alla regler just nu. Sidan uppdateras själv varannan minut.</div>`;
+  document.getElementById("toppBub").innerHTML = bub.map((r, i) => toppCard(r, i, true)).join("")
+    || `<div class="empty">Inga reserver just nu – bara ${pick.length} spel klarar alla regler.</div>`;
+  const ages = sel().map(s => D[s]?.uppdaterad_ts).filter(Boolean);
+  document.getElementById("toppMeta").innerHTML = `${pick.length} spelbara just nu` +
+    (ages.length ? ` · senaste skanning för ${Math.round((now - Math.max(...ages)) / 60)} min sedan` : "");
+}
+setInterval(() => document.querySelectorAll(".cd[data-ts]").forEach(e => e.textContent = countdown(+e.dataset.ts)), 30000);
+
 // --------------------------------------------------------------- RADAR
 function renderRadar() {
   const q = document.getElementById("q").value.toLowerCase(), mk = document.getElementById("mk").value;
@@ -578,8 +720,8 @@ function renderParam() {
 function render() {
   document.querySelectorAll(".sp").forEach(b => b.classList.toggle("on", b.dataset.s === cur));
   document.querySelectorAll(".tab[data-t]").forEach(b => b.classList.toggle("on", b.dataset.t === tab));
-  ["nu", "radar", "res", "bok", "parlay", "param"].forEach(id => document.getElementById(id).classList.toggle("hidden", id !== tab));
-  ({nu: renderNu, radar: renderRadar, res: renderRes, bok: renderBok, parlay: renderParlay, param: renderParam})[tab]();
+  ["nu", "topp", "radar", "res", "bok", "parlay", "param"].forEach(id => document.getElementById(id).classList.toggle("hidden", id !== tab));
+  ({nu: renderNu, topp: renderTopp, radar: renderRadar, res: renderRes, bok: renderBok, parlay: renderParlay, param: renderParam})[tab]();
   history.replaceState(null, "", `#${cur}${tab === "nu" ? "" : "/" + tab}`);
 }
 async function load() {
@@ -609,7 +751,7 @@ document.querySelectorAll("#radar th").forEach(th => th.onclick = () => {
 document.getElementById("aCsv").onclick = csv;
 { const [s, t] = location.hash.slice(1).split("/");
   if (SPORTS[s] || s === "alla") cur = s;
-  if (["nu", "radar", "res", "bok", "parlay", "param"].includes(t)) tab = t;
+  if (["nu", "topp", "radar", "res", "bok", "parlay", "param"].includes(t)) tab = t;
   if (location.hash === "#bokforing") tab = "bok"; }
 load(); setInterval(load, 120000);
 </script>
