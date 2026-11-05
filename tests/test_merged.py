@@ -114,3 +114,13 @@ def test_news_blocks_and_rechecks(tmp_path):
     assert recheck(lg, nba_status_fn(inj), {}, "NBA", False, logs.append) == 0          # bara en gång
     assert recheck(lg, nba_status_fn({}), {}, "NBA", False, logs.append) == 1           # borta från listan
     assert lg.bets[0]["nyhet_status"] == "ok"
+
+
+def test_graduation_up_and_down(tmp_path):
+    from propsbot.graduation import check
+    s = {"graduation_min_bets": 50, "graduation_min_t": 1.0}
+    assert not check(tmp_path, "sides", [1.0, 2.0, -0.5] * 10, s, "Sides", False, lambda *_: None)   # för få spel
+    good = [2.0, 1.0, -0.5, 1.5, 0.5] * 10                                                            # 50 spel, snitt +0,9
+    assert check(tmp_path, "sides", good, s, "Sides", False, lambda *_: None)
+    assert check(tmp_path, "sides", good + [-0.2], s, "Sides", False, lambda *_: None)               # stannar uppe
+    assert not check(tmp_path, "sides", [-1.0, -0.5, 0.2] * 12, s, "Sides", False, lambda *_: None)  # vänt -> ner

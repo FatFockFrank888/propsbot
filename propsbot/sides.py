@@ -208,7 +208,8 @@ def _stake(p: float, odds: float, s: dict) -> float:
     b = odds - 1
     f = max(0.0, (p * b - (1 - p)) / b) * 0.25
     unit = 0.002
-    u = max(1, min(s.get("sides_max_units", 3), round(f / unit))) if f > 0 else 0
+    cap = s.get("live_max_units", 5) if s.get("sides_live") else s.get("sides_max_units", 3)
+    u = max(1, min(cap, round(f / unit))) if f > 0 else 0
     return u * unit
 
 
@@ -376,10 +377,18 @@ def extra_events(settings: dict, diag, cache_dir: Path, known: set[str]) -> list
 def run(root: Path, data: list, settings: dict, diag, notify: bool = True) -> dict:
     """data: [(evd, quotes, names)] från collect(); evd har kambi_main och pin_main."""
     now = time.time()
-    s = settings
+    s = dict(settings)
     playable = set(s["playable_books"])
     hist = History(root / "sides_historik.json")
     spel, skugga = Ledger(root / "sides_spel.json"), Ledger(root / "sides_skugga.json")
+    # Samlar data tills underlaget räcker; med bevisad CLV mot Pinnacles stängning går sides över till
+    # samma villkor som NBA/NHL LIVE (notiser, ¼ Kelly upp till 5u) – automatiskt (graduation.py).
+    if not s.get("sides_live"):
+        from .graduation import check
+        clv = [(b["pin_stang_p"] - 1 / b["odds"]) * 100 for b in spel.counted
+               if b.get("pin_stang_p") and b.get("odds") and b.get("avspark") and b["avspark"] < now]
+        if check(root, "sides", clv, s, "Fotboll sides/totals", notify, diag.log):
+            s["sides_live"] = True
     n_ev = n_lines = n_lu = 0
     from .lineups import Lineups
     from .sources.http import JsonClient

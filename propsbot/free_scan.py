@@ -447,6 +447,12 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
     # Fotboll LIVE: insatsen följer styrkan (¼ Kelly, som NBA/NHL) men skalas med football_kelly_scale
     # (0,5 = halva storleken) tills CLV har visats, och högst football_live_max_units (5u, samma tak som NBA/NHL).
     scale = settings.get("football_kelly_scale", 0.5)
+    from .graduation import check as _grad
+    from .ledger import Ledger as _L2
+    _clv = [(1 / b["stangning"] - 1 / b["odds"]) * 100 for b in _L2(root / "bokforing_v3.json").counted
+            if b.get("stangning") and b.get("odds") and b.get("avspark") and b["avspark"] < time.time()]
+    if settings.get("football_live", False) and _grad(root, "fotboll_props", _clv, settings, "Fotbollsprops", notify, diag.log):
+        scale = 1.0   # bevisad CLV: full ¼ Kelly som NBA/NHL
     cap_u = settings.get("football_live_max_units", 5)
     for r in rows:
         d = r.row.decision
