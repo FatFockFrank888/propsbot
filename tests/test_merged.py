@@ -145,3 +145,21 @@ def test_news_teammate_out_role_shift():
     assert recheck(lg, nba_teammate_fn(last, [new], {"rebounds": 10}), {}, "NBA", False, print, field="nyhet_lag") == 1
     assert "Mark Williams" in bet["nyhet"] and "edge vid 2.08" in bet["nyhet"] and bet["nyhet_status"].startswith("lag:")
     assert recheck(lg, nba_teammate_fn(last, [new], {"rebounds": 10}), {}, "NBA", False, print, field="nyhet_lag") == 0
+
+
+def test_top5_notify_once(tmp_path, monkeypatch):
+    import json, time
+    from datetime import datetime, timezone
+    import propsbot.notify as nt
+    from propsbot import top5
+    site = tmp_path / "site"; (site / "nba").mkdir(parents=True); (site / "nhl").mkdir()
+    start = datetime.fromtimestamp(time.time() + 3 * 3600, timezone.utc).strftime("%Y-%m-%d %H:%M")
+    rows = [{"spelare": f"P{i}", "match": f"M{i}", "spel": "poäng över 20.5", "marknad": "points", "odds": 2.0,
+             "spela_fran": 1.9, "edge": 0.05 + i / 100, "spelbar": True, "avspark": start, "bolag": "unibet",
+             "insats_forslag": 0.01, "kommentar": ""} for i in range(7)]
+    (site / "nba" / "data.json").write_text(json.dumps({"radar": rows}), encoding="utf-8")
+    sent = []
+    monkeypatch.setattr(nt, "send", lambda *a, **k: sent.append(a[1]) or True)
+    assert top5.notify(tmp_path, {"ntfy_topic": "x"}, log=lambda *_: None) == 5
+    assert sent[0].startswith("TOPP 5 #1: P6")
+    assert top5.notify(tmp_path, {"ntfy_topic": "x"}, log=lambda *_: None) == 0     # inga dubbletter
