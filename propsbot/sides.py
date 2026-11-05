@@ -9,7 +9,9 @@ Samma regler som övriga boten, anpassade för en stor och effektiv marknad:
   * alternativa Pinnacle-linjer (högre marginal) kräver +1 % extra edge.
   * oddsram, max oddsfall 3 %, sharp money mot oss 2 pe (efter 30 min) – som övriga sporter.
   * ett spel per match (1X2, total och handikapp hänger ihop) – störst edge vinner.
-  * bara halvlinjer (x,5): aldrig push eller delad insats.
+  * halvlinjer (x,5) och asiatiska linjer: hela (push = insatsen tillbaka) och kvarts (halva
+    insatsen på var närliggande linje). För hela/kvartslinjer är Pinnacles tvåvägspris redan
+    utan push, så edge = p × odds − 1 är förväntad avkastning på den del som avgörs.
 Bokföring: sides_spel.json (klarar alla regler), sides_skugga.json (>= 1 % edge men stoppat).
 Notiser bara när sides_live = true.
 """
@@ -30,6 +32,21 @@ def _half(x: float) -> bool:
     return abs((abs(x) * 2) % 2 - 1) < 1e-9          # 0.5, 1.5, 2.5 …
 
 
+def _line_ok(x: float) -> bool:
+    """Halvlinjer och asiatiska linjer: hela (0, 1, 2 …) och kvarts (0.25, 0.75 …)."""
+    return abs(x * 4 - round(x * 4)) < 1e-9
+
+
+def parts(line: float) -> list[float]:
+    """Asiatisk linje -> delinsatser: kvartslinje = halva på var sida (2.25 -> 2.0 och 2.5)."""
+    q = round(line * 4)
+    return [(q - 1) / 4, (q + 1) / 4] if q % 2 else [line]
+
+
+def _put(out: dict, key: tuple, odds: float) -> None:
+    out[key] = max(out.get(key, 0.0), odds)          # samma linje i flera erbjudanden: bästa priset
+
+
 # ------------------------------------------------------------------ parsning
 def kambi_main(raw: dict, home: str, away: str) -> dict:
     """{(marknad, linje, sida): odds} ur Kambis betoffer-svar. Linje för ah = sidans handikapp."""
@@ -47,14 +64,14 @@ def kambi_main(raw: dict, home: str, away: str) -> dict:
             for typ, side in (("OT_ONE", "home"), ("OT_CROSS", "draw"), ("OT_TWO", "away")):
                 if t.get(typ):
                     out[("1x2", 0.0, side)] = t[typ] / 1000
-        elif lab in ("total goals", "total goals - full time"):
+        elif lab in ("total goals", "total goals - full time", "asian total", "asian total - full time"):
             for o in outs:
                 if o.get("line") is None or not o.get("odds"):
                     continue
                 ln = o["line"] / 1000
                 side = "over" if o.get("type") == "OT_OVER" else "under" if o.get("type") == "OT_UNDER" else None
-                if side and _half(ln):
-                    out[("total", ln, side)] = o["odds"] / 1000
+                if side and _line_ok(ln):
+                    _put(out, ("total", ln, side), o["odds"] / 1000)
         elif lab == "asian handicap":
             for o in outs:
                 if o.get("line") is None or not o.get("odds"):
@@ -64,8 +81,8 @@ def kambi_main(raw: dict, home: str, away: str) -> dict:
                 side = "home" if nk == hk else "away" if nk == ak else None
                 if side is None:      # namnen skiljer sig ibland något – ta ordningen (hemma först)
                     side = "home" if o is outs[0] else "away"
-                if _half(ln):
-                    out[("ah", ln, side)] = o["odds"] / 1000
+                if _line_ok(ln):
+                    _put(out, ("ah", ln, side), o["odds"] / 1000)
     return out
 
 
@@ -95,7 +112,7 @@ def pinnacle_main(markets: list, matchup_id: int) -> dict:
                     for side, p in zip((a, b), ps):
                         ln = float(d[side].get("points") or 0.0)
                         k = (mk, ln, side)
-                        if not _half(ln) or (k in out and alt and not out[k][2]):
+                        if not _line_ok(ln) or (k in out and alt and not out[k][2]):
                             continue              # huvudlinjen går före en alternativ linje
                         out[k] = (p, lim, alt)
         except (TypeError, ValueError):
@@ -137,8 +154,9 @@ def label(mk: str, line: float, side: str, home: str, away: str) -> tuple[str, s
 
 
 def evaluate(evd: dict, kambi_by_book: dict, pin: dict, s: dict, hist: History, now: float,
-             playable: set[str]) -> list[dict]:
-    """Alla Kambi-linjer som Pinnacle också har, med edge och regelbeslut."""
+             playable: set[str], wait_reason: str | None = None) -> list[dict]:
+    """Alla Kambi-linjer som Pinnacle också har, med edge och regelbeslut.
+    wait_reason: t.ex. "väntar på startelvor" – stoppar alla linjer i matchen."""
     out = []
     keys = set().union(*[set(v) for v in kambi_by_book.values()]) if kambi_by_book else set()
     lo, hi = s.get("sides_odds_window", [1.60, 4.00])
@@ -154,7 +172,7 @@ def evaluate(evd: dict, kambi_by_book: dict, pin: dict, s: dict, hist: History, 
         mk, line, side = key
         hk = f"{evd['id']}|{mk}|{line:g}|{side}"
         h = hist.update(hk, p, odds, now)
-        reasons = []
+        reasons = [wait_reason] if wait_reason else []
         need = s.get("sides_min_edge", 0.03) + (s.get("sides_alt_extra_edge", 0.01) if alt else 0.0)
         if edge < need:
             reasons.append(f"edge {edge:.1%} < {need:.0%}" + (" (alternativ linje)" if alt else ""))
@@ -238,6 +256,24 @@ def _record(lg: Ledger, evd: dict, x: dict, s: dict, now: float) -> dict | None:
     return b
 
 
+def result_units(mk: str, ln: float, side: str, hg: int, ag: int, odds: float, stake: float) -> float:
+    """Resultat i andel av bankrullen. Asiatiska linjer: push = insatsen tillbaka,
+    kvartslinje = halva insatsen på var närliggande linje (halv vinst/halv förlust)."""
+    if mk == "1x2":
+        won = {"home": hg > ag, "draw": hg == ag, "away": ag > hg}[side]
+        return (odds - 1) * stake if won else -stake
+    res = 0.0
+    ps = parts(ln)
+    for l in ps:
+        if mk == "total":
+            m = (hg + ag - l) if side == "over" else (l - hg - ag)
+        else:
+            m = (hg + l - ag) if side == "home" else (ag + l - hg)
+        part = stake / len(ps)
+        res += (odds - 1) * part if m > 0 else 0.0 if m == 0 else -part
+    return res
+
+
 def settle(lg: Ledger, scores: dict) -> list[str]:
     """scores: {match_id: (hemmamål, bortamål)}."""
     log = []
@@ -246,14 +282,9 @@ def settle(lg: Ledger, scores: dict) -> list[str]:
             continue
         hg, ag = scores[b["match_id"]]
         mk, ln, side = b["marknad"], b["linje"], b["sida"]
-        if mk == "1x2":
-            won = {"home": hg > ag, "draw": hg == ag, "away": ag > hg}[side]
-        elif mk == "total":
-            won = (hg + ag > ln) if side == "over" else (hg + ag < ln)
-        else:
-            won = (hg + ln > ag) if side == "home" else (ag + ln > hg)
-        b.update(status="vunnen" if won else "förlorad", utfall=f"{hg}–{ag}",
-                 resultat_enheter=(b["odds"] - 1) * b["insats_pct"] if won else -b["insats_pct"])
+        res = result_units(mk, ln, side, hg, ag, b["odds"], b["insats_pct"])
+        status = "vunnen" if res > 1e-12 else "förlorad" if res < -1e-12 else "push"
+        b.update(status=status, utfall=f"{hg}–{ag}", resultat_enheter=res)
         log.append(f"Sides rättad: {b['match']} {b['spel_text']} -> {b['status']} ({hg}–{ag})")
     return log
 
@@ -278,7 +309,10 @@ def run(root: Path, data: list, settings: dict, diag, notify: bool = True) -> di
     playable = set(s["playable_books"])
     hist = History(root / "sides_historik.json")
     spel, skugga = Ledger(root / "sides_spel.json"), Ledger(root / "sides_skugga.json")
-    n_ev = n_lines = 0
+    n_ev = n_lines = n_lu = 0
+    from .lineups import Lineups
+    from .sources.http import JsonClient
+    lineups = Lineups(JsonClient(root / ".cache_odds", ttl_s=480, min_interval_s=0.25))
     new_spel, new_sk, best, radar = [], [], [], []
     latest: dict = {}
     max_h = s.get("sides_max_hours", 24)
@@ -286,7 +320,14 @@ def run(root: Path, data: list, settings: dict, diag, notify: bool = True) -> di
         km, pm = evd.get("kambi_main"), evd.get("pin_main")
         if not km or not pm:
             continue
-        for x in evaluate(evd, km, pm, s, hist, now, playable):
+        mtk = (evd["commence_time"] - now) / 60
+        wait = None
+        if 0 < mtk <= max_h * 60:
+            from .lineups import gate
+            lu = lineups.get(evd["id"], evd["home_team"], evd["away_team"], evd["commence_time"])                 if mtk <= s.get("lineup_lookup_minutes", 150) else None
+            wait = gate(lu, mtk, s)
+            n_lu += bool(lu and lu.published)
+        for x in evaluate(evd, km, pm, s, hist, now, playable, wait):
             mk, line, side = x["key"]
             latest[f"{evd['id']}|{mk}|{line:g}|{side}|{x['book']}"] = (x["odds"], x["p"])
             latest[(evd["id"], mk, line, side)] = x["p"]
@@ -330,7 +371,7 @@ def run(root: Path, data: list, settings: dict, diag, notify: bool = True) -> di
     (root / "sides_radar.json").write_text(json.dumps(radar[:300], ensure_ascii=False), encoding="utf-8")
     top = sorted(best, key=lambda t: -t[0])[:3]
     diag.log(f"Sides/totals: {n_ev} matcher med Kambi + Pinnacle, {n_lines} linjer, "
-             f"{len(new_spel)} nya spel, {len(new_sk)} nya skuggspel; bästa edge "
+             f"{len(new_spel)} nya spel, {len(new_sk)} nya skuggspel, startelvor kända i {n_lu}; bästa edge "
              + ", ".join(f"{e:+.1%} ({ev['home_team']} {label(*x['key'], ev['home_team'], ev['away_team'])[1]})" for e, ev, x in top))
     sent = 0
     if notify and s.get("sides_live") and s.get("ntfy_topic") and new_spel:

@@ -111,6 +111,9 @@ DEFAULT_SETTINGS = {
     "sharp_with_pp": 1.5,
     # Sides & totals (5/11): Kambis 1X2/total/handikapp mot Pinnacle utan marginal. Datainsamling
     # tills ca 50 spel med stängning visar att vi slår Pinnacles stängning; då sides_live = true.
+    # Startelvor (5/11): fotbollsspel (props och sides) blir spelbara först när båda elvorna är kända
+    # hos ESPN, eller inom 55 min före avspark. Props: spelaren måste starta.
+    "lineup_required": True, "lineup_fallback_minutes": 55, "lineup_lookup_minutes": 150,
     "sides_enabled": True,
     "sides_live": False,
     "sides_markets": ["1x2", "total", "ah"],

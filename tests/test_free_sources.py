@@ -173,7 +173,7 @@ def test_free_scan_end_to_end(tmp_path, monkeypatch):
     monkeypatch.setattr(httpmod.time, "sleep", lambda s: None)
 
     settings = tmp_path / "settings.json"
-    settings.write_text(json.dumps({"live_enabled": True, "playable_books": [], "kambi_offerings": {"ubse": "unibet", "paf": "paf",
+    settings.write_text(json.dumps({"live_enabled": True, "lineup_required": False, "playable_books": [], "kambi_offerings": {"ubse": "unibet", "paf": "paf",
                                                         "nope": "finnsinte"},
                                     "ntfy_topic": "propsbot-test", "football_live": True}), encoding="utf-8")
     rows = scan_once(tmp_path, settings)

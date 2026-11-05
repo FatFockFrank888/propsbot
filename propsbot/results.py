@@ -58,6 +58,16 @@ class EspnResults:
         self._board: dict[tuple[str, str], list] = {}
 
     def find_event(self, home: str, away: str, start: float) -> tuple[str, str] | None:
+        """(liga, id) om matchen är klar, (liga, "") om den inte är klar, None om den saknas."""
+        hit = self.find_any(home, away, start)
+        if not hit:
+            return None
+        lg, ev = hit
+        done = ev.get("status", {}).get("type", {}).get("completed", False)
+        return (lg, ev["id"]) if done else (lg, "")
+
+    def find_any(self, home: str, away: str, start: float) -> tuple[str, dict] | None:
+        """(liga, ESPN-händelse) oavsett status."""
         day = datetime.fromtimestamp(start, timezone.utc).strftime("%Y%m%d")
         for lg in LEAGUES:
             key = (lg, day)
@@ -76,8 +86,7 @@ class EspnResults:
                 except (KeyError, ValueError):
                     continue
                 if same_match(home, away, start, teams.get("home", ""), teams.get("away", ""), st):
-                    done = ev.get("status", {}).get("type", {}).get("completed", False)
-                    return (lg, ev["id"]) if done else (lg, "")
+                    return lg, ev
         return None
 
     def final_score(self, home: str, away: str, start: float) -> tuple[int, int] | None:

@@ -79,7 +79,12 @@ def all_params(settings_path: Path) -> dict:
          "1X2, mål över/under och asiatiskt handikapp hos Kambi mot Pinnacle utan marginal (start 5/11). "
          "LIVE slås på när ca 50 spel visar att vi slår Pinnacles stängning."),
         ("Sides/totals: marknader", ", ".join(s.get("sides_markets", ["1x2", "total", "ah"])),
-         "Bara halvlinjer (x,5) – aldrig push eller delad insats. 90 minuter + tillägg."),
+         "1X2, mål över/under och asiatiskt handikapp – halvlinjer (x,5) och asiatiska linjer: hela (push = insatsen "
+         "tillbaka) och kvarts (halva insatsen på var närliggande linje). 90 minuter + tillägg."),
+        ("Startelvor (props och sides)", "krävs" if s.get("lineup_required", True) else "av",
+         f"Spelbart först när båda startelvorna är kända hos ESPN (ca 1 h före avspark), annars inom "
+         f"{s.get('lineup_fallback_minutes', 55)} min före avspark. Props: spelaren måste starta. Skador och avstängningar "
+         "syns som att spelaren saknas i elvan, och Pinnacle har då prisat in dem. Tidigare edges bokförs som skugga."),
         ("Sides/totals: edgekrav", f"{_pct(s.get('sides_min_edge', 0.03))} (alternativ Pinnacle-linje +{_pct(s.get('sides_alt_extra_edge', 0.01))})",
          "Lägre än 5 % eftersom referensen är Pinnacles huvudlinje (skarpast i världen): mot den är 3 % en verklig edge. "
          f"{_pct(s.get('sides_shadow_min_edge', 0.01))}–{_pct(s.get('sides_min_edge', 0.03))} bokförs som Sides-skugga för att mäta nivån."),

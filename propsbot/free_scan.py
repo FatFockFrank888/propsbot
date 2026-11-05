@@ -244,6 +244,39 @@ def player_models(evd: dict, settings: dict, pm, diag: Diag) -> dict | None:
         return None
 
 
+def apply_lineups(root: Path, rows: list[ScanRow], data: list, settings: dict) -> str:
+    """Spelarprops: spärr tills startelvan är känd; spelare utanför startelvan stoppas.
+    Gäller spelbara ben (även modelltest). Returnerar en kort sammanfattning för loggen."""
+    from .clv_signal import _block
+    from .lineups import Lineups, gate
+    if not settings.get("lineup_required", True):
+        return "spärren avstängd"
+    evds = {evd["id"]: evd for evd, _q, _n in data}
+    lus = Lineups(JsonClient(root / ".cache_odds", ttl_s=480, min_interval_s=0.25))
+    now = time.time()
+    n_wait = n_bench = n_ok = 0
+    for r in rows:
+        d = r.row.decision
+        if not d.playable:
+            continue
+        evd = evds.get(d.cand.match_id)
+        if not evd:
+            continue
+        mtk = (evd["commence_time"] - now) / 60
+        lu = lus.get(evd["id"], evd["home_team"], evd["away_team"], evd["commence_time"])             if mtk <= settings.get("lineup_lookup_minutes", 150) else None
+        why = gate(lu, mtk, settings)
+        if why:
+            _block(d, why)
+            n_wait += 1
+            continue
+        if lu is not None and lu.published and lu.starts(d.cand.player_name) is False:
+            _block(d, "inte i startelvan")
+            n_bench += 1
+            continue
+        n_ok += 1
+    return f"{n_ok} spelbara ben klara, {n_wait} väntar på startelvan, {n_bench} stoppade (inte i startelvan)"
+
+
 def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[ScanRow]:
     settings = load_settings(settings_path)
     # Alla Kambi-bolag är en leverantörsgrupp.
@@ -394,6 +427,11 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
     allowed = set(settings.get("football_markets", ["shots_on_target"]))
     rows = [r for r in rows if r.row.decision.cand.market in allowed]
     shadow_rows = [r for r in shadow_rows if r.row.decision.cand.market in allowed]
+    try:   # startelvor: inget spel förrän elvan är känd, och spelaren måste starta
+        n_lu = apply_lineups(root, rows + shadow_rows, data, settings)
+        diag.log(f"Startelvor: {n_lu}")
+    except Exception as e:  # noqa: BLE001
+        diag.log(f"Startelvor: FEL {type(e).__name__}: {e}")
     playable = [r for r in rows if r.row.decision.playable and r.row.decision.show]
     from .clv_signal import final_rules, taken_players
     from .ledger import Ledger as _L

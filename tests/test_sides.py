@@ -64,7 +64,7 @@ def test_parsers():
             {"label": "A", "line": -500, "odds": 1630}, {"label": "B", "line": 500, "odds": 2200}]}]}
     km = sides.kambi_main(raw, "A", "B")
     assert km[("1x2", 0.0, "draw")] == 3.95 and km[("total", 2.5, "under")] == 2.0
-    assert km[("ah", -0.5, "home")] == 1.63 and ("ah", -0.75, "home") not in km
+    assert km[("ah", -0.5, "home")] == 1.63 and km[("ah", -0.75, "home")] == 1.80
     pin = sides.pinnacle_main([
         {"matchupId": 7, "period": 0, "type": "total", "isAlternate": False, "limits": [{"amount": 20000}],
          "prices": [{"designation": "over", "points": 2.5, "price": -110}, {"designation": "under", "points": 2.5, "price": -100}]},
@@ -78,3 +78,28 @@ def test_espn_import():
     from propsbot.sources.http import JsonClient  # noqa: F401 – samma import som sides.run använder
     import inspect
     assert "from .sources.http import JsonClient" in inspect.getsource(sides.run)
+
+
+def test_asian_settlement():
+    r = sides.result_units
+    st = 0.01
+    assert r("ah", 0.0, "home", 1, 1, 2.0, st) == 0.0                          # hel linje: push
+    assert abs(r("ah", -0.25, "home", 1, 1, 2.0, st) + 0.005) < 1e-12          # halv förlust
+    assert abs(r("ah", -0.75, "home", 2, 1, 2.0, st) - 0.005) < 1e-12          # halv vinst
+    assert abs(r("ah", -0.75, "home", 3, 1, 2.0, st) - 0.01) < 1e-12           # full vinst
+    assert abs(r("ah", 0.25, "away", 1, 1, 2.0, st) - 0.005) < 1e-12           # borta +0.25 oavgjort: halv vinst
+    assert abs(r("total", 2.25, "over", 1, 1, 2.0, st) + 0.005) < 1e-12        # 2 mål: halv förlust
+    assert abs(r("total", 2.75, "under", 2, 1, 2.0, st) + 0.005) < 1e-12       # 3 mål: halv förlust
+    assert r("total", 3.0, "under", 2, 1, 2.0, st) == 0.0                       # 3 mål: push
+    assert sides.parts(2.25) == [2.0, 2.5] and sides.parts(-0.75) == [-1.0, -0.5] and sides.parts(1.0) == [1.0]
+
+
+def test_asian_total_parsed_and_status_push(tmp_path):
+    raw = {"betOffers": [{"criterion": {"englishLabel": "Asian Total"}, "outcomes": [
+        {"type": "OT_OVER", "line": 2250, "odds": 1580}, {"type": "OT_UNDER", "line": 2250, "odds": 2300}]}]}
+    assert sides.kambi_main(raw, "A", "B")[("total", 2.25, "under")] == 2.30
+    lg = Ledger(tmp_path / "s.json")
+    lg.bets = [{"key": "k", "match_id": "m", "spelare_id": "match", "marknad": "ah", "linje": 0.0, "sida": "home",
+                "odds": 1.9, "insats_pct": 0.004, "status": "öppen", "match": "A – B", "spel_text": "x", "bokford": 1}]
+    sides.settle(lg, {"m": (0, 0)})
+    assert lg.bets[0]["status"] == "push" and lg.bets[0]["resultat_enheter"] == 0.0

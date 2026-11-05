@@ -109,3 +109,5 @@ python3 -m pytest -q
 - Spelen rättas mot ESPN:s slutresultat.
 - Reglerna: edge 3–10 %, odds 1,60–4,00, Pinnacles insatsgräns minst 1000, oddsfall/sharp money som övriga sporter och ett spel per match.
 - Datainsamling tills ca 50 spel visar att vi slår Pinnacles stängning (`pin_stang_p`). Då sätts `sides_live: true` och notiserna slås på.
+- **Asiatiska linjer:** hela linjer och kvartslinjer finns med (push = insatsen tillbaka, kvartslinje = halv vinst/förlust).
+- **Startelvor (`propsbot/lineups.py`):** både sides och fotbollsprops blir spelbara först när ESPN visar båda startelvorna, eller inom 55 min före avspark. För props måste spelaren dessutom starta. Tidigare edges bokförs som skugga.
