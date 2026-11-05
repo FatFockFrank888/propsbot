@@ -169,6 +169,37 @@
     1.6,
     6.0
   ],
+  "oddsapi_share_nba": 0.45,
+  "oddsapi_share_football": 0.3,
+  "cards_enabled": true,
+  "football_live": true,
+  "live_min_edge": {
+    "points": 0.05,
+    "threes": 0.05,
+    "assists": 0.05,
+    "rebounds": 0.05
+  },
+  "live_model_min_edge": 0.05,
+  "live_max_edge": 0.15,
+  "football_live_max_units": 2,
+  "sides_enabled": true,
+  "sides_live": false,
+  "sides_markets": [
+    "1x2",
+    "total",
+    "ah"
+  ],
+  "sides_min_edge": 0.03,
+  "sides_max_edge": 0.1,
+  "sides_alt_extra_edge": 0.01,
+  "sides_odds_window": [
+    1.6,
+    4.0
+  ],
+  "sides_min_pin_limit": 1000,
+  "sides_max_hours": 24,
+  "sides_shadow_min_edge": 0.01,
+  "sides_max_units": 3,
   "nhl": {
     "live_on": true,
     "live_min_edge": 0.05,
@@ -252,18 +283,5 @@
     "quiet_interval_min": 55.0,
     "data_dir": "data",
     "live_max_edge": 0.15
-  },
-  "oddsapi_share_nba": 0.45,
-  "oddsapi_share_football": 0.3,
-  "cards_enabled": true,
-  "football_live": true,
-  "live_min_edge": {
-    "points": 0.05,
-    "threes": 0.05,
-    "assists": 0.05,
-    "rebounds": 0.05
-  },
-  "live_model_min_edge": 0.05,
-  "live_max_edge": 0.15,
-  "football_live_max_units": 2
+  }
 }

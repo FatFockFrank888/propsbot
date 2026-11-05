@@ -101,3 +101,11 @@ python3 -m pytest -q
 2. **Händelsedata-adapter** (skott med position/typ, xG, xA, minuter, startelvor) → `PlayerMatchRow`/`TeamMatchRow`.
 3. **Avräkningsdefinitioner**: träna på samma källa som bolaget avräknar efter (blockerade skott, assist).
 4. **Walk-forward-backtest** för att trimma parametrarna i `config.py` på log loss och CLV.
+
+## Fotboll sides & totals (från 5/11)
+
+`propsbot/sides.py` jämför Kambis 1X2, mål över/under och asiatiskt handikapp (halvlinjer) med Pinnacle utan marginal. Det körs i samma skanning som fotbollens props.
+- Spel som klarar reglerna bokförs i `sides_spel.json`, och stoppade spel med minst 1 % edge i `sides_skugga.json`.
+- Spelen rättas mot ESPN:s slutresultat.
+- Reglerna: edge 3–10 %, odds 1,60–4,00, Pinnacles insatsgräns minst 1000, oddsfall/sharp money som övriga sporter och ett spel per match.
+- Datainsamling tills ca 50 spel visar att vi slår Pinnacles stängning (`pin_stang_p`). Då sätts `sides_live: true` och notiserna slås på.

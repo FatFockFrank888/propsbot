@@ -109,6 +109,19 @@ DEFAULT_SETTINGS = {
     "max_odds_drop": 0.03,
     "sharp_against_pp": 2.0,
     "sharp_with_pp": 1.5,
+    # Sides & totals (5/11): Kambis 1X2/total/handikapp mot Pinnacle utan marginal. Datainsamling
+    # tills ca 50 spel med stängning visar att vi slår Pinnacles stängning; då sides_live = true.
+    "sides_enabled": True,
+    "sides_live": False,
+    "sides_markets": ["1x2", "total", "ah"],
+    "sides_min_edge": 0.03,
+    "sides_max_edge": 0.1,
+    "sides_alt_extra_edge": 0.01,
+    "sides_odds_window": [1.6, 4.0],
+    "sides_min_pin_limit": 1000,
+    "sides_max_hours": 24,
+    "sides_shadow_min_edge": 0.01,
+    "sides_max_units": 3,
     "football_shadow": False,
     "football_odds_window": [1.60, 2.50],
     # LIVE (3/11): bara dessa spel skickas som notis och bokförs i nba_live.json.

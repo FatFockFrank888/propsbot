@@ -38,6 +38,13 @@ Genereras från de värden boten använder (`python -m propsbot parametrar`).
 | Fouls (test) | på, minst 5 % edge | Egen modell (ESPN), domarfaktor ±15 %. Bara datainsamling. |
 | Kort (test) | på, datainsamling | "To Get a Card" hos Kambi. Egen modell: spelarens kort per match (ESPN) × domarens stränghet. Bara datainsamling. |
 | Parlays | på, max 3 ben, minst 5 % edge per ben | Notiser för parlays: av. |
+| Sides/totals: status | datainsamling (inga notiser) | 1X2, mål över/under och asiatiskt handikapp hos Kambi mot Pinnacle utan marginal (start 5/11). LIVE slås på när ca 50 spel visar att vi slår Pinnacles stängning. |
+| Sides/totals: marknader | 1x2, total, ah | Bara halvlinjer (x,5) – aldrig push eller delad insats. 90 minuter + tillägg. |
+| Sides/totals: edgekrav | 3 % (alternativ Pinnacle-linje +1 %) | Lägre än 5 % eftersom referensen är Pinnacles huvudlinje (skarpast i världen): mot den är 3 % en verklig edge. 1 %–3 % bokförs som Sides-skugga för att mäta nivån. |
+| Sides/totals: högsta edge | 10 % | Större edge mot Pinnacle = nästan alltid gammal linje, nyhet (uppställning/skada) eller fel match. Bokförs som skugga. |
+| Sides/totals: oddsram | 1,60–4,00 | Bredare än props uppåt så att oavgjort och små skrällar kommer med. |
+| Sides/totals: Pinnacles insatsgräns | minst 1000 | Låg gräns = svag liga där Pinnacles linje inte är skarp. |
+| Sides/totals: övrigt | max oddsfall 3 %, sharp money mot oss 2 pe, ett spel per match, inom 24 h före avspark, max 3u | Samma spärrar som övriga sporter. Rättas mot ESPN:s slutresultat. |
 
 ## NBA
 

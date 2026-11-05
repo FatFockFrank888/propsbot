@@ -26,12 +26,15 @@ FONT = "Arial"
 MK = {"shots": "Skott", "shots_on_target": "Skott på mål", "goal": "Mål", "assist": "Assist",
       "points": "Poäng", "rebounds": "Returer", "assists": "Assist (NBA)", "threes": "Trepoängare",
       "steals": "Steals", "blocks": "Blocks", "pra": "PRA", "pr": "Poäng + returer", "ra": "Returer + assist", "fouls": "Fouls",
-      "cards": "Kort", "sog": "Skott på mål", "nhl_points": "Poäng", "nhl_assists": "Assist", "nhl_goals": "Mål"}
+      "cards": "Kort", "sog": "Skott på mål", "nhl_points": "Poäng", "nhl_assists": "Assist", "nhl_goals": "Mål",
+      "1x2": "1X2", "total": "Mål totalt", "ah": "Asiatiskt handikapp"}
+SIDA = {"under": "Under", "home": "Hemma", "draw": "Oavgjort", "away": "Borta"}
 
 LEDGERS = [  # (fil, sport, typ) – sorterat per sport
     ("bokforing_v3.json", "Fotboll", "Spel"), ("bokforing_skugga_v4.json", "Fotboll", "Skugga"),
     ("bokforing_modell_v4.json", "Fotboll", "Modelltest"), ("parlays_v3.json", "Fotboll", "Parlay"),
     ("bokforing_fouls_test.json", "Fotboll", "Fouls-test"), ("bokforing_kort_test.json", "Fotboll", "Kort-test"),
+    ("sides_spel.json", "Fotboll", "Sides"), ("sides_skugga.json", "Fotboll", "Sides-skugga"),
     ("nba_live.json", "NBA", "Live"), ("nba_bokforing_v2.json", "NBA", "Spel"), ("nba_skugga_v2.json", "NBA", "Skugga"),
     ("nba_modelltest.json", "NBA", "Modelltest"), ("nba_parlays_v2.json", "NBA", "Parlay"),
     ("nhl/nhl_live.json", "NHL", "Live"), ("nhl/nhl_bokforing.json", "NHL", "Spel"),
@@ -95,7 +98,7 @@ def _rows(root: Path) -> list[list]:
                 done = b.get("avspark") and b["avspark"] < datetime.now(timezone.utc).timestamp()
                 row = [_dt(b.get("bokford")), sport, typ, _dt(b.get("avspark")), b.get("match"), b.get("spelare"),
                        MK.get(b.get("marknad"), b.get("marknad")),
-                       "Under" if b.get("sida") == "under" else "Över", b.get("linje"), b.get("bolag"),
+                       SIDA.get(b.get("sida"), "Över"), b.get("linje"), b.get("bolag"),
                        b.get("odds"), b.get("stangning") if done else None, None, b.get("sannolikhet"), b.get("edge"),
                        (b.get("insats_pct") or 0) / UNIT, "ja" if b.get("clv_signal") else "nej",
                        b.get("status"), b.get("utfall")]
@@ -391,7 +394,7 @@ def write_csv_exports(root: Path, out_dir: Path) -> int:
     for r in rows:
         g[(r[1], r[2])].append(r)
     order = {"Fotboll": 0, "NBA": 1, "NHL": 2}
-    torder = {t: i for i, t in enumerate(["Live", "Spel", "Skugga", "Modelltest", "Fouls-test", "Kort-test", "NHL-test", "Parlay"])}
+    torder = {t: i for i, t in enumerate(["Live", "Spel", "Skugga", "Modelltest", "Fouls-test", "Kort-test", "Sides", "Sides-skugga", "NHL-test", "Parlay"])}
     keys = sorted(g, key=lambda k: (order.get(k[0], 9), torder.get(k[1], 9)))
     for fname, only in (("sammanfattning.csv", None), ("nhl_sammanfattning.csv", "NHL")):
       with open(out_dir / fname, "w", newline="", encoding="utf-8") as fh:

@@ -115,6 +115,12 @@ def collect(settings: dict, diag: Diag, cache_dir: Path) -> list[tuple[dict, lis
                 continue
             if raw is not None and qs:
                 diag.raw(f"kambi_{code}_match", raw)
+            if raw is not None:
+                try:   # sides & totals: Kambis 1X2/total/handikapp per bolag
+                    from .sides import kambi_main
+                    evd.setdefault("kambi_main", {})[book] = kambi_main(raw, ev.home, ev.away)
+                except Exception:  # noqa: BLE001
+                    pass
             if raw is not None and "kambi_lines" not in evd:
                 kl = kambi_match_lines(raw)
                 if kl:
@@ -151,6 +157,11 @@ def collect(settings: dict, diag: Diag, cache_dir: Path) -> list[tuple[dict, lis
                 except SourceError as e:
                     diag.lines.append(f"  {evd['home_team']} – {evd['away_team']}: Pinnacle FEL {e}")
                     continue
+                try:   # sides & totals: Pinnacle utan marginal
+                    from .sides import pinnacle_main
+                    evd["pin_main"] = pinnacle_main(raw.get("markets") or [], pe.matchup_id)
+                except Exception:  # noqa: BLE001
+                    pass
                 pl = pinnacle_match_lines(raw.get("markets") or [], pe.matchup_id)
                 if pl:
                     evd["pin_lines"] = pl
@@ -247,6 +258,13 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
     fouls_data = [(evd, [q for q in qs if q.market == "fouls"], nm) for evd, qs, nm in data]
     cards_data = [(evd, [q for q in qs if q.market == "cards"], nm) for evd, qs, nm in data]
     data = [(evd, [q for q in qs if q.market not in ("fouls", "cards")], nm) for evd, qs, nm in data]
+    if settings.get("sides_enabled", True):
+        try:   # sides & totals (1X2, mål över/under, asiatiskt handikapp) mot Pinnacle
+            from .sides import run as run_sides
+            run_sides(root, data, settings, diag, notify=notify)
+        except Exception as e:  # noqa: BLE001 – får aldrig stoppa skanningen
+            diag.log(f"Sides/totals: FEL {type(e).__name__}: {e}")
+            diag.lines.append(traceback.format_exc())
     try:   # fler bolag (William Hill, 1xBet, FanDuel, Betfair, Coolbet …) via The Odds API, inom kreditbudget
         from .sources.us_books import add_football_books
         add_football_books(root, data, settings, diag)

@@ -80,6 +80,27 @@ class EspnResults:
                     return (lg, ev["id"]) if done else (lg, "")
         return None
 
+    def final_score(self, home: str, away: str, start: float) -> tuple[int, int] | None:
+        """(hemmamål, bortamål) efter full tid (90 min + tillägg), eller None om inte klar/hittad."""
+        hit = self.find_event(home, away, start)
+        if not hit or not hit[1]:
+            return None
+        lg, eid = hit
+        day = datetime.fromtimestamp(start, timezone.utc).strftime("%Y%m%d")
+        ev = next((e for e in self._board.get((lg, day), []) if e.get("id") == eid), None)
+        if not ev:
+            return None
+        comp = (ev.get("competitions") or [{}])[0]
+        st = (ev.get("status") or {}).get("type", {}) or {}
+        # Förlängning/straffar räknas inte i 90-minutersmarknader – hoppa över (rättas manuellt).
+        if (st.get("name") or "").upper() in ("STATUS_FINAL_AET", "STATUS_FINAL_PEN", "STATUS_FINAL_ET"):
+            return None
+        sc = {c.get("homeAway"): c.get("score") for c in comp.get("competitors", [])}
+        try:
+            return int(sc["home"]), int(sc["away"])
+        except (KeyError, TypeError, ValueError):
+            return None
+
     def player_stats(self, league: str, event_id: str) -> list[tuple[str, dict, bool]]:
         raw = self.c.get(f"{BASE}/{league}/summary", {"event": event_id}, ttl=3600) or {}
         out = []

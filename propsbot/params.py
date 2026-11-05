@@ -72,6 +72,26 @@ def all_params(settings_path: Path) -> dict:
         ("Parlays", f"{'på' if s.get('parlays_enabled') else 'av'}, max {s.get('parlay_max_legs', 3)} ben, minst {_pct(s.get('parlay_min_leg_edge', 0.05))} edge per ben",
          "Notiser för parlays: " + ("på" if s.get("parlays_notify") else "av") + "."),
     ]
+    so_lo, so_hi = s.get("sides_odds_window", [1.60, 4.00])
+    football += [
+        ("Sides/totals: status", ("LIVE (notiser)" if s.get("sides_live") else "datainsamling (inga notiser)")
+         if s.get("sides_enabled", True) else "av",
+         "1X2, mål över/under och asiatiskt handikapp hos Kambi mot Pinnacle utan marginal (start 5/11). "
+         "LIVE slås på när ca 50 spel visar att vi slår Pinnacles stängning."),
+        ("Sides/totals: marknader", ", ".join(s.get("sides_markets", ["1x2", "total", "ah"])),
+         "Bara halvlinjer (x,5) – aldrig push eller delad insats. 90 minuter + tillägg."),
+        ("Sides/totals: edgekrav", f"{_pct(s.get('sides_min_edge', 0.03))} (alternativ Pinnacle-linje +{_pct(s.get('sides_alt_extra_edge', 0.01))})",
+         "Lägre än 5 % eftersom referensen är Pinnacles huvudlinje (skarpast i världen): mot den är 3 % en verklig edge. "
+         f"{_pct(s.get('sides_shadow_min_edge', 0.01))}–{_pct(s.get('sides_min_edge', 0.03))} bokförs som Sides-skugga för att mäta nivån."),
+        ("Sides/totals: högsta edge", _pct(s.get("sides_max_edge", 0.10)),
+         "Större edge mot Pinnacle = nästan alltid gammal linje, nyhet (uppställning/skada) eller fel match. Bokförs som skugga."),
+        ("Sides/totals: oddsram", _odds(so_lo, so_hi), "Bredare än props uppåt så att oavgjort och små skrällar kommer med."),
+        ("Sides/totals: Pinnacles insatsgräns", f"minst {s.get('sides_min_pin_limit', 1000)}",
+         "Låg gräns = svag liga där Pinnacles linje inte är skarp."),
+        ("Sides/totals: övrigt", f"max oddsfall {_pct(s.get('max_odds_drop', 0.03))}, sharp money mot oss {s.get('sharp_against_pp', 2.0):g} pe, "
+         f"ett spel per match, inom {s.get('sides_max_hours', 24)} h före avspark, max {s.get('sides_max_units', 3)}u",
+         "Samma spärrar som övriga sporter. Rättas mot ESPN:s slutresultat."),
+    ]
     nba = [
         ("Status", "LIVE (notiser)" if s.get("live_on", True) and s.get("nba_enabled", True) else "av", ""),
         ("LIVE: edgekrav per marknad", ", ".join(f"{k} {_pct(v)}" for k, v in live_th.items()),
