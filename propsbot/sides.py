@@ -208,6 +208,24 @@ def _bet(evd: dict, x: dict, s: dict, now: float) -> dict:
     }
 
 
+def _radar_row(evd: dict, x: dict, s: dict, in_window: bool) -> dict:
+    """Samma format som props-radarn (export.radar_rows), så att sides syns i samma Radar-flik."""
+    from datetime import datetime, timezone
+    mk, line, side = x["key"]
+    who, txt = label(mk, line, side, evd["home_team"], evd["away_team"])
+    play = x["playable"] and in_window
+    st = _stake(x["p"], x["odds"], s)
+    return {"spelare": who, "match": f"{evd['home_team']} – {evd['away_team']}",
+            "avspark": datetime.fromtimestamp(evd["commence_time"], timezone.utc).strftime("%Y-%m-%d %H:%M"),
+            "spel": txt, "marknad": mk, "sida": side, "prognos": None, "odds": x["odds"], "bolag": x["book"],
+            "sannolikhet": x["p"], "ratt_odds": 1 / x["p"], "edge": x["edge"],
+            "spela_fran": round((1 + s.get("sides_min_edge", 0.03)) / x["p"], 2),
+            "insats_pct": st if play else 0.0, "insats_forslag": st, "spelbar": play,
+            "live": bool(play and s.get("sides_live")), "forv_clv_pp": None, "clv_signal": False, "p_modell": None,
+            "kommentar": "Pinnacle utan marginal; " + ("; ".join(x["reasons"]) or "klarar alla regler")
+                         + ("" if in_window else f"; mer än {s.get('sides_max_hours', 24)} h till avspark")}
+
+
 def _record(lg: Ledger, evd: dict, x: dict, s: dict, now: float) -> dict | None:
     if any(b.get("match_id") == evd["id"] for b in lg.bets):
         return None                                   # ett spel per match och bokföring
@@ -261,7 +279,7 @@ def run(root: Path, data: list, settings: dict, diag, notify: bool = True) -> di
     hist = History(root / "sides_historik.json")
     spel, skugga = Ledger(root / "sides_spel.json"), Ledger(root / "sides_skugga.json")
     n_ev = n_lines = 0
-    new_spel, new_sk, best = [], [], []
+    new_spel, new_sk, best, radar = [], [], [], []
     latest: dict = {}
     max_h = s.get("sides_max_hours", 24)
     for evd, _q, _n in data:
@@ -274,7 +292,10 @@ def run(root: Path, data: list, settings: dict, diag, notify: bool = True) -> di
             latest[(evd["id"], mk, line, side)] = x["p"]
             n_lines += 1
             best.append((x["edge"], evd, x))
-            if evd["commence_time"] - now > max_h * 3600 or evd["commence_time"] <= now:
+            in_window = 0 < evd["commence_time"] - now <= max_h * 3600
+            if x["edge"] >= s.get("min_edge_display", 0.02) and evd["commence_time"] > now:
+                radar.append(_radar_row(evd, x, s, in_window))
+            if not in_window:
                 continue
             if x["playable"]:
                 b = _record(spel, evd, x, s, now)
@@ -305,6 +326,8 @@ def run(root: Path, data: list, settings: dict, diag, notify: bool = True) -> di
     except Exception as e:  # noqa: BLE001 – rättningen får aldrig stoppa skanningen
         diag.log(f"Sides rättning: FEL {type(e).__name__}: {e}")
     hist.save(now)
+    radar.sort(key=lambda r: -r["edge"])
+    (root / "sides_radar.json").write_text(json.dumps(radar[:300], ensure_ascii=False), encoding="utf-8")
     top = sorted(best, key=lambda t: -t[0])[:3]
     diag.log(f"Sides/totals: {n_ev} matcher med Kambi + Pinnacle, {n_lines} linjer, "
              f"{len(new_spel)} nya spel, {len(new_sk)} nya skuggspel; bästa edge "

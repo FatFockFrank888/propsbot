@@ -85,6 +85,7 @@ def _rows(root: Path) -> list[list]:
         for b in items:
             if b.get("dubblett"):
                 continue
+            typ_b = "Live" if (typ == "Sides" and b.get("notis")) else typ   # sides med notis = LIVE
             if typ == "Parlay":
                 legs = b.get("ben", [])
                 spelare = " + ".join(f"{l['spelare']} {MK.get(l['marknad'], l['marknad']).lower()} "
@@ -96,7 +97,7 @@ def _rows(root: Path) -> list[list]:
                        b.get("status"), None]
             else:
                 done = b.get("avspark") and b["avspark"] < datetime.now(timezone.utc).timestamp()
-                row = [_dt(b.get("bokford")), sport, typ, _dt(b.get("avspark")), b.get("match"), b.get("spelare"),
+                row = [_dt(b.get("bokford")), sport, typ_b, _dt(b.get("avspark")), b.get("match"), b.get("spelare"),
                        MK.get(b.get("marknad"), b.get("marknad")),
                        SIDA.get(b.get("sida"), "Över"), b.get("linje"), b.get("bolag"),
                        b.get("odds"), b.get("stangning") if done else None, None, b.get("sannolikhet"), b.get("edge"),

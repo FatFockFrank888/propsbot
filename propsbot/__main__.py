@@ -201,6 +201,9 @@ def push_overview(settings: dict) -> str:
         if settings.get("live_on", True) and settings.get("nba_enabled", True) else "NBA: av",
         f"NHL: LIVE-spel skott på mål (≥{n.live_min_edge:.0%})" if n.live_on else "NHL: av",
         f"Fotboll: LIVE-spel {', '.join({'shots_on_target': 'skott på mål', 'shots': 'skott'}.get(m, m) for m in settings.get('football_markets', ['shots_on_target']))} (≥{settings.get('min_edge_all', 0.05):.0%})" if settings.get("football_live") else "Fotboll: bara data (ingen notis)",
+        ("Fotboll sides/totals: LIVE-spel 1X2, mål över/under, handikapp mot Pinnacle "
+         f"(≥{settings.get('sides_min_edge', 0.03):.0%})") if settings.get("sides_live")
+        else "Fotboll sides/totals (1X2, mål, handikapp mot Pinnacle): bara data tills vidare",
         "Test (fouls, kort, NHL-poäng/assist/mål), skuggspel, modelltest, parlays: bara data",
         "Ett spel per spelare och match – aldrig två notiser på samma spelare.",
     ]

@@ -96,8 +96,16 @@ def write_site(site: Path, rows: list[ScanRow], ledger: Ledger, settings: dict,
         k_ledger = _L(kl)
         data["kort_test"] = sorted(k_ledger.counted, key=lambda b: -b["bokford"])
         data["kort_sammanfattning"] = k_ledger.summary()
-    if sport == "Fotboll":   # sides & totals mot Pinnacle
+    if sport == "Fotboll":   # sides & totals mot Pinnacle – samma flikar som props
         from .ledger import Ledger as _L
+        data["sides_live"] = bool(settings.get("sides_live"))
+        sr = site.parent / "sides_radar.json"
+        if sr.exists():
+            try:
+                data["radar"] = sorted(data.get("radar", []) + json.loads(sr.read_text(encoding="utf-8")),
+                                       key=lambda x: -(x.get("edge") or 0))
+            except json.JSONDecodeError:
+                pass
         for fname, key in (("sides_spel.json", "sides_spel"), ("sides_skugga.json", "sides_skugga")):
             f = site.parent / fname
             if f.exists():
