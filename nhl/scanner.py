@@ -88,6 +88,7 @@ class Scanner:
         now_dt = datetime.now(timezone.utc)
         now = now_dt.timestamp()
         rep = ScanReport(started=now_dt)
+        self._pp_ctx = None   # fresh power-play context (DailyFaceoff units) each scan
 
         self._settle(now_dt, rep)
 
@@ -205,6 +206,11 @@ class Scanner:
         rep.all_legs = all_legs
         self._book(all_legs, rep)
         self._finish(rep, {leg.key: leg for leg in all_legs})
+        ctx = getattr(self, "_pp_ctx", None)
+        if ctx is not None:
+            n_dfo = sum(1 for v in ctx._dfo.values() if v)
+            print(f"  Power play: DailyFaceoff-enheter för {n_dfo}/{len(ctx._dfo)} lag"
+                  + (f"; fel: {'; '.join(ctx.errors[:3])}" if ctx.errors else ""), flush=True)
         return rep
 
     # ============================================================= helpers
@@ -326,6 +332,7 @@ class Scanner:
     def _test_markets(self, game: Game, gid: int, off_maps: dict, projections: list, playable: set[str],
                       now: float, rep: ScanReport) -> None:
         """Points/assists/goals at Kambi vs our own model (data only, never notified)."""
+        from .config import previous_season
         from .test_markets import parse_kambi
         try:
             tq = []
@@ -336,9 +343,17 @@ class Scanner:
                     tq += parse_kambi(raw, book)
             if tq:
                 rep.test_new += self.tests.evaluate(
-                    game, projections, tq, lambda p: self._scoring_history(p), playable, now)
+                    game, projections, tq, lambda p: self._scoring_history(p), playable, now,
+                    pp_model=lambda p: self._pp().expected(p, p.game, previous_season(p.game.season)))
         except Exception as exc:  # noqa: BLE001 - test markets must never stop the scan
             rep.errors.append(f"test markets {game.away}@{game.home}: {exc}")
+
+    def _pp(self):
+        """Power-play context (DailyFaceoff units + NHL PP/PK stats), one per scan."""
+        if getattr(self, "_pp_ctx", None) is None:
+            from .pp_model import PPContext
+            self._pp_ctx = PPContext(self.client, self.nhl, self.client.cache_dir / "pp")
+        return self._pp_ctx
 
     def _scoring_history(self, p) -> list:
         """Current + previous regular season before game day (scoring rates need a long window)."""

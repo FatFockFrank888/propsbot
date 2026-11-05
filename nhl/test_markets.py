@@ -135,7 +135,9 @@ class TestMarkets:
         self.path.parent.mkdir(parents=True, exist_ok=True)
         self.path.write_text(json.dumps(self.bets, ensure_ascii=False, indent=1), encoding="utf-8")
 
-    def evaluate(self, game, projections: list, quotes: list[TestQuote], history_for, playable: set[str], now: float) -> int:
+    def evaluate(self, game, projections: list, quotes: list[TestQuote], history_for, playable: set[str], now: float,
+                 pp_model=None) -> int:
+        """pp_model(proj) -> pp_model.PPInfo | None: the power-play model (unit, PP minutes, opponent PK)."""
         """Log the best EV+ line per player for one game. Returns the number of new bets."""
         s = self.s
         by_name = {normalize_name(p.skater.name): p for p in projections}
@@ -151,7 +153,15 @@ class TestMarkets:
             if not cands:
                 continue
             q = max(cands, key=lambda x: x.odds)
-            rate = player_rates(history_for(proj), proj.skater.position)[market]
+            info = None
+            if market == "nhl_pp_points" and pp_model is not None:
+                try:
+                    info = pp_model(proj)
+                except Exception as exc:  # noqa: BLE001
+                    log.warning("NHL PP model %s: %s", proj.skater.name, exc)
+                if info is not None and info.out:
+                    continue                       # out of tonight's lineup per DailyFaceoff
+            rate = info.mu if info is not None else player_rates(history_for(proj), proj.skater.position)[market]
             p_over = poisson_at_least(int(line + 0.5), rate)
             p = p_over if side == "over" else 1 - p_over
             edge = p * q.odds - 1
@@ -172,7 +182,14 @@ class TestMarkets:
                     "p_kambi": None if fair_side is None else round(fair_side, 4),
                     "spela_fran": round((1 + s.min_edge_all) / p, 3), "insats_pct": units * s.unit_pct,
                     "stangning": round(q.odds, 3), "status": "öppen",
-                    "stopp": f"modell {rate:.2f}/match" + ("" if fair_side is None else f", Kambi rättvis {fair_side:.0%}"),
+                    "stopp": f"modell {rate:.2f}/match" + ("" if fair_side is None else f", Kambi rättvis {fair_side:.0%}")
+                             + ("" if info is None else "; " + info.text()),
+                    "pp": None if info is None else {"enhet": info.unit, "flyttad": info.moved or None,
+                                                     "andel": round(info.share, 3),
+                                                     "andel_senast": None if info.recent_share is None else round(info.recent_share, 3),
+                                                     "pp_min": round(info.exp_pp_min, 2), "per60": round(info.pts_per_60, 2),
+                                                     "motst_pk": round(info.opp_pk_factor, 3), "pk_omgjord": info.pk_missing or None,
+                                                     "pk_faktor": round(info.pk_factor, 3), "kalla": info.source},
                     "clv_signal": False, "forv_clv_pp": None, "utfall": None, "resultat_enheter": None,
                 })
         taken = {(b["game_id"], b["spelare_id"]) for b in self.bets}

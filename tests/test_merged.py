@@ -75,3 +75,21 @@ def test_nhl_ledger_to_site_format():
     x = ledger_sv(b, 0.002)
     assert x["status"] == "vunnen" and x["marknad"] == "sog" and x["sida"] == "under"
     assert x["match"] == "OTT – BUF" and abs(x["insats_pct"] - 0.006) < 1e-12 and abs(x["resultat_enheter"] - 0.0054) < 1e-12
+
+
+def test_dailyfaceoff_pp_units_parse():
+    import json
+    from nhl.pp_model import parse_dfo
+    data = {"props": {"pageProps": {"combinations": {"sourceName": "Projected", "updatedAt": "x", "players": [
+        {"name": "Lane Hutson", "categoryIdentifier": "ev", "groupIdentifier": "d1"},
+        {"name": "Lane Hutson", "categoryIdentifier": "pp", "groupIdentifier": "pp1"},
+        {"name": "Noah Dobson", "categoryIdentifier": "pp", "groupIdentifier": "pp2"},
+        {"name": "Noah Dobson", "categoryIdentifier": "pk", "groupIdentifier": "pk2"},
+        {"name": "Ivan Demidov", "categoryIdentifier": "oi", "groupIdentifier": "ir", "injuryStatus": "ir"}]}}}}
+    html = '<script id="__NEXT_DATA__" type="application/json">' + json.dumps(data) + "</script>"
+    d = parse_dfo(html)
+    p = d["players"]
+    assert p["lane hutson"]["pp"] == 1 and p["lane hutson"]["lineup"]
+    assert p["noah dobson"]["pp"] == 2 and p["noah dobson"]["pk"] == 2
+    assert p["ivan demidov"]["out"]
+    assert d["source"] == "Projected"
