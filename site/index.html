@@ -359,6 +359,8 @@ function renderNu() {
   open.forEach(r => r.st = strength(r));
   const top = open.filter(r => r.st.ok).sort((a, b) => b.st.score - a.st.score).slice(0, 3);
   top.forEach((r, i) => r.rank = i + 1);
+  // Starkast överst och fallande: spelbara nu först (topp 3 i ordning), sedan resten efter styrka.
+  open.sort((a, b) => (b.st.ok - a.st.ok) || (b.st.score - a.st.score) || ((b.st.edgeNow ?? -1) - (a.st.edgeNow ?? -1)));
   document.getElementById("nuRows").innerHTML = open.map(r => `<tr class="${r.rank ? "top" + r.rank : r.st.ok ? "play" : "weak"}">
     <td>${r.rank ? `<span class="rank r${r.rank}">${r.rank}</span> ` : ""}${tag(r.sport)}</td><td>${fmtTs(r.avspark)}</td><td>${esc(r.match)}</td><td><b>${esc(r.spelare)}</b></td>
     <td><b>${esc(r.spel)}</b></td><td>${esc(r.bolag)}</td><td class="n">${nf(r.odds)}</td>
