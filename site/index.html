@@ -132,6 +132,11 @@
   }
   .news { font-size:11px; font-weight:600; color:var(--bad); white-space:normal; margin-top:2px; }
   .news.ok { color:var(--good); }
+  .stake { display:flex; align-items:baseline; gap:8px; margin:8px 0 2px; padding:6px 10px; border-radius:10px;
+           background:rgba(127,127,127,.08); border-left:3px solid var(--c); }
+  .stake span { font-size:11px; color:var(--dim); text-transform:uppercase; letter-spacing:.5px; }
+  .stake b { font-size:20px; font-weight:800; } .stake em { font-style:normal; font-size:11px; color:var(--dim); margin-left:auto; }
+  @media (min-width:820px) { #toppCards .tc.r1 .stake b { font-size:28px; } }
   .crown { font-size:12px; font-weight:700; color:#f5c442; letter-spacing:.5px; text-transform:uppercase; }
 </style>
 </head>
@@ -501,6 +506,8 @@ function toppCard(r, i, bub) {
     <div class="top" style="margin-top:3px">🕒 ${fmtTs(r.ts)} · <b class="cd" data-ts="${r.ts}">${countdown(r.ts)}</b></div>
     <div class="who">${esc(r.spelare)}</div><div class="bet">${esc(r.spel)}</div>
     <div class="row"><div class="odds">${nf(r.odds)}<small>spela från ${nf(r.spela_fran)}</small></div>${ring(t.score, col)}</div>
+    <div class="stake" style="--c:${col}"><span>Insats</span><b>${r.units ? r.units + "u" : "–"}</b>
+      <em>${r.units ? nf(r.units * U * 100, 1) + " % av bankrullen" : ""}${r.liveBet ? " · som LIVE-spelet" : ""}</em></div>
     <div class="lbl" style="margin-top:8px"><span>Edge</span><b class="pos">${pct(r.edge)}</b></div>
     <div class="bar"><i style="width:${(eF * 100).toFixed(0)}%;background:linear-gradient(90deg,var(--good),${col})"></i></div>
     <div class="lbl"><span>Kudde innan spela från</span><b>${t.cushion == null ? "–" : pct(t.cushion)}</b></div>
@@ -514,7 +521,15 @@ function renderTopp() {
     const ts = utcTs(r.avspark);
     if (r.spelbar && ts > now + 60) rs.push({...r, sport: s, ts, mkName: MK[r.marknad] || r.marknad});
   });
-  rs.forEach(r => r.t = toppScore(r));
+  rs.forEach(r => {
+    r.t = toppScore(r);
+    // Insats: samma som det bokförda LIVE-spelet om det finns (kapad enligt LIVE-reglerna), annars radarns förslag.
+    const lb = ALL.find(b => b.typ === "Live" && b.status === "öppen" && b.sport === r.sport && b.spelare === r.spelare);
+    r.liveBet = !!lb;
+    // Samma tak som LIVE: 5u (fotbollsprops 2u, sides 3u) – data-spel ska inte se större ut än LIVE.
+    const cap = r.sport === "fotboll" && ["1x2", "total", "ah"].includes(r.marknad) && !r.live ? 3 : 5;
+    r.units = lb ? Math.round(lb.u) : Math.min(cap, Math.max(0, Math.round((r.insats_pct || r.insats_forslag || 0) / U)));
+  });
   rs.sort((a, b) => b.t.score - a.t.score);
   const seen = new Set(), pick = [];
   for (const r of rs) { const k = `${r.sport}|${r.match}|${r.spelare}`; if (!seen.has(k)) { seen.add(k); pick.push(r); } }

@@ -12,8 +12,9 @@ Gemensamt,Över eller under,den sida som har EV+,Båda sidor prövas på samma k
 Gemensamt,Notiser,bara LIVE-spel,"En notis per spel, aldrig två på samma spelare i samma match. Misslyckad notis skickas igen nästa körning (före start)."
 Gemensamt,Unit,"1u = 0,2 % av bankrullen",Insats 1–10u efter ¼ Kelly (taket 10u = 2 %).
 Gemensamt,Skuggspel,"≥ 2 % edge, stoppat av en regel",Bokförs och rättas för att se om reglerna kostar eller sparar pengar. Ingen notis.
-Fotboll,Status,LIVE (notiser),football_live i settings.json. Påslaget 2026-11-04 på användarens begäran. Spelen är regelspelen (alla gemensamma krav); risktak: högst 10u per spel och 5 % per match.
-Fotboll,LIVE: högsta insats,2u per spel,Fotbollen saknar historik med edge och CLV. Höjs när ca 50 avgjorda spel visar positiv CLV.
+Fotboll,Status,LIVE (notiser),football_live i settings.json. Påslaget 2026-11-04 på användarens begäran. Spelen är regelspelen (alla gemensamma krav); risktak: högst 5u per spel och 5 % per match.
+Fotboll,LIVE: insats,"¼ Kelly × 0.5, högst 5u per spel","Insatsen följer styrkan (edge och odds) som i NBA/NHL, men i halv storlek eftersom fotbollen saknar historik med edge och CLV. Går automatiskt upp till full ¼ Kelly när 50 spel med stängning visar positiv CLV (t ≥ 1), med en notis."
+Fotboll,Automatisk uppgradering,"50 spel, CLV > 0 (t ≥ 1)","Prövas vid varje skanning för fotbollsprops (halv -> full insats) och sides/totals (data -> LIVE med notiser, ¼ Kelly upp till 5u). Vänder CLV till negativt över minst 30 spel går marknaden tillbaka till försiktigt läge."
 Fotboll,Marknader som spelas,shots_on_target,Övriga marknader används bara för att mäta Kambis marginal.
 Fotboll,Edgekrav per marknad (före gemensamt krav),"shots 2 %, shots_on_target 2 %, goal 4 %, assist 4 %",Gemensamma kravet 5 % gäller ovanpå.
 Fotboll,Utan Pinnacle/tvåsidig källa,"+3 % edge, minst 3 källor",
