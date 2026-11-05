@@ -72,3 +72,9 @@ def test_parsers():
                                                                   {"designation": "under", "points": 9.5, "price": -120}]}], 7)
     assert set(pin) == {("total", 2.5, "over"), ("total", 2.5, "under")}
     assert abs(sum(v[0] for v in pin.values()) - 1) < 1e-9
+
+
+def test_espn_import():
+    from propsbot.sources.http import JsonClient  # noqa: F401 – samma import som sides.run använder
+    import inspect
+    assert "from .sources.http import JsonClient" in inspect.getsource(sides.run)

@@ -296,7 +296,7 @@ def run(root: Path, data: list, settings: dict, diag, notify: bool = True) -> di
             if pk in latest:
                 b["pin_stang_p"] = latest[pk]
     try:
-        from .sources.json_source import JsonClient
+        from .sources.http import JsonClient
         client = JsonClient(root / ".cache_odds", ttl_s=900)
         scores = espn_scores(spel.bets + skugga.bets, client, now)
         for lg in (spel, skugga):
