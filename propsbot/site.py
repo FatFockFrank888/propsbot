@@ -93,6 +93,9 @@ def build_site(root: Path, settings_path: Path) -> None:
         for sport, rows in params.items():
             w.writerows([sport, r["namn"], r["varde"], r["forklaring"]] for r in rows)
     shutil.copy(WEB / "index.html", site / "index.html")
+    for f in ("apple-touch-icon.png", "icon-512.png", "manifest.json"):   # hemskärmsikon (iPhone/Android)
+        if (WEB / f).exists():
+            shutil.copy(WEB / f, site / f)
     for sport, name in (("nba", "NBA"), ("nhl", "NHL")):
         (site / sport).mkdir(exist_ok=True)
         (site / sport / "index.html").write_text(REDIRECT.format(sport=sport, name=name), encoding="utf-8")
