@@ -160,7 +160,8 @@
       <button id="aCsv" class="tab">⬇ CSV av filtret</button>
     </div>
     <div class="sub">Typer: <b>Live</b> = spelade (notis). <b>Spel</b> = klarar alla regler (data). <b>Skugga</b> = stoppat av en regel.
-      <b>Modelltest</b> = egna modellens val. <b>Fouls-/Kort-/NHL-test</b> = nya marknader, bara data. CLV i procentenheter (positivt = vi slog stängningen).</div>
+      <b>Modelltest</b> = egna modellens val. <b>Fouls-/Kort-/NHL-test</b> = nya marknader, bara data.
+      <b>Sides</b> = fotbollens 1X2, mål över/under och asiatiskt handikapp mot Pinnacle utan marginal (Sides-skugga = stoppat av en regel). CLV i procentenheter (positivt = vi slog stängningen).</div>
     <div class="sub" id="aUniq"></div>
     <div class="tiles" id="aTiles" style="margin-top:10px"></div>
     <h2>Över vs under</h2>
@@ -229,7 +230,8 @@ const cls = x => x > 0 ? "pos" : x < 0 ? "loss" : "";
 const MK = {shots: "Skott", shots_on_target: "Skott på mål", goal: "Mål", assist: "Assist", fouls: "Fouls", cards: "Kort",
   points: "Poäng", rebounds: "Returer", assists: "Assist", threes: "Trepoängare", steals: "Steals", blocks: "Blocks",
   pra: "PRA", pr: "Poäng + returer", ra: "Returer + assist",
-  sog: "Skott på mål", nhl_points: "Poäng", nhl_assists: "Assist", nhl_goals: "Mål"};
+  sog: "Skott på mål", nhl_points: "Poäng", nhl_assists: "Assist", nhl_goals: "Mål",
+  "1x2": "1X2", total: "Mål totalt", ah: "Asiatiskt handikapp"};
 const spel = (m, l, side) => {
   if (m === "cards") return side === "under" ? "får inget kort" : "får kort";
   if ((m === "goal" || m === "nhl_goals") && l === 0.5 && side !== "under") return "gör mål";
@@ -247,9 +249,9 @@ function norm(b, sport, typ) {
   return {sport, typ, pk: `${sport}|${b.match_id || b.match}|${b.spelare_id || b.spelare}`,
     bokford: b.bokford, avspark: b.avspark, match: b.match, spelare: b.spelare,
     mkKey: b.marknad, marknad: (MK[b.marknad] || b.marknad) + (sport === "nba" && b.marknad === "assists" ? " (NBA)" : ""),
-    spel: spel(b.marknad, b.linje, b.sida), bolag: b.bolag, odds: b.odds, stangning: b.stangning,
+    spel: b.spel_text || spel(b.marknad, b.linje, b.sida), bolag: b.bolag, odds: b.odds, stangning: b.stangning,
     clv, p: b.sannolikhet, edge: b.edge, u: (b.insats_pct || 0) / U, status: b.status,
-    sida: b.sida === "under" ? "Under" : "Över", utfall: b.utfall, stopp: b.stopp || "",
+    sida: ({under: "Under", home: "Hemma", draw: "Oavgjort", away: "Borta"})[b.sida] || "Över", utfall: b.utfall, stopp: b.stopp || "",
     spela_fran: b.spela_fran, notis: b.notis,
     res: b.resultat_enheter == null ? null : b.resultat_enheter / U};
 }
@@ -270,6 +272,8 @@ function buildAll() {
     (d.modelltest || []).forEach(b => ALL.push(norm(b, s, "Modelltest")));
     (d.fouls_test || []).forEach(b => ALL.push(norm(b, s, "Fouls-test")));
     (d.kort_test || []).forEach(b => ALL.push(norm(b, s, "Kort-test")));
+    (d.sides_spel || []).forEach(b => ALL.push(norm(b, s, "Sides")));
+    (d.sides_skugga || []).forEach(b => ALL.push(norm(b, s, "Sides-skugga")));
     (d.test_marknader || []).forEach(b => ALL.push(norm(b, s, "NHL-test")));
     (d.parlay_bokforing || []).forEach(x => ALL.push(normParlay(x, s)));
   }
@@ -277,7 +281,7 @@ function buildAll() {
 const rows = () => ALL.filter(r => sel().includes(r.sport));
 // Samma spelare kan finnas i flera bokföringar (t.ex. Skugga och Modelltest). När typerna blandas
 // räknas varje spelare och match en gång, i den viktigaste typen: Live > Spel > Skugga > Modelltest > test.
-const TYPE_ORDER = ["Live", "Spel", "Skugga", "Modelltest", "Fouls-test", "Kort-test", "NHL-test"];
+const TYPE_ORDER = ["Live", "Spel", "Skugga", "Modelltest", "Fouls-test", "Kort-test", "Sides", "Sides-skugga", "NHL-test"];
 function uniq(rs) {
   const best = new Map(), out = [];
   for (const r of rs) {
@@ -390,7 +394,7 @@ function calib(rs) {
         <td class="n ${Math.abs(act - exp) < 0.08 ? "pos" : "loss"}">${pct(act)}</td></tr>`; }).join("") + `</tbody></table>`;
 }
 function renderRes() {
-  const TYPES = ["Live", "Spel", "Skugga", "Modelltest", "Fouls-test", "Kort-test", "NHL-test", "Parlay"];
+  const TYPES = ["Live", "Spel", "Skugga", "Modelltest", "Fouls-test", "Kort-test", "Sides", "Sides-skugga", "NHL-test", "Parlay"];
   document.getElementById("resCards").innerHTML = sel().filter(s => D[s]).map(s => {
     const all = ALL.filter(r => r.sport === s);
     const main = D[s].live ? "Live" : "Spel";
@@ -469,7 +473,7 @@ function renderBok() {
       <td class="n">${pct(x.roi)}</td><td class="n ${cls(x.clv)}">${sgn(x.clv, 2)}</td>
       <td class="n">${pct(x.beat, 0)}</td><td class="n">${pct(x.edge)}</td></tr>`; }).join("")
     || `<tr><td colspan="10" class="empty">Inga spel matchar filtret.</td></tr>`;
-  const sr0 = filtered(true).filter(r => r.typ !== "Parlay"), sr = mixed ? uniq(sr0) : sr0, by = {};
+  const sr0 = filtered(true).filter(r => r.typ !== "Parlay" && (r.sida === "Över" || r.sida === "Under")), sr = mixed ? uniq(sr0) : sr0, by = {};
   sr.forEach(r => { (by[r.marknad] = by[r.marknad] || {Över: [], Under: []})[r.sida].push(r); });
   const cells = xs => { const x = stats(xs); return `<td class="n">${x.done}</td><td class="n">${x.done ? pct(x.won / x.done) : "–"}</td>
     <td class="n ${cls(x.res)}">${x.done ? sgn(x.res) + "u" : "–"}</td><td class="n">${pct(x.roi)}</td>
