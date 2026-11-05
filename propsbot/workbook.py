@@ -76,7 +76,12 @@ def _rows(root: Path) -> list[list]:
             items = _load_items(f)
         except (json.JSONDecodeError, ValueError):
             continue
+        if typ != "Parlay":   # ett spel per spelare och match: senare rader på samma spelare räknas inte
+            from .ledger import mark_duplicates
+            mark_duplicates(items)
         for b in items:
+            if b.get("dubblett"):
+                continue
             if typ == "Parlay":
                 legs = b.get("ben", [])
                 spelare = " + ".join(f"{l['spelare']} {MK.get(l['marknad'], l['marknad']).lower()} "

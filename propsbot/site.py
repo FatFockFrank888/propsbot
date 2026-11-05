@@ -52,8 +52,13 @@ def nhl_data(root: Path) -> dict:
     from nhl.site_export import ledger_sv
     d = root / "nhl"
     s = BotSettings.load()
-    led = {name: [ledger_sv(b, s.unit_pct) for b in _load(d / fname, [])] for name, fname in LEDGERS.items()}
-    tests = _load(d / "nhl_test_marknader.json", [])
+    from .ledger import mark_duplicates
+
+    def counted(xs: list[dict]) -> list[dict]:   # ett spel per spelare och match i varje bokföring
+        mark_duplicates(xs)
+        return [b for b in xs if not b.get("dubblett")]
+    led = {name: counted([ledger_sv(b, s.unit_pct) for b in _load(d / fname, [])]) for name, fname in LEDGERS.items()}
+    tests = counted(_load(d / "nhl_test_marknader.json", []))
     radar = _load(d / "radar.json", {})
     by_new = lambda xs: sorted(xs, key=lambda b: -(b.get("bokford") or 0))
     return {

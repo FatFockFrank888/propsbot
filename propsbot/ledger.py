@@ -25,6 +25,30 @@ def bet_key(r: ScanRow) -> str:
     return f"{c.match_id}|{c.player_id}|{c.market}|{c.line}|{c.best.book}{side_suffix(c.best.side)}"
 
 
+def player_key(b: dict) -> tuple:
+    return (b.get("match_id"), b.get("spelare_id") or b.get("spelare"))
+
+
+def mark_duplicates(bets: list[dict]) -> int:
+    """Ett spel per spelare och match i varje bokföring: det först bokförda räknas,
+    senare rader på samma spelare (andra linjer/marknader/sidor) markeras "dubblett" och
+    räknas inte i statistiken. Raderna sparas kvar. Returnerar antal nya markeringar."""
+    seen: set = set()
+    n = 0
+    for b in sorted(bets, key=lambda x: (x.get("bokford") or 0, x.get("id") or 0)):
+        k = player_key(b)
+        if k[0] is None or k[1] is None:
+            continue
+        if k in seen:
+            if not b.get("dubblett"):
+                b["dubblett"] = True
+                n += 1
+        else:
+            seen.add(k)
+            b.pop("dubblett", None)
+    return n
+
+
 class Ledger:
     def __init__(self, path: Path):
         self.path = path
@@ -35,18 +59,42 @@ class Ledger:
             except json.JSONDecodeError:
                 self.bets = []
         self.by_key = {b["key"]: b for b in self.bets}
+        mark_duplicates(self.bets)
+
+    @property
+    def counted(self) -> list[dict]:
+        """Raderna som räknas (utan dubbletter på samma spelare och match)."""
+        return [b for b in self.bets if not b.get("dubblett")]
 
     def save(self) -> None:
         self.path.write_text(json.dumps(self.bets, ensure_ascii=False, indent=0), encoding="utf-8")
 
-    def record(self, rows: list[ScanRow], evd_by_id: dict[str, dict], predicate=None) -> list[dict]:
-        """Bokför nya ben (standard: spelbara inom oddsramen). Returnerar de nya."""
+    def record(self, rows: list[ScanRow], evd_by_id: dict[str, dict], predicate=None,
+               one_per_player: bool = True) -> list[dict]:
+        """Bokför nya ben (standard: spelbara inom oddsramen). Returnerar de nya.
+        one_per_player: högst ett ben per spelare och match i bokföringen (störst edge
+        i körningen vinner; finns spelaren redan bokförd läggs inget nytt till)."""
         new = []
+        cands = []
         for r in rows:
             d = r.row.decision
             ok = predicate(r) if predicate else (d.playable and d.show)
-            if not ok:
-                continue
+            if ok:
+                cands.append(r)
+        if one_per_player:
+            taken = {player_key(b) for b in self.bets}
+            best: dict = {}
+            for r in cands:
+                c = r.row.decision.cand
+                pk = (c.match_id, c.player_id)
+                if bet_key(r) in self.by_key or pk in taken:
+                    continue
+                if pk not in best or c.edge > best[pk].row.decision.cand.edge:
+                    best[pk] = r
+            keep = {id(x) for x in best.values()}
+            cands = [r for r in cands if id(r) in keep]
+        for r in cands:
+            d = r.row.decision
             k = bet_key(r)
             if k in self.by_key:
                 continue
@@ -94,12 +142,13 @@ class Ledger:
                    else -bet["insats_pct"])
 
     def summary(self) -> dict:
-        settled = [b for b in self.bets if b["status"] in ("vunnen", "förlorad")]
+        bets = self.counted
+        settled = [b for b in bets if b["status"] in ("vunnen", "förlorad")]
         staked = sum(b["insats_pct"] for b in settled)
         profit = sum(b["resultat_enheter"] for b in settled)
-        clv = [b["odds"] / b["stangning"] - 1 for b in self.bets if b.get("stangning")]
+        clv = [b["odds"] / b["stangning"] - 1 for b in bets if b.get("stangning")]
         # CLV i procentenheter: stängningens implicita sannolikhet minus vid spelet (positivt = bra)
-        clv_pp = [(1 / b["stangning"] - 1 / b["odds"]) * 100 for b in self.bets
+        clv_pp = [(1 / b["stangning"] - 1 / b["odds"]) * 100 for b in bets
                   if b.get("stangning") and b.get("avspark") and b["avspark"] < time.time()]
         per_book: dict[str, dict] = {}
         for b in settled:
@@ -108,8 +157,8 @@ class Ledger:
             s["insats"] += b["insats_pct"]
             s["resultat"] += b["resultat_enheter"]
         return {
-            "antal": len(self.bets), "rattade": len(settled),
-            "oppna": sum(b["status"] == "öppen" for b in self.bets),
+            "antal": len(bets), "rattade": len(settled), "dubbletter": len(self.bets) - len(bets),
+            "oppna": sum(b["status"] == "öppen" for b in bets),
             "vunna": sum(b["status"] == "vunnen" for b in settled),
             "insats_pct": staked, "resultat_pct": profit,
             "roi": profit / staked if staked else None,

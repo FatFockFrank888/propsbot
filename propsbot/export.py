@@ -75,12 +75,12 @@ def write_site(site: Path, rows: list[ScanRow], ledger: Ledger, settings: dict,
         # Med live: fliken Bokföring = de riktiga (live) spelen; övriga spel är data (spel_data).
         # Fotboll LIVE (football_live): regelspelen är de spelade spelen (notis) och visas som Live.
         "live": live_ledger is not None or (sport == "Fotboll" and bool(settings.get("football_live"))),
-        "bokforing": sorted((live_ledger or ledger).bets, key=lambda b: -b["bokford"]),
+        "bokforing": sorted((live_ledger or ledger).counted, key=lambda b: -b["bokford"]),
         "sammanfattning": (live_ledger or ledger).summary(),
-        "spel_data": sorted(ledger.bets, key=lambda b: -b["bokford"]) if live_ledger is not None else [],
-        "modelltest": sorted(test_ledger.bets, key=lambda b: -b["bokford"]) if test_ledger else [],
+        "spel_data": sorted(ledger.counted, key=lambda b: -b["bokford"]) if live_ledger is not None else [],
+        "modelltest": sorted(test_ledger.counted, key=lambda b: -b["bokford"]) if test_ledger else [],
         "modelltest_sammanfattning": test_ledger.summary() if test_ledger else None,
-        "skuggspel": sorted(shadow_ledger.bets, key=lambda b: -b["bokford"]) if shadow_ledger else [],
+        "skuggspel": sorted(shadow_ledger.counted, key=lambda b: -b["bokford"]) if shadow_ledger else [],
         "skuggspel_sammanfattning": shadow_ledger.summary() if shadow_ledger else None,
         **(parlays or {}),
     }
@@ -88,13 +88,13 @@ def write_site(site: Path, rows: list[ScanRow], ledger: Ledger, settings: dict,
     if fl and fl.exists():
         from .ledger import Ledger as _L
         f_ledger = _L(fl)
-        data["fouls_test"] = sorted(f_ledger.bets, key=lambda b: -b["bokford"])
+        data["fouls_test"] = sorted(f_ledger.counted, key=lambda b: -b["bokford"])
         data["fouls_sammanfattning"] = f_ledger.summary()
     kl = site.parent / "bokforing_kort_test.json" if sport == "Fotboll" else None
     if kl and kl.exists():
         from .ledger import Ledger as _L
         k_ledger = _L(kl)
-        data["kort_test"] = sorted(k_ledger.bets, key=lambda b: -b["bokford"])
+        data["kort_test"] = sorted(k_ledger.counted, key=lambda b: -b["bokford"])
         data["kort_sammanfattning"] = k_ledger.summary()
     (site / "data.json").write_text(json.dumps(data, ensure_ascii=False), encoding="utf-8")
     if (WEB / "index.html").exists():
