@@ -161,6 +161,7 @@
     </div>
     <div class="sub">Typer: <b>Live</b> = spelade (notis). <b>Spel</b> = klarar alla regler (data). <b>Skugga</b> = stoppat av en regel.
       <b>Modelltest</b> = egna modellens val. <b>Fouls-/Kort-/NHL-test</b> = nya marknader, bara data. CLV i procentenheter (positivt = vi slog stängningen).</div>
+    <div class="sub" id="aUniq"></div>
     <div class="tiles" id="aTiles" style="margin-top:10px"></div>
     <h2>Över vs under</h2>
     <div class="wrap free"><table>
@@ -243,7 +244,8 @@ const sel = () => cur === "alla" ? Object.keys(SPORTS) : [cur];
 function norm(b, sport, typ) {
   const done = b.avspark && b.avspark < Date.now() / 1000;
   const clv = b.stangning && b.odds && done ? (1 / b.stangning - 1 / b.odds) * 100 : null;
-  return {sport, typ, bokford: b.bokford, avspark: b.avspark, match: b.match, spelare: b.spelare,
+  return {sport, typ, pk: `${sport}|${b.match_id || b.match}|${b.spelare_id || b.spelare}`,
+    bokford: b.bokford, avspark: b.avspark, match: b.match, spelare: b.spelare,
     mkKey: b.marknad, marknad: (MK[b.marknad] || b.marknad) + (sport === "nba" && b.marknad === "assists" ? " (NBA)" : ""),
     spel: spel(b.marknad, b.linje, b.sida), bolag: b.bolag, odds: b.odds, stangning: b.stangning,
     clv, p: b.sannolikhet, edge: b.edge, u: (b.insats_pct || 0) / U, status: b.status,
@@ -273,6 +275,18 @@ function buildAll() {
   }
 }
 const rows = () => ALL.filter(r => sel().includes(r.sport));
+// Samma spelare kan finnas i flera bokföringar (t.ex. Skugga och Modelltest). När typerna blandas
+// räknas varje spelare och match en gång, i den viktigaste typen: Live > Spel > Skugga > Modelltest > test.
+const TYPE_ORDER = ["Live", "Spel", "Skugga", "Modelltest", "Fouls-test", "Kort-test", "NHL-test"];
+function uniq(rs) {
+  const best = new Map(), out = [];
+  for (const r of rs) {
+    if (r.typ === "Parlay" || !r.pk) { out.push(r); continue; }
+    const o = best.get(r.pk), rank = x => { const i = TYPE_ORDER.indexOf(x.typ); return i < 0 ? 99 : i; };
+    if (!o || rank(r) < rank(o) || (rank(r) === rank(o) && (r.bokford || 0) < (o.bokford || 0))) best.set(r.pk, r);
+  }
+  return out.concat([...best.values()]);
+}
 
 // --------------------------------------------------------------- statistik
 function stats(rs) {
@@ -434,7 +448,10 @@ function renderBok() {
   const base = rows();
   fill("aTyp", base.map(r => r.typ), "Alla typer"); fill("aMk", base.map(r => r.marknad), "Alla marknader");
   fill("aBook", base.map(r => r.bolag), "Alla bolag");
-  const rs = filtered(), s = stats(rs);
+  const all = filtered(), mixed = !document.getElementById("aTyp").value;
+  const rs = mixed ? uniq(all) : all, s = stats(rs);
+  document.getElementById("aUniq").textContent = mixed && all.length > rs.length
+    ? `Alla typer: varje spelare och match räknas en gång (Live > Spel > Skugga > Modelltest > test) – ${all.length - rs.length} rader i flera bokföringar räknas inte dubbelt. Gruppering per typ visar varje bokföring för sig.` : "";
   document.getElementById("aTiles").innerHTML = [
     ["Spel", s.n], ["Avgjorda", s.done], ["Träff", s.done ? pct(s.won / s.done) : "–"],
     ["Insats", nf(s.st, 1) + "u"], ["Resultat", sgn(s.res) + "u"], ["ROI", pct(s.roi)],
@@ -444,7 +461,7 @@ function renderBok() {
   const key = r => g === "oddsband" ? oddsBand(r.odds) : g === "pband" ? pBand(r.p) : g === "edgeband" ? eBand(r.edge)
     : g === "vecka" ? week(r.bokford) : g === "mksida" ? `${r.marknad} · ${r.sida}` : g === "sport" ? SPORTS[r.sport].name : r[g];
   const groups = {};
-  rs.forEach(r => (groups[key(r)] = groups[key(r)] || []).push(r));
+  (g === "typ" ? all : rs).forEach(r => (groups[key(r)] = groups[key(r)] || []).push(r));
   document.getElementById("aGroupRows").innerHTML = Object.entries(groups).sort((a, b) => b[1].length - a[1].length)
     .map(([k, xs]) => { const x = stats(xs); return `<tr><td>${esc(k)}</td><td class="n">${x.n}</td>
       <td class="n">${x.done}</td><td class="n">${x.done ? pct(x.won / x.done) : "–"}</td>
@@ -452,7 +469,7 @@ function renderBok() {
       <td class="n">${pct(x.roi)}</td><td class="n ${cls(x.clv)}">${sgn(x.clv, 2)}</td>
       <td class="n">${pct(x.beat, 0)}</td><td class="n">${pct(x.edge)}</td></tr>`; }).join("")
     || `<tr><td colspan="10" class="empty">Inga spel matchar filtret.</td></tr>`;
-  const sr = filtered(true).filter(r => r.typ !== "Parlay"), by = {};
+  const sr0 = filtered(true).filter(r => r.typ !== "Parlay"), sr = mixed ? uniq(sr0) : sr0, by = {};
   sr.forEach(r => { (by[r.marknad] = by[r.marknad] || {Över: [], Under: []})[r.sida].push(r); });
   const cells = xs => { const x = stats(xs); return `<td class="n">${x.done}</td><td class="n">${x.done ? pct(x.won / x.done) : "–"}</td>
     <td class="n ${cls(x.res)}">${x.done ? sgn(x.res) + "u" : "–"}</td><td class="n">${pct(x.roi)}</td>
