@@ -1,4 +1,4 @@
-Skanning 2026-11-06 21:52
+Skanning 2026-11-06 22:11
 Kambi unibet (ubse): OK, 114 matcher i valda ligor
 Kambi paf (paf): OK
 Kambi atg (atg): OK
@@ -7,10 +7,7 @@ Kambi svenskaspel (svenskaspel): OK
 Kambi expekt (expektse): OK
 Kambi betmgm (betmgmse): OK
 Pinnacle: OK, 26 ligor
-  Atlético San Luis – FC Juárez: Pinnacle FEL HTTP 403 för https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639647407/related
-  Atlante – Santos Laguna: Pinnacle FEL HTTP 403 för https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639639585/markets/related/straight
-  Cagliari – Frosinone: Pinnacle FEL HTTP 403 för https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639179840/related
-Pinnacle: 94 matcher, matchlinjer för 33 av 60 Kambi-matcher, 0 spelarodds som används
+Pinnacle: 94 matcher, matchlinjer för 36 av 60 Kambi-matcher, 0 spelarodds som används
 Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
   Double Chance 1st Half | units=Regular | kategori=Team Props | deltagare=Vitoria Or Fluminense,Draw Or Fluminense,Draw Or Vitoria  ->  används inte (lagmarknad)
   Moneyline and Total Goals | units=Regular | kategori=Team Props | deltagare=Vitoria & Over 2.5,Vitoria & Under 2.5,Draw & Over 2.5,Draw & Under 2.5,Fluminense & Over 2.5,Fluminense & Under 2.5  ->  används inte (lagmarknad)
@@ -52,33 +49,42 @@ Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
   Fluminense To Win To Nil 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
   Vitoria To Win To Nil 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
   Both Teams To Score and Total Goals | units=Regular | kategori=Team Props | deltagare=Yes & Over 2.5,Yes & Under 2.5,No & Over 2.5,No & Under 2.5  ->  används inte (lagmarknad)
-  Double Chance 1st Half | units=Regular | kategori=Team Props | deltagare=Necaxa Or Club Tijuana,Draw Or Club Tijuana,Draw Or Necaxa  ->  används inte (lagmarknad)
-  Moneyline and Total Goals | units=Regular | kategori=Team Props | deltagare=Necaxa & Over 3.5,Necaxa & Under 3.5,Draw & Over 3.5,Draw & Under 3.5,Club Tijuana & Over 3.5,Club Tijuana & Under 3.5  ->  används inte (lagmarknad)
-  Double Chance | units=Regular | kategori=Team Props | deltagare=Necaxa Or Club Tijuana,Draw Or Club Tijuana,Draw Or Necaxa  ->  används inte (lagmarknad)
-  Necaxa Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
-  3-Way Handicap Necaxa +1 | units=Regular | kategori=Team Props | deltagare=Necaxa (+1),Draw - (Necaxa +1),Club Tijuana (-1)  ->  används inte (lagmarknad)
-  Club Tijuana Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
-  3-Way Handicap Necaxa -1 | units=Regular | kategori=Team Props | deltagare=Necaxa (-1),Draw - (Necaxa -1),Club Tijuana (+1)  ->  används inte (lagmarknad)
-  Necaxa To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Necaxa Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
-  First Team To Score | units=1st Goal | kategori=Team Props | deltagare=Necaxa,Club Tijuana,Neither  ->  används inte (lagmarknad)
-  Winning Margin 1st Half | units=Regular | kategori=Team Props | deltagare=Necaxa By 1,Necaxa By 2+,Club Tijuana By 1,Club Tijuana By 2+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
-  Club Tijuana To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Draw No Bet 1st Half | units=Regular | kategori=Team Props | deltagare=Necaxa,Club Tijuana  ->  används inte (lagmarknad)
-  Necaxa To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Club Tijuana To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Necaxa Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
-  Club Tijuana Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
-  Correct Score | units=Regular | kategori=Team Props | deltagare=Necaxa 0, Club Tijuana 0,Necaxa 0, Club Tijuana 1,Necaxa 0, Club Tijuana 2,Necaxa 0, Club Tijuana 3,Necaxa 0, Club Tijuana 4,Necaxa 0, Club Tijuana 5,Necaxa 0, Club Tijuana 6,Necaxa 1, Club Tijuana 0,Necaxa 1, Club Tijuana 1,Necaxa 1, Club Tijuana 2,Necaxa 1, Club Tijuana 3,Necaxa 1, Club Tijuana 4,Necaxa 1, Club Tijuana 5,Necaxa 1, Club Tijuana 6,Necaxa 2, Club Tijuana 0,Necaxa 2, Club Tijuana 1,Necaxa 2, Club Tijuana 2,Necaxa 2, Club Tijuana 3,Necaxa 2, Club Tijuana 4,Necaxa 2, Club Tijuana 5,Necaxa 2, Club Tijuana 6,Necaxa 3, Club Tijuana 0,Necaxa 3, Club Tijuana 1,Necaxa 3, Club Tijuana 2,Necaxa 3, Club Tijuana 3,Necaxa 3, Club Tijuana 4,Necaxa 3, Club Tijuana 5,Necaxa 3, Club Tijuana 6,Necaxa 4, Club Tijuana 0,Necaxa 4, Club Tijuana 1,Necaxa 4, Club Tijuana 2,Necaxa 4, Club Tijuana 3,Necaxa 4, Club Tijuana 4,Necaxa 4, Club Tijuana 5,Necaxa 4, Club Tijuana 6,Necaxa 5, Club Tijuana 0,Necaxa 5, Club Tijuana 1,Necaxa 5, Club Tijuana 2,Necaxa 5, Club Tijuana 3,Necaxa 5, Club Tijuana 4,Necaxa 5, Club Tijuana 5,Necaxa 5, Club Tijuana 6,Necaxa 6, Club Tijuana 0,Necaxa 6, Club Tijuana 1,Necaxa 6, Club Tijuana 2,Necaxa 6, Club Tijuana 3,Necaxa 6, Club Tijuana 4,Necaxa 6, Club Tijuana 5,Necaxa 6, Club Tijuana 6  ->  används inte (lagmarknad)
-  Both Teams To Score and Moneyline | units=Regular | kategori=Team Props | deltagare=Yes & Necaxa,Yes & Draw,Yes & Club Tijuana,No & Necaxa,No & Draw,No & Club Tijuana  ->  används inte (lagmarknad)
-  Club Tijuana To Win To Nil | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-Sides mindre ligor: 4 Kambi-matcher inom 3 h, 42 Pinnacle-matcher, 3 matchade: Bolivia / Liga Profesional Bolivia, Colombia / Liga Dimayor, Mexico / Liga Premier Serie A
-Sides/totals: 36 matcher med Kambi + Pinnacle, 883 linjer, 0 nya spel, 1 nya skuggspel, startelvor kända i 0; bästa edge +5.1% (Holstein Kiel 1X2: X), +4.2% (Panthrakikos Komotini under 2.5), +3.7% (Arsenal 1X2: 2)
+  Double Chance 1st Half | units=Regular | kategori=Team Props | deltagare=Atletico San Luis Or FC Juarez,Draw Or FC Juarez,Draw Or Atletico San Luis  ->  används inte (lagmarknad)
+  Moneyline and Total Goals | units=Regular | kategori=Team Props | deltagare=Atletico San Luis & Over 2.5,Atletico San Luis & Under 2.5,Draw & Over 2.5,Draw & Under 2.5,FC Juarez & Over 2.5,FC Juarez & Under 2.5  ->  används inte (lagmarknad)
+  Double Chance | units=Regular | kategori=Team Props | deltagare=Atletico San Luis Or FC Juarez,Draw Or FC Juarez,Draw Or Atletico San Luis  ->  används inte (lagmarknad)
+  Atletico San Luis Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  FC Juarez Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
+  3-Way Handicap Atletico San Luis -1 | units=Regular | kategori=Team Props | deltagare=Atletico San Luis (-1),Draw - (Atletico San Luis -1),FC Juarez (+1)  ->  används inte (lagmarknad)
+  Atletico San Luis To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Atletico San Luis Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
+  First Team To Score | units=1st Goal | kategori=Team Props | deltagare=Atletico San Luis,FC Juarez,Neither  ->  används inte (lagmarknad)
+  Winning Margin 1st Half | units=Regular | kategori=Team Props | deltagare=Atletico San Luis By 1,Atletico San Luis By 2+,FC Juarez By 1,FC Juarez By 2+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
+  FC Juarez To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Draw No Bet 1st Half | units=Regular | kategori=Team Props | deltagare=Atletico San Luis,FC Juarez  ->  används inte (lagmarknad)
+  Atletico San Luis To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  FC Juarez To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Atletico San Luis Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
+  FC Juarez Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
+  Correct Score | units=Regular | kategori=Team Props | deltagare=Atletico San Luis 0, FC Juarez 0,Atletico San Luis 0, FC Juarez 1,Atletico San Luis 0, FC Juarez 2,Atletico San Luis 0, FC Juarez 3,Atletico San Luis 0, FC Juarez 4,Atletico San Luis 0, FC Juarez 5,Atletico San Luis 0, FC Juarez 6,Atletico San Luis 1, FC Juarez 0,Atletico San Luis 1, FC Juarez 1,Atletico San Luis 1, FC Juarez 2,Atletico San Luis 1, FC Juarez 3,Atletico San Luis 1, FC Juarez 4,Atletico San Luis 1, FC Juarez 5,Atletico San Luis 1, FC Juarez 6,Atletico San Luis 2, FC Juarez 0,Atletico San Luis 2, FC Juarez 1,Atletico San Luis 2, FC Juarez 2,Atletico San Luis 2, FC Juarez 3,Atletico San Luis 2, FC Juarez 4,Atletico San Luis 2, FC Juarez 5,Atletico San Luis 2, FC Juarez 6,Atletico San Luis 3, FC Juarez 0,Atletico San Luis 3, FC Juarez 1,Atletico San Luis 3, FC Juarez 2,Atletico San Luis 3, FC Juarez 3,Atletico San Luis 3, FC Juarez 4,Atletico San Luis 3, FC Juarez 5,Atletico San Luis 3, FC Juarez 6,Atletico San Luis 4, FC Juarez 0,Atletico San Luis 4, FC Juarez 1,Atletico San Luis 4, FC Juarez 2,Atletico San Luis 4, FC Juarez 3,Atletico San Luis 4, FC Juarez 4,Atletico San Luis 4, FC Juarez 5,Atletico San Luis 4, FC Juarez 6,Atletico San Luis 5, FC Juarez 0,Atletico San Luis 5, FC Juarez 1,Atletico San Luis 5, FC Juarez 2,Atletico San Luis 5, FC Juarez 3,Atletico San Luis 5, FC Juarez 4,Atletico San Luis 5, FC Juarez 5,Atletico San Luis 5, FC Juarez 6,Atletico San Luis 6, FC Juarez 0,Atletico San Luis 6, FC Juarez 1,Atletico San Luis 6, FC Juarez 2,Atletico San Luis 6, FC Juarez 3,Atletico San Luis 6, FC Juarez 4,Atletico San Luis 6, FC Juarez 5,Atletico San Luis 6, FC Juarez 6  ->  används inte (lagmarknad)
+  3-Way Handicap Atletico San Luis -2 | units=Regular | kategori=Team Props | deltagare=Atletico San Luis (-2),Draw - (Atletico San Luis -2),FC Juarez (+2)  ->  används inte (lagmarknad)
+  Both Teams To Score and Moneyline | units=Regular | kategori=Team Props | deltagare=Yes & Atletico San Luis,Yes & Draw,Yes & FC Juarez,No & Atletico San Luis,No & Draw,No & FC Juarez  ->  används inte (lagmarknad)
+  FC Juarez To Win To Nil | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+Sides mindre ligor: 7 Kambi-matcher inom 3 h, 39 Pinnacle-matcher, 6 matchade: Bolivia / Liga Profesional Bolivia, Colombia / Liga Dimayor, Mexico / Liga Premier Serie A, New Zealand / National League Championship
+  Sides rättad: Hamburger SV – Borussia Mönchengladbach 1X2: 2 -> förlorad (3–1)
+  Sides rättad: Venezia – Udinese under 2.5 -> förlorad (2–1)
+  Sides rättad: Standard de Liège – SK Beveren 1X2: 2 -> förlorad (3–0)
+  Sides rättad: Toulouse – Strasbourg under 3.5 -> förlorad (3–1)
+  Sides rättad: Ascoli – Palermo 1X2: X -> vunnen (1–1)
+  Sides rättad: Bristol Rovers – Cambridge United under 2.5 -> vunnen (2–0)
+  Sides rättad: Raith Rovers – Dunfermline Athletic under 2.75 -> vunnen (0–0)
+Sides/totals: 42 matcher med Kambi + Pinnacle, 1003 linjer, 0 nya spel, 1 nya skuggspel, startelvor kända i 2; bästa edge +4.7% (Holstein Kiel 1X2: X), +4.2% (Panthrakikos Komotini under 2.5), +3.7% (Arsenal 1X2: 2)
 Fotboll extra bolag: 0 nya hämtningar, 0 odds i bruk, krediter kvar 413, dagsbudget 16 (andel 30%), förbrukat idag 4
-Tid: hämtning 363 s
-Marginal över alla matcher: uppmätt marginal: shots stege k=1.12 (10 spelare; marginal vid 3,00 ≈ 14%), shots_on_target stege k=1.08 (66 spelare; marginal vid 3,00 ≈ 9%)
+Tid: hämtning 426 s
+Marginal över alla matcher: uppmätt marginal: shots_on_target stege k=1.06 (73 spelare; marginal vid 3,00 ≈ 7%)
   Vitória-BA – Fluminense-RJ: modell bra.1, 32 spelare
+  Atlético San Luis – FC Juárez: modell – hittar inte matchen hos ESPN
   Club Necaxa – Club Tijuana: modell – hittar inte matchen hos ESPN
+  Atlante – Santos Laguna: modell – hittar inte matchen hos ESPN
   VfL Osnabrück – 1. FC Kaiserslautern: modell ger.2, 30 spelare
   1. FC Nürnberg – Darmstadt 98: modell ger.2, 28 spelare
   Holstein Kiel – Arminia Bielefeld: modell ger.2, 26 spelare
@@ -87,6 +93,7 @@ Marginal över alla matcher: uppmätt marginal: shots stege k=1.12 (10 spelare; 
   Bristol City – Norwich City: modell eng.2, 34 spelare
   Málaga – Racing Santander: modell esp.1, 31 spelare
   Torino – Lecce: modell ita.1, 27 spelare
+  Cagliari – Frosinone: modell ita.1, 27 spelare
   Borussia Dortmund – Elversberg: modell ger.1, 28 spelare
   RB Leipzig – FC Augsburg: modell ger.1, 32 spelare
   SC Paderborn 07 – Eintracht Frankfurt: modell ger.1, 26 spelare
@@ -102,25 +109,25 @@ Marginal över alla matcher: uppmätt marginal: shots stege k=1.12 (10 spelare; 
   Cardiff City – Burnley: modell eng.2, 26 spelare
   Blackburn Rovers – West Ham: modell eng.2, 29 spelare
   Espanyol – Deportivo A Coruña: modell esp.1, 28 spelare
-Modellens nivåavvikelse mot marknaden (log-odds, dras bort): assist -0.55, goal -0.11, shots -0.50, shots_on_target -0.43
+Modellens nivåavvikelse mot marknaden (log-odds, dras bort): assist -0.57, goal -0.13, shots -0.52, shots_on_target -0.43
   Independiente – Deportivo Riestra: saknar matchlinjer från Pinnacle
   San Lorenzo – Platense: saknar matchlinjer från Pinnacle
   Unión de Santa Fe – Club Atlético Vélez Sarsfield: saknar matchlinjer från Pinnacle
   Operário-PR – Sport Recife-PE: saknar matchlinjer från Pinnacle
-  Vitória-BA – Fluminense-RJ: väntade mål Pinnacle 2.27 mot Kambi 2.38 (kvot 0.957); uppmätt marginal: goal k=1.17, assist k=1.25, shots stege k=1.12 (7 spelare; marginal vid 3,00 ≈ 14%), shots_on_target stege k=1.20 (7 spelare; marginal vid 3,00 ≈ 25%)
-Exempel uppmätt marginal: goal k=1.17, assist k=1.25, shots stege k=1.12 (7 spelare; marginal vid 3,00 ≈ 14%), shots_on_target stege k=1.20 (7 spelare; marginal vid 3,00 ≈ 25%)
+  Vitória-BA – Fluminense-RJ: väntade mål Pinnacle 2.24 mot Kambi 2.38 (kvot 0.942); uppmätt marginal: goal k=1.21, shots_on_target stege k=1.26 (7 spelare; marginal vid 3,00 ≈ 33%)
+Exempel uppmätt marginal: goal k=1.21, shots_on_target stege k=1.26 (7 spelare; marginal vid 3,00 ≈ 33%)
   Banfield – Club Atlético Tucumán: saknar matchlinjer från Pinnacle
   Tigre – Sarmiento: saknar matchlinjer från Pinnacle
-  Atlético San Luis – FC Juárez: saknar matchlinjer från Pinnacle
+  Atlético San Luis – FC Juárez: väntade mål Pinnacle 2.92 mot Kambi 3.05 (kvot 0.958); uppmätt marginal: goal k=1.62, assist k=1.55
   Club Necaxa – Club Tijuana: väntade mål Pinnacle 2.76 mot Kambi 2.91 (kvot 0.946); uppmätt marginal: goal k=1.69, assist k=1.60
-  Atlante – Santos Laguna: saknar matchlinjer från Pinnacle
+  Atlante – Santos Laguna: väntade mål Pinnacle 3.09 mot Kambi 3.15 (kvot 0.982); uppmätt marginal: goal k=1.61, assist k=1.54
   Auckland FC – Wellington Phoenix: saknar matchlinjer från Pinnacle
   Melbourne City FC – Western Sydney Wanderers: saknar matchlinjer från Pinnacle
   Eyüpspor – Kocaelispor: saknar matchlinjer från Pinnacle
   Perth Glory – Newcastle Jets FC: saknar matchlinjer från Pinnacle
   VfL Osnabrück – 1. FC Kaiserslautern: väntade mål Pinnacle 2.95 mot Kambi 3.02 (kvot 0.978); uppmätt marginal: goal k=1.66
   1. FC Nürnberg – Darmstadt 98: väntade mål Pinnacle 3.28 mot Kambi 3.35 (kvot 0.981); uppmätt marginal: goal k=1.70
-  Holstein Kiel – Arminia Bielefeld: väntade mål Pinnacle 2.65 mot Kambi 2.83 (kvot 0.936); uppmätt marginal: goal k=1.60
+  Holstein Kiel – Arminia Bielefeld: väntade mål Pinnacle 2.65 mot Kambi 2.83 (kvot 0.939); uppmätt marginal: goal k=1.59
   Leeds United – Tottenham: väntade mål Pinnacle 2.60 mot Kambi 2.63 (kvot 0.988); uppmätt marginal: goal k=1.34, assist k=1.39
   Portsmouth – Stoke City: väntade mål Pinnacle 2.40 mot Kambi 2.50 (kvot 0.959); uppmätt marginal: goal k=1.63, assist k=1.54
   Wrexham – Wolves: saknar matchlinjer från Pinnacle
@@ -129,15 +136,15 @@ Exempel uppmätt marginal: goal k=1.17, assist k=1.25, shots stege k=1.12 (7 spe
   Burgos – Celta Vigo B: saknar matchlinjer från Pinnacle
   Málaga – Racing Santander: väntade mål Pinnacle 2.96 mot Kambi 3.03 (kvot 0.977); uppmätt marginal: goal k=1.52, assist k=1.67
   Torino – Lecce: väntade mål Pinnacle 2.70 mot Kambi 2.59 (kvot 1.044); uppmätt marginal: goal k=1.49, assist k=1.64, shots_on_target stege k=1.14 (7 spelare; marginal vid 3,00 ≈ 17%)
-  Cagliari – Frosinone: saknar matchlinjer från Pinnacle
+  Cagliari – Frosinone: väntade mål Pinnacle 3.34 mot Kambi 3.24 (kvot 1.030); uppmätt marginal: goal k=1.43, assist k=1.57, shots_on_target stege k=1.07 (28 spelare; marginal vid 3,00 ≈ 8%)
   Borussia Dortmund – Elversberg: väntade mål Pinnacle 3.62 mot Kambi 3.73 (kvot 0.970); uppmätt marginal: goal k=1.60, assist k=1.64
   RB Leipzig – FC Augsburg: väntade mål Pinnacle 4.03 mot Kambi 4.14 (kvot 0.973); uppmätt marginal: goal k=1.69, assist k=1.66
   SC Paderborn 07 – Eintracht Frankfurt: väntade mål Pinnacle 3.26 mot Kambi 3.33 (kvot 0.981); uppmätt marginal: goal k=1.61, assist k=1.57, shots_on_target stege k=1.03 (14 spelare; marginal vid 3,00 ≈ 3%)
-  Mainz 05 – Bayern Munich: väntade mål Pinnacle 4.02 mot Kambi 4.12 (kvot 0.977); uppmätt marginal: goal k=1.52, assist k=1.68
+  Mainz 05 – Bayern Munich: väntade mål Pinnacle 4.03 mot Kambi 4.14 (kvot 0.974); uppmätt marginal: goal k=1.52, assist k=1.68
   Arsenal – Hull City: väntade mål Pinnacle 3.17 mot Kambi 3.21 (kvot 0.988); uppmätt marginal: goal k=1.42, assist k=1.51
   Fulham – Newcastle United: väntade mål Pinnacle 2.97 mot Kambi 2.98 (kvot 0.996); uppmätt marginal: goal k=1.30, assist k=1.42
-  Queens Park Rangers – Lincoln City: väntade mål Pinnacle 2.87 mot Kambi 2.90 (kvot 0.988); uppmätt marginal: goal k=1.48, assist k=1.64
-  Preston North End – Southampton: väntade mål Pinnacle 3.17 mot Kambi 3.27 (kvot 0.967); uppmätt marginal: goal k=1.45, assist k=1.52
+  Queens Park Rangers – Lincoln City: väntade mål Pinnacle 2.86 mot Kambi 2.90 (kvot 0.985); uppmätt marginal: goal k=1.48, assist k=1.64
+  Preston North End – Southampton: väntade mål Pinnacle 3.17 mot Kambi 3.27 (kvot 0.970); uppmätt marginal: goal k=1.45, assist k=1.52
   Birmingham – Swansea City: väntade mål Pinnacle 2.75 mot Kambi 2.85 (kvot 0.963); uppmätt marginal: goal k=1.60, assist k=1.55
   Charlton Athletic – Sheffield United: väntade mål Pinnacle 2.67 mot Kambi 2.74 (kvot 0.978); uppmätt marginal: goal k=1.61, assist k=1.44
   Watford – Middlesbrough: väntade mål Pinnacle 3.29 mot Kambi 3.36 (kvot 0.981); uppmätt marginal: goal k=1.70, assist k=1.65
@@ -147,24 +154,24 @@ Exempel uppmätt marginal: goal k=1.17, assist k=1.25, shots stege k=1.12 (7 spe
   Westerlo – Sporting de Charleroi: saknar matchlinjer från Pinnacle
   Cadiz – Real Oviedo: saknar matchlinjer från Pinnacle
   Espanyol – Deportivo A Coruña: väntade mål Pinnacle 2.52 mot Kambi 2.53 (kvot 0.996); uppmätt marginal: goal k=1.50, assist k=1.64
-Tid: modell och utvärdering 182 s
+Tid: modell och utvärdering 113 s
 Bolag med spelarodds: atg, betmgm, expekt, leovegas, paf, svenskaspel, unibet
-Spelarodds per marknad: assist 5422, goal 14105, shots 4982, shots_on_target 8024
-Kambi-marknader: assist='to give an assist (settled using opta data)':5422; goal='to score':9515; goal='to score at least 2 goals':4093; goal='to score at least 3 goals':448; goal='to score at least 4 goals':49; shots="player's shots (settled using opta data)":4982; shots_on_target="player's shots on target (settled using opta data)":8024
+Spelarodds per marknad: assist 5387, goal 13888, shots 5059, shots_on_target 7989
+Kambi-marknader: assist='to give an assist (settled using opta data)':5387; goal='to score':9368; goal='to score at least 2 goals':4030; goal='to score at least 3 goals':441; goal='to score at least 4 goals':49; shots="player's shots (settled using opta data)":5059; shots_on_target="player's shots on target (settled using opta data)":7989
 Pinnacle har inga spelarprops här – använder linjejustering mot Pinnacles matchlinjer.
-CLV-signal: 0 ben släppta (Pinnacle rör sig åt vårt håll)
-Startelvor: 0 spelbara ben klara, 0 väntar på startelvan, 0 stoppade (inte i startelvan)
+CLV-signal: 2 ben släppta (Pinnacle rör sig åt vårt håll)
+Startelvor: 0 spelbara ben klara, 3 väntar på startelvan, 0 stoppade (inte i startelvan)
 Spelregler: stoppade {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0} (modelltest {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0})
-Spelarmodell: 0 av 801 ben har modell, 0 nya matcher hämtade från ESPN
-Bästa edge marknad shots_on_target: +2.4%, +1.8%, +1.0% (av 672 ben)
-Bästa edge modelltest shots_on_target: +1.8%, +0.9%, +0.3% (av 643 ben)
+Spelarmodell: 0 av 915 ben har modell, 0 nya matcher hämtade från ESPN
+Bästa edge marknad shots_on_target: +2.8%, +2.2%, +1.5% (av 771 ben)
+Bästa edge modelltest shots_on_target: +2.2%, +1.6%, +1.0% (av 689 ben)
 0 spelbara ben.
 Bokförda nya spel: 0
-Skuggspel: 0 nya bokförda (stoppade av reglerna, minst 2 % edge)
+Skuggspel: 1 nya bokförda (stoppade av reglerna, minst 2 % edge)
 Modelltest: 0 spelbara enligt modellen, 0 nya testspel bokförda
 Domare: 43 kommande matcher med utsedd domare (UEFA + football-data)
 Fouls (test): 378 ben med modell, 2 klarar kraven, 0 nya bokförda, bästa edge +39.6%, +12.0%, +6.0%, 0 nya ESPN-matcher, domare känd i 11 matcher
 Domare: 43 kommande matcher med utsedd domare (UEFA + football-data)
-Kort (test): 5187 Kambi-odds, 437 ben med modell, 15 klarar kraven, 0 nya bokförda, bästa edge +81.6%, +46.8%, +30.0%, 0 nya ESPN-matcher
+Kort (test): 5197 Kambi-odds, 437 ben med modell, 15 klarar kraven, 0 nya bokförda, bästa edge +81.6%, +46.8%, +30.0%, 0 nya ESPN-matcher
 Parlays: 0 förslag, 0 nya bokförda
 Notiser skickade: 0
