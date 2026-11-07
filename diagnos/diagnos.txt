@@ -1,32 +1,181 @@
-Skanning 2026-11-07 22:49
-Kambi unibet (ubse): FEL URLError för https://eu-offering.kambicdn.org/offering/v2018/ubse/listView/football/all/all/all/matches.json: <urlopen error timed out>
-Kambi paf (paf): FEL URLError för https://eu-offering.kambicdn.org/offering/v2018/paf/listView/football/all/all/all/matches.json: <urlopen error timed out>
-Kambi atg (atg): FEL URLError för https://eu-offering.kambicdn.org/offering/v2018/atg/listView/football/all/all/all/matches.json: <urlopen error timed out>
-Kambi leovegas (leose): FEL URLError för https://eu-offering.kambicdn.org/offering/v2018/leose/listView/football/all/all/all/matches.json: <urlopen error timed out>
-Kambi svenskaspel (svenskaspel): FEL URLError för https://eu-offering.kambicdn.org/offering/v2018/svenskaspel/listView/football/all/all/all/matches.json: <urlopen error timed out>
-Kambi expekt (expektse): FEL URLError för https://eu-offering.kambicdn.org/offering/v2018/expektse/listView/football/all/all/all/matches.json: <urlopen error timed out>
-Kambi betmgm (betmgmse): FEL URLError för https://eu-offering.kambicdn.org/offering/v2018/betmgmse/listView/football/all/all/all/matches.json: <urlopen error timed out>
-VARNING: inget Kambi-bolag svarade.
-Sides mindre ligor: FEL SourceError: URLError för https://eu-offering.kambicdn.org/offering/v2018/ubse/listView/football/all/all/all/matches.json: <urlopen error timed out>
-Sides/totals: 0 matcher med Kambi + Pinnacle, 0 linjer, 0 nya spel, 0 nya skuggspel, Smarkets-priser i 0 av 0; bästa edge 
+Skanning 2026-11-07 23:29
+Kambi unibet (ubse): OK, 115 matcher i valda ligor
+Kambi paf (paf): OK
+Kambi atg (atg): OK
+Kambi leovegas (leose): OK
+Kambi svenskaspel (svenskaspel): OK
+Kambi expekt (expektse): OK
+Kambi betmgm (betmgmse): OK
+Pinnacle: OK, 25 ligor
+Pinnacle: 89 matcher, matchlinjer för 39 av 60 Kambi-matcher, 0 spelarodds som används
+Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
+  Double Chance 1st Half | units=Regular | kategori=Team Props | deltagare=Minnesota United Or San Jose Earthquakes,Draw Or San Jose Earthquakes,Draw Or Minnesota United  ->  används inte (lagmarknad)
+  Moneyline and Total Goals | units=Regular | kategori=Team Props | deltagare=Minnesota United & Over 3.5,Minnesota United & Under 3.5,Draw & Over 3.5,Draw & Under 3.5,San Jose Earthquakes & Over 3.5,San Jose Earthquakes & Under 3.5  ->  används inte (lagmarknad)
+  Double Chance | units=Regular | kategori=Team Props | deltagare=Minnesota United Or San Jose Earthquakes,Draw Or San Jose Earthquakes,Draw Or Minnesota United  ->  används inte (lagmarknad)
+  3-Way Handicap Minnesota United -1 | units=Regular | kategori=Team Props | deltagare=Minnesota United (-1),Draw - (Minnesota United -1),San Jose Earthquakes (+1)  ->  används inte (lagmarknad)
+  Winning Margin | units=Regular | kategori=Team Props | deltagare=Minnesota United By 1,Minnesota United By 2,Minnesota United By 3,Minnesota United By 4+,San Jose Earthquakes By 1,San Jose Earthquakes By 2,San Jose Earthquakes By 3,San Jose Earthquakes By 4+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
+  Either Team To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Exact Total Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5,6+  ->  används inte (lagmarknad)
+  Minnesota United Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  3-Way Handicap Minnesota United -3 | units=Regular | kategori=Team Props | deltagare=Minnesota United (-3),Draw - (Minnesota United -3),San Jose Earthquakes (+3)  ->  används inte (lagmarknad)
+  Total Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  Draw No Bet | units=Regular | kategori=Team Props | deltagare=Minnesota United,San Jose Earthquakes  ->  används inte (lagmarknad)
+  San Jose Earthquakes To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Correct Score | units=Regular | kategori=Team Props | deltagare=Minnesota United 0, San Jose Earthquakes 0,Minnesota United 0, San Jose Earthquakes 1,Minnesota United 0, San Jose Earthquakes 2,Minnesota United 0, San Jose Earthquakes 3,Minnesota United 0, San Jose Earthquakes 4,Minnesota United 0, San Jose Earthquakes 5,Minnesota United 0, San Jose Earthquakes 6,Minnesota United 1, San Jose Earthquakes 0,Minnesota United 1, San Jose Earthquakes 1,Minnesota United 1, San Jose Earthquakes 2,Minnesota United 1, San Jose Earthquakes 3,Minnesota United 1, San Jose Earthquakes 4,Minnesota United 1, San Jose Earthquakes 5,Minnesota United 1, San Jose Earthquakes 6,Minnesota United 2, San Jose Earthquakes 0,Minnesota United 2, San Jose Earthquakes 1,Minnesota United 2, San Jose Earthquakes 2,Minnesota United 2, San Jose Earthquakes 3,Minnesota United 2, San Jose Earthquakes 4,Minnesota United 2, San Jose Earthquakes 5,Minnesota United 2, San Jose Earthquakes 6,Minnesota United 3, San Jose Earthquakes 0,Minnesota United 3, San Jose Earthquakes 1,Minnesota United 3, San Jose Earthquakes 2,Minnesota United 3, San Jose Earthquakes 3,Minnesota United 3, San Jose Earthquakes 4,Minnesota United 3, San Jose Earthquakes 5,Minnesota United 3, San Jose Earthquakes 6,Minnesota United 4, San Jose Earthquakes 0,Minnesota United 4, San Jose Earthquakes 1,Minnesota United 4, San Jose Earthquakes 2,Minnesota United 4, San Jose Earthquakes 3,Minnesota United 4, San Jose Earthquakes 4,Minnesota United 4, San Jose Earthquakes 5,Minnesota United 4, San Jose Earthquakes 6,Minnesota United 5, San Jose Earthquakes 0,Minnesota United 5, San Jose Earthquakes 1,Minnesota United 5, San Jose Earthquakes 2,Minnesota United 5, San Jose Earthquakes 3,Minnesota United 5, San Jose Earthquakes 4,Minnesota United 5, San Jose Earthquakes 5,Minnesota United 5, San Jose Earthquakes 6,Minnesota United 6, San Jose Earthquakes 0,Minnesota United 6, San Jose Earthquakes 1,Minnesota United 6, San Jose Earthquakes 2,Minnesota United 6, San Jose Earthquakes 3,Minnesota United 6, San Jose Earthquakes 4,Minnesota United 6, San Jose Earthquakes 5,Minnesota United 6, San Jose Earthquakes 6  ->  används inte (lagmarknad)
+  Minnesota United To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Correct Score 1st Half | units=Regular | kategori=Team Props | deltagare=Minnesota United 0, San Jose Earthquakes 0,Minnesota United 0, San Jose Earthquakes 1,Minnesota United 0, San Jose Earthquakes 2,Minnesota United 0, San Jose Earthquakes 3,Minnesota United 1, San Jose Earthquakes 0,Minnesota United 1, San Jose Earthquakes 1,Minnesota United 1, San Jose Earthquakes 2,Minnesota United 1, San Jose Earthquakes 3,Minnesota United 2, San Jose Earthquakes 0,Minnesota United 2, San Jose Earthquakes 1,Minnesota United 2, San Jose Earthquakes 2,Minnesota United 2, San Jose Earthquakes 3,Minnesota United 3, San Jose Earthquakes 0,Minnesota United 3, San Jose Earthquakes 1,Minnesota United 3, San Jose Earthquakes 2,Minnesota United 3, San Jose Earthquakes 3  ->  används inte (lagmarknad)
+  San Jose Earthquakes Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
+  3-Way Handicap Minnesota United -2 | units=Regular | kategori=Team Props | deltagare=Minnesota United (-2),Draw - (Minnesota United -2),San Jose Earthquakes (+2)  ->  används inte (lagmarknad)
+  Minnesota United To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  San Jose Earthquakes Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  Both Teams To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Minnesota United Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
+  San Jose Earthquakes Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
+  Total Goals Range 1st Half | units=Regular | kategori=Team Props | deltagare=0 - 1,2 - 3,4+  ->  används inte (lagmarknad)
+  Draw No Bet 1st Half | units=Regular | kategori=Team Props | deltagare=Minnesota United,San Jose Earthquakes  ->  används inte (lagmarknad)
+  Total Goals Odd/Even 1st Half | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  3-Way Handicap Minnesota United +1 | units=Regular | kategori=Team Props | deltagare=Minnesota United (+1),Draw - (Minnesota United +1),San Jose Earthquakes (-1)  ->  används inte (lagmarknad)
+  Both Teams To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Total Goals Range | units=Regular | kategori=Team Props | deltagare=0 - 1,2 - 3,4 - 6,7+  ->  används inte (lagmarknad)
+  Either Team To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Exact Total Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
+  First Team To Score 1st Half | units=1st Goal | kategori=Team Props | deltagare=Minnesota United,San Jose Earthquakes,Neither  ->  används inte (lagmarknad)
+  First Team To Score | units=1st Goal | kategori=Team Props | deltagare=Minnesota United,San Jose Earthquakes,Neither  ->  används inte (lagmarknad)
+  Minnesota United Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
+  San Jose Earthquakes To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Winning Margin 1st Half | units=Regular | kategori=Team Props | deltagare=Minnesota United By 1,Minnesota United By 2+,San Jose Earthquakes By 1,San Jose Earthquakes By 2+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
+  Both Teams To Score and Moneyline | units=Regular | kategori=Team Props | deltagare=Yes & Minnesota United,Yes & Draw,Yes & San Jose Earthquakes,No & Minnesota United,No & Draw,No & San Jose Earthquakes  ->  används inte (lagmarknad)
+  Odd/Even and Total Goals | units=Regular | kategori=Team Props | deltagare=Odd & Over 3.5,Odd & Under 3.5,Even & Over 3.5,Even & Under 3.5  ->  används inte (lagmarknad)
+  Minnesota United To Win To Nil | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  San Jose Earthquakes To Win To Nil | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  San Jose Earthquakes To Win To Nil 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Minnesota United To Win To Nil 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Both Teams To Score and Total Goals | units=Regular | kategori=Team Props | deltagare=Yes & Over 3.5,Yes & Under 3.5,No & Over 3.5,No & Under 3.5  ->  används inte (lagmarknad)
+  Double Chance 1st Half | units=Regular | kategori=Team Props | deltagare=San Diego FC Or Sporting Kansas City,Draw Or Sporting Kansas City,Draw Or San Diego FC  ->  används inte (lagmarknad)
+  Moneyline and Total Goals | units=Regular | kategori=Team Props | deltagare=San Diego FC & Over 4.5,San Diego FC & Under 4.5,Draw & Over 4.5,Draw & Under 4.5,Sporting Kansas City & Over 4.5,Sporting Kansas City & Under 4.5  ->  används inte (lagmarknad)
+  Double Chance | units=Regular | kategori=Team Props | deltagare=San Diego FC Or Sporting Kansas City,Draw Or Sporting Kansas City,Draw Or San Diego FC  ->  används inte (lagmarknad)
+  3-Way Handicap San Diego FC -1 | units=Regular | kategori=Team Props | deltagare=San Diego FC (-1),Draw - (San Diego FC -1),Sporting Kansas City (+1)  ->  används inte (lagmarknad)
+  Winning Margin | units=Regular | kategori=Team Props | deltagare=San Diego FC By 1,San Diego FC By 2,San Diego FC By 3,San Diego FC By 4+,Sporting Kansas City By 1,Sporting Kansas City By 2,Sporting Kansas City By 3,Sporting Kansas City By 4+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
+  San Diego FC Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  3-Way Handicap San Diego FC -3 | units=Regular | kategori=Team Props | deltagare=San Diego FC (-3),Draw - (San Diego FC -3),Sporting Kansas City (+3)  ->  används inte (lagmarknad)
+  Draw No Bet | units=Regular | kategori=Team Props | deltagare=San Diego FC,Sporting Kansas City  ->  används inte (lagmarknad)
+  Sporting Kansas City To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Correct Score | units=Regular | kategori=Team Props | deltagare=San Diego FC 0, Sporting Kansas City 0,San Diego FC 0, Sporting Kansas City 1,San Diego FC 0, Sporting Kansas City 2,San Diego FC 0, Sporting Kansas City 3,San Diego FC 0, Sporting Kansas City 4,San Diego FC 0, Sporting Kansas City 5,San Diego FC 0, Sporting Kansas City 6,San Diego FC 1, Sporting Kansas City 0,San Diego FC 1, Sporting Kansas City 1,San Diego FC 1, Sporting Kansas City 2,San Diego FC 1, Sporting Kansas City 3,San Diego FC 1, Sporting Kansas City 4,San Diego FC 1, Sporting Kansas City 5,San Diego FC 1, Sporting Kansas City 6,San Diego FC 2, Sporting Kansas City 0,San Diego FC 2, Sporting Kansas City 1,San Diego FC 2, Sporting Kansas City 2,San Diego FC 2, Sporting Kansas City 3,San Diego FC 2, Sporting Kansas City 4,San Diego FC 2, Sporting Kansas City 5,San Diego FC 2, Sporting Kansas City 6,San Diego FC 3, Sporting Kansas City 0,San Diego FC 3, Sporting Kansas City 1,San Diego FC 3, Sporting Kansas City 2,San Diego FC 3, Sporting Kansas City 3,San Diego FC 3, Sporting Kansas City 4,San Diego FC 3, Sporting Kansas City 5,San Diego FC 3, Sporting Kansas City 6,San Diego FC 4, Sporting Kansas City 0,San Diego FC 4, Sporting Kansas City 1,San Diego FC 4, Sporting Kansas City 2,San Diego FC 4, Sporting Kansas City 3,San Diego FC 4, Sporting Kansas City 4,San Diego FC 4, Sporting Kansas City 5,San Diego FC 4, Sporting Kansas City 6,San Diego FC 5, Sporting Kansas City 0,San Diego FC 5, Sporting Kansas City 1,San Diego FC 5, Sporting Kansas City 2,San Diego FC 5, Sporting Kansas City 3,San Diego FC 5, Sporting Kansas City 4,San Diego FC 5, Sporting Kansas City 5,San Diego FC 5, Sporting Kansas City 6,San Diego FC 6, Sporting Kansas City 0,San Diego FC 6, Sporting Kansas City 1,San Diego FC 6, Sporting Kansas City 2,San Diego FC 6, Sporting Kansas City 3,San Diego FC 6, Sporting Kansas City 4,San Diego FC 6, Sporting Kansas City 5,San Diego FC 6, Sporting Kansas City 6  ->  används inte (lagmarknad)
+  San Diego FC To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Correct Score 1st Half | units=Regular | kategori=Team Props | deltagare=San Diego FC 0, Sporting Kansas City 0,San Diego FC 0, Sporting Kansas City 1,San Diego FC 0, Sporting Kansas City 2,San Diego FC 0, Sporting Kansas City 3,San Diego FC 1, Sporting Kansas City 0,San Diego FC 1, Sporting Kansas City 1,San Diego FC 1, Sporting Kansas City 2,San Diego FC 1, Sporting Kansas City 3,San Diego FC 2, Sporting Kansas City 0,San Diego FC 2, Sporting Kansas City 1,San Diego FC 2, Sporting Kansas City 2,San Diego FC 2, Sporting Kansas City 3,San Diego FC 3, Sporting Kansas City 0,San Diego FC 3, Sporting Kansas City 1,San Diego FC 3, Sporting Kansas City 2,San Diego FC 3, Sporting Kansas City 3  ->  används inte (lagmarknad)
+  Sporting Kansas City Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
+  3-Way Handicap San Diego FC -2 | units=Regular | kategori=Team Props | deltagare=San Diego FC (-2),Draw - (San Diego FC -2),Sporting Kansas City (+2)  ->  används inte (lagmarknad)
+  San Diego FC To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Sporting Kansas City Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  San Diego FC Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
+  Sporting Kansas City Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
+Sides mindre ligor: 101 Kambi-matcher inom 12 h, 297 Pinnacle-matcher, 81 med Pinnacle, 81 matchade: Andorra / Primera Division, China / League Two, China / Super League, Colombia / Liga Dimayor, Costa Rica / Primera Division Costa Rica, Czech Republic / National Football League, Denmark / Elitedivisionen (W), El Salvador / Primera Divisíon, Guatemala / Liga Nacional Guatemala, Hong Kong / 1st Divi
+  Sides rättad: Chicago Fire – Columbus Crew 1X2: 1 -> förlorad (3–4)
+  Sides rättad: CD Platense – CD Cacahuatique handikapp -0.75 -> förlorad (0–2)
+  Sides rättad: Inter Miami CF – Charlotte FC 1X2: 1 -> förlorad (3–3)
+  Sides rättad: CD Platense – CD Cacahuatique under 3 -> vunnen (0–2)
+  Sides rättad: Juticalpa FC – Club Deportivo Estrella Roja över 3.5 -> förlorad (0–2)
+  Sides rättad: Inter Miami CF – Charlotte FC 1X2: 1 -> förlorad (3–3)
+  Sides rättad: CF Montréal – Vancouver Whitecaps 1X2: 1 -> förlorad (0–2)
+  Sides rättad: D.C. United – New York City FC 1X2: X -> förlorad (0–1)
+  Sides rättad: Orlando City – New England Revolution 1X2: 2 -> förlorad (1–0)
+  Sides rättad: Philadelphia Union – Toronto FC 1X2: 1 -> vunnen (4–1)
+  Sides rättad: Chicago Fire – Columbus Crew 1X2: 1 -> förlorad (3–4)
+  Sides rättad: FC Cincinnati – Nashville SC 1X2: 2 -> vunnen (0–2)
+Sides/totals: 120 matcher med Kambi + Pinnacle, 2263 linjer, 1 nya spel, 8 nya skuggspel, Smarkets-priser i 70 av 80; bästa edge +15.1% (Club Brugge 1X2: 2), +7.8% (Deportivo Toluca FC 1X2: 2), +6.8% (Tokyo Musashino City FC 1X2: 2)
 Fotboll extra bolag: 0 nya hämtningar, 0 odds i bruk, krediter kvar 399, dagsbudget 16 (andel 30%), förbrukat idag 4
-Tid: hämtning 578 s
-Marginal över alla matcher: uppmätt marginal: otillräckligt underlag i matchen
-Modellens nivåavvikelse mot marknaden (log-odds, dras bort): 
-Tid: modell och utvärdering 0 s
-Bolag med spelarodds: inga
-Spelarodds per marknad: 
-Kambi-marknader: 
+Tid: hämtning 610 s
+Marginal över alla matcher: uppmätt marginal: shots stege k=1.02 (7 spelare; marginal vid 3,00 ≈ 2%), shots_on_target stege k=1.18 (104 spelare; marginal vid 3,00 ≈ 22%)
+  Minnesota United FC – San Jose Earthquakes: modell – hittar inte matchen hos ESPN
+  San Diego FC – Sporting Kansas City: modell – hittar inte matchen hos ESPN
+  Seattle Sounders – Los Angeles FC: modell – hittar inte matchen hos ESPN
+  Real Salt Lake – Los Angeles Galaxy: modell – hittar inte matchen hos ESPN
+  Austin FC – Portland Timbers: modell – hittar inte matchen hos ESPN
+  FC Dallas – Colorado Rapids: modell – hittar inte matchen hos ESPN
+  Houston Dynamo – St. Louis City SC: modell – hittar inte matchen hos ESPN
+  Deportivo Toluca FC – CF Monterrey: modell – hittar inte matchen hos ESPN
+  Tigres UANL – Cruz Azul: modell – hittar inte matchen hos ESPN
+  Pumas UNAM – Club América: modell – hittar inte matchen hos ESPN
+  FC Copenhagen – Brøndby IF: modell den.1, 30 spelare
+  SC Heerenveen – Feyenoord: modell ned.1, 25 spelare
+  Napoli – Lazio: modell ita.1, 27 spelare
+  1. FC Magdeburg – FC St. Pauli: modell ger.2, 28 spelare
+  1. FC Heidenheim – Hannover 96: modell ger.2, 29 spelare
+  VfL Bochum – Karlsruher SC: modell ger.2, 28 spelare
+  Club Brugge – Anderlecht: modell bel.1, 29 spelare
+  Halmstads BK – Djurgårdens IF: modell swe.1, 28 spelare
+  IFK Göteborg – Malmö FF: modell swe.1, 26 spelare
+  Elche – Real Betis: modell esp.1, 30 spelare
+  FC Twente – Ajax: modell – hittar inte matchen hos ESPN
+  Tromsø – Bodø/Glimt: modell nor.1, 29 spelare
+  Sunderland – Chelsea: modell eng.1, 31 spelare
+  Brighton – Brentford: modell – hittar inte matchen hos ESPN
+  Crystal Palace – Liverpool: modell eng.1, 28 spelare
+  Ipswich Town – Bournemouth: modell eng.1, 27 spelare
+  Rennes – Lille: modell – hittar inte matchen hos ESPN
+  Genoa – AC Milan: modell ita.1, 31 spelare
+  Monza – Atalanta: modell ita.1, 32 spelare
+  1. FC Köln – Bayer Leverkusen: modell – hittar inte matchen hos ESPN
+  Randers FC – FC Nordsjælland: modell den.1, 30 spelare
+Modellens nivåavvikelse mot marknaden (log-odds, dras bort): goal -0.10, shots -0.70, shots_on_target -0.25
+  Minnesota United FC – San Jose Earthquakes: väntade mål Pinnacle 3.61 mot Kambi 3.60 (kvot 1.002); uppmätt marginal: goal k=1.20
+Exempel uppmätt marginal: goal k=1.20
+  San Diego FC – Sporting Kansas City: väntade mål Pinnacle 3.90 mot Kambi 3.91 (kvot 0.998); uppmätt marginal: goal k=1.30, assist k=1.22
+  Seattle Sounders – Los Angeles FC: väntade mål Pinnacle 3.38 mot Kambi 3.20 (kvot 1.055); uppmätt marginal: goal k=1.23, assist k=1.20
+  Real Salt Lake – Los Angeles Galaxy: väntade mål Pinnacle 3.66 mot Kambi 3.46 (kvot 1.057); uppmätt marginal: goal k=1.19, assist k=1.15
+  Austin FC – Portland Timbers: väntade mål Pinnacle 3.90 mot Kambi 3.67 (kvot 1.064); uppmätt marginal: goal k=1.07
+  FC Dallas – Colorado Rapids: väntade mål Pinnacle 2.97 mot Kambi 3.04 (kvot 0.978); uppmätt marginal: goal k=1.13, assist k=1.19
+  Houston Dynamo – St. Louis City SC: väntade mål Pinnacle 2.79 mot Kambi 2.99 (kvot 0.932); uppmätt marginal: goal k=1.20
+  Náutico-PE – CRB-AL: saknar matchlinjer från Pinnacle
+  Instituto – Newell's Old Boys: saknar matchlinjer från Pinnacle
+  Deportivo Toluca FC – CF Monterrey: väntade mål Pinnacle 3.38 mot Kambi 3.39 (kvot 0.998); uppmätt marginal: goal k=1.65, assist k=1.61
+  Tigres UANL – Cruz Azul: väntade mål Pinnacle 3.03 mot Kambi 2.91 (kvot 1.039); uppmätt marginal: goal k=1.52, assist k=1.35
+  Pumas UNAM – Club América: väntade mål Pinnacle 2.98 mot Kambi 3.19 (kvot 0.934); uppmätt marginal: goal k=1.56, assist k=1.47
+  Macarthur FC – Brisbane Roar: saknar matchlinjer från Pinnacle
+  Adelaide United – Melbourne Victory: saknar matchlinjer från Pinnacle
+  Çaykur Rizespor – Erzurumspor: saknar matchlinjer från Pinnacle
+  FC Copenhagen – Brøndby IF: väntade mål Pinnacle 2.85 mot Kambi 2.98 (kvot 0.958); uppmätt marginal: goal k=1.69, assist k=1.63
+  SC Heerenveen – Feyenoord: väntade mål Pinnacle 3.53 mot Kambi 3.63 (kvot 0.973); uppmätt marginal: goal k=1.62, assist k=1.60, shots stege k=1.02 (7 spelare; marginal vid 3,00 ≈ 2%)
+  Napoli – Lazio: väntade mål Pinnacle 3.04 mot Kambi 2.94 (kvot 1.031); uppmätt marginal: goal k=1.47, assist k=1.56
+  1. FC Magdeburg – FC St. Pauli: väntade mål Pinnacle 2.98 mot Kambi 3.14 (kvot 0.948); uppmätt marginal: goal k=1.57
+  1. FC Heidenheim – Hannover 96: väntade mål Pinnacle 3.37 mot Kambi 3.46 (kvot 0.972); uppmätt marginal: goal k=1.51
+  VfL Bochum – Karlsruher SC: väntade mål Pinnacle 3.16 mot Kambi 3.31 (kvot 0.956); uppmätt marginal: goal k=1.58
+  Club Brugge – Anderlecht: väntade mål Pinnacle 3.56 mot Kambi 3.52 (kvot 1.011); uppmätt marginal: goal k=1.48, assist k=1.35
+  FC Andorra – Mallorca: saknar matchlinjer från Pinnacle
+  AGF Aarhus – AC Horsens: saknar matchlinjer från Pinnacle
+  Halmstads BK – Djurgårdens IF: väntade mål Pinnacle 3.17 mot Kambi 3.28 (kvot 0.966); uppmätt marginal: goal k=1.62
+  IFK Göteborg – Malmö FF: väntade mål Pinnacle 2.95 mot Kambi 2.97 (kvot 0.995); uppmätt marginal: goal k=1.58
+  Çorum Belediyespor – Fenerbahçe: saknar matchlinjer från Pinnacle
+  Elche – Real Betis: väntade mål Pinnacle 3.01 mot Kambi 3.00 (kvot 1.005); uppmätt marginal: goal k=1.59, assist k=1.69
+  FC Twente – Ajax: väntade mål Pinnacle 3.43 mot Kambi 3.51 (kvot 0.975); uppmätt marginal: goal k=1.71, assist k=1.69, shots_on_target stege k=1.08 (7 spelare; marginal vid 3,00 ≈ 9%)
+  Tromsø – Bodø/Glimt: väntade mål Pinnacle 3.46 mot Kambi 3.70 (kvot 0.936); uppmätt marginal: goal k=1.50
+  Sunderland – Chelsea: väntade mål Pinnacle 2.80 mot Kambi 2.78 (kvot 1.009); uppmätt marginal: goal k=1.29, assist k=1.36, shots_on_target stege k=1.21 (12 spelare; marginal vid 3,00 ≈ 26%)
+  Brighton – Brentford: väntade mål Pinnacle 3.14 mot Kambi 3.16 (kvot 0.995); uppmätt marginal: goal k=1.33, assist k=1.50
+  Crystal Palace – Liverpool: väntade mål Pinnacle 3.18 mot Kambi 3.30 (kvot 0.965); uppmätt marginal: goal k=1.44, assist k=1.53, shots_on_target stege k=1.14 (6 spelare; marginal vid 3,00 ≈ 17%)
+  Ipswich Town – Bournemouth: väntade mål Pinnacle 2.90 mot Kambi 3.00 (kvot 0.968); uppmätt marginal: goal k=1.34, assist k=1.40, shots_on_target stege k=1.19 (12 spelare; marginal vid 3,00 ≈ 23%)
+  Rennes – Lille: väntade mål Pinnacle 2.92 mot Kambi 3.06 (kvot 0.955); uppmätt marginal: goal k=1.56, assist k=1.55, shots_on_target stege k=1.22 (7 spelare; marginal vid 3,00 ≈ 27%)
+  Genoa – AC Milan: väntade mål Pinnacle 2.44 mot Kambi 2.51 (kvot 0.975); uppmätt marginal: goal k=1.47, assist k=1.61, shots_on_target stege k=1.29 (14 spelare; marginal vid 3,00 ≈ 38%)
+  Monza – Atalanta: väntade mål Pinnacle 3.34 mot Kambi 3.20 (kvot 1.042); uppmätt marginal: goal k=1.51, assist k=1.61, shots_on_target stege k=1.10 (28 spelare; marginal vid 3,00 ≈ 12%)
+  1. FC Köln – Bayer Leverkusen: väntade mål Pinnacle 3.50 mot Kambi 3.41 (kvot 1.026); uppmätt marginal: goal k=1.48, assist k=1.53, shots_on_target stege k=1.15 (14 spelare; marginal vid 3,00 ≈ 18%)
+  Randers FC – FC Nordsjælland: väntade mål Pinnacle 3.43 mot Kambi 3.40 (kvot 1.007); uppmätt marginal: goal k=1.48, assist k=1.48
+Tid: modell och utvärdering 133 s
+Bolag med spelarodds: atg, betmgm, expekt, leovegas, paf, svenskaspel, unibet
+Spelarodds per marknad: assist 4381, goal 11955, shots 5034, shots_on_target 7209
+Kambi-marknader: assist='to give an assist (settled using opta data)':4381; goal='1st goalscorer':140; goal='to score':7805; goal='to score at least 2 goals':3471; goal='to score at least 3 goals':490; goal='to score at least 4 goals':49; shots="player's shots (settled using opta data)":5034; shots_on_target="player's shots on target (settled using opta data)":7209
 Pinnacle har inga spelarprops här – använder linjejustering mot Pinnacles matchlinjer.
 CLV-signal: 0 ben släppta (Pinnacle rör sig åt vårt håll)
 Startelvor: 0 spelbara ben klara, 0 väntar på startelvan, 0 stoppade (inte i startelvan)
 Spelregler: stoppade {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0} (modelltest {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0})
-Spelarmodell: 0 av 0 ben har modell, 0 nya matcher hämtade från ESPN
+Spelarmodell: 0 av 930 ben har modell, 0 nya matcher hämtade från ESPN
+Bästa edge marknad shots_on_target: +1.5%, +1.1%, +1.0% (av 845 ben)
+Bästa edge modelltest shots_on_target: +1.7%, +1.0%, +0.7% (av 426 ben)
 0 spelbara ben.
 Bokförda nya spel: 0
 Skuggspel: 0 nya bokförda (stoppade av reglerna, minst 2 % edge)
 Modelltest: 0 spelbara enligt modellen, 0 nya testspel bokförda
-Fouls (test): 0 ben med modell, 0 klarar kraven, 0 nya bokförda, bästa edge –, 0 nya ESPN-matcher, domare känd i 0 matcher
-Kort (test): 0 Kambi-odds, 0 ben med modell, 0 klarar kraven, 0 nya bokförda, bästa edge –, 0 nya ESPN-matcher
+Domare: 43 kommande matcher med utsedd domare (UEFA + football-data)
+Fouls (test): 332 ben med modell, 2 klarar kraven, 0 nya bokförda, bästa edge +12.1%, +6.4%, +5.5%, 0 nya ESPN-matcher, domare känd i 4 matcher
+Domare: 43 kommande matcher med utsedd domare (UEFA + football-data)
+Kort (test): 3298 Kambi-odds, 217 ben med modell, 6 klarar kraven, 0 nya bokförda, bästa edge +43.7%, +32.4%, +19.2%, 0 nya ESPN-matcher
 Parlays: 0 förslag, 0 nya bokförda
 Notiser skickade: 0
