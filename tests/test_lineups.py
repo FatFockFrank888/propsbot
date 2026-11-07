@@ -9,7 +9,7 @@ def test_gate():
     unpub = Lineup(False, [], ["Bukayo Saka", "Gabriel Jesus"])
     assert gate(pub, 70, S) is None                       # elvorna ute -> ok
     assert "startelvor" in gate(unpub, 70, S)             # inte ute än
-    assert "startelvor" in gate(None, 120, S)             # ESPN saknar matchen, långt kvar
+    assert gate(None, 120, S) is None                     # ESPN saknar matchen (mindre liga) -> bortse från elvan
     assert gate(None, 50, S) is None and gate(unpub, 40, S) is None   # tidsregeln
     assert gate(unpub, 300, {"lineup_required": False}) is None
 

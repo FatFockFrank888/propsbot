@@ -70,8 +70,10 @@ def gate(lu: Lineup | None, minutes_to_kickoff: float, s: dict) -> str | None:
     """Skäl att vänta, eller None om startelvorna är kända (eller tidsregeln uppfylld)."""
     if not s.get("lineup_required", True):
         return None
-    if lu is not None and lu.published:
+    if lu is None:
+        return None      # ingen källa för startelvan (ESPN saknar matchen, t.ex. mindre ligor) – bortse från den
+    if lu.published:
         return None
     if minutes_to_kickoff <= s.get("lineup_fallback_minutes", 55):
-        return None      # elvorna är normalt ute nu (ESPN saknar matchen eller har inte markerat dem än)
+        return None      # elvorna är normalt ute nu, ESPN har bara inte markerat dem än
     return "väntar på startelvor (släpps ca 1 h före avspark)"

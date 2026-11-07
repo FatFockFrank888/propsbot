@@ -263,7 +263,8 @@ def apply_lineups(root: Path, rows: list[ScanRow], data: list, settings: dict) -
         if not evd:
             continue
         mtk = (evd["commence_time"] - now) / 60
-        lu = lus.get(evd["id"], evd["home_team"], evd["away_team"], evd["commence_time"])             if mtk <= settings.get("lineup_lookup_minutes", 150) else None
+        # Startelvan används när den finns (ESPN har matchen); annars bortser vi från den.
+        lu = lus.get(evd["id"], evd["home_team"], evd["away_team"], evd["commence_time"])
         why = gate(lu, mtk, settings)
         if why:
             _block(d, why)

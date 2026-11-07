@@ -91,8 +91,9 @@ def all_params(settings_path: Path) -> dict:
          "1X2, mål över/under och asiatiskt handikapp – halvlinjer (x,5) och asiatiska linjer: hela (push = insatsen "
          "tillbaka) och kvarts (halva insatsen på var närliggande linje). 90 minuter + tillägg."),
         ("Startelvor (props)", "krävs" if s.get("lineup_required", True) else "av",
-         f"Props spelbara först när båda startelvorna är kända hos ESPN (ca 1 h före avspark), annars inom "
-         f"{s.get('lineup_fallback_minutes', 55)} min före avspark. Spelaren måste starta."),
+         f"Används när den finns: har ESPN matchen är props spelbara först när båda elvorna är kända (ca 1 h före "
+         f"avspark, senast {s.get('lineup_fallback_minutes', 55)} min före) och spelaren måste starta. Saknar ESPN matchen "
+         "(mindre ligor) bortser vi från startelvan."),
         ("Startelvor (sides/totals)", "väntar" if s.get("sides_lineup_gate", False) else "väntar inte",
          "Av sedan 7/11: Pinnacle prisar redan in laguppställningar och nyheter. Spärren stoppade 138 skuggspel som slog "
          "Pinnacles stängning med +2 pe i snitt. Startelvan syns ändå i loggen och sharp money-spärren gäller."),
