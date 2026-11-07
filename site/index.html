@@ -189,12 +189,12 @@
   <section id="topp" class="hidden">
     <div class="hero">
       <div><h2>🏆 <span>Topp 5 just nu</span></h2>
-        <div class="sub"><span class="pulse"></span>Alla botar och alla marknader, räknat om vid varje skanning. Bara spel som klarar alla regler.</div></div>
+        <div class="sub"><span class="pulse"></span>Alla botar och alla marknader, räknat om vid varje skanning. Bara LIVE-spel – spel som klarar LIVE-reglerna och ska spelas.</div></div>
       <div class="sub" id="toppMeta"></div>
     </div>
     <div class="tgrid" id="toppCards"></div>
     <div class="subh"><h3>🫧 På bubblan – reserver</h3>
-      <span class="sub">Klarar också alla regler. Ta dem om något i topp 5 rasar i odds innan du hunnit lägga spelet.</span></div>
+      <span class="sub">Också LIVE-spel. Ta dem om något i topp 5 rasar i odds innan du hunnit lägga spelet.</span></div>
     <div class="tgrid" id="toppBub"></div>
     <div class="sub" style="margin-top:18px"><b>Styrka</b> (ringen) = edge (högst 15) + halva modellens edge (högst 15) + sharp money
       (+1 med oss, −2 mot oss) + 1 för LIVE-spel. Edge över 15 % räknas som misstänkt och dras ner.
@@ -323,7 +323,8 @@ const MK = {shots: "Skott", shots_on_target: "Skott på mål", goal: "Mål", ass
   pra: "PRA", pr: "Poäng + returer", ra: "Returer + assist",
   sog: "Skott på mål", nhl_points: "Poäng", nhl_assists: "Assist", nhl_goals: "Mål",
   nhl_pp_points: "Power play-poäng", nhl_pp_goals: "Power play-mål",
-  "1x2": "1X2", total: "Mål totalt", ah: "Asiatiskt handikapp", corners: "Hörnor"};
+  "1x2": "1X2", total: "Mål totalt", ah: "Asiatiskt handikapp", corners: "Hörnor",
+  cah: "Hörnhandikapp", corners_home: "Hörnor hemmalag", corners_away: "Hörnor bortalag"};
 const spel = (m, l, side) => {
   if (m === "cards") return side === "under" ? "får inget kort" : "får kort";
   if ((m === "goal" || m === "nhl_goals") && l === 0.5 && side !== "under") return "gör mål";
@@ -519,7 +520,8 @@ function renderTopp() {
   let rs = [];
   for (const s of sel()) (D[s]?.radar || []).forEach(r => {
     const ts = utcTs(r.avspark);
-    if (r.spelbar && ts > now + 60) rs.push({...r, sport: s, ts, mkName: MK[r.marknad] || r.marknad});
+    // Bara LIVE-spel: Topp 5 är spel vi faktiskt spelar (klarar LIVE-reglerna), inte dataspel.
+    if (r.spelbar && r.live && ts > now + 60) rs.push({...r, sport: s, ts, mkName: MK[r.marknad] || r.marknad});
   });
   rs.forEach(r => {
     r.t = toppScore(r);
@@ -527,7 +529,7 @@ function renderTopp() {
     const lb = ALL.find(b => b.typ === "Live" && b.status === "öppen" && b.sport === r.sport && b.spelare === r.spelare);
     r.liveBet = !!lb;
     // Samma tak som LIVE: 5u (fotbollsprops 2u, sides 3u) – data-spel ska inte se större ut än LIVE.
-    const cap = r.sport === "fotboll" && ["1x2", "total", "ah", "corners"].includes(r.marknad) && !r.live ? 3 : 5;
+    const cap = r.sport === "fotboll" && ["1x2", "total", "ah", "corners", "cah", "corners_home", "corners_away"].includes(r.marknad) && !r.live ? 3 : 5;
     r.units = lb ? Math.round(lb.u) : Math.min(cap, Math.max(0, Math.round((r.insats_pct || r.insats_forslag || 0) / U)));
   });
   rs.sort((a, b) => b.t.score - a.t.score);
@@ -535,9 +537,9 @@ function renderTopp() {
   for (const r of rs) { const k = `${r.sport}|${r.match}|${r.spelare}`; if (!seen.has(k)) { seen.add(k); pick.push(r); } }
   const top = pick.slice(0, 5), bub = pick.slice(5, 8);
   document.getElementById("toppCards").innerHTML = top.map((r, i) => toppCard(r, i, false)).join("")
-    || `<div class="empty">Inget spel klarar alla regler just nu. Sidan uppdateras själv varannan minut.</div>`;
+    || `<div class="empty">Inga LIVE-spel just nu. Sidan uppdateras själv varannan minut.</div>`;
   document.getElementById("toppBub").innerHTML = bub.map((r, i) => toppCard(r, i, true)).join("")
-    || `<div class="empty">Inga reserver just nu – bara ${pick.length} spel klarar alla regler.</div>`;
+    || `<div class="empty">Inga reserver just nu – bara ${pick.length} LIVE-spel.</div>`;
   const ages = sel().map(s => D[s]?.uppdaterad_ts).filter(Boolean);
   document.getElementById("toppMeta").innerHTML = `${pick.length} spelbara just nu` +
     (ages.length ? ` · senaste skanning för ${Math.round((now - Math.max(...ages)) / 60)} min sedan` : "");
