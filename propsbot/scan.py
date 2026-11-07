@@ -116,7 +116,8 @@ DEFAULT_SETTINGS = {
     "lineup_required": True, "lineup_fallback_minutes": 55, "lineup_lookup_minutes": 150,
     "sides_low_limit": 2000, "sides_low_limit_extra_edge": 0.01,
     # Mindre ligor/lägre divisioner (bara sides): Kambis övriga fotbollsmatcher inom 3 h (ej esport).
-    "sides_extra_leagues": True, "sides_extra_hours": 3, "sides_extra_max_events": 60,
+    "sides_extra_leagues": True, "sides_extra_hours": 12, "sides_extra_max_events": 150,
+    "sides_extra_books": 2,
     "sides_enabled": True,
     "sides_live": False,
     "sides_markets": ["1x2", "total", "ah", "corners", "cah", "corners_home", "corners_away"],

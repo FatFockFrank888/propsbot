@@ -419,7 +419,7 @@ def extra_events(settings: dict, diag, cache_dir: Path, known: set[str]) -> list
     first = next(iter(offerings))
     evs, _raw = kambi.football_events(first, hours, [])
     evs = [e for e in evs if f"k{e.event_id}" not in known and not any(w in e.league.lower() for w in ESPORT)]
-    evs = sorted(evs, key=lambda e: e.start)[: settings.get("sides_extra_max_events", 60)]
+    evs = sorted(evs, key=lambda e: e.start)
     if not evs:
         diag.log("Sides mindre ligor: inga matcher inom tidsfönstret")
         return []
@@ -442,14 +442,19 @@ def extra_events(settings: dict, diag, cache_dir: Path, known: set[str]) -> list
             continue
         if "home" in parts and "away" in parts and now < st < now + (hours + 1) * 3600:
             pins.append((int(m["id"]), parts["home"], parts["away"], st, (m.get("league") or {}).get("name", "")))
-    out = []
+    # Matcha mot Pinnacle först (gratis), hämta sedan Kambi bara för matchade – fokus på mindre ligor.
+    matched = []
     for ev in evs:
         pm = next((p for p in pins if same_match(ev.home, ev.away, ev.start, p[1], p[2], p[3])), None)
-        if not pm:
-            continue
-        pin = pinnacle_main(mks, pm[0])
-        if not pin:
-            continue
+        if pm:
+            pin = pinnacle_main(mks, pm[0])
+            if pin:
+                matched.append((ev, pin))
+    matched = matched[: settings.get("sides_extra_max_events", 150)]
+    # Kambi-bolagen delar oftast pris: i mindre ligor räcker sides_extra_books bolag (sparar anrop).
+    offerings = dict(list(offerings.items())[: settings.get("sides_extra_books", 2)])
+    out = []
+    for ev, pin in matched:
         evd = {"id": f"k{ev.event_id}", "home_team": ev.home, "away_team": ev.away,
                "commence_time": ev.start, "league": ev.league, "extra": True, "pin_main": pin, "kambi_main": {}}
         for code, book in offerings.items():
@@ -461,7 +466,7 @@ def extra_events(settings: dict, diag, cache_dir: Path, known: set[str]) -> list
                 evd["kambi_main"][book] = kambi_main(raw, ev.home, ev.away)
         if evd["kambi_main"]:
             out.append((evd, [], {}))
-    diag.log(f"Sides mindre ligor: {len(evs)} Kambi-matcher inom {hours} h, {len(pins)} Pinnacle-matcher, "
+    diag.log(f"Sides mindre ligor: {len(evs)} Kambi-matcher inom {hours} h, {len(pins)} Pinnacle-matcher, {len(matched)} med Pinnacle, "
              f"{len(out)} matchade: " + ", ".join(sorted({e['league'].replace('Football / ', '') for e, _, _ in out}))[:300])
     return out
 
@@ -498,7 +503,8 @@ def run(root: Path, data: list, settings: dict, diag, notify: bool = True) -> di
     if s.get("sides_smarkets", True):
         from .sources.smarkets import SmarketsPublic
         smk_src = SmarketsPublic(JsonClient(root / ".cache_odds", ttl_s=90, min_interval_s=s.get("smarkets_interval_s", 1.0)))
-    for evd, _q, _n in data:
+    # Mindre ligor först: där är Kambi oftast felsatt, och Smarkets-anropen (begränsat antal) går dit först.
+    for evd, _q, _n in sorted(data, key=lambda t: (not t[0].get("extra"), t[0].get("commence_time", 0))):
         km, pm = evd.get("kambi_main"), evd.get("pin_main")
         if not km or not pm:
             continue

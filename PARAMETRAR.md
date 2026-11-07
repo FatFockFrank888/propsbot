@@ -50,7 +50,7 @@ Genereras från de värden boten använder (`python -m propsbot parametrar`).
 | Sides/totals: högsta edge | 10 % | Större edge mot Pinnacle = nästan alltid gammal linje, nyhet (uppställning/skada) eller fel match. Bokförs som skugga. |
 | Sides/totals: oddsram | 1,40–6,00 | Bredare än props uppåt så att oavgjort och små skrällar kommer med. |
 | Sides/totals: Pinnacles insatsgräns | minst 500; under 2000 krävs +1 % edge | Gränsen visar hur skarp Pinnacles linje är. Låg gräns (ofta lägre divisioner) = svagare referens -> högre krav. |
-| Sides/totals: mindre ligor | på – alla Kambi-ligor (ej esport) inom 3 h före avspark, max 60 matcher | Lägre divisioner och mindre ligor har oftare felsatta linjer. Bara huvudmarknaderna hämtas (snabbt). Rättas mot ESPN:s samlade resultattavla. |
+| Sides/totals: mindre ligor | på – alla Kambi-ligor (ej esport) inom 12 h före avspark, max 150 matcher | Lägre divisioner och mindre ligor har oftare felsatta linjer. Bara huvudmarknaderna hämtas (snabbt). Rättas mot ESPN:s samlade resultattavla. |
 | Sides/totals: övrigt | max oddsfall 3 %, sharp money mot oss 2 pe, ett spel per match, inom 24 h före avspark, max 3u | Samma spärrar som övriga sporter. Rättas mot ESPN:s slutresultat. |
 
 ## NBA
