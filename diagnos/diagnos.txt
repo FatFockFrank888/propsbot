@@ -1,4 +1,4 @@
-Skanning 2026-11-07 09:27
+Skanning 2026-11-07 09:47
 Kambi unibet (ubse): OK, 116 matcher i valda ligor
 Kambi paf (paf): OK
 Kambi atg (atg): OK
@@ -7,7 +7,7 @@ Kambi svenskaspel (svenskaspel): OK
 Kambi expekt (expektse): OK
 Kambi betmgm (betmgmse): OK
 Pinnacle: OK, 25 ligor
-  Vaduz – FC Sion: Pinnacle FEL HTTP 403 för https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639737245/related
+  1. FC Nürnberg – Darmstadt 98: Pinnacle FEL HTTP 403 för https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639564585/related
 Pinnacle: 162 matcher, matchlinjer för 43 av 60 Kambi-matcher, 0 spelarodds som används
 Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
   3-Way Handicap Osnabruck -1 | units=Regular | kategori=Team Props | deltagare=Osnabruck (-1),Draw - (Osnabruck -1),Kaiserslautern (+1)  ->  används inte (lagmarknad)
@@ -44,40 +44,38 @@ Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
   Osnabruck Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
   Kaiserslautern To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
   Winning Margin 1st Half | units=Regular | kategori=Team Props | deltagare=Osnabruck By 1,Osnabruck By 2+,Kaiserslautern By 1,Kaiserslautern By 2+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
-  3-Way Handicap Nurnberg -1 | units=Regular | kategori=Team Props | deltagare=Nurnberg (-1),Draw - (Nurnberg -1),Darmstadt (+1)  ->  används inte (lagmarknad)
-  Winning Margin | units=Regular | kategori=Team Props | deltagare=Nurnberg By 1,Nurnberg By 2,Nurnberg By 3,Nurnberg By 4+,Darmstadt By 1,Darmstadt By 2,Darmstadt By 3,Darmstadt By 4+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
-  Nurnberg Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
-  3-Way Handicap Nurnberg -3 | units=Regular | kategori=Team Props | deltagare=Nurnberg (-3),Draw - (Nurnberg -3),Darmstadt (+3)  ->  används inte (lagmarknad)
-  Draw No Bet | units=Regular | kategori=Team Props | deltagare=Nurnberg,Darmstadt  ->  används inte (lagmarknad)
-  Darmstadt To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Correct Score | units=Regular | kategori=Team Props | deltagare=Nurnberg 0, Darmstadt 0,Nurnberg 0, Darmstadt 1,Nurnberg 0, Darmstadt 2,Nurnberg 0, Darmstadt 3,Nurnberg 0, Darmstadt 4,Nurnberg 0, Darmstadt 5,Nurnberg 0, Darmstadt 6,Nurnberg 1, Darmstadt 0,Nurnberg 1, Darmstadt 1,Nurnberg 1, Darmstadt 2,Nurnberg 1, Darmstadt 3,Nurnberg 1, Darmstadt 4,Nurnberg 1, Darmstadt 5,Nurnberg 1, Darmstadt 6,Nurnberg 2, Darmstadt 0,Nurnberg 2, Darmstadt 1,Nurnberg 2, Darmstadt 2,Nurnberg 2, Darmstadt 3,Nurnberg 2, Darmstadt 4,Nurnberg 2, Darmstadt 5,Nurnberg 2, Darmstadt 6,Nurnberg 3, Darmstadt 0,Nurnberg 3, Darmstadt 1,Nurnberg 3, Darmstadt 2,Nurnberg 3, Darmstadt 3,Nurnberg 3, Darmstadt 4,Nurnberg 3, Darmstadt 5,Nurnberg 3, Darmstadt 6,Nurnberg 4, Darmstadt 0,Nurnberg 4, Darmstadt 1,Nurnberg 4, Darmstadt 2,Nurnberg 4, Darmstadt 3,Nurnberg 4, Darmstadt 4,Nurnberg 4, Darmstadt 5,Nurnberg 4, Darmstadt 6,Nurnberg 5, Darmstadt 0,Nurnberg 5, Darmstadt 1,Nurnberg 5, Darmstadt 2,Nurnberg 5, Darmstadt 3,Nurnberg 5, Darmstadt 4,Nurnberg 5, Darmstadt 5,Nurnberg 5, Darmstadt 6,Nurnberg 6, Darmstadt 0,Nurnberg 6, Darmstadt 1,Nurnberg 6, Darmstadt 2,Nurnberg 6, Darmstadt 3,Nurnberg 6, Darmstadt 4,Nurnberg 6, Darmstadt 5,Nurnberg 6, Darmstadt 6  ->  används inte (lagmarknad)
-  Nurnberg To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Correct Score 1st Half | units=Regular | kategori=Team Props | deltagare=Nurnberg 0, Darmstadt 0,Nurnberg 0, Darmstadt 1,Nurnberg 0, Darmstadt 2,Nurnberg 0, Darmstadt 3,Nurnberg 1, Darmstadt 0,Nurnberg 1, Darmstadt 1,Nurnberg 1, Darmstadt 2,Nurnberg 1, Darmstadt 3,Nurnberg 2, Darmstadt 0,Nurnberg 2, Darmstadt 1,Nurnberg 2, Darmstadt 2,Nurnberg 2, Darmstadt 3,Nurnberg 3, Darmstadt 0,Nurnberg 3, Darmstadt 1,Nurnberg 3, Darmstadt 2,Nurnberg 3, Darmstadt 3  ->  används inte (lagmarknad)
-  3-Way Handicap Nurnberg +2 | units=Regular | kategori=Team Props | deltagare=Nurnberg (+2),Draw - (Nurnberg +2),Darmstadt (-2)  ->  används inte (lagmarknad)
-  Darmstadt Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
-  3-Way Handicap Nurnberg -2 | units=Regular | kategori=Team Props | deltagare=Nurnberg (-2),Draw - (Nurnberg -2),Darmstadt (+2)  ->  används inte (lagmarknad)
-  Nurnberg To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Darmstadt Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
-  Nurnberg Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
-  Darmstadt Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
-  Draw No Bet 1st Half | units=Regular | kategori=Team Props | deltagare=Nurnberg,Darmstadt  ->  används inte (lagmarknad)
-  3-Way Handicap Nurnberg +1 | units=Regular | kategori=Team Props | deltagare=Nurnberg (+1),Draw - (Nurnberg +1),Darmstadt (-1)  ->  används inte (lagmarknad)
-  3-Way Handicap Nurnberg -4 | units=Regular | kategori=Team Props | deltagare=Nurnberg (-4),Draw - (Nurnberg -4),Darmstadt (+4)  ->  används inte (lagmarknad)
-  First Team To Score 1st Half | units=1st Goal | kategori=Team Props | deltagare=Nurnberg,Darmstadt,Neither  ->  används inte (lagmarknad)
-  First Team To Score | units=1st Goal | kategori=Team Props | deltagare=Nurnberg,Darmstadt,Neither  ->  används inte (lagmarknad)
-  Nurnberg Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
-  Darmstadt To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Winning Margin 1st Half | units=Regular | kategori=Team Props | deltagare=Nurnberg By 1,Nurnberg By 2+,Darmstadt By 1,Darmstadt By 2+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
   3-Way Handicap Holstein Kiel -1 | units=Regular | kategori=Team Props | deltagare=Holstein Kiel (-1),Draw - (Holstein Kiel -1),Arminia Bielefeld (+1)  ->  används inte (lagmarknad)
   Winning Margin | units=Regular | kategori=Team Props | deltagare=Holstein Kiel By 1,Holstein Kiel By 2,Holstein Kiel By 3,Holstein Kiel By 4+,Arminia Bielefeld By 1,Arminia Bielefeld By 2,Arminia Bielefeld By 3,Arminia Bielefeld By 4+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
-Sides mindre ligor: 60 Kambi-matcher inom 3 h, 396 Pinnacle-matcher, 48 matchade: Armenia / Premier League, Bulgaria / PFL 1, Czech Republic / ČFL, Denmark / Elitedivisionen (W), Estonia / Premium Liiga, India / Super League, Lithuania / 1 Lyga, Norway / Toppserien (W), Poland / Ekstraklasa, Poland / Ekstraklasa (W), Poland / II Liga, Poland / III Liga, Portugal / Liga 2, Romania
-  Sides rättad: Kashiwa Reysol – Kawasaki Frontale 1X2: 1 -> vunnen (2–1)
-Sides/totals: 91 matcher med Kambi + Pinnacle, 1479 linjer, 0 nya spel, 5 nya skuggspel, startelvor kända i 0; bästa edge +11.4% (Piteå IF (W) 1X2: 1), +11.1% (FK Tauras Tauragė 1X2: 2), +8.2% (Wisla Krakow II 1X2: 2)
+  Holstein Kiel Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  3-Way Handicap Holstein Kiel -3 | units=Regular | kategori=Team Props | deltagare=Holstein Kiel (-3),Draw - (Holstein Kiel -3),Arminia Bielefeld (+3)  ->  används inte (lagmarknad)
+  Draw No Bet | units=Regular | kategori=Team Props | deltagare=Holstein Kiel,Arminia Bielefeld  ->  används inte (lagmarknad)
+  3-Way Handicap Holstein Kiel +3 | units=Regular | kategori=Team Props | deltagare=Holstein Kiel (+3),Draw - (Holstein Kiel +3),Arminia Bielefeld (-3)  ->  används inte (lagmarknad)
+  Arminia Bielefeld To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Correct Score | units=Regular | kategori=Team Props | deltagare=Holstein Kiel 0, Arminia Bielefeld 0,Holstein Kiel 0, Arminia Bielefeld 1,Holstein Kiel 0, Arminia Bielefeld 2,Holstein Kiel 0, Arminia Bielefeld 3,Holstein Kiel 0, Arminia Bielefeld 4,Holstein Kiel 0, Arminia Bielefeld 5,Holstein Kiel 0, Arminia Bielefeld 6,Holstein Kiel 1, Arminia Bielefeld 0,Holstein Kiel 1, Arminia Bielefeld 1,Holstein Kiel 1, Arminia Bielefeld 2,Holstein Kiel 1, Arminia Bielefeld 3,Holstein Kiel 1, Arminia Bielefeld 4,Holstein Kiel 1, Arminia Bielefeld 5,Holstein Kiel 1, Arminia Bielefeld 6,Holstein Kiel 2, Arminia Bielefeld 0,Holstein Kiel 2, Arminia Bielefeld 1,Holstein Kiel 2, Arminia Bielefeld 2,Holstein Kiel 2, Arminia Bielefeld 3,Holstein Kiel 2, Arminia Bielefeld 4,Holstein Kiel 2, Arminia Bielefeld 5,Holstein Kiel 2, Arminia Bielefeld 6,Holstein Kiel 3, Arminia Bielefeld 0,Holstein Kiel 3, Arminia Bielefeld 1,Holstein Kiel 3, Arminia Bielefeld 2,Holstein Kiel 3, Arminia Bielefeld 3,Holstein Kiel 3, Arminia Bielefeld 4,Holstein Kiel 3, Arminia Bielefeld 5,Holstein Kiel 3, Arminia Bielefeld 6,Holstein Kiel 4, Arminia Bielefeld 0,Holstein Kiel 4, Arminia Bielefeld 1,Holstein Kiel 4, Arminia Bielefeld 2,Holstein Kiel 4, Arminia Bielefeld 3,Holstein Kiel 4, Arminia Bielefeld 4,Holstein Kiel 4, Arminia Bielefeld 5,Holstein Kiel 4, Arminia Bielefeld 6,Holstein Kiel 5, Arminia Bielefeld 0,Holstein Kiel 5, Arminia Bielefeld 1,Holstein Kiel 5, Arminia Bielefeld 2,Holstein Kiel 5, Arminia Bielefeld 3,Holstein Kiel 5, Arminia Bielefeld 4,Holstein Kiel 5, Arminia Bielefeld 5,Holstein Kiel 5, Arminia Bielefeld 6,Holstein Kiel 6, Arminia Bielefeld 0,Holstein Kiel 6, Arminia Bielefeld 1,Holstein Kiel 6, Arminia Bielefeld 2,Holstein Kiel 6, Arminia Bielefeld 3,Holstein Kiel 6, Arminia Bielefeld 4,Holstein Kiel 6, Arminia Bielefeld 5,Holstein Kiel 6, Arminia Bielefeld 6  ->  används inte (lagmarknad)
+  Holstein Kiel To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Correct Score 1st Half | units=Regular | kategori=Team Props | deltagare=Holstein Kiel 0, Arminia Bielefeld 0,Holstein Kiel 0, Arminia Bielefeld 1,Holstein Kiel 0, Arminia Bielefeld 2,Holstein Kiel 0, Arminia Bielefeld 3,Holstein Kiel 1, Arminia Bielefeld 0,Holstein Kiel 1, Arminia Bielefeld 1,Holstein Kiel 1, Arminia Bielefeld 2,Holstein Kiel 1, Arminia Bielefeld 3,Holstein Kiel 2, Arminia Bielefeld 0,Holstein Kiel 2, Arminia Bielefeld 1,Holstein Kiel 2, Arminia Bielefeld 2,Holstein Kiel 2, Arminia Bielefeld 3,Holstein Kiel 3, Arminia Bielefeld 0,Holstein Kiel 3, Arminia Bielefeld 1,Holstein Kiel 3, Arminia Bielefeld 2,Holstein Kiel 3, Arminia Bielefeld 3  ->  används inte (lagmarknad)
+  3-Way Handicap Holstein Kiel +2 | units=Regular | kategori=Team Props | deltagare=Holstein Kiel (+2),Draw - (Holstein Kiel +2),Arminia Bielefeld (-2)  ->  används inte (lagmarknad)
+  Arminia Bielefeld Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
+  3-Way Handicap Holstein Kiel -2 | units=Regular | kategori=Team Props | deltagare=Holstein Kiel (-2),Draw - (Holstein Kiel -2),Arminia Bielefeld (+2)  ->  används inte (lagmarknad)
+  Holstein Kiel To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Arminia Bielefeld Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  Holstein Kiel Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
+  Arminia Bielefeld Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
+  Draw No Bet 1st Half | units=Regular | kategori=Team Props | deltagare=Holstein Kiel,Arminia Bielefeld  ->  används inte (lagmarknad)
+  3-Way Handicap Holstein Kiel +1 | units=Regular | kategori=Team Props | deltagare=Holstein Kiel (+1),Draw - (Holstein Kiel +1),Arminia Bielefeld (-1)  ->  används inte (lagmarknad)
+  First Team To Score 1st Half | units=1st Goal | kategori=Team Props | deltagare=Holstein Kiel,Arminia Bielefeld,Neither  ->  används inte (lagmarknad)
+  First Team To Score | units=1st Goal | kategori=Team Props | deltagare=Holstein Kiel,Arminia Bielefeld,Neither  ->  används inte (lagmarknad)
+  Holstein Kiel Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
+  Arminia Bielefeld To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Winning Margin 1st Half | units=Regular | kategori=Team Props | deltagare=Holstein Kiel By 1,Holstein Kiel By 2+,Arminia Bielefeld By 1,Arminia Bielefeld By 2+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
+  Double Chance 1st Half | units=Regular | kategori=Team Props | deltagare=Leeds United Or Tottenham Hotspur,Draw Or Tottenham Hotspur,Draw Or Leeds United  ->  används inte (lagmarknad)
+  Moneyline and Total Goals | units=Regular | kategori=Team Props | deltagare=Leeds United & Over 2.5,Leeds United & Under 2.5,Draw & Over 2.5,Draw & Under 2.5,Tottenham Hotspur & Over 2.5,Tottenham Hotspur & Under 2.5  ->  används inte (lagmarknad)
+Sides mindre ligor: 60 Kambi-matcher inom 3 h, 405 Pinnacle-matcher, 49 matchade: Armenia / Premier League, Bulgaria / PFL 1, Czech Republic / ČFL, Denmark / Elitedivisionen (W), Estonia / Premium Liiga, Hungary / NB 2, India / Super League, Lithuania / 1 Lyga, Norway / Toppserien (W), Poland / Ekstraklasa, Poland / Ekstraklasa (W), Poland / II Liga, Poland / III Liga, Portugal /
+Sides/totals: 92 matcher med Kambi + Pinnacle, 1494 linjer, 0 nya spel, 3 nya skuggspel, startelvor kända i 0; bästa edge +11.4% (Piteå IF (W) 1X2: 1), +11.1% (FK Tauras Tauragė 1X2: 2), +8.2% (Wisla Krakow II 1X2: 2)
 Fotboll extra bolag: 0 nya hämtningar, 589 odds i bruk, krediter kvar 403, dagsbudget 16 (andel 30%), förbrukat idag 4
-Tid: hämtning 430 s
-Marginal över alla matcher: uppmätt marginal: shots_on_target stege k=1.16 (82 spelare; marginal vid 3,00 ≈ 19%)
+Tid: hämtning 428 s
+Marginal över alla matcher: uppmätt marginal: shots_on_target stege k=1.18 (82 spelare; marginal vid 3,00 ≈ 22%)
   VfL Osnabrück – 1. FC Kaiserslautern: modell ger.2, 30 spelare
-  1. FC Nürnberg – Darmstadt 98: modell ger.2, 28 spelare
   Holstein Kiel – Arminia Bielefeld: modell ger.2, 26 spelare
   Leeds United – Tottenham: modell eng.1, 29 spelare
   Portsmouth – Stoke City: modell eng.2, 29 spelare
@@ -108,35 +106,35 @@ Marginal över alla matcher: uppmätt marginal: shots_on_target stege k=1.16 (82
   Parma – Bologna: modell ita.1, 27 spelare
   Rosenborg – Start: modell nor.1, 27 spelare
   OH Leuven – KV Mechelen: modell bel.1, 29 spelare
-Modellens nivåavvikelse mot marknaden (log-odds, dras bort): assist -0.57, goal -0.16, shots -0.59, shots_on_target -0.30
+Modellens nivåavvikelse mot marknaden (log-odds, dras bort): assist -0.57, goal -0.16, shots -0.59, shots_on_target -0.27
   Eyüpspor – Kocaelispor: saknar matchlinjer från Pinnacle
   Perth Glory – Newcastle Jets FC: saknar matchlinjer från Pinnacle
   VfL Osnabrück – 1. FC Kaiserslautern: väntade mål Pinnacle 2.89 mot Kambi 3.02 (kvot 0.959); uppmätt marginal: goal k=1.67
 Exempel uppmätt marginal: goal k=1.67
-  1. FC Nürnberg – Darmstadt 98: väntade mål Pinnacle 3.26 mot Kambi 3.35 (kvot 0.975); uppmätt marginal: goal k=1.70
-  Holstein Kiel – Arminia Bielefeld: väntade mål Pinnacle 2.71 mot Kambi 2.83 (kvot 0.960); uppmätt marginal: goal k=1.58
-  Leeds United – Tottenham: väntade mål Pinnacle 2.73 mot Kambi 2.61 (kvot 1.044); uppmätt marginal: goal k=1.30, assist k=1.36, shots_on_target stege k=1.16 (6 spelare; marginal vid 3,00 ≈ 19%)
-  Portsmouth – Stoke City: väntade mål Pinnacle 2.38 mot Kambi 2.52 (kvot 0.946); uppmätt marginal: goal k=1.57, assist k=1.49
+  1. FC Nürnberg – Darmstadt 98: saknar matchlinjer från Pinnacle
+  Holstein Kiel – Arminia Bielefeld: väntade mål Pinnacle 2.68 mot Kambi 2.83 (kvot 0.950); uppmätt marginal: goal k=1.59
+  Leeds United – Tottenham: väntade mål Pinnacle 2.67 mot Kambi 2.61 (kvot 1.024); uppmätt marginal: goal k=1.31, assist k=1.38, shots_on_target stege k=1.16 (6 spelare; marginal vid 3,00 ≈ 19%)
+  Portsmouth – Stoke City: väntade mål Pinnacle 2.36 mot Kambi 2.52 (kvot 0.938); uppmätt marginal: goal k=1.58, assist k=1.49
   Wrexham – Wolves: saknar matchlinjer från Pinnacle
-  Bristol City – Norwich City: väntade mål Pinnacle 2.75 mot Kambi 2.92 (kvot 0.941); uppmätt marginal: goal k=1.67, assist k=1.60
+  Bristol City – Norwich City: väntade mål Pinnacle 2.70 mot Kambi 2.80 (kvot 0.964); uppmätt marginal: goal k=1.66, assist k=1.57
   Samsunspor – Konyaspor: saknar matchlinjer från Pinnacle
   Burgos – Celta Vigo B: saknar matchlinjer från Pinnacle
-  Málaga – Racing Santander: väntade mål Pinnacle 2.93 mot Kambi 3.03 (kvot 0.968); uppmätt marginal: goal k=1.54, assist k=1.67
-  Torino – Lecce: väntade mål Pinnacle 2.72 mot Kambi 2.59 (kvot 1.052); uppmätt marginal: goal k=1.49, assist k=1.63, shots_on_target stege k=1.14 (7 spelare; marginal vid 3,00 ≈ 17%)
-  Cagliari – Frosinone: väntade mål Pinnacle 3.42 mot Kambi 3.24 (kvot 1.056); uppmätt marginal: goal k=1.42, assist k=1.56, shots_on_target stege k=1.14 (28 spelare; marginal vid 3,00 ≈ 17%)
-  Borussia Dortmund – Elversberg: väntade mål Pinnacle 3.64 mot Kambi 3.70 (kvot 0.983); uppmätt marginal: goal k=1.59, assist k=1.63
-  RB Leipzig – FC Augsburg: väntade mål Pinnacle 4.09 mot Kambi 4.14 (kvot 0.987); uppmätt marginal: goal k=1.68, assist k=1.65
-  SC Paderborn 07 – Eintracht Frankfurt: väntade mål Pinnacle 3.38 mot Kambi 3.35 (kvot 1.011); uppmätt marginal: goal k=1.58, assist k=1.54
-  Mainz 05 – Bayern Munich: väntade mål Pinnacle 4.17 mot Kambi 4.07 (kvot 1.024); uppmätt marginal: goal k=1.49, assist k=1.63
-  Arsenal – Hull City: väntade mål Pinnacle 3.26 mot Kambi 3.30 (kvot 0.989); uppmätt marginal: goal k=1.41, assist k=1.50
-  Fulham – Newcastle United: väntade mål Pinnacle 2.96 mot Kambi 2.95 (kvot 1.002); uppmätt marginal: goal k=1.32, assist k=1.45
+  Málaga – Racing Santander: väntade mål Pinnacle 2.95 mot Kambi 3.03 (kvot 0.976); uppmätt marginal: goal k=1.53, assist k=1.67
+  Torino – Lecce: väntade mål Pinnacle 2.72 mot Kambi 2.63 (kvot 1.036); uppmätt marginal: goal k=1.50, assist k=1.64, shots_on_target stege k=1.26 (7 spelare; marginal vid 3,00 ≈ 33%)
+  Cagliari – Frosinone: väntade mål Pinnacle 3.42 mot Kambi 3.26 (kvot 1.050); uppmätt marginal: goal k=1.42, assist k=1.57, shots_on_target stege k=1.15 (28 spelare; marginal vid 3,00 ≈ 18%)
+  Borussia Dortmund – Elversberg: väntade mål Pinnacle 3.51 mot Kambi 3.70 (kvot 0.950); uppmätt marginal: goal k=1.61, assist k=1.65
+  RB Leipzig – FC Augsburg: väntade mål Pinnacle 4.08 mot Kambi 4.18 (kvot 0.977); uppmätt marginal: goal k=1.69, assist k=1.66
+  SC Paderborn 07 – Eintracht Frankfurt: väntade mål Pinnacle 3.39 mot Kambi 3.35 (kvot 1.013); uppmätt marginal: goal k=1.58, assist k=1.54
+  Mainz 05 – Bayern Munich: väntade mål Pinnacle 4.07 mot Kambi 4.07 (kvot 0.999); uppmätt marginal: goal k=1.51, assist k=1.65
+  Arsenal – Hull City: väntade mål Pinnacle 3.18 mot Kambi 3.30 (kvot 0.965); uppmätt marginal: goal k=1.43, assist k=1.52
+  Fulham – Newcastle United: väntade mål Pinnacle 2.96 mot Kambi 2.95 (kvot 1.003); uppmätt marginal: goal k=1.32, assist k=1.44
   Queens Park Rangers – Lincoln City: väntade mål Pinnacle 2.71 mot Kambi 2.90 (kvot 0.935); uppmätt marginal: goal k=1.51, assist k=1.68
-  Preston North End – Southampton: väntade mål Pinnacle 2.97 mot Kambi 3.14 (kvot 0.945); uppmätt marginal: goal k=1.43, assist k=1.48
-  Birmingham – Swansea City: väntade mål Pinnacle 2.79 mot Kambi 2.85 (kvot 0.976); uppmätt marginal: goal k=1.59, assist k=1.54
+  Preston North End – Southampton: väntade mål Pinnacle 2.98 mot Kambi 3.14 (kvot 0.948); uppmätt marginal: goal k=1.43, assist k=1.47
+  Birmingham – Swansea City: väntade mål Pinnacle 2.78 mot Kambi 2.85 (kvot 0.973); uppmätt marginal: goal k=1.59, assist k=1.54
   Charlton Athletic – Sheffield United: väntade mål Pinnacle 2.70 mot Kambi 2.72 (kvot 0.993); uppmätt marginal: goal k=1.59, assist k=1.41
   Watford – Middlesbrough: väntade mål Pinnacle 3.27 mot Kambi 3.36 (kvot 0.974); uppmätt marginal: goal k=1.70, assist k=1.66
-  West Bromwich – Millwall: väntade mål Pinnacle 2.66 mot Kambi 2.78 (kvot 0.959); uppmätt marginal: goal k=1.59, assist k=1.53
-  Cardiff City – Burnley: väntade mål Pinnacle 3.38 mot Kambi 3.29 (kvot 1.026); uppmätt marginal: goal k=1.62, assist k=1.57
+  West Bromwich – Millwall: väntade mål Pinnacle 2.69 mot Kambi 2.78 (kvot 0.969); uppmätt marginal: goal k=1.58, assist k=1.52
+  Cardiff City – Burnley: väntade mål Pinnacle 3.38 mot Kambi 3.29 (kvot 1.029); uppmätt marginal: goal k=1.62, assist k=1.56
   Blackburn Rovers – West Ham: väntade mål Pinnacle 3.11 mot Kambi 3.04 (kvot 1.023); uppmätt marginal: goal k=1.57, assist k=1.51
   Westerlo – Sporting de Charleroi: saknar matchlinjer från Pinnacle
   Cadiz – Real Oviedo: saknar matchlinjer från Pinnacle
@@ -149,19 +147,19 @@ Exempel uppmätt marginal: goal k=1.67
   Degerfors IF – GAIS: väntade mål Pinnacle 2.63 mot Kambi 2.67 (kvot 0.982); uppmätt marginal: goal k=1.62
   Odense BK – Viborg FF: väntade mål Pinnacle 3.30 mot Kambi 3.19 (kvot 1.036); uppmätt marginal: goal k=1.49, assist k=1.46
   Parma – Bologna: väntade mål Pinnacle 2.51 mot Kambi 2.42 (kvot 1.035); uppmätt marginal: goal k=1.54, assist k=1.64, shots_on_target stege k=1.32 (21 spelare; marginal vid 3,00 ≈ 42%)
-  Rosenborg – Start: väntade mål Pinnacle 3.55 mot Kambi 3.75 (kvot 0.946); uppmätt marginal: goal k=1.22
+  Rosenborg – Start: väntade mål Pinnacle 3.44 mot Kambi 3.75 (kvot 0.917); uppmätt marginal: goal k=1.25
   OH Leuven – KV Mechelen: väntade mål Pinnacle 2.82 mot Kambi 2.91 (kvot 0.969); uppmätt marginal: goal k=1.42, assist k=1.31
-Tid: modell och utvärdering 205 s
+Tid: modell och utvärdering 156 s
 Bolag med spelarodds: atg, betmgm, expekt, leovegas, oa_fanduel, oa_onexbet, oa_williamhill, paf, svenskaspel, unibet
-Spelarodds per marknad: assist 4953, goal 13742, shots 5435, shots_on_target 7740
-Kambi-marknader: assist='to give an assist (settled using opta data)':4953; goal='1st goalscorer':70; goal='to score':9306; goal='to score at least 2 goals':3890; goal='to score at least 3 goals':427; goal='to score at least 4 goals':49; shots="player's shots (settled using opta data)":5435; shots_on_target="player's shots on target (settled using opta data)":7151
+Spelarodds per marknad: assist 4904, goal 13483, shots 5449, shots_on_target 7669
+Kambi-marknader: assist='to give an assist (settled using opta data)':4904; goal='1st goalscorer':70; goal='to score':9152; goal='to score at least 2 goals':3827; goal='to score at least 3 goals':385; goal='to score at least 4 goals':49; shots="player's shots (settled using opta data)":5449; shots_on_target="player's shots on target (settled using opta data)":7080
 Pinnacle har inga spelarprops här – använder linjejustering mot Pinnacles matchlinjer.
 CLV-signal: 0 ben släppta (Pinnacle rör sig åt vårt håll)
 Startelvor: 0 spelbara ben klara, 0 väntar på startelvan, 0 stoppade (inte i startelvan)
 Spelregler: stoppade {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0} (modelltest {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0})
-Spelarmodell: 0 av 934 ben har modell, 0 nya matcher hämtade från ESPN
-Bästa edge marknad shots_on_target: +0.4%, -1.5%, -1.6% (av 785 ben)
-Bästa edge modelltest shots_on_target: +0.4%, -2.5%, -3.1% (av 766 ben)
+Spelarmodell: 0 av 935 ben har modell, 0 nya matcher hämtade från ESPN
+Bästa edge marknad shots_on_target: -1.6%, -2.7%, -3.7% (av 787 ben)
+Bästa edge modelltest shots_on_target: -1.6%, -4.6%, -4.7% (av 768 ben)
 0 spelbara ben.
 Bokförda nya spel: 0
 Skuggspel: 0 nya bokförda (stoppade av reglerna, minst 2 % edge)
@@ -169,6 +167,6 @@ Modelltest: 0 spelbara enligt modellen, 0 nya testspel bokförda
 Domare: 43 kommande matcher med utsedd domare (UEFA + football-data)
 Fouls (test): 423 ben med modell, 2 klarar kraven, 0 nya bokförda, bästa edge +39.6%, +12.0%, +6.0%, 0 nya ESPN-matcher, domare känd i 11 matcher
 Domare: 43 kommande matcher med utsedd domare (UEFA + football-data)
-Kort (test): 5505 Kambi-odds, 481 ben med modell, 16 klarar kraven, 1 nya bokförda, bästa edge +81.6%, +40.8%, +32.6%, 0 nya ESPN-matcher
+Kort (test): 5445 Kambi-odds, 481 ben med modell, 16 klarar kraven, 0 nya bokförda, bästa edge +81.6%, +40.8%, +32.6%, 0 nya ESPN-matcher
 Parlays: 0 förslag, 0 nya bokförda
 Notiser skickade: 0
