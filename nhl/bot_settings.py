@@ -23,7 +23,7 @@ class BotSettings:
     live_max_edge: float = 0.15
     live_model_min_edge: float = 0.05
     live_min_groups: int = 2
-    live_odds_min: float = 1.60
+    live_odds_min: float = 1.40
     live_odds_max: float = 3.00
     live_max_units: int = 5
     live_max_per_match: int = 2
@@ -33,7 +33,7 @@ class BotSettings:
 
     # ---- Shared rules (all ledgers) ----------------------------------------
     min_edge_all: float = 0.05
-    odds_min_all: float = 1.60
+    odds_min_all: float = 1.40
     odds_max_all: float = 6.00
     shadow_min_edge: float = 0.02
     max_odds_drop: float = 0.03

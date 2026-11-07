@@ -179,7 +179,7 @@ def test_play_from_and_thresholds():
     assert d.playable and d.show and d.stake > 0
     d = evaluate(_cand(0.70, 1.65), cfg)        # inom ramen 1,60–6,00
     assert d.playable and d.show
-    d = evaluate(_cand(0.75, 1.45), cfg)        # under 1,60 – varken spel eller visning
+    d = evaluate(_cand(0.80, 1.35), cfg)        # under 1,40 – varken spel eller visning
     assert not d.playable and not d.show
     d = evaluate(_cand(0.25, 7.00), cfg)        # över 6,00
     assert not d.playable and not d.show

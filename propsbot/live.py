@@ -9,7 +9,7 @@ LIVE-spelen skickas som notis. Kraven bygger på 509 unika avgjorda NBA-spel (3/
     10 % gav inte bättre CLV än 5 % när modellen höll med.
   * modellen måste hålla med: modelltestets edge på samma linje ≥ live_model_min_edge (5 %)
   * minst två oberoende jämförelsekällor (Pinnacle, Kalshi, DK/FD …)
-  * odds live_odds_window (1,60–3,00)
+  * odds live_odds_window (1,40–3,00)
   * alla vanliga spärrar (oddsfall, sharp money mot oss, ett spel per spelare) gäller redan
   * riskkontroll: högst live_max_units per spel, live_max_per_match spel per match,
     live_max_per_day spel och live_max_units_day units per matchdag (amerikansk tid).
@@ -34,7 +34,7 @@ def _key(c) -> tuple:
 
 def select_live(rows, model_rows, settings: dict, live_ledger) -> list:
     th = settings.get("live_min_edge", {"points": 0.10, "threes": 0.06, "assists": 0.06, "rebounds": 0.06})
-    lo, hi = settings.get("live_odds_window", [1.60, 3.00])
+    lo, hi = settings.get("live_odds_window", [1.40, 3.00])
     m_min = settings.get("live_model_min_edge", 0.05)
     max_edge = settings.get("live_max_edge", 0.15)
     min_groups = settings.get("live_min_groups", 2)

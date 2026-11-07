@@ -166,7 +166,7 @@
   "sharp_against_pp": 2.0,
   "sharp_with_pp": 1.5,
   "odds_window_all": [
-    1.6,
+    1.4,
     6.0
   ],
   "oddsapi_share_nba": 0.45,
@@ -195,8 +195,8 @@
   "sides_max_edge": 0.1,
   "sides_alt_extra_edge": 0.01,
   "sides_odds_window": [
-    1.6,
-    4.0
+    1.4,
+    6.0
   ],
   "sides_min_pin_limit": 500,
   "sides_max_hours": 24,
@@ -215,7 +215,7 @@
     "live_min_edge": 0.05,
     "live_model_min_edge": 0.05,
     "live_min_groups": 2,
-    "live_odds_min": 1.6,
+    "live_odds_min": 1.4,
     "live_odds_max": 3.0,
     "live_max_units": 5,
     "live_max_per_match": 2,
@@ -223,7 +223,7 @@
     "live_max_units_day": 25,
     "live_require_active": true,
     "min_edge_all": 0.05,
-    "odds_min_all": 1.6,
+    "odds_min_all": 1.4,
     "odds_max_all": 6.0,
     "shadow_min_edge": 0.02,
     "max_odds_drop": 0.03,
@@ -293,5 +293,9 @@
     "quiet_interval_min": 55.0,
     "data_dir": "data",
     "live_max_edge": 0.15
-  }
+  },
+  "live_odds_window": [
+    1.4,
+    3.0
+  ]
 }

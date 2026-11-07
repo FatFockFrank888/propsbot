@@ -159,7 +159,7 @@ def evaluate(evd: dict, kambi_by_book: dict, pin: dict, s: dict, hist: History, 
     wait_reason: t.ex. "väntar på startelvor" – stoppar alla linjer i matchen."""
     out = []
     keys = set().union(*[set(v) for v in kambi_by_book.values()]) if kambi_by_book else set()
-    lo, hi = s.get("sides_odds_window", [1.60, 4.00])
+    lo, hi = s.get("sides_odds_window", [1.40, 6.00])
     for key in keys:
         if key[0] not in s.get("sides_markets", MARKETS) or key not in pin:
             continue

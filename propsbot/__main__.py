@@ -61,7 +61,7 @@ def cmd_scan(args) -> None:
     print()
     print(format_scan(rows))
     n = sum(r.row.decision.playable and r.row.decision.show for r in rows)
-    print(f"\n{n} spelbara ben (odds 1,60–6,00).")
+    print(f"\n{n} spelbara ben (odds 1,40–6,00).")
 
 
 def _ensure_topic(settings_path: Path) -> str:

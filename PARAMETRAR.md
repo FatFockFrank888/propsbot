@@ -8,7 +8,7 @@ Genereras från de värden boten använder (`python -m propsbot parametrar`).
 |---|---|---|
 | Spelbara bolag | svenskaspel, betmgm, expekt, atg, unibet | Bara Kambi-bolag. Paf och LeoVegas läses bara för att mäta marginalen. |
 | Minsta edge (alla spel) | 5 % | edge = sannolikhet × odds − 1. Gäller alla marknader och sporter. |
-| Oddsram | 1,60–6,00 | Inga spel utanför. |
+| Oddsram | 1,40–6,00 | Inga spel utanför. |
 | Max oddsfall | 3 % | Inget spel om bästa oddset fallit mer än så från det högsta vi sett (för sent). |
 | Sharp money mot oss | 2 procentenheter | Inget spel om den skarpa referensen (Pinnacle/konsensus) rört sig så mycket mot oss efter 30 min. |
 | Sharp money med oss | 1.5 procentenheter | Markeras i notisen (⬆). |
@@ -47,7 +47,7 @@ Genereras från de värden boten använder (`python -m propsbot parametrar`).
 | Startelvor (sides/totals) | väntar inte | Av sedan 7/11: Pinnacle prisar redan in laguppställningar och nyheter. Spärren stoppade 138 skuggspel som slog Pinnacles stängning med +2 pe i snitt. Startelvan syns ändå i loggen och sharp money-spärren gäller. |
 | Sides/totals: edgekrav | 3 % (alternativ Pinnacle-linje +1 %) | Lägre än 5 % eftersom referensen är Pinnacles huvudlinje (skarpast i världen): mot den är 3 % en verklig edge. 1 %–3 % bokförs som Sides-skugga för att mäta nivån. |
 | Sides/totals: högsta edge | 10 % | Större edge mot Pinnacle = nästan alltid gammal linje, nyhet (uppställning/skada) eller fel match. Bokförs som skugga. |
-| Sides/totals: oddsram | 1,60–4,00 | Bredare än props uppåt så att oavgjort och små skrällar kommer med. |
+| Sides/totals: oddsram | 1,40–6,00 | Bredare än props uppåt så att oavgjort och små skrällar kommer med. |
 | Sides/totals: Pinnacles insatsgräns | minst 500; under 2000 krävs +1 % edge | Gränsen visar hur skarp Pinnacles linje är. Låg gräns (ofta lägre divisioner) = svagare referens -> högre krav. |
 | Sides/totals: mindre ligor | på – alla Kambi-ligor (ej esport) inom 3 h före avspark, max 60 matcher | Lägre divisioner och mindre ligor har oftare felsatta linjer. Bara huvudmarknaderna hämtas (snabbt). Rättas mot ESPN:s samlade resultattavla. |
 | Sides/totals: övrigt | max oddsfall 3 %, sharp money mot oss 2 pe, ett spel per match, inom 24 h före avspark, max 3u | Samma spärrar som övriga sporter. Rättas mot ESPN:s slutresultat. |
@@ -61,7 +61,7 @@ Genereras från de värden boten använder (`python -m propsbot parametrar`).
 | LIVE: högsta edge | 15 % | Större edge slog inte stängningen i datan (oftast fel i linje/modell). |
 | LIVE: modellen måste hålla med | modellens edge ≥ 5 % | Det starkaste filtret i datan: med modellens stöd ROI +20 %, CLV +2,7 pe (34 spel, 4/11). |
 | LIVE: jämförelsekällor | minst 2 | Pinnacle, Kalshi, DraftKings/FanDuel … |
-| LIVE: oddsram | 1,60–3,00 |  |
+| LIVE: oddsram | 1,40–3,00 |  |
 | LIVE: risk | max 5u/spel, 2/match, 8 spel och 25u per matchdag |  |
 | Modellvikt | 0.3 | Blandas med marknaden i log-odds. |
 | Matcher | inom 30 h, max 15 |  |
@@ -76,11 +76,11 @@ Genereras från de värden boten använder (`python -m propsbot parametrar`).
 | LIVE: högsta edge | 15 % | Samma tak som NBA. |
 | LIVE: modellen måste hålla med | modellens edge ≥ 5 % | Samma krav som NBA (4/11). |
 | LIVE: jämförelsekällor | minst 2 | Bovada, Pinnacle (vikt ×2), US-bolag via The Odds API. |
-| LIVE: oddsram | 1,60–3,00 |  |
+| LIVE: oddsram | 1,40–3,00 |  |
 | LIVE: risk | max 5u/spel, 2/match, 8 spel och 25u per matchdag, högst 5 % per match |  |
 | LIVE: spelaren i senaste uppställningen | ja |  |
 | Gemensamt edgekrav | 5 % | +3 % utan skarp/tvåsidig källa. |
-| Oddsram | 1,60–6,00 |  |
+| Oddsram | 1,40–6,00 |  |
 | Max oddsfall / sharp mot / med | 3 % / 2 / 1.5 pe (efter 30 min) |  |
 | Orimlig edge / konsensusavvikelse | 25 % / 18 % |  |
 | Ensidig marginal (antagen) | 8 % | För ensidiga priser (t.ex. Bovadas "N+ skott"-stege). |

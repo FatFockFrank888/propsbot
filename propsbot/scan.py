@@ -105,7 +105,7 @@ DEFAULT_SETTINGS = {
     # spelare och match, inget spel om oddset fallit > 3 %, inget spel när sharp money
     # (Pinnacle/konsensus) har rört sig mot oss. Fotbollen spelas på samma regler.
     "min_edge_all": 0.05,
-    "odds_window_all": [1.60, 6.0],     # inga spel under 1,60 eller över 6,00 (båda sporterna)
+    "odds_window_all": [1.40, 6.0],     # inga spel under 1,40 eller över 6,00 (alla sporter)
     "max_odds_drop": 0.03,
     "sharp_against_pp": 2.0,
     "sharp_with_pp": 1.5,
@@ -123,7 +123,7 @@ DEFAULT_SETTINGS = {
     "sides_min_edge": 0.03,
     "sides_max_edge": 0.1,
     "sides_alt_extra_edge": 0.01,
-    "sides_odds_window": [1.6, 4.0],
+    "sides_odds_window": [1.4, 6.0],
     "sides_min_pin_limit": 500,
     "sides_max_hours": 24,
     "sides_shadow_min_edge": 0.01,
@@ -144,7 +144,7 @@ DEFAULT_SETTINGS = {
     "graduation_min_bets": 50,      # uppgradering (sides -> LIVE, fotboll -> full insats): spel med stängning
     "graduation_min_t": 1.0,        # ... och snitt-CLV > 0 med minst detta t-värde    # fotboll utan historik: halva Kelly-insatsen tills CLV visats (storleken följer ändå styrkan)
     "live_min_groups": 2,
-    "live_odds_window": [1.60, 3.00],
+    "live_odds_window": [1.40, 3.00],
     "live_max_units": 5,          # 5u = 1 % av bankrullen per spel
     "live_max_per_match": 2,
     "live_max_per_day": 8,
