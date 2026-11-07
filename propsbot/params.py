@@ -37,7 +37,7 @@ def all_params(settings_path: Path) -> dict:
          "Inget spel om den skarpa referensen (Pinnacle/konsensus) rört sig så mycket mot oss efter 30 min."),
         ("Sharp money med oss", f"{s.get('sharp_with_pp', 1.5):g} procentenheter", "Markeras i notisen (⬆)."),
         ("Topp 5 som notis", "ja, en per spel",
-         "När ett spel för första gången hamnar bland de fem starkaste (samma ranking som fliken Topp 5) skickas en notis 🏆 med "
+         "Bara LIVE-spel (klarar LIVE-reglerna). När ett spel för första gången hamnar bland de fem starkaste (samma ranking som fliken Topp 5) skickas en notis 🏆 med "
          "rank, odds, spela från, edge, modell, styrka och insats. Märkt LIVE eller data. Inte inom 10 min före start."),
         ("Lagnyheter (varje skanning)", "NBA: ESPN skadelista · NHL: DailyFaceoff · fotboll: startelvan",
          "Out/doubtful, ute eller inte i laget/startelvan = inget spel; questionable markeras. Öppna LIVE-spel kontrolleras igen före start och ger en notis (📰) om spelarens status ändras – och i NBA även när en lagkamrat (minst 15 min/match) blir out efter att spelet lades, med modellens nya speltid, väntat värde och edge vid vårt odds."),

@@ -155,7 +155,7 @@ def test_top5_notify_once(tmp_path, monkeypatch):
     site = tmp_path / "site"; (site / "nba").mkdir(parents=True); (site / "nhl").mkdir()
     start = datetime.fromtimestamp(time.time() + 3 * 3600, timezone.utc).strftime("%Y-%m-%d %H:%M")
     rows = [{"spelare": f"P{i}", "match": f"M{i}", "spel": "poäng över 20.5", "marknad": "points", "odds": 2.0,
-             "spela_fran": 1.9, "edge": 0.05 + i / 100, "spelbar": True, "avspark": start, "bolag": "unibet",
+             "spela_fran": 1.9, "edge": 0.05 + i / 100, "spelbar": True, "live": True, "avspark": start, "bolag": "unibet",
              "insats_forslag": 0.01, "kommentar": ""} for i in range(7)]
     (site / "nba" / "data.json").write_text(json.dumps({"radar": rows}), encoding="utf-8")
     sent = []

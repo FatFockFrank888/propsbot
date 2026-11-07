@@ -62,7 +62,7 @@ def ranking(site: Path, now: float | None = None) -> list[dict]:
         live = _open_live(d, sport)
         for r in d.get("radar", []) or []:
             ts = _ts(r.get("avspark"))
-            if not r.get("spelbar") or not ts or ts <= now + 60:
+            if not r.get("spelbar") or not r.get("live") or not ts or ts <= now + 60:   # bara LIVE-spel
                 continue
             x = dict(r, sport=sport, ts=ts, t=score(r))
             lb = next((b for b in live if b.get("spelare") == r.get("spelare")), None)
