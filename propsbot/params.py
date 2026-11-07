@@ -52,7 +52,7 @@ def all_params(settings_path: Path) -> dict:
     ]
     football = [
         ("Status", "LIVE (notiser)" if s.get("football_live") else "bara datainsamling (inga notiser)",
-         "football_live i settings.json. Påslaget 2026-11-04 på användarens begäran. Spelen är regelspelen "
+         "football_live i settings.json. Pausat 2026-11-07 (on hold) tills vi hittar en skarp källa för fotbollsprops – Kambis marginal ~20 % och ingen referens. Påslaget 2026-11-04. Spelen är regelspelen "
          "(alla gemensamma krav); risktak: högst 5u per spel och 5 % per match."),
         ("LIVE: insats", f"¼ Kelly × {s.get('football_kelly_scale', 0.5):g}, högst {s.get('football_live_max_units', 5)}u per spel",
          "Insatsen följer styrkan (edge och odds) som i NBA/NHL, men i halv storlek eftersom fotbollen saknar historik "
