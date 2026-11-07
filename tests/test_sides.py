@@ -128,7 +128,7 @@ def test_smarkets_second_reference(tmp_path):
     h = History(tmp_path / "h.json")
     x = evaluate(evd, kambi, pin, s, h, time.time(), {"unibet"})[0]                    # bara Pinnacle
     assert x["playable"] and abs(x["edge"] - (0.52 * 2.10 - 1)) < 1e-9
-    x = evaluate(evd, kambi, pin, s, h, time.time(), {"unibet"}, {("total", 2.5, "over"): (0.50, 100)})[0]
+    x = evaluate(evd, kambi, pin, s, h, time.time(), {"unibet"}, smk={("total", 2.5, "over"): (0.50, 100)})[0]
     assert abs(x["p"] - 0.51) < 1e-9 and x["p_pin"] == 0.52 and x["p_smk"] == 0.50 and x["playable"]
-    x = evaluate(evd, kambi, pin, s, h, time.time(), {"unibet"}, {("total", 2.5, "over"): (0.46, 100)})[0]
+    x = evaluate(evd, kambi, pin, s, h, time.time(), {"unibet"}, smk={("total", 2.5, "over"): (0.46, 100)})[0]
     assert not x["playable"] and any("Smarkets håller inte med" in r for r in x["reasons"])
