@@ -47,7 +47,8 @@ NBA,LIVE: modellen måste hålla med,modellens edge ≥ 5 %,"Det starkaste filtr
 NBA,LIVE: jämförelsekällor,minst 2,"Pinnacle, Kalshi, DraftKings/FanDuel …"
 NBA,LIVE: oddsram,"1,40–3,00",
 NBA,LIVE: risk,"max 5u/spel, 2/match, 8 spel och 25u per matchdag",
-NBA,Modellvikt,0.3,Blandas med marknaden i log-odds.
+NBA,Modellvikt,0.3 × dq,"Blandas med marknaden i log-odds. dq = datakvalitet 0,2–1 (antal matcher i underlaget / 15): tunt underlag -> marknaden väger mer. Halveras när modell och marknad skiljer mycket."
+NBA,Brier modell / marknad,visas under Resultat,Mäter om modellen slår marknadens egen sannolikhet på avgjorda spel (lägre = bättre).
 NBA,Matcher,"inom 30 h, max 15",
 NBA,US-bolag via The Odds API,40–240 min före start,Andel av krediterna: 45 %.
 NHL,Status,LIVE (notiser),Skott på mål (SOG) hos Kambi-bolagen.
