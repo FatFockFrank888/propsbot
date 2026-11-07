@@ -23,6 +23,19 @@ jobs:
     environment:
       name: github-pages
     steps:
+      # GitHubs schema startar inte pålitligt, och ett steg i slutet kan hänga (7/11: kedjan bröts i 3,5 h).
+      # Därför ställs nästa körning i kö FÖRST: den väntar (concurrency) tills denna är klar, oavsett hur denna slutar.
+      # Stoppa boten helt: stäng av arbetsflödet (Disable workflow).
+      - name: Ställ nästa körning i kö
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          for i in 1 2 3 4 5; do
+            timeout 60 gh workflow run bevaka.yml --repo "$GITHUB_REPOSITORY" --ref main && exit 0
+            sleep 15
+          done
+          echo "kunde inte ställa nästa körning i kö – schemat är reserv"
+
       - uses: actions/checkout@v4
 
       - uses: actions/setup-python@v5
@@ -92,15 +105,10 @@ jobs:
       - if: steps.deploy.outcome == 'failure'
         uses: actions/deploy-pages@v4
 
-      # GitHubs schema startar inte pålitligt. Därför startar varje körning nästa:
-      # 8 min paus mellan skanningarna, 55 min 04–06 UTC. Schemat ovan är reserv.
-      # En avbruten körning (Cancel) startar ingen ny; stäng av arbetsflödet för att stoppa boten helt.
-      - name: Starta nästa körning
+      # Paus mellan skanningarna (nästa körning står redan i kö och startar när denna är klar):
+      # 8 min, 55 min 04–06 UTC.
+      - name: Paus före nästa körning
         if: ${{ !cancelled() }}
-        env:
-          GH_TOKEN: ${{ github.token }}
         run: |
           H=$(date -u +%H)
-          if [ "$H" -ge 4 ] && [ "$H" -lt 6 ]; then WAIT=3300; else WAIT=480; fi
-          sleep $WAIT
-          gh workflow run bevaka.yml --repo "$GITHUB_REPOSITORY" --ref main
+          if [ "$H" -ge 4 ] && [ "$H" -lt 6 ]; then sleep 3300; else sleep 480; fi
