@@ -19,3 +19,25 @@ def test_starts():
     assert lu.starts("B. Saka") is True or lu.starts("Bukayo Saka") is True
     assert lu.starts("Gabriel Jesus") is False
     assert lu.starts("Someone Else") is None
+
+
+def test_fotmob_fallback():
+    from datetime import datetime, timezone
+    from propsbot.lineups import Lineups
+    start = datetime(2026, 11, 7, 15, 0, tzinfo=timezone.utc).timestamp()
+    def team(n, typ="standard"):
+        return {"starters": [{"name": f"{n} {i}"} for i in range(11)], "subs": [{"name": f"{n} bänk"}],
+                "unavailable": [{"name": f"{n} skadad"}]}
+    class C:
+        def __init__(self, typ): self.typ = typ
+        def get(self, url, params=None, ttl=None):
+            if url.endswith("/matches"):
+                return {"leagues": [{"matches": [{"id": 1, "home": {"name": "Barnet"}, "away": {"name": "Tranmere Rovers"},
+                                                  "status": {"utcTime": "2026-11-07T15:00:00.000Z"}}]}]}
+            return {"content": {"lineup": {"lineupType": self.typ, "homeTeam": team("H"), "awayTeam": team("A")}}}
+    lu = Lineups.__new__(Lineups); lu.c = C("standard")
+    x = lu.fotmob("Barnet", "Tranmere Rovers", start)
+    assert x.published and x.starts("H 3") is True and x.starts("H bänk") is False and "A skadad" in x.unavailable
+    lu = Lineups.__new__(Lineups); lu.c = C("lastStarting11")
+    x = lu.fotmob("Barnet", "Tranmere Rovers", start)
+    assert not x.published and x.starters == []          # förra matchens elva räknas inte
