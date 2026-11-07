@@ -343,7 +343,7 @@ function norm(b, sport, typ) {
     bokford: b.bokford, avspark: b.avspark, match: b.match, spelare: b.spelare,
     mkKey: b.marknad, marknad: (MK[b.marknad] || b.marknad) + (sport === "nba" && b.marknad === "assists" ? " (NBA)" : ""),
     spel: b.spel_text || spel(b.marknad, b.linje, b.sida), bolag: b.bolag, odds: b.odds, stangning: b.stangning,
-    clv, p: b.sannolikhet, edge: b.edge, u: (b.insats_pct || 0) / U, status: b.status,
+    clv, p: b.sannolikhet, edge: b.edge, pm: b.p_modell, pmk: b.p_marknad, u: (b.insats_pct || 0) / U, status: b.status,
     sida: ({under: "Under", home: "Hemma", draw: "Oavgjort", away: "Borta"})[b.sida] || "Över", utfall: b.utfall, stopp: b.stopp || "",
     spela_fran: b.spela_fran, notis: b.notis, linje: b.linje, nyhet: b.nyhet, nyhetStatus: b.nyhet_status, nyhetTs: b.nyhet_ts, sidaKey: b.sida || "over", modell_edge: b.modell_edge,
     res: b.resultat_enheter == null ? null : b.resultat_enheter / U};
@@ -402,6 +402,19 @@ function stats(rs) {
     clv: clvM, clvSe, clvT: clvSe ? clvM / clvSe : null, nclv: clvs.length,
     beat: clvs.length ? clvs.filter(x => x > 0).length / clvs.length : null,
     edge: rs.length ? mean(rs.map(r => r.edge || 0)) : null};
+}
+// Brier-poäng för modellen mot marknaden (avgjorda spel där båda sannolikheterna finns, varje spelare en gång).
+function brier(rs) {
+  const seen = new Set(), xs = [];
+  for (const r of rs) {
+    if (!["vunnen", "förlorad"].includes(r.status) || r.pm == null || r.pmk == null) continue;
+    const k = r.pk + "|" + r.spel; if (seen.has(k)) continue; seen.add(k);
+    xs.push([r.pm, r.pmk, r.status === "vunnen" ? 1 : 0]);
+  }
+  if (xs.length < 10) return null;
+  const m = xs.reduce((a, [p, , y]) => a + (p - y) ** 2, 0) / xs.length;
+  const k = xs.reduce((a, [, q, y]) => a + (q - y) ** 2, 0) / xs.length;
+  return {m, k, n: xs.length};
 }
 function verdict(s) {
   if (s.nclv < 30) return ["wait", `Samlar data – ${s.nclv} av 30 spel med stängningsodds för en CLV-dom.`];
@@ -617,6 +630,9 @@ function renderRes() {
         <div class="tile"><div class="k">ROI</div><div class="v">${pct(st.roi)}</div><div class="x">${ci}</div></div>
         <div class="tile"><div class="k">Snitt-CLV</div><div class="v ${cls(st.clv)}">${sgn(st.clv, 2)} pe</div><div class="x">n = ${st.nclv}${st.clvT != null ? `, t = ${nf(st.clvT, 1)}` : ""}</div></div>
         <div class="tile"><div class="k">Slog stängningen</div><div class="v">${pct(st.beat, 0)}</div><div class="x">andel spel</div></div>
+        ${(() => { const b = brier(all); return b ? `<div class="tile" title="Brier-poäng: medelvärdet av (sannolikhet − utfall)². Lägre = bättre. Modellen tillför något först när den slår marknadens egen sannolikhet.">
+          <div class="k">Brier modell / marknad</div><div class="v ${b.m < b.k ? "pos" : "loss"}">${nf(b.m, 3)} / ${nf(b.k, 3)}</div>
+          <div class="x">${b.m < b.k ? "modellen slår marknaden" : "modellen slår inte marknaden"} · n = ${b.n}</div></div>` : ""; })()}
       </div>
       <div class="grid2"><div><h2>Ackumulerat resultat (units)</h2>
         ${cumChart([{name: main, color: "var(--accent)", rows: m.filter(settled).sort(byStart)},

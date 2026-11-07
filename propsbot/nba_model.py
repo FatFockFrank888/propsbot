@@ -237,6 +237,7 @@ class NbaModel:
             for c, parts in COMBO.items():
                 e[c] = sum(e[x] for x in parts)
             e["_min"] = mins
+            e["_g"] = p.games          # datakvalitet: antal matcher i underlaget
             res[k] = e
         return res
 

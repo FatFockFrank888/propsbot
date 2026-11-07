@@ -556,7 +556,7 @@ def model_test_rows(root: Path, rows: list, per: dict, settings: dict, cfg: Conf
         p_mod = min(max(nb_over(mu, c.line, NB_R.get(c.market, 15)), 0.01), 0.99)
         if c.best.side == "under":
             p_mod = 1.0 - p_mod
-        pairs.append((r, p_mod, mu))
+        pairs.append((r, p_mod, mu, m[k].get("_g")))
         if 0.15 <= c.p <= 0.85:
             gaps.setdefault(c.market, []).append(logit(p_mod) - logit(c.p))
     off = {}
@@ -569,15 +569,17 @@ def model_test_rows(root: Path, rows: list, per: dict, settings: dict, cfg: Conf
     diag.log("NBA-modell nivåavvikelse (dras bort): " + ", ".join(f"{k} {v:+.2f}" for k, v in sorted(off.items())))
     w0 = settings.get("nba_model_weight", 0.3)
     out = []
-    for r, p_mod, mu in pairs:
+    for r, p_mod, mu, games in pairs:
         c = r.row.decision.cand
         r.expected = mu
         pm = inv_logit(logit(p_mod) - off.get(c.market, 0.0))
-        w = w0 * (0.5 if abs(logit(pm) - logit(c.p)) > 1.0 else 1.0)
+        # Datakvalitet (dq 0,2–1): tunt underlag (få matcher) -> modellen väger mindre, marknaden mer.
+        dq = 1.0 if games is None else max(0.2, min(1.0, games / settings.get("nba_dq_full_games", 15)))
+        w = w0 * dq * (0.5 if abs(logit(pm) - logit(c.p)) > 1.0 else 1.0)
         p = inv_logit(w * logit(pm) + (1 - w) * logit(c.p))
         cand = dataclasses.replace(c, p=p)
         d = evaluate(cand, cfg.decision)
-        d.reasons.append(f"modell {pm:.0%} (väntat {mu:.1f}), marknad {c.p:.0%}, vikt {w:.2f}")
+        d.reasons.append(f"modell {pm:.0%} (väntat {mu:.1f}), marknad {c.p:.0%}, vikt {w:.2f}, dq {dq:.2f}")
         out.append(ScanRow(r.sport, r.match, r.kickoff, Row(d, pm, c.p, w), r.n_groups, mu))
     n_play = sum(1 for x in out if x.row.decision.playable and x.row.decision.show)
     diag.log(f"NBA-modelltest: {n_play} spelbara enligt modellen av {len(out)} ben med modell")

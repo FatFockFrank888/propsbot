@@ -130,7 +130,9 @@ def all_params(settings_path: Path) -> dict:
         ("LIVE: oddsram", _odds(llo, lhi), ""),
         ("LIVE: risk", f"max {_u(s.get('live_max_units', 5))}/spel, {s.get('live_max_per_match', 2)}/match, "
                        f"{s.get('live_max_per_day', 8)} spel och {_u(s.get('live_max_units_day', 25))} per matchdag", ""),
-        ("Modellvikt", f"{s.get('nba_model_weight', 0.3):g}", "Blandas med marknaden i log-odds."),
+        ("Modellvikt", f"{s.get('nba_model_weight', 0.3):g} × dq", "Blandas med marknaden i log-odds. dq = datakvalitet 0,2–1 "
+         f"(antal matcher i underlaget / {s.get('nba_dq_full_games', 15)}): tunt underlag -> marknaden väger mer. Halveras när modell och marknad skiljer mycket."),
+        ("Brier modell / marknad", "visas under Resultat", "Mäter om modellen slår marknadens egen sannolikhet på avgjorda spel (lägre = bättre)."),
         ("Matcher", f"inom {s.get('nba_hours_ahead', 30)} h, max {s.get('nba_max_events', 15)}", ""),
         ("US-bolag via The Odds API", f"{s.get('nba_us_fetch_window', [40, 240])[0]}–{s.get('nba_us_fetch_window', [40, 240])[1]} min före start",
          f"Andel av krediterna: {_pct(s.get('oddsapi_share_nba', 0.6))}."),

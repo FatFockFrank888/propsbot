@@ -64,7 +64,8 @@ Genereras från de värden boten använder (`python -m propsbot parametrar`).
 | LIVE: jämförelsekällor | minst 2 | Pinnacle, Kalshi, DraftKings/FanDuel … |
 | LIVE: oddsram | 1,40–3,00 |  |
 | LIVE: risk | max 5u/spel, 2/match, 8 spel och 25u per matchdag |  |
-| Modellvikt | 0.3 | Blandas med marknaden i log-odds. |
+| Modellvikt | 0.3 × dq | Blandas med marknaden i log-odds. dq = datakvalitet 0,2–1 (antal matcher i underlaget / 15): tunt underlag -> marknaden väger mer. Halveras när modell och marknad skiljer mycket. |
+| Brier modell / marknad | visas under Resultat | Mäter om modellen slår marknadens egen sannolikhet på avgjorda spel (lägre = bättre). |
 | Matcher | inom 30 h, max 15 |  |
 | US-bolag via The Odds API | 40–240 min före start | Andel av krediterna: 45 %. |
 

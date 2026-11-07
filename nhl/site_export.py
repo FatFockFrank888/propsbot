@@ -75,6 +75,7 @@ def ledger_sv(b: dict[str, Any], unit_pct: float) -> dict[str, Any]:
         "ratt_odds": (1 / b["p_fair"]) if b.get("p_fair") else None,
         "edge": edge if edge is not None else b.get("model_edge"),
         "modell_edge": b.get("model_edge"),
+        "p_modell": b.get("p_model"), "p_marknad": b.get("p_market"),
         "prognos": b.get("proj_sog"),
         "spela_fran": b.get("play_down_to"),
         "insats_pct": (b.get("units") or 0) * unit_pct,

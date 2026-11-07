@@ -113,6 +113,9 @@ class Ledger:
                 "stangning": c.best.odds, "status": "öppen", "stopp": "; ".join(d.reasons),
                 "clv_signal": any("CLV-signal" in x for x in d.reasons),
                 "forv_clv_pp": getattr(r, "clv_pp", None),
+                # för Brier-mätningen: modellens och marknadens egna sannolikheter (för vår sida)
+                "p_modell": (lambda x: None if x is None or x != x else x)(getattr(r.row, "p_model", None)),
+                "p_marknad": getattr(r.row, "p_market", None),
                 "utfall": None, "resultat_enheter": None,
             }
             self.bets.append(b)
