@@ -154,7 +154,7 @@ def label(mk: str, line: float, side: str, home: str, away: str) -> tuple[str, s
 
 
 def evaluate(evd: dict, kambi_by_book: dict, pin: dict, s: dict, hist: History, now: float,
-             playable: set[str], wait_reason: str | None = None) -> list[dict]:
+             playable: set[str], wait_reason: str | None = None, smk: dict | None = None) -> list[dict]:
     """Alla Kambi-linjer som Pinnacle också har, med edge och regelbeslut.
     wait_reason: t.ex. "väntar på startelvor" – stoppar alla linjer i matchen."""
     out = []
@@ -167,12 +167,19 @@ def evaluate(evd: dict, kambi_by_book: dict, pin: dict, s: dict, hist: History, 
         if not offers:
             continue
         odds, book = max(offers)
-        p, lim, alt = pin[key]
+        p_pin, lim, alt = pin[key]
+        # Två skarpa referenser: Pinnacle och Smarkets (börs). Finns Smarkets-priset (snäv spread) är
+        # facit medelvärdet, och Smarkets måste också visa positivt värde – annars inget spel.
+        sm = (smk or {}).get(key)
+        p_smk = sm[0] if sm else None
+        p = (p_pin + p_smk) / 2 if p_smk is not None else p_pin
         edge = p * odds - 1
         mk, line, side = key
         hk = f"{evd['id']}|{mk}|{line:g}|{side}"
-        h = hist.update(hk, p, odds, now)
+        h = hist.update(hk, p_pin, odds, now)
         reasons = [wait_reason] if wait_reason else []
+        if p_smk is not None and p_smk * odds - 1 < 0:
+            reasons.append(f"Smarkets håller inte med: edge mot börsen {p_smk * odds - 1:+.1%}")
         low = lim < s.get("sides_low_limit", 2000)     # svagare Pinnacle-linje (ofta lägre divisioner)
         need = (s.get("sides_min_edge", 0.03) + (s.get("sides_alt_extra_edge", 0.01) if alt else 0.0)
                 + (s.get("sides_low_limit_extra_edge", 0.01) if low else 0.0))
@@ -187,7 +194,7 @@ def evaluate(evd: dict, kambi_by_book: dict, pin: dict, s: dict, hist: History, 
             reasons.append(f"Pinnacles gräns {lim:.0f} – för svag referens")
         if odds < h["max_odds"] * (1 - s.get("max_odds_drop", 0.03)):
             reasons.append(f"oddset har fallit {1 - odds / h['max_odds']:.1%} från {h['max_odds']:.2f} – för sent")
-        move = (p - h["p0"]) * 100
+        move = (p_pin - h["p0"]) * 100
         if now - h["ts"] >= s.get("sharp_min_age_s", 1800):
             if move <= -s.get("sharp_against_pp", 2.0):
                 reasons.append(f"sharp money mot oss: Pinnacle {move:+.1f} pe")
@@ -195,7 +202,7 @@ def evaluate(evd: dict, kambi_by_book: dict, pin: dict, s: dict, hist: History, 
                 reasons.append(f"sharp money med oss: Pinnacle {move:+.1f} pe")
         blocked = [r for r in reasons if not r.startswith("sharp money med")]
         out.append({"key": key, "odds": odds, "book": book, "p": p, "edge": edge, "limit": lim, "alt": alt,
-                    "playable": not blocked, "reasons": reasons})
+                    "p_pin": p_pin, "p_smk": p_smk, "playable": not blocked, "reasons": reasons})
     # ett spel per match – störst edge vinner
     ok = sorted((x for x in out if x["playable"]), key=lambda x: -x["edge"])
     for x in ok[1:]:
@@ -224,8 +231,9 @@ def _bet(evd: dict, x: dict, s: dict, now: float) -> dict:
         "marknad": mk, "linje": line, "sida": side, "spel_text": txt,
         "bolag": x["book"], "odds": x["odds"], "sannolikhet": x["p"], "ratt_odds": 1 / x["p"],
         "edge": x["edge"], "spela_fran": round((1 + s.get("sides_min_edge", 0.03)) / x["p"], 2),
-        "insats_pct": _stake(x["p"], x["odds"], s), "stangning": x["odds"], "pin_p": x["p"],
-        "pin_stang_p": x["p"], "pin_grans": x["limit"], "alternativ_linje": x["alt"],
+        "insats_pct": _stake(x["p"], x["odds"], s), "stangning": x["odds"], "pin_p": x.get("p_pin", x["p"]),
+        "pin_stang_p": x.get("p_pin", x["p"]), "smk_p": x.get("p_smk"), "smk_stang_p": x.get("p_smk"),
+        "pin_grans": x["limit"], "alternativ_linje": x["alt"],
         "mindre_liga": bool(evd.get("extra")),
         "status": "öppen", "stopp": "; ".join(x["reasons"]), "utfall": None, "resultat_enheter": None,
     }
@@ -245,7 +253,8 @@ def _radar_row(evd: dict, x: dict, s: dict, in_window: bool) -> dict:
             "spela_fran": round((1 + s.get("sides_min_edge", 0.03)) / x["p"], 2),
             "insats_pct": st if play else 0.0, "insats_forslag": st, "spelbar": play,
             "live": bool(play and s.get("sides_live")), "forv_clv_pp": None, "clv_signal": False, "p_modell": None,
-            "kommentar": "Pinnacle utan marginal; " + ("; ".join(x["reasons"]) or "klarar alla regler")
+            "kommentar": "Pinnacle utan marginal" + (f" + Smarkets {x['p_smk']:.0%}" if x.get("p_smk") is not None else "")
+                         + "; " + ("; ".join(x["reasons"]) or "klarar alla regler")
                          + ("" if in_window else f"; mer än {s.get('sides_max_hours', 24)} h till avspark")}
 
 
@@ -401,6 +410,11 @@ def run(root: Path, data: list, settings: dict, diag, notify: bool = True) -> di
     new_spel, new_sk, best, radar = [], [], [], []
     latest: dict = {}
     max_h = s.get("sides_max_hours", 24)
+    # Smarkets (börs, öppet API): andra skarpa referensen. Går långsamt (gräns för antal anrop).
+    smk_src, n_smk, n_smk_try = None, 0, 0
+    if s.get("sides_smarkets", True):
+        from .sources.smarkets import SmarketsPublic
+        smk_src = SmarketsPublic(JsonClient(root / ".cache_odds", ttl_s=90, min_interval_s=s.get("smarkets_interval_s", 1.0)))
     for evd, _q, _n in data:
         km, pm = evd.get("kambi_main"), evd.get("pin_main")
         if not km or not pm:
@@ -414,10 +428,22 @@ def run(root: Path, data: list, settings: dict, diag, notify: bool = True) -> di
             # stoppade 138 skuggspel 7/11 som slog stängningen med +2 pe. Av som standard (sides_lineup_gate).
             wait = gate(lu, mtk, s) if s.get("sides_lineup_gate", False) else None
             n_lu += bool(lu and lu.published)
-        for x in evaluate(evd, km, pm, s, hist, now, playable, wait):
+        smk = None
+        if smk_src is not None and 0 < mtk <= max_h * 60 and n_smk_try < s.get("sides_smarkets_max_events", 80):
+            try:
+                eid = smk_src.find(evd["home_team"], evd["away_team"], evd["commence_time"])
+                if eid:
+                    n_smk_try += 1
+                    smk = smk_src.main(eid) or None
+                    n_smk += bool(smk)
+            except Exception:  # noqa: BLE001 – Smarkets får aldrig stoppa skanningen
+                smk = None
+        for x in evaluate(evd, km, pm, s, hist, now, playable, wait, smk):
             mk, line, side = x["key"]
             latest[f"{evd['id']}|{mk}|{line:g}|{side}|{x['book']}"] = (x["odds"], x["p"])
-            latest[(evd["id"], mk, line, side)] = x["p"]
+            latest[(evd["id"], mk, line, side)] = x.get("p_pin", x["p"])
+            if x.get("p_smk") is not None:
+                latest[("smk", evd["id"], mk, line, side)] = x["p_smk"]
             n_lines += 1
             best.append((x["edge"], evd, x))
             in_window = 0 < evd["commence_time"] - now <= max_h * 3600
@@ -444,6 +470,8 @@ def run(root: Path, data: list, settings: dict, diag, notify: bool = True) -> di
             pk = (b["match_id"], b["marknad"], b["linje"], b["sida"])
             if pk in latest:
                 b["pin_stang_p"] = latest[pk]
+            if ("smk",) + pk in latest:
+                b["smk_stang_p"] = latest[("smk",) + pk]
     try:
         from .sources.http import JsonClient
         client = JsonClient(root / ".cache_odds", ttl_s=900)
@@ -458,7 +486,7 @@ def run(root: Path, data: list, settings: dict, diag, notify: bool = True) -> di
     (root / "sides_radar.json").write_text(json.dumps(radar[:300], ensure_ascii=False), encoding="utf-8")
     top = sorted(best, key=lambda t: -t[0])[:3]
     diag.log(f"Sides/totals: {n_ev} matcher med Kambi + Pinnacle, {n_lines} linjer, "
-             f"{len(new_spel)} nya spel, {len(new_sk)} nya skuggspel, startelvor kända i {n_lu}; bästa edge "
+             f"{len(new_spel)} nya spel, {len(new_sk)} nya skuggspel, Smarkets-priser i {n_smk} av {n_smk_try}; bästa edge "
              + ", ".join(f"{e:+.1%} ({ev['home_team']} {label(*x['key'], ev['home_team'], ev['away_team'])[1]})" for e, ev, x in top))
     sent = 0
     if notify and s.get("sides_live") and s.get("ntfy_topic") and new_spel:

@@ -115,3 +115,20 @@ def test_pinnacle_limit_tiers(tmp_path):
     low = ev(1000)                                    # svag referens: kräver 4 %
     assert not low["playable"] and "gräns 1000" in low["reasons"][0]
     assert any("för svag referens" in r for r in ev(400)["reasons"])
+
+
+def test_smarkets_second_reference(tmp_path):
+    import time
+    from propsbot.sides import History, evaluate
+    s = {"sides_min_edge": 0.03, "sides_max_edge": 0.10, "sides_odds_window": [1.4, 6.0], "sides_min_pin_limit": 500,
+         "sides_low_limit": 2000, "playable_books": ["unibet"]}
+    evd = {"id": "e1", "home_team": "A", "away_team": "B", "commence_time": time.time() + 7200}
+    kambi = {"unibet": {("total", 2.5, "over"): 2.10}}
+    pin = {("total", 2.5, "over"): (0.52, 5000, False)}
+    h = History(tmp_path / "h.json")
+    x = evaluate(evd, kambi, pin, s, h, time.time(), {"unibet"})[0]                    # bara Pinnacle
+    assert x["playable"] and abs(x["edge"] - (0.52 * 2.10 - 1)) < 1e-9
+    x = evaluate(evd, kambi, pin, s, h, time.time(), {"unibet"}, {("total", 2.5, "over"): (0.50, 100)})[0]
+    assert abs(x["p"] - 0.51) < 1e-9 and x["p_pin"] == 0.52 and x["p_smk"] == 0.50 and x["playable"]
+    x = evaluate(evd, kambi, pin, s, h, time.time(), {"unibet"}, {("total", 2.5, "over"): (0.46, 100)})[0]
+    assert not x["playable"] and any("Smarkets håller inte med" in r for r in x["reasons"])
