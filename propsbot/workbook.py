@@ -369,7 +369,13 @@ def _csv_row(r: list) -> list:
     else:
         res = None
     f = lambda d: d.strftime("%Y-%m-%d %H:%M") if d else ""
-    n = lambda x, k=4: "" if x is None or x == "" else round(float(x), k)
+    def n(x, k=4):
+        if x is None or x == "":
+            return ""
+        try:
+            return round(float(x), k)
+        except (TypeError, ValueError):
+            return x          # t.ex. sides-resultat "0–1"
     return [f(r[0]), r[1], r[2], f(r[3]), r[4], r[5], r[6], r[7], n(r[8], 1), r[9], n(odds, 2), n(close, 2),
             n(clv * 100 if clv is not None else None, 2), n(r[13]), n(r[14]), n(units, 1), status or "", n(r[18], 1),
             n(res, 2)]
