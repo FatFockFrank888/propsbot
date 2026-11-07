@@ -132,3 +132,19 @@ def test_smarkets_second_reference(tmp_path):
     assert abs(x["p"] - 0.51) < 1e-9 and x["p_pin"] == 0.52 and x["p_smk"] == 0.50 and x["playable"]
     x = evaluate(evd, kambi, pin, s, h, time.time(), {"unibet"}, smk={("total", 2.5, "over"): (0.46, 100)})[0]
     assert not x["playable"] and any("Smarkets håller inte med" in r for r in x["reasons"])
+
+
+def test_corners_vs_smarkets(tmp_path):
+    import time
+    from propsbot.sides import History, evaluate, result_units
+    s = {"sides_min_edge": 0.03, "sides_max_edge": 0.10, "sides_odds_window": [1.4, 6.0], "playable_books": ["unibet"],
+         "sides_markets": ["corners"]}
+    evd = {"id": "e1", "home_team": "A", "away_team": "B", "commence_time": time.time() + 7200}
+    kambi = {"unibet": {("corners", 9.5, "over"): 2.10}}
+    h = History(tmp_path / "h.json")
+    assert evaluate(evd, kambi, {}, s, h, time.time(), {"unibet"}) == []                     # ingen referens
+    x = evaluate(evd, kambi, {}, s, h, time.time(), {"unibet"}, smk={("corners", 9.5, "over"): (0.52, 150)})[0]
+    assert abs(x["edge"] - (0.52 * 2.10 - 1)) < 1e-9 and x["playable"]                        # 9,2 % >= 3 + 1 %
+    x = evaluate(evd, kambi, {}, s, h, time.time(), {"unibet"}, smk={("corners", 9.5, "over"): (0.49, 150)})[0]
+    assert not x["playable"]                                                                   # 2,9 % < 4 %
+    assert result_units("corners", 9.5, "over", 6, 4, 2.0, 0.01) > 0 and result_units("corners", 9.5, "over", 5, 4, 2.0, 0.01) < 0

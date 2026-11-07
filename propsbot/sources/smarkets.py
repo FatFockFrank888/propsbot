@@ -19,7 +19,7 @@ from .http import JsonClient, SourceError
 
 BASE = "https://api.smarkets.com/v3"
 SPREAD_MAX = 400          # 4 procentenheter mellan köp och sälj
-_NUM = re.compile(r"([+-]?\d+(?:\.\d+)?)\s*(?:goals)?\s*$", re.I)
+_NUM = re.compile(r"([+-]?\d+(?:\.\d+)?)\s*(?:goals|corners)?\s*$", re.I)
 
 
 def _ts(s: str) -> float:
@@ -83,6 +83,8 @@ class SmarketsPublic:
                 want[m["id"]] = "total"
             elif n.startswith("Asian Handicap "):
                 want[m["id"]] = "ah"
+            elif re.fullmatch(r"Over/under \d+\.5 corners", n):
+                want[m["id"]] = "corners"
         if not want:
             return {}
         ids = ",".join(list(want)[:40])
@@ -115,10 +117,10 @@ class SmarketsPublic:
                 side = c.get("slug")
                 if kind == "1x2" and side in ("home", "draw", "away"):
                     out[("1x2", 0.0, side)] = (p / tot, spread)
-                elif kind == "total" and side in ("over", "under"):
+                elif kind in ("total", "corners") and side in ("over", "under"):
                     m = _NUM.search(c.get("name", ""))
                     if m:
-                        out[("total", float(m.group(1)), side)] = (p / tot, spread)
+                        out[(kind, float(m.group(1)), side)] = (p / tot, spread)
                 elif kind == "ah" and side in ("home", "away"):
                     m = _NUM.search(c.get("name", ""))
                     if m:

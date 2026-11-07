@@ -119,7 +119,7 @@ DEFAULT_SETTINGS = {
     "sides_extra_leagues": True, "sides_extra_hours": 3, "sides_extra_max_events": 60,
     "sides_enabled": True,
     "sides_live": False,
-    "sides_markets": ["1x2", "total", "ah"],
+    "sides_markets": ["1x2", "total", "ah", "corners"],
     "sides_min_edge": 0.03,
     "sides_max_edge": 0.1,
     "sides_alt_extra_edge": 0.01,

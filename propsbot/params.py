@@ -97,6 +97,10 @@ def all_params(settings_path: Path) -> dict:
         ("Startelvor (sides/totals)", "väntar" if s.get("sides_lineup_gate", False) else "väntar inte",
          "Av sedan 7/11: Pinnacle prisar redan in laguppställningar och nyheter. Spärren stoppade 138 skuggspel som slog "
          "Pinnacles stängning med +2 pe i snitt. Startelvan syns ändå i loggen och sharp money-spärren gäller."),
+        ("Skarpa referenser (sides)", "Pinnacle + Smarkets (börs)",
+         "Smarkets öppna API: köp/sälj-mitten när spreaden är högst 4 pe. Finns båda är facit snittet och Smarkets måste "
+         "också visa värde. Hörnor (total, hela matchen) jämförs bara mot Smarkets (Pinnacle saknar dem) och kräver +1 % extra "
+         "edge; rättas mot ESPN:s matchprotokoll. Spelarprops, fouls och målskytt hos Smarkets saknar likviditet – används inte."),
         ("Sides/totals: edgekrav", f"{_pct(s.get('sides_min_edge', 0.03))} (alternativ Pinnacle-linje +{_pct(s.get('sides_alt_extra_edge', 0.01))})",
          "Lägre än 5 % eftersom referensen är Pinnacles huvudlinje (skarpast i världen): mot den är 3 % en verklig edge. "
          f"{_pct(s.get('sides_shadow_min_edge', 0.01))}–{_pct(s.get('sides_min_edge', 0.03))} bokförs som Sides-skugga för att mäta nivån."),

@@ -24,7 +24,8 @@ from pathlib import Path
 from .ledger import Ledger
 from .market import devig_power
 
-MARKETS = ("1x2", "total", "ah")
+MARKETS = ("1x2", "total", "ah", "corners")
+SINGLE_REF = ("corners",)      # bara Smarkets som referens (Pinnacle saknar hörnor i det öppna flödet)
 SIDE_SV = {"home": "1", "draw": "X", "away": "2"}
 
 
@@ -72,6 +73,14 @@ def kambi_main(raw: dict, home: str, away: str) -> dict:
                 side = "over" if o.get("type") == "OT_OVER" else "under" if o.get("type") == "OT_UNDER" else None
                 if side and _line_ok(ln):
                     _put(out, ("total", ln, side), o["odds"] / 1000)
+        elif lab in ("total corners", "total corners - full time"):
+            for o in outs:
+                if o.get("line") is None or not o.get("odds"):
+                    continue
+                ln = o["line"] / 1000
+                side = "over" if o.get("type") == "OT_OVER" else "under" if o.get("type") == "OT_UNDER" else None
+                if side and _half(ln):
+                    _put(out, ("corners", ln, side), o["odds"] / 1000)
         elif lab == "asian handicap":
             for o in outs:
                 if o.get("line") is None or not o.get("odds"):
@@ -150,6 +159,8 @@ def label(mk: str, line: float, side: str, home: str, away: str) -> tuple[str, s
         return team, f"1X2: {SIDE_SV[side]}"
     if mk == "total":
         return "Mål", f"{'över' if side == 'over' else 'under'} {line:g}"
+    if mk == "corners":
+        return "Hörnor", f"hörnor {'över' if side == 'over' else 'under'} {line:g}"
     return team, f"handikapp {line:+g}".replace("+-", "-")
 
 
@@ -161,27 +172,33 @@ def evaluate(evd: dict, kambi_by_book: dict, pin: dict, s: dict, hist: History, 
     keys = set().union(*[set(v) for v in kambi_by_book.values()]) if kambi_by_book else set()
     lo, hi = s.get("sides_odds_window", [1.40, 6.00])
     for key in keys:
-        if key[0] not in s.get("sides_markets", MARKETS) or key not in pin:
+        if key[0] not in s.get("sides_markets", MARKETS):
+            continue
+        single = key[0] in SINGLE_REF
+        if single and not (smk and key in smk):
+            continue
+        if not single and key not in pin:
             continue
         offers = [(v[key], b) for b, v in kambi_by_book.items() if key in v and b in playable]
         if not offers:
             continue
         odds, book = max(offers)
-        p_pin, lim, alt = pin[key]
+        p_pin, lim, alt = pin[key] if not single else (smk[key][0], 10 ** 6, False)
         # Två skarpa referenser: Pinnacle och Smarkets (börs). Finns Smarkets-priset (snäv spread) är
         # facit medelvärdet, och Smarkets måste också visa positivt värde – annars inget spel.
         sm = (smk or {}).get(key)
         p_smk = sm[0] if sm else None
-        p = (p_pin + p_smk) / 2 if p_smk is not None else p_pin
+        p = (p_pin + p_smk) / 2 if p_smk is not None and not single else p_pin
         edge = p * odds - 1
         mk, line, side = key
         hk = f"{evd['id']}|{mk}|{line:g}|{side}"
         h = hist.update(hk, p_pin, odds, now)
         reasons = [wait_reason] if wait_reason else []
-        if p_smk is not None and p_smk * odds - 1 < 0:
+        if p_smk is not None and not single and p_smk * odds - 1 < 0:
             reasons.append(f"Smarkets håller inte med: edge mot börsen {p_smk * odds - 1:+.1%}")
         low = lim < s.get("sides_low_limit", 2000)     # svagare Pinnacle-linje (ofta lägre divisioner)
         need = (s.get("sides_min_edge", 0.03) + (s.get("sides_alt_extra_edge", 0.01) if alt else 0.0)
+                + (s.get("sides_single_ref_extra_edge", 0.01) if single else 0.0)
                 + (s.get("sides_low_limit_extra_edge", 0.01) if low else 0.0))
         if edge < need:
             reasons.append(f"edge {edge:.1%} < {need:.0%}" + (" (alternativ linje)" if alt else "")
@@ -276,6 +293,9 @@ def result_units(mk: str, ln: float, side: str, hg: int, ag: int, odds: float, s
     if mk == "1x2":
         won = {"home": hg > ag, "draw": hg == ag, "away": ag > hg}[side]
         return (odds - 1) * stake if won else -stake
+    if mk == "corners":       # hg, ag = hörnor per lag
+        won = (hg + ag > ln) if side == "over" else (hg + ag < ln)
+        return (odds - 1) * stake if won else -stake
     res = 0.0
     ps = parts(ln)
     for l in ps:
@@ -294,8 +314,11 @@ def settle(lg: Ledger, scores: dict) -> list[str]:
     for b in lg.bets:
         if b["status"] != "öppen" or b["match_id"] not in scores:
             continue
-        hg, ag = scores[b["match_id"]]
         mk, ln, side = b["marknad"], b["linje"], b["sida"]
+        sc = scores[b["match_id"]] if mk != "corners" else scores.get(("corners", b["match_id"]))
+        if sc is None:
+            continue
+        hg, ag = sc
         res = result_units(mk, ln, side, hg, ag, b["odds"], b["insats_pct"])
         status = "vunnen" if res > 1e-12 else "förlorad" if res < -1e-12 else "push"
         b.update(status=status, utfall=f"{hg}–{ag}", resultat_enheter=res)
@@ -313,7 +336,31 @@ def espn_scores(bets: list[dict], client, now: float) -> dict:
         sc = espn.final_score(b["hemma"], b["borta"], b["avspark"])
         if sc:
             out[b["match_id"]] = sc
+    for b in bets:            # hörnor: ESPN:s matchprotokoll (wonCorners per lag)
+        if b.get("marknad") != "corners" or b["status"] != "öppen" or ("corners", b["match_id"]) in out                 or not b.get("avspark") or now < b["avspark"] + 2.5 * 3600:
+            continue
+        cc = espn_corners(espn, client, b["hemma"], b["borta"], b["avspark"])
+        if cc:
+            out[("corners", b["match_id"])] = cc
     return out
+
+
+def espn_corners(espn, client, home: str, away: str, start: float) -> tuple[int, int] | None:
+    from .results import BASE
+    hit = espn.find_any(home, away, start)
+    if not hit:
+        return None
+    lg, ev = hit
+    raw = client.get(f"{BASE}/{lg}/summary", {"event": ev["id"]}, ttl=1800) or {}
+    comp = ((raw.get("header") or {}).get("competitions") or [{}])[0]
+    if not ((comp.get("status") or {}).get("type") or {}).get("completed"):
+        return None
+    got = {}
+    for t in (raw.get("boxscore") or {}).get("teams", []) or []:
+        v = next((x.get("displayValue") for x in t.get("statistics", []) or [] if x.get("name") == "wonCorners"), None)
+        if v is not None and t.get("homeAway") in ("home", "away"):
+            got[t["homeAway"]] = int(float(v))
+    return (got["home"], got["away"]) if len(got) == 2 else None
 
 
 ESPORT = ("esport", "e-sport", "esoccer", "virtual", "fifa", "efootball", "cyber")
