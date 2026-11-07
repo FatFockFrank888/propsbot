@@ -1,4 +1,4 @@
-Skanning 2026-11-07 20:33
+Skanning 2026-11-07 20:58
 Kambi unibet (ubse): OK, 123 matcher i valda ligor
 Kambi paf (paf): OK
 Kambi atg (atg): OK
@@ -6,86 +6,76 @@ Kambi leovegas (leose): OK
 Kambi svenskaspel (svenskaspel): OK
 Kambi expekt (expektse): OK
 Kambi betmgm (betmgmse): OK
-Pinnacle: OK, 26 ligor
-  WSG Tirol – Austria Wien: Pinnacle FEL HTTP 403 för https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639270551/markets/related/straight
-  Hartberg – Altach: Pinnacle FEL HTTP 403 för https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639270461/related
-Pinnacle: 98 matcher, matchlinjer för 37 av 60 Kambi-matcher, 0 spelarodds som används
+Pinnacle: OK, 25 ligor
+Pinnacle: 90 matcher, matchlinjer för 31 av 60 Kambi-matcher, 0 spelarodds som används
 Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
-  Double Chance 1st Half | units=Regular | kategori=Team Props | deltagare=New York Red Bulls Or Atlanta United,Draw Or Atlanta United,Draw Or New York Red Bulls  ->  används inte (lagmarknad)
-  Moneyline and Total Goals | units=Regular | kategori=Team Props | deltagare=New York Red Bulls & Over 3.5,New York Red Bulls & Under 3.5,Draw & Over 3.5,Draw & Under 3.5,Atlanta United & Over 3.5,Atlanta United & Under 3.5  ->  används inte (lagmarknad)
-  Double Chance | units=Regular | kategori=Team Props | deltagare=New York Red Bulls Or Atlanta United,Draw Or Atlanta United,Draw Or New York Red Bulls  ->  används inte (lagmarknad)
+  Double Chance 1st Half | units=Regular | kategori=Team Props | deltagare=Atlas Or Pachuca,Draw Or Pachuca,Draw Or Atlas  ->  används inte (lagmarknad)
+  Moneyline and Total Goals | units=Regular | kategori=Team Props | deltagare=Atlas & Over 2.5,Atlas & Under 2.5,Draw & Over 2.5,Draw & Under 2.5,Pachuca & Over 2.5,Pachuca & Under 2.5  ->  används inte (lagmarknad)
+  Double Chance | units=Regular | kategori=Team Props | deltagare=Atlas Or Pachuca,Draw Or Pachuca,Draw Or Atlas  ->  används inte (lagmarknad)
   Total Goals Range | units=Regular | kategori=Team Props | deltagare=0 - 1,2 - 3,4 - 6,7+  ->  används inte (lagmarknad)
-  Draw No Bet | units=Regular | kategori=Team Props | deltagare=New York Red Bulls,Atlanta United  ->  används inte (lagmarknad)
+  Draw No Bet | units=Regular | kategori=Team Props | deltagare=Atlas,Pachuca  ->  används inte (lagmarknad)
   Total Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
-  Atlanta United Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
-  Draw No Bet 1st Half | units=Regular | kategori=Team Props | deltagare=New York Red Bulls,Atlanta United  ->  används inte (lagmarknad)
-  Correct Score | units=Regular | kategori=Team Props | deltagare=New York Red Bulls 0, Atlanta United 0,New York Red Bulls 0, Atlanta United 1,New York Red Bulls 0, Atlanta United 2,New York Red Bulls 0, Atlanta United 3,New York Red Bulls 0, Atlanta United 4,New York Red Bulls 0, Atlanta United 5,New York Red Bulls 0, Atlanta United 6,New York Red Bulls 1, Atlanta United 0,New York Red Bulls 1, Atlanta United 1,New York Red Bulls 1, Atlanta United 2,New York Red Bulls 1, Atlanta United 3,New York Red Bulls 1, Atlanta United 4,New York Red Bulls 1, Atlanta United 5,New York Red Bulls 1, Atlanta United 6,New York Red Bulls 2, Atlanta United 0,New York Red Bulls 2, Atlanta United 1,New York Red Bulls 2, Atlanta United 2,New York Red Bulls 2, Atlanta United 3,New York Red Bulls 2, Atlanta United 4,New York Red Bulls 2, Atlanta United 5,New York Red Bulls 2, Atlanta United 6,New York Red Bulls 3, Atlanta United 0,New York Red Bulls 3, Atlanta United 1,New York Red Bulls 3, Atlanta United 2,New York Red Bulls 3, Atlanta United 3,New York Red Bulls 3, Atlanta United 4,New York Red Bulls 3, Atlanta United 5,New York Red Bulls 3, Atlanta United 6,New York Red Bulls 4, Atlanta United 0,New York Red Bulls 4, Atlanta United 1,New York Red Bulls 4, Atlanta United 2,New York Red Bulls 4, Atlanta United 3,New York Red Bulls 4, Atlanta United 4,New York Red Bulls 4, Atlanta United 5,New York Red Bulls 4, Atlanta United 6,New York Red Bulls 5, Atlanta United 0,New York Red Bulls 5, Atlanta United 1,New York Red Bulls 5, Atlanta United 2,New York Red Bulls 5, Atlanta United 3,New York Red Bulls 5, Atlanta United 4,New York Red Bulls 5, Atlanta United 5,New York Red Bulls 5, Atlanta United 6,New York Red Bulls 6, Atlanta United 0,New York Red Bulls 6, Atlanta United 1,New York Red Bulls 6, Atlanta United 2,New York Red Bulls 6, Atlanta United 3,New York Red Bulls 6, Atlanta United 4,New York Red Bulls 6, Atlanta United 5,New York Red Bulls 6, Atlanta United 6  ->  används inte (lagmarknad)
-  Atlanta United Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
-  Winning Margin 1st Half | units=Regular | kategori=Team Props | deltagare=New York Red Bulls By 1,New York Red Bulls By 2+,Atlanta United By 1,Atlanta United By 2+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
-  First Team To Score 1st Half | units=1st Goal | kategori=Team Props | deltagare=New York Red Bulls,Atlanta United,Neither  ->  används inte (lagmarknad)
+  Pachuca Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
+  Draw No Bet 1st Half | units=Regular | kategori=Team Props | deltagare=Atlas,Pachuca  ->  används inte (lagmarknad)
+  Correct Score | units=Regular | kategori=Team Props | deltagare=Atlas 0, Pachuca 0,Atlas 0, Pachuca 1,Atlas 0, Pachuca 2,Atlas 0, Pachuca 3,Atlas 0, Pachuca 4,Atlas 0, Pachuca 5,Atlas 0, Pachuca 6,Atlas 1, Pachuca 0,Atlas 1, Pachuca 1,Atlas 1, Pachuca 2,Atlas 1, Pachuca 3,Atlas 1, Pachuca 4,Atlas 1, Pachuca 5,Atlas 1, Pachuca 6,Atlas 2, Pachuca 0,Atlas 2, Pachuca 1,Atlas 2, Pachuca 2,Atlas 2, Pachuca 3,Atlas 2, Pachuca 4,Atlas 2, Pachuca 5,Atlas 2, Pachuca 6,Atlas 3, Pachuca 0,Atlas 3, Pachuca 1,Atlas 3, Pachuca 2,Atlas 3, Pachuca 3,Atlas 3, Pachuca 4,Atlas 3, Pachuca 5,Atlas 3, Pachuca 6,Atlas 4, Pachuca 0,Atlas 4, Pachuca 1,Atlas 4, Pachuca 2,Atlas 4, Pachuca 3,Atlas 4, Pachuca 4,Atlas 4, Pachuca 5,Atlas 4, Pachuca 6,Atlas 5, Pachuca 0,Atlas 5, Pachuca 1,Atlas 5, Pachuca 2,Atlas 5, Pachuca 3,Atlas 5, Pachuca 4,Atlas 5, Pachuca 5,Atlas 5, Pachuca 6,Atlas 6, Pachuca 0,Atlas 6, Pachuca 1,Atlas 6, Pachuca 2,Atlas 6, Pachuca 3,Atlas 6, Pachuca 4,Atlas 6, Pachuca 5,Atlas 6, Pachuca 6  ->  används inte (lagmarknad)
+  Pachuca Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  Winning Margin 1st Half | units=Regular | kategori=Team Props | deltagare=Atlas By 1,Atlas By 2+,Pachuca By 1,Pachuca By 2+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
+  First Team To Score 1st Half | units=1st Goal | kategori=Team Props | deltagare=Atlas,Pachuca,Neither  ->  används inte (lagmarknad)
   Either Team To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Atlanta United To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  New York Red Bulls Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
+  Pachuca To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Atlas Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
   Exact Total Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
   Exact Total Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5,6+  ->  används inte (lagmarknad)
+  Odd/Even and Total Goals | units=Regular | kategori=Team Props | deltagare=Odd & Over 2.5,Odd & Under 2.5,Even & Over 2.5,Even & Under 2.5  ->  används inte (lagmarknad)
   Both Teams To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Odd/Even and Total Goals | units=Regular | kategori=Team Props | deltagare=Odd & Over 3.5,Odd & Under 3.5,Even & Over 3.5,Even & Under 3.5  ->  används inte (lagmarknad)
-  First Team To Score | units=1st Goal | kategori=Team Props | deltagare=New York Red Bulls,Atlanta United,Neither  ->  används inte (lagmarknad)
-  New York Red Bulls To Win To Nil 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Atlas To Win To Nil 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  First Team To Score | units=1st Goal | kategori=Team Props | deltagare=Atlas,Pachuca,Neither  ->  används inte (lagmarknad)
   Both Teams To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
   Total Goals Range 1st Half | units=Regular | kategori=Team Props | deltagare=0 - 1,2 - 3,4+  ->  används inte (lagmarknad)
-  3-Way Handicap New York Red Bulls -1 | units=Regular | kategori=Team Props | deltagare=New York Red Bulls (-1),Draw - (New York Red Bulls -1),Atlanta United (+1)  ->  används inte (lagmarknad)
-  New York Red Bulls Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
-  New York Red Bulls To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Winning Margin | units=Regular | kategori=Team Props | deltagare=New York Red Bulls By 1,New York Red Bulls By 2,New York Red Bulls By 3,New York Red Bulls By 4+,Atlanta United By 1,Atlanta United By 2,Atlanta United By 3,Atlanta United By 4+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
+  3-Way Handicap Atlas -1 | units=Regular | kategori=Team Props | deltagare=Atlas (-1),Draw - (Atlas -1),Pachuca (+1)  ->  används inte (lagmarknad)
+  Atlas Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  Atlas To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Winning Margin | units=Regular | kategori=Team Props | deltagare=Atlas By 1,Atlas By 2,Atlas By 3,Atlas By 4+,Pachuca By 1,Pachuca By 2,Pachuca By 3,Pachuca By 4+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
   Total Goals Odd/Even 1st Half | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
-  Correct Score 1st Half | units=Regular | kategori=Team Props | deltagare=New York Red Bulls 0, Atlanta United 0,New York Red Bulls 0, Atlanta United 1,New York Red Bulls 0, Atlanta United 2,New York Red Bulls 0, Atlanta United 3,New York Red Bulls 1, Atlanta United 0,New York Red Bulls 1, Atlanta United 1,New York Red Bulls 1, Atlanta United 2,New York Red Bulls 1, Atlanta United 3,New York Red Bulls 2, Atlanta United 0,New York Red Bulls 2, Atlanta United 1,New York Red Bulls 2, Atlanta United 2,New York Red Bulls 2, Atlanta United 3,New York Red Bulls 3, Atlanta United 0,New York Red Bulls 3, Atlanta United 1,New York Red Bulls 3, Atlanta United 2,New York Red Bulls 3, Atlanta United 3  ->  används inte (lagmarknad)
-  Atlanta United To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  3-Way Handicap New York Red Bulls -2 | units=Regular | kategori=Team Props | deltagare=New York Red Bulls (-2),Draw - (New York Red Bulls -2),Atlanta United (+2)  ->  används inte (lagmarknad)
-  New York Red Bulls Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
-  3-Way Handicap New York Red Bulls +1 | units=Regular | kategori=Team Props | deltagare=New York Red Bulls (+1),Draw - (New York Red Bulls +1),Atlanta United (-1)  ->  används inte (lagmarknad)
-  New York Red Bulls To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Atlanta United Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
-  Both Teams To Score and Moneyline | units=Regular | kategori=Team Props | deltagare=Yes & New York Red Bulls,Yes & Draw,Yes & Atlanta United,No & New York Red Bulls,No & Draw,No & Atlanta United  ->  används inte (lagmarknad)
-  New York Red Bulls To Win To Nil | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Atlanta United To Win To Nil | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Atlanta United To Win To Nil 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Both Teams To Score and Total Goals | units=Regular | kategori=Team Props | deltagare=Yes & Over 3.5,Yes & Under 3.5,No & Over 3.5,No & Under 3.5  ->  används inte (lagmarknad)
-  Double Chance 1st Half | units=Regular | kategori=Team Props | deltagare=Inter Miami Or Charlotte FC,Draw Or Charlotte FC,Draw Or Inter Miami  ->  används inte (lagmarknad)
-  Moneyline and Total Goals | units=Regular | kategori=Team Props | deltagare=Inter Miami & Over 4.5,Inter Miami & Under 4.5,Draw & Over 4.5,Draw & Under 4.5,Charlotte FC & Over 4.5,Charlotte FC & Under 4.5  ->  används inte (lagmarknad)
-  Double Chance | units=Regular | kategori=Team Props | deltagare=Inter Miami Or Charlotte FC,Draw Or Charlotte FC,Draw Or Inter Miami  ->  används inte (lagmarknad)
-  Draw No Bet | units=Regular | kategori=Team Props | deltagare=Inter Miami,Charlotte FC  ->  används inte (lagmarknad)
-  3-Way Handicap Inter Miami -4 | units=Regular | kategori=Team Props | deltagare=Inter Miami (-4),Draw - (Inter Miami -4),Charlotte FC (+4)  ->  används inte (lagmarknad)
-  Charlotte FC Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
-  Draw No Bet 1st Half | units=Regular | kategori=Team Props | deltagare=Inter Miami,Charlotte FC  ->  används inte (lagmarknad)
-  Correct Score | units=Regular | kategori=Team Props | deltagare=Inter Miami 0, Charlotte FC 0,Inter Miami 0, Charlotte FC 1,Inter Miami 0, Charlotte FC 2,Inter Miami 0, Charlotte FC 3,Inter Miami 0, Charlotte FC 4,Inter Miami 0, Charlotte FC 5,Inter Miami 0, Charlotte FC 6,Inter Miami 1, Charlotte FC 0,Inter Miami 1, Charlotte FC 1,Inter Miami 1, Charlotte FC 2,Inter Miami 1, Charlotte FC 3,Inter Miami 1, Charlotte FC 4,Inter Miami 1, Charlotte FC 5,Inter Miami 1, Charlotte FC 6,Inter Miami 2, Charlotte FC 0,Inter Miami 2, Charlotte FC 1,Inter Miami 2, Charlotte FC 2,Inter Miami 2, Charlotte FC 3,Inter Miami 2, Charlotte FC 4,Inter Miami 2, Charlotte FC 5,Inter Miami 2, Charlotte FC 6,Inter Miami 3, Charlotte FC 0,Inter Miami 3, Charlotte FC 1,Inter Miami 3, Charlotte FC 2,Inter Miami 3, Charlotte FC 3,Inter Miami 3, Charlotte FC 4,Inter Miami 3, Charlotte FC 5,Inter Miami 3, Charlotte FC 6,Inter Miami 4, Charlotte FC 0,Inter Miami 4, Charlotte FC 1,Inter Miami 4, Charlotte FC 2,Inter Miami 4, Charlotte FC 3,Inter Miami 4, Charlotte FC 4,Inter Miami 4, Charlotte FC 5,Inter Miami 4, Charlotte FC 6,Inter Miami 5, Charlotte FC 0,Inter Miami 5, Charlotte FC 1,Inter Miami 5, Charlotte FC 2,Inter Miami 5, Charlotte FC 3,Inter Miami 5, Charlotte FC 4,Inter Miami 5, Charlotte FC 5,Inter Miami 5, Charlotte FC 6,Inter Miami 6, Charlotte FC 0,Inter Miami 6, Charlotte FC 1,Inter Miami 6, Charlotte FC 2,Inter Miami 6, Charlotte FC 3,Inter Miami 6, Charlotte FC 4,Inter Miami 6, Charlotte FC 5,Inter Miami 6, Charlotte FC 6  ->  används inte (lagmarknad)
-  Charlotte FC Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
-  Winning Margin 1st Half | units=Regular | kategori=Team Props | deltagare=Inter Miami By 1,Inter Miami By 2+,Charlotte FC By 1,Charlotte FC By 2+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
-  First Team To Score 1st Half | units=1st Goal | kategori=Team Props | deltagare=Inter Miami,Charlotte FC,Neither  ->  används inte (lagmarknad)
-  Charlotte FC To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Inter Miami Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
-  First Team To Score | units=1st Goal | kategori=Team Props | deltagare=Inter Miami,Charlotte FC,Neither  ->  används inte (lagmarknad)
-  3-Way Handicap Inter Miami -1 | units=Regular | kategori=Team Props | deltagare=Inter Miami (-1),Draw - (Inter Miami -1),Charlotte FC (+1)  ->  används inte (lagmarknad)
-  Inter Miami Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
-  Inter Miami To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  3-Way Handicap Inter Miami -3 | units=Regular | kategori=Team Props | deltagare=Inter Miami (-3),Draw - (Inter Miami -3),Charlotte FC (+3)  ->  används inte (lagmarknad)
-  Winning Margin | units=Regular | kategori=Team Props | deltagare=Inter Miami By 1,Inter Miami By 2,Inter Miami By 3,Inter Miami By 4+,Charlotte FC By 1,Charlotte FC By 2,Charlotte FC By 3,Charlotte FC By 4+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
-  Correct Score 1st Half | units=Regular | kategori=Team Props | deltagare=Inter Miami 0, Charlotte FC 0,Inter Miami 0, Charlotte FC 1,Inter Miami 0, Charlotte FC 2,Inter Miami 0, Charlotte FC 3,Inter Miami 1, Charlotte FC 0,Inter Miami 1, Charlotte FC 1,Inter Miami 1, Charlotte FC 2,Inter Miami 1, Charlotte FC 3,Inter Miami 2, Charlotte FC 0,Inter Miami 2, Charlotte FC 1,Inter Miami 2, Charlotte FC 2,Inter Miami 2, Charlotte FC 3,Inter Miami 3, Charlotte FC 0,Inter Miami 3, Charlotte FC 1,Inter Miami 3, Charlotte FC 2,Inter Miami 3, Charlotte FC 3  ->  används inte (lagmarknad)
-Sides mindre ligor: 78 Kambi-matcher inom 12 h, 160 Pinnacle-matcher, 60 med Pinnacle, 60 matchade: Chile / Segunda División, China / League Two, China / Super League, Colombia / Liga Dimayor, Colombia / Torneo Dimayor, Costa Rica / Primera Division Costa Rica, Ecuador / Liga Pro, El Salvador / Primera Divisíon, Guatemala / Liga Nacional Guatemala, Honduras / Liga Nacional Honduras, Hong Kong / Pr
-  Sides rättad: Auxerre – Paris FC 1X2: 2 -> vunnen (0–1)
-  Sides rättad: La Serena – Palestino under 3 -> vunnen (1–0)
-Sides/totals: 97 matcher med Kambi + Pinnacle, 2165 linjer, 1 nya spel, 5 nya skuggspel, Smarkets-priser i 70 av 79; bästa edge +10.8% (San Diego FC 1X2: 2), +10.2% (CF Montréal 1X2: 1), +9.4% (D.C. United 1X2: 2)
+  Correct Score 1st Half | units=Regular | kategori=Team Props | deltagare=Atlas 0, Pachuca 0,Atlas 0, Pachuca 1,Atlas 0, Pachuca 2,Atlas 0, Pachuca 3,Atlas 1, Pachuca 0,Atlas 1, Pachuca 1,Atlas 1, Pachuca 2,Atlas 1, Pachuca 3,Atlas 2, Pachuca 0,Atlas 2, Pachuca 1,Atlas 2, Pachuca 2,Atlas 2, Pachuca 3,Atlas 3, Pachuca 0,Atlas 3, Pachuca 1,Atlas 3, Pachuca 2,Atlas 3, Pachuca 3  ->  används inte (lagmarknad)
+  Pachuca To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Either Team To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Atlas Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
+  3-Way Handicap Atlas +1 | units=Regular | kategori=Team Props | deltagare=Atlas (+1),Draw - (Atlas +1),Pachuca (-1)  ->  används inte (lagmarknad)
+  Atlas To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Pachuca Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
+  Both Teams To Score and Moneyline | units=Regular | kategori=Team Props | deltagare=Yes & Atlas,Yes & Draw,Yes & Pachuca,No & Atlas,No & Draw,No & Pachuca  ->  används inte (lagmarknad)
+  Atlas To Win To Nil | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Pachuca To Win To Nil | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Pachuca To Win To Nil 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Both Teams To Score and Total Goals | units=Regular | kategori=Team Props | deltagare=Yes & Over 2.5,Yes & Under 2.5,No & Over 2.5,No & Under 2.5  ->  används inte (lagmarknad)
+  Double Chance 1st Half | units=Regular | kategori=Team Props | deltagare=Minnesota United Or San Jose Earthquakes,Draw Or San Jose Earthquakes,Draw Or Minnesota United  ->  används inte (lagmarknad)
+  Moneyline and Total Goals | units=Regular | kategori=Team Props | deltagare=Minnesota United & Over 3.5,Minnesota United & Under 3.5,Draw & Over 3.5,Draw & Under 3.5,San Jose Earthquakes & Over 3.5,San Jose Earthquakes & Under 3.5  ->  används inte (lagmarknad)
+  Double Chance | units=Regular | kategori=Team Props | deltagare=Minnesota United Or San Jose Earthquakes,Draw Or San Jose Earthquakes,Draw Or Minnesota United  ->  används inte (lagmarknad)
+  3-Way Handicap Minnesota United -1 | units=Regular | kategori=Team Props | deltagare=Minnesota United (-1),Draw - (Minnesota United -1),San Jose Earthquakes (+1)  ->  används inte (lagmarknad)
+  Winning Margin | units=Regular | kategori=Team Props | deltagare=Minnesota United By 1,Minnesota United By 2,Minnesota United By 3,Minnesota United By 4+,San Jose Earthquakes By 1,San Jose Earthquakes By 2,San Jose Earthquakes By 3,San Jose Earthquakes By 4+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
+  Minnesota United Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  3-Way Handicap Minnesota United -3 | units=Regular | kategori=Team Props | deltagare=Minnesota United (-3),Draw - (Minnesota United -3),San Jose Earthquakes (+3)  ->  används inte (lagmarknad)
+  Draw No Bet | units=Regular | kategori=Team Props | deltagare=Minnesota United,San Jose Earthquakes  ->  används inte (lagmarknad)
+  San Jose Earthquakes To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Correct Score | units=Regular | kategori=Team Props | deltagare=Minnesota United 0, San Jose Earthquakes 0,Minnesota United 0, San Jose Earthquakes 1,Minnesota United 0, San Jose Earthquakes 2,Minnesota United 0, San Jose Earthquakes 3,Minnesota United 0, San Jose Earthquakes 4,Minnesota United 0, San Jose Earthquakes 5,Minnesota United 0, San Jose Earthquakes 6,Minnesota United 1, San Jose Earthquakes 0,Minnesota United 1, San Jose Earthquakes 1,Minnesota United 1, San Jose Earthquakes 2,Minnesota United 1, San Jose Earthquakes 3,Minnesota United 1, San Jose Earthquakes 4,Minnesota United 1, San Jose Earthquakes 5,Minnesota United 1, San Jose Earthquakes 6,Minnesota United 2, San Jose Earthquakes 0,Minnesota United 2, San Jose Earthquakes 1,Minnesota United 2, San Jose Earthquakes 2,Minnesota United 2, San Jose Earthquakes 3,Minnesota United 2, San Jose Earthquakes 4,Minnesota United 2, San Jose Earthquakes 5,Minnesota United 2, San Jose Earthquakes 6,Minnesota United 3, San Jose Earthquakes 0,Minnesota United 3, San Jose Earthquakes 1,Minnesota United 3, San Jose Earthquakes 2,Minnesota United 3, San Jose Earthquakes 3,Minnesota United 3, San Jose Earthquakes 4,Minnesota United 3, San Jose Earthquakes 5,Minnesota United 3, San Jose Earthquakes 6,Minnesota United 4, San Jose Earthquakes 0,Minnesota United 4, San Jose Earthquakes 1,Minnesota United 4, San Jose Earthquakes 2,Minnesota United 4, San Jose Earthquakes 3,Minnesota United 4, San Jose Earthquakes 4,Minnesota United 4, San Jose Earthquakes 5,Minnesota United 4, San Jose Earthquakes 6,Minnesota United 5, San Jose Earthquakes 0,Minnesota United 5, San Jose Earthquakes 1,Minnesota United 5, San Jose Earthquakes 2,Minnesota United 5, San Jose Earthquakes 3,Minnesota United 5, San Jose Earthquakes 4,Minnesota United 5, San Jose Earthquakes 5,Minnesota United 5, San Jose Earthquakes 6,Minnesota United 6, San Jose Earthquakes 0,Minnesota United 6, San Jose Earthquakes 1,Minnesota United 6, San Jose Earthquakes 2,Minnesota United 6, San Jose Earthquakes 3,Minnesota United 6, San Jose Earthquakes 4,Minnesota United 6, San Jose Earthquakes 5,Minnesota United 6, San Jose Earthquakes 6  ->  används inte (lagmarknad)
+  Minnesota United To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Correct Score 1st Half | units=Regular | kategori=Team Props | deltagare=Minnesota United 0, San Jose Earthquakes 0,Minnesota United 0, San Jose Earthquakes 1,Minnesota United 0, San Jose Earthquakes 2,Minnesota United 0, San Jose Earthquakes 3,Minnesota United 1, San Jose Earthquakes 0,Minnesota United 1, San Jose Earthquakes 1,Minnesota United 1, San Jose Earthquakes 2,Minnesota United 1, San Jose Earthquakes 3,Minnesota United 2, San Jose Earthquakes 0,Minnesota United 2, San Jose Earthquakes 1,Minnesota United 2, San Jose Earthquakes 2,Minnesota United 2, San Jose Earthquakes 3,Minnesota United 3, San Jose Earthquakes 0,Minnesota United 3, San Jose Earthquakes 1,Minnesota United 3, San Jose Earthquakes 2,Minnesota United 3, San Jose Earthquakes 3  ->  används inte (lagmarknad)
+  San Jose Earthquakes Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
+  3-Way Handicap Minnesota United -2 | units=Regular | kategori=Team Props | deltagare=Minnesota United (-2),Draw - (Minnesota United -2),San Jose Earthquakes (+2)  ->  används inte (lagmarknad)
+  Minnesota United To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  San Jose Earthquakes Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  Minnesota United Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
+  San Jose Earthquakes Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
+  Draw No Bet 1st Half | units=Regular | kategori=Team Props | deltagare=Minnesota United,San Jose Earthquakes  ->  används inte (lagmarknad)
+  3-Way Handicap Minnesota United +1 | units=Regular | kategori=Team Props | deltagare=Minnesota United (+1),Draw - (Minnesota United +1),San Jose Earthquakes (-1)  ->  används inte (lagmarknad)
+Sides mindre ligor: 72 Kambi-matcher inom 12 h, 151 Pinnacle-matcher, 55 med Pinnacle, 55 matchade: Chile / Segunda División, China / League Two, China / Super League, Colombia / Liga Dimayor, Colombia / Torneo Dimayor, Costa Rica / Primera Division Costa Rica, Ecuador / Liga Pro, El Salvador / Primera Divisíon, Guatemala / Liga Nacional Guatemala, Honduras / Liga Nacional Honduras, Hong Kong / Pr
+  Sides rättad: Benevento – Avellino 1X2: X -> vunnen (1–1)
+  Sides rättad: Benevento – Avellino handikapp +0.75 -> vunnen (1–1)
+Sides/totals: 86 matcher med Kambi + Pinnacle, 1854 linjer, 1 nya spel, 1 nya skuggspel, Smarkets-priser i 59 av 68; bästa edge +10.4% (San Diego FC 1X2: 2), +9.4% (Deportivo Toluca FC 1X2: 2), +8.7% (Club Brugge 1X2: 2)
 Fotboll extra bolag: 0 nya hämtningar, 0 odds i bruk, krediter kvar 399, dagsbudget 16 (andel 30%), förbrukat idag 4
-Tid: hämtning 678 s
-Marginal över alla matcher: uppmätt marginal: shots stege k=1.06 (7 spelare; marginal vid 3,00 ≈ 7%), shots_on_target stege k=1.08 (61 spelare; marginal vid 3,00 ≈ 9%)
-  New York Red Bulls – Atlanta United FC: modell – hittar inte matchen hos ESPN
-  Inter Miami CF – Charlotte FC: modell usa.1, 28 spelare
-  CF Montréal – Vancouver Whitecaps: modell usa.1, 34 spelare
-  FC Cincinnati – Nashville SC: modell usa.1, 28 spelare
-  D.C. United – New York City FC: modell usa.1, 28 spelare
-  Orlando City – New England Revolution: modell usa.1, 28 spelare
-  Philadelphia Union – Toronto FC: modell usa.1, 29 spelare
-  Chicago Fire – Columbus Crew: modell usa.1, 29 spelare
+Tid: hämtning 626 s
+Marginal över alla matcher: uppmätt marginal: shots stege k=1.06 (7 spelare; marginal vid 3,00 ≈ 7%), shots_on_target stege k=1.08 (53 spelare; marginal vid 3,00 ≈ 9%)
   Club Atlas – CF Pachuca: modell mex.1, 27 spelare
   Minnesota United FC – San Jose Earthquakes: modell – hittar inte matchen hos ESPN
   San Diego FC – Sporting Kansas City: modell – hittar inte matchen hos ESPN
@@ -112,20 +102,20 @@ Marginal över alla matcher: uppmätt marginal: shots stege k=1.06 (7 spelare; m
   Sunderland – Chelsea: modell eng.1, 31 spelare
   Brighton – Brentford: modell – hittar inte matchen hos ESPN
   Crystal Palace – Liverpool: modell eng.1, 28 spelare
-Modellens nivåavvikelse mot marknaden (log-odds, dras bort): assist -0.29, goal -0.27, shots -0.70, shots_on_target -0.43
-  New York Red Bulls – Atlanta United FC: väntade mål Pinnacle 3.96 mot Kambi 3.88 (kvot 1.021); uppmätt marginal: goal k=1.14, assist k=1.20
-Exempel uppmätt marginal: goal k=1.14, assist k=1.20
-  Inter Miami CF – Charlotte FC: väntade mål Pinnacle 4.20 mot Kambi 4.22 (kvot 0.995); uppmätt marginal: goal k=1.24, assist k=1.24
-  CF Montréal – Vancouver Whitecaps: väntade mål Pinnacle 3.16 mot Kambi 3.32 (kvot 0.952); uppmätt marginal: goal k=1.25, assist k=1.25
-  FC Cincinnati – Nashville SC: väntade mål Pinnacle 3.32 mot Kambi 3.28 (kvot 1.011); uppmätt marginal: goal k=1.27, assist k=1.20
-  D.C. United – New York City FC: väntade mål Pinnacle 2.88 mot Kambi 2.83 (kvot 1.018); uppmätt marginal: goal k=1.13, shots_on_target stege k=1.08 (7 spelare; marginal vid 3,00 ≈ 9%)
-  Orlando City – New England Revolution: väntade mål Pinnacle 4.05 mot Kambi 3.83 (kvot 1.058); uppmätt marginal: goal k=1.21, assist k=1.17
-  Philadelphia Union – Toronto FC: väntade mål Pinnacle 3.88 mot Kambi 3.75 (kvot 1.036); uppmätt marginal: goal k=1.10
-  Chicago Fire – Columbus Crew: väntade mål Pinnacle 3.54 mot Kambi 3.45 (kvot 1.028); uppmätt marginal: goal k=1.25, assist k=1.20
+Modellens nivåavvikelse mot marknaden (log-odds, dras bort): goal -0.12, shots -0.70, shots_on_target -0.42
+  New York Red Bulls – Atlanta United FC: saknar matchlinjer från Pinnacle
+  Inter Miami CF – Charlotte FC: saknar matchlinjer från Pinnacle
+  CF Montréal – Vancouver Whitecaps: saknar matchlinjer från Pinnacle
+  D.C. United – New York City FC: saknar matchlinjer från Pinnacle
+  Orlando City – New England Revolution: saknar matchlinjer från Pinnacle
+  Philadelphia Union – Toronto FC: saknar matchlinjer från Pinnacle
+  Chicago Fire – Columbus Crew: saknar matchlinjer från Pinnacle
+  FC Cincinnati – Nashville SC: saknar matchlinjer från Pinnacle
   Atlético Mineiro-MG – Grêmio-RS: saknar matchlinjer från Pinnacle
   Cuiabá-MT – Juventude-RS: saknar matchlinjer från Pinnacle
   Vila Nova-GO – Criciúma-SC: saknar matchlinjer från Pinnacle
   Club Atlas – CF Pachuca: väntade mål Pinnacle 3.04 mot Kambi 2.98 (kvot 1.021); uppmätt marginal: goal k=1.45, assist k=1.39
+Exempel uppmätt marginal: goal k=1.45, assist k=1.39
   Minnesota United FC – San Jose Earthquakes: väntade mål Pinnacle 3.60 mot Kambi 3.58 (kvot 1.006); uppmätt marginal: goal k=1.14, assist k=1.22
   San Diego FC – Sporting Kansas City: väntade mål Pinnacle 3.94 mot Kambi 3.95 (kvot 0.998); uppmätt marginal: goal k=1.41, assist k=1.35
   Seattle Sounders – Los Angeles FC: väntade mål Pinnacle 3.18 mot Kambi 3.20 (kvot 0.993); uppmätt marginal: goal k=1.27, assist k=1.26
@@ -143,7 +133,7 @@ Exempel uppmätt marginal: goal k=1.14, assist k=1.20
   Çaykur Rizespor – Erzurumspor: saknar matchlinjer från Pinnacle
   FC Copenhagen – Brøndby IF: väntade mål Pinnacle 2.85 mot Kambi 2.98 (kvot 0.955); uppmätt marginal: goal k=1.69, assist k=1.63
   SC Heerenveen – Feyenoord: väntade mål Pinnacle 3.53 mot Kambi 3.62 (kvot 0.977); uppmätt marginal: goal k=1.61, assist k=1.60, shots stege k=1.06 (7 spelare; marginal vid 3,00 ≈ 7%), shots_on_target stege k=1.02 (7 spelare; marginal vid 3,00 ≈ 2%)
-  Napoli – Lazio: väntade mål Pinnacle 3.03 mot Kambi 2.89 (kvot 1.048); uppmätt marginal: goal k=1.46, assist k=1.56, shots_on_target stege k=1.04 (7 spelare; marginal vid 3,00 ≈ 4%)
+  Napoli – Lazio: väntade mål Pinnacle 3.03 mot Kambi 2.95 (kvot 1.028); uppmätt marginal: goal k=1.48, assist k=1.57, shots_on_target stege k=1.08 (7 spelare; marginal vid 3,00 ≈ 9%)
   1. FC Magdeburg – FC St. Pauli: väntade mål Pinnacle 2.98 mot Kambi 3.14 (kvot 0.950); uppmätt marginal: goal k=1.57
   1. FC Heidenheim – Hannover 96: väntade mål Pinnacle 3.37 mot Kambi 3.46 (kvot 0.972); uppmätt marginal: goal k=1.51
   VfL Bochum – Karlsruher SC: väntade mål Pinnacle 3.17 mot Kambi 3.31 (kvot 0.957); uppmätt marginal: goal k=1.58
@@ -154,22 +144,22 @@ Exempel uppmätt marginal: goal k=1.14, assist k=1.20
   IFK Göteborg – Malmö FF: väntade mål Pinnacle 2.95 mot Kambi 2.97 (kvot 0.994); uppmätt marginal: goal k=1.58
   Çorum Belediyespor – Fenerbahçe: saknar matchlinjer från Pinnacle
   Elche – Real Betis: väntade mål Pinnacle 3.02 mot Kambi 3.00 (kvot 1.009); uppmätt marginal: goal k=1.59, assist k=1.69
-  FC Twente – Ajax: väntade mål Pinnacle 3.42 mot Kambi 3.51 (kvot 0.972); uppmätt marginal: goal k=1.71, assist k=1.69, shots_on_target stege k=1.08 (7 spelare; marginal vid 3,00 ≈ 9%)
+  FC Twente – Ajax: väntade mål Pinnacle 3.43 mot Kambi 3.51 (kvot 0.975); uppmätt marginal: goal k=1.71, assist k=1.69, shots_on_target stege k=1.08 (7 spelare; marginal vid 3,00 ≈ 9%)
   Tromsø – Bodø/Glimt: väntade mål Pinnacle 3.46 mot Kambi 3.70 (kvot 0.936); uppmätt marginal: goal k=1.50
   Sunderland – Chelsea: väntade mål Pinnacle 2.80 mot Kambi 2.80 (kvot 1.003); uppmätt marginal: goal k=1.29, assist k=1.37, shots_on_target stege k=1.26 (10 spelare; marginal vid 3,00 ≈ 33%)
   Brighton – Brentford: väntade mål Pinnacle 3.12 mot Kambi 3.16 (kvot 0.989); uppmätt marginal: goal k=1.33, assist k=1.50
   Crystal Palace – Liverpool: väntade mål Pinnacle 3.18 mot Kambi 3.30 (kvot 0.965); uppmätt marginal: goal k=1.44, assist k=1.53, shots_on_target stege k=1.14 (6 spelare; marginal vid 3,00 ≈ 17%)
-Tid: modell och utvärdering 111 s
+Tid: modell och utvärdering 117 s
 Bolag med spelarodds: atg, betmgm, expekt, leovegas, paf, svenskaspel, unibet
-Spelarodds per marknad: assist 4274, goal 12344, shots 3234, shots_on_target 7276
-Kambi-marknader: assist='to give an assist (settled using opta data)':4274; goal='1st goalscorer':140; goal='to score':8384; goal='to score at least 2 goals':3309; goal='to score at least 3 goals':455; goal='to score at least 4 goals':56; shots="player's shots (settled using opta data)":3234; shots_on_target="player's shots on target (settled using opta data)":7276
+Spelarodds per marknad: assist 4274, goal 12351, shots 3234, shots_on_target 7282
+Kambi-marknader: assist='to give an assist (settled using opta data)':4274; goal='1st goalscorer':140; goal='to score':8384; goal='to score at least 2 goals':3309; goal='to score at least 3 goals':462; goal='to score at least 4 goals':56; shots="player's shots (settled using opta data)":3234; shots_on_target="player's shots on target (settled using opta data)":7282
 Pinnacle har inga spelarprops här – använder linjejustering mot Pinnacles matchlinjer.
 CLV-signal: 0 ben släppta (Pinnacle rör sig åt vårt håll)
 Startelvor: 0 spelbara ben klara, 3 väntar på startelvan, 0 stoppade (inte i startelvan)
 Spelregler: stoppade {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0} (modelltest {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0})
-Spelarmodell: 0 av 914 ben har modell, 0 nya matcher hämtade från ESPN
-Bästa edge marknad shots_on_target: +3.9%, +3.4%, +2.5% (av 838 ben)
-Bästa edge modelltest shots_on_target: +4.4%, +2.4%, +2.3% (av 481 ben)
+Spelarmodell: 0 av 700 ben har modell, 0 nya matcher hämtade från ESPN
+Bästa edge marknad shots_on_target: +3.9%, +3.4%, +2.5% (av 640 ben)
+Bästa edge modelltest shots_on_target: +4.4%, +2.4%, +2.3% (av 307 ben)
 0 spelbara ben.
 Bokförda nya spel: 0
 Skuggspel: 0 nya bokförda (stoppade av reglerna, minst 2 % edge)
