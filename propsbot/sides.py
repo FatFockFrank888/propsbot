@@ -24,8 +24,11 @@ from pathlib import Path
 from .ledger import Ledger
 from .market import devig_power
 
-MARKETS = ("1x2", "total", "ah", "corners")
-SINGLE_REF = ("corners",)      # bara Smarkets som referens (Pinnacle saknar hörnor i det öppna flödet)
+MARKETS = ("1x2", "total", "ah", "corners", "cah", "corners_home", "corners_away")
+# Hörnor: bara Smarkets som referens (Pinnacle saknar hörnor i det öppna flödet). Börsen handlas tunnare
+# där, så edge räknas mot det försiktiga priset: mitten minus halva spreaden.
+SINGLE_REF = ("corners", "cah", "corners_home", "corners_away")
+CORNER_MARKETS = SINGLE_REF
 SIDE_SV = {"home": "1", "draw": "X", "away": "2"}
 
 
@@ -73,6 +76,30 @@ def kambi_main(raw: dict, home: str, away: str) -> dict:
                 side = "over" if o.get("type") == "OT_OVER" else "under" if o.get("type") == "OT_UNDER" else None
                 if side and _line_ok(ln):
                     _put(out, ("total", ln, side), o["odds"] / 1000)
+        elif lab == "corners 3-way handicap":
+            # Kambis 3-vägs hörnhandikapp (heltal h för hemmalaget) = tvåvägs halvlinjer:
+            # "1" = hemma h − 0,5, "2" = borta −h − 0,5 (krysset används inte).
+            for o in outs:
+                if o.get("line") is None or not o.get("odds"):
+                    continue
+                h = o["line"] / 1000
+                if abs(h - round(h)) > 1e-9:
+                    continue
+                if o.get("type") == "OT_ONE":
+                    _put(out, ("cah", h - 0.5, "home"), o["odds"] / 1000)
+                elif o.get("type") == "OT_TWO":
+                    _put(out, ("cah", -h - 0.5, "away"), o["odds"] / 1000)
+        elif lab.startswith("total corners by ") and " - " not in lab:
+            team = lab[len("total corners by "):]
+            nk = name_key(team)
+            side = "home" if nk == hk or nk in hk or hk in nk else "away" if nk == ak or nk in ak or ak in nk else None
+            for o in outs if side else []:
+                if o.get("line") is None or not o.get("odds"):
+                    continue
+                ln = o["line"] / 1000
+                ou = "over" if o.get("type") == "OT_OVER" else "under" if o.get("type") == "OT_UNDER" else None
+                if ou and _half(ln):
+                    _put(out, (f"corners_{side}", ln, ou), o["odds"] / 1000)
         elif lab in ("total corners", "total corners - full time"):
             for o in outs:
                 if o.get("line") is None or not o.get("odds"):
@@ -161,6 +188,11 @@ def label(mk: str, line: float, side: str, home: str, away: str) -> tuple[str, s
         return "Mål", f"{'över' if side == 'over' else 'under'} {line:g}"
     if mk == "corners":
         return "Hörnor", f"hörnor {'över' if side == 'over' else 'under'} {line:g}"
+    if mk in ("corners_home", "corners_away"):
+        t = home if mk == "corners_home" else away
+        return t, f"{t} hörnor {'över' if side == 'over' else 'under'} {line:g}"
+    if mk == "cah":
+        return team, f"hörnhandikapp {line:+g}".replace("+-", "-")
     return team, f"handikapp {line:+g}".replace("+-", "-")
 
 
@@ -183,7 +215,8 @@ def evaluate(evd: dict, kambi_by_book: dict, pin: dict, s: dict, hist: History, 
         if not offers:
             continue
         odds, book = max(offers)
-        p_pin, lim, alt = pin[key] if not single else (smk[key][0], 10 ** 6, False)
+        # hörnor: försiktigt pris = mitten minus halva spreaden (spread i baspunkter)
+        p_pin, lim, alt = pin[key] if not single else (smk[key][0] - smk[key][1] / 20000, 10 ** 6, False)
         # Två skarpa referenser: Pinnacle och Smarkets (börs). Finns Smarkets-priset (snäv spread) är
         # facit medelvärdet, och Smarkets måste också visa positivt värde – annars inget spel.
         sm = (smk or {}).get(key)
@@ -220,11 +253,12 @@ def evaluate(evd: dict, kambi_by_book: dict, pin: dict, s: dict, hist: History, 
         blocked = [r for r in reasons if not r.startswith("sharp money med")]
         out.append({"key": key, "odds": odds, "book": book, "p": p, "edge": edge, "limit": lim, "alt": alt,
                     "p_pin": p_pin, "p_smk": p_smk, "playable": not blocked, "reasons": reasons})
-    # ett spel per match – störst edge vinner
-    ok = sorted((x for x in out if x["playable"]), key=lambda x: -x["edge"])
-    for x in ok[1:]:
-        x["playable"] = False
-        x["reasons"].append("redan ett spel i matchen (störst edge vinner)")
+    # ett spel per match och grupp (mål-marknader / hörnor) – störst edge vinner
+    for grp in (False, True):
+        ok = sorted((x for x in out if x["playable"] and (x["key"][0] in CORNER_MARKETS) == grp), key=lambda x: -x["edge"])
+        for x in ok[1:]:
+            x["playable"] = False
+            x["reasons"].append("redan ett spel i matchen (störst edge vinner)")
     return out
 
 
@@ -244,7 +278,7 @@ def _bet(evd: dict, x: dict, s: dict, now: float) -> dict:
         "key": f"{evd['id']}|{mk}|{line:g}|{side}|{x['book']}", "id": 0, "bokford": now,
         "match_id": evd["id"], "match": f"{evd['home_team']} – {evd['away_team']}",
         "hemma": evd["home_team"], "borta": evd["away_team"], "liga": evd.get("league", ""),
-        "avspark": evd["commence_time"], "spelare": who, "spelare_id": "match",
+        "avspark": evd["commence_time"], "spelare": who, "spelare_id": "hörnor" if mk in CORNER_MARKETS else "match",
         "marknad": mk, "linje": line, "sida": side, "spel_text": txt,
         "bolag": x["book"], "odds": x["odds"], "sannolikhet": x["p"], "ratt_odds": 1 / x["p"],
         "edge": x["edge"], "spela_fran": round((1 + s.get("sides_min_edge", 0.03)) / x["p"], 2),
@@ -276,8 +310,9 @@ def _radar_row(evd: dict, x: dict, s: dict, in_window: bool) -> dict:
 
 
 def _record(lg: Ledger, evd: dict, x: dict, s: dict, now: float) -> dict | None:
-    if any(b.get("match_id") == evd["id"] for b in lg.bets):
-        return None                                   # ett spel per match och bokföring
+    grp = x["key"][0] in CORNER_MARKETS
+    if any(b.get("match_id") == evd["id"] and (b.get("marknad") in CORNER_MARKETS) == grp for b in lg.bets):
+        return None                                   # ett spel per match och grupp (mål / hörnor) och bokföring
     b = _bet(evd, x, s, now)
     if b["key"] in lg.by_key:
         return None
@@ -293,8 +328,9 @@ def result_units(mk: str, ln: float, side: str, hg: int, ag: int, odds: float, s
     if mk == "1x2":
         won = {"home": hg > ag, "draw": hg == ag, "away": ag > hg}[side]
         return (odds - 1) * stake if won else -stake
-    if mk == "corners":       # hg, ag = hörnor per lag
-        won = (hg + ag > ln) if side == "over" else (hg + ag < ln)
+    if mk in ("corners", "corners_home", "corners_away"):       # hg, ag = hörnor per lag
+        n = hg + ag if mk == "corners" else hg if mk == "corners_home" else ag
+        won = (n > ln) if side == "over" else (n < ln)
         return (odds - 1) * stake if won else -stake
     res = 0.0
     ps = parts(ln)
@@ -315,7 +351,7 @@ def settle(lg: Ledger, scores: dict) -> list[str]:
         if b["status"] != "öppen" or b["match_id"] not in scores:
             continue
         mk, ln, side = b["marknad"], b["linje"], b["sida"]
-        sc = scores[b["match_id"]] if mk != "corners" else scores.get(("corners", b["match_id"]))
+        sc = scores.get(("corners", b["match_id"])) if mk in CORNER_MARKETS else scores.get(b["match_id"])
         if sc is None:
             continue
         hg, ag = sc
@@ -337,7 +373,7 @@ def espn_scores(bets: list[dict], client, now: float) -> dict:
         if sc:
             out[b["match_id"]] = sc
     for b in bets:            # hörnor: ESPN:s matchprotokoll (wonCorners per lag)
-        if b.get("marknad") != "corners" or b["status"] != "öppen" or ("corners", b["match_id"]) in out                 or not b.get("avspark") or now < b["avspark"] + 2.5 * 3600:
+        if b.get("marknad") not in CORNER_MARKETS or b["status"] != "öppen" or ("corners", b["match_id"]) in out                 or not b.get("avspark") or now < b["avspark"] + 2.5 * 3600:
             continue
         cc = espn_corners(espn, client, b["hemma"], b["borta"], b["avspark"])
         if cc:

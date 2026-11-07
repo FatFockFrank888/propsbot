@@ -18,7 +18,8 @@ from datetime import datetime
 from .http import JsonClient, SourceError
 
 BASE = "https://api.smarkets.com/v3"
-SPREAD_MAX = 400          # 4 procentenheter mellan köp och sälj
+SPREAD_MAX = 400          # 4 procentenheter mellan köp och sälj (mål: 1X2, total, handikapp)
+SPREAD_MAX_CORNERS = 1200 # hörnor handlas tunnare: upp till 12 pe – edge räknas då mot det försiktiga priset
 _NUM = re.compile(r"([+-]?\d+(?:\.\d+)?)\s*(?:goals|corners)?\s*$", re.I)
 
 
@@ -65,11 +66,22 @@ class SmarketsPublic:
         from .props_text import same_match
         for eid, h, a, st in self.events():
             if same_match(home, away, start, h, a, st):
+                self._names = getattr(self, "_names", {})
+                self._names[eid] = (h, a)
                 return eid
         return None
 
+    def _team_side(self, event_id: str, team: str) -> str | None:
+        """Vilket lag ett marknadsnamn avser ('Dortmund' i 'Dortmund over/under 6.5 corners')."""
+        h, a = getattr(self, "_names", {}).get(event_id, ("", ""))
+        tw = {w for w in re.findall(r"\w+", team.lower()) if len(w) > 2}
+        hs = len(tw & {w for w in re.findall(r"\w+", h.lower())})
+        as_ = len(tw & {w for w in re.findall(r"\w+", a.lower())})
+        return "home" if hs > as_ else "away" if as_ > hs else None
+
     def main(self, event_id: str) -> dict:
-        """{(marknad, linje, sida): (p_mitt, spread_bp)} – samma nycklar som sides.pinnacle_main."""
+        """{(marknad, linje, sida): (p_mitt, spread_bp)} – samma nycklar som sides.pinnacle_main.
+        Hörnor: corners (matchtotal), corners_home/corners_away (lagtotal), cah (handikapp, sidans linje)."""
         try:
             mk = (self.c.get(f"{BASE}/events/{event_id}/markets/", ttl=600) or {}).get("markets", []) or []
         except SourceError:
@@ -85,23 +97,36 @@ class SmarketsPublic:
                 want[m["id"]] = "ah"
             elif re.fullmatch(r"Over/under \d+\.5 corners", n):
                 want[m["id"]] = "corners"
+            elif re.fullmatch(r".+ [+-]\d+\.5 corners / .+ [+-]\d+\.5 corners", n):
+                want[m["id"]] = "cah"
+            else:
+                tm = re.fullmatch(r"(.+) over/under \d+\.5 corners", n)
+                if tm and not tm.group(1).lower().startswith(("first half", "second half")):
+                    side = self._team_side(event_id, tm.group(1))
+                    if side:
+                        want[m["id"]] = f"corners_{side}"
         if not want:
             return {}
-        ids = ",".join(list(want)[:40])
-        try:
-            cons = (self.c.get(f"{BASE}/markets/{ids}/contracts/", ttl=600) or {}).get("contracts", []) or []
-            quotes = self.c.get(f"{BASE}/markets/{ids}/quotes/", ttl=90) or {}
-        except SourceError:
-            return {}
+        ids_all = list(want)
+        cons, quotes = [], {}
+        for i in range(0, len(ids_all), 40):
+            ids = ",".join(ids_all[i:i + 40])
+            try:
+                cons += (self.c.get(f"{BASE}/markets/{ids}/contracts/", ttl=600) or {}).get("contracts", []) or []
+                quotes.update(self.c.get(f"{BASE}/markets/{ids}/quotes/", ttl=90) or {})
+            except SourceError:
+                return {}
         by_market: dict[str, list] = {}
         for c in cons:
+            kind = want.get(c["market_id"], "")
+            lim = SPREAD_MAX_CORNERS if kind.startswith("c") and kind != "corners_" else SPREAD_MAX
             q = quotes.get(str(c["id"])) or {}
             bids, offers = q.get("bids") or [], q.get("offers") or []
             if not bids or not offers:
                 by_market.setdefault(c["market_id"], []).append(None)
                 continue
             b, o = max(x["price"] for x in bids), min(x["price"] for x in offers)
-            if o - b > SPREAD_MAX or o <= b:
+            if o - b > lim or o <= b:
                 by_market.setdefault(c["market_id"], []).append(None)
                 continue
             by_market.setdefault(c["market_id"], []).append((c, (b + o) / 2 / 10000, o - b))
@@ -117,12 +142,12 @@ class SmarketsPublic:
                 side = c.get("slug")
                 if kind == "1x2" and side in ("home", "draw", "away"):
                     out[("1x2", 0.0, side)] = (p / tot, spread)
-                elif kind in ("total", "corners") and side in ("over", "under"):
+                elif kind in ("total", "corners", "corners_home", "corners_away") and side in ("over", "under"):
                     m = _NUM.search(c.get("name", ""))
                     if m:
                         out[(kind, float(m.group(1)), side)] = (p / tot, spread)
-                elif kind == "ah" and side in ("home", "away"):
+                elif kind in ("ah", "cah") and side in ("home", "away"):
                     m = _NUM.search(c.get("name", ""))
                     if m:
-                        out[("ah", float(m.group(1)), side)] = (p / tot, spread)
+                        out[(kind, float(m.group(1)), side)] = (p / tot, spread)
         return out

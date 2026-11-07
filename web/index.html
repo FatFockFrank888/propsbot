@@ -323,7 +323,8 @@ const MK = {shots: "Skott", shots_on_target: "Skott på mål", goal: "Mål", ass
   pra: "PRA", pr: "Poäng + returer", ra: "Returer + assist",
   sog: "Skott på mål", nhl_points: "Poäng", nhl_assists: "Assist", nhl_goals: "Mål",
   nhl_pp_points: "Power play-poäng", nhl_pp_goals: "Power play-mål",
-  "1x2": "1X2", total: "Mål totalt", ah: "Asiatiskt handikapp", corners: "Hörnor"};
+  "1x2": "1X2", total: "Mål totalt", ah: "Asiatiskt handikapp", corners: "Hörnor",
+  cah: "Hörnhandikapp", corners_home: "Hörnor hemmalag", corners_away: "Hörnor bortalag"};
 const spel = (m, l, side) => {
   if (m === "cards") return side === "under" ? "får inget kort" : "får kort";
   if ((m === "goal" || m === "nhl_goals") && l === 0.5 && side !== "under") return "gör mål";
@@ -527,7 +528,7 @@ function renderTopp() {
     const lb = ALL.find(b => b.typ === "Live" && b.status === "öppen" && b.sport === r.sport && b.spelare === r.spelare);
     r.liveBet = !!lb;
     // Samma tak som LIVE: 5u (fotbollsprops 2u, sides 3u) – data-spel ska inte se större ut än LIVE.
-    const cap = r.sport === "fotboll" && ["1x2", "total", "ah", "corners"].includes(r.marknad) && !r.live ? 3 : 5;
+    const cap = r.sport === "fotboll" && ["1x2", "total", "ah", "corners", "cah", "corners_home", "corners_away"].includes(r.marknad) && !r.live ? 3 : 5;
     r.units = lb ? Math.round(lb.u) : Math.min(cap, Math.max(0, Math.round((r.insats_pct || r.insats_forslag || 0) / U)));
   });
   rs.sort((a, b) => b.t.score - a.t.score);

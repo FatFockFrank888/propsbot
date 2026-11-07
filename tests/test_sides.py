@@ -144,7 +144,23 @@ def test_corners_vs_smarkets(tmp_path):
     h = History(tmp_path / "h.json")
     assert evaluate(evd, kambi, {}, s, h, time.time(), {"unibet"}) == []                     # ingen referens
     x = evaluate(evd, kambi, {}, s, h, time.time(), {"unibet"}, smk={("corners", 9.5, "over"): (0.52, 150)})[0]
-    assert abs(x["edge"] - (0.52 * 2.10 - 1)) < 1e-9 and x["playable"]                        # 9,2 % >= 3 + 1 %
+    assert abs(x["edge"] - ((0.52 - 0.0075) * 2.10 - 1)) < 1e-9 and x["playable"]             # försiktigt pris
     x = evaluate(evd, kambi, {}, s, h, time.time(), {"unibet"}, smk={("corners", 9.5, "over"): (0.49, 150)})[0]
     assert not x["playable"]                                                                   # 2,9 % < 4 %
     assert result_units("corners", 9.5, "over", 6, 4, 2.0, 0.01) > 0 and result_units("corners", 9.5, "over", 5, 4, 2.0, 0.01) < 0
+
+
+def test_kambi_corner_handicap_and_team_totals():
+    from propsbot.sides import kambi_main, result_units
+    raw = {"betOffers": [
+        {"criterion": {"englishLabel": "Corners 3-Way Handicap"}, "outcomes": [
+            {"type": "OT_ONE", "line": -2000, "odds": 2020}, {"type": "OT_CROSS", "line": -2000, "odds": 4000},
+            {"type": "OT_TWO", "line": -2000, "odds": 1880}]},
+        {"criterion": {"englishLabel": "Total Corners by Borussia Dortmund"}, "outcomes": [
+            {"type": "OT_OVER", "line": 6500, "odds": 1730}, {"type": "OT_UNDER", "line": 6500, "odds": 1960}]}]}
+    out = kambi_main(raw, "Borussia Dortmund", "Elversberg")
+    assert out[("cah", -2.5, "home")] == 2.02 and out[("cah", 1.5, "away")] == 1.88
+    assert out[("corners_home", 6.5, "over")] == 1.73
+    # hemma -2.5: 7-4 vinner, 6-4 förlorar; borta +1.5 (= kryss+2 i 3-vägs -2): 5-4 vinner, 7-4 förlorar
+    assert result_units("cah", -2.5, "home", 7, 4, 2.0, 1) > 0 and result_units("cah", -2.5, "home", 6, 4, 2.0, 1) < 0
+    assert result_units("cah", 1.5, "away", 5, 4, 2.0, 1) > 0 and result_units("cah", 1.5, "away", 7, 4, 2.0, 1) < 0

@@ -28,7 +28,8 @@ MK = {"shots": "Skott", "shots_on_target": "Skott på mål", "goal": "Mål", "as
       "steals": "Steals", "blocks": "Blocks", "pra": "PRA", "pr": "Poäng + returer", "ra": "Returer + assist", "fouls": "Fouls",
       "cards": "Kort", "sog": "Skott på mål", "nhl_points": "Poäng", "nhl_assists": "Assist", "nhl_goals": "Mål",
       "nhl_pp_points": "Power play-poäng", "nhl_pp_goals": "Power play-mål",
-      "1x2": "1X2", "total": "Mål totalt", "ah": "Asiatiskt handikapp", "corners": "Hörnor"}
+      "1x2": "1X2", "total": "Mål totalt", "ah": "Asiatiskt handikapp", "corners": "Hörnor",
+      "cah": "Hörnhandikapp", "corners_home": "Hörnor hemmalag", "corners_away": "Hörnor bortalag"}
 SIDA = {"under": "Under", "home": "Hemma", "draw": "Oavgjort", "away": "Borta"}
 
 LEDGERS = [  # (fil, sport, typ) – sorterat per sport

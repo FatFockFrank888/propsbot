@@ -20,8 +20,8 @@ SPORTS = {"fotboll": "data.json", "nba": "nba/data.json", "nhl": "nhl/data.json"
 NAME = {"fotboll": "Fotboll", "nba": "NBA", "nhl": "NHL"}
 MK = {"shots": "skott", "shots_on_target": "skott på mål", "sog": "skott på mål", "points": "poäng",
       "rebounds": "returer", "assists": "assist", "threes": "trepoängare", "pra": "PRA", "1x2": "1X2",
-      "total": "mål totalt", "ah": "handikapp", "corners": "hörnor"}
-SIDES = ("1x2", "total", "ah", "corners")
+      "total": "mål totalt", "ah": "handikapp", "corners": "hörnor", "cah": "hörnhandikapp", "corners_home": "hörnor", "corners_away": "hörnor"}
+SIDES = ("1x2", "total", "ah", "corners", "cah", "corners_home", "corners_away")
 
 
 def _ts(s: str | None) -> float | None:
