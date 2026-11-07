@@ -140,6 +140,7 @@ DEFAULT_SETTINGS = {
     "live_max_edge": 0.15,
     "football_live_max_units": 5,   # samma tak som NBA/NHL LIVE
     "football_kelly_scale": 0.5,
+    "sides_lineup_gate": False,     # sides väntar inte på startelvor (Pinnacle prisar redan in dem)
     "graduation_min_bets": 50,      # uppgradering (sides -> LIVE, fotboll -> full insats): spel med stängning
     "graduation_min_t": 1.0,        # ... och snitt-CLV > 0 med minst detta t-värde    # fotboll utan historik: halva Kelly-insatsen tills CLV visats (storleken följer ändå styrkan)
     "live_min_groups": 2,

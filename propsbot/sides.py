@@ -385,7 +385,12 @@ def run(root: Path, data: list, settings: dict, diag, notify: bool = True) -> di
     # samma villkor som NBA/NHL LIVE (notiser, ¼ Kelly upp till 5u) – automatiskt (graduation.py).
     if not s.get("sides_live"):
         from .graduation import check
-        clv = [(b["pin_stang_p"] - 1 / b["odds"]) * 100 for b in spel.counted
+        # Underlag: alla regelspel + skuggspel som klarade edgekravet och bara stoppades av startelvespärren
+        # (de hade varit regelspel utan spärren – samma prissättning).
+        min_e = s.get("sides_min_edge", 0.03)
+        base = spel.counted + [b for b in skugga.counted if b.get("edge", 0) >= min_e
+                               and (b.get("stopp") or "").startswith("väntar på startelvor")]
+        clv = [(b["pin_stang_p"] - 1 / b["odds"]) * 100 for b in base
                if b.get("pin_stang_p") and b.get("odds") and b.get("avspark") and b["avspark"] < now]
         if check(root, "sides", clv, s, "Fotboll sides/totals", notify, diag.log):
             s["sides_live"] = True
@@ -405,7 +410,9 @@ def run(root: Path, data: list, settings: dict, diag, notify: bool = True) -> di
         if 0 < mtk <= max_h * 60:
             from .lineups import gate
             lu = lineups.get(evd["id"], evd["home_team"], evd["away_team"], evd["commence_time"])                 if mtk <= s.get("lineup_lookup_minutes", 150) else None
-            wait = gate(lu, mtk, s)
+            # Sides jämförs mot Pinnacle, som redan prisar in laguppställningar och nyheter: spärren
+            # stoppade 138 skuggspel 7/11 som slog stängningen med +2 pe. Av som standard (sides_lineup_gate).
+            wait = gate(lu, mtk, s) if s.get("sides_lineup_gate", False) else None
             n_lu += bool(lu and lu.published)
         for x in evaluate(evd, km, pm, s, hist, now, playable, wait):
             mk, line, side = x["key"]

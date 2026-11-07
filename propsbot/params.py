@@ -90,10 +90,12 @@ def all_params(settings_path: Path) -> dict:
         ("Sides/totals: marknader", ", ".join(s.get("sides_markets", ["1x2", "total", "ah"])),
          "1X2, mål över/under och asiatiskt handikapp – halvlinjer (x,5) och asiatiska linjer: hela (push = insatsen "
          "tillbaka) och kvarts (halva insatsen på var närliggande linje). 90 minuter + tillägg."),
-        ("Startelvor (props och sides)", "krävs" if s.get("lineup_required", True) else "av",
-         f"Spelbart först när båda startelvorna är kända hos ESPN (ca 1 h före avspark), annars inom "
-         f"{s.get('lineup_fallback_minutes', 55)} min före avspark. Props: spelaren måste starta. Skador och avstängningar "
-         "syns som att spelaren saknas i elvan, och Pinnacle har då prisat in dem. Tidigare edges bokförs som skugga."),
+        ("Startelvor (props)", "krävs" if s.get("lineup_required", True) else "av",
+         f"Props spelbara först när båda startelvorna är kända hos ESPN (ca 1 h före avspark), annars inom "
+         f"{s.get('lineup_fallback_minutes', 55)} min före avspark. Spelaren måste starta."),
+        ("Startelvor (sides/totals)", "väntar" if s.get("sides_lineup_gate", False) else "väntar inte",
+         "Av sedan 7/11: Pinnacle prisar redan in laguppställningar och nyheter. Spärren stoppade 138 skuggspel som slog "
+         "Pinnacles stängning med +2 pe i snitt. Startelvan syns ändå i loggen och sharp money-spärren gäller."),
         ("Sides/totals: edgekrav", f"{_pct(s.get('sides_min_edge', 0.03))} (alternativ Pinnacle-linje +{_pct(s.get('sides_alt_extra_edge', 0.01))})",
          "Lägre än 5 % eftersom referensen är Pinnacles huvudlinje (skarpast i världen): mot den är 3 % en verklig edge. "
          f"{_pct(s.get('sides_shadow_min_edge', 0.01))}–{_pct(s.get('sides_min_edge', 0.03))} bokförs som Sides-skugga för att mäta nivån."),

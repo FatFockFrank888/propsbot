@@ -43,7 +43,8 @@ Genereras från de värden boten använder (`python -m propsbot parametrar`).
 | Parlays | på, max 3 ben, minst 5 % edge per ben | Notiser för parlays: av. |
 | Sides/totals: status | datainsamling (inga notiser) | 1X2, mål över/under och asiatiskt handikapp hos Kambi mot Pinnacle utan marginal (start 5/11). LIVE slås på när ca 50 spel visar att vi slår Pinnacles stängning. |
 | Sides/totals: marknader | 1x2, total, ah | 1X2, mål över/under och asiatiskt handikapp – halvlinjer (x,5) och asiatiska linjer: hela (push = insatsen tillbaka) och kvarts (halva insatsen på var närliggande linje). 90 minuter + tillägg. |
-| Startelvor (props och sides) | krävs | Spelbart först när båda startelvorna är kända hos ESPN (ca 1 h före avspark), annars inom 55 min före avspark. Props: spelaren måste starta. Skador och avstängningar syns som att spelaren saknas i elvan, och Pinnacle har då prisat in dem. Tidigare edges bokförs som skugga. |
+| Startelvor (props) | krävs | Props spelbara först när båda startelvorna är kända hos ESPN (ca 1 h före avspark), annars inom 55 min före avspark. Spelaren måste starta. |
+| Startelvor (sides/totals) | väntar inte | Av sedan 7/11: Pinnacle prisar redan in laguppställningar och nyheter. Spärren stoppade 138 skuggspel som slog Pinnacles stängning med +2 pe i snitt. Startelvan syns ändå i loggen och sharp money-spärren gäller. |
 | Sides/totals: edgekrav | 3 % (alternativ Pinnacle-linje +1 %) | Lägre än 5 % eftersom referensen är Pinnacles huvudlinje (skarpast i världen): mot den är 3 % en verklig edge. 1 %–3 % bokförs som Sides-skugga för att mäta nivån. |
 | Sides/totals: högsta edge | 10 % | Större edge mot Pinnacle = nästan alltid gammal linje, nyhet (uppställning/skada) eller fel match. Bokförs som skugga. |
 | Sides/totals: oddsram | 1,60–4,00 | Bredare än props uppåt så att oavgjort och små skrällar kommer med. |
