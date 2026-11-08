@@ -1,5 +1,5 @@
-Skanning 2026-11-08 16:15
-Kambi unibet (ubse): OK, 37 matcher i valda ligor
+Skanning 2026-11-08 16:36
+Kambi unibet (ubse): OK, 29 matcher i valda ligor
 Kambi paf (paf): OK
 Kambi atg (atg): OK
 Kambi leovegas (leose): OK
@@ -7,83 +7,90 @@ Kambi svenskaspel (svenskaspel): OK
 Kambi expekt (expektse): OK
 Kambi betmgm (betmgmse): OK
 Pinnacle: OK, 23 ligor
-Pinnacle: 24 matcher, matchlinjer för 20 av 37 Kambi-matcher, 0 spelarodds som används
+  Sint-Truiden – Zulte Waregem: Pinnacle FEL HTTP 403 för https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639746956/related
+Pinnacle: 21 matcher, matchlinjer för 16 av 29 Kambi-matcher, 0 spelarodds som används
 Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
-  Double Chance 1st Half | units=Regular | kategori=Team Props | deltagare=Manchester United Or Aston Villa,Draw Or Aston Villa,Draw Or Manchester United  ->  används inte (lagmarknad)
-  Moneyline and Total Goals | units=Regular | kategori=Team Props | deltagare=Manchester United & Over 3.5,Manchester United & Under 3.5,Draw & Over 3.5,Draw & Under 3.5,Aston Villa & Over 3.5,Aston Villa & Under 3.5  ->  används inte (lagmarknad)
-  Double Chance | units=Regular | kategori=Team Props | deltagare=Manchester United Or Aston Villa,Draw Or Aston Villa,Draw Or Manchester United  ->  används inte (lagmarknad)
-  Manchester United Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
-  Aston Villa To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Correct Score | units=Regular | kategori=Team Props | deltagare=Manchester United 0, Aston Villa 0,Manchester United 0, Aston Villa 1,Manchester United 0, Aston Villa 2,Manchester United 0, Aston Villa 3,Manchester United 0, Aston Villa 4,Manchester United 0, Aston Villa 5,Manchester United 0, Aston Villa 6,Manchester United 1, Aston Villa 0,Manchester United 1, Aston Villa 1,Manchester United 1, Aston Villa 2,Manchester United 1, Aston Villa 3,Manchester United 1, Aston Villa 4,Manchester United 1, Aston Villa 5,Manchester United 1, Aston Villa 6,Manchester United 2, Aston Villa 0,Manchester United 2, Aston Villa 1,Manchester United 2, Aston Villa 2,Manchester United 2, Aston Villa 3,Manchester United 2, Aston Villa 4,Manchester United 2, Aston Villa 5,Manchester United 2, Aston Villa 6,Manchester United 3, Aston Villa 0,Manchester United 3, Aston Villa 1,Manchester United 3, Aston Villa 2,Manchester United 3, Aston Villa 3,Manchester United 3, Aston Villa 4,Manchester United 3, Aston Villa 5,Manchester United 3, Aston Villa 6,Manchester United 4, Aston Villa 0,Manchester United 4, Aston Villa 1,Manchester United 4, Aston Villa 2,Manchester United 4, Aston Villa 3,Manchester United 4, Aston Villa 4,Manchester United 4, Aston Villa 5,Manchester United 4, Aston Villa 6,Manchester United 5, Aston Villa 0,Manchester United 5, Aston Villa 1,Manchester United 5, Aston Villa 2,Manchester United 5, Aston Villa 3,Manchester United 5, Aston Villa 4,Manchester United 5, Aston Villa 5,Manchester United 5, Aston Villa 6,Manchester United 6, Aston Villa 0,Manchester United 6, Aston Villa 1,Manchester United 6, Aston Villa 2,Manchester United 6, Aston Villa 3,Manchester United 6, Aston Villa 4,Manchester United 6, Aston Villa 5,Manchester United 6, Aston Villa 6  ->  används inte (lagmarknad)
-  Aston Villa To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Draw No Bet 1st Half | units=Regular | kategori=Team Props | deltagare=Manchester United,Aston Villa  ->  används inte (lagmarknad)
-  Either Team To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Both Teams To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  3-Way Handicap Manchester United +2 | units=Regular | kategori=Team Props | deltagare=Manchester United (+2),Draw - (Manchester United +2),Aston Villa (-2)  ->  används inte (lagmarknad)
-  Draw No Bet | units=Regular | kategori=Team Props | deltagare=Manchester United,Aston Villa  ->  används inte (lagmarknad)
-  3-Way Handicap Manchester United -2 | units=Regular | kategori=Team Props | deltagare=Manchester United (-2),Draw - (Manchester United -2),Aston Villa (+2)  ->  används inte (lagmarknad)
-  Manchester United To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Total Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
-  3-Way Handicap Manchester United +1 | units=Regular | kategori=Team Props | deltagare=Manchester United (+1),Draw - (Manchester United +1),Aston Villa (-1)  ->  används inte (lagmarknad)
-  Total Goals Range 1st Half | units=Regular | kategori=Team Props | deltagare=0 - 1,2 - 3,4+  ->  används inte (lagmarknad)
-  Exact Total Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
-  Aston Villa Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
-  Correct Score 1st Half | units=Regular | kategori=Team Props | deltagare=Manchester United 0, Aston Villa 0,Manchester United 0, Aston Villa 1,Manchester United 0, Aston Villa 2,Manchester United 0, Aston Villa 3,Manchester United 1, Aston Villa 0,Manchester United 1, Aston Villa 1,Manchester United 1, Aston Villa 2,Manchester United 1, Aston Villa 3,Manchester United 2, Aston Villa 0,Manchester United 2, Aston Villa 1,Manchester United 2, Aston Villa 2,Manchester United 2, Aston Villa 3,Manchester United 3, Aston Villa 0,Manchester United 3, Aston Villa 1,Manchester United 3, Aston Villa 2,Manchester United 3, Aston Villa 3  ->  används inte (lagmarknad)
-  Winning Margin 1st Half | units=Regular | kategori=Team Props | deltagare=Manchester United By 1,Manchester United By 2+,Aston Villa By 1,Aston Villa By 2+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
-  Winning Margin | units=Regular | kategori=Team Props | deltagare=Manchester United By 1,Manchester United By 2,Manchester United By 3,Manchester United By 4+,Aston Villa By 1,Aston Villa By 2,Aston Villa By 3,Aston Villa By 4+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
-  Exact Total Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5,6+  ->  används inte (lagmarknad)
-  3-Way Handicap Manchester United -1 | units=Regular | kategori=Team Props | deltagare=Manchester United (-1),Draw - (Manchester United -1),Aston Villa (+1)  ->  används inte (lagmarknad)
-  Aston Villa Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
-  First Team To Score 1st Half | units=1st Goal | kategori=Team Props | deltagare=Manchester United,Aston Villa,Neither  ->  används inte (lagmarknad)
-  First Team To Score | units=1st Goal | kategori=Team Props | deltagare=Manchester United,Aston Villa,Neither  ->  används inte (lagmarknad)
-  Either Team To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Aston Villa Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
-  Manchester United Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
-  3-Way Handicap Manchester United -3 | units=Regular | kategori=Team Props | deltagare=Manchester United (-3),Draw - (Manchester United -3),Aston Villa (+3)  ->  används inte (lagmarknad)
-  Manchester United To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Both Teams To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Total Goals Odd/Even 1st Half | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  Double Chance 1st Half | units=Regular | kategori=Team Props | deltagare=Midtjylland Or Sonderjyske,Draw Or Sonderjyske,Draw Or Midtjylland  ->  används inte (lagmarknad)
+  Moneyline and Total Goals | units=Regular | kategori=Team Props | deltagare=Midtjylland & Over 3.5,Midtjylland & Under 3.5,Draw & Over 3.5,Draw & Under 3.5,Sonderjyske & Over 3.5,Sonderjyske & Under 3.5  ->  används inte (lagmarknad)
+  Double Chance | units=Regular | kategori=Team Props | deltagare=Midtjylland Or Sonderjyske,Draw Or Sonderjyske,Draw Or Midtjylland  ->  används inte (lagmarknad)
   Total Goals Range | units=Regular | kategori=Team Props | deltagare=0 - 1,2 - 3,4 - 6,7+  ->  används inte (lagmarknad)
-  Manchester United Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
-  Both Teams To Score and Moneyline | units=Regular | kategori=Team Props | deltagare=Yes & Manchester United,Yes & Draw,Yes & Aston Villa,No & Manchester United,No & Draw,No & Aston Villa  ->  används inte (lagmarknad)
+  Draw No Bet | units=Regular | kategori=Team Props | deltagare=Midtjylland,Sonderjyske  ->  används inte (lagmarknad)
+  Total Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  Sonderjyske Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
+  Draw No Bet 1st Half | units=Regular | kategori=Team Props | deltagare=Midtjylland,Sonderjyske  ->  används inte (lagmarknad)
+  Correct Score | units=Regular | kategori=Team Props | deltagare=Midtjylland 0, Sonderjyske 0,Midtjylland 0, Sonderjyske 1,Midtjylland 0, Sonderjyske 2,Midtjylland 0, Sonderjyske 3,Midtjylland 0, Sonderjyske 4,Midtjylland 0, Sonderjyske 5,Midtjylland 0, Sonderjyske 6,Midtjylland 1, Sonderjyske 0,Midtjylland 1, Sonderjyske 1,Midtjylland 1, Sonderjyske 2,Midtjylland 1, Sonderjyske 3,Midtjylland 1, Sonderjyske 4,Midtjylland 1, Sonderjyske 5,Midtjylland 1, Sonderjyske 6,Midtjylland 2, Sonderjyske 0,Midtjylland 2, Sonderjyske 1,Midtjylland 2, Sonderjyske 2,Midtjylland 2, Sonderjyske 3,Midtjylland 2, Sonderjyske 4,Midtjylland 2, Sonderjyske 5,Midtjylland 2, Sonderjyske 6,Midtjylland 3, Sonderjyske 0,Midtjylland 3, Sonderjyske 1,Midtjylland 3, Sonderjyske 2,Midtjylland 3, Sonderjyske 3,Midtjylland 3, Sonderjyske 4,Midtjylland 3, Sonderjyske 5,Midtjylland 3, Sonderjyske 6,Midtjylland 4, Sonderjyske 0,Midtjylland 4, Sonderjyske 1,Midtjylland 4, Sonderjyske 2,Midtjylland 4, Sonderjyske 3,Midtjylland 4, Sonderjyske 4,Midtjylland 4, Sonderjyske 5,Midtjylland 4, Sonderjyske 6,Midtjylland 5, Sonderjyske 0,Midtjylland 5, Sonderjyske 1,Midtjylland 5, Sonderjyske 2,Midtjylland 5, Sonderjyske 3,Midtjylland 5, Sonderjyske 4,Midtjylland 5, Sonderjyske 5,Midtjylland 5, Sonderjyske 6,Midtjylland 6, Sonderjyske 0,Midtjylland 6, Sonderjyske 1,Midtjylland 6, Sonderjyske 2,Midtjylland 6, Sonderjyske 3,Midtjylland 6, Sonderjyske 4,Midtjylland 6, Sonderjyske 5,Midtjylland 6, Sonderjyske 6  ->  används inte (lagmarknad)
+  Sonderjyske Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  Winning Margin 1st Half | units=Regular | kategori=Team Props | deltagare=Midtjylland By 1,Midtjylland By 2+,Sonderjyske By 1,Sonderjyske By 2+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
+  First Team To Score 1st Half | units=1st Goal | kategori=Team Props | deltagare=Midtjylland,Sonderjyske,Neither  ->  används inte (lagmarknad)
+  Either Team To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Sonderjyske To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Midtjylland Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
+  Exact Total Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
+  Exact Total Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5,6+  ->  används inte (lagmarknad)
+  Both Teams To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  First Team To Score | units=1st Goal | kategori=Team Props | deltagare=Midtjylland,Sonderjyske,Neither  ->  används inte (lagmarknad)
+  Both Teams To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Total Goals Range 1st Half | units=Regular | kategori=Team Props | deltagare=0 - 1,2 - 3,4+  ->  används inte (lagmarknad)
+  3-Way Handicap Midtjylland -1 | units=Regular | kategori=Team Props | deltagare=Midtjylland (-1),Draw - (Midtjylland -1),Sonderjyske (+1)  ->  används inte (lagmarknad)
+  Midtjylland Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  Midtjylland To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  3-Way Handicap Midtjylland -3 | units=Regular | kategori=Team Props | deltagare=Midtjylland (-3),Draw - (Midtjylland -3),Sonderjyske (+3)  ->  används inte (lagmarknad)
+  Winning Margin | units=Regular | kategori=Team Props | deltagare=Midtjylland By 1,Midtjylland By 2,Midtjylland By 3,Midtjylland By 4+,Sonderjyske By 1,Sonderjyske By 2,Sonderjyske By 3,Sonderjyske By 4+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
+  Both Teams To Score and Moneyline | units=Regular | kategori=Team Props | deltagare=Yes & Midtjylland,Yes & Draw,Yes & Sonderjyske,No & Midtjylland,No & Draw,No & Sonderjyske  ->  används inte (lagmarknad)
   Odd/Even and Total Goals | units=Regular | kategori=Team Props | deltagare=Odd & Over 3.5,Odd & Under 3.5,Even & Over 3.5,Even & Under 3.5  ->  används inte (lagmarknad)
-  Manchester United To Win To Nil | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Aston Villa To Win To Nil | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Manchester United To Win To Nil 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Aston Villa To Win To Nil 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Midtjylland To Win To Nil 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Total Goals Odd/Even 1st Half | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  Sonderjyske To Win To Nil 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
   Both Teams To Score and Total Goals | units=Regular | kategori=Team Props | deltagare=Yes & Over 3.5,Yes & Under 3.5,No & Over 3.5,No & Under 3.5  ->  används inte (lagmarknad)
-  Bryan Mbeumo To Score | units=Regular | kategori=Player Props | deltagare=Yes,No  ->  goal 0.5
-  Bruno Fernandes To Score | units=Regular | kategori=Player Props | deltagare=Yes,No  ->  goal 0.5
-  Nicolas Jackson To Score | units=Regular | kategori=Player Props | deltagare=Yes,No  ->  goal 0.5
-  Double Chance 1st Half | units=Regular | kategori=Team Props | deltagare=Freiburg Or Union Berlin,Draw Or Union Berlin,Draw Or Freiburg  ->  används inte (lagmarknad)
-  Moneyline and Total Goals | units=Regular | kategori=Team Props | deltagare=Freiburg & Over 3.5,Freiburg & Under 3.5,Draw & Over 3.5,Draw & Under 3.5,Union Berlin & Over 3.5,Union Berlin & Under 3.5  ->  används inte (lagmarknad)
-  Double Chance | units=Regular | kategori=Team Props | deltagare=Freiburg Or Union Berlin,Draw Or Union Berlin,Draw Or Freiburg  ->  används inte (lagmarknad)
-  Freiburg Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
-  Union Berlin To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Correct Score | units=Regular | kategori=Team Props | deltagare=Freiburg 0, Union Berlin 0,Freiburg 0, Union Berlin 1,Freiburg 0, Union Berlin 2,Freiburg 0, Union Berlin 3,Freiburg 0, Union Berlin 4,Freiburg 0, Union Berlin 5,Freiburg 0, Union Berlin 6,Freiburg 1, Union Berlin 0,Freiburg 1, Union Berlin 1,Freiburg 1, Union Berlin 2,Freiburg 1, Union Berlin 3,Freiburg 1, Union Berlin 4,Freiburg 1, Union Berlin 5,Freiburg 1, Union Berlin 6,Freiburg 2, Union Berlin 0,Freiburg 2, Union Berlin 1,Freiburg 2, Union Berlin 2,Freiburg 2, Union Berlin 3,Freiburg 2, Union Berlin 4,Freiburg 2, Union Berlin 5,Freiburg 2, Union Berlin 6,Freiburg 3, Union Berlin 0,Freiburg 3, Union Berlin 1,Freiburg 3, Union Berlin 2,Freiburg 3, Union Berlin 3,Freiburg 3, Union Berlin 4,Freiburg 3, Union Berlin 5,Freiburg 3, Union Berlin 6,Freiburg 4, Union Berlin 0,Freiburg 4, Union Berlin 1,Freiburg 4, Union Berlin 2,Freiburg 4, Union Berlin 3,Freiburg 4, Union Berlin 4,Freiburg 4, Union Berlin 5,Freiburg 4, Union Berlin 6,Freiburg 5, Union Berlin 0,Freiburg 5, Union Berlin 1,Freiburg 5, Union Berlin 2,Freiburg 5, Union Berlin 3,Freiburg 5, Union Berlin 4,Freiburg 5, Union Berlin 5,Freiburg 5, Union Berlin 6,Freiburg 6, Union Berlin 0,Freiburg 6, Union Berlin 1,Freiburg 6, Union Berlin 2,Freiburg 6, Union Berlin 3,Freiburg 6, Union Berlin 4,Freiburg 6, Union Berlin 5,Freiburg 6, Union Berlin 6  ->  används inte (lagmarknad)
-  Union Berlin To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Draw No Bet 1st Half | units=Regular | kategori=Team Props | deltagare=Freiburg,Union Berlin  ->  används inte (lagmarknad)
-  Draw No Bet | units=Regular | kategori=Team Props | deltagare=Freiburg,Union Berlin  ->  används inte (lagmarknad)
-  3-Way Handicap Freiburg -2 | units=Regular | kategori=Team Props | deltagare=Freiburg (-2),Draw - (Freiburg -2),Union Berlin (+2)  ->  används inte (lagmarknad)
-  Freiburg To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Union Berlin Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
-  Correct Score 1st Half | units=Regular | kategori=Team Props | deltagare=Freiburg 0, Union Berlin 0,Freiburg 0, Union Berlin 1,Freiburg 0, Union Berlin 2,Freiburg 0, Union Berlin 3,Freiburg 1, Union Berlin 0,Freiburg 1, Union Berlin 1,Freiburg 1, Union Berlin 2,Freiburg 1, Union Berlin 3,Freiburg 2, Union Berlin 0,Freiburg 2, Union Berlin 1,Freiburg 2, Union Berlin 2,Freiburg 2, Union Berlin 3,Freiburg 3, Union Berlin 0,Freiburg 3, Union Berlin 1,Freiburg 3, Union Berlin 2,Freiburg 3, Union Berlin 3  ->  används inte (lagmarknad)
-  Winning Margin 1st Half | units=Regular | kategori=Team Props | deltagare=Freiburg By 1,Freiburg By 2+,Union Berlin By 1,Union Berlin By 2+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
-Sides mindre ligor: 91 Kambi-matcher inom 12 h, 191 Pinnacle-matcher, 80 med Pinnacle, 80 matchade: Algeria / Ligue 1, Andorra / Primera Division, Argentina / Torneo Federal A, Bolivia / Liga Profesional Bolivia, Bosnia & Herzegovina / Premijer Liga, Brazil / Pernambucano, Canada / Northern Super League (W), Chile / Primera Chile, Chile / Segunda División, Colombia / Liga Dimayor, Costa Rica / Pri
-  Sides rättad: WSG Tirol – Austria Wien 1X2: 2 -> förlorad (1–1)
-Sides/totals: 100 matcher med Kambi + Pinnacle, 1733 linjer, 0 nya spel, 4 nya skuggspel, Smarkets-priser i 56 av 65; bästa edge +53.6% (Universitario de Deportes 1X2: 2), +16.9% (Universitario de Deportes handikapp +1.75), +14.4% (Universitario de Deportes handikapp +2)
+  Correct Score 1st Half | units=Regular | kategori=Team Props | deltagare=Midtjylland 0, Sonderjyske 0,Midtjylland 0, Sonderjyske 1,Midtjylland 0, Sonderjyske 2,Midtjylland 0, Sonderjyske 3,Midtjylland 1, Sonderjyske 0,Midtjylland 1, Sonderjyske 1,Midtjylland 1, Sonderjyske 2,Midtjylland 1, Sonderjyske 3,Midtjylland 2, Sonderjyske 0,Midtjylland 2, Sonderjyske 1,Midtjylland 2, Sonderjyske 2,Midtjylland 2, Sonderjyske 3,Midtjylland 3, Sonderjyske 0,Midtjylland 3, Sonderjyske 1,Midtjylland 3, Sonderjyske 2,Midtjylland 3, Sonderjyske 3  ->  används inte (lagmarknad)
+  Sonderjyske To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  3-Way Handicap Midtjylland -2 | units=Regular | kategori=Team Props | deltagare=Midtjylland (-2),Draw - (Midtjylland -2),Sonderjyske (+2)  ->  används inte (lagmarknad)
+  Midtjylland Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
+  Midtjylland To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Sonderjyske Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
+  Midtjylland To Win To Nil | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Sonderjyske To Win To Nil | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Double Chance 1st Half | units=Regular | kategori=Team Props | deltagare=Villarreal Or Getafe,Draw Or Getafe,Draw Or Villarreal  ->  används inte (lagmarknad)
+  Moneyline and Total Goals | units=Regular | kategori=Team Props | deltagare=Villarreal & Over 2.5,Villarreal & Under 2.5,Draw & Over 2.5,Draw & Under 2.5,Getafe & Over 2.5,Getafe & Under 2.5  ->  används inte (lagmarknad)
+  Double Chance | units=Regular | kategori=Team Props | deltagare=Villarreal Or Getafe,Draw Or Getafe,Draw Or Villarreal  ->  används inte (lagmarknad)
+  Getafe Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  3-Way Handicap Villarreal -3 | units=Regular | kategori=Team Props | deltagare=Villarreal (-3),Draw - (Villarreal -3),Getafe (+3)  ->  används inte (lagmarknad)
+  Villarreal Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
+  Getafe To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Villarreal To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Draw No Bet 1st Half | units=Regular | kategori=Team Props | deltagare=Villarreal,Getafe  ->  används inte (lagmarknad)
+  First Team To Score | units=1st Goal | kategori=Team Props | deltagare=Villarreal,Getafe,Neither  ->  används inte (lagmarknad)
+  First Team To Score 1st Half | units=1st Goal | kategori=Team Props | deltagare=Villarreal,Getafe,Neither  ->  används inte (lagmarknad)
+  Villarreal Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  Correct Score 1st Half | units=Regular | kategori=Team Props | deltagare=Villarreal 0, Getafe 0,Villarreal 0, Getafe 1,Villarreal 0, Getafe 2,Villarreal 0, Getafe 3,Villarreal 1, Getafe 0,Villarreal 1, Getafe 1,Villarreal 1, Getafe 2,Villarreal 1, Getafe 3,Villarreal 2, Getafe 0,Villarreal 2, Getafe 1,Villarreal 2, Getafe 2,Villarreal 2, Getafe 3,Villarreal 3, Getafe 0,Villarreal 3, Getafe 1,Villarreal 3, Getafe 2,Villarreal 3, Getafe 3  ->  används inte (lagmarknad)
+  Villarreal Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
+  Getafe Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
+  Villarreal To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  3-Way Handicap Villarreal -2 | units=Regular | kategori=Team Props | deltagare=Villarreal (-2),Draw - (Villarreal -2),Getafe (+2)  ->  används inte (lagmarknad)
+  Correct Score | units=Regular | kategori=Team Props | deltagare=Villarreal 0, Getafe 0,Villarreal 0, Getafe 1,Villarreal 0, Getafe 2,Villarreal 0, Getafe 3,Villarreal 0, Getafe 4,Villarreal 0, Getafe 5,Villarreal 0, Getafe 6,Villarreal 1, Getafe 0,Villarreal 1, Getafe 1,Villarreal 1, Getafe 2,Villarreal 1, Getafe 3,Villarreal 1, Getafe 4,Villarreal 1, Getafe 5,Villarreal 1, Getafe 6,Villarreal 2, Getafe 0,Villarreal 2, Getafe 1,Villarreal 2, Getafe 2,Villarreal 2, Getafe 3,Villarreal 2, Getafe 4,Villarreal 2, Getafe 5,Villarreal 2, Getafe 6,Villarreal 3, Getafe 0,Villarreal 3, Getafe 1,Villarreal 3, Getafe 2,Villarreal 3, Getafe 3,Villarreal 3, Getafe 4,Villarreal 3, Getafe 5,Villarreal 3, Getafe 6,Villarreal 4, Getafe 0,Villarreal 4, Getafe 1,Villarreal 4, Getafe 2,Villarreal 4, Getafe 3,Villarreal 4, Getafe 4,Villarreal 4, Getafe 5,Villarreal 4, Getafe 6,Villarreal 5, Getafe 0,Villarreal 5, Getafe 1,Villarreal 5, Getafe 2,Villarreal 5, Getafe 3,Villarreal 5, Getafe 4,Villarreal 5, Getafe 5,Villarreal 5, Getafe 6,Villarreal 6, Getafe 0,Villarreal 6, Getafe 1,Villarreal 6, Getafe 2,Villarreal 6, Getafe 3,Villarreal 6, Getafe 4,Villarreal 6, Getafe 5,Villarreal 6, Getafe 6  ->  används inte (lagmarknad)
+  Winning Margin 1st Half | units=Regular | kategori=Team Props | deltagare=Villarreal By 1,Villarreal By 2+,Getafe By 1,Getafe By 2+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
+  Winning Margin | units=Regular | kategori=Team Props | deltagare=Villarreal By 1,Villarreal By 2,Villarreal By 3,Villarreal By 4+,Getafe By 1,Getafe By 2,Getafe By 3,Getafe By 4+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
+Sides mindre ligor: 79 Kambi-matcher inom 12 h, 163 Pinnacle-matcher, 71 med Pinnacle, 71 matchade: Algeria / Ligue 1, Andorra / Primera Division, Argentina / Torneo Federal A, Bolivia / Liga Profesional Bolivia, Brazil / Pernambucano, Canada / Northern Super League (W), Chile / Primera Chile, Chile / Segunda División, Colombia / Liga Dimayor, Costa Rica / Primera Division Costa Rica, Croatia / 1.
+  Sides rättad: Sunderland – Chelsea 1X2: 1 -> vunnen (1–0)
+  Sides rättad: Genoa – AC Milan 1X2: 1 -> förlorad (1–2)
+  Sides rättad: Ipswich Town – Bournemouth 1X2: X -> förlorad (1–2)
+  Sides rättad: Tromsø – Bodø/Glimt under 3.5 -> vunnen (0–2)
+  Sides rättad: Crystal Palace – Liverpool under 3.5 -> förlorad (1–3)
+  Sides rättad: Sunderland – Chelsea 1X2: X -> förlorad (1–0)
+  Sides rättad: Ipswich Town – Bournemouth 1X2: X -> förlorad (1–2)
+  Sides rättad: Monza – Atalanta över 3 -> förlorad (0–1)
+  Sides rättad: Genoa – AC Milan handikapp +1 -> push (1–2)
+  Sides rättad: Crystal Palace (W) – Charlton Athletic (W) 1X2: 1 -> vunnen (3–2)
+Sides/totals: 87 matcher med Kambi + Pinnacle, 1510 linjer, 0 nya spel, 6 nya skuggspel, Smarkets-priser i 48 av 58; bästa edge +11.2% (Universitario de Deportes 1X2: 2), +6.0% (Ypiranga-RS 1X2: 1), +5.7% (Ypiranga-RS handikapp -0.25)
 Fotboll extra bolag: 0 nya hämtningar, 0 odds i bruk, krediter kvar 386, dagsbudget 16 (andel 30%), förbrukat idag 4
-Tid: hämtning 521 s
-Marginal över alla matcher: uppmätt marginal: shots stege k=1.10 (9 spelare; marginal vid 3,00 ≈ 12%), shots_on_target stege k=1.14 (101 spelare; marginal vid 3,00 ≈ 17%)
-  Manchester United – Aston Villa: modell eng.1, 30 spelare
-  SC Freiburg – 1. FC Union Berlin: modell ger.1, 27 spelare
+Tid: hämtning 406 s
+Marginal över alla matcher: uppmätt marginal: shots stege k=1.12 (7 spelare; marginal vid 3,00 ≈ 14%), shots_on_target stege k=1.06 (55 spelare; marginal vid 3,00 ≈ 7%)
   FC Midtjylland – SønderjyskE: modell den.1, 29 spelare
   Villarreal – Getafe: modell esp.1, 33 spelare
   Celta Vigo – Levante: modell esp.1, 30 spelare
   Union Saint-Gilloise – KRC Genk: modell bel.1, 27 spelare
   Vitoria Guimarães – FC Porto: modell por.1, 29 spelare
   Fredrikstad – Brann: modell nor.1, 30 spelare
-  Sint-Truiden – Zulte Waregem: modell bel.1, 30 spelare
   TSG Hoffenheim – FC Schalke 04: modell ger.1, 27 spelare
   FC Utrecht – NEC Nijmegen: modell ned.1, 32 spelare
   Lens – Marseille: modell fra.1, 31 spelare
@@ -92,56 +99,50 @@ Marginal över alla matcher: uppmätt marginal: shots stege k=1.10 (9 spelare; m
   Rio Ave – S.C. Braga: modell por.1, 34 spelare
   Querétaro FC – Puebla FC: modell – hittar inte matchen hos ESPN
   Club León – Chivas Guadalajara: modell – hittar inte matchen hos ESPN
-Modellens nivåavvikelse mot marknaden (log-odds, dras bort): assist -0.49, goal -0.21, shots -0.53, shots_on_target -0.36
-  Le Mans – AS Monaco: saknar matchlinjer från Pinnacle
-  Le Havre – Lorient: saknar matchlinjer från Pinnacle
-  Brest – Lyon: saknar matchlinjer från Pinnacle
-  Angers – Nice: saknar matchlinjer från Pinnacle
-  Manchester United – Aston Villa: väntade mål Pinnacle 3.36 mot Kambi 3.34 (kvot 1.006); uppmätt marginal: goal k=1.20, assist k=1.28, shots stege k=1.10 (6 spelare; marginal vid 3,00 ≈ 12%), shots_on_target stege k=1.14 (8 spelare; marginal vid 3,00 ≈ 17%)
-Exempel uppmätt marginal: goal k=1.20, assist k=1.28, shots stege k=1.10 (6 spelare; marginal vid 3,00 ≈ 12%), shots_on_target stege k=1.14 (8 spelare; marginal vid 3,00 ≈ 17%)
-  SC Freiburg – 1. FC Union Berlin: väntade mål Pinnacle 2.92 mot Kambi 3.08 (kvot 0.949); uppmätt marginal: goal k=1.26, assist k=1.26, shots_on_target stege k=1.10 (7 spelare; marginal vid 3,00 ≈ 12%)
-  FC Midtjylland – SønderjyskE: väntade mål Pinnacle 3.48 mot Kambi 3.56 (kvot 0.978); uppmätt marginal: goal k=1.03
+Modellens nivåavvikelse mot marknaden (log-odds, dras bort): goal -0.17, shots -0.49, shots_on_target -0.39
+  FC Midtjylland – SønderjyskE: väntade mål Pinnacle 3.48 mot Kambi 3.56 (kvot 0.978); uppmätt marginal: otillräckligt underlag i matchen
+Exempel uppmätt marginal: otillräckligt underlag i matchen
   Inter – Como: saknar matchlinjer från Pinnacle
   Sporting de Gijón – Valladolid: saknar matchlinjer från Pinnacle
-  Villarreal – Getafe: väntade mål Pinnacle 2.77 mot Kambi 2.75 (kvot 1.006); uppmätt marginal: goal k=1.14, assist k=1.26
-  Celta Vigo – Levante: väntade mål Pinnacle 2.73 mot Kambi 2.70 (kvot 1.011); uppmätt marginal: goal k=1.14, assist k=1.30
-  Union Saint-Gilloise – KRC Genk: väntade mål Pinnacle 3.14 mot Kambi 3.15 (kvot 0.997); uppmätt marginal: goal k=1.59, assist k=1.51
+  Villarreal – Getafe: väntade mål Pinnacle 2.79 mot Kambi 2.76 (kvot 1.011); uppmätt marginal: goal k=1.09, assist k=1.24
+  Celta Vigo – Levante: väntade mål Pinnacle 2.72 mot Kambi 2.69 (kvot 1.012); uppmätt marginal: goal k=1.05, assist k=1.25
+  Union Saint-Gilloise – KRC Genk: väntade mål Pinnacle 3.14 mot Kambi 3.15 (kvot 0.999); uppmätt marginal: goal k=1.59, assist k=1.51
   Beşiktaş – Gençlerbirliği SK: saknar matchlinjer från Pinnacle
-  Vitoria Guimarães – FC Porto: väntade mål Pinnacle 2.77 mot Kambi 2.69 (kvot 1.030); uppmätt marginal: goal k=1.76
-  Fredrikstad – Brann: väntade mål Pinnacle 3.41 mot Kambi 3.33 (kvot 1.024); uppmätt marginal: goal k=1.49
-  Sint-Truiden – Zulte Waregem: väntade mål Pinnacle 3.26 mot Kambi 3.17 (kvot 1.029); uppmätt marginal: goal k=1.62, assist k=1.49
-  TSG Hoffenheim – FC Schalke 04: väntade mål Pinnacle 3.20 mot Kambi 3.27 (kvot 0.979); uppmätt marginal: goal k=1.59, assist k=1.52, shots_on_target stege k=1.04 (7 spelare; marginal vid 3,00 ≈ 4%)
+  Vitoria Guimarães – FC Porto: väntade mål Pinnacle 2.77 mot Kambi 2.69 (kvot 1.032); uppmätt marginal: goal k=1.76
+  Fredrikstad – Brann: väntade mål Pinnacle 3.47 mot Kambi 3.33 (kvot 1.042); uppmätt marginal: goal k=1.47
+  Sint-Truiden – Zulte Waregem: saknar matchlinjer från Pinnacle
+  TSG Hoffenheim – FC Schalke 04: väntade mål Pinnacle 3.21 mot Kambi 3.27 (kvot 0.982); uppmätt marginal: goal k=1.59, assist k=1.52, shots_on_target stege k=1.04 (7 spelare; marginal vid 3,00 ≈ 4%)
   FC Utrecht – NEC Nijmegen: väntade mål Pinnacle 3.37 mot Kambi 3.35 (kvot 1.005); uppmätt marginal: goal k=1.68, assist k=1.68
   Athletic Club-MG – Atlético-GO: saknar matchlinjer från Pinnacle
-  Lens – Marseille: väntade mål Pinnacle 3.01 mot Kambi 3.06 (kvot 0.984); uppmätt marginal: goal k=1.29, assist k=1.45
+  Lens – Marseille: väntade mål Pinnacle 3.01 mot Kambi 3.06 (kvot 0.985); uppmätt marginal: goal k=1.29, assist k=1.45
   Fiorentina – Juventus: väntade mål Pinnacle 2.69 mot Kambi 2.83 (kvot 0.953); uppmätt marginal: goal k=1.51, assist k=1.59, shots_on_target stege k=1.22 (14 spelare; marginal vid 3,00 ≈ 27%)
-  Atlético Madrid – FC Barcelona: väntade mål Pinnacle 3.74 mot Kambi 3.74 (kvot 1.000); uppmätt marginal: goal k=1.23, assist k=1.34
+  Atlético Madrid – FC Barcelona: väntade mål Pinnacle 3.75 mot Kambi 3.74 (kvot 1.003); uppmätt marginal: goal k=1.23, assist k=1.34
   Vasco da Gama-RJ – Palmeiras-SP: saknar matchlinjer från Pinnacle
-  Rio Ave – S.C. Braga: väntade mål Pinnacle 3.01 mot Kambi 2.81 (kvot 1.073); uppmätt marginal: goal k=1.63
+  Rio Ave – S.C. Braga: väntade mål Pinnacle 3.02 mot Kambi 2.81 (kvot 1.076); uppmätt marginal: goal k=1.63
   CF Estrela – Benfica: saknar matchlinjer från Pinnacle
   Goiás-GO – Ponte Preta-SP: saknar matchlinjer från Pinnacle
   Ceará-CE – América-MG: saknar matchlinjer från Pinnacle
   Central Córdoba – Lanús: saknar matchlinjer från Pinnacle
   Querétaro FC – Puebla FC: väntade mål Pinnacle 2.87 mot Kambi 3.07 (kvot 0.934); uppmätt marginal: goal k=1.56, assist k=1.54
   Club León – Chivas Guadalajara: väntade mål Pinnacle 2.94 mot Kambi 2.93 (kvot 1.002); uppmätt marginal: goal k=1.59, assist k=1.55
-Tid: modell och utvärdering 162 s
+Tid: modell och utvärdering 119 s
 Bolag med spelarodds: atg, betmgm, expekt, leovegas, paf, svenskaspel, unibet
-Spelarodds per marknad: assist 2863, goal 8889, shots 4877, shots_on_target 5140
-Kambi-marknader: assist='to give an assist (settled using opta data)':2863; goal='1st goalscorer':130; goal='to score':5898; goal='to score at least 2 goals':2425; goal='to score at least 3 goals':388; goal='to score at least 4 goals':48; shots="player's shots (settled using opta data)":4877; shots_on_target="player's shots on target (settled using opta data)":5140
+Spelarodds per marknad: assist 2309, goal 7240, shots 3453, shots_on_target 3631
+Kambi-marknader: assist='to give an assist (settled using opta data)':2309; goal='1st goalscorer':130; goal='to score':4780; goal='to score at least 2 goals':1987; goal='to score at least 3 goals':308; goal='to score at least 4 goals':35; shots="player's shots (settled using opta data)":3453; shots_on_target="player's shots on target (settled using opta data)":3631
 Pinnacle har inga spelarprops här – använder linjejustering mot Pinnacles matchlinjer.
 CLV-signal: 0 ben släppta (Pinnacle rör sig åt vårt håll)
 Startelvor: 0 spelbara ben klara, 0 väntar på startelvan, 0 stoppade (inte i startelvan)
 Spelregler: stoppade {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0} (modelltest {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0})
-Spelarmodell: 0 av 492 ben har modell, 0 nya matcher hämtade från ESPN
-Bästa edge marknad shots_on_target: +2.6%, +1.1%, +0.4% (av 425 ben)
-Bästa edge modelltest shots_on_target: +0.6%, +0.5%, -0.8% (av 366 ben)
+Spelarmodell: 0 av 380 ben har modell, 0 nya matcher hämtade från ESPN
+Bästa edge marknad shots_on_target: -3.8%, -3.9%, -4.1% (av 335 ben)
+Bästa edge modelltest shots_on_target: -3.2%, -3.4%, -3.6% (av 276 ben)
 0 spelbara ben.
 Bokförda nya spel: 0
 Skuggspel: 0 nya bokförda (stoppade av reglerna, minst 2 % edge)
 Modelltest: 0 spelbara enligt modellen, 0 nya testspel bokförda
 Domare: 43 kommande matcher med utsedd domare (UEFA + football-data)
-Fouls (test): 281 ben med modell, 2 klarar kraven, 0 nya bokförda, bästa edge +21.3%, +12.9%, +9.0%, 0 nya ESPN-matcher, domare känd i 1 matcher
+Fouls (test): 222 ben med modell, 2 klarar kraven, 1 nya bokförda, bästa edge +21.3%, +6.5%, +4.7%, 0 nya ESPN-matcher, domare känd i 0 matcher
 Domare: 43 kommande matcher med utsedd domare (UEFA + football-data)
-Kort (test): 2571 Kambi-odds, 252 ben med modell, 6 klarar kraven, 0 nya bokförda, bästa edge +41.1%, +35.0%, +24.5%, 0 nya ESPN-matcher
+Kort (test): 1928 Kambi-odds, 181 ben med modell, 5 klarar kraven, 0 nya bokförda, bästa edge +35.0%, +24.5%, +24.5%, 0 nya ESPN-matcher
 Parlays: 0 förslag, 0 nya bokförda
 Notiser skickade: 0
