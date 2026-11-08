@@ -1,5 +1,5 @@
-Skanning 2026-11-08 19:37
-Kambi unibet (ubse): OK, 15 matcher i valda ligor
+Skanning 2026-11-08 19:51
+Kambi unibet (ubse): OK, 13 matcher i valda ligor
 Kambi paf (paf): OK
 Kambi atg (atg): OK
 Kambi leovegas (leose): OK
@@ -7,86 +7,81 @@ Kambi svenskaspel (svenskaspel): OK
 Kambi expekt (expektse): OK
 Kambi betmgm (betmgmse): OK
 Pinnacle: OK, 20 ligor
-  Kristiansund BK – Vålerenga: Pinnacle FEL HTTP 403 för https://guest.api.arcadia.pinnacle.com/0.1/matchups/1640085497/markets/related/straight
-Pinnacle: 9 matcher, matchlinjer för 7 av 15 Kambi-matcher, 0 spelarodds som används
+Pinnacle: 7 matcher, matchlinjer för 6 av 13 Kambi-matcher, 0 spelarodds som används
 Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
-  Double Chance 1st Half | units=Regular | kategori=Team Props | deltagare=Lens Or Marseille,Draw Or Marseille,Draw Or Lens  ->  används inte (lagmarknad)
-  Moneyline and Total Goals | units=Regular | kategori=Team Props | deltagare=Lens & Over 3.5,Lens & Under 3.5,Draw & Over 3.5,Draw & Under 3.5,Marseille & Over 3.5,Marseille & Under 3.5  ->  används inte (lagmarknad)
-  Double Chance | units=Regular | kategori=Team Props | deltagare=Lens Or Marseille,Draw Or Marseille,Draw Or Lens  ->  används inte (lagmarknad)
+  Double Chance 1st Half | units=Regular | kategori=Team Props | deltagare=Atletico Madrid Or Barcelona,Draw Or Barcelona,Draw Or Atletico Madrid  ->  används inte (lagmarknad)
+  Moneyline and Total Goals | units=Regular | kategori=Team Props | deltagare=Atletico Madrid & Over 3.5,Atletico Madrid & Under 3.5,Draw & Over 3.5,Draw & Under 3.5,Barcelona & Over 3.5,Barcelona & Under 3.5  ->  används inte (lagmarknad)
+  Double Chance | units=Regular | kategori=Team Props | deltagare=Atletico Madrid Or Barcelona,Draw Or Barcelona,Draw Or Atletico Madrid  ->  används inte (lagmarknad)
   Total Goals Range | units=Regular | kategori=Team Props | deltagare=0 - 1,2 - 3,4 - 6,7+  ->  används inte (lagmarknad)
-  Draw No Bet | units=Regular | kategori=Team Props | deltagare=Lens,Marseille  ->  används inte (lagmarknad)
+  Draw No Bet | units=Regular | kategori=Team Props | deltagare=Atletico Madrid,Barcelona  ->  används inte (lagmarknad)
   Total Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
-  Marseille Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
-  Draw No Bet 1st Half | units=Regular | kategori=Team Props | deltagare=Lens,Marseille  ->  används inte (lagmarknad)
-  Correct Score | units=Regular | kategori=Team Props | deltagare=Lens 0, Marseille 0,Lens 0, Marseille 1,Lens 0, Marseille 2,Lens 0, Marseille 3,Lens 0, Marseille 4,Lens 0, Marseille 5,Lens 0, Marseille 6,Lens 1, Marseille 0,Lens 1, Marseille 1,Lens 1, Marseille 2,Lens 1, Marseille 3,Lens 1, Marseille 4,Lens 1, Marseille 5,Lens 1, Marseille 6,Lens 2, Marseille 0,Lens 2, Marseille 1,Lens 2, Marseille 2,Lens 2, Marseille 3,Lens 2, Marseille 4,Lens 2, Marseille 5,Lens 2, Marseille 6,Lens 3, Marseille 0,Lens 3, Marseille 1,Lens 3, Marseille 2,Lens 3, Marseille 3,Lens 3, Marseille 4,Lens 3, Marseille 5,Lens 3, Marseille 6,Lens 4, Marseille 0,Lens 4, Marseille 1,Lens 4, Marseille 2,Lens 4, Marseille 3,Lens 4, Marseille 4,Lens 4, Marseille 5,Lens 4, Marseille 6,Lens 5, Marseille 0,Lens 5, Marseille 1,Lens 5, Marseille 2,Lens 5, Marseille 3,Lens 5, Marseille 4,Lens 5, Marseille 5,Lens 5, Marseille 6,Lens 6, Marseille 0,Lens 6, Marseille 1,Lens 6, Marseille 2,Lens 6, Marseille 3,Lens 6, Marseille 4,Lens 6, Marseille 5,Lens 6, Marseille 6  ->  används inte (lagmarknad)
-  Marseille Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
-  Winning Margin 1st Half | units=Regular | kategori=Team Props | deltagare=Lens By 1,Lens By 2+,Marseille By 1,Marseille By 2+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
-  First Team To Score 1st Half | units=1st Goal | kategori=Team Props | deltagare=Lens,Marseille,Neither  ->  används inte (lagmarknad)
+  Barcelona Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
+  Draw No Bet 1st Half | units=Regular | kategori=Team Props | deltagare=Atletico Madrid,Barcelona  ->  används inte (lagmarknad)
+  Correct Score | units=Regular | kategori=Team Props | deltagare=Atletico Madrid 0, Barcelona 0,Atletico Madrid 0, Barcelona 1,Atletico Madrid 0, Barcelona 2,Atletico Madrid 0, Barcelona 3,Atletico Madrid 0, Barcelona 4,Atletico Madrid 0, Barcelona 5,Atletico Madrid 0, Barcelona 6,Atletico Madrid 1, Barcelona 0,Atletico Madrid 1, Barcelona 1,Atletico Madrid 1, Barcelona 2,Atletico Madrid 1, Barcelona 3,Atletico Madrid 1, Barcelona 4,Atletico Madrid 1, Barcelona 5,Atletico Madrid 1, Barcelona 6,Atletico Madrid 2, Barcelona 0,Atletico Madrid 2, Barcelona 1,Atletico Madrid 2, Barcelona 2,Atletico Madrid 2, Barcelona 3,Atletico Madrid 2, Barcelona 4,Atletico Madrid 2, Barcelona 5,Atletico Madrid 2, Barcelona 6,Atletico Madrid 3, Barcelona 0,Atletico Madrid 3, Barcelona 1,Atletico Madrid 3, Barcelona 2,Atletico Madrid 3, Barcelona 3,Atletico Madrid 3, Barcelona 4,Atletico Madrid 3, Barcelona 5,Atletico Madrid 3, Barcelona 6,Atletico Madrid 4, Barcelona 0,Atletico Madrid 4, Barcelona 1,Atletico Madrid 4, Barcelona 2,Atletico Madrid 4, Barcelona 3,Atletico Madrid 4, Barcelona 4,Atletico Madrid 4, Barcelona 5,Atletico Madrid 4, Barcelona 6,Atletico Madrid 5, Barcelona 0,Atletico Madrid 5, Barcelona 1,Atletico Madrid 5, Barcelona 2,Atletico Madrid 5, Barcelona 3,Atletico Madrid 5, Barcelona 4,Atletico Madrid 5, Barcelona 5,Atletico Madrid 5, Barcelona 6,Atletico Madrid 6, Barcelona 0,Atletico Madrid 6, Barcelona 1,Atletico Madrid 6, Barcelona 2,Atletico Madrid 6, Barcelona 3,Atletico Madrid 6, Barcelona 4,Atletico Madrid 6, Barcelona 5,Atletico Madrid 6, Barcelona 6  ->  används inte (lagmarknad)
+  Barcelona Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  Winning Margin 1st Half | units=Regular | kategori=Team Props | deltagare=Atletico Madrid By 1,Atletico Madrid By 2+,Barcelona By 1,Barcelona By 2+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
+  First Team To Score 1st Half | units=1st Goal | kategori=Team Props | deltagare=Atletico Madrid,Barcelona,Neither  ->  används inte (lagmarknad)
   Either Team To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Marseille To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Lens Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
+  Barcelona To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  3-Way Handicap Atletico Madrid +3 | units=Regular | kategori=Team Props | deltagare=Atletico Madrid (+3),Draw - (Atletico Madrid +3),Barcelona (-3)  ->  används inte (lagmarknad)
+  Atletico Madrid Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
   Exact Total Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
   Exact Total Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5,6+  ->  används inte (lagmarknad)
   Both Teams To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  First Team To Score | units=1st Goal | kategori=Team Props | deltagare=Lens,Marseille,Neither  ->  används inte (lagmarknad)
+  First Team To Score | units=1st Goal | kategori=Team Props | deltagare=Atletico Madrid,Barcelona,Neither  ->  används inte (lagmarknad)
   Both Teams To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  3-Way Handicap Atletico Madrid +2 | units=Regular | kategori=Team Props | deltagare=Atletico Madrid (+2),Draw - (Atletico Madrid +2),Barcelona (-2)  ->  används inte (lagmarknad)
   Total Goals Range 1st Half | units=Regular | kategori=Team Props | deltagare=0 - 1,2 - 3,4+  ->  används inte (lagmarknad)
-  3-Way Handicap Lens -1 | units=Regular | kategori=Team Props | deltagare=Lens (-1),Draw - (Lens -1),Marseille (+1)  ->  används inte (lagmarknad)
-  Lens Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
-  Lens To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Winning Margin | units=Regular | kategori=Team Props | deltagare=Lens By 1,Lens By 2,Lens By 3,Lens By 4+,Marseille By 1,Marseille By 2,Marseille By 3,Marseille By 4+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
+  3-Way Handicap Atletico Madrid -1 | units=Regular | kategori=Team Props | deltagare=Atletico Madrid (-1),Draw - (Atletico Madrid -1),Barcelona (+1)  ->  används inte (lagmarknad)
+  Atletico Madrid Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  Atletico Madrid To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Winning Margin | units=Regular | kategori=Team Props | deltagare=Atletico Madrid By 1,Atletico Madrid By 2,Atletico Madrid By 3,Atletico Madrid By 4+,Barcelona By 1,Barcelona By 2,Barcelona By 3,Barcelona By 4+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
   Total Goals Odd/Even 1st Half | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
-  Correct Score 1st Half | units=Regular | kategori=Team Props | deltagare=Lens 0, Marseille 0,Lens 0, Marseille 1,Lens 0, Marseille 2,Lens 0, Marseille 3,Lens 1, Marseille 0,Lens 1, Marseille 1,Lens 1, Marseille 2,Lens 1, Marseille 3,Lens 2, Marseille 0,Lens 2, Marseille 1,Lens 2, Marseille 2,Lens 2, Marseille 3,Lens 3, Marseille 0,Lens 3, Marseille 1,Lens 3, Marseille 2,Lens 3, Marseille 3  ->  används inte (lagmarknad)
-  Marseille To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  3-Way Handicap Lens -2 | units=Regular | kategori=Team Props | deltagare=Lens (-2),Draw - (Lens -2),Marseille (+2)  ->  används inte (lagmarknad)
+  Correct Score 1st Half | units=Regular | kategori=Team Props | deltagare=Atletico Madrid 0, Barcelona 0,Atletico Madrid 0, Barcelona 1,Atletico Madrid 0, Barcelona 2,Atletico Madrid 0, Barcelona 3,Atletico Madrid 1, Barcelona 0,Atletico Madrid 1, Barcelona 1,Atletico Madrid 1, Barcelona 2,Atletico Madrid 1, Barcelona 3,Atletico Madrid 2, Barcelona 0,Atletico Madrid 2, Barcelona 1,Atletico Madrid 2, Barcelona 2,Atletico Madrid 2, Barcelona 3,Atletico Madrid 3, Barcelona 0,Atletico Madrid 3, Barcelona 1,Atletico Madrid 3, Barcelona 2,Atletico Madrid 3, Barcelona 3  ->  används inte (lagmarknad)
+  Barcelona To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  3-Way Handicap Atletico Madrid -2 | units=Regular | kategori=Team Props | deltagare=Atletico Madrid (-2),Draw - (Atletico Madrid -2),Barcelona (+2)  ->  används inte (lagmarknad)
   Either Team To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Lens Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
-  3-Way Handicap Lens +1 | units=Regular | kategori=Team Props | deltagare=Lens (+1),Draw - (Lens +1),Marseille (-1)  ->  används inte (lagmarknad)
-  Lens To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Marseille Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
-  Both Teams To Score and Moneyline | units=Regular | kategori=Team Props | deltagare=Yes & Lens,Yes & Draw,Yes & Marseille,No & Lens,No & Draw,No & Marseille  ->  används inte (lagmarknad)
+  Atletico Madrid Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
+  3-Way Handicap Atletico Madrid +1 | units=Regular | kategori=Team Props | deltagare=Atletico Madrid (+1),Draw - (Atletico Madrid +1),Barcelona (-1)  ->  används inte (lagmarknad)
+  Atletico Madrid To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Barcelona Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
+  Both Teams To Score and Moneyline | units=Regular | kategori=Team Props | deltagare=Yes & Atletico Madrid,Yes & Draw,Yes & Barcelona,No & Atletico Madrid,No & Draw,No & Barcelona  ->  används inte (lagmarknad)
   Odd/Even and Total Goals | units=Regular | kategori=Team Props | deltagare=Odd & Over 3.5,Odd & Under 3.5,Even & Over 3.5,Even & Under 3.5  ->  används inte (lagmarknad)
-  Lens To Win To Nil | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Marseille To Win To Nil | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Lens To Win To Nil 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Marseille To Win To Nil 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Atletico Madrid To Win To Nil | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Barcelona To Win To Nil | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Barcelona To Win To Nil 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Atletico Madrid To Win To Nil 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
   Both Teams To Score and Total Goals | units=Regular | kategori=Team Props | deltagare=Yes & Over 3.5,Yes & Under 3.5,No & Over 3.5,No & Under 3.5  ->  används inte (lagmarknad)
-  Double Chance 1st Half | units=Regular | kategori=Team Props | deltagare=Fiorentina Or Juventus,Draw Or Juventus,Draw Or Fiorentina  ->  används inte (lagmarknad)
-  Moneyline and Total Goals | units=Regular | kategori=Team Props | deltagare=Fiorentina & Over 2.5,Fiorentina & Under 2.5,Draw & Over 2.5,Draw & Under 2.5,Juventus & Over 2.5,Juventus & Under 2.5  ->  används inte (lagmarknad)
-  Double Chance | units=Regular | kategori=Team Props | deltagare=Fiorentina Or Juventus,Draw Or Juventus,Draw Or Fiorentina  ->  används inte (lagmarknad)
-  Draw No Bet | units=Regular | kategori=Team Props | deltagare=Fiorentina,Juventus  ->  används inte (lagmarknad)
-  Juventus Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
-  Draw No Bet 1st Half | units=Regular | kategori=Team Props | deltagare=Fiorentina,Juventus  ->  används inte (lagmarknad)
-  Correct Score | units=Regular | kategori=Team Props | deltagare=Fiorentina 0, Juventus 0,Fiorentina 0, Juventus 1,Fiorentina 0, Juventus 2,Fiorentina 0, Juventus 3,Fiorentina 0, Juventus 4,Fiorentina 0, Juventus 5,Fiorentina 0, Juventus 6,Fiorentina 1, Juventus 0,Fiorentina 1, Juventus 1,Fiorentina 1, Juventus 2,Fiorentina 1, Juventus 3,Fiorentina 1, Juventus 4,Fiorentina 1, Juventus 5,Fiorentina 1, Juventus 6,Fiorentina 2, Juventus 0,Fiorentina 2, Juventus 1,Fiorentina 2, Juventus 2,Fiorentina 2, Juventus 3,Fiorentina 2, Juventus 4,Fiorentina 2, Juventus 5,Fiorentina 2, Juventus 6,Fiorentina 3, Juventus 0,Fiorentina 3, Juventus 1,Fiorentina 3, Juventus 2,Fiorentina 3, Juventus 3,Fiorentina 3, Juventus 4,Fiorentina 3, Juventus 5,Fiorentina 3, Juventus 6,Fiorentina 4, Juventus 0,Fiorentina 4, Juventus 1,Fiorentina 4, Juventus 2,Fiorentina 4, Juventus 3,Fiorentina 4, Juventus 4,Fiorentina 4, Juventus 5,Fiorentina 4, Juventus 6,Fiorentina 5, Juventus 0,Fiorentina 5, Juventus 1,Fiorentina 5, Juventus 2,Fiorentina 5, Juventus 3,Fiorentina 5, Juventus 4,Fiorentina 5, Juventus 5,Fiorentina 5, Juventus 6,Fiorentina 6, Juventus 0,Fiorentina 6, Juventus 1,Fiorentina 6, Juventus 2,Fiorentina 6, Juventus 3,Fiorentina 6, Juventus 4,Fiorentina 6, Juventus 5,Fiorentina 6, Juventus 6  ->  används inte (lagmarknad)
-  Juventus Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
-  Winning Margin 1st Half | units=Regular | kategori=Team Props | deltagare=Fiorentina By 1,Fiorentina By 2+,Juventus By 1,Juventus By 2+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
-  First Team To Score 1st Half | units=1st Goal | kategori=Team Props | deltagare=Fiorentina,Juventus,Neither  ->  används inte (lagmarknad)
-  Juventus To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Fiorentina Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
-  First Team To Score | units=1st Goal | kategori=Team Props | deltagare=Fiorentina,Juventus,Neither  ->  används inte (lagmarknad)
-  3-Way Handicap Fiorentina +2 | units=Regular | kategori=Team Props | deltagare=Fiorentina (+2),Draw - (Fiorentina +2),Juventus (-2)  ->  används inte (lagmarknad)
-  3-Way Handicap Fiorentina -1 | units=Regular | kategori=Team Props | deltagare=Fiorentina (-1),Draw - (Fiorentina -1),Juventus (+1)  ->  används inte (lagmarknad)
-  Fiorentina Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
-  Fiorentina To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Winning Margin | units=Regular | kategori=Team Props | deltagare=Fiorentina By 1,Fiorentina By 2,Fiorentina By 3,Fiorentina By 4+,Juventus By 1,Juventus By 2,Juventus By 3,Juventus By 4+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
-  Correct Score 1st Half | units=Regular | kategori=Team Props | deltagare=Fiorentina 0, Juventus 0,Fiorentina 0, Juventus 1,Fiorentina 0, Juventus 2,Fiorentina 0, Juventus 3,Fiorentina 1, Juventus 0,Fiorentina 1, Juventus 1,Fiorentina 1, Juventus 2,Fiorentina 1, Juventus 3,Fiorentina 2, Juventus 0,Fiorentina 2, Juventus 1,Fiorentina 2, Juventus 2,Fiorentina 2, Juventus 3,Fiorentina 3, Juventus 0,Fiorentina 3, Juventus 1,Fiorentina 3, Juventus 2,Fiorentina 3, Juventus 3  ->  används inte (lagmarknad)
-Sides mindre ligor: 38 Kambi-matcher inom 12 h, 70 Pinnacle-matcher, 35 med Pinnacle, 35 matchade: Argentina / Torneo Federal A, Bolivia / Liga Profesional Bolivia, Canada / Northern Super League (W), Chile / Primera Chile, Chile / Segunda División, Colombia / Liga Dimayor, Costa Rica / Primera Division Costa Rica, Ecuador / Liga Pro, El Salvador / Primera Divisíon, Guatemala / Liga Nacional Guat
-  Sides rättad: FC Midtjylland – SønderjyskE 1X2: 2 -> förlorad (2–2)
-Sides/totals: 42 matcher med Kambi + Pinnacle, 703 linjer, 0 nya spel, 0 nya skuggspel, Smarkets-priser i 26 av 28; bästa edge +9.0% (Universitario de Deportes 1X2: 2), +4.9% (CD Universitario 1X2: 1), +4.9% (Atlético Madrid 1X2: X)
+  Lamine Yamal To Score | units=Regular | kategori=Player Props | deltagare=Yes,No  ->  goal 0.5
+  Raphinha To Score | units=Regular | kategori=Player Props | deltagare=Yes,No  ->  goal 0.5
+  Julian Alvarez To Score | units=Regular | kategori=Player Props | deltagare=Yes,No  ->  goal 0.5
+  Double Chance 1st Half | units=Regular | kategori=Team Props | deltagare=Rio Ave Or Braga,Draw Or Braga,Draw Or Rio Ave  ->  används inte (lagmarknad)
+  Moneyline and Total Goals | units=Regular | kategori=Team Props | deltagare=Rio Ave & Over 2.5,Rio Ave & Under 2.5,Draw & Over 2.5,Draw & Under 2.5,Braga & Over 2.5,Braga & Under 2.5  ->  används inte (lagmarknad)
+  Double Chance | units=Regular | kategori=Team Props | deltagare=Rio Ave Or Braga,Draw Or Braga,Draw Or Rio Ave  ->  används inte (lagmarknad)
+  Draw No Bet | units=Regular | kategori=Team Props | deltagare=Rio Ave,Braga  ->  används inte (lagmarknad)
+  Braga Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
+  Draw No Bet 1st Half | units=Regular | kategori=Team Props | deltagare=Rio Ave,Braga  ->  används inte (lagmarknad)
+  Correct Score | units=Regular | kategori=Team Props | deltagare=Rio Ave 0, Braga 0,Rio Ave 0, Braga 1,Rio Ave 0, Braga 2,Rio Ave 0, Braga 3,Rio Ave 0, Braga 4,Rio Ave 0, Braga 5,Rio Ave 0, Braga 6,Rio Ave 1, Braga 0,Rio Ave 1, Braga 1,Rio Ave 1, Braga 2,Rio Ave 1, Braga 3,Rio Ave 1, Braga 4,Rio Ave 1, Braga 5,Rio Ave 1, Braga 6,Rio Ave 2, Braga 0,Rio Ave 2, Braga 1,Rio Ave 2, Braga 2,Rio Ave 2, Braga 3,Rio Ave 2, Braga 4,Rio Ave 2, Braga 5,Rio Ave 2, Braga 6,Rio Ave 3, Braga 0,Rio Ave 3, Braga 1,Rio Ave 3, Braga 2,Rio Ave 3, Braga 3,Rio Ave 3, Braga 4,Rio Ave 3, Braga 5,Rio Ave 3, Braga 6,Rio Ave 4, Braga 0,Rio Ave 4, Braga 1,Rio Ave 4, Braga 2,Rio Ave 4, Braga 3,Rio Ave 4, Braga 4,Rio Ave 4, Braga 5,Rio Ave 4, Braga 6,Rio Ave 5, Braga 0,Rio Ave 5, Braga 1,Rio Ave 5, Braga 2,Rio Ave 5, Braga 3,Rio Ave 5, Braga 4,Rio Ave 5, Braga 5,Rio Ave 5, Braga 6,Rio Ave 6, Braga 0,Rio Ave 6, Braga 1,Rio Ave 6, Braga 2,Rio Ave 6, Braga 3,Rio Ave 6, Braga 4,Rio Ave 6, Braga 5,Rio Ave 6, Braga 6  ->  används inte (lagmarknad)
+  Odd/Even and Total Goals | units=Regular | kategori=Team Props | deltagare=Odd & Over 2.5,Odd & Under 2.5,Even & Over 2.5,Even & Under 2.5  ->  används inte (lagmarknad)
+  Braga Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  Winning Margin 1st Half | units=Regular | kategori=Team Props | deltagare=Rio Ave By 1,Rio Ave By 2+,Braga By 1,Braga By 2+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
+  First Team To Score 1st Half | units=1st Goal | kategori=Team Props | deltagare=Rio Ave,Braga,Neither  ->  används inte (lagmarknad)
+  Braga To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  3-Way Handicap Rio Ave +3 | units=Regular | kategori=Team Props | deltagare=Rio Ave (+3),Draw - (Rio Ave +3),Braga (-3)  ->  används inte (lagmarknad)
+  Rio Ave Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
+Sides mindre ligor: 38 Kambi-matcher inom 12 h, 67 Pinnacle-matcher, 35 med Pinnacle, 35 matchade: Argentina / Torneo Federal A, Bolivia / Liga Profesional Bolivia, Canada / Northern Super League (W), Chile / Primera Chile, Chile / Segunda División, Colombia / Liga Dimayor, Costa Rica / Primera Division Costa Rica, Ecuador / Liga Pro, El Salvador / Primera Divisíon, Guatemala / Liga Nacional Guat
+Sides/totals: 41 matcher med Kambi + Pinnacle, 642 linjer, 0 nya spel, 1 nya skuggspel, Smarkets-priser i 25 av 27; bästa edge +5.2% (Universitario de Deportes handikapp -2), +4.9% (CD Universitario 1X2: 1), +4.5% (Portmore United 1X2: 2)
 Fotboll extra bolag: 0 nya hämtningar, 0 odds i bruk, krediter kvar 384, dagsbudget 16 (andel 30%), förbrukat idag 4
-Tid: hämtning 237 s
-Marginal över alla matcher: uppmätt marginal: shots stege k=1.10 (21 spelare; marginal vid 3,00 ≈ 12%), shots_on_target stege k=1.14 (40 spelare; marginal vid 3,00 ≈ 17%)
-  Lens – Marseille: modell fra.1, 31 spelare
-  Fiorentina – Juventus: modell ita.1, 30 spelare
+Tid: hämtning 222 s
+Marginal över alla matcher: uppmätt marginal: shots stege k=1.10 (7 spelare; marginal vid 3,00 ≈ 12%), shots_on_target stege k=1.32 (18 spelare; marginal vid 3,00 ≈ 42%)
   Atlético Madrid – FC Barcelona: modell esp.1, 30 spelare
   Rio Ave – S.C. Braga: modell por.1, 34 spelare
   Querétaro FC – Puebla FC: modell – hittar inte matchen hos ESPN
   Club León – Chivas Guadalajara: modell – hittar inte matchen hos ESPN
-Modellens nivåavvikelse mot marknaden (log-odds, dras bort): shots -0.70, shots_on_target -0.36
-  Lens – Marseille: väntade mål Pinnacle 3.08 mot Kambi 3.07 (kvot 1.003); uppmätt marginal: goal k=1.17, assist k=1.28
-Exempel uppmätt marginal: goal k=1.17, assist k=1.28
-  Fiorentina – Juventus: väntade mål Pinnacle 2.74 mot Kambi 2.75 (kvot 0.998); uppmätt marginal: goal k=1.20, assist k=1.27, shots stege k=1.10 (7 spelare; marginal vid 3,00 ≈ 12%), shots_on_target stege k=1.16 (21 spelare; marginal vid 3,00 ≈ 19%)
-  Atlético Madrid – FC Barcelona: väntade mål Pinnacle 3.80 mot Kambi 3.77 (kvot 1.006); uppmätt marginal: goal k=1.21, assist k=1.28
+  Kristiansund BK – Vålerenga: modell nor.1, 30 spelare
+Modellens nivåavvikelse mot marknaden (log-odds, dras bort): shots -0.61
+  Atlético Madrid – FC Barcelona: väntade mål Pinnacle 3.75 mot Kambi 3.77 (kvot 0.993); uppmätt marginal: goal k=1.22, assist k=1.29
+Exempel uppmätt marginal: goal k=1.22, assist k=1.29
   Vasco da Gama-RJ – Palmeiras-SP: saknar matchlinjer från Pinnacle
   Rio Ave – S.C. Braga: väntade mål Pinnacle 3.00 mot Kambi 2.88 (kvot 1.044); uppmätt marginal: goal k=1.65
   CF Estrela – Benfica: saknar matchlinjer från Pinnacle
@@ -95,26 +90,26 @@ Exempel uppmätt marginal: goal k=1.17, assist k=1.28
   Central Córdoba – Lanús: saknar matchlinjer från Pinnacle
   Querétaro FC – Puebla FC: väntade mål Pinnacle 2.91 mot Kambi 3.07 (kvot 0.947); uppmätt marginal: goal k=1.55, assist k=1.53
   Club León – Chivas Guadalajara: väntade mål Pinnacle 2.94 mot Kambi 2.93 (kvot 1.003); uppmätt marginal: goal k=1.59, assist k=1.55
-  Kristiansund BK – Vålerenga: saknar matchlinjer från Pinnacle
+  Kristiansund BK – Vålerenga: väntade mål Pinnacle 3.59 mot Kambi 3.61 (kvot 0.993); uppmätt marginal: goal k=1.31
   Sabadell FC – Real Sociedad B: saknar matchlinjer från Pinnacle
-Tid: modell och utvärdering 42 s
+Tid: modell och utvärdering 35 s
 Bolag med spelarodds: atg, betmgm, expekt, leovegas, paf, svenskaspel, unibet
-Spelarodds per marknad: assist 938, goal 3479, shots 1379, shots_on_target 1456
-Kambi-marknader: assist='to give an assist (settled using opta data)':938; goal='to score':2450; goal='to score at least 2 goals':882; goal='to score at least 3 goals':119; goal='to score at least 4 goals':21; goal='to score at least 5 goals':7; shots="player's shots (settled using opta data)":1379; shots_on_target="player's shots on target (settled using opta data)":1456
+Spelarodds per marknad: assist 658, goal 2835, shots 678, shots_on_target 1029
+Kambi-marknader: assist='to give an assist (settled using opta data)':658; goal='to score':2030; goal='to score at least 2 goals':686; goal='to score at least 3 goals':84; goal='to score at least 4 goals':28; goal='to score at least 5 goals':7; shots="player's shots (settled using opta data)":678; shots_on_target="player's shots on target (settled using opta data)":1029
 Pinnacle har inga spelarprops här – använder linjejustering mot Pinnacles matchlinjer.
 CLV-signal: 0 ben släppta (Pinnacle rör sig åt vårt håll)
 Startelvor: 0 spelbara ben klara, 0 väntar på startelvan, 0 stoppade (inte i startelvan)
 Spelregler: stoppade {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0} (modelltest {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0})
-Spelarmodell: 0 av 157 ben har modell, 0 nya matcher hämtade från ESPN
-Bästa edge marknad shots_on_target: -4.5%, -4.8%, -5.3% (av 136 ben)
-Bästa edge modelltest shots_on_target: -5.8%, -5.9%, -6.3% (av 76 ben)
+Spelarmodell: 0 av 96 ben har modell, 0 nya matcher hämtade från ESPN
+Bästa edge marknad shots_on_target: -6.5%, -6.6%, -6.8% (av 86 ben)
+Bästa edge modelltest shots_on_target: -5.0%, -6.3%, -7.2% (av 26 ben)
 0 spelbara ben.
 Bokförda nya spel: 0
 Skuggspel: 0 nya bokförda (stoppade av reglerna, minst 2 % edge)
 Modelltest: 0 spelbara enligt modellen, 0 nya testspel bokförda
 Domare: 43 kommande matcher med utsedd domare (UEFA + football-data)
-Fouls (test): 125 ben med modell, 1 klarar kraven, 0 nya bokförda, bästa edge +21.3%, +6.4%, -13.9%, 0 nya ESPN-matcher, domare känd i 0 matcher
+Fouls (test): 43 ben med modell, 0 klarar kraven, 0 nya bokförda, bästa edge -22.3%, -24.6%, -28.9%, 0 nya ESPN-matcher, domare känd i 0 matcher
 Domare: 43 kommande matcher med utsedd domare (UEFA + football-data)
-Kort (test): 503 Kambi-odds, 51 ben med modell, 0 klarar kraven, 0 nya bokförda, bästa edge -2.3%, -14.5%, -17.0%, 0 nya ESPN-matcher
+Kort (test): 223 Kambi-odds, 21 ben med modell, 0 klarar kraven, 0 nya bokförda, bästa edge -14.5%, -20.0%, -23.4%, 0 nya ESPN-matcher
 Parlays: 0 förslag, 0 nya bokförda
 Notiser skickade: 0
