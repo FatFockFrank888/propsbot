@@ -768,14 +768,16 @@ async function load() {
   try { PARAMS = await (await fetch("parametrar.json?t=" + Date.now(), {cache: "no-store"})).json(); } catch (e) { PARAMS = null; }
   buildAll();
   const stale = [];
+  // Nattpaus 04–06 UTC (55 min mellan körningarna): tillåt längre tid innan varningen.
+  const hUtc = new Date().getUTCHours(), LIMIT = hUtc >= 4 && hUtc < 7 ? 120 : 75;
   document.getElementById("fresh").innerHTML = Object.entries(SPORTS).map(([s, x]) => {
     const ts = D[s]?.uppdaterad_ts; const m = ts ? Math.round((now - ts) / 60) : null;
-    if (m == null || m > 75) stale.push(x.name);
-    return `<span class="${m == null || m > 75 ? "stale" : ""}">${x.icon} <b>${m == null ? "–" : m + " min"}</b></span>`;
+    if (m == null || m > LIMIT) stale.push(x.name);
+    return `<span class="${m == null || m > LIMIT ? "stale" : ""}">${x.icon} <b>${m == null ? "–" : m + " min"}</b></span>`;
   }).join("") + `<span>1u = 0,2 % av bankrullen</span>`;
   const b = document.getElementById("banner");
   b.classList.toggle("hidden", !stale.length);
-  b.textContent = stale.length ? `Ingen ny skanning på över 75 min för ${stale.join(", ")} – boten kan ha stannat.` : "";
+  b.textContent = stale.length ? `Ingen ny skanning på över ${LIMIT} min för ${stale.join(", ")} – boten kan ha stannat.` : "";
   render();
 }
 document.querySelectorAll(".sp").forEach(b => b.onclick = () => { cur = b.dataset.s; render(); });
