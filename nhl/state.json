@@ -1,11 +1,13 @@
 {
  "last_scan": {
-  "time": "2026-11-10T23:55:04+00:00",
+  "time": "2026-11-11T00:07:45+00:00",
   "games": 12,
   "games_with_props": 6,
-  "legs": 209,
+  "legs": 211,
   "live_new": 0,
-  "errors": []
+  "errors": [
+   "pinnacle DET@STL: HTTP 403 for https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639904652/related: {\n  \"detail\": \"Access from United States is prohibited\",\n  \"reason\": \"location\",\n  \"status\": 403,\n  \"title\": \"BAD_LOCATION\",\n  \"type\": \"about:blank\"\n}"
+  ]
  },
  "consecutive_failures": 0,
  "last_recap": "2026-11-10"
