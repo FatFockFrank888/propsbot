@@ -48,11 +48,12 @@ def select_live(rows, model_rows, settings: dict, live_ledger) -> list:
         c = r.row.decision.cand
         model_edge[_key(c)] = max(model_edge.get(_key(c), -1.0), c.edge)
 
+    blocked = set(settings.get("live_blocked_markets") or [])
     cands = []
     for r in rows:
         d = r.row.decision
         c = d.cand
-        if not (d.playable and d.show):
+        if not (d.playable and d.show) or c.market in blocked:
             continue
         need = th.get(c.market)
         if need is None or c.edge < need or c.edge > max_edge or not (lo <= c.best.odds <= hi):

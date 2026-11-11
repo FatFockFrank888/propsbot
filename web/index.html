@@ -305,6 +305,8 @@ const SPORTS = {
 };
 const U = 0.002;   // 1 unit = 0,2 % av bankrullen
 const nf = (x, d = 2) => x == null || isNaN(x) ? "–" : x.toLocaleString("sv-SE", {minimumFractionDigits: d, maximumFractionDigits: d});
+// "Spela från" avrundas alltid UPPÅT – vanlig avrundning kunde visa ett odds under den verkliga tröskeln.
+const sf = x => x == null || isNaN(x) ? "–" : nf(Math.ceil(x * 100 - 1e-9) / 100);
 const pct = (x, d = 1) => x == null || isNaN(x) ? "–" : nf(x * 100, d) + " %";
 const sgn = (x, d = 1) => x == null || isNaN(x) ? "–" : (x > 0 ? "+" : "") + nf(x, d);
 const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"}[c]));
@@ -443,7 +445,7 @@ function strength(r) {
   const why = [`edge nu ${cur ? sgn(E) + " %" : "under 2 % (inte på radarn)"}`,
     `modell ${M == null ? "saknas" : sgn(M) + " % → " + sgn(Mp)}`,
     `marknaden sedan spelet lades ${sgn(R)}`, `sharp ${S ? sgn(S, 0) : "0"}`,
-    ok ? "" : (oddsNow < r.spela_fran ? `odds nu ${nf(oddsNow)} < spela från ${nf(r.spela_fran)}` : "inte spelbart nu")].filter(Boolean);
+    ok ? "" : (oddsNow < r.spela_fran ? `odds nu ${nf(oddsNow)} < spela från ${sf(r.spela_fran)}` : "inte spelbart nu")].filter(Boolean);
   return {score: E + Mp + R + S, ok, oddsNow, edgeNow: cur ? cur.edge : null, why: why.join(" · ")};
 }
 function renderNu() {
@@ -458,7 +460,7 @@ function renderNu() {
   document.getElementById("nuRows").innerHTML = open.map(r => `<tr class="${r.rank ? "top" + r.rank : r.st.ok ? "play" : "weak"}">
     <td>${r.rank ? `<span class="rank r${r.rank}">${r.rank}</span> ` : ""}${tag(r.sport)}</td><td>${fmtTs(r.avspark)}</td><td>${esc(r.match)}</td><td><b>${esc(r.spelare)}</b>${r.nyhet ? `<div class="news ${r.nyhetStatus === "ok" ? "ok" : ""}">📰 ${esc(r.nyhet)}</div>` : ""}</td>
     <td><b>${esc(r.spel)}</b></td><td>${esc(r.bolag)}</td><td class="n">${nf(r.odds)}</td>
-    <td class="n ${r.st.oddsNow < (r.spela_fran || 0) ? "loss" : ""}">${nf(r.st.oddsNow)}</td><td class="n">${nf(r.spela_fran)}</td>
+    <td class="n ${r.st.oddsNow < (r.spela_fran || 0) ? "loss" : ""}">${nf(r.st.oddsNow)}</td><td class="n">${sf(r.spela_fran)}</td>
     <td class="n pos">${pct(r.edge)}</td><td class="n ${r.st.edgeNow > 0 ? "pos" : "loss"}">${r.st.edgeNow == null ? "&lt; 2 %" : pct(r.st.edgeNow)}</td>
     <td class="n" title="${esc(r.st.why)}"><b>${nf(r.st.score, 1)}</b></td><td class="n"><b>${Math.round(r.u)}u</b></td>
     <td>${r.notis === false ? "väntar" : r.notis === null ? "spärrad" : "✓"}</td></tr>`).join("")
@@ -519,7 +521,7 @@ function toppCard(r, i, bub) {
     <div class="top">${tag(r.sport)} <span>${esc(r.mkName)}</span> · <span>${esc(r.match)}</span></div>
     <div class="top" style="margin-top:3px">🕒 ${fmtTs(r.ts)} · <b class="cd" data-ts="${r.ts}">${countdown(r.ts)}</b></div>
     <div class="who">${esc(r.spelare)}</div><div class="bet">${esc(r.spel)}</div>
-    <div class="row"><div class="odds">${nf(r.odds)}<small>spela från ${nf(r.spela_fran)}</small></div>${ring(t.score, col)}</div>
+    <div class="row"><div class="odds">${nf(r.odds)}<small>spela från ${sf(r.spela_fran)}</small></div>${ring(t.score, col)}</div>
     <div class="stake" style="--c:${col}"><span>Insats</span><b>${r.units ? r.units + "u" : "–"}</b>
       <em>${r.units ? nf(r.units * U * 100, 1) + " % av bankrullen" : ""}${r.liveBet ? " · som LIVE-spelet" : ""}</em></div>
     <div class="lbl" style="margin-top:8px"><span>Edge</span><b class="pos">${pct(r.edge)}</b></div>
@@ -578,7 +580,7 @@ function renderRadar() {
       <td>${tag(r.sport)}</td><td>${r.live ? "⚡ " : ""}${esc(r.spelare)}</td><td>${esc(r.match)}</td><td>${fmtTs(utcTs(r.avspark))}</td>
       <td>${esc(r.spel)}</td><td class="n">${nf(r.prognos)}</td><td class="n">${nf(r.odds)}</td><td>${esc(r.bolag)}</td>
       <td class="n">${pct(r.sannolikhet)}</td><td class="n">${nf(r.ratt_odds)}</td>
-      <td class="n ${r.edge > 0 ? "pos" : "neg"}">${pct(r.edge)}</td><td class="n">${nf(r.spela_fran)}</td>
+      <td class="n ${r.edge > 0 ? "pos" : "neg"}">${pct(r.edge)}</td><td class="n">${sf(r.spela_fran)}</td>
       <td class="n ${r.spelbar ? "pos" : "neg"}">${uFmt(r.insats)}</td></tr>`).join("")
     || `<tr><td colspan="13" class="empty">Inga ben med minst 2 % edge just nu.</td></tr>`;
 }

@@ -125,8 +125,12 @@ def kambi_nba_props(c: JsonClient, offering: str, book: str, market: str, ev: Ka
             else:
                 continue
             line = o["line"] / 1000.0
-            if abs(line - round(line)) < 1e-9:     # heltal = "minst N" -> över N-0,5
-                line -= 0.5
+            if abs(line - round(line)) < 1e-9:
+                # Heltalslinje över/under: exakt N = återbetalning (push). Tidigare flyttades den till N−0,5,
+                # vilket räknade push som vinst för över (överskattad sannolikhet). Push modelleras inte i
+                # NBA-kedjan, så sådana linjer används inte (räknas i SAMPLE för loggen).
+                SAMPLE["heltalslinjer_hoppade"] = SAMPLE.get("heltalslinjer_hoppade", 0) + 1
+                continue
             pid = name_key(player)
             names.setdefault(pid, person_name(player))
             qs.append(OddsQuote(book=book, match_id=match_id, player_id=pid, market=mk, line=line,
@@ -180,6 +184,8 @@ def pinnacle_nba_props(pin: PinnaclePublic, ev, match_id: str) -> tuple[list[Odd
             side = pmap.get(pr.get("participantId"), pr.get("designation") or "")
             if side not in ("over", "under") or pr.get("points") is None or pr.get("price") is None:
                 continue
+            if abs(float(pr["points"]) - round(float(pr["points"]))) < 1e-9:
+                continue          # heltalslinje (push möjlig) – samma regel som för Kambi
             pid = name_key(player)
             names.setdefault(pid, person_name(player))
             qs.append(OddsQuote(book="pinnacle", match_id=match_id, player_id=pid, market=mk,
@@ -191,6 +197,8 @@ def pinnacle_nba_props(pin: PinnaclePublic, ev, match_id: str) -> tuple[list[Odd
 
 # ---------------------------------------------------------------- linjeflytt
 # Överspridning per marknad (negativ binomial, form r): varians = μ + μ²/r.
+# Modellversion (loggas på varje ny prognos). Byt vid metodändring; äldre rader behåller sin (eller ingen = legacy).
+NBA_MODEL_VERSION = "2026-11-11-koherent"
 LAST_MODEL: dict = {}    # senaste skanningens modell per match (models, teams) – används av news.nba_teammate_fn
 NB_R = {"points": 15, "rebounds": 10, "assists": 10, "threes": 8, "steals": 30, "blocks": 15,
         "pra": 15, "pr": 15, "ra": 12}
@@ -310,13 +318,20 @@ def settle_nba(ledger: Ledger, c: JsonClient, now: float | None = None) -> list[
                     if same_person((a.get("athlete") or {}).get("displayName", ""), b["spelare"]):
                         found = (labels, a)
         if not found:
+            # Saknat resultat är inte automatiskt DNP: kan vara namnskillnad eller ofullständig boxscore.
+            # Vänta 48 h; därefter struken med tydlig markering (ingen gissning om utfallet).
+            if now < b["avspark"] + 48 * 3600:
+                log.append(f"NBA: hittar inte {b['spelare']} i boxscore ({b['match']}) – väntar")
+                continue
             ledger.settle(b, None, played=False)
-            log.append(f"NBA struken: {b['spelare']} ({b['match']})")
+            b["struken_orsak"] = "spelaren hittades inte i ESPN:s boxscore inom 48 h"
+            log.append(f"NBA struken (ej hittad): {b['spelare']} ({b['match']})")
             continue
         labels, a = found
         stats = a.get("stats") or []
         if a.get("didNotPlay") or not stats:
             ledger.settle(b, None, played=False)
+            b["struken_orsak"] = "DNP enligt ESPN"
             continue
         val = _box_value(labels, stats, b["marknad"])
         if val is None:
@@ -477,7 +492,15 @@ def nba_scan(root: Path, settings_path: Path) -> dict:
     # LIVE: hårt sållade spel som faktiskt spelas (bara dessa skickas som notis)
     from .live import record_live, select_live
     live = Ledger(root / "nba_live.json")
-    live_rows = select_live(rows, test_rows, settings, live) if settings.get("live_on", True) else []
+    # Status per marknad från förra skanningens utvärdering (nba_eval): "degraded" ger inga LIVE-spel.
+    try:
+        mstat = json.loads((root / "nba_utvardering.json").read_text(encoding="utf-8")).get("status", {})
+    except (FileNotFoundError, json.JSONDecodeError):
+        mstat = {}
+    blocked = {mk for mk, st in mstat.items() if st == "degraded"} if settings.get("live_block_degraded", True) else set()
+    if blocked:
+        diag.log(f"NBA LIVE: marknader med status degraded (inga LIVE-spel): {', '.join(sorted(blocked))}")
+    live_rows = select_live(rows, test_rows, dict(settings, live_blocked_markets=sorted(blocked)), live)         if settings.get("live_on", True) else []
     new_live = record_live(live, live_rows, rows, evd_by_id)
     recheck(live, nba_status_fn(injuries), settings, "NBA", True, diag.log)
     from .news import nba_injury_list, nba_teammate_fn
@@ -487,6 +510,13 @@ def nba_scan(root: Path, settings_path: Path) -> dict:
     for b in new_live:
         diag.log(f"NBA LIVE SPEL: {b['match']} | {b['spelare']} {b['marknad']} {b['sida']} {b['linje']} | "
                  f"{b['bolag']} {b['odds']:.2f} | edge {b['edge']:.1%} | {round(b['insats_pct'] / 0.002)}u")
+    # Versionsmärkning: varje ny prognos får modellversion och prognostid (gamla rader ändras inte).
+    t_now = time.time()
+    for lg in (ledger, shadow, test, live):
+        for b in lg.bets:
+            if "modellversion" not in b and (b.get("bokford") or 0) > t_now - 900:
+                b["modellversion"] = NBA_MODEL_VERSION
+                b["prognos_ts"] = b.get("bokford")
     ec = JsonClient(root / ".cache_odds", ttl_s=900)
     for lg in (ledger, shadow, test, live):
         try:
@@ -495,6 +525,14 @@ def nba_scan(root: Path, settings_path: Path) -> dict:
         except Exception as e:
             diag.log(f"NBA rättning: {type(e).__name__}: {e}")
         lg.save()
+    try:   # utvärdering på framåtriktad data + status per marknad (används av nästa skanning)
+        from .nba_eval import evaluate as nba_evaluate, markdown as nba_md
+        ev = nba_evaluate(root)
+        (root / "nba_utvardering.json").write_text(json.dumps(ev, ensure_ascii=False), encoding="utf-8")
+        (root / "nba_utvardering.md").write_text(nba_md(ev), encoding="utf-8")
+        diag.log("NBA status per marknad: " + ", ".join(f"{k} {v}" for k, v in sorted(ev["status"].items())))
+    except Exception as e:  # noqa: BLE001 – utvärderingen får aldrig stoppa skanningen
+        diag.log(f"NBA utvärdering: fel {type(e).__name__}: {e}")
     diag.save()
     return {"rows": rows, "playable": playable, "ledger": ledger, "shadow": shadow, "test": test,
             "live": live, "live_rows": live_rows,
@@ -502,6 +540,21 @@ def nba_scan(root: Path, settings_path: Path) -> dict:
 
 
 # ---------------------------------------------------------------- modelltest
+def coherent_blend(p_mod_over: float, p_mkt_over: float, offset: float, w0: float, dq: float = 1.0
+                   ) -> tuple[float, float, float]:
+    """Modell + marknad för en halvlinje – EN blandad över-sannolikhet, under = komplementet.
+
+    Allt räknas i över-orientering: nivåjusteringen (offset, log-odds) dras av från modellens
+    P(över), vikten bestäms av skillnaden mot marknadens P(över), och blandningen görs i log-odds.
+    Returnerar (modell P(över) efter nivåjustering, slutlig P(över), vikt).
+    Rättning 2026-11-11: tidigare gjordes justeringen per sida, så P(över) + P(under) blev ≠ 1.
+    """
+    from .market import inv_logit, logit
+    pm = inv_logit(logit(min(max(p_mod_over, 1e-4), 1 - 1e-4)) - offset)
+    w = w0 * dq * (0.5 if abs(logit(pm) - logit(p_mkt_over)) > 1.0 else 1.0)
+    return pm, inv_logit(w * logit(pm) + (1 - w) * logit(p_mkt_over)), w
+
+
 def model_test_rows(root: Path, rows: list, per: dict, settings: dict, cfg: Config, diag) -> list:
     """Modellens sannolikhet vägd mot marknaden (log-odds). Nivån kalibreras mot marknaden
     per marknad (trimmat snitt), så modellen bara bidrar med skillnader mellan spelare."""
@@ -541,8 +594,10 @@ def model_test_rows(root: Path, rows: list, per: dict, settings: dict, cfg: Conf
     diag.log(f"NBA-modell: {n_found} matcher hos ESPN, {sum(len(m) for m in models.values())} spelare, "
              f"{nm.fetched} nya boxscores, {n_inj} skadade (out/doubtful)")
 
-    # Förpass: nivåavvikelse per marknad
+    # Förpass: nivåavvikelse per marknad – i över-orientering, en observation per spelare/marknad/linje
+    # (över- och underraden för samma linje är samma prestation och får inte räknas två gånger).
     gaps: dict[str, list[float]] = {}
+    seen_gap: set = set()
     pairs = []
     for r in rows:
         c = r.row.decision.cand
@@ -553,12 +608,13 @@ def model_test_rows(root: Path, rows: list, per: dict, settings: dict, cfg: Conf
         if not k or c.market not in m[k]:
             continue
         mu = m[k][c.market]
-        p_mod = min(max(nb_over(mu, c.line, NB_R.get(c.market, 15)), 0.01), 0.99)
-        if c.best.side == "under":
-            p_mod = 1.0 - p_mod
-        pairs.append((r, p_mod, mu, m[k].get("_g")))
-        if 0.15 <= c.p <= 0.85:
-            gaps.setdefault(c.market, []).append(logit(p_mod) - logit(c.p))
+        p_mod_over = min(max(nb_over(mu, c.line, NB_R.get(c.market, 15)), 0.01), 0.99)
+        p_mkt_over = c.p if c.best.side != "under" else 1.0 - c.p
+        pairs.append((r, p_mod_over, p_mkt_over, mu, m[k].get("_g")))
+        gk = (c.match_id, c.player_id, c.market, c.line)
+        if 0.15 <= p_mkt_over <= 0.85 and gk not in seen_gap:
+            seen_gap.add(gk)
+            gaps.setdefault(c.market, []).append(logit(p_mod_over) - logit(p_mkt_over))
     off = {}
     for mk, g in gaps.items():
         if len(g) >= 20:
@@ -569,14 +625,15 @@ def model_test_rows(root: Path, rows: list, per: dict, settings: dict, cfg: Conf
     diag.log("NBA-modell nivåavvikelse (dras bort): " + ", ".join(f"{k} {v:+.2f}" for k, v in sorted(off.items())))
     w0 = settings.get("nba_model_weight", 0.3)
     out = []
-    for r, p_mod, mu, games in pairs:
+    for r, p_mod_over, p_mkt_over, mu, games in pairs:
         c = r.row.decision.cand
         r.expected = mu
-        pm = inv_logit(logit(p_mod) - off.get(c.market, 0.0))
         # Datakvalitet (dq 0,2–1): tunt underlag (få matcher) -> modellen väger mindre, marknaden mer.
         dq = 1.0 if games is None else max(0.2, min(1.0, games / settings.get("nba_dq_full_games", 15)))
-        w = w0 * dq * (0.5 if abs(logit(pm) - logit(c.p)) > 1.0 else 1.0)
-        p = inv_logit(w * logit(pm) + (1 - w) * logit(c.p))
+        pm_over, p_over, w = coherent_blend(p_mod_over, p_mkt_over, off.get(c.market, 0.0), w0, dq)
+        under = c.best.side == "under"
+        pm = 1.0 - pm_over if under else pm_over          # modellens sannolikhet för vår sida
+        p = 1.0 - p_over if under else p_over             # slutlig sannolikhet för vår sida
         cand = dataclasses.replace(c, p=p)
         d = evaluate(cand, cfg.decision)
         d.reasons.append(f"modell {pm:.0%} (väntat {mu:.1f}), marknad {c.p:.0%}, vikt {w:.2f}, dq {dq:.2f}")
