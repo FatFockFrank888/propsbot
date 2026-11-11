@@ -99,3 +99,25 @@ def test_eval_dedups_prestations_and_is_deterministic(tmp_path):
     s = a["per_bokforing"]["modelltest"]
     assert s["rader"] == 2 and s["prestationer"] == 1 and s["brier"]["n"] == 1
     assert a["per_bokforing"] == b["per_bokforing"]
+
+
+def test_sgo_quotes_two_sided_half_lines_fresh():
+    import time
+    from propsbot.sources.sgo import quotes_for
+    now = time.time()
+    iso = lambda ts: time.strftime("%Y-%m-%dT%H:%M:%S.000Z", time.gmtime(ts))
+    def bk(odds, ln, age=60, avail=True):
+        return {"available": avail, "odds": odds, "overUnder": ln, "lastUpdatedAt": iso(now - age)}
+    ev = {"teams": {"home": {"names": {"long": "Indiana Pacers"}}, "away": {"names": {"long": "Washington Wizards"}}},
+          "status": {"startsAt": iso(now + 7200)}, "players": {"P1": {"name": "Aaron Nesmith"}},
+          "odds": {
+              "a": {"playerID": "P1", "betTypeID": "ou", "sideID": "over", "statID": "points",
+                    "byBookmaker": {"fanduel": bk("-114", "13.5"), "draftkings": bk("+105", "14"), "caesars": bk("-118", "13.5"),
+                                    "bovada": bk("-110", "13.5", age=7200)}},
+              "b": {"playerID": "P1", "betTypeID": "ou", "sideID": "under", "statID": "points",
+                    "byBookmaker": {"fanduel": bk("-114", "13.5"), "draftkings": bk("-125", "14"),
+                                    "bovada": bk("-110", "13.5", age=7200)}}}}
+    evd = {"id": "m", "home_team": "Indiana Pacers", "away_team": "Washington Wizards", "commence_time": now + 7200}
+    qs, _ = quotes_for([ev], evd, now)
+    # FanDuel tvåsidigt ok; DraftKings heltal (push) bort; Caesars bara en sida bort; Bovada för gammalt bort
+    assert {(q.book, q.side) for q in qs} == {("us_fanduel", "over"), ("us_fanduel", "under")}

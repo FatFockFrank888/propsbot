@@ -412,6 +412,11 @@ def nba_scan(root: Path, settings_path: Path) -> dict:
         add_us_books(root, per, settings, diag)
     except Exception as e:   # DK/FD är ett tillägg – får aldrig stoppa skanningen
         diag.log(f"DK/FD: FEL {type(e).__name__}: {str(e)[:200]}")
+    try:   # SportsGameOdds: FanDuel, DraftKings, ESPN BET, Caesars, BetMGM, Bovada (referens)
+        from .sources.sgo import add_sgo
+        add_sgo(root, per, diag)
+    except Exception as e:   # tillägg – får aldrig stoppa skanningen
+        diag.log(f"SportsGameOdds: FEL {type(e).__name__}: {str(e)[:200]}")
     rows = []
     mc = Counter()
     n_exact = n_moved = 0
