@@ -262,6 +262,12 @@ def evaluate(evd: dict, kambi_by_book: dict, pin: dict, s: dict, hist: History, 
     return out
 
 
+def _ceil2(x: float) -> float:
+    """Spela från avrundas uppåt (aldrig under den verkliga tröskeln)."""
+    import math
+    return math.ceil(x * 100 - 1e-9) / 100
+
+
 def _stake(p: float, odds: float, s: dict) -> float:
     b = odds - 1
     f = max(0.0, (p * b - (1 - p)) / b) * 0.25
@@ -281,7 +287,7 @@ def _bet(evd: dict, x: dict, s: dict, now: float) -> dict:
         "avspark": evd["commence_time"], "spelare": who, "spelare_id": "hörnor" if mk in CORNER_MARKETS else "match",
         "marknad": mk, "linje": line, "sida": side, "spel_text": txt,
         "bolag": x["book"], "odds": x["odds"], "sannolikhet": x["p"], "ratt_odds": 1 / x["p"],
-        "edge": x["edge"], "spela_fran": round((1 + s.get("sides_min_edge", 0.03)) / x["p"], 2),
+        "edge": x["edge"], "spela_fran": _ceil2((1 + s.get("sides_min_edge", 0.03)) / x["p"]),
         "insats_pct": _stake(x["p"], x["odds"], s), "stangning": x["odds"], "pin_p": x.get("p_pin", x["p"]),
         "pin_stang_p": x.get("p_pin", x["p"]), "smk_p": x.get("p_smk"), "smk_stang_p": x.get("p_smk"),
         "pin_grans": x["limit"], "alternativ_linje": x["alt"],
@@ -301,7 +307,7 @@ def _radar_row(evd: dict, x: dict, s: dict, in_window: bool) -> dict:
             "avspark": datetime.fromtimestamp(evd["commence_time"], timezone.utc).strftime("%Y-%m-%d %H:%M"),
             "spel": txt, "marknad": mk, "sida": side, "prognos": None, "odds": x["odds"], "bolag": x["book"],
             "sannolikhet": x["p"], "ratt_odds": 1 / x["p"], "edge": x["edge"],
-            "spela_fran": round((1 + s.get("sides_min_edge", 0.03)) / x["p"], 2),
+            "spela_fran": _ceil2((1 + s.get("sides_min_edge", 0.03)) / x["p"]),
             "insats_pct": st if play else 0.0, "insats_forslag": st, "spelbar": play,
             "live": bool(play and s.get("sides_live")), "forv_clv_pp": None, "clv_signal": False, "p_modell": None,
             "kommentar": "Pinnacle utan marginal" + (f" + Smarkets {x['p_smk']:.0%}" if x.get("p_smk") is not None else "")

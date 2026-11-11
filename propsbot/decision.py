@@ -29,8 +29,10 @@ class Candidate:
 
 
 def play_from_odds(p: float, min_edge: float, min_odds: float) -> float:
-    """Lägsta odds som räcker: max(min_odds, (1 + edge) / p)."""
-    return max(min_odds, (1.0 + min_edge) / p)
+    """Lägsta odds som räcker: max(min_odds, (1 + edge) / p), avrundat UPPÅT till två decimaler
+    (vanlig avrundning kunde visa ett odds strax under den verkliga tröskeln)."""
+    import math
+    return max(min_odds, math.ceil((1.0 + min_edge) / p * 100 - 1e-9) / 100)
 
 
 def kelly_stake(p: float, odds: float, fraction: float, cap: float) -> float:

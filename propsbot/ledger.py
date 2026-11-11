@@ -131,6 +131,8 @@ class Ledger:
         for b in self.bets:
             if b["status"] == "öppen" and b.get("avspark") and now < b["avspark"] and b["key"] in latest:
                 b["stangning"] = latest[b["key"]]
+                # när stängningsoddset senast sågs: en gammal notering är inte en exakt stängning
+                b["stangning_ts"] = now
 
     def settle(self, bet: dict, count: int | None, played: bool) -> None:
         if not played:
