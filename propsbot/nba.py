@@ -490,7 +490,15 @@ def nba_scan(root: Path, settings_path: Path) -> dict:
     # LIVE: hårt sållade spel som faktiskt spelas (bara dessa skickas som notis)
     from .live import record_live, select_live
     live = Ledger(root / "nba_live.json")
-    live_rows = select_live(rows, test_rows, settings, live) if settings.get("live_on", True) else []
+    # Status per marknad från förra skanningens utvärdering (nba_eval): "degraded" ger inga LIVE-spel.
+    try:
+        mstat = json.loads((root / "nba_utvardering.json").read_text(encoding="utf-8")).get("status", {})
+    except (FileNotFoundError, json.JSONDecodeError):
+        mstat = {}
+    blocked = {mk for mk, st in mstat.items() if st == "degraded"} if settings.get("live_block_degraded", True) else set()
+    if blocked:
+        diag.log(f"NBA LIVE: marknader med status degraded (inga LIVE-spel): {', '.join(sorted(blocked))}")
+    live_rows = select_live(rows, test_rows, dict(settings, live_blocked_markets=sorted(blocked)), live)         if settings.get("live_on", True) else []
     new_live = record_live(live, live_rows, rows, evd_by_id)
     recheck(live, nba_status_fn(injuries), settings, "NBA", True, diag.log)
     from .news import nba_injury_list, nba_teammate_fn
@@ -508,6 +516,14 @@ def nba_scan(root: Path, settings_path: Path) -> dict:
         except Exception as e:
             diag.log(f"NBA rättning: {type(e).__name__}: {e}")
         lg.save()
+    try:   # utvärdering på framåtriktad data + status per marknad (används av nästa skanning)
+        from .nba_eval import evaluate as nba_evaluate, markdown as nba_md
+        ev = nba_evaluate(root)
+        (root / "nba_utvardering.json").write_text(json.dumps(ev, ensure_ascii=False), encoding="utf-8")
+        (root / "nba_utvardering.md").write_text(nba_md(ev), encoding="utf-8")
+        diag.log("NBA status per marknad: " + ", ".join(f"{k} {v}" for k, v in sorted(ev["status"].items())))
+    except Exception as e:  # noqa: BLE001 – utvärderingen får aldrig stoppa skanningen
+        diag.log(f"NBA utvärdering: fel {type(e).__name__}: {e}")
     diag.save()
     return {"rows": rows, "playable": playable, "ledger": ledger, "shadow": shadow, "test": test,
             "live": live, "live_rows": live_rows,

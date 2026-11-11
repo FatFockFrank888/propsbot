@@ -75,3 +75,27 @@ def test_missing_player_is_not_auto_void(tmp_path):
     assert lg.bets[0]["status"] == "öppen"                       # väntar i stället för att stryka
     settle_nba(lg, C(), now=start + 49 * 3600)
     assert lg.bets[0]["status"] == "struken" and "hittades inte" in lg.bets[0]["struken_orsak"]
+
+
+def test_market_status_rules():
+    from propsbot.nba_eval import status
+    assert status({"brier": None}) == "insufficient_data"
+    assert status({"brier": {"n": 10, "diff_ci95": (-0.1, -0.01)}}) == "insufficient_data"
+    assert status({"brier": {"n": 40, "diff_ci95": (0.001, 0.02)}, "clv_ci95": (0.5, 1.0)}) == "degraded"
+    assert status({"brier": {"n": 40, "diff_ci95": (-0.02, -0.001)}, "clv_ci95": (0.2, 1.0)}) == "validated"
+    assert status({"brier": {"n": 40, "diff_ci95": (-0.02, 0.01)}, "clv_ci95": (0.2, 1.0)}) == "shadow"
+    assert status({"brier": {"n": 40, "diff_ci95": (-0.02, 0.01)}, "clv_ci95": (-1.0, -0.1)}) == "degraded"
+
+
+def test_eval_dedups_prestations_and_is_deterministic(tmp_path):
+    import json
+    from propsbot.nba_eval import evaluate
+    base = {"match_id": "m", "spelare_id": "p", "marknad": "points", "odds": 2.0, "stangning": 1.9, "avspark": 1.0e9,
+            "bokford": 1.0e9 - 3600, "insats_pct": 0.01, "p_modell": 0.55, "p_marknad": 0.5}
+    rows = [dict(base, linje=20.5, status="vunnen", resultat_enheter=0.01),
+            dict(base, linje=21.5, status="vunnen", resultat_enheter=0.01, bokford=1.0e9 - 1800)]   # alt-linje, samma prestation
+    (tmp_path / "nba_modelltest.json").write_text(json.dumps(rows))
+    a, b = evaluate(tmp_path), evaluate(tmp_path)
+    s = a["per_bokforing"]["modelltest"]
+    assert s["rader"] == 2 and s["prestationer"] == 1 and s["brier"]["n"] == 1
+    assert a["per_bokforing"] == b["per_bokforing"]
