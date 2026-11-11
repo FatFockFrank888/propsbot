@@ -146,6 +146,7 @@ DEFAULT_SETTINGS = {
     "graduation_min_t": 1.0,        # ... och snitt-CLV > 0 med minst detta t-värde    # fotboll utan historik: halva Kelly-insatsen tills CLV visats (storleken följer ändå styrkan)
     "live_min_groups": 2,
     "live_odds_window": [1.40, 3.00],
+    "live_block_degraded": True,    # NBA: marknader med status degraded (nba_eval) ger inga LIVE-spel
     "live_max_units": 5,          # 5u = 1 % av bankrullen per spel
     "live_max_per_match": 2,
     "live_max_per_day": 8,

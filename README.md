@@ -111,3 +111,12 @@ python3 -m pytest -q
 - Datainsamling tills ca 50 spel visar att vi slår Pinnacles stängning (`pin_stang_p`). Då sätts `sides_live: true` och notiserna slås på.
 - **Asiatiska linjer:** hela linjer och kvartslinjer finns med (push = insatsen tillbaka, kvartslinje = halv vinst/förlust).
 - **Startelvor (`propsbot/lineups.py`):** både sides och fotbollsprops blir spelbara först när ESPN visar båda startelvorna, eller inom 55 min före avspark. För props måste spelaren dessutom starta. Tidigare edges bokförs som skugga.
+
+
+## NBA: utvärdering och modellversion (2026-11-11)
+
+Se `GRANSKNING_NBA.md`. Efter varje NBA-skanning skriver `propsbot/nba_eval.py` `nba_utvardering.json/.md`
+(Brier/log loss modell vs marknad på samma spel, CLV med block-bootstrap, ROI flat och med modellens insats,
+drawdown) och en status per marknad (insufficient_data / shadow / validated / degraded). Degraded ger inga
+LIVE-spel. Nya prognoser märks med `modellversion` och `prognos_ts`; äldre rader ändras aldrig.
+Kör lokalt: `python -m propsbot.nba_eval <mapp>`.

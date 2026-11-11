@@ -197,6 +197,8 @@ def pinnacle_nba_props(pin: PinnaclePublic, ev, match_id: str) -> tuple[list[Odd
 
 # ---------------------------------------------------------------- linjeflytt
 # Överspridning per marknad (negativ binomial, form r): varians = μ + μ²/r.
+# Modellversion (loggas på varje ny prognos). Byt vid metodändring; äldre rader behåller sin (eller ingen = legacy).
+NBA_MODEL_VERSION = "2026-11-11-koherent"
 LAST_MODEL: dict = {}    # senaste skanningens modell per match (models, teams) – används av news.nba_teammate_fn
 NB_R = {"points": 15, "rebounds": 10, "assists": 10, "threes": 8, "steals": 30, "blocks": 15,
         "pra": 15, "pr": 15, "ra": 12}
@@ -508,6 +510,13 @@ def nba_scan(root: Path, settings_path: Path) -> dict:
     for b in new_live:
         diag.log(f"NBA LIVE SPEL: {b['match']} | {b['spelare']} {b['marknad']} {b['sida']} {b['linje']} | "
                  f"{b['bolag']} {b['odds']:.2f} | edge {b['edge']:.1%} | {round(b['insats_pct'] / 0.002)}u")
+    # Versionsmärkning: varje ny prognos får modellversion och prognostid (gamla rader ändras inte).
+    t_now = time.time()
+    for lg in (ledger, shadow, test, live):
+        for b in lg.bets:
+            if "modellversion" not in b and (b.get("bokford") or 0) > t_now - 900:
+                b["modellversion"] = NBA_MODEL_VERSION
+                b["prognos_ts"] = b.get("bokford")
     ec = JsonClient(root / ".cache_odds", ttl_s=900)
     for lg in (ledger, shadow, test, live):
         try:
