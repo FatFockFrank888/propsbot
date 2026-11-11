@@ -8,11 +8,24 @@ Efter matchen rättas spelet mot spelarstatistik (results.py).
 from __future__ import annotations
 
 import json
+import math
 import time
 from pathlib import Path
 
 from .decision import kelly_stake
 from .scan import ScanRow
+
+
+def rensa_nan(x):
+    """NaN/inf -> None, rekursivt. NaN är inte giltig JSON: webbläsaren kastar då hela filen
+    och sportens alla flikar blir tomma (hände fotbollen 2026-11, p_marknad på fouls-spel)."""
+    if isinstance(x, float):
+        return x if math.isfinite(x) else None
+    if isinstance(x, dict):
+        return {k: rensa_nan(v) for k, v in x.items()}
+    if isinstance(x, (list, tuple)):
+        return [rensa_nan(v) for v in x]
+    return x
 
 
 def side_suffix(side: str | None) -> str:
@@ -55,7 +68,7 @@ class Ledger:
         self.bets: list[dict] = []
         if path.exists():
             try:
-                self.bets = json.loads(path.read_text(encoding="utf-8"))
+                self.bets = rensa_nan(json.loads(path.read_text(encoding="utf-8")))
             except json.JSONDecodeError:
                 self.bets = []
         self.by_key = {b["key"]: b for b in self.bets}
@@ -67,7 +80,8 @@ class Ledger:
         return [b for b in self.bets if not b.get("dubblett")]
 
     def save(self) -> None:
-        self.path.write_text(json.dumps(self.bets, ensure_ascii=False, indent=0), encoding="utf-8")
+        self.path.write_text(json.dumps(rensa_nan(self.bets), ensure_ascii=False, indent=0, allow_nan=False),
+                             encoding="utf-8")
 
     def record(self, rows: list[ScanRow], evd_by_id: dict[str, dict], predicate=None,
                one_per_player: bool = True) -> list[dict]:
@@ -115,7 +129,7 @@ class Ledger:
                 "forv_clv_pp": getattr(r, "clv_pp", None),
                 # för Brier-mätningen: modellens och marknadens egna sannolikheter (för vår sida)
                 "p_modell": (lambda x: None if x is None or x != x else x)(getattr(r.row, "p_model", None)),
-                "p_marknad": getattr(r.row, "p_market", None),
+                "p_marknad": (lambda x: None if x is None or x != x else x)(getattr(r.row, "p_market", None)),
                 "utfall": None, "resultat_enheter": None,
             }
             self.bets.append(b)

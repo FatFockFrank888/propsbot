@@ -9,7 +9,7 @@ from pathlib import Path
 
 from .config import DecisionConfig
 from .decision import kelly_stake
-from .ledger import Ledger
+from .ledger import Ledger, rensa_nan
 from .line_adjust import rate_for_prob
 from .pipeline import MARKET_LABEL
 from .scan import ScanRow
@@ -112,6 +112,7 @@ def write_site(site: Path, rows: list[ScanRow], ledger: Ledger, settings: dict,
                 lg = _L(f)
                 data[key] = sorted(lg.counted, key=lambda b: -b["bokford"])
                 data[key + "_sammanfattning"] = lg.summary()
-    (site / "data.json").write_text(json.dumps(data, ensure_ascii=False), encoding="utf-8")
+    (site / "data.json").write_text(json.dumps(rensa_nan(data), ensure_ascii=False, allow_nan=False),
+                                    encoding="utf-8")
     if (WEB / "index.html").exists():
         shutil.copy(WEB / "index.html", site / "index.html")

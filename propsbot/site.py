@@ -12,6 +12,8 @@ import time
 from datetime import datetime, timezone
 from pathlib import Path
 
+from .ledger import rensa_nan as _rensa_nan
+
 WEB = Path(__file__).resolve().parent.parent / "web"
 
 REDIRECT = """<!DOCTYPE html><html lang="sv"><head><meta charset="utf-8">
@@ -79,13 +81,15 @@ def build_site(root: Path, settings_path: Path) -> None:
     site.mkdir(parents=True, exist_ok=True)
     try:
         (site / "nhl").mkdir(exist_ok=True)
-        (site / "nhl" / "data.json").write_text(json.dumps(nhl_data(root), ensure_ascii=False), encoding="utf-8")
+        (site / "nhl" / "data.json").write_text(
+            json.dumps(_rensa_nan(nhl_data(root)), ensure_ascii=False, allow_nan=False), encoding="utf-8")
     except Exception as e:  # NHL-delen får aldrig stoppa sidan
         print(f"Webbsidan: NHL-data saknas ({type(e).__name__}: {e})")
     import csv
     from .params import all_params
     params = all_params(settings_path)
-    (site / "parametrar.json").write_text(json.dumps(params, ensure_ascii=False), encoding="utf-8")
+    (site / "parametrar.json").write_text(
+        json.dumps(_rensa_nan(params), ensure_ascii=False, allow_nan=False), encoding="utf-8")
     (site / "csv").mkdir(exist_ok=True)
     with open(site / "csv" / "parametrar.csv", "w", newline="", encoding="utf-8") as fh:
         w = csv.writer(fh)

@@ -82,3 +82,18 @@ def test_settle_open_with_espn(tmp_path, monkeypatch):
     st = [b["status"] for b in lg.bets]
     assert st == ["vunnen", "struken", "struken", "öppen"], (st, log)
     assert lg.bets[0]["utfall"] == 2
+
+
+def test_nan_blir_null_i_bokforing_och_sidan(tmp_path):
+    """NaN i en rad (p_marknad på fouls-spel) gjorde fotbollens data.json ogiltig -> tomma flikar."""
+    import json
+    from propsbot.ledger import Ledger, rensa_nan
+    f = tmp_path / "spel.json"
+    f.write_text('[{"key": "a", "bokford": 1, "p_marknad": NaN, "odds": 2.0}]', encoding="utf-8")
+    led = Ledger(f)
+    assert led.bets[0]["p_marknad"] is None and led.bets[0]["odds"] == 2.0
+    led.bets[0]["edge"] = float("inf")
+    led.save()
+    assert "NaN" not in f.read_text(encoding="utf-8") and "Infinity" not in f.read_text(encoding="utf-8")
+    assert rensa_nan({"a": [float("nan"), 1.5, {"b": float("-inf")}]}) == {"a": [None, 1.5, {"b": None}]}
+    json.loads(json.dumps(rensa_nan(led.bets), allow_nan=False))
