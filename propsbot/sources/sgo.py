@@ -99,6 +99,9 @@ def quotes_for(events: list[dict], evd: dict, now: float) -> tuple[list[OddsQuot
 def add_sgo(root, per: dict, diag) -> int:
     events = fetch(root / ".cache_odds")
     if not events:
+        import os
+        diag.log("SportsGameOdds NBA: " + ("ingen nyckel (SGO_API_KEY)" if not os.environ.get("SGO_API_KEY", "").strip()
+                                          else "inga matcher med odds i svaret (eller fel från API:t)"))
         return 0
     now = time.time()
     n = 0

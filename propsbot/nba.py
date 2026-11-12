@@ -417,6 +417,12 @@ def nba_scan(root: Path, settings_path: Path) -> dict:
         add_sgo(root, per, diag)
     except Exception as e:   # tillägg – får aldrig stoppa skanningen
         diag.log(f"SportsGameOdds: FEL {type(e).__name__}: {str(e)[:200]}")
+    if settings.get("use_espn_dk", True):
+        try:   # DraftKings via ESPN:s öppna API (ingen nyckel) – oberoende referens
+            from .sources.espn_dk import add_espn_dk
+            add_espn_dk(root, per, diag)
+        except Exception as e:   # tillägg – får aldrig stoppa skanningen
+            diag.log(f"DraftKings via ESPN: FEL {type(e).__name__}: {str(e)[:200]}")
     rows = []
     mc = Counter()
     n_exact = n_moved = 0

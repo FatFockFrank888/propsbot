@@ -61,9 +61,9 @@ Genereras från de värden boten använder (`python -m propsbot parametrar`).
 | LIVE: edgekrav per marknad | points 5 %, threes 5 %, assists 5 %, rebounds 5 % | Marknader som saknas här (steals, blocks, PRA …) spelas inte live. |
 | LIVE: högsta edge | 15 % | Större edge slog inte stängningen i datan (oftast fel i linje/modell). |
 | LIVE: modellen | får inte säga emot (modellens edge ≥ 5 % om den har en rad); krävs för points | 12/11, 1 378 spel: assist/returer/trepoängare utan modellrad slog stängningen med +2,8 pe (t 11,6); poäng över utan modellens stöd gav −18 %. Spel med modellens stöd väljs först. |
-| LIVE: jämförelsekällor | minst 2 | Pinnacle, Kalshi, DraftKings/FanDuel … |
+| LIVE: jämförelsekällor | minst 2 | Pinnacle, Kalshi, DraftKings (via ESPN), SportsGameOdds, The Odds API |
 | LIVE: oddsram | 1,60–3,00 |  |
-| LIVE: risk | max 5u/spel, 2/match, 16 spel och 50u per matchdag |  |
+| LIVE: risk | max 5u/spel, 2/match, 16 spel och 40u per matchdag |  |
 | Modellvikt | 0.3 × dq | Blandas med marknaden i log-odds. dq = datakvalitet 0,2–1 (antal matcher i underlaget / 15): tunt underlag -> marknaden väger mer. Halveras när modell och marknad skiljer mycket. |
 | Brier modell / marknad | visas under Resultat | Mäter om modellen slår marknadens egen sannolikhet på avgjorda spel (lägre = bättre). |
 | Matcher | inom 30 h, max 15 |  |

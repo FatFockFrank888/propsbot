@@ -151,7 +151,7 @@ DEFAULT_SETTINGS = {
     "live_max_units": 5,          # 5u = 1 % av bankrullen per spel
     "live_max_per_match": 2,
     "live_max_per_day": 16,       # 12/11: dubbla volymen när assist/returer/trepoängare inte kräver modellrad
-    "live_max_units_day": 50,     # högst 10 % av bankrullen i spel per matchdag
+    "live_max_units_day": 40,     # högst 8 % av bankrullen per matchdag (12/11: 10 % var för högt med korrelerade spel)
     "football_live": False,       # fotbollen samlar bara data
     "football_markets": ["shots_on_target"],   # bara skott på mål (3/11)
     # Fouls (Player's fouls conceded): egen modell, bara testbokföring (bokforing_fouls_test.json).
