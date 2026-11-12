@@ -370,12 +370,17 @@ def settle(lg: Ledger, scores: dict) -> list[str]:
 
 def espn_scores(bets: list[dict], client, now: float) -> dict:
     from .results import EspnResults
-    espn = EspnResults(client)
-    out = {}
+    from .sources.fotmob import FotmobResults
+    espn, fotmob = EspnResults(client), FotmobResults(client)
+    out, tried = {}, set()
     for b in bets:
-        if b["status"] != "öppen" or not b.get("avspark") or now < b["avspark"] + 2.5 * 3600 or b["match_id"] in out:
+        if b["status"] != "öppen" or not b.get("avspark") or now < b["avspark"] + 2.5 * 3600 or b["match_id"] in tried:
             continue
-        sc = espn.final_score(b["hemma"], b["borta"], b["avspark"])
+        if now > b["avspark"] + 14 * 86400:   # två veckor utan resultat: ge upp (spelet ligger kvar som öppet)
+            continue
+        tried.add(b["match_id"])
+        # ESPN först; FotMob som reserv (täcker lägre divisioner som ESPN saknar)
+        sc = espn.final_score(b["hemma"], b["borta"], b["avspark"]) or fotmob.final_score(b["hemma"], b["borta"], b["avspark"])
         if sc:
             out[b["match_id"]] = sc
     for b in bets:            # hörnor: ESPN:s matchprotokoll (wonCorners per lag)

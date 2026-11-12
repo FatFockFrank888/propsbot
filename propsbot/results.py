@@ -13,7 +13,38 @@ from datetime import datetime, timezone
 
 from .ledger import Ledger
 from .sources.http import JsonClient, SourceError
-from .sources.props_text import same_match, same_person
+from difflib import SequenceMatcher
+
+from .sources.props_text import same_match, same_person, team_key
+
+# Ord som inte skiljer lag åt (finns i många lagnamn) – räknas inte som träff på egen hand.
+_GENERIC = {"united", "city", "real", "sporting", "athletic", "atletico", "deportivo", "town", "county", "rovers",
+            "wanderers", "st", "saint", "de", "del", "la", "los", "club", "cd", "ca", "sd", "ud", "cf", "fc", "ac",
+            "sc", "u21", "u23", "ii", "b", "women", "fk", "nk", "sk", "if", "bk", "ff", "inter", "dynamo", "olympique"}
+
+
+def team_similarity(a: str, b: str) -> float:
+    """0–1. Klarar att ena namnet är en del av det andra ("Ajax" / "Ajax Amsterdam", "Rennes" / "Stade Rennais")."""
+    ka, kb = team_key(a), team_key(b)
+    if not ka or not kb:
+        return 0.0
+    if ka == kb:
+        return 1.0
+    r = SequenceMatcher(None, ka, kb).ratio()
+    ta = [w for w in ka.split() if w not in _GENERIC and len(w) >= 4]
+    tb = [w for w in kb.split() if w not in _GENERIC and len(w) >= 4]
+    if ta and tb and max(SequenceMatcher(None, x, y).ratio() for x in ta for y in tb) >= 0.75:
+        r = max(r, 0.85)
+    return r
+
+
+def espn_match(home_a: str, away_a: str, start_a: float, home_b: str, away_b: str, start_b: float) -> bool:
+    """Samma match i ESPN:s resultat: vanliga regeln, eller avspark inom 20 min och båda lagen liknar varandra."""
+    if same_match(home_a, away_a, start_a, home_b, away_b, start_b):
+        return True
+    if abs(start_a - start_b) > 20 * 60:
+        return False
+    return min(team_similarity(home_a, home_b), team_similarity(away_a, away_b)) >= 0.75
 
 BASE = "https://site.api.espn.com/apis/site/v2/sports/soccer"
 LEAGUES = ["eng.1", "esp.1", "ger.1", "ita.1", "fra.1", "uefa.champions", "uefa.europa",
@@ -57,6 +88,39 @@ class EspnResults:
         self.c = client
         self._board: dict[tuple[str, str], list] = {}
 
+    def _events(self, lg: str, day: str) -> list:
+        key = (lg, day)
+        if key not in self._board:
+            params = {"dates": day, "limit": 1000} if lg == "all" else {"dates": day}
+            try:
+                raw = self.c.get(f"{BASE}/{lg}/scoreboard", params, ttl=1800) or {}
+            except SourceError:
+                raw = {}
+            self._board[key] = raw.get("events", [])
+        return self._board[key]
+
+    def find_any(self, home: str, away: str, start: float) -> tuple[str, dict] | None:
+        """(liga, ESPN-händelse) oavsett status.
+
+        ESPN sorterar matcher på amerikanskt datum: en match kl. 00:00–05:00 UTC (MLS, Liga MX, Sydamerika)
+        ligger på föregående dags tavla. Därför provas både UTC-dagen och dagen fem timmar tidigare.
+        """
+        days = list(dict.fromkeys(datetime.fromtimestamp(t, timezone.utc).strftime("%Y%m%d")
+                                  for t in (start, start - 5 * 3600)))
+        for lg in ["all"] + LEAGUES:   # "all" = ESPN:s samlade tavla (alla ligor den täcker), först
+            for day in days:
+                for ev in self._events(lg, day):
+                    comp = (ev.get("competitions") or [{}])[0]
+                    teams = {c.get("homeAway"): c.get("team", {}).get("displayName", "")
+                             for c in comp.get("competitors", [])}
+                    try:
+                        st = datetime.fromisoformat(ev["date"].replace("Z", "+00:00")).timestamp()
+                    except (KeyError, ValueError):
+                        continue
+                    if espn_match(home, away, start, teams.get("home", ""), teams.get("away", ""), st):
+                        return lg, ev
+        return None
+
     def find_event(self, home: str, away: str, start: float) -> tuple[str, str] | None:
         """(liga, id) om matchen är klar, (liga, "") om den inte är klar, None om den saknas."""
         hit = self.find_any(home, away, start)
@@ -66,62 +130,19 @@ class EspnResults:
         done = ev.get("status", {}).get("type", {}).get("completed", False)
         return (lg, ev["id"]) if done else (lg, "")
 
-    def find_any(self, home: str, away: str, start: float) -> tuple[str, dict] | None:
-        """(liga, ESPN-händelse) oavsett status."""
-        day = datetime.fromtimestamp(start, timezone.utc).strftime("%Y%m%d")
-        for lg in LEAGUES:
-            key = (lg, day)
-            if key not in self._board:
-                try:
-                    raw = self.c.get(f"{BASE}/{lg}/scoreboard", {"dates": day}, ttl=1800) or {}
-                except SourceError:
-                    raw = {}
-                self._board[key] = raw.get("events", [])
-            for ev in self._board[key]:
-                comp = (ev.get("competitions") or [{}])[0]
-                teams = {c.get("homeAway"): c.get("team", {}).get("displayName", "")
-                         for c in comp.get("competitors", [])}
-                try:
-                    st = datetime.fromisoformat(ev["date"].replace("Z", "+00:00")).timestamp()
-                except (KeyError, ValueError):
-                    continue
-                if same_match(home, away, start, teams.get("home", ""), teams.get("away", ""), st):
-                    return lg, ev
-        # Reserv: ESPN:s samlade tavla för all fotboll (mindre ligor och lägre divisioner).
-        key = ("all", day)
-        if key not in self._board:
-            try:
-                raw = self.c.get(f"{BASE}/all/scoreboard", {"dates": day, "limit": 1000}, ttl=1800) or {}
-            except SourceError:
-                raw = {}
-            self._board[key] = raw.get("events", [])
-        for ev in self._board[key]:
-            comp = (ev.get("competitions") or [{}])[0]
-            teams = {c.get("homeAway"): c.get("team", {}).get("displayName", "")
-                     for c in comp.get("competitors", [])}
-            try:
-                st = datetime.fromisoformat(ev["date"].replace("Z", "+00:00")).timestamp()
-            except (KeyError, ValueError):
-                continue
-            if same_match(home, away, start, teams.get("home", ""), teams.get("away", ""), st):
-                return "all", ev
-        return None
-
     def final_score(self, home: str, away: str, start: float) -> tuple[int, int] | None:
         """(hemmamål, bortamål) efter full tid (90 min + tillägg), eller None om inte klar/hittad."""
-        hit = self.find_event(home, away, start)
-        if not hit or not hit[1]:
+        hit = self.find_any(home, away, start)
+        if not hit:
             return None
-        lg, eid = hit
-        day = datetime.fromtimestamp(start, timezone.utc).strftime("%Y%m%d")
-        ev = next((e for e in self._board.get((lg, day), []) if e.get("id") == eid), None)
-        if not ev:
-            return None
-        comp = (ev.get("competitions") or [{}])[0]
+        lg, ev = hit
         st = (ev.get("status") or {}).get("type", {}) or {}
+        if not st.get("completed"):
+            return None
         # Förlängning/straffar räknas inte i 90-minutersmarknader – hoppa över (rättas manuellt).
         if (st.get("name") or "").upper() in ("STATUS_FINAL_AET", "STATUS_FINAL_PEN", "STATUS_FINAL_ET"):
             return None
+        comp = (ev.get("competitions") or [{}])[0]
         sc = {c.get("homeAway"): c.get("score") for c in comp.get("competitors", [])}
         try:
             return int(sc["home"]), int(sc["away"])
