@@ -16,7 +16,7 @@
 <style>
   :root { --bg:#141414; --panel:#1c1c1c; --line:#2a2a2a; --text:#ececec; --dim:#8a8a8a;
           --good:#4cc38a; --bad:#e5484d; --accent:#3b82f6; --warn:#fbbf24;
-          --s-fotboll:#4cc38a; --s-nba:#f59e0b; --s-nhl:#60a5fa; }
+          --s-fotboll:#4cc38a; --s-nba:#f59e0b; }
   @media (prefers-color-scheme: light) {
     :root { --bg:#fafafa; --panel:#fff; --line:#e4e4e4; --text:#161616; --dim:#6b6b6b; --warn:#b45309; }
   }
@@ -65,7 +65,7 @@
   .pill.förlorad { color:var(--bad); border-color:var(--bad); }
   .pill.öppen { color:var(--accent); border-color:var(--accent); }
   .tag { font-size:11px; font-weight:700; padding:1px 6px; border-radius:4px; color:#111; }
-  .tag.fotboll { background:var(--s-fotboll); } .tag.nba { background:var(--s-nba); } .tag.nhl { background:var(--s-nhl); }
+  .tag.fotboll { background:var(--s-fotboll); } .tag.nba { background:var(--s-nba); }
   .tiles { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px; margin:6px 0 16px; }
   .tile { background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:11px 13px; }
   .tile .k { color:var(--dim); font-size:12px; }
@@ -147,7 +147,6 @@
     <button class="sp on" data-s="alla">Alla</button>
     <button class="sp" data-s="fotboll">⚽ Fotboll</button>
     <button class="sp" data-s="nba">🏀 NBA</button>
-    <button class="sp" data-s="nhl">🏒 NHL</button>
   </div>
   <div class="fresh" id="fresh"></div>
 </header>
@@ -251,7 +250,7 @@
       <button id="aCsv" class="tab">⬇ CSV av filtret</button>
     </div>
     <div class="sub">Typer: <b>Live</b> = spelade (notis). <b>Spel</b> = klarar alla regler (data). <b>Skugga</b> = stoppat av en regel.
-      <b>Modelltest</b> = egna modellens val. <b>Fouls-/Kort-/NHL-test</b> = nya marknader, bara data.
+      <b>Modelltest</b> = egna modellens val. <b>Fouls-/Kort-test</b> = nya marknader, bara data.
       <b>Sides</b> = fotbollens 1X2, mål över/under och asiatiskt handikapp mot Pinnacle utan marginal (Sides-skugga = stoppat av en regel). CLV i procentenheter (positivt = vi slog stängningen).</div>
     <div class="sub" id="aUniq"></div>
     <div class="tiles" id="aTiles" style="margin-top:10px"></div>
@@ -301,7 +300,6 @@
 const SPORTS = {
   fotboll: {name: "Fotboll", url: "data.json", icon: "⚽"},
   nba: {name: "NBA", url: "nba/data.json", icon: "🏀"},
-  nhl: {name: "NHL", url: "nhl/data.json", icon: "🏒"},
 };
 const U = 0.002;   // 1 unit = 0,2 % av bankrullen
 const nf = (x, d = 2) => x == null || isNaN(x) ? "–" : x.toLocaleString("sv-SE", {minimumFractionDigits: d, maximumFractionDigits: d});
@@ -323,13 +321,11 @@ const cls = x => x > 0 ? "pos" : x < 0 ? "loss" : "";
 const MK = {shots: "Skott", shots_on_target: "Skott på mål", goal: "Mål", assist: "Assist", fouls: "Fouls", cards: "Kort",
   points: "Poäng", rebounds: "Returer", assists: "Assist", threes: "Trepoängare", steals: "Steals", blocks: "Blocks",
   pra: "PRA", pr: "Poäng + returer", ra: "Returer + assist",
-  sog: "Skott på mål", nhl_points: "Poäng", nhl_assists: "Assist", nhl_goals: "Mål",
-  nhl_pp_points: "Power play-poäng", nhl_pp_goals: "Power play-mål",
-  "1x2": "1X2", total: "Mål totalt", ah: "Asiatiskt handikapp", corners: "Hörnor",
+    "1x2": "1X2", total: "Mål totalt", ah: "Asiatiskt handikapp", corners: "Hörnor",
   cah: "Hörnhandikapp", corners_home: "Hörnor hemmalag", corners_away: "Hörnor bortalag"};
 const spel = (m, l, side) => {
   if (m === "cards") return side === "under" ? "får inget kort" : "får kort";
-  if ((m === "goal" || m === "nhl_goals") && l === 0.5 && side !== "under") return "gör mål";
+  if (m === "goal" && l === 0.5 && side !== "under") return "gör mål";
   if (m === "assist" && l === 0.5 && side !== "under") return "assist";
   return `${(MK[m] || m).toLowerCase()} ${side === "under" ? "under" : "över"} ${l}`;
 };
@@ -370,14 +366,13 @@ function buildAll() {
     // Sides-spel med notis är riktiga LIVE-spel (Spela nu, Resultat); övriga är data.
     (d.sides_spel || []).forEach(b => ALL.push(norm(b, s, b.notis ? "Live" : "Sides")));
     (d.sides_skugga || []).forEach(b => ALL.push(norm(b, s, "Sides-skugga")));
-    (d.test_marknader || []).forEach(b => ALL.push(norm(b, s, "NHL-test")));
     (d.parlay_bokforing || []).forEach(x => ALL.push(normParlay(x, s)));
   }
 }
 const rows = () => ALL.filter(r => sel().includes(r.sport));
 // Samma spelare kan finnas i flera bokföringar (t.ex. Skugga och Modelltest). När typerna blandas
 // räknas varje spelare och match en gång, i den viktigaste typen: Live > Spel > Skugga > Modelltest > test.
-const TYPE_ORDER = ["Live", "Spel", "Skugga", "Modelltest", "Fouls-test", "Kort-test", "Sides", "Sides-skugga", "NHL-test"];
+const TYPE_ORDER = ["Live", "Spel", "Skugga", "Modelltest", "Fouls-test", "Kort-test", "Sides", "Sides-skugga"];
 function uniq(rs) {
   const best = new Map(), out = [];
   for (const r of rs) {
@@ -613,7 +608,7 @@ function calib(rs) {
         <td class="n ${Math.abs(act - exp) < 0.08 ? "pos" : "loss"}">${pct(act)}</td></tr>`; }).join("") + `</tbody></table>`;
 }
 function renderRes() {
-  const TYPES = ["Live", "Spel", "Skugga", "Modelltest", "Fouls-test", "Kort-test", "Sides", "Sides-skugga", "NHL-test", "Parlay"];
+  const TYPES = ["Live", "Spel", "Skugga", "Modelltest", "Fouls-test", "Kort-test", "Sides", "Sides-skugga", "Parlay"];
   document.getElementById("resCards").innerHTML = sel().filter(s => D[s]).map(s => {
     const all = ALL.filter(r => r.sport === s);
     const main = D[s].live ? "Live" : "Spel";
