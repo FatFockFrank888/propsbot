@@ -124,12 +124,14 @@ def all_params(settings_path: Path) -> dict:
         ("LIVE: edgekrav per marknad", ", ".join(f"{k} {_pct(v)}" for k, v in live_th.items()),
          "Marknader som saknas här (steals, blocks, PRA …) spelas inte live."),
         ("LIVE: högsta edge", _pct(s.get("live_max_edge", 0.15)), "Större edge slog inte stängningen i datan (oftast fel i linje/modell)."),
-        ("LIVE: modellen måste hålla med", f"modellens edge ≥ {_pct(s.get('live_model_min_edge', 0.05))}",
-         "Det starkaste filtret i datan: med modellens stöd ROI +20 %, CLV +2,7 pe (34 spel, 4/11)."),
+        ("LIVE: modellen", f"får inte säga emot (modellens edge ≥ {_pct(s.get('live_model_min_edge', 0.05))} om den har en rad); "
+                           f"krävs för {', '.join(s.get('live_model_required_markets', ['points']))}",
+         "12/11, 1 378 spel: assist/returer/trepoängare utan modellrad slog stängningen med +2,8 pe (t 11,6); "
+         "poäng över utan modellens stöd gav −18 %. Spel med modellens stöd väljs först."),
         ("LIVE: jämförelsekällor", f"minst {s.get('live_min_groups', 2)}", "Pinnacle, Kalshi, DraftKings/FanDuel …"),
         ("LIVE: oddsram", _odds(llo, lhi), ""),
         ("LIVE: risk", f"max {_u(s.get('live_max_units', 5))}/spel, {s.get('live_max_per_match', 2)}/match, "
-                       f"{s.get('live_max_per_day', 8)} spel och {_u(s.get('live_max_units_day', 25))} per matchdag", ""),
+                       f"{s.get('live_max_per_day', 16)} spel och {_u(s.get('live_max_units_day', 50))} per matchdag", ""),
         ("Modellvikt", f"{s.get('nba_model_weight', 0.3):g} × dq", "Blandas med marknaden i log-odds. dq = datakvalitet 0,2–1 "
          f"(antal matcher i underlaget / {s.get('nba_dq_full_games', 15)}): tunt underlag -> marknaden väger mer. Halveras när modell och marknad skiljer mycket."),
         ("Brier modell / marknad", "visas under Resultat", "Mäter om modellen slår marknadens egen sannolikhet på avgjorda spel (lägre = bättre)."),

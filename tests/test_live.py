@@ -31,6 +31,19 @@ def test_live_thresholds_model_agreement_and_caps():
                  2.0, 0.55) for r in (pts_lo, pts_hi, thr, thr2, one_src, steals)]
     out = select_live([pts_lo, pts_hi, thr, thr2, one_src, no_model, steals], model, S, L())
     picked = {r.row.decision.cand.player_id for r in out}
-    assert picked == {"b", "d"} or picked == {"b", "c"} or picked == {"d", "b"}
+    m1 = picked - {"f"}
+    assert m1 in ({"b", "d"}, {"b", "c"})
+    assert "f" in picked          # returer utan modellrad: tillåtet sedan 12/11
     assert len([r for r in out if r.row.decision.cand.match_id == "m1"]) == 2
     assert all(round(r.live_stake / 0.002) <= 5 for r in out)
+
+
+def test_live_model_required_for_points_and_disagreement_blocks():
+    pts_nomodel = row("m1", "a", "points", 2.0, 0.56)     # poäng utan modellrad: nej
+    ast_nomodel = row("m2", "b", "assists", 2.0, 0.55)    # assist utan modellrad: ja
+    reb_against = row("m3", "c", "rebounds", 2.0, 0.56)   # modellen säger emot: nej
+    thr_backed = row("m4", "d", "threes", 2.0, 0.53)      # lägre edge men modellens stöd: först
+    model = [row("m3", "c", "rebounds", 2.0, 0.51), row("m4", "d", "threes", 2.0, 0.56)]
+    out = select_live([pts_nomodel, ast_nomodel, reb_against, thr_backed], model, S, L())
+    assert [r.row.decision.cand.player_id for r in out] == ["d", "b"]
+    assert out[1].live_model_edge is None

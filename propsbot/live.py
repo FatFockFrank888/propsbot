@@ -7,7 +7,10 @@ LIVE-spelen skickas som notis. Kraven bygger på 509 unika avgjorda NBA-spel (3/
     Marknader som saknas i listan (steals, blocks, PRA …) spelas inte live – för lite data.
     Ändrat 4/11 efter ~400 avgjorda spel: edge över 15 % slog inte stängningen, och poängkravet
     10 % gav inte bättre CLV än 5 % när modellen höll med.
-  * modellen måste hålla med: modelltestets edge på samma linje ≥ live_model_min_edge (5 %)
+  * modellen: säger den emot (modelltestets edge på samma linje < live_model_min_edge, 5 %) spelas
+    inget. Saknar den rad krävs den bara för live_model_required_markets (poäng). Ändrat 12/11 efter
+    1 378 unika spel: assist/returer/trepoängare utan modellrad slog Kambis stängning med +2,8 pe
+    (t 11,6), poäng över utan modellens stöd gav −18 %. Spel där modellen håller med väljs först.
   * minst två oberoende jämförelsekällor (Pinnacle, Kalshi, DK/FD …)
   * odds live_odds_window (1,40–3,00)
   * alla vanliga spärrar (oddsfall, sharp money mot oss, ett spel per spelare) gäller redan
@@ -36,6 +39,7 @@ def select_live(rows, model_rows, settings: dict, live_ledger) -> list:
     th = settings.get("live_min_edge", {"points": 0.10, "threes": 0.06, "assists": 0.06, "rebounds": 0.06})
     lo, hi = settings.get("live_odds_window", [1.40, 3.00])
     m_min = settings.get("live_model_min_edge", 0.05)
+    need_model = set(settings.get("live_model_required_markets", ["points"]))
     max_edge = settings.get("live_max_edge", 0.15)
     min_groups = settings.get("live_min_groups", 2)
     max_u = settings.get("live_max_units", 5)
@@ -61,11 +65,14 @@ def select_live(rows, model_rows, settings: dict, live_ledger) -> list:
         if (r.n_groups or 0) < min_groups:
             continue
         me = model_edge.get(_key(c))
-        if me is None or me < m_min:
+        if me is None and c.market in need_model:
+            continue
+        if me is not None and me < m_min:   # modellen säger emot
             continue
         r.live_model_edge = me
         cands.append(r)
-    cands.sort(key=lambda r: -r.row.decision.cand.edge)
+    # modellens stöd först (högst CLV i datan), sedan störst edge
+    cands.sort(key=lambda r: (r.live_model_edge is None, -r.row.decision.cand.edge))
 
     # det som redan är bokfört live räknas in i taken
     from collections import Counter

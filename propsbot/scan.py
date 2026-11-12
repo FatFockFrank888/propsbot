@@ -138,6 +138,7 @@ DEFAULT_SETTINGS = {
     # gav ROI +20 % och CLV +2,7 pe; edge över 15 % slog inte stängningen.
     "live_min_edge": {"points": 0.05, "threes": 0.05, "assists": 0.05, "rebounds": 0.05},
     "live_model_min_edge": 0.05,
+    "live_model_required_markets": ["points"],   # övriga live-marknader spelas även utan modellrad (12/11)
     "live_max_edge": 0.15,
     "football_live_max_units": 5,   # samma tak som NBA LIVE
     "football_kelly_scale": 0.5,
@@ -149,8 +150,8 @@ DEFAULT_SETTINGS = {
     "live_block_degraded": True,    # NBA: marknader med status degraded (nba_eval) ger inga LIVE-spel
     "live_max_units": 5,          # 5u = 1 % av bankrullen per spel
     "live_max_per_match": 2,
-    "live_max_per_day": 8,
-    "live_max_units_day": 25,     # högst 5 % av bankrullen i spel per matchdag
+    "live_max_per_day": 16,       # 12/11: dubbla volymen när assist/returer/trepoängare inte kräver modellrad
+    "live_max_units_day": 50,     # högst 10 % av bankrullen i spel per matchdag
     "football_live": False,       # fotbollen samlar bara data
     "football_markets": ["shots_on_target"],   # bara skott på mål (3/11)
     # Fouls (Player's fouls conceded): egen modell, bara testbokföring (bokforing_fouls_test.json).
