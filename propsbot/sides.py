@@ -370,7 +370,7 @@ def settle(lg: Ledger, scores: dict) -> list[str]:
     return log
 
 
-def espn_scores(bets: list[dict], client, now: float) -> dict:
+def espn_scores(bets: list[dict], client, now: float, goal=None) -> dict:
     from .results import EspnResults
     from .sources.fotmob import FotmobResults
     from .sources.livescore import LivescoreResults
@@ -385,6 +385,8 @@ def espn_scores(bets: list[dict], client, now: float) -> dict:
         # ESPN först; FotMob och LiveScore som reserver (lägre divisioner som ESPN saknar)
         h, a, ko = b["hemma"], b["borta"], b["avspark"]
         sc = espn.final_score(h, a, ko) or fotmob.final_score(h, a, ko) or ls.final_score(h, a, ko)
+        if sc is None and goal is not None:   # goal-api sist (egen nyckel, begränsat antal anrop)
+            sc = goal.final_score(h, a, ko, now)
         if sc:
             out[b["match_id"]] = sc
     for b in bets:            # hörnor: ESPN:s matchprotokoll (wonCorners per lag)
@@ -579,7 +581,13 @@ def run(root: Path, data: list, settings: dict, diag, notify: bool = True) -> di
     try:
         from .sources.http import JsonClient
         client = JsonClient(root / ".cache_odds", ttl_s=900)
-        scores = espn_scores(spel.bets + skugga.bets, client, now)
+        from .sources.goal_api import GoalApiResults
+        goal = GoalApiResults(root / "goal_api_lage.json")
+        scores = espn_scores(spel.bets + skugga.bets, client, now, goal=goal if goal.enabled else None)
+        if goal.enabled:
+            goal.save(now)
+            if goal.error:
+                diag.log(f"Sides rättning: goal-api {goal.error}")
         for lg in (spel, skugga):
             for line in settle(lg, scores):
                 diag.lines.append("  " + line)

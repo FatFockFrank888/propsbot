@@ -63,6 +63,7 @@ jobs:
           NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
           SGO_API_KEY: ${{ secrets.SGO_API_KEY }}
+          GOAL_API_KEY: ${{ secrets.LIVESCORE }}   # goal-api.com (hemligheten heter LIVESCORE)
           PROPSBOT_STATE_DIR: state
         run: python -m propsbot skanna
 

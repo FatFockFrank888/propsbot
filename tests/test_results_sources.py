@@ -95,3 +95,30 @@ def test_unsettled_live_sides_alert_once(monkeypatch):
     monkeypatch.setattr(nt, "send", lambda *a, **k: sent.append(a[1]) or True)
     assert unsettled_alert(lg, "t", now, log=lambda *_: None) == 1 and len(sent) == 1
     assert unsettled_alert(lg, "t", now, log=lambda *_: None) == 0 and len(sent) == 1   # bara en gång
+
+
+def test_goal_api_pages_caches_finished_days_and_caps(tmp_path):
+    import io
+    import json as _j
+    from propsbot.sources import goal_api as G
+    calls = []
+
+    def opener(req, timeout=30):
+        calls.append(req.full_url)
+        assert req.headers["Authorization"] == "Bearer k"
+        off = int(req.full_url.rsplit("offset=", 1)[1])
+        rows = [{"homeTeamName": "Deportivo Universitario", "awayTeamName": "Veraguas", "kickoffUtc": "2026-11-08T21:00:00.000Z",
+                 "matchStatus": "FINISHED", "homeTeamFtScore": "2", "awayTeamFtScore": "1"}] if off == 500 else \
+               [{"homeTeamName": "Altrincham", "awayTeamName": "Notts County", "kickoffUtc": "2026-11-08T15:00:00.000Z",
+                 "matchStatus": "AFTER_PEN", "homeTeamFtScore": "2", "awayTeamFtScore": "2"}]
+        return io.BytesIO(_j.dumps({"data": rows, "pagination": {"hasMore": off == 0}}).encode())
+    now = ts("2026-11-12T12:00:00")
+    g = G.GoalApiResults(tmp_path / "g.json", api_key="k", opener=opener)
+    assert g.final_score("CD Universitario", "Veraguas CD", ts("2026-11-08T21:00:00"), now) == (2, 1)   # sida 2
+    assert g.final_score("Altrincham", "Notts County", ts("2026-11-08T15:00:00"), now) == (2, 2)      # 90 min, inte straffar
+    n = len(calls)
+    g.save(now)
+    g2 = G.GoalApiResults(tmp_path / "g.json", api_key="k", opener=opener)
+    assert g2.final_score("Altrincham", "Notts County", ts("2026-11-08T15:00:00"), now) == (2, 2)
+    assert len(calls) == n                      # färdig dag: inga nya anrop
+    assert not G.GoalApiResults(tmp_path / "x.json", api_key="").enabled
