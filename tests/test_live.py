@@ -47,3 +47,13 @@ def test_live_model_required_for_points_and_disagreement_blocks():
     out = select_live([pts_nomodel, ast_nomodel, reb_against, thr_backed], model, S, L())
     assert [r.row.decision.cand.player_id for r in out] == ["d", "b"]
     assert out[1].live_model_edge is None
+
+
+def test_live_requires_pinnacle_line():
+    with_pin = row("m1", "a", "assists", 2.0, 0.56)
+    without_pin = row("m2", "b", "assists", 2.0, 0.56)      # t.ex. bara DraftKings + Kalshi
+    other_line = row("m3", "c", "assists", 2.0, 0.56, line=5.5)
+    sharp = {("m1", "a", "assists", 4.5), ("m3", "c", "assists", 4.5)}
+    out = select_live([with_pin, without_pin, other_line], [], S, L(), sharp)
+    assert [r.row.decision.cand.player_id for r in out] == ["a"]
+    assert len(select_live([with_pin, without_pin], [], S, L())) == 2   # None = inget krav

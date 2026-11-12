@@ -11,7 +11,9 @@ LIVE-spelen skickas som notis. Kraven bygger på 509 unika avgjorda NBA-spel (3/
     inget. Saknar den rad krävs den bara för live_model_required_markets (poäng). Ändrat 12/11 efter
     1 378 unika spel: assist/returer/trepoängare utan modellrad slog Kambis stängning med +2,8 pe
     (t 11,6), poäng över utan modellens stöd gav −18 %. Spel där modellen håller med väljs först.
-  * minst två oberoende jämförelsekällor (Pinnacle, Kalshi, DK/FD …)
+  * minst två oberoende jämförelsekällor (Pinnacle, Kalshi, DK/FD …), och Pinnacle måste vara en av dem
+    (live_require_sharp, 12/11): DraftKings och övriga är mjuka bolag – två mjuka källor räcker inte.
+    Pinnacle flyttad till Kambis linje (interpolerad) räknas.
   * odds live_odds_window (1,60–3,00; golvet höjt från 1,40 den 12/11)
   * alla vanliga spärrar (oddsfall, sharp money mot oss, ett spel per spelare) gäller redan
   * riskkontroll: högst live_max_units per spel, live_max_per_match spel per match,
@@ -35,7 +37,8 @@ def _key(c) -> tuple:
     return (c.match_id, c.player_id, c.market, c.line, c.best.side)
 
 
-def select_live(rows, model_rows, settings: dict, live_ledger) -> list:
+def select_live(rows, model_rows, settings: dict, live_ledger, sharp_lines: set | None = None) -> list:
+    """sharp_lines = {(match_id, spelare, marknad, linje)} där Pinnacle har pris; None = inget krav."""
     th = settings.get("live_min_edge", {"points": 0.10, "threes": 0.06, "assists": 0.06, "rebounds": 0.06})
     lo, hi = settings.get("live_odds_window", [1.40, 3.00])
     m_min = settings.get("live_model_min_edge", 0.05)
@@ -63,6 +66,8 @@ def select_live(rows, model_rows, settings: dict, live_ledger) -> list:
         if need is None or c.edge < need or c.edge > max_edge or not (lo <= c.best.odds <= hi):
             continue
         if (r.n_groups or 0) < min_groups:
+            continue
+        if sharp_lines is not None and (c.match_id, c.player_id, c.market, c.line) not in sharp_lines:
             continue
         me = model_edge.get(_key(c))
         if me is None and c.market in need_model:

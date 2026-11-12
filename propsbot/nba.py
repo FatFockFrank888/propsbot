@@ -511,7 +511,11 @@ def nba_scan(root: Path, settings_path: Path) -> dict:
     blocked = {mk for mk, st in mstat.items() if st == "degraded"} if settings.get("live_block_degraded", True) else set()
     if blocked:
         diag.log(f"NBA LIVE: marknader med status degraded (inga LIVE-spel): {', '.join(sorted(blocked))}")
-    live_rows = select_live(rows, test_rows, dict(settings, live_blocked_markets=sorted(blocked)), live)         if settings.get("live_on", True) else []
+    sharp_lines = None
+    if settings.get("live_require_sharp", True):
+        sb = settings.get("sharp_book", "pinnacle")
+        sharp_lines = {(q.match_id, q.player_id, q.market, q.line) for _e, qs, _n in per.values() for q in qs if q.book == sb}
+    live_rows = select_live(rows, test_rows, dict(settings, live_blocked_markets=sorted(blocked)), live, sharp_lines)         if settings.get("live_on", True) else []
     new_live = record_live(live, live_rows, rows, evd_by_id)
     recheck(live, nba_status_fn(injuries), settings, "NBA", True, diag.log)
     from .news import nba_injury_list, nba_teammate_fn

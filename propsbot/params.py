@@ -128,7 +128,7 @@ def all_params(settings_path: Path) -> dict:
                            f"krävs för {', '.join(s.get('live_model_required_markets', ['points']))}",
          "12/11, 1 378 spel: assist/returer/trepoängare utan modellrad slog stängningen med +2,8 pe (t 11,6); "
          "poäng över utan modellens stöd gav −18 %. Spel med modellens stöd väljs först."),
-        ("LIVE: jämförelsekällor", f"minst {s.get('live_min_groups', 2)}", "Pinnacle, Kalshi, DraftKings (via ESPN), SportsGameOdds, The Odds API"),
+        ("LIVE: jämförelsekällor", f"minst {s.get('live_min_groups', 2)}" + (", varav Pinnacle" if s.get('live_require_sharp', True) else ""), "Pinnacle, Kalshi, DraftKings (via ESPN), SportsGameOdds, The Odds API"),
         ("LIVE: oddsram", _odds(llo, lhi), ""),
         ("LIVE: risk", f"max {_u(s.get('live_max_units', 5))}/spel, {s.get('live_max_per_match', 2)}/match, "
                        f"{s.get('live_max_per_day', 16)} spel och {_u(s.get('live_max_units_day', 40))} per matchdag", ""),
