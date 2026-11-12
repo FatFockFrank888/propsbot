@@ -39,7 +39,7 @@ def all_params(settings_path: Path) -> dict:
         ("Topp 5 som notis", "ja, en per spel",
          "Bara LIVE-spel (klarar LIVE-reglerna). När ett spel för första gången hamnar bland de fem starkaste (samma ranking som fliken Topp 5) skickas en notis 🏆 med "
          "rank, odds, spela från, edge, modell, styrka och insats. Märkt LIVE eller data. Inte inom 10 min före start."),
-        ("Lagnyheter (varje skanning)", "NBA: ESPN skadelista · NHL: DailyFaceoff · fotboll: startelvan",
+        ("Lagnyheter (varje skanning)", "NBA: ESPN skadelista · fotboll: startelvan",
          "Out/doubtful, ute eller inte i laget/startelvan = inget spel; questionable markeras. Öppna LIVE-spel kontrolleras igen före start och ger en notis (📰) om spelarens status ändras – och i NBA även när en lagkamrat (minst 15 min/match) blir out efter att spelet lades, med modellens nya speltid, väntat värde och edge vid vårt odds."),
         ("Orimlig edge", _pct(s.get("max_plausible_edge", 0.25)), "Större edge = nästan alltid fel linje, olika regler eller spelaren spelar inte. Inte spelbart."),
         ("Ett spel per spelare och match", "ja, över allt",
@@ -55,7 +55,7 @@ def all_params(settings_path: Path) -> dict:
          "football_live i settings.json. Pausat 2026-11-07 (on hold) tills vi hittar en skarp källa för fotbollsprops – Kambis marginal ~20 % och ingen referens. Påslaget 2026-11-04. Spelen är regelspelen "
          "(alla gemensamma krav); risktak: högst 5u per spel och 5 % per match."),
         ("LIVE: insats", f"¼ Kelly × {s.get('football_kelly_scale', 0.5):g}, högst {s.get('football_live_max_units', 5)}u per spel",
-         "Insatsen följer styrkan (edge och odds) som i NBA/NHL, men i halv storlek eftersom fotbollen saknar historik "
+         "Insatsen följer styrkan (edge och odds) som i NBA, men i halv storlek eftersom fotbollen saknar historik "
          "med edge och CLV. Går automatiskt upp till full ¼ Kelly när 50 spel med stängning visar positiv CLV (t ≥ 1), med en notis."),
         ("Automatisk uppgradering", f"{s.get('graduation_min_bets', 50)} spel, CLV > 0 (t ≥ {s.get('graduation_min_t', 1.0):g})",
          "Prövas vid varje skanning för fotbollsprops (halv -> full insats) och sides/totals (data -> LIVE med notiser, ¼ Kelly upp till 5u). "
@@ -137,36 +137,8 @@ def all_params(settings_path: Path) -> dict:
         ("US-bolag via The Odds API", f"{s.get('nba_us_fetch_window', [40, 240])[0]}–{s.get('nba_us_fetch_window', [40, 240])[1]} min före start",
          f"Andel av krediterna: {_pct(s.get('oddsapi_share_nba', 0.6))}."),
     ]
-    try:
-        from nhl.bot_settings import BotSettings
-        n = BotSettings.load(settings_path)
-        nhl = [
-            ("Status", "LIVE (notiser)" if n.live_on and s.get("nhl_enabled", False) else "av – bara rättning av öppna spel",
-             "Avstängd 12/11: med bara Bovada+Pinnacle som referens låg sannolikheterna 6–8 pe för högt; Kambis eget pris var träffsäkrast."),
-            ("LIVE: edge", _pct(n.live_min_edge), ""),
-            ("LIVE: högsta edge", _pct(n.live_max_edge), "Samma tak som NBA."),
-            ("LIVE: modellen måste hålla med", f"modellens edge ≥ {_pct(n.live_model_min_edge)}", "Samma krav som NBA (4/11)."),
-            ("LIVE: jämförelsekällor", f"minst {n.live_min_groups}", "Bovada, Pinnacle (vikt ×2), US-bolag via The Odds API."),
-            ("LIVE: oddsram", _odds(n.live_odds_min, n.live_odds_max), ""),
-            ("LIVE: risk", f"max {_u(n.live_max_units)}/spel, {n.live_max_per_match}/match, {n.live_max_per_day} spel och "
-                           f"{_u(n.live_max_units_day)} per matchdag, högst {_pct(n.max_stake_per_match_pct)} per match", ""),
-            ("LIVE: spelaren i senaste uppställningen", "ja" if n.live_require_active else "nej", ""),
-            ("Gemensamt edgekrav", _pct(n.min_edge_all), f"+{_pct(n.extra_edge_without_sharp)} utan skarp/tvåsidig källa."),
-            ("Oddsram", _odds(n.odds_min_all, n.odds_max_all), ""),
-            ("Max oddsfall / sharp mot / med", f"{_pct(n.max_odds_drop)} / {n.sharp_against_pp:g} / {n.sharp_with_pp:g} pe (efter {n.sharp_min_age_min:g} min)", ""),
-            ("Orimlig edge / konsensusavvikelse", f"{_pct(n.max_plausible_edge)} / {_pct(n.max_dev_from_consensus)}", ""),
-            ("Ensidig marginal (antagen)", _pct(n.one_sided_margin), "För ensidiga priser (t.ex. Bovadas \"N+ skott\"-stege)."),
-            ("Modellvikt", f"{n.model_weight:g} (minst {n.model_min_games} matcher)", "NHL-statistik: skott per 60 × istid, motstånd, hemmaplan."),
-            ("Pinnacle", "på" if n.use_pinnacle else "av", f"liga {n.pinnacle_league_id}"),
-            ("US-bolag via The Odds API", f"{n.us_fetch_window_min[0]:g}–{n.us_fetch_window_min[1]:g} min före start",
-             f"Andel av krediterna: {_pct(n.odds_api_share)}."),
-            ("Bankrulle", f"{n.bankroll:,.0f} {n.currency}".replace(",", " "), f"1u = {n.unit_value():.0f} {n.currency}."),
-            ("Test-marknader (data)", "poäng, assist, mål, power play-poäng", "Kambis NHL-poäng/assist/mål och power play-poäng (minst 1/2) bokförs mot en egen modell. PP-poäng: spelarens PP-poäng per PP-minut × lagets väntade PP-minuter × andel från PP-enheten (DailyFaceoff PP1/PP2, flyttad upp/ner) × motståndarens boxplay (och omgjord PK om ordinarie boxplayspelare saknas). Power play-mål per spelare tas med om ett bolag lägger ut dem. Inga notiser."),
-        ]
-    except Exception as e:  # noqa: BLE001
-        nhl = [("Fel", f"{type(e).__name__}: {e}", "")]
     sec = lambda rows: [{"namn": a, "varde": b, "forklaring": c} for a, b, c in rows]
-    return {"Gemensamt": sec(shared), "Fotboll": sec(football), "NBA": sec(nba), "NHL": sec(nhl)}
+    return {"Gemensamt": sec(shared), "Fotboll": sec(football), "NBA": sec(nba)}
 
 
 def as_markdown(settings_path: Path) -> str:

@@ -26,8 +26,7 @@ FONT = "Arial"
 MK = {"shots": "Skott", "shots_on_target": "Skott på mål", "goal": "Mål", "assist": "Assist",
       "points": "Poäng", "rebounds": "Returer", "assists": "Assist (NBA)", "threes": "Trepoängare",
       "steals": "Steals", "blocks": "Blocks", "pra": "PRA", "pr": "Poäng + returer", "ra": "Returer + assist", "fouls": "Fouls",
-      "cards": "Kort", "sog": "Skott på mål", "nhl_points": "Poäng", "nhl_assists": "Assist", "nhl_goals": "Mål",
-      "nhl_pp_points": "Power play-poäng", "nhl_pp_goals": "Power play-mål",
+      "cards": "Kort",
       "1x2": "1X2", "total": "Mål totalt", "ah": "Asiatiskt handikapp", "corners": "Hörnor",
       "cah": "Hörnhandikapp", "corners_home": "Hörnor hemmalag", "corners_away": "Hörnor bortalag"}
 SIDA = {"under": "Under", "home": "Hemma", "draw": "Oavgjort", "away": "Borta"}
@@ -39,18 +38,12 @@ LEDGERS = [  # (fil, sport, typ) – sorterat per sport
     ("sides_spel.json", "Fotboll", "Sides"), ("sides_skugga.json", "Fotboll", "Sides-skugga"),
     ("nba_live.json", "NBA", "Live"), ("nba_bokforing_v2.json", "NBA", "Spel"), ("nba_skugga_v2.json", "NBA", "Skugga"),
     ("nba_modelltest.json", "NBA", "Modelltest"), ("nba_parlays_v2.json", "NBA", "Parlay"),
-    ("nhl/nhl_live.json", "NHL", "Live"), ("nhl/nhl_bokforing.json", "NHL", "Spel"),
-    ("nhl/nhl_skugga.json", "NHL", "Skugga"), ("nhl/nhl_modelltest.json", "NHL", "Modelltest"),
-    ("nhl/nhl_test_marknader.json", "NHL", "NHL-test"),
 ]
 
 
 def _load_items(f: Path) -> list:
     items = json.loads(f.read_text(encoding="utf-8"))
     items = items.get("bets", []) if isinstance(items, dict) else items
-    if items and "player" in items[0]:            # NHL-botens eget format -> samma som fotboll/NBA
-        from nhl.site_export import ledger_sv
-        items = [ledger_sv(b, UNIT) for b in items]
     return items
 
 
@@ -388,10 +381,8 @@ def write_csv_exports(root: Path, out_dir: Path) -> int:
     rows = [_csv_row(r) for r in _rows(root)]
     by = lambda sport: [r for r in rows if r[1] == sport and r[2] != "Parlay"]
     sets = {"live": [r for r in rows if r[2] == "Live"], "alla_spel": rows,
-            "fotboll": by("Fotboll"), "nba": by("NBA"), "nhl": by("NHL"),
-            "parlays": [r for r in rows if r[2] == "Parlay"],
-            # gamla adresser från NHL-boten (arket läser dem fortfarande tills det byggts om)
-            "nhl_live": [r for r in rows if r[1] == "NHL" and r[2] == "Live"]}
+            "fotboll": by("Fotboll"), "nba": by("NBA"),
+            "parlays": [r for r in rows if r[2] == "Parlay"]}
     for name, rs in sets.items():
         with open(out_dir / f"{name}.csv", "w", newline="", encoding="utf-8") as fh:
             w = csv.writer(fh)
@@ -402,10 +393,10 @@ def write_csv_exports(root: Path, out_dir: Path) -> int:
     g = defaultdict(list)
     for r in rows:
         g[(r[1], r[2])].append(r)
-    order = {"Fotboll": 0, "NBA": 1, "NHL": 2}
-    torder = {t: i for i, t in enumerate(["Live", "Spel", "Skugga", "Modelltest", "Fouls-test", "Kort-test", "Sides", "Sides-skugga", "NHL-test", "Parlay"])}
+    order = {"Fotboll": 0, "NBA": 1}
+    torder = {t: i for i, t in enumerate(["Live", "Spel", "Skugga", "Modelltest", "Fouls-test", "Kort-test", "Sides", "Sides-skugga", "Parlay"])}
     keys = sorted(g, key=lambda k: (order.get(k[0], 9), torder.get(k[1], 9)))
-    for fname, only in (("sammanfattning.csv", None), ("nhl_sammanfattning.csv", "NHL")):
+    for fname, only in (("sammanfattning.csv", None),):
       with open(out_dir / fname, "w", newline="", encoding="utf-8") as fh:
         w = csv.writer(fh)
         w.writerow(["Sport", "Typ", "Spel", "Avgjorda", "Vunna", "Träff %", "Insats (u)", "Resultat (u)", "ROI %",

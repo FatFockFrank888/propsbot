@@ -2,7 +2,7 @@ name: bevaka-odds
 
 on:
   schedule:
-    # Reserv om kedjan bryts. Fotboll/NBA/NHL i samma körning, dygnet runt (NHL-kvällar till 05 svensk tid).
+    # Reserv om kedjan bryts. Fotboll och NBA i samma körning, dygnet runt.
     - cron: "7-59/10 * * * *"
   workflow_dispatch: {}
 
@@ -55,16 +55,8 @@ jobs:
           else
             git worktree add --orphan -b data state
           fi
-          # NHL:s linjehistorik (nhl/line_history.sqlite) sparas; fotbollens stora SQLite-logg gör det inte.
-          printf '.cache_odds/\n/*.sqlite\nnhl/output/\nnhl/odds/\n' > state/.gitignore
-
-      # NHL-statistiken (spelarloggar, scheman) cachas mellan körningar så att skanningen går fort.
-      - name: HTTP-cache (NHL)
-        uses: actions/cache@v4
-        with:
-          path: state/.cache_odds/nhl
-          key: nhl-http-${{ github.run_id }}
-          restore-keys: nhl-http-
+          # Fotbollens stora SQLite-logg sparas inte.
+          printf '.cache_odds/\n/*.sqlite\n' > state/.gitignore
 
       - name: Skanna, bokför, rätta och skicka notiser
         env:

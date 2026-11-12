@@ -78,9 +78,6 @@ DEFAULT_SETTINGS = {
     "model_market_mult": {"shots": 1.0, "shots_on_target": 1.0, "goal": 0.7, "assist": 0.6},
     # NBA (Kambi-bolagen mot Pinnacles tvåsidiga spelarodds)
     "nba_enabled": True,
-    # NHL avstängd 12/11: förlorade mot Kambi när bara Bovada+Pinnacle fanns som referens.
-    # Av = bara rättning av öppna spel, ingen skanning och inga Odds API-krediter.
-    "nhl_enabled": False,
     "nba_hours_ahead": 30,
     "nba_max_events": 15,
     # DraftKings/FanDuel m.fl. via The Odds API (gratiskvot, kreditbudget per dag).
@@ -142,7 +139,7 @@ DEFAULT_SETTINGS = {
     "live_min_edge": {"points": 0.05, "threes": 0.05, "assists": 0.05, "rebounds": 0.05},
     "live_model_min_edge": 0.05,
     "live_max_edge": 0.15,
-    "football_live_max_units": 5,   # samma tak som NBA/NHL LIVE
+    "football_live_max_units": 5,   # samma tak som NBA LIVE
     "football_kelly_scale": 0.5,
     "sides_lineup_gate": False,     # sides väntar inte på startelvor (Pinnacle prisar redan in dem)
     "graduation_min_bets": 50,      # uppgradering (sides -> LIVE, fotboll -> full insats): spel med stängning

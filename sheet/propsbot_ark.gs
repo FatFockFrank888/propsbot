@@ -5,10 +5,9 @@
  * Därefter finns menyn "Propsbot" i arket.
  *
  * Arkets uppbyggnad (allt uppdateras av sig självt via IMPORTDATA från botens webbsida):
- *   Översikt      – nyckeltal per sport (Fotboll, NBA, NHL) och totalt för LIVE-spelen
+ *   Översikt      – nyckeltal per sport (Fotboll, NBA) och totalt för LIVE-spelen
  *   ⚽ Fotboll     – Nyckeltal per typ · Öppna spel · Alla spel
  *   🏀 NBA         – Nyckeltal per typ · Öppna LIVE-spel · Alla spel
- *   🏒 NHL         – Nyckeltal per typ · Öppna LIVE-spel · Alla spel
  *   Parametrar    – alla regler per sport (samma som webbsidans flik)
  *   _data_*       – dolda rådataflikar (IMPORTDATA). Rör inte.
  * Gamla flikar raderas inte: de döps om till "arkiv – <namn>" och döljs.
@@ -19,9 +18,8 @@ const SPORTS = [
   {key: "fotboll", name: "Fotboll", tab: "⚽ Fotboll", color: "#d1fae5", main: "Live",
    note: "LIVE = spelade spel (notis). Skott på mål."},
   {key: "nba", name: "NBA", tab: "🏀 NBA", color: "#fef3c7", main: "Live", note: "LIVE = spelade spel (notis)."},
-  {key: "nhl", name: "NHL", tab: "🏒 NHL", color: "#dbeafe", main: "Live", note: "LIVE = spelade spel (notis). Skott på mål."},
 ];
-const RAW = {sammanfattning: "_data_sammanfattning", fotboll: "_data_fotboll", nba: "_data_nba", nhl: "_data_nhl",
+const RAW = {sammanfattning: "_data_sammanfattning", fotboll: "_data_fotboll", nba: "_data_nba",
              parametrar: "_data_parametrar"};
 const OWN = ["Översikt", "Parametrar"].concat(SPORTS.map(s => s.tab)).concat(Object.values(RAW));
 const HEAD_BG = "#1f2937", HEAD_FG = "#ffffff";
@@ -146,7 +144,7 @@ function buildOverview_(ss) {
   row = tot + 2;
 
   row = section_(sh, row, "Alla bokföringar", "Live = spelat · Spel = klarar reglerna (data) · Skugga = stoppat av en regel · " +
-    "Modelltest = egna modellen · Fouls-/Kort-/NHL-test = nya marknader (data) · Parlay = kombinationer (data)");
+    "Modelltest = egna modellen · Fouls-/Kort-test = nya marknader (data) · Parlay = kombinationer (data)");
   sh.getRange(row, 1).setFormula("=IFERROR(QUERY('" + RAW.sammanfattning + "'!A:K, \"select A,B,C,D,E,F,G,H,I,J,K\", 1), \"(inget än)\")");
   headerRow_(sh, row, cols.length);
   sh.setFrozenRows(0);

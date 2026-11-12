@@ -485,7 +485,7 @@ def run(root: Path, data: list, settings: dict, diag, notify: bool = True) -> di
     hist = History(root / "sides_historik.json")
     spel, skugga = Ledger(root / "sides_spel.json"), Ledger(root / "sides_skugga.json")
     # Samlar data tills underlaget räcker; med bevisad CLV mot Pinnacles stängning går sides över till
-    # samma villkor som NBA/NHL LIVE (notiser, ¼ Kelly upp till 5u) – automatiskt (graduation.py).
+    # samma villkor som NBA LIVE (notiser, ¼ Kelly upp till 5u) – automatiskt (graduation.py).
     if not s.get("sides_live"):
         from .graduation import check
         # Underlag: alla regelspel + skuggspel som klarade edgekravet och bara stoppades av startelvespärren

@@ -73,7 +73,7 @@ class SeenStore:
 
 class PlayerGuard:
     """Ett enda spel (en notis) per spelare och match – över alla marknader, linjer, sidor,
-    bolag, körningar och sporter. Delas av fotboll, NBA och NHL (samma fil)."""
+    bolag, körningar och sporter. Delas av fotboll och NBA (samma fil)."""
 
     def __init__(self, path: Path):
         self.path = path

@@ -13,7 +13,7 @@ Genereras från de värden boten använder (`python -m propsbot parametrar`).
 | Sharp money mot oss | 2 procentenheter | Inget spel om den skarpa referensen (Pinnacle/konsensus) rört sig så mycket mot oss efter 30 min. |
 | Sharp money med oss | 1.5 procentenheter | Markeras i notisen (⬆). |
 | Topp 5 som notis | ja, en per spel | Bara LIVE-spel (klarar LIVE-reglerna). När ett spel för första gången hamnar bland de fem starkaste (samma ranking som fliken Topp 5) skickas en notis 🏆 med rank, odds, spela från, edge, modell, styrka och insats. Märkt LIVE eller data. Inte inom 10 min före start. |
-| Lagnyheter (varje skanning) | NBA: ESPN skadelista · NHL: DailyFaceoff · fotboll: startelvan | Out/doubtful, ute eller inte i laget/startelvan = inget spel; questionable markeras. Öppna LIVE-spel kontrolleras igen före start och ger en notis (📰) om spelarens status ändras – och i NBA även när en lagkamrat (minst 15 min/match) blir out efter att spelet lades, med modellens nya speltid, väntat värde och edge vid vårt odds. |
+| Lagnyheter (varje skanning) | NBA: ESPN skadelista · fotboll: startelvan | Out/doubtful, ute eller inte i laget/startelvan = inget spel; questionable markeras. Öppna LIVE-spel kontrolleras igen före start och ger en notis (📰) om spelarens status ändras – och i NBA även när en lagkamrat (minst 15 min/match) blir out efter att spelet lades, med modellens nya speltid, väntat värde och edge vid vårt odds. |
 | Orimlig edge | 25 % | Större edge = nästan alltid fel linje, olika regler eller spelaren spelar inte. Inte spelbart. |
 | Ett spel per spelare och match | ja, över allt | Över alla marknader, linjer, sidor (över/under), bolag och körningar. Störst edge vinner; det som redan skickats står kvar. |
 | Över eller under | den sida som har EV+ | Båda sidor prövas på samma krav. Under kräver en tvåsidig eller skarp referens (annars är marginalen på undersidan okänd). |
@@ -26,7 +26,7 @@ Genereras från de värden boten använder (`python -m propsbot parametrar`).
 | Parameter | Värde | Förklaring |
 |---|---|---|
 | Status | bara datainsamling (inga notiser) | football_live i settings.json. Pausat 2026-11-07 (on hold) tills vi hittar en skarp källa för fotbollsprops – Kambis marginal ~20 % och ingen referens. Påslaget 2026-11-04. Spelen är regelspelen (alla gemensamma krav); risktak: högst 5u per spel och 5 % per match. |
-| LIVE: insats | ¼ Kelly × 0.5, högst 5u per spel | Insatsen följer styrkan (edge och odds) som i NBA/NHL, men i halv storlek eftersom fotbollen saknar historik med edge och CLV. Går automatiskt upp till full ¼ Kelly när 50 spel med stängning visar positiv CLV (t ≥ 1), med en notis. |
+| LIVE: insats | ¼ Kelly × 0.5, högst 5u per spel | Insatsen följer styrkan (edge och odds) som i NBA, men i halv storlek eftersom fotbollen saknar historik med edge och CLV. Går automatiskt upp till full ¼ Kelly när 50 spel med stängning visar positiv CLV (t ≥ 1), med en notis. |
 | Automatisk uppgradering | 50 spel, CLV > 0 (t ≥ 1) | Prövas vid varje skanning för fotbollsprops (halv -> full insats) och sides/totals (data -> LIVE med notiser, ¼ Kelly upp till 5u). Vänder CLV till negativt över minst 30 spel går marknaden tillbaka till försiktigt läge. |
 | Marknader som spelas | shots_on_target | Övriga marknader används bara för att mäta Kambis marginal. |
 | Edgekrav per marknad (före gemensamt krav) | shots 2 %, shots_on_target 2 %, goal 4 %, assist 4 % | Gemensamma kravet 5 % gäller ovanpå. |
@@ -67,28 +67,5 @@ Genereras från de värden boten använder (`python -m propsbot parametrar`).
 | Modellvikt | 0.3 × dq | Blandas med marknaden i log-odds. dq = datakvalitet 0,2–1 (antal matcher i underlaget / 15): tunt underlag -> marknaden väger mer. Halveras när modell och marknad skiljer mycket. |
 | Brier modell / marknad | visas under Resultat | Mäter om modellen slår marknadens egen sannolikhet på avgjorda spel (lägre = bättre). |
 | Matcher | inom 30 h, max 15 |  |
-| US-bolag via The Odds API | 40–240 min före start | Andel av krediterna: 45 %. |
-
-## NHL
-
-| Parameter | Värde | Förklaring |
-|---|---|---|
-| Status | LIVE (notiser) | Skott på mål (SOG) hos Kambi-bolagen. |
-| LIVE: edge | 5 % |  |
-| LIVE: högsta edge | 15 % | Samma tak som NBA. |
-| LIVE: modellen måste hålla med | modellens edge ≥ 5 % | Samma krav som NBA (4/11). |
-| LIVE: jämförelsekällor | minst 2 | Bovada, Pinnacle (vikt ×2), US-bolag via The Odds API. |
-| LIVE: oddsram | 1,40–3,00 |  |
-| LIVE: risk | max 5u/spel, 2/match, 8 spel och 25u per matchdag, högst 5 % per match |  |
-| LIVE: spelaren i senaste uppställningen | ja |  |
-| Gemensamt edgekrav | 5 % | +3 % utan skarp/tvåsidig källa. |
-| Oddsram | 1,40–6,00 |  |
-| Max oddsfall / sharp mot / med | 3 % / 2 / 1.5 pe (efter 30 min) |  |
-| Orimlig edge / konsensusavvikelse | 25 % / 18 % |  |
-| Ensidig marginal (antagen) | 8 % | För ensidiga priser (t.ex. Bovadas "N+ skott"-stege). |
-| Modellvikt | 0.3 (minst 8 matcher) | NHL-statistik: skott per 60 × istid, motstånd, hemmaplan. |
-| Pinnacle | på | liga 1456 |
-| US-bolag via The Odds API | 40–240 min före start | Andel av krediterna: 25 %. |
-| Bankrulle | 10 000 SEK | 1u = 20 SEK. |
-| Test-marknader (data) | poäng, assist, mål, power play-poäng | Kambis NHL-poäng/assist/mål och power play-poäng (minst 1/2) bokförs mot en egen modell. PP-poäng: spelarens PP-poäng per PP-minut × lagets väntade PP-minuter × andel från PP-enheten (DailyFaceoff PP1/PP2, flyttad upp/ner) × motståndarens boxplay (och omgjord PK om ordinarie boxplayspelare saknas). Power play-mål per spelare tas med om ett bolag lägger ut dem. Inga notiser. |
+| US-bolag via The Odds API | 40–240 min före start | Andel av krediterna: 60 %. |
 

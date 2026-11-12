@@ -1,7 +1,7 @@
 """Topp 5 som notis: samma ranking som fliken Topp 5 på webbsidan (web/index.html, renderTopp).
 
-Körs sist i varje körning, när alla sporters data är skrivna (site/data.json, site/nba/data.json,
-site/nhl/data.json). Ett spel som för första gången hamnar bland de fem starkaste skickas som EN notis
+Körs sist i varje körning, när alla sporters data är skrivna (site/data.json, site/nba/data.json).
+Ett spel som för första gången hamnar bland de fem starkaste skickas som EN notis
 (en per spelare/lag och match – flyttar spelet bara upp eller ner i listan skickas inget nytt).
 
 Styrka = edge (högst 15, över 15 dras ner) + halva modellens edge (±15) + sharp money (+1 / −2) + 1 för LIVE.
@@ -16,8 +16,8 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 U = 0.002
-SPORTS = {"fotboll": "data.json", "nba": "nba/data.json", "nhl": "nhl/data.json"}
-NAME = {"fotboll": "Fotboll", "nba": "NBA", "nhl": "NHL"}
+SPORTS = {"fotboll": "data.json", "nba": "nba/data.json"}
+NAME = {"fotboll": "Fotboll", "nba": "NBA"}
 MK = {"shots": "skott", "shots_on_target": "skott på mål", "sog": "skott på mål", "points": "poäng",
       "rebounds": "returer", "assists": "assist", "threes": "trepoängare", "pra": "PRA", "1x2": "1X2",
       "total": "mål totalt", "ah": "handikapp", "corners": "hörnor", "cah": "hörnhandikapp", "corners_home": "hörnor", "corners_away": "hörnor"}

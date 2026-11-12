@@ -2,7 +2,6 @@
 
 * NBA: ESPN:s skadelista (out / doubtful / questionable / day-to-day), uppdateras löpande under dagen.
 * Fotboll: startelvorna (ESPN, ca 1 h före avspark) – lineups.py.
-* NHL: DailyFaceoff (beat-reportrar på X, morgonskridskoåkningen) – nhl/pp_model.py + nhl/scanner.py.
 
 Två saker görs:
 1. block_*(): inga nya spel på en spelare som är ute / tveksam (out, doubtful) eller inte i startelvan.

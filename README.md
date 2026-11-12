@@ -1,17 +1,17 @@
-# propsbot – en bot för fotboll, NBA och NHL
+# propsbot – en bot för fotboll och NBA
 
-**En körning, tre sporter.** `python -m propsbot skanna` kör fotboll (skott på mål, fouls, kort),
-NBA (poäng, returer, assist, trepoängare …) och NHL (skott på mål + poäng/assist/mål och power play-poäng som test) efter
-varandra. Ett fel i en sport stoppar aldrig de andra. GitHub Actions kör den var tionde minut dygnet runt.
+**En körning, två sporter.** `python -m propsbot skanna` kör fotboll (skott på mål, fouls, kort, sides/totals)
+och NBA (poäng, returer, assist, trepoängare …) efter varandra. Ett fel i en sport stoppar aldrig den andra.
+NHL togs bort 12/11 (förlorade mot Kambi: med bara Bovada+Pinnacle som referens låg sannolikheterna 6–8 pe för högt). GitHub Actions kör den var tionde minut dygnet runt.
 
 | Var | Vad |
 |---|---|
-| Webbsida | https://fatfockfrank888.github.io/propsbot/ – Spela nu · Radar · Resultat · Bokföring & analys · Parlays · Parametrar, med sportväljare (Alla/Fotboll/NBA/NHL) |
+| Webbsida | https://fatfockfrank888.github.io/propsbot/ – Spela nu · Radar · Resultat · Bokföring & analys · Parlays · Parametrar, med sportväljare (Alla/Fotboll/NBA) |
 | Notiser | ntfy, en kanal. Bara LIVE-spel, **ett spel per spelare och match** över alla marknader, linjer, sidor och bolag. Misslyckad notis skickas igen nästa körning. |
 | Google-arket | `sheet/propsbot_ark.gs` (Apps Script) bygger en flik per sport från `…/propsbot/csv/*.csv` |
 | Parametrar | [PARAMETRAR.md](PARAMETRAR.md) (`python -m propsbot parametrar`) och fliken Parametrar på webbsidan |
-| Kod | `propsbot/` fotboll + NBA · `nhl/` NHL · `propsbot/site.py` webbsidan · `web/index.html` sidan |
-| Läge | grenen `data` (fotboll/NBA i roten, NHL under `nhl/`) |
+| Kod | `propsbot/` fotboll + NBA · `propsbot/site.py` webbsidan · `web/index.html` sidan |
+| Läge | grenen `data` |
 
 **Över eller under:** båda sidor prövas på samma krav; den sida som har EV+ och klarar alla regler spelas.
 Under kräver en tvåsidig eller skarp referens. Fotbollens Kambi-marknader (skott på mål, kort) är bara

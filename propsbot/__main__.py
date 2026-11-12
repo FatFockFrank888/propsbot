@@ -86,7 +86,9 @@ def _print_topic(topic: str) -> None:
 
 OBSOLETE = ("nba_usodds.json", "bokforing_v2.json", "bokforing_skugga_v3.json", "bokforing_modell_v3.json", "parlays_v2.json", "bokforing.json", "bokforing_skugga.json", "bokforing_skugga_v2.json", "parlays.json",
             "bokforing_modell.json", "bokforing_modell_v2.json", "nba_bokforing.json",
-            "nba_skugga.json", "nba_parlays.json", "resultat")
+            "nba_skugga.json", "nba_parlays.json", "resultat",
+            # NHL borttagen 12/11 (historiken finns kvar i data-grenens git-historik)
+            "nhl", "site/nhl", ".cache_odds/nhl", "site/csv/nhl.csv", "site/csv/nhl_live.csv", "site/csv/nhl_sammanfattning.csv")
 
 
 def _cleanup(root: Path) -> None:
@@ -111,7 +113,7 @@ def cmd_free(args) -> None:
         _announce_merge(_state_root(), Path(args.settings))
     except Exception as e:
         print(f"Testnotis: fel {type(e).__name__}: {e}")
-    # En bot, tre sporter: varje sport körs för sig så att ett fel i en aldrig stoppar de andra.
+    # En bot, två sporter: varje sport körs för sig så att ett fel i en aldrig stoppar de andra.
     try:
         rows = scan_once(_state_root(), Path(args.settings))
         print()
@@ -123,11 +125,6 @@ def cmd_free(args) -> None:
         run_nba(_state_root(), Path(args.settings))
     except Exception as e:
         print(f"NBA: fel {type(e).__name__}: {e}")
-        traceback.print_exc()
-    try:
-        run_nhl(_state_root(), Path(args.settings))
-    except Exception as e:
-        print(f"NHL: fel {type(e).__name__}: {e}")
         traceback.print_exc()
     try:
         from .site import build_site
@@ -199,18 +196,15 @@ def run_nba(root: Path, settings_path: Path) -> None:
 
 def push_overview(settings: dict) -> str:
     """Vilka spel som ger notis, per sport."""
-    from nhl.bot_settings import BotSettings
-    n = BotSettings.load()
     th = settings.get("live_min_edge", {})
     lines = [
         "NBA: LIVE-spel (" + ", ".join(f"{k} ≥{v:.0%}" for k, v in th.items()) + ")"
         if settings.get("live_on", True) and settings.get("nba_enabled", True) else "NBA: av",
-        f"NHL: LIVE-spel skott på mål (≥{n.live_min_edge:.0%})" if n.live_on and settings.get("nhl_enabled", False) else "NHL: av",
         f"Fotboll: LIVE-spel {', '.join({'shots_on_target': 'skott på mål', 'shots': 'skott'}.get(m, m) for m in settings.get('football_markets', ['shots_on_target']))} (≥{settings.get('min_edge_all', 0.05):.0%})" if settings.get("football_live") else "Fotboll: bara data (ingen notis)",
         ("Fotboll sides/totals: LIVE-spel 1X2, mål över/under, handikapp mot Pinnacle "
          f"(≥{settings.get('sides_min_edge', 0.03):.0%})") if settings.get("sides_live")
         else "Fotboll sides/totals (1X2, mål, handikapp mot Pinnacle): bara data tills vidare",
-        "Test (fouls, kort, NHL-poäng/assist/mål), skuggspel, modelltest, parlays: bara data",
+        "Test (fouls, kort), skuggspel, modelltest, parlays: bara data",
         "Ett spel per spelare och match – aldrig två notiser på samma spelare.",
     ]
     return "\n".join(lines)
@@ -231,65 +225,9 @@ def _announce_merge(root: Path, settings_path: Path) -> None:
     if f.exists() and f.read_text(encoding="utf-8").strip() == th:
         return
     if send(topic, "Propsbot: så här skickas notiser",
-            "Fotboll, NBA och NHL i en bot.\n" + overview, priority=3, tags="white_check_mark"):
+            "Fotboll och NBA i en bot.\n" + overview, priority=3, tags="white_check_mark"):
         f.write_text(th, encoding="utf-8")
         print("Testnotis (sammanslagen bot) skickad.")
-
-
-def nhl_env(root: Path) -> None:
-    """NHL-delen (paketet nhl) sparar allt under <läge>/nhl och cachar under <läge>/.cache_odds/nhl."""
-    import os
-    d = root / "nhl"
-    os.environ.setdefault("NHL_DATA_DIR", str(d))
-    os.environ.setdefault("OUTPUT_DIR", str(d / "output"))
-    os.environ.setdefault("ODDS_DIR", str(d / "odds"))
-    os.environ.setdefault("CACHE_DIR", str(root / ".cache_odds" / "nhl"))
-    os.environ.setdefault("NOTIS_SPELARE", str(root / "notis_spelare.json"))
-
-
-def run_nhl(root: Path, settings_path: Path | None = None) -> None:
-    import argparse
-    from .scan import load_settings
-    nhl_env(root)
-    from nhl import bot_cli
-    from nhl.bot_settings import BotSettings
-    from nhl.config import Settings
-    cfg = Settings.from_env()
-    s = BotSettings.load()
-    if not load_settings(settings_path or ROOT / "settings.json").get("nhl_enabled", False):
-        settle_nhl_only(s, cfg)
-        return
-    if s.use_pinnacle and not s.pinnacle_api_key:   # samma publika gästnyckel som fotbollen/NBA
-        from .sources.pinnacle_public import GUEST_KEY
-        s.pinnacle_api_key = GUEST_KEY
-    if not s.ntfy_topic:   # samma kanal som fotboll och NBA
-        from .scan import load_settings
-        s.ntfy_topic = (load_settings(ROOT / "settings.json").get("ntfy_topic") or "").strip()
-    bot_cli.cmd_scan(argparse.Namespace(diagnose=False, no_notify=False), s, cfg)
-
-
-def settle_nhl_only(s, cfg) -> None:
-    """NHL av: ingen skanning (inga Kambi-, Pinnacle- eller Odds API-anrop), bara rättning av öppna spel."""
-    from datetime import datetime, timezone
-    from nhl.scanner import ScanReport, Scanner
-    s.live_on = False
-    s.use_pinnacle = False   # inga oddskällor behövs för att rätta
-    s.use_bovada = False
-    scanner = Scanner(s, cfg, notify=False)
-    try:
-        if not any(l.open_bets() for l in scanner.ledgers.values()) and not (
-                scanner.tests and any(b.get("status") == "öppen" for b in scanner.tests.bets)):
-            print("NHL: av (inga öppna spel att rätta)")
-            return
-        now = datetime.now(timezone.utc)
-        rep = ScanReport(started=now)
-        scanner._settle(now, rep)
-        if scanner.tests is not None:
-            scanner.tests.save()
-        print(f"NHL: av – rättade {rep.settled} spel, {rep.test_settled} testspel"
-              + (f", fel: {'; '.join(rep.errors[:3])}" if rep.errors else ""))
-    finally:
-        scanner.close()
 
 
 def cmd_watch(args) -> None:

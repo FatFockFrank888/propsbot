@@ -1,8 +1,7 @@
-"""Den sammanslagna webbsidan (GitHub Pages): en sida, tre sporter.
+"""Den sammanslagna webbsidan (GitHub Pages): en sida, fotboll och NBA.
 
-Fotboll och NBA skriver redan site/data.json och site/nba/data.json. Här läggs NHL till i
-samma format (site/nhl/data.json), alla parametrar skrivs till site/parametrar.json och
-den gemensamma sidan web/index.html kopieras in. Gamla adresser (nba/, nhl/) skickas vidare.
+Fotboll och NBA skriver redan site/data.json och site/nba/data.json. Här skrivs alla parametrar
+till site/parametrar.json och den gemensamma sidan web/index.html kopieras in. Gamla adressen nba/ skickas vidare.
 """
 from __future__ import annotations
 
@@ -48,43 +47,9 @@ def _summary(bets: list[dict]) -> dict:
             "clv_pp": sum(clv) / len(clv) if clv else None, "clv_antal": len(clv)}
 
 
-def nhl_data(root: Path) -> dict:
-    from nhl.bot_settings import BotSettings
-    from nhl.ledger import LEDGERS
-    from nhl.site_export import ledger_sv
-    d = root / "nhl"
-    s = BotSettings.load()
-    from .ledger import mark_duplicates
-
-    def counted(xs: list[dict]) -> list[dict]:   # ett spel per spelare och match i varje bokföring
-        mark_duplicates(xs)
-        return [b for b in xs if not b.get("dubblett")]
-    led = {name: counted([ledger_sv(b, s.unit_pct) for b in _load(d / fname, [])]) for name, fname in LEDGERS.items()}
-    tests = counted(_load(d / "nhl_test_marknader.json", []))
-    radar = _load(d / "radar.json", {})
-    by_new = lambda xs: sorted(xs, key=lambda b: -(b.get("bokford") or 0))
-    return {
-        "sport": "NHL", "live_enabled": s.live_on, "live": True,
-        "uppdaterad_ts": radar.get("uppdaterad_ts") or time.time(),
-        "uppdaterad": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-        "radar": radar.get("radar", []),
-        "bokforing": by_new(led["live"]), "sammanfattning": _summary(led["live"]),
-        "spel_data": by_new(led["bokforing"]),
-        "skuggspel": by_new(led["skugga"]), "skuggspel_sammanfattning": _summary(led["skugga"]),
-        "modelltest": by_new(led["modelltest"]), "modelltest_sammanfattning": _summary(led["modelltest"]),
-        "test_marknader": by_new(tests), "test_sammanfattning": _summary(tests),
-    }
-
-
 def build_site(root: Path, settings_path: Path) -> None:
     site = root / "site"
     site.mkdir(parents=True, exist_ok=True)
-    try:
-        (site / "nhl").mkdir(exist_ok=True)
-        (site / "nhl" / "data.json").write_text(
-            json.dumps(_rensa_nan(nhl_data(root)), ensure_ascii=False, allow_nan=False), encoding="utf-8")
-    except Exception as e:  # NHL-delen får aldrig stoppa sidan
-        print(f"Webbsidan: NHL-data saknas ({type(e).__name__}: {e})")
     import csv
     from .params import all_params
     params = all_params(settings_path)
@@ -100,6 +65,6 @@ def build_site(root: Path, settings_path: Path) -> None:
     for f in ("apple-touch-icon.png", "icon-512.png", "manifest.json"):   # hemskärmsikon (iPhone/Android)
         if (WEB / f).exists():
             shutil.copy(WEB / f, site / f)
-    for sport, name in (("nba", "NBA"), ("nhl", "NHL")):
+    for sport, name in (("nba", "NBA"),):
         (site / sport).mkdir(exist_ok=True)
         (site / sport / "index.html").write_text(REDIRECT.format(sport=sport, name=name), encoding="utf-8")
