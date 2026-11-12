@@ -17,6 +17,8 @@ Notiser bara när sides_live = true.
 """
 from __future__ import annotations
 
+from datetime import datetime, timezone
+
 import json
 import time
 from pathlib import Path
@@ -371,7 +373,8 @@ def settle(lg: Ledger, scores: dict) -> list[str]:
 def espn_scores(bets: list[dict], client, now: float) -> dict:
     from .results import EspnResults
     from .sources.fotmob import FotmobResults
-    espn, fotmob = EspnResults(client), FotmobResults(client)
+    from .sources.livescore import LivescoreResults
+    espn, fotmob, ls = EspnResults(client), FotmobResults(client), LivescoreResults(client)
     out, tried = {}, set()
     for b in bets:
         if b["status"] != "öppen" or not b.get("avspark") or now < b["avspark"] + 2.5 * 3600 or b["match_id"] in tried:
@@ -379,8 +382,9 @@ def espn_scores(bets: list[dict], client, now: float) -> dict:
         if now > b["avspark"] + 14 * 86400:   # två veckor utan resultat: ge upp (spelet ligger kvar som öppet)
             continue
         tried.add(b["match_id"])
-        # ESPN först; FotMob som reserv (täcker lägre divisioner som ESPN saknar)
-        sc = espn.final_score(b["hemma"], b["borta"], b["avspark"]) or fotmob.final_score(b["hemma"], b["borta"], b["avspark"])
+        # ESPN först; FotMob och LiveScore som reserver (lägre divisioner som ESPN saknar)
+        h, a, ko = b["hemma"], b["borta"], b["avspark"]
+        sc = espn.final_score(h, a, ko) or fotmob.final_score(h, a, ko) or ls.final_score(h, a, ko)
         if sc:
             out[b["match_id"]] = sc
     for b in bets:            # hörnor: ESPN:s matchprotokoll (wonCorners per lag)
@@ -588,6 +592,8 @@ def run(root: Path, data: list, settings: dict, diag, notify: bool = True) -> di
     diag.log(f"Sides/totals: {n_ev} matcher med Kambi + Pinnacle, {n_lines} linjer, "
              f"{len(new_spel)} nya spel, {len(new_sk)} nya skuggspel, Smarkets-priser i {n_smk} av {n_smk_try}; bästa edge "
              + ", ".join(f"{e:+.1%} ({ev['home_team']} {label(*x['key'], ev['home_team'], ev['away_team'])[1]})" for e, ev, x in top))
+    if notify and s.get("ntfy_topic"):
+        unsettled_alert(spel, s["ntfy_topic"], now, diag.log)
     sent = 0
     if notify and s.get("sides_live") and s.get("ntfy_topic") and new_spel:
         sent = _notify(root, new_spel, s)
@@ -615,3 +621,24 @@ def _notify(root: Path, bets: list[dict], s: dict) -> int:
             sent += 1
     guard.save()
     return sent
+
+
+UNSETTLED_AFTER_S = 3 * 86400
+
+
+def unsettled_alert(lg: Ledger, topic: str, now: float, log=print) -> int:
+    """LIVE-spel (notis) som ingen resultatkälla kunnat rätta 3 dygn efter avspark: flagga och EN notis."""
+    from .notify import send
+    late = [b for b in lg.bets if b.get("notis") and b["status"] == "öppen" and b.get("avspark")
+            and now - b["avspark"] > UNSETTLED_AFTER_S and not b.get("rattning_saknas")]
+    if not late:
+        return 0
+    lines = [f"{b['match']} – {b.get('spel_text', '')} ({b['liga'].replace('Football / ', '')}, "
+             f"{datetime.fromtimestamp(b['avspark'], timezone.utc).strftime('%d/%m %H:%M')} UTC)" for b in late]
+    if send(topic, f"Fotboll: {len(late)} LIVE-spel kan inte rättas automatiskt",
+            "ESPN, FotMob och LiveScore saknar resultat (inställd/flyttad match eller liga som inte täcks). "
+            "Rätta för hand:\n" + "\n".join(lines[:10]), priority=3, tags="warning"):
+        for b in late:
+            b["rattning_saknas"] = now
+        log(f"Sides: {len(late)} LIVE-spel utan resultat efter 3 dygn – notis skickad")
+    return len(late)
