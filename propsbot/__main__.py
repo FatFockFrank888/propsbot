@@ -125,7 +125,7 @@ def cmd_free(args) -> None:
         print(f"NBA: fel {type(e).__name__}: {e}")
         traceback.print_exc()
     try:
-        run_nhl(_state_root())
+        run_nhl(_state_root(), Path(args.settings))
     except Exception as e:
         print(f"NHL: fel {type(e).__name__}: {e}")
         traceback.print_exc()
@@ -205,7 +205,7 @@ def push_overview(settings: dict) -> str:
     lines = [
         "NBA: LIVE-spel (" + ", ".join(f"{k} ≥{v:.0%}" for k, v in th.items()) + ")"
         if settings.get("live_on", True) and settings.get("nba_enabled", True) else "NBA: av",
-        f"NHL: LIVE-spel skott på mål (≥{n.live_min_edge:.0%})" if n.live_on else "NHL: av",
+        f"NHL: LIVE-spel skott på mål (≥{n.live_min_edge:.0%})" if n.live_on and settings.get("nhl_enabled", False) else "NHL: av",
         f"Fotboll: LIVE-spel {', '.join({'shots_on_target': 'skott på mål', 'shots': 'skott'}.get(m, m) for m in settings.get('football_markets', ['shots_on_target']))} (≥{settings.get('min_edge_all', 0.05):.0%})" if settings.get("football_live") else "Fotboll: bara data (ingen notis)",
         ("Fotboll sides/totals: LIVE-spel 1X2, mål över/under, handikapp mot Pinnacle "
          f"(≥{settings.get('sides_min_edge', 0.03):.0%})") if settings.get("sides_live")
@@ -247,14 +247,18 @@ def nhl_env(root: Path) -> None:
     os.environ.setdefault("NOTIS_SPELARE", str(root / "notis_spelare.json"))
 
 
-def run_nhl(root: Path) -> None:
+def run_nhl(root: Path, settings_path: Path | None = None) -> None:
     import argparse
+    from .scan import load_settings
     nhl_env(root)
     from nhl import bot_cli
     from nhl.bot_settings import BotSettings
     from nhl.config import Settings
     cfg = Settings.from_env()
     s = BotSettings.load()
+    if not load_settings(settings_path or ROOT / "settings.json").get("nhl_enabled", False):
+        settle_nhl_only(s, cfg)
+        return
     if s.use_pinnacle and not s.pinnacle_api_key:   # samma publika gästnyckel som fotbollen/NBA
         from .sources.pinnacle_public import GUEST_KEY
         s.pinnacle_api_key = GUEST_KEY
@@ -262,6 +266,30 @@ def run_nhl(root: Path) -> None:
         from .scan import load_settings
         s.ntfy_topic = (load_settings(ROOT / "settings.json").get("ntfy_topic") or "").strip()
     bot_cli.cmd_scan(argparse.Namespace(diagnose=False, no_notify=False), s, cfg)
+
+
+def settle_nhl_only(s, cfg) -> None:
+    """NHL av: ingen skanning (inga Kambi-, Pinnacle- eller Odds API-anrop), bara rättning av öppna spel."""
+    from datetime import datetime, timezone
+    from nhl.scanner import ScanReport, Scanner
+    s.live_on = False
+    s.use_pinnacle = False   # inga oddskällor behövs för att rätta
+    s.use_bovada = False
+    scanner = Scanner(s, cfg, notify=False)
+    try:
+        if not any(l.open_bets() for l in scanner.ledgers.values()) and not (
+                scanner.tests and any(b.get("status") == "öppen" for b in scanner.tests.bets)):
+            print("NHL: av (inga öppna spel att rätta)")
+            return
+        now = datetime.now(timezone.utc)
+        rep = ScanReport(started=now)
+        scanner._settle(now, rep)
+        if scanner.tests is not None:
+            scanner.tests.save()
+        print(f"NHL: av – rättade {rep.settled} spel, {rep.test_settled} testspel"
+              + (f", fel: {'; '.join(rep.errors[:3])}" if rep.errors else ""))
+    finally:
+        scanner.close()
 
 
 def cmd_watch(args) -> None:

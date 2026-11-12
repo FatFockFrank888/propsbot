@@ -78,6 +78,9 @@ DEFAULT_SETTINGS = {
     "model_market_mult": {"shots": 1.0, "shots_on_target": 1.0, "goal": 0.7, "assist": 0.6},
     # NBA (Kambi-bolagen mot Pinnacles tvåsidiga spelarodds)
     "nba_enabled": True,
+    # NHL avstängd 12/11: förlorade mot Kambi när bara Bovada+Pinnacle fanns som referens.
+    # Av = bara rättning av öppna spel, ingen skanning och inga Odds API-krediter.
+    "nhl_enabled": False,
     "nba_hours_ahead": 30,
     "nba_max_events": 15,
     # DraftKings/FanDuel m.fl. via The Odds API (gratiskvot, kreditbudget per dag).

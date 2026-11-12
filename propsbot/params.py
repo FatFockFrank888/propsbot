@@ -141,7 +141,8 @@ def all_params(settings_path: Path) -> dict:
         from nhl.bot_settings import BotSettings
         n = BotSettings.load(settings_path)
         nhl = [
-            ("Status", "LIVE (notiser)" if n.live_on else "av", "Skott på mål (SOG) hos Kambi-bolagen."),
+            ("Status", "LIVE (notiser)" if n.live_on and s.get("nhl_enabled", False) else "av – bara rättning av öppna spel",
+             "Avstängd 12/11: med bara Bovada+Pinnacle som referens låg sannolikheterna 6–8 pe för högt; Kambis eget pris var träffsäkrast."),
             ("LIVE: edge", _pct(n.live_min_edge), ""),
             ("LIVE: högsta edge", _pct(n.live_max_edge), "Samma tak som NBA."),
             ("LIVE: modellen måste hålla med", f"modellens edge ≥ {_pct(n.live_model_min_edge)}", "Samma krav som NBA (4/11)."),

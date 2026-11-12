@@ -145,6 +145,7 @@
     "assist": 0.6
   },
   "nba_enabled": true,
+  "nhl_enabled": false,
   "nba_hours_ahead": 30,
   "nba_max_events": 15,
   "parlays_enabled": true,
@@ -169,8 +170,8 @@
     1.4,
     6.0
   ],
-  "oddsapi_share_nba": 0.45,
-  "oddsapi_share_football": 0.3,
+  "oddsapi_share_nba": 0.6,
+  "oddsapi_share_football": 0.4,
   "cards_enabled": true,
   "football_live": false,
   "live_min_edge": {
@@ -215,7 +216,7 @@
   "sides_extra_hours": 12,
   "sides_extra_max_events": 150,
   "nhl": {
-    "live_on": true,
+    "live_on": false,
     "live_min_edge": 0.05,
     "live_model_min_edge": 0.05,
     "live_min_groups": 2,
@@ -283,7 +284,7 @@
       240.0
     ],
     "odds_api_monthly_credits": 500,
-    "odds_api_share": 0.25,
+    "odds_api_share": 0.0,
     "odds_api_reserve": 20,
     "model_weight": 0.3,
     "model_min_games": 8,

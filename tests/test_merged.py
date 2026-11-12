@@ -163,3 +163,22 @@ def test_top5_notify_once(tmp_path, monkeypatch):
     assert top5.notify(tmp_path, {"ntfy_topic": "x"}, log=lambda *_: None) == 5
     assert sent[0].startswith("TOPP 5 #1: P6")
     assert top5.notify(tmp_path, {"ntfy_topic": "x"}, log=lambda *_: None) == 0     # inga dubbletter
+
+
+def test_nhl_off_only_settles(tmp_path, monkeypatch):
+    """nhl_enabled false: ingen skanning, bara rättning; Odds API-andelarna NBA + fotboll = 100 %."""
+    import json
+    import propsbot.__main__ as m
+    from nhl import bot_cli
+    cfg = tmp_path / "settings.json"
+    cfg.write_text(json.dumps({"nhl_enabled": False}), encoding="utf-8")
+    calls = []
+    monkeypatch.setattr(m, "settle_nhl_only", lambda s, c: calls.append("settle"))
+    monkeypatch.setattr(bot_cli, "cmd_scan", lambda *a: calls.append("scan"))
+    for k in ("NHL_DATA_DIR", "OUTPUT_DIR", "ODDS_DIR", "CACHE_DIR", "NOTIS_SPELARE"):
+        monkeypatch.setenv(k, str(tmp_path / k))   # återställs efter testet
+    m.run_nhl(tmp_path, cfg)
+    assert calls == ["settle"]
+    s = json.loads((m.ROOT / "settings.json").read_text(encoding="utf-8"))
+    assert s["nhl_enabled"] is False and s["nhl"]["odds_api_share"] == 0
+    assert abs(s["oddsapi_share_nba"] + s["oddsapi_share_football"] - 1.0) < 1e-9
