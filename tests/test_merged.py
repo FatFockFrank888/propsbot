@@ -76,23 +76,29 @@ def test_news_teammate_out_role_shift():
     assert recheck(lg, nba_teammate_fn(last, [new], {"rebounds": 10}), {}, "NBA", False, print, field="nyhet_lag") == 0
 
 
-def test_top5_notify_once(tmp_path, monkeypatch):
-    import json, time
+def test_top5_notify_once_and_stable(tmp_path, monkeypatch):
+    """Dagens topp 5 rankas på bokförda LIVE-spel och ligger kvar när oddset faller eller matchen startat."""
+    import json
     from datetime import datetime, timezone
     import propsbot.notify as nt
     from propsbot import top5
     site = tmp_path / "site"; (site / "nba").mkdir(parents=True)
-    start = datetime.fromtimestamp(time.time() + 3 * 3600, timezone.utc).strftime("%Y-%m-%d %H:%M")
-    rows = [{"spelare": f"P{i}", "match": f"M{i}", "spel": "poäng över 20.5", "marknad": "points", "odds": 2.0,
-             "spela_fran": 1.9, "edge": 0.05 + i / 100, "spelbar": True, "live": True, "avspark": start, "bolag": "unibet",
-             "insats_forslag": 0.01, "kommentar": ""} for i in range(7)]
-    (site / "nba" / "data.json").write_text(json.dumps({"radar": rows}), encoding="utf-8")
+    now = datetime(2026, 11, 12, 11, 0, tzinfo=timezone.utc).timestamp()   # kl. 12 svensk tid
+    bets = [{"spelare": f"P{i}", "match": f"M{i}", "marknad": "points", "linje": 20.5, "sida": "over", "odds": 2.0,
+             "spela_fran": 1.9, "edge": 0.05 + i / 100, "avspark": now + 3 * 3600, "bolag": "unibet",
+             "insats_pct": 0.01, "status": "öppen", "stopp": "", "bokford": now - 600} for i in range(7)]
+    (site / "nba" / "data.json").write_text(json.dumps({"live": True, "bokforing": bets}), encoding="utf-8")
     sent = []
     monkeypatch.setattr(nt, "send", lambda *a, **k: sent.append(a[1]) or True)
-    assert top5.notify(tmp_path, {"ntfy_topic": "x"}, log=lambda *_: None) == 5
+    assert top5.notify(tmp_path, {"ntfy_topic": "x"}, log=lambda *_: None, now=now) == 5
     assert sent[0].startswith("TOPP 5 #1: P6")
-    assert top5.notify(tmp_path, {"ntfy_topic": "x"}, log=lambda *_: None) == 0     # inga dubbletter
-
+    assert top5.notify(tmp_path, {"ntfy_topic": "x"}, log=lambda *_: None, now=now) == 0     # inga dubbletter
+    # oddset rasar och P6 startar: rankingen är densamma (styrkan räknas på bokningen)
+    bets[6].update(stangning=1.5, status="vunnen")
+    (site / "nba" / "data.json").write_text(json.dumps({"live": True, "bokforing": bets}), encoding="utf-8")
+    assert [x["spelare"] for x in top5.ranking(site, now + 4 * 3600)][:2] == ["P6", "P5"]
+    # NBA-natten (kl. 02 svensk tid) hör till kvällen innan
+    assert top5.play_day(datetime(2026, 11, 13, 1, 0, tzinfo=timezone.utc).timestamp()) == "2026-11-12"
 
 
 def test_cleanup_removes_nhl_state(tmp_path):

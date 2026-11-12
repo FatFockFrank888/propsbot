@@ -1,11 +1,13 @@
-"""Topp 5 som notis: samma ranking som fliken Topp 5 på webbsidan (web/index.html, renderTopp).
+"""Dagens topp 5: samma ranking som fliken Topp 5 på webbsidan (web/index.html, renderTopp).
 
-Körs sist i varje körning, när alla sporters data är skrivna (site/data.json, site/nba/data.json).
-Ett spel som för första gången hamnar bland de fem starkaste skickas som EN notis
-(en per spelare/lag och match – flyttar spelet bara upp eller ner i listan skickas inget nytt).
+Rankas bland de LIVE-spel som faktiskt är bokförda för speldagen (svensk tid, dagen byts kl. 08 så att
+NBA-natten hör till kvällen innan). Styrkan räknas på värdena när spelet lades och ändras alltså inte
+när oddset rör sig – ett spel du redan lagt försvinner inte ur listan för att oddset fallit, matchen
+startat eller spelet avgjorts. Bara ett starkare nytt LIVE-spel kan trycka ner det.
+
+Ett spel som för första gången hamnar bland dagens fem starkaste skickas som EN notis (före start).
 
 Styrka = edge (högst 15, över 15 dras ner) + halva modellens edge (±15) + sharp money (+1 / −2) + 1 för LIVE.
-Insats  = det bokförda LIVE-spelets insats, annars förslaget med samma tak som LIVE (5u, sides i data 3u).
 """
 from __future__ import annotations
 
@@ -42,35 +44,57 @@ def score(r: dict) -> dict:
     return {"score": ec + mp + s + live, "edge": e, "model": m, "sharp": s}
 
 
-def _open_live(d: dict, sport: str) -> list[dict]:
-    out = []
-    if d.get("live"):
-        out += [b for b in d.get("bokforing", []) if b.get("status") == "öppen" and not b.get("dubblett")]
-    out += [b for b in d.get("sides_spel", []) if b.get("notis") and b.get("status") == "öppen"]
-    return out
+DAY_SHIFT_H = 8   # speldagen byts kl. 08 svensk tid
 
 
-def ranking(site: Path, now: float | None = None) -> list[dict]:
-    """Alla spelbara kandidater, starkast först, högst en per spelare/lag och match."""
+def _offset(ts: float) -> int:
+    dt = datetime.fromtimestamp(ts, timezone.utc)
+    y = dt.year
+    last_sun = lambda m: max(d for d in (datetime(y, m, day, 1, tzinfo=timezone.utc) for day in range(25, 32))
+                             if d.weekday() == 6)
+    return 2 if last_sun(3) <= dt < last_sun(10) else 1
+
+
+def play_day(ts: float) -> str:
+    """Speldag (svensk tid) för en avsparkstid; matcher före kl. 08 hör till dagen innan."""
+    return datetime.fromtimestamp(ts + _offset(ts) * 3600 - DAY_SHIFT_H * 3600, timezone.utc).strftime("%Y-%m-%d")
+
+
+def _live_bets(d: dict) -> list[dict]:
+    out = [b for b in d.get("bokforing", []) if d.get("live")]
+    out += [b for b in d.get("sides_spel", []) if b.get("notis")]
+    return [b for b in out if not b.get("dubblett") and b.get("status") not in ("struken",)]
+
+
+def bet_score(b: dict) -> dict:
+    """Styrka på värdena när spelet lades (ändras inte med oddset)."""
+    e = (b.get("edge") or 0) * 100
+    ec = min(e, 15) - max(0.0, e - 15) * 0.5
+    m = b["modell_edge"] * 100 if b.get("modell_edge") is not None else None
+    mp = 0.0 if m is None else 0.5 * max(-15.0, min(15.0, m))
+    k = (b.get("stopp") or "").lower()
+    s = 1 if re.search(r"sharp money (with|med) (us|oss)", k) else -2 if re.search(r"sharp (money mot oss|moved .* against)", k) else 0
+    return {"score": ec + mp + s + 1, "edge": e, "model": m, "sharp": s}
+
+
+def ranking(site: Path, now: float | None = None, day: str | None = None) -> list[dict]:
+    """Speldagens bokförda LIVE-spel, starkast först, högst ett per spelare/lag och match."""
     now = now or time.time()
+    day = day or play_day(now)
     rows = []
     for sport, f in SPORTS.items():
         try:
             d = json.loads((site / f).read_text(encoding="utf-8"))
         except (FileNotFoundError, json.JSONDecodeError):
             continue
-        live = _open_live(d, sport)
-        for r in d.get("radar", []) or []:
-            ts = _ts(r.get("avspark"))
-            if not r.get("spelbar") or not r.get("live") or not ts or ts <= now + 60:   # bara LIVE-spel
+        for b in _live_bets(d):
+            ts = b.get("avspark")
+            if not ts or play_day(ts) != day:
                 continue
-            x = dict(r, sport=sport, ts=ts, t=score(r))
-            lb = next((b for b in live if b.get("spelare") == r.get("spelare")), None)
-            cap = 3 if sport == "fotboll" and r.get("marknad") in SIDES and not r.get("live") else 5
-            x["units"] = round(lb["insats_pct"] / U) if lb else min(cap, max(0, round((r.get("insats_pct") or r.get("insats_forslag") or 0) / U)))
-            x["live_bet"] = bool(lb)
-            rows.append(x)
-    rows.sort(key=lambda x: -x["t"]["score"])
+            spel = b.get("spel_text") or f"{MK.get(b.get('marknad'), b.get('marknad'))} {'under' if b.get('sida') == 'under' else 'över'} {b.get('linje')}"
+            rows.append(dict(b, sport=sport, ts=ts, spel=spel, t=bet_score(b), units=round((b.get("insats_pct") or 0) / U),
+                             live=True, live_bet=True))
+    rows.sort(key=lambda x: (-x["t"]["score"], x.get("bokford") or 0))
     seen, out = set(), []
     for x in rows:
         k = (x["sport"], x.get("match"), x.get("spelare"))
@@ -100,18 +124,18 @@ def message(x: dict, rank: int) -> tuple[str, str]:
         f"Edge {t['edge']:.1f} %" + (f" · modell {t['model']:+.1f} %" if t["model"] is not None else "")
         + (" · sharp money ⬆" if t["sharp"] > 0 else "") + f" · styrka {t['score']:.1f}",
         f"Insats: {x['units']}u" + (" (som LIVE-spelet)" if x["live_bet"] else "")
-        + (" · LIVE" if x.get("live") else " · data, ingen LIVE-notis"),
+        + " · LIVE",
     ]
     return title, "\n".join(lines)
 
 
-def notify(root: Path, settings: dict, log=print, top_n: int = 5) -> int:
+def notify(root: Path, settings: dict, log=print, top_n: int = 5, now: float | None = None) -> int:
     """Skicka nya topp 5-spel. Returnerar antal skickade."""
     topic = settings.get("ntfy_topic")
     if not topic or not settings.get("top5_notify", True):
         return 0
     from .notify import send
-    now = time.time()
+    now = now or time.time()
     top = ranking(root / "site", now)[:top_n]
     path = root / "topp5_notis.json"
     try:
@@ -121,7 +145,7 @@ def notify(root: Path, settings: dict, log=print, top_n: int = 5) -> int:
     n = 0
     for i, x in enumerate(top, 1):
         k = f"{x['sport']}|{x.get('match')}|{x.get('spelare')}"
-        if k in sent or x["ts"] - now < 10 * 60:
+        if k in sent or x["ts"] - now < 10 * 60 or x.get("status") != "öppen":
             continue
         title, msg = message(x, i)
         if send(topic, title, msg, priority=4, tags="trophy"):

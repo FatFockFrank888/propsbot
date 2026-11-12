@@ -12,7 +12,7 @@ LIVE-spelen skickas som notis. Kraven bygger på 509 unika avgjorda NBA-spel (3/
     1 378 unika spel: assist/returer/trepoängare utan modellrad slog Kambis stängning med +2,8 pe
     (t 11,6), poäng över utan modellens stöd gav −18 %. Spel där modellen håller med väljs först.
   * minst två oberoende jämförelsekällor (Pinnacle, Kalshi, DK/FD …)
-  * odds live_odds_window (1,40–3,00)
+  * odds live_odds_window (1,60–3,00; golvet höjt från 1,40 den 12/11)
   * alla vanliga spärrar (oddsfall, sharp money mot oss, ett spel per spelare) gäller redan
   * riskkontroll: högst live_max_units per spel, live_max_per_match spel per match,
     live_max_per_day spel och live_max_units_day units per matchdag (amerikansk tid).
