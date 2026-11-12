@@ -12,192 +12,244 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Propsbot">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
-<meta name="theme-color" content="#141414">
+<meta name="theme-color" content="#0e1115">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root { --bg:#141414; --panel:#1c1c1c; --line:#2a2a2a; --text:#ececec; --dim:#8a8a8a;
-          --good:#4cc38a; --bad:#e5484d; --accent:#3b82f6; --warn:#fbbf24;
-          --s-fotboll:#4cc38a; --s-nba:#f59e0b; }
-  @media (prefers-color-scheme: light) {
-    :root { --bg:#fafafa; --panel:#fff; --line:#e4e4e4; --text:#161616; --dim:#6b6b6b; --warn:#b45309; }
+  :root {
+    --bg:#0e1115; --panel:#151a20; --panel2:#1b2129; --line:#252c36; --line2:#313946;
+    --text:#e9edf2; --dim:#8b95a3; --mute:#5f6876;
+    --accent:#f5a524; --good:#3fcf8e; --bad:#f0616d; --info:#5aa9ff; --warn:#f5a524;
+    --s-fotboll:#3fcf8e; --s-nba:#f59e0b;
+    --f-body:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    --f-disp:"Barlow Condensed","Arial Narrow","Roboto Condensed",system-ui,sans-serif;
+    --r-sm:8px; --r-md:12px; --r-lg:16px; --r-pill:999px;
+    --ease:cubic-bezier(.22,1,.36,1);
   }
   * { box-sizing:border-box; }
-  body { margin:0; background:var(--bg); color:var(--text);
-         font:14px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-  header { padding:16px 20px 4px; display:flex; flex-wrap:wrap; gap:10px 18px; align-items:center; }
-  h1 { font-size:20px; margin:0; }
-  .sports { display:flex; gap:6px; flex-wrap:wrap; }
-  .sp { background:none; border:1px solid var(--line); color:var(--dim); padding:6px 12px; border-radius:99px;
-        cursor:pointer; font-size:14px; }
-  .sp.on { color:var(--text); background:var(--panel); border-color:var(--text); }
-  .fresh { color:var(--dim); font-size:12px; margin-left:auto; display:flex; gap:12px; flex-wrap:wrap; }
-  .fresh b { font-weight:600; }
-  .stale { color:var(--warn); }
-  .tabs { display:flex; gap:6px; padding:10px 20px 0; flex-wrap:wrap; border-bottom:1px solid var(--line); }
-  .tab { background:none; border:none; border-bottom:2px solid transparent; color:var(--dim); padding:8px 10px;
-         cursor:pointer; font-size:14px; text-decoration:none; }
+  html { -webkit-text-size-adjust:100%; }
+  body { margin:0; background:var(--bg); color:var(--text); font:14px/1.5 var(--f-body);
+         font-feature-settings:"tnum" 1; -webkit-font-smoothing:antialiased; }
+  a { color:var(--info); text-decoration:none; } a:hover { text-decoration:underline; }
+  .hidden { display:none !important; }
+
+  /* ---------- topp: varumärke, flikar, färskhet ---------- */
+  header { position:sticky; top:0; z-index:30; background:rgba(14,17,21,.86); backdrop-filter:saturate(1.4) blur(12px);
+           -webkit-backdrop-filter:saturate(1.4) blur(12px); border-bottom:1px solid var(--line); }
+  .bar1 { display:flex; align-items:center; gap:18px; padding:0 20px; height:56px; max-width:1280px; margin:0 auto; }
+  .brand { display:flex; align-items:center; gap:9px; font:700 20px/1 var(--f-disp); letter-spacing:.06em; text-transform:uppercase; white-space:nowrap; }
+  .brand i { width:22px; height:22px; border-radius:50%; background:conic-gradient(from 200deg,var(--accent),#ffcf6b,var(--accent)); box-shadow:0 0 18px rgba(245,165,36,.35); }
+  .tabs { display:flex; gap:2px; overflow-x:auto; scrollbar-width:none; height:100%; }
+  .tabs::-webkit-scrollbar { display:none; }
+  .tab { background:none; border:0; color:var(--dim); font:500 14px var(--f-body); padding:0 12px; cursor:pointer; white-space:nowrap;
+         border-bottom:2px solid transparent; transition:color .15s; display:flex; align-items:center; gap:6px; }
+  .tab:hover { color:var(--text); text-decoration:none; }
   .tab.on { color:var(--text); border-bottom-color:var(--accent); }
-  main { padding:12px 20px 40px; }
+  .tab .ct { font-size:11px; font-weight:700; color:#111; background:var(--accent); border-radius:var(--r-pill); padding:0 6px; line-height:17px; }
+  .fresh { margin-left:auto; display:flex; gap:12px; align-items:center; color:var(--dim); font-size:12px; white-space:nowrap; }
+  .fresh .dot { display:inline-block; width:7px; height:7px; border-radius:50%; background:var(--good); margin-right:5px; vertical-align:1px; }
+  .fresh .stale .dot { background:var(--bad); } .fresh .stale { color:var(--bad); }
+  .fresh .unit { color:var(--mute); }
+  @media (max-width:1100px) { .fresh .unit { display:none; } }
+  @media (max-width:860px) {
+    .bar1 { flex-wrap:wrap; height:auto; padding:10px 14px 0; gap:6px 12px; }
+    .tabs { order:3; height:42px; margin:0 -14px; padding:0 8px; width:calc(100% + 28px); }
+    .fresh .unit { display:none; }
+  }
+
+  main { max-width:1280px; margin:0 auto; padding:22px 20px 60px; }
+  @media (max-width:860px) { main { padding:16px 14px 50px; } }
+
+  /* ---------- sidhuvud per flik ---------- */
+  .hero { display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:12px 20px; margin:0 0 18px; }
+  .eyebrow { font:700 12px/1 var(--f-body); letter-spacing:.12em; text-transform:uppercase; color:var(--accent); margin-bottom:8px; }
+  h1, .h1 { font:700 40px/1.05 var(--f-disp); margin:0; letter-spacing:.005em; }
+  @media (max-width:860px) { h1, .h1 { font-size:32px; } }
+  .lead { color:var(--dim); font-size:14px; max-width:760px; margin-top:6px; }
+  h2 { font:700 22px/1.1 var(--f-disp); margin:30px 0 12px; display:flex; align-items:center; gap:10px; letter-spacing:.01em; }
+  h2 .n { color:var(--dim); font-weight:600; }
+  h2 .led { width:9px; height:9px; border-radius:50%; background:var(--good); box-shadow:0 0 0 4px rgba(63,207,142,.15); }
+  h2 .led.off { background:var(--mute); box-shadow:none; }
   .sub { color:var(--dim); font-size:13px; max-width:900px; }
-  .controls { display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin:10px 0 12px; }
-  input, select { background:var(--panel); color:var(--text); border:1px solid var(--line);
-         border-radius:8px; padding:8px 10px; font-size:14px; }
+  .note { color:var(--dim); font-size:12.5px; max-width:900px; margin-top:16px; line-height:1.6; }
+
+  /* ---------- sportväljare (segment) ---------- */
+  .seg { display:inline-flex; background:var(--panel); border:1px solid var(--line); border-radius:var(--r-pill); padding:3px; gap:2px; }
+  .seg button { background:none; border:0; color:var(--dim); font:600 13px var(--f-body); padding:7px 14px; border-radius:var(--r-pill); cursor:pointer; }
+  .seg button.on { background:var(--panel2); color:var(--text); box-shadow:inset 0 0 0 1px var(--line2); }
+
+  /* ---------- formulär ---------- */
+  .controls { display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin:6px 0 14px; }
+  input, select, .btn { background:var(--panel); color:var(--text); border:1px solid var(--line); border-radius:var(--r-pill);
+         padding:8px 14px; font:500 13px var(--f-body); }
+  select { appearance:none; -webkit-appearance:none; padding-right:30px;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2210%22 height=%226%22%3E%3Cpath d=%22M1 1l4 4 4-4%22 stroke=%22%238b95a3%22 stroke-width=%221.6%22 fill=%22none%22/%3E%3C/svg%3E");
+    background-repeat:no-repeat; background-position:right 12px center; }
+  input:focus, select:focus { outline:none; border-color:var(--accent); }
   input[type=search] { width:260px; max-width:100%; }
-  input[type=number] { width:72px; }
-  label { display:flex; gap:6px; align-items:center; cursor:pointer; }
-  .wrap { overflow:auto; max-height:72vh; border-top:1px solid var(--line); }
+  input[type=number] { width:80px; }
+  input[type=checkbox] { accent-color:var(--accent); width:15px; height:15px; padding:0; }
+  label { display:flex; gap:6px; align-items:center; cursor:pointer; color:var(--dim); font-size:13px; }
+  .btn { cursor:pointer; color:var(--dim); } .btn:hover { color:var(--text); border-color:var(--line2); text-decoration:none; }
+  .chipsel { display:flex; gap:6px; flex-wrap:wrap; }
+  .chipsel button { background:var(--panel); border:1px solid var(--line); color:var(--dim); font:600 13px var(--f-body);
+                    padding:7px 14px; border-radius:var(--r-pill); cursor:pointer; }
+  .chipsel button.on { color:#111; background:var(--accent); border-color:var(--accent); }
+
+  /* ---------- tabeller ---------- */
+  .wrap { overflow:auto; max-height:72vh; background:var(--panel); border:1px solid var(--line); border-radius:var(--r-lg); }
   .wrap.free { max-height:none; }
   table { width:100%; border-collapse:collapse; }
-  th { position:sticky; top:0; background:var(--bg); text-align:left; font-weight:600;
-       padding:8px 9px; border-bottom:1px solid var(--line); white-space:nowrap; cursor:pointer; }
-  td { padding:7px 9px; border-bottom:1px solid var(--line); white-space:nowrap; }
+  th { position:sticky; top:0; z-index:1; background:var(--panel); text-align:left; font:600 11px var(--f-body); letter-spacing:.06em;
+       text-transform:uppercase; color:var(--dim); padding:11px 12px; border-bottom:1px solid var(--line); white-space:nowrap; cursor:pointer; }
+  td { padding:10px 12px; border-bottom:1px solid var(--line); white-space:nowrap; font-size:13.5px; }
+  tr:last-child td { border-bottom:0; }
+  tbody tr:hover td { background:rgba(255,255,255,.025); }
   td.n, th.n { text-align:right; font-variant-numeric:tabular-nums; }
-  td.wrapt { white-space:normal; min-width:220px; }
+  td.wrapt { white-space:normal; min-width:200px; }
   .pos { color:var(--good); } .neg { color:var(--dim); } .loss { color:var(--bad); }
-  tr.play td { background:rgba(76,195,138,.08); }
-  tr.top1 td { background:rgba(245,196,66,.20); } tr.top1 td:first-child { box-shadow:inset 4px 0 #f5c442; }
-  tr.top2 td { background:rgba(76,195,138,.20); } tr.top2 td:first-child { box-shadow:inset 4px 0 #4cc38a; }
-  tr.top3 td { background:rgba(59,130,246,.18); } tr.top3 td:first-child { box-shadow:inset 4px 0 #3b82f6; }
-  tr.weak td { opacity:.55; }
-  .rank { display:inline-block; min-width:20px; text-align:center; font-weight:700; border-radius:99px; padding:0 6px; color:#111; font-size:12px; }
-  .rank.r1 { background:#f5c442; } .rank.r2 { background:#4cc38a; } .rank.r3 { background:#3b82f6; color:#fff; }
-  .pill { padding:1px 8px; border-radius:99px; font-size:12px; border:1px solid var(--line); }
-  .pill.vunnen { color:var(--good); border-color:var(--good); }
-  .pill.förlorad { color:var(--bad); border-color:var(--bad); }
-  .pill.öppen { color:var(--accent); border-color:var(--accent); }
-  .tag { font-size:11px; font-weight:700; padding:1px 6px; border-radius:4px; color:#111; }
+  tr.play td { background:rgba(63,207,142,.06); }
+  .pill { display:inline-block; padding:2px 9px; border-radius:var(--r-pill); font-size:11.5px; font-weight:600; background:var(--panel2); color:var(--dim); }
+  .pill.vunnen { color:var(--good); background:rgba(63,207,142,.12); }
+  .pill.förlorad { color:var(--bad); background:rgba(240,97,109,.12); }
+  .pill.öppen { color:var(--info); background:rgba(90,169,255,.12); }
+  .tag { font-size:10.5px; font-weight:700; padding:2px 7px; border-radius:5px; color:#111; letter-spacing:.03em; text-transform:uppercase; }
   .tag.fotboll { background:var(--s-fotboll); } .tag.nba { background:var(--s-nba); }
-  .tiles { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px; margin:6px 0 16px; }
-  .tile { background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:11px 13px; }
-  .tile .k { color:var(--dim); font-size:12px; }
-  .tile .v { font-size:20px; font-weight:600; margin-top:2px; font-variant-numeric:tabular-nums; }
+
+  /* ---------- nyckeltal ---------- */
+  .tiles { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px; margin:6px 0 18px; }
+  .tile { background:var(--panel); border:1px solid var(--line); border-radius:var(--r-md); padding:12px 14px; }
+  .tile .k { color:var(--dim); font-size:11px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; }
+  .tile .v { font:700 26px/1.15 var(--f-disp); margin-top:4px; font-variant-numeric:tabular-nums; }
   .tile .x { color:var(--dim); font-size:12px; margin-top:2px; }
-  .card { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:14px 16px; margin:0 0 16px; }
-  .card h3 { margin:0 0 6px; font-size:16px; display:flex; gap:8px; align-items:center; }
-  .verdict { padding:8px 12px; border-radius:8px; margin:6px 0 12px; border:1px solid var(--line); }
-  .verdict.good { border-color:var(--good); color:var(--good); }
-  .verdict.bad { border-color:var(--bad); color:var(--bad); }
+  .card { background:var(--panel); border:1px solid var(--line); border-radius:var(--r-lg); padding:18px 20px; margin:0 0 18px; }
+  .card h3 { margin:0 0 8px; font:700 24px var(--f-disp); display:flex; gap:10px; align-items:center; }
+  .card .wrap { background:none; border-radius:var(--r-md); }
+  .card .tile { background:var(--panel2); }
+  .verdict { padding:10px 14px; border-radius:var(--r-md); margin:6px 0 14px; background:var(--panel2); font-weight:500; }
+  .verdict.good { color:var(--good); background:rgba(63,207,142,.1); }
+  .verdict.bad { color:var(--bad); background:rgba(240,97,109,.1); }
   .verdict.wait { color:var(--dim); }
-  h2 { font-size:15px; margin:20px 0 8px; }
-  .empty { color:var(--dim); padding:20px 0; }
-  .hidden { display:none !important; }
-  .grid2 { display:grid; grid-template-columns:repeat(auto-fit,minmax(340px,1fr)); gap:16px; }
+  .empty { color:var(--dim); padding:26px; text-align:center; }
+  .grid2 { display:grid; grid-template-columns:repeat(auto-fit,minmax(340px,1fr)); gap:18px; }
   svg text { fill:var(--dim); font-size:11px; }
-  .banner { margin:8px 20px 0; padding:9px 13px; border:1px solid var(--warn); border-radius:10px; color:var(--warn); }
-  a { color:var(--accent); }
-  /* ---------- TOPP 5 ---------- */
-  .hero { display:flex; flex-wrap:wrap; gap:8px 18px; align-items:flex-end; justify-content:space-between; margin:4px 0 14px; }
-  .hero h2 { font-size:22px; margin:0; letter-spacing:-.3px; }
-  .hero h2 span { background:linear-gradient(90deg,#f5c442,#4cc38a,#3b82f6); -webkit-background-clip:text; background-clip:text; color:transparent; }
-  .pulse { display:inline-block; width:8px; height:8px; border-radius:50%; background:var(--good); margin-right:6px;
-           box-shadow:0 0 0 0 rgba(76,195,138,.7); animation:pulse 2s infinite; }
-  @keyframes pulse { 70% { box-shadow:0 0 0 9px rgba(76,195,138,0); } 100% { box-shadow:0 0 0 0 rgba(76,195,138,0); } }
-  .tgrid { display:grid; grid-template-columns:repeat(auto-fill,minmax(290px,1fr)); gap:14px; }
-  .tc { position:relative; background:var(--panel); border:1px solid var(--line); border-radius:16px; padding:16px 16px 14px;
-        overflow:hidden; transition:transform .15s; }
-  .tc:hover { transform:translateY(-2px); }
-  .tc::before { content:""; position:absolute; inset:0 0 auto 0; height:4px; background:var(--rk); }
-  .tc.r1 { --rk:linear-gradient(90deg,#f5c442,#ffe29a); border-color:rgba(245,196,66,.55); box-shadow:0 0 28px rgba(245,196,66,.12); }
-  .tc.r2 { --rk:linear-gradient(90deg,#c9d1d9,#f0f3f6); } .tc.r3 { --rk:linear-gradient(90deg,#cd7f32,#e8a96b); }
-  .tc.r4, .tc.r5 { --rk:var(--accent); }
-  .tc.bub { --rk:repeating-linear-gradient(90deg,var(--warn) 0 10px,transparent 10px 16px); border-style:dashed; }
-  .tc .num { position:absolute; right:12px; top:4px; font-size:64px; font-weight:800; line-height:1; color:var(--text); opacity:.07; }
-  .tc .top { display:flex; gap:6px; align-items:center; flex-wrap:wrap; font-size:12px; color:var(--dim); }
-  .tc .who { font-size:19px; font-weight:700; margin:8px 0 0; }
-  .tc .bet { font-size:14px; margin:2px 0 10px; }
-  .tc .row { display:flex; justify-content:space-between; align-items:center; gap:10px; }
-  .tc .odds { font-size:30px; font-weight:800; font-variant-numeric:tabular-nums; letter-spacing:-.5px; }
-  .tc .odds small { font-size:12px; font-weight:500; color:var(--dim); margin-left:6px; letter-spacing:0; }
-  .ring { width:58px; height:58px; flex:none; }
-  svg.ring text { fill:var(--text); font-size:15px; font-weight:700; }
-  .bar { height:6px; border-radius:99px; background:var(--line); overflow:hidden; margin:3px 0 8px; }
-  .bar i { display:block; height:100%; border-radius:99px; }
-  .lbl { display:flex; justify-content:space-between; font-size:11px; color:var(--dim); }
-  .chips { display:flex; flex-wrap:wrap; gap:5px; margin-top:8px; }
-  .chip { font-size:11px; padding:2px 8px; border-radius:99px; border:1px solid var(--line); color:var(--dim); }
-  .chip.g { color:var(--good); border-color:rgba(76,195,138,.5); } .chip.w { color:var(--warn); border-color:rgba(251,191,36,.5); }
-  .chip.l { color:#111; background:var(--good); border-color:var(--good); font-weight:700; }
+  .banner { max-width:1240px; margin:12px auto 0; padding:10px 14px; border-radius:var(--r-md); color:var(--bad);
+            background:rgba(240,97,109,.1); border:1px solid rgba(240,97,109,.35); }
+  .emptybox { grid-column:1/-1; background:var(--panel); border:1px dashed var(--line2); border-radius:var(--r-lg); padding:34px 20px; text-align:center; color:var(--dim); }
+  .emptybox b { display:block; color:var(--text); font-size:15px; margin-bottom:4px; }
+
+  /* ---------- spelkort ---------- */
+  .cards { display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:14px; }
+  @media (max-width:400px) { .cards, #toppCards { grid-template-columns:1fr !important; } }
+  .bc { position:relative; background:var(--panel); border:1px solid var(--line); border-radius:var(--r-lg); padding:16px;
+        display:flex; flex-direction:column; gap:12px; transition:border-color .2s var(--ease); }
+  .bc:hover { border-color:var(--line2); }
+  .bc.dim { opacity:.62; }
+  .bc .hd { display:flex; gap:11px; align-items:center; }
+  .av { width:40px; height:40px; flex:none; border-radius:50%; background:var(--panel2); border:1px solid var(--line2);
+        display:grid; place-items:center; font:700 14px var(--f-disp); letter-spacing:.04em; color:var(--dim); position:relative; }
+  .av .sd { position:absolute; right:-1px; bottom:-1px; width:11px; height:11px; border-radius:50%; border:2px solid var(--panel); }
+  .bc .who { font-weight:600; font-size:15px; line-height:1.25; }
+  .bc .meta { color:var(--dim); font-size:12.5px; }
+  .bc .meta b { color:var(--accent); font-weight:600; }
+  .bc .badge { margin-left:auto; align-self:flex-start; display:flex; gap:6px; align-items:center; }
+  .mkt { font:700 11px var(--f-body); letter-spacing:.1em; text-transform:uppercase; color:var(--dim); }
+  .line { font:700 30px/1 var(--f-disp); display:flex; align-items:center; gap:8px; margin-top:4px; }
+  .line .ar { font-size:22px; } .line .ar.up { color:var(--good); } .line .ar.dn { color:var(--accent); }
+  .stats { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:var(--r-md); overflow:hidden; }
+  .stats.s4 { grid-template-columns:repeat(4,1fr); }
+  @media (max-width:400px) { .stats.s4 { grid-template-columns:repeat(2,1fr); } }
+  .stats > div { background:var(--panel2); padding:10px 11px; min-width:0; }
+  .stats .k { font-size:11px; color:var(--dim); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .stats .v { font:700 22px/1.15 var(--f-disp); margin-top:2px; font-variant-numeric:tabular-nums; white-space:nowrap; }
+  .stats .x { font-size:11px; color:var(--mute); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .cmp { font-size:12px; color:var(--dim); display:flex; justify-content:space-between; gap:8px; }
+  .cmp b { color:var(--text); font-weight:600; }
+  .track { position:relative; height:6px; background:var(--panel2); border-radius:var(--r-pill); overflow:hidden; margin-top:6px; }
+  .track i { position:absolute; inset:0 auto 0 0; border-radius:var(--r-pill); background:var(--good); }
+  .track.warn i { background:var(--bad); }
+  .foot { display:flex; flex-wrap:wrap; gap:6px; align-items:center; }
+  .chip { font-size:11.5px; font-weight:500; padding:3px 9px; border-radius:var(--r-pill); background:var(--panel2); color:var(--dim); white-space:nowrap; }
+  .chip.g { color:var(--good); background:rgba(63,207,142,.1); } .chip.w { color:var(--accent); background:rgba(245,165,36,.1); }
+  .chip.b { color:var(--bad); background:rgba(240,97,109,.1); } .chip.i { color:var(--info); background:rgba(90,169,255,.1); }
+  .chip.l { color:#111; background:var(--accent); font-weight:700; }
+  .news { font-size:12px; font-weight:600; color:var(--bad); background:rgba(240,97,109,.08); border-radius:var(--r-sm); padding:7px 10px; }
+  .news.ok { color:var(--good); background:rgba(63,207,142,.08); }
+  .rk { font:700 15px/1 var(--f-disp); min-width:30px; height:30px; padding:0 8px; display:grid; place-items:center; border-radius:var(--r-pill);
+        background:var(--panel2); color:var(--dim); border:1px solid var(--line2); }
+  .rk.r1 { background:linear-gradient(135deg,#ffd36b,#f5a524); color:#1a1205; border:0; }
+  .rk.r2 { background:linear-gradient(135deg,#eef2f6,#b9c2cd); color:#14181d; border:0; }
+  .rk.r3 { background:linear-gradient(135deg,#e7a46a,#b9702f); color:#1a1006; border:0; }
+  .bc.top1 { border-color:rgba(245,165,36,.55); box-shadow:0 0 0 1px rgba(245,165,36,.2), 0 12px 40px -14px rgba(245,165,36,.3); }
+  .bc.top2 { border-color:rgba(200,208,218,.3); } .bc.top3 { border-color:rgba(205,127,50,.4); }
   .cd { font-variant-numeric:tabular-nums; }
-  .subh { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin:26px 0 10px; }
-  .subh h3 { margin:0; font-size:16px; }
-  .tgrid .empty { grid-column:1/-1; }
-  /* #1 som stort hjältekort (2x2) bredvid 2–5 */
-  #toppCards { grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); grid-auto-flow:dense; }
-  @media (min-width:820px) {
-    #toppCards .tc.r1 { grid-column:span 2; grid-row:span 2; padding:24px 26px; display:flex; flex-direction:column; justify-content:space-between;
-      background:radial-gradient(120% 90% at 100% 0%,rgba(245,196,66,.16),transparent 60%),var(--panel); }
-    #toppCards .tc.r1 .num { font-size:150px; opacity:.09; }
-    #toppCards .tc.r1 .who { font-size:30px; } #toppCards .tc.r1 .bet { font-size:18px; }
-    #toppCards .tc.r1 .odds { font-size:54px; } #toppCards .tc.r1 .ring { width:96px; height:96px; }
-    #toppCards .tc.r1 .bar { height:9px; }
+  #toppCards { grid-template-columns:repeat(auto-fill,minmax(330px,1fr)); grid-auto-flow:dense; }
+  @media (min-width:900px) {
+    #toppCards .bc.top1 { grid-column:span 2; padding:22px 24px; gap:14px;
+      background:radial-gradient(120% 80% at 100% 0%,rgba(245,165,36,.12),transparent 60%),var(--panel); }
+    #toppCards .bc.top1 .line { font-size:48px; } #toppCards .bc.top1 .who { font-size:19px; }
+    #toppCards .bc.top1 .stats .v { font-size:32px; } #toppCards .bc.top1 .av { width:52px; height:52px; font-size:17px; }
   }
-  .news { font-size:11px; font-weight:600; color:var(--bad); white-space:normal; margin-top:2px; }
-  .news.ok { color:var(--good); }
-  .stake { display:flex; align-items:baseline; gap:8px; margin:8px 0 2px; padding:6px 10px; border-radius:10px;
-           background:rgba(127,127,127,.08); border-left:3px solid var(--c); }
-  .stake span { font-size:11px; color:var(--dim); text-transform:uppercase; letter-spacing:.5px; }
-  .stake b { font-size:20px; font-weight:800; } .stake em { font-style:normal; font-size:11px; color:var(--dim); margin-left:auto; }
-  @media (min-width:820px) { #toppCards .tc.r1 .stake b { font-size:28px; } }
-  .crown { font-size:12px; font-weight:700; color:#f5c442; letter-spacing:.5px; text-transform:uppercase; }
+  /* avgjorda: kompakt lista */
+  .list { background:var(--panel); border:1px solid var(--line); border-radius:var(--r-lg); overflow:hidden; }
+  .li { display:grid; grid-template-columns:auto 1fr auto auto; gap:12px; align-items:center; padding:11px 14px; border-bottom:1px solid var(--line); }
+  .li:last-child { border-bottom:0; }
+  .li .t1 { font-weight:600; } .li .t2 { color:var(--dim); font-size:12.5px; }
+  .li .res { font:700 19px var(--f-disp); text-align:right; min-width:64px; }
+  .li .mid { text-align:right; color:var(--dim); font-size:12.5px; }
+  @media (max-width:560px) { .li { grid-template-columns:auto 1fr auto; } .li .mid { display:none; } }
 </style>
 </head>
 <body>
 <header>
-  <h1>Propsbot</h1>
-  <div class="sports" id="sports">
-    <button class="sp on" data-s="alla">Alla</button>
-    <button class="sp" data-s="fotboll">⚽ Fotboll</button>
-    <button class="sp" data-s="nba">🏀 NBA</button>
+  <div class="bar1">
+    <div class="brand"><i></i>Propsbot</div>
+    <nav class="tabs" id="tabs">
+      <button class="tab on" data-t="nu">Spela nu <span class="ct hidden" id="ctNu"></span></button>
+      <button class="tab" data-t="topp">Topp 5</button>
+      <button class="tab" data-t="radar">Radar</button>
+      <button class="tab" data-t="res">Resultat</button>
+      <button class="tab" data-t="bok">Bokföring</button>
+      <button class="tab" data-t="parlay">Parlays</button>
+      <button class="tab" data-t="param">Parametrar</button>
+    </nav>
+    <div class="fresh" id="fresh"></div>
   </div>
-  <div class="fresh" id="fresh"></div>
 </header>
 <div id="banner" class="banner hidden"></div>
-<div class="tabs" id="tabs">
-  <button class="tab on" data-t="nu">⚡ Spela nu</button>
-  <button class="tab" data-t="topp">🏆 Topp 5</button>
-  <button class="tab" data-t="radar">Radar</button>
-  <button class="tab" data-t="res">Resultat</button>
-  <button class="tab" data-t="bok">Bokföring &amp; analys</button>
-  <button class="tab" data-t="parlay">Parlays</button>
-  <button class="tab" data-t="param">Parametrar</button>
-</div>
 <main>
+  <div class="hero" id="hero">
+    <div><div class="eyebrow" id="heroEye"></div><h1 id="heroTitle"></h1><div class="lead" id="heroLead"></div></div>
+    <div class="seg" id="sports">
+      <button class="sp on" data-s="alla">Alla</button>
+      <button class="sp" data-s="fotboll">⚽ Fotboll</button>
+      <button class="sp" data-s="nba">🏀 NBA</button>
+    </div>
+  </div>
   <!-- ======================================================= SPELA NU -->
   <section id="nu">
-    <div class="sub">De spel vi faktiskt spelar (LIVE). Bara dessa skickas som notis – en per spelare och match.
-      Spela till lägst <b>Spela från</b>-oddset. Allt annat på sidan är data.</div>
-    <div id="nuNote" class="sub" style="margin-top:6px"></div>
-    <div class="sub" style="margin-top:6px"><span class="rank r1">1</span> <span class="rank r2">2</span> <span class="rank r3">3</span>
-      = de tre starkaste spelen just nu, räknade om vid varje skanning. <b>Styrka</b> = edge nu + halva modellens edge (högst 15)
-      + hur marknaden rört sig sedan spelet lades (oddsfall åt vårt håll, ±5) + sharp money (+1 med oss, −2 mot oss).
-      Bara spel som fortfarande går att spela (odds nu ≥ spela från, edge nu &gt; 0) kan bli topp 3; övriga är nedtonade.
-      Håll muspekaren över styrkan för uppdelningen.</div>
-    <h2>Öppna LIVE-spel (före start)</h2>
-    <div class="wrap free"><table>
-      <thead><tr><th>Sport</th><th>Start</th><th>Match</th><th>Spelare</th><th>Spel</th><th>Bolag</th>
-        <th class="n">Odds</th><th class="n">Odds nu</th><th class="n">Spela från</th><th class="n">Edge</th><th class="n">Edge nu</th>
-        <th class="n">Styrka</th><th class="n">Insats</th><th>Notis</th></tr></thead>
-      <tbody id="nuRows"></tbody></table></div>
-    <h2>Senast avgjorda LIVE-spel</h2>
-    <div class="wrap free"><table>
-      <thead><tr><th>Sport</th><th>Start</th><th>Spelare</th><th>Spel</th><th class="n">Odds</th><th class="n">Stängning</th>
-        <th class="n">CLV</th><th>Status</th><th class="n">Utfall</th><th class="n">Resultat</th></tr></thead>
-      <tbody id="nuDone"></tbody></table></div>
+    <div id="nuNote" class="sub"></div>
+    <h2><span class="led" id="nuLed"></span>Öppna LIVE-spel <span class="n" id="nuCount"></span></h2>
+    <div class="cards" id="nuCards"></div>
+    <h2>Senast avgjorda</h2>
+    <div class="list" id="nuDone"></div>
+    <div class="note"><b>Spela till lägst Spela från-oddset.</b> Bara LIVE-spel skickas som notis – ett per spelare och match.
+      <span class="rk r1" style="display:inline-grid;min-width:22px;height:20px;font-size:12px">1</span> –
+      <span class="rk r3" style="display:inline-grid;min-width:22px;height:20px;font-size:12px">3</span> = de tre starkaste som går att spela just nu.
+      <b>Styrka</b> = edge nu + halva modellens edge (högst 15) + hur oddset rört sig sedan spelet lades (±5) + sharp money (+1 med oss, −2 mot oss).</div>
   </section>
 
   <!-- ======================================================= TOPP 5 -->
   <section id="topp" class="hidden">
-    <div class="hero">
-      <div><h2>🏆 <span>Topp 5 just nu</span></h2>
-        <div class="sub"><span class="pulse"></span>Alla botar och alla marknader, räknat om vid varje skanning. Bara LIVE-spel – spel som klarar LIVE-reglerna och ska spelas.</div></div>
-      <div class="sub" id="toppMeta"></div>
-    </div>
-    <div class="tgrid" id="toppCards"></div>
-    <div class="subh"><h3>🫧 På bubblan – reserver</h3>
-      <span class="sub">Också LIVE-spel. Ta dem om något i topp 5 rasar i odds innan du hunnit lägga spelet.</span></div>
-    <div class="tgrid" id="toppBub"></div>
-    <div class="sub" style="margin-top:18px"><b>Styrka</b> (ringen) = edge (högst 15) + halva modellens edge (högst 15) + sharp money
-      (+1 med oss, −2 mot oss) + 1 för LIVE-spel. Edge över 15 % räknas som misstänkt och dras ner.
-      <b>Kudde</b> = hur mycket oddset får falla innan det når spela från-oddset. Håll muspekaren över ett kort för alla detaljer.</div>
+    <div class="controls"><div class="chipsel" id="toppDay"></div><span class="sub" id="toppMeta"></span></div>
+    <div class="cards" id="toppCards"></div>
+    <h2>Reserver <span class="n">plats 6–8</span></h2>
+    <div class="cards" id="toppBub"></div>
+    <div class="note"><b>Dagens topp 5</b> rankas bland de LIVE-spel som är bokförda för speldagen (dagen byts kl. 08, så NBA-natten hör till kvällen innan).
+      Styrkan räknas på värdena när spelet lades – ett spel ligger kvar fast oddset faller, matchen startar eller spelet avgörs.
+      Bara ett starkare nytt LIVE-spel kan trycka ner det. Notis skickas första gången ett spel kommer in bland de fem, före start.
+      <b>Styrka</b> = edge (högst 15) + halva modellens edge (±15) + sharp money (+1 / −2) + 1.</div>
   </section>
 
   <!-- ======================================================= RADAR -->
@@ -209,8 +261,7 @@
       <label><input type="checkbox" id="only"> Bara spelbara</label>
       <label><input type="checkbox" id="onlyLive"> Bara LIVE</label>
     </div>
-    <div class="sub" style="margin-bottom:6px">Alla ben med minst 2 % edge just nu. Grön = klarar alla regler, ⚡ = LIVE-spel.
-      Håll muspekaren över en rad för reglerna som stoppade den.</div>
+    <div class="sub" style="margin-bottom:10px">Håll muspekaren över en rad för reglerna som stoppade den.</div>
     <div class="wrap"><table>
       <thead><tr>
         <th data-k="sport">Sport</th><th data-k="spelare">Spelare</th><th data-k="match">Match</th><th data-k="avspark">Start</th>
@@ -225,8 +276,7 @@
 
   <!-- ======================================================= RESULTAT -->
   <section id="res" class="hidden">
-    <div class="sub">Slår vi stängningsoddset (CLV) är edgen verklig – det syns långt före resultatet. Domen bygger på
-      LIVE-spelen (fotboll: alla regelspel, eftersom fotbollen bara samlar data). Granskning av parametrarna efter 150 avgjorda spel.</div>
+    <div class="sub">Domen bygger på LIVE-spelen. Granskning av parametrarna efter 150 avgjorda spel.</div>
     <div id="resCards" style="margin-top:12px"></div>
   </section>
 
@@ -246,8 +296,8 @@
         <option value="bolag">bolag</option><option value="oddsband">oddsintervall</option><option value="pband">sannolikhetsintervall</option>
         <option value="edgeband">edgeintervall</option><option value="sida">över/under</option>
         <option value="mksida">marknad × över/under</option><option value="vecka">vecka</option></select>
-      <a class="tab" href="propsbot_bokforing.xlsx">⬇ Excel</a>
-      <button id="aCsv" class="tab">⬇ CSV av filtret</button>
+      <a class="btn" href="propsbot_bokforing.xlsx">⬇ Excel</a>
+      <button id="aCsv" class="btn">⬇ CSV av filtret</button>
     </div>
     <div class="sub">Typer: <b>Live</b> = spelade (notis). <b>Spel</b> = klarar alla regler (data). <b>Skugga</b> = stoppat av en regel.
       <b>Modelltest</b> = egna modellens val. <b>Fouls-/Kort-test</b> = nya marknader, bara data.
@@ -277,7 +327,6 @@
 
   <!-- ======================================================= PARLAYS -->
   <section id="parlay" class="hidden">
-    <div class="sub">2–3 ben från olika matcher hos samma bolag, minst 5 % edge per ben. Bara data (inga notiser).</div>
     <h2>Förslag just nu</h2>
     <div class="wrap free"><table>
       <thead><tr><th>Sport</th><th>Bolag</th><th>Ben</th><th class="n">Odds</th><th class="n">Sannolikhet</th>
@@ -292,7 +341,6 @@
 
   <!-- ======================================================= PARAMETRAR -->
   <section id="param" class="hidden">
-    <div class="sub">Alla regler och inställningar, hämtade från de värden boten använder just nu.</div>
     <div id="pBody"></div>
   </section>
 </main>
@@ -338,7 +386,7 @@ function norm(b, sport, typ) {
   const done = b.avspark && b.avspark < Date.now() / 1000;
   const clv = b.stangning && b.odds && done ? (1 / b.stangning - 1 / b.odds) * 100 : null;
   return {sport, typ, pk: `${sport}|${b.match_id || b.match}|${b.spelare_id || b.spelare}`,
-    bokford: b.bokford, avspark: b.avspark, match: b.match, spelare: b.spelare,
+    bokford: b.bokford, avspark: b.avspark, match: b.match, spelare: b.spelare, spelare_id: b.spelare_id,
     mkKey: b.marknad, marknad: (MK[b.marknad] || b.marknad) + (sport === "nba" && b.marknad === "assists" ? " (NBA)" : ""),
     spel: b.spel_text || spel(b.marknad, b.linje, b.sida), bolag: b.bolag, odds: b.odds, stangning: b.stangning,
     clv, p: b.sannolikhet, edge: b.edge, pm: b.p_modell, pmk: b.p_marknad, u: (b.insats_pct || 0) / U, status: b.status,
@@ -421,6 +469,58 @@ function verdict(s) {
   return ["wait", `Oklart än: snitt-CLV ${sgn(s.clv, 2)} pe, intervallet (${sgn(lo, 2)} till ${sgn(hi, 2)}) innehåller 0.`];
 }
 
+// --------------------------------------------------------------- KORT (gemensamt)
+const SPORT_COL = {fotboll: "var(--s-fotboll)", nba: "var(--s-nba)"};
+const initials = s => String(s || "?").replace(/[^\p{L}\p{N} ]/gu, " ").trim().split(/\s+/).slice(0, 2).map(w => w[0]).join("").toUpperCase() || "?";
+const pctS = (x, d = 1) => x == null || isNaN(x) ? "–" : (x > 0 ? "+" : "") + nf(x * 100, d) + " %";
+function betLine(r) {
+  if (r.mkKey && ["1x2", "total", "ah", "corners", "cah", "corners_home", "corners_away"].includes(r.mkKey)) return {ar: "", txt: r.spel};
+  if (r.linje == null) return {ar: "", txt: r.spel};
+  const up = r.sidaKey !== "under";
+  if (r.mkKey === "cards") return {ar: up ? "↑" : "↓", up, txt: up ? "Får kort" : "Inget kort"};
+  if (r.mkKey === "goal" && r.linje === 0.5 && up) return {ar: "↑", up, txt: "Gör mål"};
+  return {ar: up ? "↑" : "↓", up, txt: `${up ? "Över" : "Under"} ${nf(r.linje, 1).replace(/,0$/, "")}`};
+}
+function countdown(ts) {
+  const s = ts - Date.now() / 1000;
+  if (s <= 0) return "startad";
+  const h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60);
+  return h ? `om ${h} h ${m} min` : `om ${m} min`;
+}
+setInterval(() => document.querySelectorAll(".cd[data-ts]").forEach(e => e.textContent = countdown(+e.dataset.ts)), 30000);
+// Ett spelkort. o: {rank, badge, stats:[[k,v,x,cls]], cmp, chips, dim, title}
+function betCard(r, o = {}) {
+  const L = betLine(r), now = Date.now() / 1000;
+  const when = r.avspark > now ? `<b class="cd" data-ts="${r.avspark}">${countdown(r.avspark)}</b>` : fmtTs(r.avspark);
+  const isSide = r.spelare_id === "match" || ["Mål", "Oavgjort"].includes(r.spelare) || /^(1x2|total|ah)$/.test(r.mkKey || "");
+  return `<div class="bc ${o.rank && o.rank <= 3 ? "top" + o.rank : ""} ${o.dim ? "dim" : ""}" title="${esc(o.title || "")}">
+    <div class="hd"><div class="av">${esc(isSide ? (r.mkKey === "total" ? "MÅL" : r.mkKey === "ah" ? "AH" : "1X2") : initials(r.spelare))}<span class="sd" style="background:${SPORT_COL[r.sport]}"></span></div>
+      <div style="min-width:0"><div class="who">${esc(isSide ? r.match : r.spelare)}</div>
+        <div class="meta">${isSide ? "" : esc(r.match) + " · "}${when}</div></div>
+      <div class="badge">${o.badge || ""}${o.rank ? `<span class="rk r${o.rank}">${o.rank}</span>` : ""}</div></div>
+    ${r.nyhet ? `<div class="news ${r.nyhetStatus === "ok" ? "ok" : ""}">📰 ${esc(r.nyhet)}</div>` : ""}
+    <div><div class="mkt">${esc(r.marknad)} · ${esc(r.bolag)}</div>
+      <div class="line">${L.ar ? `<span class="ar ${L.up ? "up" : "dn"}">${L.ar}</span>` : ""}${esc(L.txt)}</div></div>
+    <div class="stats ${o.stats.length === 4 ? "s4" : ""}">${o.stats.map(([k, v, x, c]) =>
+      `<div><div class="k">${k}</div><div class="v ${c || ""}">${v}</div>${x ? `<div class="x">${x}</div>` : ""}</div>`).join("")}</div>
+    ${o.cmp || ""}
+    ${o.chips ? `<div class="foot">${o.chips}</div>` : ""}
+  </div>`;
+}
+function cushionBar(oddsNow, from) {
+  if (!oddsNow || !from) return "";
+  const c = oddsNow / from - 1, f = Math.max(0, Math.min(1, c / 0.08));
+  return `<div><div class="cmp"><span>Odds nu <b>${nf(oddsNow)}</b> · spela från <b>${sf(from)}</b></span>
+    <span class="${c < 0 ? "loss" : c < 0.01 ? "" : "pos"}">${c < 0 ? "under gränsen" : "kudde " + pct(c)}</span></div>
+    <div class="track ${c < 0.01 ? "warn" : ""}"><i style="width:${c < 0 ? 100 : Math.max(4, f * 100).toFixed(0)}%"></i></div></div>`;
+}
+function resultBadge(r) {
+  if (r.status === "vunnen") return `<span class="chip g">Vunnen ${sgn(r.res)}u</span>`;
+  if (r.status === "förlorad") return `<span class="chip b">Förlorad ${sgn(r.res)}u</span>`;
+  if (r.status === "push") return `<span class="chip">Push</span>`;
+  return "";
+}
+
 // --------------------------------------------------------------- SPELA NU
 // Styrka för ett öppet LIVE-spel, räknad från senaste skanningen (radarn + bokföringens senaste odds).
 const lineOf = s => { const m = String(s || "").match(/(-?\d+(?:[.,]\d+)?)\s*$/); return m ? parseFloat(m[1].replace(",", ".")) : null; };
@@ -441,120 +541,87 @@ function strength(r) {
     `modell ${M == null ? "saknas" : sgn(M) + " % → " + sgn(Mp)}`,
     `marknaden sedan spelet lades ${sgn(R)}`, `sharp ${S ? sgn(S, 0) : "0"}`,
     ok ? "" : (oddsNow < r.spela_fran ? `odds nu ${nf(oddsNow)} < spela från ${sf(r.spela_fran)}` : "inte spelbart nu")].filter(Boolean);
-  return {score: E + Mp + R + S, ok, oddsNow, edgeNow: cur ? cur.edge : null, why: why.join(" · ")};
+  return {score: E + Mp + R + S, ok, oddsNow, edgeNow: cur ? cur.edge : null, M, S, why: why.join(" · ")};
 }
 function renderNu() {
   const now = Date.now() / 1000;
   const live = rows().filter(r => r.typ === "Live");
-  const open = live.filter(r => r.status === "öppen" && r.avspark > now).sort((a, b) => a.avspark - b.avspark);
+  const open = live.filter(r => r.status === "öppen" && r.avspark > now);
   open.forEach(r => r.st = strength(r));
-  const top = open.filter(r => r.st.ok).sort((a, b) => b.st.score - a.st.score).slice(0, 3);
-  top.forEach((r, i) => r.rank = i + 1);
-  // Starkast överst och fallande: spelbara nu först (topp 3 i ordning), sedan resten efter styrka.
-  open.sort((a, b) => (b.st.ok - a.st.ok) || (b.st.score - a.st.score) || ((b.st.edgeNow ?? -1) - (a.st.edgeNow ?? -1)));
-  document.getElementById("nuRows").innerHTML = open.map(r => `<tr class="${r.rank ? "top" + r.rank : r.st.ok ? "play" : "weak"}">
-    <td>${r.rank ? `<span class="rank r${r.rank}">${r.rank}</span> ` : ""}${tag(r.sport)}</td><td>${fmtTs(r.avspark)}</td><td>${esc(r.match)}</td><td><b>${esc(r.spelare)}</b>${r.nyhet ? `<div class="news ${r.nyhetStatus === "ok" ? "ok" : ""}">📰 ${esc(r.nyhet)}</div>` : ""}</td>
-    <td><b>${esc(r.spel)}</b></td><td>${esc(r.bolag)}</td><td class="n">${nf(r.odds)}</td>
-    <td class="n ${r.st.oddsNow < (r.spela_fran || 0) ? "loss" : ""}">${nf(r.st.oddsNow)}</td><td class="n">${sf(r.spela_fran)}</td>
-    <td class="n pos">${pct(r.edge)}</td><td class="n ${r.st.edgeNow > 0 ? "pos" : "loss"}">${r.st.edgeNow == null ? "&lt; 2 %" : pct(r.st.edgeNow)}</td>
-    <td class="n" title="${esc(r.st.why)}"><b>${nf(r.st.score, 1)}</b></td><td class="n"><b>${Math.round(r.u)}u</b></td>
-    <td>${r.notis === false ? "väntar" : r.notis === null ? "spärrad" : "✓"}</td></tr>`).join("")
-    || `<tr><td colspan="14" class="empty">Inga öppna LIVE-spel just nu. Du får en notis så fort något klarar alla krav.</td></tr>`;
+  open.filter(r => r.st.ok).sort((a, b) => b.st.score - a.st.score).slice(0, 3).forEach((r, i) => r.rank = i + 1);
+  open.sort((a, b) => (b.st.ok - a.st.ok) || (b.st.score - a.st.score) || (a.avspark - b.avspark));
+  document.getElementById("nuCount").textContent = open.length || "";
+  document.getElementById("nuLed").classList.toggle("off", !open.length);
+  const ct = document.getElementById("ctNu"); ct.textContent = open.filter(r => r.st.ok).length; ct.classList.toggle("hidden", !open.some(r => r.st.ok));
+  document.getElementById("nuCards").innerHTML = open.map(r => betCard(r, {
+    rank: r.rank, dim: !r.st.ok, title: r.st.why,
+    badge: r.st.ok ? "" : `<span class="chip b">spela inte nu</span>`,
+    stats: [["Odds", nf(r.odds), "när spelet lades"], ["Edge nu", r.st.edgeNow == null ? "< 2 %" : pct(r.st.edgeNow), `bokad ${pct(r.edge)}`, r.st.edgeNow > 0 ? "pos" : "loss"],
+            ["Insats", Math.round(r.u) + "u", nf(r.u * U * 100, 1) + " % av kassan"], ["Styrka", nf(r.st.score, 1), "", ""]],
+    cmp: cushionBar(r.st.oddsNow, r.spela_fran),
+    chips: [r.notis === false ? `<span class="chip w">notis väntar</span>` : r.notis === null ? `<span class="chip">spärrad</span>` : `<span class="chip l">⚡ LIVE · notis</span>`,
+            r.st.M != null ? `<span class="chip ${r.st.M > 0 ? "g" : "w"}">modell ${sgn(r.st.M)} %</span>` : "",
+            r.st.S > 0 ? `<span class="chip g">sharp money ⬆</span>` : r.st.S < 0 ? `<span class="chip b">sharp mot oss</span>` : "",
+            `<span class="chip">${SPORTS[r.sport].icon} ${SPORTS[r.sport].name}</span>`].join("")
+  })).join("") || `<div class="emptybox"><b>Inga öppna LIVE-spel just nu</b>Du får en notis så fort något klarar alla krav. Sidan uppdateras själv varannan minut.</div>`;
   const done = live.filter(r => r.status !== "öppen").sort((a, b) => b.avspark - a.avspark).slice(0, 25);
-  document.getElementById("nuDone").innerHTML = done.map(r => `<tr>
-    <td>${tag(r.sport)}</td><td>${fmtTs(r.avspark)}</td><td>${esc(r.spelare)}</td><td>${esc(r.spel)}</td>
-    <td class="n">${nf(r.odds)}</td><td class="n">${nf(r.stangning)}</td><td class="n ${cls(r.clv)}">${sgn(r.clv)}</td>
-    <td><span class="pill ${r.status}">${r.status}</span></td><td class="n">${r.utfall ?? "–"}</td>
-    <td class="n ${cls(r.res)}">${sgn(r.res)}u</td></tr>`).join("")
-    || `<tr><td colspan="10" class="empty">Inga avgjorda LIVE-spel än.</td></tr>`;
+  document.getElementById("nuDone").innerHTML = done.map(r => `<div class="li">
+      <span class="pill ${r.status}">${r.status}</span>
+      <div style="min-width:0"><div class="t1">${esc(r.spelare)} · ${esc(r.spel)}</div><div class="t2">${tag(r.sport)} ${esc(r.match)} · ${fmtTs(r.avspark)}${r.utfall != null ? " · utfall " + esc(r.utfall) : ""}</div></div>
+      <div class="mid">odds ${nf(r.odds)}${r.stangning ? ` → ${nf(r.stangning)}` : ""}<br><span class="${cls(r.clv)}">CLV ${sgn(r.clv)} pe</span></div>
+      <div class="res ${cls(r.res)}">${sgn(r.res)}u</div></div>`).join("")
+    || `<div class="empty">Inga avgjorda LIVE-spel än.</div>`;
   const notes = [];
-  if (sel().includes("fotboll") && D.fotboll && !D.fotboll.live)
-    notes.push("⚽ Fotbollen samlar bara data (inga notiser) tills den visat edge och CLV – se Resultat.");
   for (const s of sel()) if (D[s] && D[s].live_enabled === false) notes.push(`${SPORTS[s].icon} ${SPORTS[s].name}: spel pausade.`);
   document.getElementById("nuNote").innerHTML = notes.join("<br>");
 }
 
-
 // --------------------------------------------------------------- TOPP 5
-function toppScore(r) {
-  const E = r.edge * 100, Ec = Math.min(E, 15) - Math.max(0, E - 15) * 0.5;
-  const M = r.p_modell != null && r.odds ? (r.p_modell * r.odds - 1) * 100 : null;
+// Samma regel som notisen (propsbot/top5.py): speldagens bokförda LIVE-spel, styrka på värdena vid bokningen.
+const DAY_SHIFT_H = 8;
+const playDay = ts => new Date((ts - DAY_SHIFT_H * 3600) * 1000).toLocaleDateString("sv-SE", tz);
+function betScore(r) {
+  const E = (r.edge || 0) * 100, Ec = Math.min(E, 15) - Math.max(0, E - 15) * 0.5;
+  const M = r.modell_edge != null ? r.modell_edge * 100 : null;
   const Mp = M == null ? 0 : 0.5 * Math.max(-15, Math.min(15, M));
-  const k = (r.kommentar || "").toLowerCase();
+  const k = (r.stopp || "").toLowerCase();
   const S = /sharp money (with|med) (us|oss)/.test(k) ? 1 : /sharp (money mot oss|moved .* against)/.test(k) ? -2 : 0;
-  const L = r.live ? 1 : 0;
-  return {score: Ec + Mp + S + L, E, M, S, L, cushion: r.spela_fran ? r.odds / r.spela_fran - 1 : null};
+  return {score: Ec + Mp + S + 1, E, M, S};
 }
-function ring(score, color) {
-  const f = Math.max(0, Math.min(1, score / 20)), C = 2 * Math.PI * 24;
-  return `<svg class="ring" viewBox="0 0 58 58"><circle cx="29" cy="29" r="24" fill="none" stroke="var(--line)" stroke-width="6"/>
-    <circle cx="29" cy="29" r="24" fill="none" stroke="${color}" stroke-width="6" stroke-linecap="round"
-      stroke-dasharray="${(C * f).toFixed(1)} ${C.toFixed(1)}" transform="rotate(-90 29 29)"/>
-    <text x="29" y="34" text-anchor="middle">${nf(score, 1)}</text></svg>`;
-}
-function countdown(ts) {
-  const s = ts - Date.now() / 1000;
-  if (s <= 0) return "startad";
-  const h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60);
-  return h ? `om ${h} h ${m} min` : `om ${m} min`;
-}
-const RK = ["#f5c442", "#c9d1d9", "#cd7f32", "#3b82f6", "#3b82f6"];
-function toppCard(r, i, bub) {
-  const t = r.t, col = bub ? "#fbbf24" : RK[i];
-  const eF = Math.min(1, t.E / 15), cF = t.cushion == null ? 0 : Math.max(0, Math.min(1, t.cushion / 0.08));
-  const chips = [
-    r.live ? `<span class="chip l">⚡ LIVE · notis</span>` : `<span class="chip">data · ingen notis</span>`,
-    t.M != null ? `<span class="chip ${t.M > 0 ? "g" : "w"}">modell ${sgn(t.M)} %</span>` : "",
-    t.S > 0 ? `<span class="chip g">sharp money ⬆</span>` : t.S < 0 ? `<span class="chip w">sharp mot oss</span>` : "",
-    t.E > 15 ? `<span class="chip w">misstänkt hög edge</span>` : "",
-    /skadelista|lagnyhet/i.test(r.kommentar || "") ? `<span class="chip w">📰 ${esc((r.kommentar.match(/(skadelista|lagnyhet)[^;]*/i) || [""])[0])}</span>` : "",
-    r.prognos != null ? `<span class="chip">prognos ${nf(r.prognos)}</span>` : "",
-    `<span class="chip">${esc(r.bolag)}</span>`].join("");
-  return `<div class="tc ${bub ? "bub" : "r" + (i + 1)}" title="${esc(r.kommentar)}">
-    <div class="num">${bub ? "R" + (i + 1) : i + 1}</div>
-    ${!bub && i === 0 ? `<div class="crown">👑 Starkast just nu</div>` : ""}
-    <div class="top">${tag(r.sport)} <span>${esc(r.mkName)}</span> · <span>${esc(r.match)}</span></div>
-    <div class="top" style="margin-top:3px">🕒 ${fmtTs(r.ts)} · <b class="cd" data-ts="${r.ts}">${countdown(r.ts)}</b></div>
-    <div class="who">${esc(r.spelare)}</div><div class="bet">${esc(r.spel)}</div>
-    <div class="row"><div class="odds">${nf(r.odds)}<small>spela från ${sf(r.spela_fran)}</small></div>${ring(t.score, col)}</div>
-    <div class="stake" style="--c:${col}"><span>Insats</span><b>${r.units ? r.units + "u" : "–"}</b>
-      <em>${r.units ? nf(r.units * U * 100, 1) + " % av bankrullen" : ""}${r.liveBet ? " · som LIVE-spelet" : ""}</em></div>
-    <div class="lbl" style="margin-top:8px"><span>Edge</span><b class="pos">${pct(r.edge)}</b></div>
-    <div class="bar"><i style="width:${(eF * 100).toFixed(0)}%;background:linear-gradient(90deg,var(--good),${col})"></i></div>
-    <div class="lbl"><span>Kudde innan spela från</span><b>${t.cushion == null ? "–" : pct(t.cushion)}</b></div>
-    <div class="bar"><i style="width:${(cF * 100).toFixed(0)}%;background:${t.cushion < 0.01 ? "var(--bad)" : "var(--accent)"}"></i></div>
-    <div class="chips">${chips}</div></div>`;
-}
+let toppDay = null;
 function renderTopp() {
-  const now = Date.now() / 1000;
-  let rs = [];
-  for (const s of sel()) (D[s]?.radar || []).forEach(r => {
-    const ts = utcTs(r.avspark);
-    // Bara LIVE-spel: Topp 5 är spel vi faktiskt spelar (klarar LIVE-reglerna), inte dataspel.
-    if (r.spelbar && r.live && ts > now + 60) rs.push({...r, sport: s, ts, mkName: MK[r.marknad] || r.marknad});
-  });
-  rs.forEach(r => {
-    r.t = toppScore(r);
-    // Insats: samma som det bokförda LIVE-spelet om det finns (kapad enligt LIVE-reglerna), annars radarns förslag.
-    const lb = ALL.find(b => b.typ === "Live" && b.status === "öppen" && b.sport === r.sport && b.spelare === r.spelare);
-    r.liveBet = !!lb;
-    // Samma tak som LIVE: 5u (fotbollsprops 2u, sides 3u) – data-spel ska inte se större ut än LIVE.
-    const cap = r.sport === "fotboll" && ["1x2", "total", "ah", "corners", "cah", "corners_home", "corners_away"].includes(r.marknad) && !r.live ? 3 : 5;
-    r.units = lb ? Math.round(lb.u) : Math.min(cap, Math.max(0, Math.round((r.insats_pct || r.insats_forslag || 0) / U)));
-  });
-  rs.sort((a, b) => b.t.score - a.t.score);
+  const now = Date.now() / 1000, today = playDay(now);
+  const live = rows().filter(r => r.typ === "Live" && r.avspark && r.status !== "struken");
+  const days = [...new Set(live.map(r => playDay(r.avspark)))].sort().reverse().filter(d => d <= today).slice(0, 4);
+  if (!days.includes(today)) days.unshift(today);
+  if (!toppDay || !days.includes(toppDay)) toppDay = today;
+  const label = d => d === today ? "Idag" : d === playDay(now - 86400) ? "Igår" : new Date(d + "T12:00:00").toLocaleDateString("sv-SE", {weekday: "short", day: "numeric", month: "numeric"});
+  document.getElementById("toppDay").innerHTML = days.map(d => `<button class="${d === toppDay ? "on" : ""}" data-d="${d}">${label(d)}</button>`).join("");
+  document.querySelectorAll("#toppDay button").forEach(b => b.onclick = () => { toppDay = b.dataset.d; renderTopp(); });
+  const rs = live.filter(r => playDay(r.avspark) === toppDay).map(r => ({...r, t: betScore(r)}))
+    .sort((a, b) => b.t.score - a.t.score || (a.bokford || 0) - (b.bokford || 0));
   const seen = new Set(), pick = [];
   for (const r of rs) { const k = `${r.sport}|${r.match}|${r.spelare}`; if (!seen.has(k)) { seen.add(k); pick.push(r); } }
-  const top = pick.slice(0, 5), bub = pick.slice(5, 8);
-  document.getElementById("toppCards").innerHTML = top.map((r, i) => toppCard(r, i, false)).join("")
-    || `<div class="empty">Inga LIVE-spel just nu. Sidan uppdateras själv varannan minut.</div>`;
-  document.getElementById("toppBub").innerHTML = bub.map((r, i) => toppCard(r, i, true)).join("")
-    || `<div class="empty">Inga reserver just nu – bara ${pick.length} LIVE-spel.</div>`;
-  const ages = sel().map(s => D[s]?.uppdaterad_ts).filter(Boolean);
-  document.getElementById("toppMeta").innerHTML = `${pick.length} spelbara just nu` +
-    (ages.length ? ` · senaste skanning för ${Math.round((now - Math.max(...ages)) / 60)} min sedan` : "");
+  const card = (r, rank) => {
+    const started = r.avspark <= now, oddsNow = r.stangning || r.odds;
+    const playable = r.status === "öppen" && !started && (!r.spela_fran || oddsNow >= r.spela_fran - 1e-9);
+    const badge = r.status !== "öppen" ? resultBadge(r) : started ? `<span class="chip i">pågår</span>`
+      : playable ? `<span class="chip g">spelbar</span>` : `<span class="chip b">odds under spela från</span>`;
+    return betCard(r, {rank: rank <= 5 ? rank : null, badge, title: `styrka ${nf(r.t.score, 1)}: edge ${nf(r.t.E, 1)} %` + (r.t.M != null ? `, modell ${sgn(r.t.M)} %` : ""),
+      stats: [["Odds", nf(r.odds), r.stangning && r.stangning !== r.odds ? `nu ${nf(r.stangning)}` : "bokat"], ["Edge", pct(r.edge), "vid bokning", "pos"],
+              ["Insats", Math.round(r.u) + "u", nf(r.u * U * 100, 1) + " % av kassan"], ["Styrka", nf(r.t.score, 1), rank > 5 ? "reserv" : "#" + rank]],
+      cmp: r.status === "öppen" && !started ? cushionBar(oddsNow, r.spela_fran) : r.clv != null ? `<div class="cmp"><span>Stängning <b>${nf(r.stangning)}</b></span><span class="${cls(r.clv)}">CLV ${sgn(r.clv)} pe</span></div>` : "",
+      chips: [r.t.M != null ? `<span class="chip ${r.t.M > 0 ? "g" : "w"}">modell ${sgn(r.t.M)} %</span>` : "",
+              r.t.S > 0 ? `<span class="chip g">sharp money ⬆</span>` : "", `<span class="chip">${SPORTS[r.sport].icon} ${SPORTS[r.sport].name}</span>`].join("")});
+  };
+  document.getElementById("toppCards").innerHTML = pick.slice(0, 5).map((r, i) => card(r, i + 1)).join("")
+    || `<div class="emptybox"><b>Inga LIVE-spel ${toppDay === today ? "idag än" : "den dagen"}</b>Topp 5 fylls på när boten bokför LIVE-spel för speldagen.</div>`;
+  document.getElementById("toppBub").innerHTML = pick.slice(5, 8).map((r, i) => card(r, i + 6)).join("")
+    || `<div class="emptybox"><b>Inga reserver</b>${pick.length} LIVE-spel den här speldagen.</div>`;
+  const done = pick.slice(0, 5).filter(r => r.res != null && r.status !== "öppen");
+  document.getElementById("toppMeta").textContent = `${pick.length} LIVE-spel` +
+    (done.length ? ` · topp 5 hittills ${sgn(done.reduce((a, r) => a + r.res, 0))}u på ${done.length} avgjorda` : "");
 }
-setInterval(() => document.querySelectorAll(".cd[data-ts]").forEach(e => e.textContent = countdown(+e.dataset.ts)), 30000);
 
 // --------------------------------------------------------------- RADAR
 function renderRadar() {
@@ -665,9 +732,11 @@ function filtered(ignoreSide) {
     (!v("aStatus") || r.status === v("aStatus")) &&
     (isNaN(omin) || r.odds >= omin) && (isNaN(omax) || r.odds <= omax) && (isNaN(pmin) || r.p * 100 >= pmin));
 }
+let bokInit = false;
 function renderBok() {
   const base = rows();
-  fill("aTyp", base.map(r => r.typ), "Alla typer"); fill("aMk", base.map(r => r.marknad), "Alla marknader");
+  fill("aTyp", base.map(r => r.typ), "Alla typer");
+  if (!bokInit && base.some(r => r.typ === "Live")) { document.getElementById("aTyp").value = "Live"; bokInit = true; } fill("aMk", base.map(r => r.marknad), "Alla marknader");
   fill("aBook", base.map(r => r.bolag), "Alla bolag");
   const all = filtered(), mixed = !document.getElementById("aTyp").value;
   const rs = mixed ? uniq(all) : all, s = stats(rs);
@@ -750,8 +819,20 @@ function renderParam() {
 }
 
 // --------------------------------------------------------------- ram
+const HERO = {
+  nu: ["Spela nu", "LIVE-spelen som klarar alla krav. Spela till lägst spela från-oddset."],
+  topp: ["Dagens topp 5", "De starkaste LIVE-spelen för speldagen – listan ligger fast när oddset rör sig."],
+  radar: ["Radar", "Alla ben med minst 2 % edge just nu. Grön rad = klarar alla regler, ⚡ = LIVE-spel."],
+  res: ["Resultat", "Slår vi stängningsoddset (CLV) är edgen verklig – det syns långt före resultatet."],
+  bok: ["Bokföring & analys", "Varje bokfört spel. Standard är de riktiga spelen (Live); välj Alla typer för all data."],
+  parlay: ["Parlays", "2–3 ben från olika matcher hos samma bolag, minst 5 % edge per ben. Bara data."],
+  param: ["Parametrar", "Alla regler och inställningar, hämtade från de värden boten använder just nu."]};
 function render() {
   document.querySelectorAll(".sp").forEach(b => b.classList.toggle("on", b.dataset.s === cur));
+  const sp = cur === "alla" ? "Fotboll & NBA" : SPORTS[cur].name;
+  document.getElementById("heroEye").textContent = `${sp} · ${new Date().toLocaleDateString("sv-SE", {...tz, weekday: "long", day: "numeric", month: "long"})}`;
+  document.getElementById("heroTitle").textContent = HERO[tab][0];
+  document.getElementById("heroLead").textContent = HERO[tab][1];
   document.querySelectorAll(".tab[data-t]").forEach(b => b.classList.toggle("on", b.dataset.t === tab));
   ["nu", "topp", "radar", "res", "bok", "parlay", "param"].forEach(id => document.getElementById(id).classList.toggle("hidden", id !== tab));
   ({nu: renderNu, topp: renderTopp, radar: renderRadar, res: renderRes, bok: renderBok, parlay: renderParlay, param: renderParam})[tab]();
@@ -770,8 +851,8 @@ async function load() {
   document.getElementById("fresh").innerHTML = Object.entries(SPORTS).map(([s, x]) => {
     const ts = D[s]?.uppdaterad_ts; const m = ts ? Math.round((now - ts) / 60) : null;
     if (m == null || m > LIMIT) stale.push(x.name);
-    return `<span class="${m == null || m > LIMIT ? "stale" : ""}">${x.icon} <b>${m == null ? "–" : m + " min"}</b></span>`;
-  }).join("") + `<span>1u = 0,2 % av bankrullen</span>`;
+    return `<span class="${m == null || m > LIMIT ? "stale" : ""}" title="senaste skanning"><span class="dot"></span>${x.icon} ${m == null ? "–" : m + " min"}</span>`;
+  }).join("") + `<span class="unit">1u = 0,2 % av kassan</span>`;
   const b = document.getElementById("banner");
   b.classList.toggle("hidden", !stale.length);
   b.textContent = stale.length ? `Ingen ny skanning på över ${LIMIT} min för ${stale.join(", ")} – boten kan ha stannat.` : "";
