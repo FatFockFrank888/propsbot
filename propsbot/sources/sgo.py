@@ -1,7 +1,7 @@
 """SportsGameOdds (https://sportsgameodds.com) – amerikanska bolags NBA-props som extra referens.
 
-Gratisnivån ("amateur"): 10 anrop/minut. Ett anrop ger alla kommande NBA-matcher med odds
-(events?leagueID=NBA&oddsAvailable=true), så boten gör ett anrop per skanning (cache 5 min).
+Gratisnivån ("amateur"): 10 anrop/minut och 2 500 objekt (= matcher) per rullande 30 dagar – se budgeten
+nedan. Ett anrop ger alla NBA-matcher med odds som startar inom SGO_WINDOW_H.
 Bolag: FanDuel, DraftKings, ESPN BET, Caesars, BetMGM, Bovada – används bara som jämförelse, aldrig som
 spelbolag. Bolagsnamnen blir "us_<bolag>" (samma som us_books.py via The Odds API), så samma bolag aldrig
 räknas två gånger. Regler:
@@ -37,18 +37,71 @@ def _ts(s: str | None) -> float | None:
         return None
 
 
-def fetch(cache_dir) -> list[dict]:
-    """Alla kommande NBA-matcher med odds i ett anrop (cache 5 min). Tom lista utan nyckel eller vid fel."""
+# Gratisnivån: 2 500 objekt per rullande 30 dagar, och varje match i svaret är ett objekt (även ett tomt svar
+# kostar 1). Utan budget tog boten 48 matcher per skanning och slut på hela månadskvoten på en dag (11/11).
+# Nu: bara matcher som startar inom SGO_WINDOW_H, högst SGO_DAY_BUDGET objekt per dygn (UTC), ett nytt
+# anrop först när förra svaret är SGO_MIN_GAP_S gammalt, och efter HTTP 429 vilar källan SGO_PAUSE_S.
+SGO_WINDOW_H = 14
+SGO_DAY_BUDGET = 80
+SGO_MIN_GAP_S = 5400
+SGO_PAUSE_S = 24 * 3600
+
+
+def _state(path):
+    import json
+    try:
+        st = json.loads(path.read_text(encoding="utf-8"))
+    except (FileNotFoundError, ValueError):
+        st = {}
+    st.setdefault("objekt", {})
+    return st
+
+
+def fetch(cache_dir, state_path=None, now: float | None = None, client=None) -> tuple[list[dict], str]:
+    """(matcher, orsak) – matcher som startar inom SGO_WINDOW_H i ett anrop, inom dagsbudgeten.
+
+    orsak är tom när anropet gjordes, annars varför det hoppades över eller misslyckades."""
+    import json
     from .http import JsonClient, SourceError
     key = os.environ.get("SGO_API_KEY", "").strip()
     if not key:
-        return []
-    c = JsonClient(cache_dir, ttl_s=300, min_interval_s=7.0, headers={"x-api-key": key})
+        return [], "ingen nyckel (SGO_API_KEY)"
+    now = now or time.time()
+    st = _state(state_path) if state_path else {"objekt": {}}
+    day = time.strftime("%Y-%m-%d", time.gmtime(now))
+    used = st["objekt"].get(day, 0)
+
+    def save():
+        if state_path:
+            st["objekt"] = dict(sorted(st["objekt"].items())[-35:])
+            st["manad"] = sum(st["objekt"].values())
+            state_path.write_text(json.dumps(st, ensure_ascii=False), encoding="utf-8")
+
+    if now < st.get("paus_till", 0):
+        return [], f"vilar efter kvotfel till {time.strftime('%d/%m %H:%M', time.gmtime(st['paus_till']))} UTC"
+    if now - st.get("senast", 0) < SGO_MIN_GAP_S:
+        return [], "väntar (sparar kvoten, ett anrop var 90:e minut)"
+    if used >= SGO_DAY_BUDGET:
+        return [], f"dagsbudgeten {SGO_DAY_BUDGET} objekt är slut ({used})"
+    c = client or JsonClient(cache_dir, ttl_s=300, min_interval_s=7.0, headers={"x-api-key": key})
+    before = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(now + SGO_WINDOW_H * 3600))
+    st["senast"] = now
     try:
-        raw = c.get(URL, {"leagueID": "NBA", "oddsAvailable": "true", "limit": 50}, ttl=300) or {}
-    except SourceError:
-        return []
-    return raw.get("data", []) or []
+        raw = c.get(URL, {"leagueID": "NBA", "oddsAvailable": "true", "startsBefore": before,
+                          "limit": max(1, min(20, SGO_DAY_BUDGET - used))}, ttl=300) or {}
+    except SourceError as e:
+        msg = str(e)
+        st["objekt"][day] = used + 1
+        if "429" in msg:
+            st["paus_till"] = now + SGO_PAUSE_S
+            save()
+            return [], "HTTP 429 – kvoten slut (gratisnivån 2 500 objekt/30 dagar); vilar ett dygn"
+        save()
+        return [], f"fel från API:t: {msg[:120]}"
+    data = raw.get("data", []) or []
+    st["objekt"][day] = used + max(1, len(data))
+    save()
+    return data, "" if data else "inga matcher med odds i svaret"
 
 
 def quotes_for(events: list[dict], evd: dict, now: float) -> tuple[list[OddsQuote], dict[str, str]]:
@@ -97,11 +150,9 @@ def quotes_for(events: list[dict], evd: dict, now: float) -> tuple[list[OddsQuot
 
 
 def add_sgo(root, per: dict, diag) -> int:
-    events = fetch(root / ".cache_odds")
+    events, why = fetch(root / ".cache_odds", root / "sgo_lage.json")
     if not events:
-        import os
-        diag.log("SportsGameOdds NBA: " + ("ingen nyckel (SGO_API_KEY)" if not os.environ.get("SGO_API_KEY", "").strip()
-                                          else "inga matcher med odds i svaret (eller fel från API:t)"))
+        diag.log("SportsGameOdds NBA: " + why)
         return 0
     now = time.time()
     n = 0

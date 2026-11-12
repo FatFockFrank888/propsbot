@@ -121,3 +121,41 @@ def test_sgo_quotes_two_sided_half_lines_fresh():
     qs, _ = quotes_for([ev], evd, now)
     # FanDuel tvåsidigt ok; DraftKings heltal (push) bort; Caesars bara en sida bort; Bovada för gammalt bort
     assert {(q.book, q.side) for q in qs} == {("us_fanduel", "over"), ("us_fanduel", "under")}
+
+
+def test_sgo_budget_gap_and_429_pause(tmp_path, monkeypatch):
+    from propsbot.sources import sgo
+    from propsbot.sources.http import SourceError
+    monkeypatch.setenv("SGO_API_KEY", "x")
+    calls = []
+
+    class C:
+        def __init__(self, fail=False):
+            self.fail = fail
+
+        def get(self, url, params, ttl=None):
+            calls.append(params)
+            if self.fail:
+                raise SourceError("HTTP 429 för x")
+            return {"data": [{}] * 6}
+
+    st = tmp_path / "sgo.json"
+    t = 1_800_000_000.0
+    ev, why = sgo.fetch(tmp_path, st, t, C())
+    assert len(ev) == 6 and why == "" and "startsBefore" in calls[0]
+    assert sgo.fetch(tmp_path, st, t + 600, C())[0] == []          # för tidigt – inget anrop
+    assert len(calls) == 1
+    ev, why = sgo.fetch(tmp_path, st, t + 6000, C(fail=True))
+    assert ev == [] and "429" in why
+    assert "vilar" in sgo.fetch(tmp_path, st, t + 20000, C())[1]   # paus ett dygn
+    assert len(calls) == 2
+    import json
+    s = json.loads(st.read_text())
+    s.update(paus_till=0, senast=0, objekt={time_day(t): sgo.SGO_DAY_BUDGET})
+    st.write_text(json.dumps(s))
+    assert "dagsbudgeten" in sgo.fetch(tmp_path, st, t + 100, C())[1]
+
+
+def time_day(t):
+    import time
+    return time.strftime("%Y-%m-%d", time.gmtime(t))
