@@ -50,8 +50,8 @@ NBA,LIVE: risk,"max 5u/spel, 2/match, 8 spel och 25u per matchdag",
 NBA,Modellvikt,0.3 × dq,"Blandas med marknaden i log-odds. dq = datakvalitet 0,2–1 (antal matcher i underlaget / 15): tunt underlag -> marknaden väger mer. Halveras när modell och marknad skiljer mycket."
 NBA,Brier modell / marknad,visas under Resultat,Mäter om modellen slår marknadens egen sannolikhet på avgjorda spel (lägre = bättre).
 NBA,Matcher,"inom 30 h, max 15",
-NBA,US-bolag via The Odds API,40–240 min före start,Andel av krediterna: 45 %.
-NHL,Status,LIVE (notiser),Skott på mål (SOG) hos Kambi-bolagen.
+NBA,US-bolag via The Odds API,40–240 min före start,Andel av krediterna: 60 %.
+NHL,Status,av – bara rättning av öppna spel,Avstängd 12/11: med bara Bovada+Pinnacle som referens låg sannolikheterna 6–8 pe för högt; Kambis eget pris var träffsäkrast.
 NHL,LIVE: edge,5 %,
 NHL,LIVE: högsta edge,15 %,Samma tak som NBA.
 NHL,LIVE: modellen måste hålla med,modellens edge ≥ 5 %,Samma krav som NBA (4/11).
@@ -66,6 +66,6 @@ NHL,Orimlig edge / konsensusavvikelse,25 % / 18 %,
 NHL,Ensidig marginal (antagen),8 %,"För ensidiga priser (t.ex. Bovadas ""N+ skott""-stege)."
 NHL,Modellvikt,0.3 (minst 8 matcher),"NHL-statistik: skott per 60 × istid, motstånd, hemmaplan."
 NHL,Pinnacle,på,liga 1456
-NHL,US-bolag via The Odds API,40–240 min före start,Andel av krediterna: 25 %.
+NHL,US-bolag via The Odds API,40–240 min före start,Andel av krediterna: 0 %.
 NHL,Bankrulle,10 000 SEK,1u = 20 SEK.
 NHL,Test-marknader (data),"poäng, assist, mål, power play-poäng","Kambis NHL-poäng/assist/mål och power play-poäng (minst 1/2) bokförs mot en egen modell. PP-poäng: spelarens PP-poäng per PP-minut × lagets väntade PP-minuter × andel från PP-enheten (DailyFaceoff PP1/PP2, flyttad upp/ner) × motståndarens boxplay (och omgjord PK om ordinarie boxplayspelare saknas). Power play-mål per spelare tas med om ett bolag lägger ut dem. Inga notiser."
