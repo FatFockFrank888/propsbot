@@ -1,33 +1,33 @@
-# NBA – utvärdering på framåtriktad data (2026-11-13T01:53:17+00:00)
+# NBA – utvärdering på framåtriktad data (2026-11-13T02:05:23+00:00)
 
 Bara bokförda prognoser (gjorda före matchen). Unika prestationer = spelare × match × marknad.
 
 | Bokföring | Rader | Prestationer | Matcher | Dagar | Avgjorda | ROI flat | ROI modell | Max DD (u) | CLV pe legacy (95 %) | CLV pe verifierad | Verifierad täckning | Brier modell / marknad (n) |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| live | 19 | 19 | 17 | 9 | 18 | +9.9 % | +6.2 % | 4.0 | 2.78 (+1.35…+4.17) | 4.45 | 0.22 | – |
-| spel | 293 | 293 | 85 | 12 | 256 | +6.1 % | +3.3 % | 14.5 | 2.31 (+1.99…+2.64) | 2.49 | 0.12 | – |
-| skugga | 783 | 783 | 92 | 12 | 703 | +4.6 % | +4.5 % | 12.9 | 1.38 (+1.17…+1.61) | 1.82 | 0.17 | – |
-| modelltest | 717 | 717 | 93 | 12 | 644 | +11.2 % | +11.0 % | 17.5 | 1.31 (+1.04…+1.74) | 2.22 | 0.12 | 0.2420 / 0.2371 (146) |
+| live | 19 | 19 | 17 | 9 | 18 | +9.9 % | +6.2 % | 4.0 | 2.64 (+1.16…+4.05) | 3.56 | 0.26 | – |
+| spel | 293 | 293 | 85 | 12 | 256 | +6.1 % | +3.3 % | 14.5 | 2.33 (+2.00…+2.67) | 2.61 | 0.14 | – |
+| skugga | 783 | 783 | 92 | 12 | 703 | +4.6 % | +4.5 % | 12.9 | 1.37 (+1.17…+1.60) | 1.77 | 0.18 | – |
+| modelltest | 717 | 717 | 93 | 12 | 644 | +11.2 % | +11.0 % | 17.5 | 1.30 (+1.03…+1.70) | 2.02 | 0.13 | 0.2420 / 0.2371 (146) |
 
 ## Status per marknad
 
 | Marknad | Status | Brier modell / marknad (n) | Skillnad 95 % | CLV pe (95 %) modelltest | LIVE avgjorda | LIVE ROI flat |
 |---|---|---|---|---|---|---|
-| assists | **shadow** | 0.1780 / 0.2267 (31) | -0.0978…+0.0156 | 2.38 (+1.79…+3.17) | 4 | -54.5 % |
+| assists | **shadow** | 0.1780 / 0.2267 (31) | -0.0978…+0.0156 | 2.36 (+1.78…+3.12) | 4 | -54.5 % |
 | blocks | **insufficient_data** | 0.1979 / 0.2133 (4) | – | 1.63 (+0.32…+2.39) | 0 | – |
-| points | **shadow** | 0.2416 / 0.2364 (56) | -0.0171…+0.0317 | 0.80 (+0.57…+1.17) | 4 | +0.0 % |
-| pr | **insufficient_data** | 0.3000 / 0.2568 (6) | – | 0.59 (+0.26…+1.60) | 0 | – |
-| pra | **insufficient_data** | 0.2967 / 0.2282 (4) | – | 0.92 (+0.00…+3.55) | 0 | – |
-| ra | **insufficient_data** | 0.1290 / 0.2805 (2) | – | 2.52 (–) | 0 | – |
-| rebounds | **insufficient_data** | 0.2634 / 0.2339 (21) | -0.0163…+0.0767 | 1.24 (+0.83…+1.59) | 3 | +33.3 % |
-| steals | **insufficient_data** | 0.3250 / 0.2582 (4) | -0.0535…+0.2201 | 1.96 (+0.10…+3.88) | 0 | – |
-| threes | **insufficient_data** | 0.3011 / 0.2518 (18) | -0.0817…+0.1204 | 1.49 (+0.81…+2.53) | 7 | +42.4 % |
+| points | **shadow** | 0.2416 / 0.2364 (56) | -0.0171…+0.0317 | 0.79 (+0.57…+1.15) | 4 | +0.0 % |
+| pr | **insufficient_data** | 0.3000 / 0.2568 (6) | – | 0.49 (+0.26…+0.90) | 0 | – |
+| pra | **insufficient_data** | 0.2967 / 0.2282 (4) | – | 0.38 (-1.17…+2.31) | 0 | – |
+| ra | **insufficient_data** | 0.1290 / 0.2805 (2) | – | 2.48 (–) | 0 | – |
+| rebounds | **insufficient_data** | 0.2634 / 0.2339 (21) | -0.0163…+0.0767 | 1.24 (+0.82…+1.58) | 3 | +33.3 % |
+| steals | **insufficient_data** | 0.3250 / 0.2582 (4) | -0.0535…+0.2201 | 1.96 (+0.10…+3.75) | 0 | – |
+| threes | **insufficient_data** | 0.3011 / 0.2518 (18) | -0.0817…+0.1204 | 1.48 (+0.83…+2.55) | 7 | +42.4 % |
 
 ## LIVE per oddsintervall
 
 | Odds | Avgjorda | ROI flat | CLV pe |
 |---|---|---|---|
 | 1.60–2.00 | 8 | +13.6 % | 2.45 |
-| 2.00–2.50 | 10 | +7.0 % | 3.05 |
+| 2.00–2.50 | 10 | +7.0 % | 2.77 |
 
 Status-kriterier och begränsningar: se modulens docstring och GRANSKNING_NBA.md.
