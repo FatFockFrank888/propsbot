@@ -1,4 +1,4 @@
-Skanning 2026-11-13 21:38
+Skanning 2026-11-13 21:53
 Kambi unibet (ubse): OK, 27 matcher i valda ligor
 Kambi paf (paf): OK
 Kambi atg (atg): OK
@@ -51,13 +51,9 @@ Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
   Atletico Mineiro To Win To Nil 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
   Both Teams To Score and Total Goals | units=Regular | kategori=Team Props | deltagare=Yes & Over 2.5,Yes & Under 2.5,No & Over 2.5,No & Under 2.5  ->  används inte (lagmarknad)
 Sides mindre ligor: 31 Kambi-matcher inom 12 h, 94 Pinnacle-matcher, 30 med Pinnacle, 30 matchade: CONCACAF / Nations League, Colombia / Liga Dimayor, Czech Republic / ČFL, Hong Kong / Sapling Cup, International Friendly Matches, Japan / J2-League, Japan / J3-League, Japan / Japan Football League, Panama / Liga LPF, Ukraine / Persha Liga
-  Sides rättad: Bermuda – St Lucia över 3.5 -> förlorad (1–2)
-  Sides rättad: Puerto Rico – Dominica handikapp -2 -> push (4–2)
-  Sides rättad: US Saint-Philbert-de-Grand-Lieu – La Roche Vendee Football 1X2: 1 -> förlorad (1–3)
-  Sides rättad: Dijon – Orleans 1X2: 2 -> vunnen (1–2)
-Sides/totals: 33 matcher med Kambi + Pinnacle, 459 linjer, 0 nya spel, 1 nya skuggspel, Smarkets-priser i 16 av 17; bästa edge +3.4% (Mirassol-SP 1X2: 1), +2.5% (FC Viktoriya Sumy 1X2: X), +2.0% (Guatemala 1X2: 1)
+Sides/totals: 33 matcher med Kambi + Pinnacle, 459 linjer, 0 nya spel, 0 nya skuggspel, Smarkets-priser i 16 av 17; bästa edge +3.3% (Mirassol-SP 1X2: 1), +2.5% (FC Viktoriya Sumy 1X2: X), +1.7% (Guatemala 1X2: 1)
 Fotboll extra bolag: 0 nya hämtningar, 0 odds i bruk, krediter kvar 334, dagsbudget 18 (andel 40%), förbrukat idag 0
-Tid: hämtning 290 s
+Tid: hämtning 276 s
 Marginal över alla matcher: uppmätt marginal: otillräckligt underlag i matchen
   Mirassol-SP – Atlético Mineiro-MG: modell bra.1, 32 spelare
 Modellens nivåavvikelse mot marknaden (log-odds, dras bort): 
@@ -75,7 +71,7 @@ Modellens nivåavvikelse mot marknaden (log-odds, dras bort):
   Real Oviedo – Girona: saknar matchlinjer från Pinnacle
   Mirassol-SP – Atlético Mineiro-MG: väntade mål Pinnacle 2.74 mot Kambi 2.71 (kvot 1.012); uppmätt marginal: goal k=1.45, assist k=1.54
 Exempel uppmätt marginal: goal k=1.45, assist k=1.54
-Tid: modell och utvärdering 18 s
+Tid: modell och utvärdering 16 s
 Bolag med spelarodds: atg, betmgm, expekt, leovegas, paf, svenskaspel, unibet
 Spelarodds per marknad: assist 203, goal 4396, shots 457, shots_on_target 322
 Kambi-marknader: assist='to give an assist (settled using opta data)':203; goal='1st goalscorer':1589; goal='to score':2317; goal='to score at least 2 goals':476; goal='to score at least 3 goals':14; shots="player's shots (settled using opta data)":457; shots_on_target="player's shots on target (settled using opta data)":322
@@ -83,7 +79,7 @@ Pinnacle har inga spelarprops här – använder linjejustering mot Pinnacles ma
 CLV-signal: 0 ben släppta (Pinnacle rör sig åt vårt håll)
 Startelvor: 0 spelbara ben klara, 0 väntar på startelvan, 0 stoppade (inte i startelvan)
 Spelregler: stoppade {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0} (modelltest {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0})
-Spelarmodell: 0 av 46 ben har modell, 13 nya matcher hämtade från ESPN
+Spelarmodell: 0 av 46 ben har modell, 0 nya matcher hämtade från ESPN
 Bästa edge marknad shots_on_target: -6.5%, -6.6%, -6.6% (av 45 ben)
 Bästa edge modelltest shots_on_target: -3.4%, -4.5%, -5.4% (av 45 ben)
 0 spelbara ben.
@@ -92,6 +88,6 @@ Skuggspel: 0 nya bokförda (stoppade av reglerna, minst 2 % edge)
 Modelltest: 0 spelbara enligt modellen, 0 nya testspel bokförda
 Fouls (test): 0 ben med modell, 0 klarar kraven, 0 nya bokförda, bästa edge –, 0 nya ESPN-matcher, domare känd i 0 matcher
 Domare: 40 kommande matcher med utsedd domare (UEFA + football-data)
-Kort (test): 190 Kambi-odds, 6 ben med modell, 0 klarar kraven, 0 nya bokförda, bästa edge -37.9%, -38.0%, -39.5%, 15 nya ESPN-matcher
+Kort (test): 190 Kambi-odds, 6 ben med modell, 0 klarar kraven, 0 nya bokförda, bästa edge -37.9%, -38.0%, -39.5%, 0 nya ESPN-matcher
 Parlays: 0 förslag, 0 nya bokförda
 Notiser skickade: 0
