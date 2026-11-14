@@ -115,6 +115,35 @@
   table.rt td.m, table.rt td.w { white-space:normal; min-width:130px; max-width:230px; }
   table.rt th { white-space:nowrap; }
   table.rt .anb { padding:1px 8px; font-size:11.5px; }
+  /* kompakta tabeller (bokföringen): två rader per cell, kommentaren bara på breda skärmar */
+  table.ct td { padding:8px 10px; vertical-align:middle; }
+  table.ct th { padding-left:10px; padding-right:10px; white-space:nowrap; }
+  table.ct .c2 { color:var(--mute); font-size:12px; margin-top:2px; }
+  table.ct td.w { white-space:normal; min-width:115px; max-width:260px; }
+  table.ct td.s { white-space:normal; min-width:80px; }
+  table.ct td.cm { white-space:normal; min-width:180px; max-width:320px; font-size:12px; }
+  @media (max-width:1180px) { table.ct .cm { display:none; } }
+  @media (max-width:640px) {
+    table.ct td, table.ct th { padding-left:6px; padding-right:6px; font-size:12.5px; }
+    table.ct td.w { min-width:90px; }
+    /* Alla spel: kort per rad */
+    table.bt thead { display:none; }
+    table.bt, table.bt tbody { display:block; }
+    table.bt tr { display:grid; grid-template-columns:minmax(0,1fr) auto; grid-template-areas:"p r" "s o" "t pe" "st st";
+                  gap:6px 12px; padding:11px 12px; border-bottom:1px solid var(--line); }
+    table.bt td { display:block; padding:0; border:0; white-space:normal; min-width:0 !important; max-width:none; font-size:13px; }
+    table.bt td:nth-child(1) { grid-area:p; } table.bt td:nth-child(2) { grid-area:s; } table.bt td:nth-child(3) { grid-area:t; }
+    table.bt td:nth-child(4) { grid-area:o; } table.bt td:nth-child(5) { grid-area:pe; } table.bt td:nth-child(6) { grid-area:st; }
+    table.bt td:nth-child(6) > div { display:inline-block; margin-right:8px; }
+    table.bt td:nth-child(7) { grid-area:r; } table.bt td.empty { grid-column:1 / -1; }
+    /* Över vs under, Sammanställning: kort med etikett på varje värde */
+    table.lt thead { display:none; }
+    table.lt, table.lt tbody { display:block; }
+    table.lt tr { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px 10px; padding:11px 12px; border-bottom:1px solid var(--line); }
+    table.lt td { display:block; padding:0; border:0; text-align:left; white-space:normal; min-width:0 !important; max-width:none; }
+    table.lt td:first-child, table.lt td.empty { grid-column:1 / -1; font-size:14px; }
+    table.lt td[data-l]::before { content:attr(data-l); display:block; color:var(--dim); font-size:11px; font-weight:400; }
+  }
   /* mobil: varje rad blir ett kort i två kolumner (spelare/edge, spel/odds, match/sannolikhet) */
   @media (max-width:640px) {
     table.rt thead { display:none; }
@@ -359,23 +388,20 @@
     <div class="sub" id="aUniq"></div>
     <div class="tiles" id="aTiles" style="margin-top:10px"></div>
     <h2>Över vs under</h2>
-    <div class="wrap free"><table>
-      <thead><tr><th rowspan="2">Marknad</th><th colspan="5" style="text-align:center">Över</th><th colspan="5" style="text-align:center">Under</th></tr>
-        <tr><th class="n">Avgjorda</th><th class="n">Träff</th><th class="n">Resultat</th><th class="n">ROI</th><th class="n">CLV</th>
-          <th class="n">Avgjorda</th><th class="n">Träff</th><th class="n">Resultat</th><th class="n">ROI</th><th class="n">CLV</th></tr></thead>
+    <div class="wrap free"><table class="ct lt">
+      <thead><tr><th rowspan="2">Marknad</th><th colspan="3" style="text-align:center">Över</th><th colspan="3" style="text-align:center">Under</th></tr>
+        <tr><th class="n">Avgj. · träff</th><th class="n">Res. · ROI</th><th class="n">CLV</th>
+          <th class="n">Avgj. · träff</th><th class="n">Res. · ROI</th><th class="n">CLV</th></tr></thead>
       <tbody id="aSideRows"></tbody></table></div>
     <h2>Sammanställning</h2>
-    <div class="wrap free"><table>
-      <thead><tr><th>Grupp</th><th class="n">Spel</th><th class="n">Avgjorda</th><th class="n">Träff</th>
-        <th class="n">Insats</th><th class="n">Resultat</th><th class="n">ROI</th><th class="n">Snitt-CLV</th>
-        <th class="n">Slog stängn.</th><th class="n">Snitt edge</th></tr></thead>
+    <div class="wrap free"><table class="ct lt">
+      <thead><tr><th>Grupp</th><th class="n">Spel · avgj.</th><th class="n">Träff</th>
+        <th class="n">Resultat · insats</th><th class="n">ROI</th><th class="n">CLV · slog stängn.</th><th class="n">Snitt edge</th></tr></thead>
       <tbody id="aGroupRows"></tbody></table></div>
     <h2>Alla spel</h2>
-    <div class="wrap"><table>
-      <thead><tr><th>Bokförd</th><th>Sport</th><th>Typ</th><th>Start</th><th>Match</th><th>Spelare</th>
-        <th>Spel</th><th>Bolag</th><th class="n">Odds</th><th class="n">Stängn.</th><th class="n">CLV</th>
-        <th class="n">Sannolikhet</th><th class="n">Edge</th><th class="n">Insats</th><th>Status</th>
-        <th class="n">Utfall</th><th class="n">Resultat</th><th>Stopp / kommentar</th></tr></thead>
+    <div class="wrap"><table class="ct bt">
+      <thead><tr><th>Spelare</th><th>Spel</th><th>Start</th><th class="n" title="odds → stängning, CLV">Odds</th>
+        <th class="n" title="sannolikhet, edge">Sannolikh.</th><th title="status, insats, utfall">Status</th><th class="n">Res.</th><th class="cm">Stopp / kommentar</th></tr></thead>
       <tbody id="aRows"></tbody></table></div>
   </section>
 
@@ -926,31 +952,36 @@ function renderBok() {
   const groups = {};
   (g === "typ" ? all : rs).forEach(r => (groups[key(r)] = groups[key(r)] || []).push(r));
   document.getElementById("aGroupRows").innerHTML = Object.entries(groups).sort((a, b) => b[1].length - a[1].length)
-    .map(([k, xs]) => { const x = stats(xs); return `<tr><td>${esc(k)}</td><td class="n">${x.n}</td>
-      <td class="n">${x.done}</td><td class="n">${x.done ? pct(x.won / x.done) : "–"}</td>
-      <td class="n">${nf(x.st, 1)}u</td><td class="n ${cls(x.res)}">${sgn(x.res)}u</td>
-      <td class="n">${pct(x.roi)}</td><td class="n ${cls(x.clv)}">${sgn(x.clv, 2)}</td>
-      <td class="n">${pct(x.beat, 0)}</td><td class="n">${pct(x.edge)}</td></tr>`; }).join("")
-    || `<tr><td colspan="10" class="empty">Inga spel matchar filtret.</td></tr>`;
+    .map(([k, xs]) => { const x = stats(xs); return `<tr><td class="w"><b>${esc(k)}</b></td>
+      <td class="n" data-l="Spel"><div>${x.n}</div><div class="c2">${x.done} avgj.</div></td><td class="n" data-l="Träff">${x.done ? pct(x.won / x.done) : "–"}</td>
+      <td class="n" data-l="Resultat"><div class="${cls(x.res)}"><b>${sgn(x.res)}u</b></div><div class="c2">insats ${nf(x.st, 1)}u</div></td>
+      <td class="n ${cls(x.roi)}" data-l="ROI">${pct(x.roi)}</td>
+      <td class="n" data-l="CLV"><div class="${cls(x.clv)}">${sgn(x.clv, 2)}</div><div class="c2">slog ${pct(x.beat, 0)}</div></td>
+      <td class="n" data-l="Snitt edge">${pct(x.edge)}</td></tr>`; }).join("")
+    || `<tr><td colspan="7" class="empty">Inga spel matchar filtret.</td></tr>`;
   const sr0 = filtered(true).filter(r => r.typ !== "Parlay" && (r.sida === "Över" || r.sida === "Under")), sr = mixed ? uniq(sr0) : sr0, by = {};
   sr.forEach(r => { (by[r.marknad] = by[r.marknad] || {Över: [], Under: []})[r.sida].push(r); });
-  const cells = xs => { const x = stats(xs); return `<td class="n">${x.done}</td><td class="n">${x.done ? pct(x.won / x.done) : "–"}</td>
-    <td class="n ${cls(x.res)}">${x.done ? sgn(x.res) + "u" : "–"}</td><td class="n">${pct(x.roi)}</td>
-    <td class="n ${cls(x.clv)}">${sgn(x.clv, 2)}</td>`; };
+  const cells = (xs, s) => { const x = stats(xs); return `<td class="n" data-l="${s} avgj. · träff"><div>${x.done}</div><div class="c2">${x.done ? pct(x.won / x.done) : "–"}</div></td>
+    <td class="n" data-l="${s} res. · ROI"><div class="${cls(x.res)}"><b>${x.done ? sgn(x.res) + "u" : "–"}</b></div><div class="c2">${pct(x.roi)}</div></td>
+    <td class="n ${cls(x.clv)}" data-l="${s} CLV">${sgn(x.clv, 2)}</td>`; };
   const list = Object.entries(by).sort((a, b) => (b[1].Över.length + b[1].Under.length) - (a[1].Över.length + a[1].Under.length));
   document.getElementById("aSideRows").innerHTML = list.length
-    ? `<tr style="font-weight:700"><td>Totalt</td>${cells(sr.filter(r => r.sida === "Över"))}${cells(sr.filter(r => r.sida === "Under"))}</tr>` +
-      list.map(([mk, v]) => `<tr><td>${esc(mk)}</td>${cells(v.Över)}${cells(v.Under)}</tr>`).join("")
-    : `<tr><td colspan="11" class="empty">Inga spel matchar filtret.</td></tr>`;
-  document.getElementById("aRows").innerHTML = rs.sort((a, b) => b.bokford - a.bokford).slice(0, 1000).map(r => `<tr>
-    <td>${fmtTs(r.bokford)}</td><td>${tag(r.sport)}</td><td>${r.typ}</td><td>${fmtTs(r.avspark)}</td>
-    <td class="wrapt">${esc(r.match)}</td><td class="wrapt">${esc(r.spelare)}</td><td>${esc(r.spel)}</td><td>${esc(r.bolag)}</td>
-    <td class="n">${nf(r.odds)}</td><td class="n">${nf(r.stangning)}</td><td class="n ${cls(r.clv)}">${sgn(r.clv)}</td>
-    <td class="n">${pct(r.p)}</td><td class="n">${pct(r.edge)}</td><td class="n">${nf(r.u, 1)}u</td>
-    <td><span class="pill ${r.status}">${r.status}</span></td><td class="n">${r.utfall ?? "–"}</td>
-    <td class="n ${cls(r.res)}">${sgn(r.res)}u</td>
-    <td class="neg wrapt">${esc(r.stopp.split("; ").filter(x => x && !x.startsWith("linjejusterat")).join("; "))}</td></tr>`).join("")
-    || `<tr><td colspan="18" class="empty">Inga spel.</td></tr>`;
+    ? `<tr style="font-weight:700"><td><b>Totalt</b></td>${cells(sr.filter(r => r.sida === "Över"), "Över")}${cells(sr.filter(r => r.sida === "Under"), "Under")}</tr>` +
+      list.map(([mk, v]) => `<tr><td><b>${esc(mk)}</b></td>${cells(v.Över, "Över")}${cells(v.Under, "Under")}</tr>`).join("")
+    : `<tr><td colspan="7" class="empty">Inga spel matchar filtret.</td></tr>`;
+  document.getElementById("aRows").innerHTML = rs.sort((a, b) => b.bokford - a.bokford).slice(0, 1000).map(r => {
+    const kom = r.stopp.split("; ").filter(x => x && !x.startsWith("linjejusterat")).join("; ");
+    return `<tr title="${esc(kom)}">
+    <td class="w"><div>${tag(r.sport)} <span class="c2">${esc(r.typ)}</span> <b>${esc(r.spelare)}</b></div><div class="c2">${esc(r.match)}</div></td>
+    <td class="w"><div>${esc(r.spel)}</div><div class="c2">${esc(r.bolag)}</div></td>
+    <td><div>${fmtTs(r.avspark)}</div><div class="c2" title="bokförd ${fmtTs(r.bokford)}">bokf. ${fmtTs(r.bokford).replace(/^\S+ /, "")}</div></td>
+    <td class="n"><div><b>${nf(r.odds)}</b>${r.stangning && r.stangning !== r.odds ? ` → ${nf(r.stangning)}` : ""}</div>
+      <div class="c2 ${cls(r.clv)}">CLV ${sgn(r.clv)}</div></td>
+    <td class="n"><div>${pct(r.p)}</div><div class="c2">edge ${pct(r.edge)}</div></td>
+    <td class="s"><div><span class="pill ${r.status}">${r.status}</span></div><div class="c2">${nf(r.u, 1)}u${r.utfall != null ? " · utfall " + esc(r.utfall) : ""}</div></td>
+    <td class="n ${cls(r.res)}"><b>${r.res == null ? "–" : sgn(r.res) + "u"}</b></td>
+    <td class="cm neg">${esc(kom)}</td></tr>`; }).join("")
+    || `<tr><td colspan="8" class="empty">Inga spel.</td></tr>`;
 }
 function csv() {
   const head = ["Bokförd", "Sport", "Typ", "Start", "Match", "Spelare", "Spel", "Marknad", "Bolag", "Odds",
