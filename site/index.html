@@ -108,6 +108,55 @@
   tbody tr:hover td { background:rgba(255,255,255,.025); }
   td.n, th.n { text-align:right; font-variant-numeric:tabular-nums; }
   td.wrapt { white-space:normal; min-width:200px; }
+  /* radarn: två rader per cell så att hela raden ryms i fönstret */
+  table.rt td { padding:8px 10px; vertical-align:middle; }
+  table.rt th { padding-left:10px; padding-right:10px; }
+  table.rt .c2 { color:var(--mute); font-size:12px; margin-top:2px; }
+  table.rt td.m, table.rt td.w { white-space:normal; min-width:130px; max-width:230px; }
+  table.rt th { white-space:nowrap; }
+  table.rt .anb { padding:1px 8px; font-size:11.5px; }
+  /* kompakta tabeller (bokföringen): två rader per cell, kommentaren bara på breda skärmar */
+  table.ct td { padding:8px 10px; vertical-align:middle; }
+  table.ct th { padding-left:10px; padding-right:10px; white-space:nowrap; }
+  table.ct .c2 { color:var(--mute); font-size:12px; margin-top:2px; }
+  table.ct td.w { white-space:normal; min-width:115px; max-width:260px; }
+  table.ct td.s { white-space:normal; min-width:80px; }
+  table.ct td.cm { white-space:normal; min-width:180px; max-width:320px; font-size:12px; }
+  @media (max-width:1180px) { table.ct .cm { display:none; } }
+  @media (max-width:640px) {
+    table.ct td, table.ct th { padding-left:6px; padding-right:6px; font-size:12.5px; }
+    table.ct td.w { min-width:90px; }
+    /* Alla spel: kort per rad */
+    table.bt thead { display:none; }
+    table.bt, table.bt tbody { display:block; }
+    table.bt tr { display:grid; grid-template-columns:minmax(0,1fr) auto; grid-template-areas:"p r" "s o" "t pe" "st st";
+                  gap:6px 12px; padding:11px 12px; border-bottom:1px solid var(--line); }
+    table.bt td { display:block; padding:0; border:0; white-space:normal; min-width:0 !important; max-width:none; font-size:13px; }
+    table.bt td:nth-child(1) { grid-area:p; } table.bt td:nth-child(2) { grid-area:s; } table.bt td:nth-child(3) { grid-area:t; }
+    table.bt td:nth-child(4) { grid-area:o; } table.bt td:nth-child(5) { grid-area:pe; } table.bt td:nth-child(6) { grid-area:st; }
+    table.bt td:nth-child(6) > div { display:inline-block; margin-right:8px; }
+    table.bt td:nth-child(7) { grid-area:r; } table.bt td.empty { grid-column:1 / -1; }
+    /* Över vs under, Sammanställning: kort med etikett på varje värde */
+    table.lt thead { display:none; }
+    table.lt, table.lt tbody { display:block; }
+    table.lt tr { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px 10px; padding:11px 12px; border-bottom:1px solid var(--line); }
+    table.lt td { display:block; padding:0; border:0; text-align:left; white-space:normal; min-width:0 !important; max-width:none; }
+    table.lt td:first-child, table.lt td.empty { grid-column:1 / -1; font-size:14px; }
+    table.lt td[data-l]::before { content:attr(data-l); display:block; color:var(--dim); font-size:11px; font-weight:400; }
+  }
+  /* mobil: varje rad blir ett kort i två kolumner (spelare/edge, spel/odds, match/sannolikhet) */
+  @media (max-width:640px) {
+    table.rt thead { display:none; }
+    table.rt, table.rt tbody { display:block; }
+    table.rt tr { display:grid; grid-template-columns:minmax(0,1fr) auto; grid-template-areas:"p e" "s o" "m sa";
+                  gap:6px 12px; padding:11px 12px; border-bottom:1px solid var(--line); }
+    table.rt tr.play { background:rgba(63,207,142,.06); }
+    table.rt td { display:block; padding:0; border:0; white-space:normal; min-width:0; max-width:none; background:none !important; }
+    table.rt td:nth-child(1) { grid-area:p; } table.rt td:nth-child(2) { grid-area:m; }
+    table.rt td:nth-child(3) { grid-area:s; } table.rt td:nth-child(4) { grid-area:o; }
+    table.rt td:nth-child(5) { grid-area:sa; } table.rt td:nth-child(6) { grid-area:e; }
+    table.rt td.empty { grid-column:1 / -1; }
+  }
   .pos { color:var(--good); } .neg { color:var(--dim); } .loss { color:var(--bad); }
   tr.play td { background:rgba(63,207,142,.06); }
   .pill { display:inline-block; padding:2px 9px; border-radius:var(--r-pill); font-size:11.5px; font-weight:600; background:var(--panel2); color:var(--dim); }
@@ -199,6 +248,40 @@
   .li .res { font:700 19px var(--f-disp); text-align:right; min-width:64px; }
   .li .mid { text-align:right; color:var(--dim); font-size:12.5px; }
   @media (max-width:560px) { .li { grid-template-columns:auto 1fr auto; } .li .mid { display:none; } }
+
+  /* ---------- analyspanel (NBA) ---------- */
+  .anb { background:none; border:1px solid var(--line2); color:var(--info); border-radius:var(--r-pill); padding:2px 10px;
+         font:600 12px var(--f-body); cursor:pointer; white-space:nowrap; }
+  .anb:hover { border-color:var(--info); }
+  .ov { position:fixed; inset:0; z-index:60; background:rgba(5,7,10,.62); display:flex; justify-content:flex-end; }
+  .pan { width:min(680px,100%); height:100%; overflow-y:auto; background:var(--panel); border-left:1px solid var(--line);
+         padding:20px 22px 60px; animation:slin .25s var(--ease); }
+  @keyframes slin { from { transform:translateX(30px); opacity:0; } to { transform:none; opacity:1; } }
+  .pan .x { float:right; background:none; border:1px solid var(--line2); color:var(--dim); border-radius:50%; width:32px; height:32px;
+            font-size:16px; cursor:pointer; }
+  .pan h3 { font:700 13px/1 var(--f-body); letter-spacing:.1em; text-transform:uppercase; color:var(--accent); margin:26px 0 10px; }
+  .pan .ttl { font:700 28px/1.1 var(--f-disp); margin:2px 0 4px; }
+  .pan .sub2 { color:var(--dim); font-size:13px; }
+  .pan .txt { color:var(--dim); font-size:12.5px; line-height:1.55; margin-top:8px; }
+  .pb { display:grid; grid-template-columns:150px 1fr 64px; gap:10px; align-items:center; margin:7px 0; font-size:13px; }
+  .pb .tr { height:10px; background:var(--panel2); border-radius:6px; position:relative; overflow:hidden; }
+  .pb .tr i { position:absolute; inset:0 auto 0 0; border-radius:6px; background:var(--mute); }
+  .pb.mk .tr i { background:var(--info); } .pb.fk .tr i { background:var(--accent); } .pb.sl .tr i { background:var(--good); }
+  .pb .v { text-align:right; font-weight:700; }
+  .kv { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; }
+  .kv > div { background:var(--panel2); border:1px solid var(--line); border-radius:var(--r-sm); padding:8px 10px; }
+  .kv .k { color:var(--dim); font-size:11.5px; } .kv .v { font:700 20px/1.2 var(--f-disp); }
+  .kv .s { color:var(--mute); font-size:11.5px; }
+  @media (max-width:560px) { .kv { grid-template-columns:repeat(2,1fr); } .pb { grid-template-columns:110px 1fr 56px; } }
+  .ft { width:100%; border-collapse:collapse; font-size:13px; }
+  .ft td { padding:7px 6px; border-bottom:1px solid var(--line); vertical-align:top; }
+  .ft td.n { text-align:right; white-space:nowrap; font-weight:700; }
+  .pan .why { color:var(--mute); font-size:12px; font-weight:400; }
+  .hr { display:flex; gap:8px; flex-wrap:wrap; }
+  .hr > div { background:var(--panel2); border:1px solid var(--line); border-radius:var(--r-sm); padding:7px 11px; min-width:92px; }
+  .hr .k { color:var(--dim); font-size:11.5px; } .hr .v { font-weight:700; font-size:15px; }
+  .ab { list-style:none; padding:0; margin:0; font-size:13px; } .ab li { padding:5px 0; border-bottom:1px solid var(--line); }
+  svg.ch text { fill:var(--dim); font:11px var(--f-body); }
 </style>
 </head>
 <body>
@@ -264,13 +347,11 @@
       <label><input type="checkbox" id="onlyLive"> Bara LIVE</label>
     </div>
     <div class="sub" style="margin-bottom:10px">Håll muspekaren över en rad för reglerna som stoppade den.</div>
-    <div class="wrap"><table>
+    <div class="wrap"><table class="rt">
       <thead><tr>
-        <th data-k="sport">Sport</th><th data-k="spelare">Spelare</th><th data-k="match">Match</th><th data-k="avspark">Start</th>
-        <th data-k="spel">Spel</th><th class="n" data-k="prognos">Prognos</th><th class="n" data-k="odds">Odds</th>
-        <th data-k="bolag">Bolag</th><th class="n" data-k="sannolikhet">Sannolikhet</th>
-        <th class="n" data-k="ratt_odds">Rätt odds</th><th class="n" data-k="edge">Edge</th>
-        <th class="n" data-k="spela_fran">Spela från</th><th class="n" data-k="insats">Insats</th>
+        <th data-k="spelare">Spelare</th><th data-k="avspark">Match · start</th>
+        <th data-k="spel">Spel · prognos</th><th class="n" data-k="odds">Odds</th>
+        <th class="n" data-k="sannolikhet">Sannolikhet</th><th class="n" data-k="edge" title="Edge · spela från · insats">Edge · från · insats</th>
       </tr></thead>
       <tbody id="rRows"></tbody>
     </table></div>
@@ -307,23 +388,20 @@
     <div class="sub" id="aUniq"></div>
     <div class="tiles" id="aTiles" style="margin-top:10px"></div>
     <h2>Över vs under</h2>
-    <div class="wrap free"><table>
-      <thead><tr><th rowspan="2">Marknad</th><th colspan="5" style="text-align:center">Över</th><th colspan="5" style="text-align:center">Under</th></tr>
-        <tr><th class="n">Avgjorda</th><th class="n">Träff</th><th class="n">Resultat</th><th class="n">ROI</th><th class="n">CLV</th>
-          <th class="n">Avgjorda</th><th class="n">Träff</th><th class="n">Resultat</th><th class="n">ROI</th><th class="n">CLV</th></tr></thead>
+    <div class="wrap free"><table class="ct lt">
+      <thead><tr><th rowspan="2">Marknad</th><th colspan="3" style="text-align:center">Över</th><th colspan="3" style="text-align:center">Under</th></tr>
+        <tr><th class="n">Avgj. · träff</th><th class="n">Res. · ROI</th><th class="n">CLV</th>
+          <th class="n">Avgj. · träff</th><th class="n">Res. · ROI</th><th class="n">CLV</th></tr></thead>
       <tbody id="aSideRows"></tbody></table></div>
     <h2>Sammanställning</h2>
-    <div class="wrap free"><table>
-      <thead><tr><th>Grupp</th><th class="n">Spel</th><th class="n">Avgjorda</th><th class="n">Träff</th>
-        <th class="n">Insats</th><th class="n">Resultat</th><th class="n">ROI</th><th class="n">Snitt-CLV</th>
-        <th class="n">Slog stängn.</th><th class="n">Snitt edge</th></tr></thead>
+    <div class="wrap free"><table class="ct lt">
+      <thead><tr><th>Grupp</th><th class="n">Spel · avgj.</th><th class="n">Träff</th>
+        <th class="n">Resultat · insats</th><th class="n">ROI</th><th class="n">CLV · slog stängn.</th><th class="n">Snitt edge</th></tr></thead>
       <tbody id="aGroupRows"></tbody></table></div>
     <h2>Alla spel</h2>
-    <div class="wrap"><table>
-      <thead><tr><th>Bokförd</th><th>Sport</th><th>Typ</th><th>Start</th><th>Match</th><th>Spelare</th>
-        <th>Spel</th><th>Bolag</th><th class="n">Odds</th><th class="n">Stängn.</th><th class="n">CLV</th>
-        <th class="n">Sannolikhet</th><th class="n">Edge</th><th class="n">Insats</th><th>Status</th>
-        <th class="n">Utfall</th><th class="n">Resultat</th><th>Stopp / kommentar</th></tr></thead>
+    <div class="wrap"><table class="ct bt">
+      <thead><tr><th>Spelare</th><th>Spel</th><th>Start</th><th class="n" title="odds → stängning, CLV">Odds</th>
+        <th class="n" title="sannolikhet, edge">Sannolikh.</th><th title="status, insats, utfall">Status</th><th class="n">Res.</th><th class="cm">Stopp / kommentar</th></tr></thead>
       <tbody id="aRows"></tbody></table></div>
   </section>
 
@@ -346,6 +424,7 @@
     <div id="pBody"></div>
   </section>
 </main>
+<div id="an" class="ov hidden" onclick="if (event.target === this) closeAn()"><div class="pan" id="anBody"></div></div>
 <script>
 const SPORTS = {
   fotboll: {name: "Fotboll", url: "data.json", icon: "⚽"},
@@ -546,7 +625,8 @@ function strength(r) {
     `modell ${M == null ? "saknas" : sgn(M) + " % → " + sgn(Mp)}`,
     `marknaden sedan spelet lades ${sgn(R)}`, `sharp ${S ? sgn(S, 0) : "0"}`,
     ok ? "" : (oddsNow < r.spela_fran ? `odds nu ${nf(oddsNow)} < spela från ${sf(r.spela_fran)}` : "inte spelbart nu")].filter(Boolean);
-  return {score: E + Mp + R + S, ok, oddsNow, edgeNow: cur ? cur.edge : null, M, S, why: why.join(" · ")};
+  return {score: E + Mp + R + S, ok, oddsNow, edgeNow: cur ? cur.edge : null, M, S, why: why.join(" · "),
+          cur: cur ? {...cur, sport: r.sport} : null};
 }
 function renderNu() {
   const now = Date.now() / 1000;
@@ -567,7 +647,7 @@ function renderNu() {
     chips: [r.notis === false ? `<span class="chip w">notis väntar</span>` : r.notis === null ? `<span class="chip">spärrad</span>` : `<span class="chip l">⚡ LIVE · notis</span>`,
             r.st.M != null ? `<span class="chip ${r.st.M > 0 ? "g" : "w"}">modell ${sgn(r.st.M)} %</span>` : "",
             r.st.S > 0 ? `<span class="chip g">sharp money ⬆</span>` : r.st.S < 0 ? `<span class="chip b">sharp mot oss</span>` : "",
-            `<span class="chip">${SPORTS[r.sport].icon} ${SPORTS[r.sport].name}</span>`].join("")
+            `<span class="chip">${SPORTS[r.sport].icon} ${SPORTS[r.sport].name}</span>`, anBtn(r.st.cur)].join("")
   })).join("") || `<div class="emptybox"><b>Inga öppna LIVE-spel just nu</b>Du får en notis så fort något klarar alla krav. Sidan uppdateras själv varannan minut.</div>`;
   const done = live.filter(r => r.status !== "öppen").sort((a, b) => b.avspark - a.avspark).slice(0, 25);
   document.getElementById("nuDone").innerHTML = done.map(r => `<div class="li">
@@ -633,6 +713,7 @@ function renderRadar() {
   const q = document.getElementById("q").value.toLowerCase(), mk = document.getElementById("mk").value;
   const only = document.getElementById("only").checked, onlyLive = document.getElementById("onlyLive").checked;
   const side = document.getElementById("side").value;
+  AN.length = 0;
   let rs = [];
   for (const s of sel()) (D[s]?.radar || []).forEach(r => rs.push({...r, sport: s, mkName: MK[r.marknad] || r.marknad,
     insats: r.edge > 0 ? strengthU(betScore({edge: r.edge, stopp: r.kommentar,
@@ -645,13 +726,125 @@ function renderRadar() {
   rs.sort((a, b) => (a[sortKey] > b[sortKey] ? 1 : a[sortKey] < b[sortKey] ? -1 : 0) * sortDir);
   document.getElementById("rRows").innerHTML = rs.slice(0, 600).map(r => `
     <tr class="${r.spelbar ? "play" : ""}" title="${esc(r.kommentar)}">
-      <td>${tag(r.sport)}</td><td>${r.live ? "⚡ " : ""}${esc(r.spelare)}</td><td>${esc(r.match)}</td><td>${fmtTs(utcTs(r.avspark))}</td>
-      <td>${esc(r.spel)}</td><td class="n">${nf(r.prognos)}</td><td class="n">${nf(r.odds)}</td><td>${esc(r.bolag)}</td>
-      <td class="n">${pct(r.sannolikhet)}</td><td class="n">${nf(r.ratt_odds)}</td>
-      <td class="n ${r.edge > 0 ? "pos" : "neg"}">${pct(r.edge)}</td><td class="n">${sf(r.spela_fran)}</td>
-      <td class="n ${r.spelbar ? "pos" : "neg"}" title="styrka -> 1–10u">${r.insats ? (r.insats >= 10 ? "<b>10u</b>" : r.insats + "u") : "–"}</td></tr>`).join("")
-    || `<tr><td colspan="13" class="empty">Inga ben med minst 2 % edge just nu.</td></tr>`;
+      <td class="w"><div class="c1">${cur === "alla" ? tag(r.sport) + " " : ""}${r.live ? "⚡ " : ""}<b>${esc(r.spelare)}</b></div>${anBtn(r) ? `<div class="c2">${anBtn(r)}</div>` : ""}</td>
+      <td class="m"><div class="c1">${esc(r.match)}</div><div class="c2">${fmtTs(utcTs(r.avspark))}</div></td>
+      <td class="w"><div class="c1">${esc(r.spel)}</div><div class="c2">${r.prognos == null ? "" : "prognos " + nf(r.prognos, 1)}</div></td>
+      <td class="n"><div class="c1"><b>${nf(r.odds)}</b></div><div class="c2">${esc(r.bolag)}</div></td>
+      <td class="n"><div class="c1">${pct(r.sannolikhet)}</div><div class="c2">rätt ${nf(r.ratt_odds)}</div></td>
+      <td class="n"><div class="c1 ${r.edge > 0 ? "pos" : "neg"}"><b>${pct(r.edge)}</b></div>
+        <div class="c2" title="spela till lägst detta odds · insats efter styrkan (1–10u)">från ${sf(r.spela_fran)} · <span class="${r.spelbar ? "pos" : ""}">${r.insats ? (r.insats >= 10 ? "<b>10u</b>" : r.insats + "u") : "–"}</span></div></td></tr>`).join("")
+    || `<tr><td colspan="6" class="empty">Inga ben med minst 2 % edge just nu.</td></tr>`;
 }
+
+// --------------------------------------------------------------- ANALYSPANEL (NBA)
+// Öppnas från radarn och från LIVE-korten. Data: radarradens "analys" (propsbot/nba.py, attach_analysis).
+const AN = [];
+const anBtn = r => r && r.analys && Object.keys(r.analys).length > 1
+  ? `<button class="anb" onclick="event.stopPropagation();openAn(${AN.push(r) - 1})">Analys</button>` : "";
+function nbPmf(mu, r, kmax) {
+  const out = []; let p = Math.pow(r / (r + mu), r);
+  for (let k = 0; k <= kmax; k++) { out.push(p); p *= (k + r) / (k + 1) * mu / (r + mu); }
+  return out;
+}
+function distChart(mu, r, line, under) {
+  const kmax = Math.max(Math.ceil(line * 2.2), Math.ceil(mu + 4 * Math.sqrt(mu + mu * mu / r)), 6);
+  const pm = nbPmf(mu, r, kmax), mx = Math.max(...pm), W = 620, H = 150, P = 18, bw = (W - 2 * P) / (kmax + 1);
+  const x = k => P + k * bw, y = v => H - 22 - v / mx * (H - 40);
+  const bars = pm.map((v, k) => { const win = under ? k < line : k > line;
+    return `<rect x="${x(k) + 1}" y="${y(v)}" width="${Math.max(1, bw - 2)}" height="${H - 22 - y(v)}" rx="2" fill="${win ? "var(--good)" : "var(--line2)"}" opacity="${win ? .85 : 1}"/>`; }).join("");
+  const lx = x(line + 0.5), step = Math.max(1, Math.ceil((kmax + 1) / 12));
+  const ticks = pm.map((_, k) => k % step ? "" : `<text x="${x(k) + bw / 2}" y="${H - 6}" text-anchor="middle">${k}</text>`).join("");
+  return `<svg class="ch" viewBox="0 0 ${W} ${H}" width="100%">${bars}<line x1="${lx}" x2="${lx}" y1="8" y2="${H - 22}" stroke="var(--accent)" stroke-width="2" stroke-dasharray="4 3"/>
+    <text x="${lx + 5}" y="16" style="fill:var(--accent)">linje ${nf(line, 1)}</text>${ticks}</svg>`;
+}
+function logChart(rows, line, under) {
+  if (!rows || !rows.length) return `<div class="txt">Ingen matchlogg.</div>`;
+  const rs = [...rows].reverse(), W = 620, H = 170, P = 18, mx = Math.max(line * 1.4, ...rs.map(r => r.v), 1);
+  const bw = (W - 2 * P) / rs.length, y = v => H - 34 - v / mx * (H - 54);
+  const bars = rs.map((r, i) => { const win = under ? r.v < line : r.v > line, cx = P + i * bw;
+    return `<rect x="${cx + 4}" y="${y(r.v)}" width="${bw - 8}" height="${H - 34 - y(r.v)}" rx="3" fill="${win ? "var(--good)" : "var(--bad)"}" opacity=".8"/>
+      <text x="${cx + bw / 2}" y="${y(r.v) - 4}" text-anchor="middle" style="fill:var(--text);font-weight:700">${nf(r.v, 0)}</text>
+      <text x="${cx + bw / 2}" y="${H - 19}" text-anchor="middle">${r.hemma === false ? "@" : ""}${esc(r.mot || "?")}</text>
+      <text x="${cx + bw / 2}" y="${H - 6}" text-anchor="middle">${nf(r.min, 0)} min</text>`; }).join("");
+  return `<svg class="ch" viewBox="0 0 ${W} ${H}" width="100%">${bars}<line x1="${P}" x2="${W - P}" y1="${y(line)}" y2="${y(line)}" stroke="var(--accent)" stroke-width="2" stroke-dasharray="4 3"/></svg>`;
+}
+function openAn(i) {
+  const r = AN[i], a = r.analys || {}, under = (r.sida || "over") === "under", line = r.linje ?? lineOf(r.spel);
+  const side = under ? "under" : "över", mk = MK[r.marknad] || r.marknad;
+  const pbar = (lab, p, c, note) => p == null ? "" : `<div class="pb ${c}"><div>${lab}${note ? `<div class="why">${note}</div>` : ""}</div>
+    <div class="tr"><i style="width:${(p * 100).toFixed(1)}%"></i></div><div class="v">${pct(p)}</div></div>`;
+  const ev = p => p == null || !r.odds ? "" : `EV ${sgn((p * r.odds - 1) * 100)} %`;
+  // faktorer: effekt på VÅR sida (en faktor > 1 hjälper över, stjälper under)
+  const fRow = (lab, f, why) => { if (f == null) return "";
+    const d = (f - 1) * 100, good = under ? d < 0 : d > 0, c = Math.abs(d) < 0.5 ? "" : good ? "pos" : "loss";
+    return `<tr><td>${lab}<div class="why">${why}</div></td><td class="n ${c}">${sgn(d)} %</td></tr>`; };
+  const sched = [a.f_b2b ? "back-to-back" : "", a.f_tre_pa_fyra ? "tredje matchen på fyra kvällar" : ""].filter(Boolean).join(", ");
+  const hrBox = (k, lab) => { const v = a["traff_" + k], n = a["traff_" + k + "_n"];
+    return `<div><div class="k">${lab}</div><div class="v ${v == null ? "" : v >= 0.5 ? "pos" : "loss"}">${v == null ? "–" : Math.round(v * n) + " av " + n}</div>
+      <div class="k">${v == null ? "inga matcher" : pct(v, 0)}</div></div>`; };
+  const odds = a.odds_bolag || [], best = Math.max(0, ...odds.map(o => o[under ? "under" : "over"] || 0));
+  const mu = a.vantat_faktorer ?? a.vantat ?? r.prognos;
+  const fac = a.p_faktorer != null;
+  document.getElementById("anBody").innerHTML = `
+    <button class="x" onclick="closeAn()" aria-label="Stäng">✕</button>
+    <div class="eyebrow">${esc(mk)} · ${esc(r.match)} · ${fmtTs(utcTs(r.avspark))}</div>
+    <div class="ttl">${esc(r.spelare)}</div>
+    <div class="sub2">${side[0].toUpperCase() + side.slice(1)} ${nf(line, 1)} · bästa odds <b>${nf(r.odds)}</b> hos ${esc(r.bolag)} · spela från <b>${sf(r.spela_fran)}</b>
+      ${r.live ? ` · <span class="chip l">⚡ LIVE</span>` : r.spelbar ? ` · <span class="chip g">spelbar</span>` : ""}</div>
+
+    <h3>Sannolikhet för ${side} ${nf(line, 1)}</h3>
+    ${pbar("Marknaden", a.p_marknad, "mk", "utan marginal")}
+    ${pbar("Nuvarande modell", a.p_modell, "", "minuter × takt")}
+    ${pbar("Faktormodellen", a.p_faktorer_ra, "fk", "skugga, före blandning")}
+    ${pbar("Boten räknar med", r.sannolikhet, "sl", ev(r.sannolikhet))}
+    ${fac ? pbar("Faktormodell + marknad", a.p_faktorer, "fk", ev(a.p_faktorer) + " · skugga") : ""}
+    <div class="txt">Botens sannolikhet = nuvarande modell vägd mot marknaden (vikt ${nf(a.modell_vikt)}, datakvalitet ${nf(a.dq)} från ${a.matcher ?? "–"} matcher).
+      Faktormodellen bokförs i skugga och jämförs mot marknaden på avgjorda spel innan den får styra.</div>
+
+    <h3>Prognos</h3>
+    <div class="kv">
+      <div><div class="k">Väntat (nuvarande)</div><div class="v">${nf(a.vantat, 1)}</div><div class="s">${nf(a.minuter, 1)} min</div></div>
+      <div><div class="k">Väntat (faktorer)</div><div class="v">${nf(a.vantat_faktorer, 1)}</div><div class="s">${nf(a.minuter_faktorer, 1)} ± ${nf(a.minuter_sd_faktorer, 1)} min</div></div>
+      <div><div class="k">Linje</div><div class="v">${nf(line, 1)}</div><div class="s">${esc(r.bolag)} ${nf(r.odds)}</div></div>
+      <div><div class="k">Snitt senaste 5</div><div class="v">${a.logg && a.logg.length ? nf(a.logg.slice(0, 5).reduce((s, x) => s + x.v, 0) / Math.min(5, a.logg.length), 1) : "–"}</div><div class="s">${a.logg ? a.logg.length : 0} matcher i loggen</div></div>
+    </div>
+    ${mu ? distChart(mu, a.nb_r || 15, line, under) : ""}
+    <div class="txt">Fördelningen (${fac ? "faktormodellens" : "modellens"} väntade värde ${nf(mu, 1)}, negativ binomial). Gröna staplar = utfall där ${side} ${nf(line, 1)} vinner.</div>
+
+    <h3>Senaste matcherna</h3>
+    ${logChart(a.logg, line, under)}
+    <div class="hr" style="margin-top:8px">${hrBox("l5", "Senaste 5")}${hrBox("l10", "Senaste 10")}${hrBox("sasong", "Säsongen")}
+      ${hrBox("mot", "Mot " + esc(a.mot || "motståndaren"))}${hrBox("hemmaborta", a.hemma ? "Hemma" : a.hemma === false ? "Borta" : "Hemma/borta")}</div>
+    <div class="txt">Andel matcher där ${side} ${nf(line, 1)} hade vunnit. "Mot" räknar i år och förra säsongen. Visas som information – träffbilden styr inte prognosen.</div>
+
+    <h3>Faktorer</h3>
+    ${a.f_minuter_bas == null ? `<div class="txt">Faktormodellen har inte räknat på det här benet än.</div>` : `<table class="ft">
+      <tr><td>Speltid<div class="why">Snitt ${nf(a.f_minuter_bas, 1)} min när han spelar → ${nf(a.minuter_faktorer, 1)} min i kväll${a.f_minutbegransning ? " · <b class='loss'>minutbegränsning</b>" : ""}${a.f_tillbaka ? " · tillbaka efter frånvaro" : ""}${sched ? " · " + sched : ""}</div></td>
+        <td class="n ${(a.minuter_faktorer - a.f_minuter_bas) * (under ? -1 : 1) > 0.3 ? "pos" : (a.minuter_faktorer - a.f_minuter_bas) * (under ? -1 : 1) < -0.3 ? "loss" : ""}">${sgn(a.minuter_faktorer - a.f_minuter_bas)} min</td></tr>
+      ${fRow("Användning", a.f_anv, "Lagkamrater ute: del av deras produktion utöver minuterna")}
+      ${fRow("Matchmiljö", a.f_miljo, `Lagets väntade poäng ${nf(a.f_lag_poang, 1)} (${a.f_miljo_kalla === "pinnacle" ? "Pinnacles total och spread" : "lagens snitt, ingen Pinnacle-linje"})` +
+        (["rebounds", "steals", "blocks"].includes(r.marknad) ? " – påverkar bara poäng, trepoängare och assist" : ""))}
+      ${fRow("Tempo", a.f_tempo, "Motståndarens bollinnehav per match mot ligan" +
+        (["points", "threes", "assists"].includes(r.marknad) ? " – påverkar bara returer, steals och blocks (poängen sätts av matchmiljön)" : ""))}
+      ${fRow("Försvar mot positionen", a.f_pos, "Vad motståndaren släpper till samma position per bollinnehav")}
+      ${fRow("Mot motståndaren", a.f_mot, `${a.f_mot_n || 0} matcher i år + förra säsongen (kraftigt krympt)`)}
+    </table>
+    <div class="txt">Procent = hur faktorn flyttar väntat värde. Grönt hjälper ${side}, rött stjälper.</div>`}
+
+    <h3>Frånvaro i ${esc(a.lag || "laget")}</h3>
+    ${a.franvaro && a.franvaro.length ? `<ul class="ab">${a.franvaro.map(x => `<li><b>${esc(x.namn)}</b> – ${esc(x.status)} · ${nf(x.min, 1)} min/match${x.redan_borta ? " <span class='why'>(borta i flera matcher – redan med i lagkamraternas siffror)</span>" : ""}</li>`).join("")}</ul>`
+      : `<div class="txt">${a.lag ? "Ingen rotationsspelare på skadelistan." : "Ingen uppgift."}</div>`}
+
+    <h3>Odds per bolag · linje ${nf(line, 1)}</h3>
+    ${odds.length ? `<table class="ft"><tr><td class="why">Bolag</td><td class="n why">Över</td><td class="n why">Under</td></tr>
+      ${odds.map(o => `<tr><td>${esc(o.bolag)}</td>${["over", "under"].map(s => `<td class="n ${s === (under ? "under" : "over") && o[s] && o[s] >= best ? "pos" : ""}">${nf(o[s])}</td>`).join("")}</tr>`).join("")}</table>`
+      : `<div class="txt">Inga odds sparade.</div>`}
+    <div class="txt">Bästa pris för vår sida är grönt. Interpolerade Pinnacle-linjer kan förekomma.</div>`;
+  document.getElementById("an").classList.remove("hidden");
+  document.body.style.overflow = "hidden";
+}
+function closeAn() { document.getElementById("an").classList.add("hidden"); document.body.style.overflow = ""; }
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeAn(); });
 
 // --------------------------------------------------------------- RESULTAT
 function cumChart(series) {
@@ -759,31 +952,36 @@ function renderBok() {
   const groups = {};
   (g === "typ" ? all : rs).forEach(r => (groups[key(r)] = groups[key(r)] || []).push(r));
   document.getElementById("aGroupRows").innerHTML = Object.entries(groups).sort((a, b) => b[1].length - a[1].length)
-    .map(([k, xs]) => { const x = stats(xs); return `<tr><td>${esc(k)}</td><td class="n">${x.n}</td>
-      <td class="n">${x.done}</td><td class="n">${x.done ? pct(x.won / x.done) : "–"}</td>
-      <td class="n">${nf(x.st, 1)}u</td><td class="n ${cls(x.res)}">${sgn(x.res)}u</td>
-      <td class="n">${pct(x.roi)}</td><td class="n ${cls(x.clv)}">${sgn(x.clv, 2)}</td>
-      <td class="n">${pct(x.beat, 0)}</td><td class="n">${pct(x.edge)}</td></tr>`; }).join("")
-    || `<tr><td colspan="10" class="empty">Inga spel matchar filtret.</td></tr>`;
+    .map(([k, xs]) => { const x = stats(xs); return `<tr><td class="w"><b>${esc(k)}</b></td>
+      <td class="n" data-l="Spel"><div>${x.n}</div><div class="c2">${x.done} avgj.</div></td><td class="n" data-l="Träff">${x.done ? pct(x.won / x.done) : "–"}</td>
+      <td class="n" data-l="Resultat"><div class="${cls(x.res)}"><b>${sgn(x.res)}u</b></div><div class="c2">insats ${nf(x.st, 1)}u</div></td>
+      <td class="n ${cls(x.roi)}" data-l="ROI">${pct(x.roi)}</td>
+      <td class="n" data-l="CLV"><div class="${cls(x.clv)}">${sgn(x.clv, 2)}</div><div class="c2">slog ${pct(x.beat, 0)}</div></td>
+      <td class="n" data-l="Snitt edge">${pct(x.edge)}</td></tr>`; }).join("")
+    || `<tr><td colspan="7" class="empty">Inga spel matchar filtret.</td></tr>`;
   const sr0 = filtered(true).filter(r => r.typ !== "Parlay" && (r.sida === "Över" || r.sida === "Under")), sr = mixed ? uniq(sr0) : sr0, by = {};
   sr.forEach(r => { (by[r.marknad] = by[r.marknad] || {Över: [], Under: []})[r.sida].push(r); });
-  const cells = xs => { const x = stats(xs); return `<td class="n">${x.done}</td><td class="n">${x.done ? pct(x.won / x.done) : "–"}</td>
-    <td class="n ${cls(x.res)}">${x.done ? sgn(x.res) + "u" : "–"}</td><td class="n">${pct(x.roi)}</td>
-    <td class="n ${cls(x.clv)}">${sgn(x.clv, 2)}</td>`; };
+  const cells = (xs, s) => { const x = stats(xs); return `<td class="n" data-l="${s} avgj. · träff"><div>${x.done}</div><div class="c2">${x.done ? pct(x.won / x.done) : "–"}</div></td>
+    <td class="n" data-l="${s} res. · ROI"><div class="${cls(x.res)}"><b>${x.done ? sgn(x.res) + "u" : "–"}</b></div><div class="c2">${pct(x.roi)}</div></td>
+    <td class="n ${cls(x.clv)}" data-l="${s} CLV">${sgn(x.clv, 2)}</td>`; };
   const list = Object.entries(by).sort((a, b) => (b[1].Över.length + b[1].Under.length) - (a[1].Över.length + a[1].Under.length));
   document.getElementById("aSideRows").innerHTML = list.length
-    ? `<tr style="font-weight:700"><td>Totalt</td>${cells(sr.filter(r => r.sida === "Över"))}${cells(sr.filter(r => r.sida === "Under"))}</tr>` +
-      list.map(([mk, v]) => `<tr><td>${esc(mk)}</td>${cells(v.Över)}${cells(v.Under)}</tr>`).join("")
-    : `<tr><td colspan="11" class="empty">Inga spel matchar filtret.</td></tr>`;
-  document.getElementById("aRows").innerHTML = rs.sort((a, b) => b.bokford - a.bokford).slice(0, 1000).map(r => `<tr>
-    <td>${fmtTs(r.bokford)}</td><td>${tag(r.sport)}</td><td>${r.typ}</td><td>${fmtTs(r.avspark)}</td>
-    <td class="wrapt">${esc(r.match)}</td><td class="wrapt">${esc(r.spelare)}</td><td>${esc(r.spel)}</td><td>${esc(r.bolag)}</td>
-    <td class="n">${nf(r.odds)}</td><td class="n">${nf(r.stangning)}</td><td class="n ${cls(r.clv)}">${sgn(r.clv)}</td>
-    <td class="n">${pct(r.p)}</td><td class="n">${pct(r.edge)}</td><td class="n">${nf(r.u, 1)}u</td>
-    <td><span class="pill ${r.status}">${r.status}</span></td><td class="n">${r.utfall ?? "–"}</td>
-    <td class="n ${cls(r.res)}">${sgn(r.res)}u</td>
-    <td class="neg wrapt">${esc(r.stopp.split("; ").filter(x => x && !x.startsWith("linjejusterat")).join("; "))}</td></tr>`).join("")
-    || `<tr><td colspan="18" class="empty">Inga spel.</td></tr>`;
+    ? `<tr style="font-weight:700"><td><b>Totalt</b></td>${cells(sr.filter(r => r.sida === "Över"), "Över")}${cells(sr.filter(r => r.sida === "Under"), "Under")}</tr>` +
+      list.map(([mk, v]) => `<tr><td><b>${esc(mk)}</b></td>${cells(v.Över, "Över")}${cells(v.Under, "Under")}</tr>`).join("")
+    : `<tr><td colspan="7" class="empty">Inga spel matchar filtret.</td></tr>`;
+  document.getElementById("aRows").innerHTML = rs.sort((a, b) => b.bokford - a.bokford).slice(0, 1000).map(r => {
+    const kom = r.stopp.split("; ").filter(x => x && !x.startsWith("linjejusterat")).join("; ");
+    return `<tr title="${esc(kom)}">
+    <td class="w"><div>${tag(r.sport)} <span class="c2">${esc(r.typ)}</span> <b>${esc(r.spelare)}</b></div><div class="c2">${esc(r.match)}</div></td>
+    <td class="w"><div>${esc(r.spel)}</div><div class="c2">${esc(r.bolag)}</div></td>
+    <td><div>${fmtTs(r.avspark)}</div><div class="c2" title="bokförd ${fmtTs(r.bokford)}">bokf. ${fmtTs(r.bokford).replace(/^\S+ /, "")}</div></td>
+    <td class="n"><div><b>${nf(r.odds)}</b>${r.stangning && r.stangning !== r.odds ? ` → ${nf(r.stangning)}` : ""}</div>
+      <div class="c2 ${cls(r.clv)}">CLV ${sgn(r.clv)}</div></td>
+    <td class="n"><div>${pct(r.p)}</div><div class="c2">edge ${pct(r.edge)}</div></td>
+    <td class="s"><div><span class="pill ${r.status}">${r.status}</span></div><div class="c2">${nf(r.u, 1)}u${r.utfall != null ? " · utfall " + esc(r.utfall) : ""}</div></td>
+    <td class="n ${cls(r.res)}"><b>${r.res == null ? "–" : sgn(r.res) + "u"}</b></td>
+    <td class="cm neg">${esc(kom)}</td></tr>`; }).join("")
+    || `<tr><td colspan="8" class="empty">Inga spel.</td></tr>`;
 }
 function csv() {
   const head = ["Bokförd", "Sport", "Typ", "Start", "Match", "Spelare", "Spel", "Marknad", "Bolag", "Odds",
@@ -834,6 +1032,7 @@ const HERO = {
   parlay: ["Parlays", "2–3 ben från olika matcher hos samma bolag, minst 5 % edge per ben. Bara data."],
   param: ["Parametrar", "Alla regler och inställningar, hämtade från de värden boten använder just nu."]};
 function render() {
+  AN.length = 0;
   document.querySelectorAll(".sp").forEach(b => b.classList.toggle("on", b.dataset.s === cur));
   const sp = cur === "alla" ? "Fotboll & NBA" : SPORTS[cur].name;
   document.getElementById("heroEye").textContent = `${sp} · ${new Date().toLocaleDateString("sv-SE", {...tz, weekday: "long", day: "numeric", month: "long"})}`;
