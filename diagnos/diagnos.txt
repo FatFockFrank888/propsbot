@@ -1,4 +1,4 @@
-Skanning 2026-11-14 03:22
+Skanning 2026-11-14 03:40
 Kambi unibet (ubse): OK, 32 matcher i valda ligor
 Kambi paf (paf): OK
 Kambi atg (atg): OK
@@ -7,7 +7,7 @@ Kambi svenskaspel (svenskaspel): OK
 Kambi expekt (expektse): OK
 Kambi betmgm (betmgmse): OK
 Pinnacle: OK, 26 ligor
-Pinnacle: 6 matcher, matchlinjer för 5 av 32 Kambi-matcher, 0 spelarodds som används
+Pinnacle: 7 matcher, matchlinjer för 6 av 32 Kambi-matcher, 0 spelarodds som används
 Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
   Double Chance 1st Half | units=Regular | kategori=Team Props | deltagare=Mirassol Or Atletico Mineiro,Draw Or Atletico Mineiro,Draw Or Mirassol  ->  används inte (lagmarknad)
   Moneyline and Total Goals | units=Regular | kategori=Team Props | deltagare=Mirassol & Over 2.5,Mirassol & Under 2.5,Draw & Over 2.5,Draw & Under 2.5,Atletico Mineiro & Over 2.5,Atletico Mineiro & Under 2.5  ->  används inte (lagmarknad)
@@ -69,15 +69,16 @@ Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
   Queretaro To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
   Monterrey To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
   Queretaro Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
-Sides mindre ligor: 161 Kambi-matcher inom 12 h, 478 Pinnacle-matcher, 146 med Pinnacle, 146 matchade: Bulgaria / PFL 2, Czech Republic / ČFL, Denmark / 2nd Division, Denmark / Elitedivisionen (W), England / Isthmian League Premier Division, England / League One, England / League Two, England / National League, England / Northern League Premier Division, England / Southern League Premier Division Cen
-Sides/totals: 151 matcher med Kambi + Pinnacle, 1495 linjer, 0 nya spel, 1 nya skuggspel, Smarkets-priser i 50 av 58; bästa edge +14.4% (Ślęza Wrocław 1X2: 1), +9.8% (Kks Lech Poznan (W) 1X2: 1), +9.0% (Warta Gorzow Wielkopolski 1X2: 2)
+Sides mindre ligor: 167 Kambi-matcher inom 12 h, 488 Pinnacle-matcher, 150 med Pinnacle, 150 matchade: Bulgaria / PFL 2, Czech Republic / ČFL, Denmark / 2nd Division, Denmark / Elitedivisionen (W), England / Isthmian League Premier Division, England / League One, England / League Two, England / National League, England / Northern League Premier Division, England / Southern League Premier Division Cen
+  Sides rättad: Peru – Bolivia handikapp +1 -> förlorad (2–0)
+Sides/totals: 156 matcher med Kambi + Pinnacle, 1532 linjer, 0 nya spel, 1 nya skuggspel, Smarkets-priser i 51 av 59; bästa edge +14.4% (Ślęza Wrocław 1X2: 1), +9.8% (Kks Lech Poznan (W) 1X2: 1), +9.0% (Warta Gorzow Wielkopolski 1X2: 2)
 Fotboll extra bolag: 0 nya hämtningar, 0 odds i bruk, krediter kvar 324, dagsbudget 18 (andel 40%), förbrukat idag 0
-Tid: hämtning 505 s
+Tid: hämtning 524 s
 Marginal över alla matcher: uppmätt marginal: otillräckligt underlag i matchen
   Mirassol-SP – Atlético Mineiro-MG: modell bra.1, 32 spelare
   Querétaro FC – CF Monterrey: modell mex.1, 27 spelare
   Chapecoense-SC – Vasco da Gama-RJ: modell bra.1, 30 spelare
-Modellens nivåavvikelse mot marknaden (log-odds, dras bort): shots -0.31, shots_on_target -0.28
+Modellens nivåavvikelse mot marknaden (log-odds, dras bort): shots -0.30, shots_on_target -0.28
   Valladolid – CD Castellon: saknar matchlinjer från Pinnacle
   Real Sociedad B – Sporting de Gijón: saknar matchlinjer från Pinnacle
   Almeria – FC Andorra: saknar matchlinjer från Pinnacle
@@ -92,9 +93,9 @@ Modellens nivåavvikelse mot marknaden (log-odds, dras bort): shots -0.31, shots
   Real Oviedo – Girona: saknar matchlinjer från Pinnacle
   Mirassol-SP – Atlético Mineiro-MG: väntade mål Pinnacle 2.74 mot Kambi 2.71 (kvot 1.012); uppmätt marginal: goal k=1.45, assist k=1.54
 Exempel uppmätt marginal: goal k=1.45, assist k=1.54
-  Querétaro FC – CF Monterrey: väntade mål Pinnacle 3.11 mot Kambi 2.94 (kvot 1.056); uppmätt marginal: goal k=1.47, assist k=1.40
-  Chapecoense-SC – Vasco da Gama-RJ: väntade mål Pinnacle 3.12 mot Kambi 3.09 (kvot 1.012); uppmätt marginal: goal k=1.48, assist k=1.50
-Tid: modell och utvärdering 18 s
+  Querétaro FC – CF Monterrey: väntade mål Pinnacle 2.98 mot Kambi 2.94 (kvot 1.012); uppmätt marginal: goal k=1.50, assist k=1.42
+  Chapecoense-SC – Vasco da Gama-RJ: väntade mål Pinnacle 2.99 mot Kambi 3.09 (kvot 0.969); uppmätt marginal: goal k=1.51, assist k=1.52
+Tid: modell och utvärdering 22 s
 Bolag med spelarodds: atg, betmgm, expekt, leovegas, paf, svenskaspel, unibet
 Spelarodds per marknad: assist 476, goal 5292, shots 841, shots_on_target 833
 Kambi-marknader: assist='to give an assist (settled using opta data)':476; goal='1st goalscorer':1813; goal='to score':2751; goal='to score at least 2 goals':679; goal='to score at least 3 goals':49; shots="player's shots (settled using opta data)":841; shots_on_target="player's shots on target (settled using opta data)":833
@@ -103,8 +104,8 @@ CLV-signal: 0 ben släppta (Pinnacle rör sig åt vårt håll)
 Startelvor: 0 spelbara ben klara, 0 väntar på startelvan, 0 stoppade (inte i startelvan)
 Spelregler: stoppade {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0} (modelltest {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0})
 Spelarmodell: 0 av 119 ben har modell, 0 nya matcher hämtade från ESPN
-Bästa edge marknad shots_on_target: -3.7%, -4.0%, -4.3% (av 111 ben)
-Bästa edge modelltest shots_on_target: -2.7%, -2.8%, -2.9% (av 111 ben)
+Bästa edge marknad shots_on_target: -6.3%, -6.4%, -6.5% (av 111 ben)
+Bästa edge modelltest shots_on_target: -2.9%, -3.6%, -4.4% (av 111 ben)
 0 spelbara ben.
 Bokförda nya spel: 0
 Skuggspel: 0 nya bokförda (stoppade av reglerna, minst 2 % edge)
