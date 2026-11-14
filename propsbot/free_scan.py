@@ -445,8 +445,8 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
     nr = final_rules(rows, settings, hist, "fotboll", taken)
     nt = final_rules(shadow_rows, settings, None, "", taken_players(_L(root / "bokforing_modell_v4.json")))
     diag.log(f"Spelregler: stoppade {nr} (modelltest {nt})")
-    # Fotboll LIVE: insatsen följer styrkan (¼ Kelly, som NBA) men skalas med football_kelly_scale
-    # (0,5 = halva storleken) tills CLV har visats, och högst football_live_max_units (5u, samma tak som NBA).
+    # Fotboll LIVE: insatsen följer styrkan 1–10u (strength.py, som NBA) men skalas med football_kelly_scale
+    # (0,5 = halva storleken) tills CLV har visats, och högst football_live_max_units (10u, samma tak som NBA).
     scale = settings.get("football_kelly_scale", 0.5)
     from .graduation import check as _grad
     from .ledger import Ledger as _L2
@@ -454,11 +454,15 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
             if b.get("stangning") and b.get("odds") and b.get("avspark") and b["avspark"] < time.time()]
     if settings.get("football_live", False) and _grad(root, "fotboll_props", _clv, settings, "Fotbollsprops", notify, diag.log):
         scale = 1.0   # bevisad CLV: full ¼ Kelly som NBA
-    cap_u = settings.get("football_live_max_units", 5)
+    cap_u = settings.get("football_live_max_units", 10)
+    from .strength import sharp_signal, units_from
     for r in rows:
         d = r.row.decision
         if d.playable and d.stake:
-            d.stake = max(0.002, min(cap_u * 0.002, d.stake * scale))
+            p_m = getattr(r.row, "p_model", None)
+            me = p_m * d.cand.best.odds - 1 if p_m is not None and p_m == p_m else None
+            u = units_from(d.cand.edge, me, sharp_signal("; ".join(d.reasons)), cap=cap_u)
+            d.stake = max(1, round(u * scale)) * 0.002
     playable = [r for r in rows if r.row.decision.playable and r.row.decision.show]
     if pm:
         n_mod = sum(1 for r in rows if r.row.p_model == r.row.p_model)  # inte NaN
@@ -613,12 +617,13 @@ def notify_new(playable: list[ScanRow], settings: dict, root: Path, live: bool =
         title = (f"{'LIVE ' if live else ''}{'NBA ' if nba else 'FOTBOLL '}SPELA: {c.player_name} "
                  f"{MARKET_LABEL.get(c.market, c.market)} {'under' if c.best.side == 'under' else 'över'} {c.line}")
         from .clv_signal import units
+        from .strength import stake_text
         clv = getattr(r, "clv_pp", None)
         msg = (f"{r.match} ({r.kickoff} UTC)\n"
                f"{c.best.book}: {c.best.odds:.2f}  (spela från {d.play_from:.2f})\n"
                f"Sannolikhet {c.p:.1%}, edge {c.edge:.1%}"
                + (f", förväntad CLV {clv:+.1f}" if clv is not None else "")
-               + f"\nInsats: {units(getattr(r, 'live_stake', None) or d.stake)}/10 units"
+               + f"\nInsats: {stake_text(units(getattr(r, 'live_stake', None) or d.stake))}"
                + ("\n(CLV-signal)" if any("CLV-signal" in x for x in d.reasons) else "")
                + ("\nSharp money med oss ⬆" if any(x.startswith("sharp money med") for x in d.reasons) else ""))
         if send(settings["ntfy_topic"], title, msg, tags="basketball" if nba else "soccer"):

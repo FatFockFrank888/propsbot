@@ -16,7 +16,8 @@ LIVE-spelen skickas som notis. Kraven bygger på 509 unika avgjorda NBA-spel (3/
     Pinnacle flyttad till Kambis linje (interpolerad) räknas.
   * odds live_odds_window (1,60–3,00; golvet höjt från 1,40 den 12/11)
   * alla vanliga spärrar (oddsfall, sharp money mot oss, ett spel per spelare) gäller redan
-  * riskkontroll: högst live_max_units per spel, live_max_per_match spel per match,
+  * insats 1–10u efter styrkan (propsbot/strength.py, samma tal som Topp 5): 10u = de starkaste spelen.
+  * riskkontroll: högst live_max_units per spel (10), live_max_per_match spel per match,
     live_max_per_day spel och live_max_units_day units per matchdag (amerikansk tid).
     Bästa edge först; resten bokförs inte live.
 """
@@ -25,6 +26,7 @@ from __future__ import annotations
 import time
 
 from .clv_signal import units
+from .strength import sharp_signal, units_from
 
 UNIT = 0.002
 
@@ -45,7 +47,7 @@ def select_live(rows, model_rows, settings: dict, live_ledger, sharp_lines: set 
     need_model = set(settings.get("live_model_required_markets", ["points"]))
     max_edge = settings.get("live_max_edge", 0.15)
     min_groups = settings.get("live_min_groups", 2)
-    max_u = settings.get("live_max_units", 5)
+    max_u = settings.get("live_max_units", 10)
     per_match = settings.get("live_max_per_match", 2)
     per_day = settings.get("live_max_per_day", 8)
     u_day = settings.get("live_max_units_day", 25)
@@ -97,7 +99,7 @@ def select_live(rows, model_rows, settings: dict, live_ledger, sharp_lines: set 
             out.append(r)                    # redan live – behåll (för stängningsodds)
             continue
         day = _us_day(c.now + c.minutes_to_kickoff * 60)
-        u = min(max_u, max(1, units(d.stake)))
+        u = units_from(c.edge, r.live_model_edge, sharp_signal("; ".join(d.reasons)), cap=max_u)
         if n_match[c.match_id] >= per_match or n_day[day] >= per_day or u_used[day] + u > u_day:
             continue
         r.live_stake = u * UNIT

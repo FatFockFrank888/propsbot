@@ -271,12 +271,13 @@ def _ceil2(x: float) -> float:
 
 
 def _stake(p: float, odds: float, s: dict) -> float:
-    b = odds - 1
-    f = max(0.0, (p * b - (1 - p)) / b) * 0.25
-    unit = 0.002
-    cap = s.get("live_max_units", 5) if s.get("sides_live") else s.get("sides_max_units", 3)
-    u = max(1, min(cap, round(f / unit))) if f > 0 else 0
-    return u * unit
+    """Insats 1–10u efter styrkan (strength.py), som props. 0 vid negativt EV."""
+    from .strength import U, units_from
+    edge = p * odds - 1
+    if edge <= 0:
+        return 0.0
+    cap = s.get("live_max_units", 10) if s.get("sides_live") else s.get("sides_max_units", 10)
+    return units_from(edge, cap=cap) * U
 
 
 def _bet(evd: dict, x: dict, s: dict, now: float) -> dict:
@@ -496,7 +497,7 @@ def run(root: Path, data: list, settings: dict, diag, notify: bool = True) -> di
     hist = History(root / "sides_historik.json")
     spel, skugga = Ledger(root / "sides_spel.json"), Ledger(root / "sides_skugga.json")
     # Samlar data tills underlaget räcker; med bevisad CLV mot Pinnacles stängning går sides över till
-    # samma villkor som NBA LIVE (notiser, ¼ Kelly upp till 5u) – automatiskt (graduation.py).
+    # samma villkor som NBA LIVE (notiser, insats 1–10u efter styrkan) – automatiskt (graduation.py).
     if not s.get("sides_live"):
         from .graduation import check
         # Underlag: alla regelspel + skuggspel som klarade edgekravet och bara stoppades av startelvespärren
@@ -612,6 +613,7 @@ def run(root: Path, data: list, settings: dict, diag, notify: bool = True) -> di
 
 def _notify(root: Path, bets: list[dict], s: dict) -> int:
     from .notify import PlayerGuard, send
+    from .strength import stake_text
     guard = PlayerGuard(root / "notis_spelare.json")
     sent = 0
     for b in bets:
@@ -622,7 +624,7 @@ def _notify(root: Path, bets: list[dict], s: dict) -> int:
         ko = datetime.fromtimestamp(b["avspark"], timezone.utc).strftime("%Y-%m-%d %H:%M")
         msg = (f"{b['liga']} ({ko} UTC)\n{b['bolag']}: {b['odds']:.2f}  (spela från {b['spela_fran']:.2f})\n"
                f"Pinnacle utan marginal {b['sannolikhet']:.1%}, edge {b['edge']:.1%}\n"
-               f"Insats: {round(b['insats_pct'] / 0.002)}/10 units")
+               f"Insats: {stake_text(round(b['insats_pct'] / 0.002))}")
         if send(s["ntfy_topic"], title, msg, tags="soccer"):
             guard.mark("fotboll", b["match_id"], "sides", b["key"])
             b["notis"] = True

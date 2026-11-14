@@ -35,7 +35,7 @@ def test_live_thresholds_model_agreement_and_caps():
     assert m1 in ({"b", "d"}, {"b", "c"})
     assert "f" in picked          # returer utan modellrad: tillåtet sedan 12/11
     assert len([r for r in out if r.row.decision.cand.match_id == "m1"]) == 2
-    assert all(round(r.live_stake / 0.002) <= 5 for r in out)
+    assert all(1 <= round(r.live_stake / 0.002) <= 10 for r in out)   # 1–10u efter styrkan (14/11)
 
 
 def test_live_model_required_for_points_and_disagreement_blocks():

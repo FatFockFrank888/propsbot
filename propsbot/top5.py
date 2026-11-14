@@ -5,7 +5,7 @@ NBA-natten hör till kvällen innan). Styrkan räknas på värdena när spelet l
 när oddset rör sig – ett spel du redan lagt försvinner inte ur listan för att oddset fallit, matchen
 startat eller spelet avgjorts. Bara ett starkare nytt LIVE-spel kan trycka ner det.
 
-Ett spel som för första gången hamnar bland dagens fem starkaste skickas som EN notis (före start).
+Ingen egen notis sedan 14/11 (top5_notify, av): topp 5 är LIVE-spel som redan fått en LIVE-notis.
 
 Styrka = edge (högst 15, över 15 dras ner) + halva modellens edge (±15) + sharp money (+1 / −2) + 1 för LIVE.
 """
@@ -67,14 +67,11 @@ def _live_bets(d: dict) -> list[dict]:
 
 
 def bet_score(b: dict) -> dict:
-    """Styrka på värdena när spelet lades (ändras inte med oddset)."""
-    e = (b.get("edge") or 0) * 100
-    ec = min(e, 15) - max(0.0, e - 15) * 0.5
+    """Styrka på värdena när spelet lades (ändras inte med oddset). Samma tal som insatsen (strength.py)."""
+    from .strength import score as _score, sharp_signal
     m = b["modell_edge"] * 100 if b.get("modell_edge") is not None else None
-    mp = 0.0 if m is None else 0.5 * max(-15.0, min(15.0, m))
-    k = (b.get("stopp") or "").lower()
-    s = 1 if re.search(r"sharp money (with|med) (us|oss)", k) else -2 if re.search(r"sharp (money mot oss|moved .* against)", k) else 0
-    return {"score": ec + mp + s + 1, "edge": e, "model": m, "sharp": s}
+    s = sharp_signal(b.get("stopp"))
+    return {"score": _score(b.get("edge"), b.get("modell_edge"), s), "edge": (b.get("edge") or 0) * 100, "model": m, "sharp": s}
 
 
 def ranking(site: Path, now: float | None = None, day: str | None = None) -> list[dict]:
@@ -132,7 +129,7 @@ def message(x: dict, rank: int) -> tuple[str, str]:
 def notify(root: Path, settings: dict, log=print, top_n: int = 5, now: float | None = None) -> int:
     """Skicka nya topp 5-spel. Returnerar antal skickade."""
     topic = settings.get("ntfy_topic")
-    if not topic or not settings.get("top5_notify", True):
+    if not topic or not settings.get("top5_notify", False):
         return 0
     from .notify import send
     now = now or time.time()

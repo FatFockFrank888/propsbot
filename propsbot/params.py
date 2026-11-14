@@ -36,9 +36,8 @@ def all_params(settings_path: Path) -> dict:
         ("Sharp money mot oss", f"{s.get('sharp_against_pp', 2.0):g} procentenheter",
          "Inget spel om den skarpa referensen (Pinnacle/konsensus) rört sig så mycket mot oss efter 30 min."),
         ("Sharp money med oss", f"{s.get('sharp_with_pp', 1.5):g} procentenheter", "Markeras i notisen (⬆)."),
-        ("Topp 5 som notis", "ja, en per spel",
-         "Bara LIVE-spel (klarar LIVE-reglerna). När ett spel för första gången hamnar bland de fem starkaste (samma ranking som fliken Topp 5) skickas en notis 🏆 med "
-         "rank, odds, spela från, edge, modell, styrka och insats. Märkt LIVE eller data. Inte inom 10 min före start."),
+        ("Topp 5 som notis", "nej (14/11)",
+         "Topp 5 är alltid LIVE-spel som redan fått en LIVE-notis, så en egen topp 5-notis blev en dubblett. Listan finns kvar i fliken Topp 5."),
         ("Lagnyheter (varje skanning)", "NBA: ESPN skadelista · fotboll: startelvan",
          "Out/doubtful, ute eller inte i laget/startelvan = inget spel; questionable markeras. Öppna LIVE-spel kontrolleras igen före start och ger en notis (📰) om spelarens status ändras – och i NBA även när en lagkamrat (minst 15 min/match) blir out efter att spelet lades, med modellens nya speltid, väntat värde och edge vid vårt odds."),
         ("Orimlig edge", _pct(s.get("max_plausible_edge", 0.25)), "Större edge = nästan alltid fel linje, olika regler eller spelaren spelar inte. Inte spelbart."),
@@ -47,19 +46,22 @@ def all_params(settings_path: Path) -> dict:
         ("Över eller under", "den sida som har EV+",
          "Båda sidor prövas på samma krav. Under kräver en tvåsidig eller skarp referens (annars är marginalen på undersidan okänd)."),
         ("Notiser", "bara LIVE-spel", "En notis per spel, aldrig två på samma spelare i samma match. Misslyckad notis skickas igen nästa körning (före start)."),
-        ("Unit", "1u = 0,2 % av bankrullen", "Insats 1–10u efter ¼ Kelly (taket 10u = 2 %)."),
+        ("Unit", "1u = 0,2 % av bankrullen, 1–10u efter styrkan",
+         "LIVE-insatsen följer styrkan (samma tal som Topp 5: edge upp till 15 + halva modellens edge + sharp money + 1). "
+         "Styrka ≤ 7 = 1u, 9,5 = 3u, 11 = 4u, 14 = 6u, 17 = 8u, ≥ 20 = 10u. 10u (2 %) = maxinsats, ett av de starkaste spelen. "
+         "Radarn visar samma skala. Data- och skuggbokföringen behåller ¼ Kelly (taket 10u)."),
         ("Skuggspel", "≥ 2 % edge, stoppat av en regel", "Bokförs och rättas för att se om reglerna kostar eller sparar pengar. Ingen notis."),
     ]
     football = [
         ("Status", "LIVE (notiser)" if s.get("football_live") else "bara datainsamling (inga notiser)",
          "football_live i settings.json. Pausat 2026-11-07 (on hold) tills vi hittar en skarp källa för fotbollsprops – Kambis marginal ~20 % och ingen referens. Påslaget 2026-11-04. Spelen är regelspelen "
-         "(alla gemensamma krav); risktak: högst 5u per spel och 5 % per match."),
-        ("LIVE: insats", f"¼ Kelly × {s.get('football_kelly_scale', 0.5):g}, högst {s.get('football_live_max_units', 5)}u per spel",
-         "Insatsen följer styrkan (edge och odds) som i NBA, men i halv storlek eftersom fotbollen saknar historik "
-         "med edge och CLV. Går automatiskt upp till full ¼ Kelly när 50 spel med stängning visar positiv CLV (t-gräns som tål upprepad prövning, se nedan), med en notis."),
+         "(alla gemensamma krav); risktak: högst 10u per spel och 5 % per match."),
+        ("LIVE: insats", f"styrka 1–10u × {s.get('football_kelly_scale', 0.5):g}, högst {s.get('football_live_max_units', 10)}u per spel",
+         "Insatsen följer styrkan som i NBA, men i halv storlek eftersom fotbollen saknar historik "
+         "med edge och CLV. Går automatiskt upp till full skala när 50 spel med stängning visar positiv CLV (t-gräns som tål upprepad prövning, se nedan), med en notis."),
         ("Automatisk uppgradering", f"{s.get('graduation_min_bets', 50)} spel, CLV > 0, t ≥ ~3,7 vid 50 spel (~3,0 vid 500)",
          "Gränsen är tidsoberoende (Robbins, α " + f"{s.get('graduation_alpha', 0.10):g}" + " delat på 2 marknader): en marknad utan verklig CLV "
-         "uppgraderas inte av slump fast den prövas vid varje skanning. Prövas vid varje skanning för fotbollsprops (halv -> full insats) och sides/totals (data -> LIVE med notiser, ¼ Kelly upp till 5u). "
+         "uppgraderas inte av slump fast den prövas vid varje skanning. Prövas vid varje skanning för fotbollsprops (halv -> full insats) och sides/totals (data -> LIVE med notiser, insats 1–10u efter styrkan). "
          "Vänder CLV till negativt över minst 30 spel går marknaden tillbaka till försiktigt läge."),
         ("Marknader som spelas", ", ".join(s.get("football_markets", ["shots_on_target"])),
          "Övriga marknader används bara för att mäta Kambis marginal."),
@@ -117,7 +119,7 @@ def all_params(settings_path: Path) -> dict:
          "Lägre divisioner och mindre ligor har oftare felsatta linjer. Bara huvudmarknaderna hämtas (snabbt). "
          "Rättas mot ESPN:s samlade resultattavla."),
         ("Sides/totals: övrigt", f"max oddsfall {_pct(s.get('max_odds_drop', 0.03))}, sharp money mot oss {s.get('sharp_against_pp', 2.0):g} pe, "
-         f"ett spel per match, inom {s.get('sides_max_hours', 24)} h före avspark, max {s.get('sides_max_units', 3)}u",
+         f"ett spel per match, inom {s.get('sides_max_hours', 24)} h före avspark, insats 1–10u efter styrkan (max {s.get('sides_max_units', 10)}u)",
          "Samma spärrar som övriga sporter. Rättas mot ESPN:s slutresultat."),
     ]
     nba = [
@@ -131,7 +133,7 @@ def all_params(settings_path: Path) -> dict:
          "poäng över utan modellens stöd gav −18 %. Spel med modellens stöd väljs först."),
         ("LIVE: jämförelsekällor", f"minst {s.get('live_min_groups', 2)}" + (", varav Pinnacle" if s.get('live_require_sharp', True) else ""), "Pinnacle, Kalshi, DraftKings (via ESPN), SportsGameOdds, The Odds API"),
         ("LIVE: oddsram", _odds(llo, lhi), ""),
-        ("LIVE: risk", f"max {_u(s.get('live_max_units', 5))}/spel, {s.get('live_max_per_match', 2)}/match, "
+        ("LIVE: risk", f"insats 1–10u efter styrkan, max {_u(s.get('live_max_units', 10))}/spel, {s.get('live_max_per_match', 2)}/match, "
                        f"{s.get('live_max_per_day', 16)} spel och {_u(s.get('live_max_units_day', 40))} per matchdag", ""),
         ("Modellvikt", f"{s.get('nba_model_weight', 0.3):g} × dq", "Blandas med marknaden i log-odds. dq = datakvalitet 0,2–1 "
          f"(antal matcher i underlaget / {s.get('nba_dq_full_games', 15)}): tunt underlag -> marknaden väger mer. Halveras när modell och marknad skiljer mycket."),

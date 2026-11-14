@@ -1,7 +1,7 @@
 """Automatisk uppgradering när en marknad har bevisat sig mot stängningen (CLV).
 
 En marknad som samlar data (sides/totals) eller spelas i halv storlek (fotbollsprops) går över till
-samma villkor som NBA LIVE – full ¼ Kelly, högst 5u, notiser – när underlaget räcker:
+samma villkor som NBA LIVE – insats 1–10u efter styrkan, notiser – när underlaget räcker:
 
   * minst graduation_min_bets (50) spel vars match har startat (stängningen är känd), och
   * snitt-CLV > 0 med t-värde över en gräns som tål att den prövas vid VARJE skanning.
@@ -69,7 +69,7 @@ def check(root: Path, key: str, values: list[float], settings: dict, label: str,
     path.write_text(json.dumps(state, ensure_ascii=False, indent=1), encoding="utf-8")
     if now != was:
         txt = (f"{label}: {st['n']} spel med stängning, snitt-CLV {st['mean']:+.2f} pe (t = {st['t'] or 0:.1f}). "
-               + ("Uppgraderad: full insats (¼ Kelly, högst 5u) och notiser som NBA."
+               + ("Uppgraderad: full insats (1–10u efter styrkan) och notiser som NBA."
                   if now else "CLV har vänt till negativt – tillbaka till försiktigt läge."))
         log(f"UPPGRADERING: {txt}")
         if notify and settings.get("ntfy_topic"):

@@ -78,8 +78,9 @@ def test_news_teammate_out_role_shift():
     assert recheck(lg, nba_teammate_fn(last, [new], {"rebounds": 10}), {}, "NBA", False, print, field="nyhet_lag") == 0
 
 
-def test_top5_notify_once_and_stable(tmp_path, monkeypatch):
-    """Dagens topp 5 rankas på bokförda LIVE-spel och ligger kvar när oddset faller eller matchen startat."""
+def test_top5_no_push_by_default_and_stable(tmp_path, monkeypatch):
+    """Dagens topp 5 rankas på bokförda LIVE-spel och ligger kvar när oddset faller eller matchen startat.
+    Ingen egen notis som standard (14/11): topp 5-spelen har redan fått en LIVE-notis."""
     import json
     from datetime import datetime, timezone
     import propsbot.notify as nt
@@ -92,9 +93,12 @@ def test_top5_notify_once_and_stable(tmp_path, monkeypatch):
     (site / "nba" / "data.json").write_text(json.dumps({"live": True, "bokforing": bets}), encoding="utf-8")
     sent = []
     monkeypatch.setattr(nt, "send", lambda *a, **k: sent.append(a[1]) or True)
-    assert top5.notify(tmp_path, {"ntfy_topic": "x"}, log=lambda *_: None, now=now) == 5
+    assert top5.notify(tmp_path, {"ntfy_topic": "x"}, log=lambda *_: None, now=now) == 0     # av som standard
+    assert not sent
+    on = {"ntfy_topic": "x", "top5_notify": True}
+    assert top5.notify(tmp_path, on, log=lambda *_: None, now=now) == 5
     assert sent[0].startswith("TOPP 5 #1: P6")
-    assert top5.notify(tmp_path, {"ntfy_topic": "x"}, log=lambda *_: None, now=now) == 0     # inga dubbletter
+    assert top5.notify(tmp_path, on, log=lambda *_: None, now=now) == 0     # inga dubbletter
     # oddset rasar och P6 startar: rankingen är densamma (styrkan räknas på bokningen)
     bets[6].update(stangning=1.5, status="vunnen")
     (site / "nba" / "data.json").write_text(json.dumps({"live": True, "bokforing": bets}), encoding="utf-8")
@@ -113,3 +117,32 @@ def test_cleanup_removes_nhl_state(tmp_path):
     assert not (tmp_path / "nhl").exists() and not (tmp_path / "site" / "nhl").exists()
     assert not (tmp_path / "site" / "csv" / "nhl.csv").exists()
     assert (tmp_path / "site" / "csv" / "nba.csv").exists() and (tmp_path / "nba_live.json").exists()
+
+
+def test_strength_units_scale():
+    """Insats 1–10u efter styrkan: svaga spel 1u, de starkaste 10u (max)."""
+    from propsbot.strength import score, units_for, units_from, stake_text
+    assert [units_for(s) for s in (3, 7, 9.5, 11, 14, 17, 20, 30)] == [1, 1, 3, 4, 6, 8, 10, 10]
+    assert units_from(0.05) == 1                          # 5 % edge utan modell: styrka 6
+    assert units_from(0.10, 0.10) == 7                    # 10 + 5 + 1 = 16
+    assert units_from(0.13, 0.14, sharp=1) == 10          # 13 + 7 + 1 + 1 = 22
+    assert units_from(0.13, 0.14, sharp=1, cap=5) == 5
+    assert score(0.20) == 15 - 2.5 + 1                     # edge över 15 dras ner
+    assert "MAX" in stake_text(10) and "MAX" not in stake_text(9)
+
+
+def test_live_stake_follows_strength():
+    """NBA LIVE: insatsen följer styrkan, inte Kelly-taket – starkare spel får fler units."""
+    from types import SimpleNamespace as NS
+    from propsbot.live import select_live
+
+    def row(pid, edge, me):
+        cand = NS(match_id=f"m{pid}", player_id=pid, market="assists", line=5.5, best=NS(side="over", odds=2.0, book="unibet"),
+                  edge=edge, now=0.0, minutes_to_kickoff=600)
+        d = NS(cand=cand, playable=True, show=True, stake=0.02, reasons=[])
+        return NS(row=NS(decision=d), n_groups=3), NS(row=NS(decision=NS(cand=NS(**{**cand.__dict__, "edge": me}))))
+    a, ma = row("a", 0.06, 0.06)
+    b, mb = row("b", 0.14, 0.15)
+    out = select_live([a, b], [ma, mb], {"live_min_edge": {"assists": 0.05}, "live_odds_window": [1.6, 3.0]},
+                      NS(bets=[]))
+    assert {r.row.decision.cand.player_id: round(r.live_stake / 0.002) for r in out} == {"a": 3, "b": 10}

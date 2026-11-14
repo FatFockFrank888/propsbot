@@ -132,12 +132,7 @@ def cmd_free(args) -> None:
     except Exception as e:
         print(f"Webbsidan: fel {type(e).__name__}: {e}")
         traceback.print_exc()
-    try:   # Topp 5 som notis (samma ranking som fliken Topp 5), när alla sporter är klara
-        from .scan import load_settings
-        from .top5 import notify as top5_notify
-        top5_notify(_state_root(), load_settings(Path(args.settings)))
-    except Exception as e:
-        print(f"Topp 5-notis: fel {type(e).__name__}: {e}")
+    # Topp 5 skickas inte som notis (14/11): topp 5 är alltid LIVE-spel som redan fått en egen notis.
     try:
         from .workbook import build
         n = build(_state_root(), _state_root() / "site" / "propsbot_bokforing.xlsx")

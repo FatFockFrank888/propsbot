@@ -128,7 +128,7 @@ DEFAULT_SETTINGS = {
     "sides_min_pin_limit": 500,
     "sides_max_hours": 24,
     "sides_shadow_min_edge": 0.01,
-    "sides_max_units": 3,
+    "sides_max_units": 10,
     "football_shadow": False,
     "football_odds_window": [1.60, 2.50],
     # LIVE (3/11): bara dessa spel skickas som notis och bokförs i nba_live.json.
@@ -140,7 +140,7 @@ DEFAULT_SETTINGS = {
     "live_model_min_edge": 0.05,
     "live_model_required_markets": ["points"],   # övriga live-marknader spelas även utan modellrad (12/11)
     "live_max_edge": 0.15,
-    "football_live_max_units": 5,   # samma tak som NBA LIVE
+    "football_live_max_units": 10,  # samma tak som NBA LIVE
     "football_kelly_scale": 0.5,
     "sides_lineup_gate": False,     # sides väntar inte på startelvor (Pinnacle prisar redan in dem)
     "graduation_min_bets": 50,      # uppgradering (sides -> LIVE, fotboll -> full insats): spel med stängning
@@ -151,7 +151,7 @@ DEFAULT_SETTINGS = {
     "live_require_sharp": True,
     "live_odds_window": [1.60, 3.00],   # 12/11: odds 1,40–1,60 gav −62 % (12 NBA-spel); samma golv som jämförelsesajten
     "live_block_degraded": True,    # NBA: marknader med status degraded (nba_eval) ger inga LIVE-spel
-    "live_max_units": 5,          # 5u = 1 % av bankrullen per spel
+    "live_max_units": 10,         # 14/11: insats 1–10u efter styrkan (strength.py); 10u = 2 % av bankrullen
     "live_max_per_match": 2,
     "live_max_per_day": 16,       # 12/11: dubbla volymen när assist/returer/trepoängare inte kräver modellrad
     "live_max_units_day": 40,     # högst 8 % av bankrullen per matchdag (12/11: 10 % var för högt med korrelerade spel)
