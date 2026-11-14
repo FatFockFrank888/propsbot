@@ -1,4 +1,4 @@
-Skanning 2026-11-14 02:01
+Skanning 2026-11-14 02:17
 Kambi unibet (ubse): OK, 31 matcher i valda ligor
 Kambi paf (paf): OK
 Kambi atg (atg): OK
@@ -7,8 +7,7 @@ Kambi svenskaspel (svenskaspel): OK
 Kambi expekt (expektse): OK
 Kambi betmgm (betmgmse): OK
 Pinnacle: OK, 26 ligor
-  Larissa – Nestos Chrisoupolis: Pinnacle FEL HTTP 403 för https://guest.api.arcadia.pinnacle.com/0.1/matchups/1640267754/related
-Pinnacle: 6 matcher, matchlinjer för 4 av 31 Kambi-matcher, 0 spelarodds som används
+Pinnacle: 6 matcher, matchlinjer för 5 av 31 Kambi-matcher, 0 spelarodds som används
 Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
   Double Chance 1st Half | units=Regular | kategori=Team Props | deltagare=Mirassol Or Atletico Mineiro,Draw Or Atletico Mineiro,Draw Or Mirassol  ->  används inte (lagmarknad)
   Moneyline and Total Goals | units=Regular | kategori=Team Props | deltagare=Mirassol & Over 2.5,Mirassol & Under 2.5,Draw & Over 2.5,Draw & Under 2.5,Atletico Mineiro & Over 2.5,Atletico Mineiro & Under 2.5  ->  används inte (lagmarknad)
@@ -70,10 +69,10 @@ Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
   Queretaro To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
   Monterrey To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
   Queretaro Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
-Sides mindre ligor: 99 Kambi-matcher inom 12 h, 348 Pinnacle-matcher, 90 med Pinnacle, 90 matchade: Bulgaria / PFL 2, Czech Republic / ČFL, Denmark / 2nd Division, Denmark / Elitedivisionen (W), England / League Two, England / Super League (W), France / Coupe de France, France / Division 1 (W), Hong Kong / Sapling Cup, India / I-League, International Friendly Matches, Italy / Serie C Girone A, Ita
-Sides/totals: 94 matcher med Kambi + Pinnacle, 840 linjer, 0 nya spel, 5 nya skuggspel, Smarkets-priser i 22 av 28; bästa edge +20.8% (C A Boulay 1X2: 1), +14.4% (Ślęza Wrocław 1X2: 1), +12.7% (Kks Lech Poznan (W) 1X2: 1)
+Sides mindre ligor: 101 Kambi-matcher inom 12 h, 359 Pinnacle-matcher, 90 med Pinnacle, 90 matchade: Bulgaria / PFL 2, Czech Republic / ČFL, Denmark / 2nd Division, Denmark / Elitedivisionen (W), England / League Two, England / Super League (W), France / Coupe de France, France / Division 1 (W), Hong Kong / Sapling Cup, India / I-League, International Friendly Matches, Italy / Serie C Girone A, Ita
+Sides/totals: 95 matcher med Kambi + Pinnacle, 847 linjer, 0 nya spel, 0 nya skuggspel, Smarkets-priser i 22 av 28; bästa edge +14.4% (Ślęza Wrocław 1X2: 1), +12.7% (Kks Lech Poznan (W) 1X2: 1), +11.8% (C A Boulay 1X2: 1)
 Fotboll extra bolag: 0 nya hämtningar, 0 odds i bruk, krediter kvar 324, dagsbudget 18 (andel 40%), förbrukat idag 0
-Tid: hämtning 381 s
+Tid: hämtning 367 s
 Marginal över alla matcher: uppmätt marginal: shots_on_target stege k=1.02 (7 spelare; marginal vid 3,00 ≈ 2%)
   Mirassol-SP – Atlético Mineiro-MG: modell bra.1, 32 spelare
   Querétaro FC – CF Monterrey: modell mex.1, 27 spelare
@@ -95,10 +94,10 @@ Modellens nivåavvikelse mot marknaden (log-odds, dras bort): shots -0.30, shots
 Exempel uppmätt marginal: goal k=1.45, assist k=1.54
   Querétaro FC – CF Monterrey: väntade mål Pinnacle 3.11 mot Kambi 2.94 (kvot 1.056); uppmätt marginal: goal k=1.47, assist k=1.40
   Chapecoense-SC – Vasco da Gama-RJ: väntade mål Pinnacle 3.12 mot Kambi 3.14 (kvot 0.995); uppmätt marginal: goal k=1.49, assist k=1.51, shots_on_target stege k=1.02 (7 spelare; marginal vid 3,00 ≈ 2%)
-Tid: modell och utvärdering 23 s
+Tid: modell och utvärdering 20 s
 Bolag med spelarodds: atg, betmgm, expekt, leovegas, paf, svenskaspel, unibet
-Spelarodds per marknad: assist 476, goal 5299, shots 841, shots_on_target 833
-Kambi-marknader: assist='to give an assist (settled using opta data)':476; goal='1st goalscorer':1820; goal='to score':2758; goal='to score at least 2 goals':672; goal='to score at least 3 goals':49; shots="player's shots (settled using opta data)":841; shots_on_target="player's shots on target (settled using opta data)":833
+Spelarodds per marknad: assist 476, goal 5292, shots 841, shots_on_target 833
+Kambi-marknader: assist='to give an assist (settled using opta data)':476; goal='1st goalscorer':1813; goal='to score':2751; goal='to score at least 2 goals':679; goal='to score at least 3 goals':49; shots="player's shots (settled using opta data)":841; shots_on_target="player's shots on target (settled using opta data)":833
 Pinnacle har inga spelarprops här – använder linjejustering mot Pinnacles matchlinjer.
 CLV-signal: 0 ben släppta (Pinnacle rör sig åt vårt håll)
 Startelvor: 0 spelbara ben klara, 0 väntar på startelvan, 0 stoppade (inte i startelvan)
