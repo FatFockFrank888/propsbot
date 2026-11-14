@@ -475,6 +475,11 @@ def nba_scan(root: Path, settings_path: Path) -> dict:
             import traceback
             diag.log(f"NBA-modell: FEL {type(e).__name__}: {e}")
             diag.lines.append(traceback.format_exc())
+    try:
+        n_an = attach_analysis(rows, test_rows, per)
+        diag.log(f"NBA analyssida: {n_an} ben med analys")
+    except Exception as e:  # noqa: BLE001 – webbtillägg, får aldrig stoppa skanningen
+        diag.log(f"NBA analyssida: fel {type(e).__name__}: {e}")
     from .clv_signal import History, apply as clv_apply
     hist = History(root / "nba_historik.json")
     hist.update(rows, time.time())
@@ -570,6 +575,32 @@ def nba_scan(root: Path, settings_path: Path) -> dict:
     return {"rows": rows, "playable": playable, "ledger": ledger, "shadow": shadow, "test": test,
             "live": live, "live_rows": live_rows,
             "evd": evd_by_id, "diag": diag, "new": new}
+
+
+def attach_analysis(rows: list, test_rows: list, per: dict) -> int:
+    """Webbens analyspanel: modelltestens analys (samma ben) + odds per bolag för linjen, på radarns rader."""
+    def key(r):
+        c = r.row.decision.cand
+        return (c.match_id, c.player_id, c.market, c.line, c.best.side)
+
+    by_key = {key(t): t.analys for t in test_rows if getattr(t, "analys", None)}
+    books: dict[tuple, dict] = {}
+    for _evd, qs, _names in per.values():
+        for q in qs:
+            b = books.setdefault((q.match_id, q.player_id, q.market, q.line), {}).setdefault(q.book, {})
+            if q.side in ("over", "under") and (q.side not in b or q.ts >= b.get("_ts_" + q.side, 0)):
+                b[q.side] = round(q.odds, 3)
+                b["_ts_" + q.side] = q.ts
+    n = 0
+    for r in rows:
+        k = key(r)
+        an = dict(by_key.get(k) or {})
+        tab = books.get(k[:4]) or {}
+        an["odds_bolag"] = sorted(({"bolag": bk, "over": v.get("over"), "under": v.get("under")}
+                                   for bk, v in tab.items()), key=lambda x: x["bolag"])
+        r.analys = an
+        n += bool(by_key.get(k))
+    return n
 
 
 # ---------------------------------------------------------------- modelltest
@@ -757,6 +788,10 @@ def model_test_rows(root: Path, rows: list, per: dict, settings: dict, cfg: Conf
         except (KeyError, TypeError, ValueError, ZeroDivisionError):
             pass
         extra.update(p_faktorer=None, p_faktorer_ra=None, vantat_faktorer=None)
+        # Analyssidan (webben): allt som bokförs + det som bara behövs för att visa (logg, frånvaro). Bokförs inte.
+        an = {"p_modell": round(pm, 4), "p_marknad": round(c.p, 4), "p_slutlig": round(p, 4), "vantat": round(mu, 2),
+              "nb_r": NB_R.get(c.market, 15), "modell_vikt": round(w, 2), "dq": round(dq, 2), "matcher": games,
+              "nivajustering": round(off.get(c.market, 0.0), 2)}
         if i in f_over:
             try:
                 fmm = fmodels[c.match_id]
@@ -772,9 +807,14 @@ def model_test_rows(root: Path, rows: list, per: dict, settings: dict, cfg: Conf
                 # träffbild för VÅR sida (andel matcher som hade vunnit), heltalslinjer förekommer inte
                 extra.update({k: (round(1.0 - v, 3) if under and v is not None and not k.endswith("_n") else v)
                               for k, v in hr.items()})
+                pk = match_model_player(t.players, c.player_id) or c.player_id
+                an.update(logg=fm.recent(t, pk, c.market), franvaro=fm.absent(t), lag=t.name,
+                          mot=fm.abbrevs().get(fe["_opp"] or "", ""), hemma=fe["_home"],
+                          minuter_sd_faktorer=round(fe.get("_min_sd", 0.0), 1))
             except (KeyError, TypeError, ValueError, ZeroDivisionError):
                 pass
         sr.extra = extra
+        sr.analys = {**extra, **an}
         out.append(sr)
     n_play = sum(1 for x in out if x.row.decision.playable and x.row.decision.show)
     diag.log(f"NBA-modelltest: {n_play} spelbara enligt modellen av {len(out)} ben med modell")

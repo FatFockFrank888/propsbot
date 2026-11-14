@@ -75,6 +75,9 @@ def fake(req, timeout=20, **kw):
             {"athlete": {"displayName": "Hurt Guard"}, "status": "Out", "shortComment": "Out (ankle)."},
             {"athlete": {"displayName": "Big Man"}, "status": "Day-To-Day",
              "shortComment": "Big Man will play but is on a minutes restriction."}]}]})
+    if path.endswith("/teams"):
+        return _R({"sports": [{"leagues": [{"teams": [{"team": {"id": "10", "abbreviation": "BOS"}},
+                                                      {"team": {"id": "20", "abbreviation": "NY"}}]}]}]})
     raise AssertionError(req.full_url)
 
 
@@ -158,3 +161,15 @@ def test_model_test_rows_logs_factor_shadow(tmp_path, monkeypatch):
     assert x["f_lag_poang"] == 114.0 and x["f_miljo_kalla"] == "pinnacle"
     # under 29,5: stjärnan gjorde 30 i alla matcher -> 0 % för vår sida
     assert x["traff_l5"] == 0.0 and x["traff_sasong_n"] == 6
+    a = out[0].analys
+    assert a["mot"] == "NY" and a["hemma"] is True and len(a["logg"]) == 6 and a["logg"][0]["v"] == 30
+    assert a["franvaro"][0]["namn"] == "Hurt Guard" and a["p_marknad"] == 0.5 and a["nb_r"] == 15
+    # radarns rad får samma analys + odds per bolag
+    rows[0].analys = None
+    q2 = OddsQuote("pinnacle", "nba1", "star guard", "points", 29.5, "over", 1.95, NOW)
+    assert nba.attach_analysis(rows, out, {"nba1": (evd, [q, q2], {})}) == 1
+    assert rows[0].analys["odds_bolag"] == [{"bolag": "pinnacle", "over": 1.95, "under": None},
+                                            {"bolag": "unibet", "over": None, "under": 1.9}]
+    from propsbot.export import radar_rows
+    rr = radar_rows(rows, {"min_edge_display": -1})
+    assert rr[0]["analys"]["vantat_faktorer"] > 0 and rr[0]["linje"] == 29.5

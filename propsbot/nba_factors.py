@@ -133,6 +133,37 @@ class FactorModel:
                 raw /= (tot / pm_all) / lg["all"][stat]
         return _clamp(_shrink(raw, a["min"], POS_K[stat]), 0.88, 1.12)
 
+    # ------------------------------------------------------------ för analyssidan
+    def abbrevs(self) -> dict[str, str]:
+        """ESPN lag-id -> förkortning (BOS). Tom vid fel."""
+        if not hasattr(self, "_abbr"):
+            from .nba_model import ESPN
+            self._abbr = {}
+            try:
+                raw = self.nm.c.get(f"{ESPN}/teams", ttl=7 * 86400) or {}
+                for lg in ((raw.get("sports") or [{}])[0].get("leagues") or [{}]):
+                    for t in lg.get("teams", []) or []:
+                        t = t.get("team") or {}
+                        if t.get("id"):
+                            self._abbr[str(t["id"])] = t.get("abbreviation") or ""
+            except Exception:  # noqa: BLE001 – bara visning; får aldrig stoppa prognosen
+                self._abbr = {}
+        return self._abbr
+
+    def recent(self, team: NbaTeam, key: str, market: str, n: int = 10) -> list[dict]:
+        """Senaste n matcherna (nyast först): datum, motståndare, hemma, minuter, värde för marknaden."""
+        parts = COMBO.get(market, (market,))
+        ab = self.abbrevs()
+        return [{"ts": r["ts"], "mot": ab.get(r["opp"] or "", ""), "hemma": r["home"], "min": round(r["min"], 1),
+                 "v": sum(r.get(p, 0.0) for p in parts)} for r in self.log(team, key, team.season_games)[:n]]
+
+    def absent(self, team: NbaTeam) -> list[dict]:
+        """Lagets spelare på skadelistan (minst 8 min/match i urvalet), mest speltid först."""
+        inj = self.nm.injuries()
+        out = [{"namn": p.name, "status": inj[k], "min": round(p.minutes, 1),
+                "redan_borta": p.last_age >= 3} for k, p in team.players.items() if inj.get(k) and p.minutes >= 8]
+        return sorted(out, key=lambda x: -x["min"])
+
     # ------------------------------------------------------------ spelarlogg (träffbild, mot motståndaren)
     def prev_vs(self, team: NbaTeam, opp_id: str) -> list:
         """Förra säsongens matcher mot motståndaren: [(ts, event_id, opp, hemma?)]."""

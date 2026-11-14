@@ -55,6 +55,8 @@ def radar_rows(rows: list[ScanRow], settings: dict, limit: int = 800, live_keys:
             "clv_signal": any("CLV-signal" in x for x in d.reasons),
             "p_modell": None if r.row.p_model != r.row.p_model else r.row.p_model,
             "kommentar": "; ".join(d.reasons),
+            "linje": c.line,
+            "analys": getattr(r, "analys", None),   # NBA: analyspanelen (faktorer, träffbild, logg, odds per bolag)
         })
     out.sort(key=lambda x: -x["edge"])
     return out[:limit]
