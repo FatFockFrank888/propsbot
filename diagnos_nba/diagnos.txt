@@ -1,12 +1,12 @@
-NBA-skanning 2026-11-14 03:13
+NBA-skanning 2026-11-14 03:31
 Kambi NBA: 1 matcher, bolag: atg, betmgm, expekt, leovegas, paf, svenskaspel, unibet
-NBA tid: Kambi-props 4 s
+NBA tid: Kambi-props 3 s
 Pinnacle NBA: 1 matcher, 78 spelarodds (2 s)
-Kalshi: 321 likvida linjer av 2058 öppna marknader
-Kalshi: 69 linjer kopplade till matcher
+Kalshi: 335 likvida linjer av 1992 öppna marknader
+Kalshi: 55 linjer kopplade till matcher
 DK/FD: 0 nya hämtningar, 326 odds i bruk, krediter kvar 324, dagsbudget 18 (andel 60%), förbrukat idag 10
 SportsGameOdds NBA: vilar efter kvotfel till 14/11 19:17 UTC
-DraftKings via ESPN: 1 matcher, 150 spelarodds (referens)
+DraftKings via ESPN: 1 matcher, 154 spelarodds (referens)
 NBA namnexempel LA Clippers: Kambi ['aday mara', 'alex caruso', 'bennett stirtz', 'brook lopez', 'darius garland', 'derrick jones jr'] | Pinnacle ['aday mara', 'alex caruso', 'bennett stirtz', 'brook lopez', 'darius garland', 'derrick jones jr']
 NBA Pinnacle-exempel: ['Winning Margin Range 1st Half', 'Total Points Odd/Even', 'Winning Margin Range', 'Los Angeles Clippers Points Odd/Even', 'Oklahoma City Thunder Points Odd/Even', 'Moneyline and Total Points', 'Aday Mara Total Points', 'Aday Mara Total Rebounds']
 NBA linjer: 30 med samma linje hos Pinnacle, 9 flyttade från närliggande linje
@@ -14,12 +14,47 @@ NBA-odds (unibet/pinnacle) per marknad: pinnacle:assists 12, pinnacle:points 44,
 NBA-modell: 1 matcher hos ESPN, 21 spelare, 0 nya boxscores, 79 skadade (out/doubtful)
 NBA-modell nivåavvikelse (dras bort): 
 NBA minutmodell (skugga): medel cv² 0.063, spread från Pinnacle för 1 av 1 matcher; stackning: _alla b_m +0.09 b_k 1.20 (n 181), assists b_m +0.10 b_k 1.20 (n 35), blocks b_m +0.06 b_k 1.20 (n 4), points b_m +0.07 b_k 1.20 (n 65), pr b_m +0.01 b_k 1.20 (n 9), pra b_m +0.05 b_k 1.20 (n 5), ra b_m +0.11 b_k 1.20 (n 12), rebounds b_m +0.05 b_k 1.20 (n 24), steals b_m -0.00 b_k 1.20 (n 4), threes b_m +0.02 b_k 1.20 (n 23)
-NBA-modelltest: 13 spelbara enligt modellen av 136 ben med modell
-NBA CLV-signal: 1 ben släppta
-NBA lagnyheter: 97 spelare på skadelistan, 0 ben stoppade, 0 markerade (questionable)
-NBA spelregler: stoppade {'edge': 3, 'spelare': 5, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0} (modelltest {'edge': 3, 'spelare': 8, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0})
-NBA: 0 spelbara ben av 154
+NBA-modelltest: 11 spelbara enligt modellen av 142 ben med modell
+NBA CLV-signal: 0 ben släppta
+NBA lagnyheter: 99 spelare på skadelistan, 0 ben stoppade, 0 markerade (questionable)
+NBA spelregler: stoppade {'edge': 4, 'spelare': 1, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0} (modelltest {'edge': 6, 'spelare': 4, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0})
+NBA: 0 spelbara ben av 160
 NBA LIVE: 0 spel uppfyller live-kraven, 0 nya bokförda live
-NBA struken (ej hittad): Ajay Mitchell (Portland Trail Blazers – Oklahoma City Thunder)
+NBA rättad: Obi Toppin threes över 1.5 -> vunnen (1)
+NBA rättad: Andrew Nembhard steals över 0.5 -> vunnen (0)
+NBA rättad: Pascal Siakam points över 21.5 -> vunnen (19)
+NBA rättad: Brayden Burries assists över 2.5 -> förlorad (3)
+NBA rättad: Quenton Jackson rebounds över 2.5 -> förlorad (5)
+NBA rättad: Obi Toppin threes över 1.5 -> vunnen (1)
+NBA rättad: Pascal Siakam ra över 10.5 -> vunnen (5)
+NBA rättad: Karl-Anthony Towns assists över 3.5 -> förlorad (5)
+NBA rättad: Brayden Burries threes över 1.5 -> förlorad (1)
+NBA rättad: Franz Wagner rebounds över 6.5 -> vunnen (9)
+NBA rättad: Kyle Kuzma assists över 2.5 -> förlorad (2)
+NBA rättad: Jalen Suggs threes över 1.5 -> förlorad (1)
+NBA rättad: Jaime Jaquez Jr. threes över 1.5 -> vunnen (5)
+NBA rättad: Josh Hart points över 9.5 -> vunnen (0)
+NBA rättad: Myles Turner rebounds över 5.5 -> förlorad (11)
+NBA rättad: Tristan da Silva threes över 2.5 -> förlorad (2)
+NBA rättad: Andrew Nembhard steals över 0.5 -> vunnen (0)
+NBA rättad: Jalen Brunson points över 24.5 -> vunnen (33)
+NBA rättad: Landry Shamet points över 8.5 -> förlorad (5)
+NBA rättad: Ivica Zubac rebounds över 9.5 -> förlorad (13)
+NBA rättad: Kelly Oubre Jr. threes över 1.5 -> förlorad (1)
 NBA: hittar inte LeBron James i boxscore (Philadelphia 76ers – Toronto Raptors) – väntar
+NBA rättad: Karl-Anthony Towns threes över 1.5 -> vunnen (3)
+NBA rättad: Landry Shamet pra över 13.5 -> förlorad (9)
+NBA rättad: Wendell Carter Jr. pra över 23.5 -> förlorad (20)
+NBA rättad: Brayden Burries points över 11.5 -> vunnen (3)
+NBA rättad: Myles Turner assists över 1.5 -> vunnen (3)
+NBA rättad: Franz Wagner rebounds över 6.5 -> vunnen (9)
+NBA rättad: Kyle Kuzma rebounds över 4.5 -> vunnen (4)
+NBA rättad: Jalen Brunson assists över 6.5 -> förlorad (11)
+NBA rättad: Nate Ament points över 8.5 -> förlorad (9)
+NBA rättad: Andrew Nembhard steals över 0.5 -> vunnen (0)
+NBA rättad: Tristan da Silva threes över 2.5 -> förlorad (2)
+NBA rättad: Pascal Siakam points över 21.5 -> vunnen (19)
+NBA rättad: Kelly Oubre Jr. points över 11.5 -> förlorad (16)
+NBA rättad: Ivica Zubac pra över 24.5 -> förlorad (26)
+NBA rättad: Jamal Cain points över 6.5 -> förlorad (0)
 NBA status per marknad: assists shadow, blocks insufficient_data, points shadow, pr insufficient_data, pra insufficient_data, ra insufficient_data, rebounds insufficient_data, steals insufficient_data, threes insufficient_data
