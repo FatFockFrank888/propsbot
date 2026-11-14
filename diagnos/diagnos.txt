@@ -1,4 +1,4 @@
-Skanning 2026-11-14 22:29
+Skanning 2026-11-14 22:43
 Kambi unibet (ubse): OK, 25 matcher i valda ligor
 Kambi paf (paf): OK
 Kambi atg (atg): OK
@@ -69,39 +69,38 @@ Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
   Vasco da Gama To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
   Vasco da Gama To Win To Nil | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
   Chapecoense Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
-Sides mindre ligor: 54 Kambi-matcher inom 12 h, 155 Pinnacle-matcher, 36 med Pinnacle, 36 matchade: Argentina / Primera Nacional, CONCACAF / Nations League, Denmark / Elitedivisionen (W), El Salvador / Primera Divisíon, Guatemala / Liga Nacional Guatemala, International Friendly Matches, Japan / J.League Cup, Japan / J2-League, Japan / J3-League, Japan / Japan Football League, Mexico / Liga de Exp
-  Sides rättad: Real Jaén CF – Real Zaragoza 1X2: 1 -> förlorad (0–4)
-Sides/totals: 39 matcher med Kambi + Pinnacle, 414 linjer, 0 nya spel, 1 nya skuggspel, Smarkets-priser i 25 av 26; bästa edge +4.6% (Querétaro FC 1X2: 2), +4.3% (Chapecoense-SC 1X2: 2), +2.3% (Veertien Mie under 2.5)
+Sides mindre ligor: 53 Kambi-matcher inom 12 h, 156 Pinnacle-matcher, 36 med Pinnacle, 36 matchade: Argentina / Primera Nacional, CONCACAF / Nations League, Denmark / Elitedivisionen (W), El Salvador / Primera Divisíon, Guatemala / Liga Nacional Guatemala, International Friendly Matches, Japan / J.League Cup, Japan / J2-League, Japan / J3-League, Japan / Japan Football League, Mexico / Liga de Exp
+Sides/totals: 39 matcher med Kambi + Pinnacle, 414 linjer, 0 nya spel, 0 nya skuggspel, Smarkets-priser i 25 av 26; bästa edge +3.8% (Querétaro FC 1X2: 2), +3.6% (Chapecoense-SC 1X2: 2), +2.3% (Veertien Mie under 2.5)
 Fotboll extra bolag: 0 nya hämtningar, 51 odds i bruk, krediter kvar 323, dagsbudget 18 (andel 40%), förbrukat idag 1
-Tid: hämtning 313 s
-Marginal över alla matcher: uppmätt marginal: otillräckligt underlag i matchen
+Tid: hämtning 325 s
+Marginal över alla matcher: uppmätt marginal: shots_on_target stege k=1.13 (14 spelare; marginal vid 3,00 ≈ 15%)
   Querétaro FC – CF Monterrey: modell mex.1, 27 spelare
   Chapecoense-SC – Vasco da Gama-RJ: modell bra.1, 30 spelare
-Modellens nivåavvikelse mot marknaden (log-odds, dras bort): shots_on_target -0.42
+Modellens nivåavvikelse mot marknaden (log-odds, dras bort): 
   Querétaro FC – CF Monterrey: väntade mål Pinnacle 2.76 mot Kambi 2.89 (kvot 0.955); uppmätt marginal: goal k=1.18
 Exempel uppmätt marginal: goal k=1.18
-  Chapecoense-SC – Vasco da Gama-RJ: väntade mål Pinnacle 3.00 mot Kambi 3.12 (kvot 0.961); uppmätt marginal: goal k=1.52, assist k=1.54
+  Chapecoense-SC – Vasco da Gama-RJ: väntade mål Pinnacle 3.00 mot Kambi 3.13 (kvot 0.957); uppmätt marginal: goal k=1.12, shots_on_target stege k=1.13 (14 spelare; marginal vid 3,00 ≈ 15%)
   CD Tenerife – AD Ceuta FC: saknar matchlinjer från Pinnacle
   Granada – UD Las Palmas: saknar matchlinjer från Pinnacle
   Eibar – Cadiz: saknar matchlinjer från Pinnacle
   CD Eldense – Sabadell FC: saknar matchlinjer från Pinnacle
-Tid: modell och utvärdering 9 s
+Tid: modell och utvärdering 21 s
 Bolag med spelarodds: atg, betmgm, expekt, leovegas, oa_onexbet, paf, svenskaspel, unibet
-Spelarodds per marknad: assist 210, goal 2373, shots 384, shots_on_target 520
-Kambi-marknader: assist='to give an assist (settled using opta data)':210; goal='1st goalscorer':924; goal='to score':1134; goal='to score at least 2 goals':301; goal='to score at least 3 goals':14; shots="player's shots (settled using opta data)":384; shots_on_target="player's shots on target (settled using opta data)":469
+Spelarodds per marknad: assist 140, goal 2177, shots 326, shots_on_target 408
+Kambi-marknader: assist='to give an assist (settled using opta data)':140; goal='1st goalscorer':924; goal='to score':1029; goal='to score at least 2 goals':224; shots="player's shots (settled using opta data)":326; shots_on_target="player's shots on target (settled using opta data)":357
 Pinnacle har inga spelarprops här – använder linjejustering mot Pinnacles matchlinjer.
 CLV-signal: 0 ben släppta (Pinnacle rör sig åt vårt håll)
 Startelvor: 0 spelbara ben klara, 0 väntar på startelvan, 0 stoppade (inte i startelvan)
 Spelregler: stoppade {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0} (modelltest {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0})
-Spelarmodell: 0 av 67 ben har modell, 0 nya matcher hämtade från ESPN
-Bästa edge marknad shots_on_target: -7.9%, -8.0%, -8.1% (av 61 ben)
-Bästa edge modelltest shots_on_target: -4.5%, -6.0%, -6.7% (av 61 ben)
+Spelarmodell: 0 av 51 ben har modell, 0 nya matcher hämtade från ESPN
+Bästa edge marknad shots_on_target: -8.0%, -8.2%, -8.3% (av 45 ben)
+Bästa edge modelltest shots_on_target: -7.8%, -8.0%, -8.7% (av 45 ben)
 0 spelbara ben.
 Bokförda nya spel: 0
 Skuggspel: 0 nya bokförda (stoppade av reglerna, minst 2 % edge)
 Modelltest: 0 spelbara enligt modellen, 0 nya testspel bokförda
 Fouls (test): 0 ben med modell, 0 klarar kraven, 0 nya bokförda, bästa edge –, 0 nya ESPN-matcher, domare känd i 0 matcher
 Domare: 40 kommande matcher med utsedd domare (UEFA + football-data)
-Kort (test): 145 Kambi-odds, 9 ben med modell, 0 klarar kraven, 0 nya bokförda, bästa edge -35.5%, -38.1%, -38.2%, 0 nya ESPN-matcher
+Kort (test): 65 Kambi-odds, 5 ben med modell, 0 klarar kraven, 0 nya bokförda, bästa edge -38.2%, -39.2%, -39.5%, 0 nya ESPN-matcher
 Parlays: 0 förslag, 0 nya bokförda
 Notiser skickade: 0
