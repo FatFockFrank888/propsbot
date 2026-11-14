@@ -62,6 +62,7 @@ class NbaPlayer:
     starts: int
     minutes: float                         # viktat snitt (bara matcher där han spelade)
     per_min: dict[str, float] = field(default_factory=dict)
+    min_sd: float = 0.0                    # viktad standardavvikelse för minuterna (nba_minutes)
 
 
 @dataclass
@@ -189,10 +190,11 @@ class NbaModel:
                 allowed += w * opp[0]
                 wsum += w
             for p in bx["teams"][team_id]:
-                a = acc.setdefault(name_key(p["n"]), {"name": p["n"], "w": 0.0, "wmin": 0.0, "g": 0, "s": 0,
+                a = acc.setdefault(name_key(p["n"]), {"name": p["n"], "w": 0.0, "wmin": 0.0, "wmin2": 0.0, "g": 0, "s": 0,
                                                      **{k: 0.0 for k in STATS}})
                 a["w"] += w
                 a["wmin"] += w * p["min"]
+                a["wmin2"] += w * p["min"] ** 2
                 a["g"] += 1
                 a["s"] += int(p["s"])
                 for k in STATS:
@@ -205,16 +207,21 @@ class NbaModel:
         for k, a in acc.items():
             per_min = {s: (a[s] + team_rate.get(s, 0) * self.prior_min) / (a["wmin"] + self.prior_min)
                        for s in STATS}
-            players[k] = NbaPlayer(a["name"], team_id, a["g"], a["s"], a["wmin"] / a["w"], per_min)
+            m_avg = a["wmin"] / a["w"]
+            var = max(0.0, a["wmin2"] / a["w"] - m_avg ** 2) * (a["g"] / (a["g"] - 1) if a["g"] > 1 else 1.0)
+            # få matcher: krymp mot en typisk spridning (6 min) så att 2 likadana matcher inte ger sd 0
+            sd = math.sqrt((a["g"] * var + 3 * 36.0) / (a["g"] + 3))
+            players[k] = NbaPlayer(a["name"], team_id, a["g"], a["s"], m_avg, per_min, sd)
         tm = NbaTeam(team_id, (sched.get("team") or {}).get("displayName", team_id), players,
                      allowed / wsum if wsum else 114.0, last_game)
         self._teams[team_id] = tm
         return tm
 
     # ------------------------------------------------------------ prognos
-    def expected(self, team: NbaTeam, opp: NbaTeam | None, start: float, league_allowed: float
-                 ) -> dict[str, dict[str, float]]:
-        """name_key -> {marknad: väntat värde} inkl. kombinationer."""
+    def expected(self, team: NbaTeam, opp: NbaTeam | None, start: float, league_allowed: float,
+                 spread_home: float | None = None) -> dict[str, dict[str, float]]:
+        """name_key -> {marknad: väntat värde} inkl. kombinationer.
+        spread_home (Pinnacle, valfritt) ger minuter efter utklassningsrisk i _min_bo (skuggläge, nba_minutes)."""
         inj = self.injuries()
         out_keys = {k for k in team.players if any(s in inj.get(k, "") for s in OUT_STATUS)}
         # Speltid från skadade fördelas på friska spelare i proportion till deras minuter.
@@ -237,8 +244,13 @@ class NbaModel:
             for c, parts in COMBO.items():
                 e[c] = sum(e[x] for x in parts)
             e["_min"] = mins
+            e["_min_sd"] = p.min_sd
             e["_g"] = p.games          # datakvalitet: antal matcher i underlaget
             res[k] = e
+        from .nba_minutes import blowout_minutes
+        bo = blowout_minutes({k: e["_min"] for k, e in res.items()}, spread_home)
+        for k, e in res.items():
+            e["_min_bo"] = bo[k]
         return res
 
 

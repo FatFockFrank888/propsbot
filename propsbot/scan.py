@@ -144,7 +144,9 @@ DEFAULT_SETTINGS = {
     "football_kelly_scale": 0.5,
     "sides_lineup_gate": False,     # sides väntar inte på startelvor (Pinnacle prisar redan in dem)
     "graduation_min_bets": 50,      # uppgradering (sides -> LIVE, fotboll -> full insats): spel med stängning
-    "graduation_min_t": 1.0,        # ... och snitt-CLV > 0 med minst detta t-värde    # fotboll utan historik: halva Kelly-insatsen tills CLV visats (storleken följer ändå styrkan)
+    "graduation_min_t": 1.0,        # ... och snitt-CLV > 0 med minst detta t-värde (golv)
+    "graduation_alpha": 0.10,       # ... och över en gräns som tål upprepad prövning (graduation.required_t)
+    # fotboll utan historik: halva Kelly-insatsen tills CLV visats (storleken följer ändå styrkan)
     "live_min_groups": 2,
     "live_require_sharp": True,
     "live_odds_window": [1.60, 3.00],   # 12/11: odds 1,40–1,60 gav −62 % (12 NBA-spel); samma golv som jämförelsesajten

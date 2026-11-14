@@ -19,6 +19,10 @@ Status per marknad (dokumenterade kriterier – konventioner, inte garantier):
                         eller CLV signifikant negativ
   * validated         : modellens Brier signifikant bättre än marknadens OCH CLV signifikant positiv
   * shadow            : övrigt – prognoser visas och bokförs, men räknas inte som bevisat
+Multipeltestning: alla marknader prövas samtidigt, så "validated" kräver dessutom att marknaden klarar
+Benjamini–Hochberg (FDR q = BH_Q) över marknaderna. p-värdet per marknad är det största av två ensidiga
+bootstrap-p (Brier bättre, CLV > 0) – båda måste hålla. Marknader som faller på BH blir shadow.
+"degraded" korrigeras inte: att blockera för tidigt kostar mindre än att släppa på för tidigt.
 """
 from __future__ import annotations
 
@@ -35,6 +39,7 @@ LEDGERS = {"live": "nba_live.json", "spel": "nba_bokforing_v2.json", "skugga": "
 MIN_OBS = 30
 SEED = 20261111
 B = 2000
+BH_Q = 0.10
 
 
 def _us_day(ts: float) -> str:
@@ -77,6 +82,31 @@ def _boot(values_by_day: dict[str, list[float]], stat, rnd: random.Random) -> tu
             res.append(stat(xs))
     res.sort()
     return res[int(0.025 * len(res))], res[int(0.975 * len(res)) - 1]
+
+
+def _boot_p(values_by_day: dict[str, list[float]], rnd: random.Random, sign: int) -> float | None:
+    """Ensidigt bootstrap-p för att snittet har tecknet `sign` (+1: > 0, −1: < 0): andelen omdragningar
+    (block per speldag) där snittet INTE har det tecknet. Golv 1/(B+1)."""
+    days = list(values_by_day)
+    if len(days) < 3:
+        return None
+    bad = 0
+    for _ in range(B):
+        xs = [v for d in (rnd.choice(days) for _ in days) for v in values_by_day[d]]
+        if not xs or sign * sum(xs) / len(xs) <= 0:
+            bad += 1
+    return (bad + 1) / (B + 1)
+
+
+def benjamini_hochberg(pvals: dict[str, float], q: float) -> set[str]:
+    """Nycklar som förkastas (upptäckter) under Benjamini–Hochberg med FDR q."""
+    items = sorted(pvals.items(), key=lambda kv: kv[1])
+    m = len(items)
+    k = 0
+    for i, (_, p) in enumerate(items, start=1):
+        if p <= q * i / m:
+            k = i
+    return {key for key, _ in items[:k]}
 
 
 def _ll(p: float, y: int) -> float:
@@ -127,7 +157,8 @@ def summarize(bets: list[dict], rnd: random.Random) -> dict:
                  "marknad": sum((q - y) ** 2 for _, q, y in pairs) / n,
                  "logloss_modell": sum(_ll(p, y) for p, _, y in pairs) / n,
                  "logloss_marknad": sum(_ll(q, y) for _, q, y in pairs) / n,
-                 "diff_ci95": _boot(br_day, lambda xs: sum(xs) / len(xs), rnd)}
+                 "diff_ci95": _boot(br_day, lambda xs: sum(xs) / len(xs), rnd),
+                 "p_battre": _boot_p(br_day, rnd, -1)}
     return {
         "rader": len(bets), "prestationer": len({prestation(b) for b in bets}),
         "matcher": len({b.get("match_id") for b in bets}), "dagar": len({_us_day(b["avspark"]) for b in bets if b.get("avspark")}),
@@ -139,10 +170,38 @@ def summarize(bets: list[dict], rnd: random.Random) -> dict:
         "clv_ci95": _boot(clv_day, lambda xs: sum(xs) / len(xs), rnd),
         "clv_verifierad_pp": (sum(clv_ver) / len(clv_ver)) if clv_ver else None,
         "clv_verifierad_ci95": _boot(clv_ver_day, lambda xs: sum(xs) / len(xs), rnd),
+        "clv_p": _boot_p(clv_ver_day if len(clv_ver_day) >= 3 else clv_day, rnd, +1),
         "clv_tackning": (len(ver) / max(1, len([b for b in bets if b.get("avspark") and b["avspark"] < datetime.now(timezone.utc).timestamp()]))) if bets else None,
         "stangning_min_fore_start_median": sorted(ages)[len(ages) // 2] if ages else None,
         "brier": brier,
+        "skuggmodeller": _shadow_brier(settled, rnd),
     }
+
+
+SHADOW_FIELDS = ("p_stack", "p_modell_min")
+
+
+def _shadow_brier(settled: list[dict], rnd: random.Random) -> dict:
+    """Skuggfälten (nba_minutes) mot marknaden och mot nuvarande modell, på samma unika prestationer."""
+    out = {}
+    for fld in SHADOW_FIELDS:
+        rows, day = [], defaultdict(list)
+        for b in dedup(settled):
+            pf, pk, pm = b.get(fld), b.get("p_marknad"), b.get("p_modell")
+            if pf is None or pk is None or pm is None or b["status"] == "push":
+                continue
+            y = 1 if b["status"] == "vunnen" else 0
+            rows.append((pf, pk, pm, y))
+            day[_us_day(b["avspark"])].append((pf - y) ** 2 - (pk - y) ** 2)
+        if rows:
+            n = len(rows)
+            out[fld] = {"n": n, "brier": sum((f - y) ** 2 for f, _, _, y in rows) / n,
+                        "marknad": sum((k - y) ** 2 for _, k, _, y in rows) / n,
+                        "modell_nu": sum((m - y) ** 2 for _, _, m, y in rows) / n,
+                        "logloss": sum(_ll(f, y) for f, _, _, y in rows) / n,
+                        "logloss_marknad": sum(_ll(k, y) for _, k, _, y in rows) / n,
+                        "diff_mot_marknad_ci95": _boot(day, lambda xs: sum(xs) / len(xs), rnd)}
+    return out
 
 
 def status(s: dict) -> str:
@@ -179,6 +238,19 @@ def evaluate(root: Path) -> dict:
         s_live = summarize([b for b in data["live"] if b.get("marknad") == mk], rnd)
         out["per_marknad"][mk] = {"modelltest": s, "live": s_live}
         out["status"][mk] = status(s)
+    # Multipeltestning: "validated" måste klara Benjamini–Hochberg över alla marknader som prövats.
+    pv = {}
+    for mk, d in out["per_marknad"].items():
+        s = d["modelltest"]
+        pb, pc = (s.get("brier") or {}).get("p_battre"), s.get("clv_p")
+        if out["status"][mk] != "insufficient_data":
+            pv[mk] = max(pb if pb is not None else 1.0, pc if pc is not None else 1.0)
+    keep = benjamini_hochberg(pv, BH_Q) if pv else set()
+    out["p_validering"] = pv
+    for mk in list(out["status"]):
+        if out["status"][mk] == "validated" and mk not in keep:
+            out["status"][mk] = "shadow"
+            out.setdefault("bh_nedgraderade", []).append(mk)
     for band in sorted({odds_band(b["odds"]) for b in data["live"] if b.get("odds")}):
         out["per_oddsintervall"][band] = summarize([b for b in data["live"] if b.get("odds") and odds_band(b["odds"]) == band], rnd)
     return out
@@ -211,6 +283,17 @@ def markdown(r: dict) -> str:
         L.append(f"| {mk} | **{r['status'][mk]}** | " + ("–" if not br else f"{br['modell']:.4f} / {br['marknad']:.4f} ({br['n']})")
                  + f" | {'–' if not dci else f'{dci[0]:+.4f}…{dci[1]:+.4f}'} | {_f(s['clv_pp'], 2)} ({'–' if not ci else f'{ci[0]:+.2f}…{ci[1]:+.2f}'}) | "
                  f"{sl['avgjorda']} | {_f(sl['roi_flat'], pct=True)} |")
+    if r.get("p_validering"):
+        L += ["", f"p för validering (max av Brier- och CLV-p) – Benjamini–Hochberg q = {BH_Q:g} över {len(r['p_validering'])} marknader: "
+              + ", ".join(f"{k} {v:.3f}" for k, v in sorted(r["p_validering"].items(), key=lambda kv: kv[1]))]
+    sk = (r["per_bokforing"].get("modelltest") or {}).get("skuggmodeller") or {}
+    if sk:
+        L += ["", "## Skuggmodeller (modelltest, samma spel)", "",
+              "| Fält | n | Brier | Brier marknad | Brier nuvarande modell | Skillnad mot marknad 95 % |", "|---|---|---|---|---|---|"]
+        for fld, v in sk.items():
+            ci = v["diff_mot_marknad_ci95"]
+            L.append(f"| {fld} | {v['n']} | {v['brier']:.4f} | {v['marknad']:.4f} | {v['modell_nu']:.4f} | "
+                     f"{'–' if not ci else f'{ci[0]:+.4f}…{ci[1]:+.4f}'} |")
     L += ["", "## LIVE per oddsintervall", "", "| Odds | Avgjorda | ROI flat | CLV pe |", "|---|---|---|---|"]
     for band, s in r["per_oddsintervall"].items():
         L.append(f"| {band} | {s['avgjorda']} | {_f(s['roi_flat'], pct=True)} | {_f(s['clv_pp'], 2)} |")

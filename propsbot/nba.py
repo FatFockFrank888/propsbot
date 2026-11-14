@@ -33,6 +33,7 @@ EXCLUDE = ("quarter", "half", "1st", "2nd", "3rd", "4th", "first", "double", "tr
            "highest", "lowest", "exact", "both", " or ", "&nbsp")
 PIN_BASKETBALL = 4
 SAMPLE: dict = {}
+SPREADS: dict = {}       # match_id -> hemmalagets spread hos Pinnacle (huvudlinjen)
 
 
 def nba_market(label: str) -> str | None:
@@ -175,6 +176,12 @@ def pinnacle_nba_props(pin: PinnaclePublic, ev, match_id: str) -> tuple[list[Odd
         pmap = {p["id"]: (p.get("name") or "").lower() for p in m.get("participants", []) if "id" in p}
         specials[int(m["id"])] = (player, mk, pmap)
     qs, names = [], {}
+    for mkt in markets:   # huvudspread (för utklassningsrisk i minutmodellen, nba_minutes)
+        if (mkt.get("matchupId") == ev.matchup_id and mkt.get("type") == "spread" and mkt.get("period", 0) == 0
+                and not mkt.get("isAlternate")):
+            for pr in mkt.get("prices") or []:
+                if pr.get("designation") == "home" and pr.get("points") is not None:
+                    SPREADS[match_id] = float(pr["points"])
     for mkt in markets:
         sid = mkt.get("matchupId")
         if sid not in specials or mkt.get("isAlternate"):
@@ -198,7 +205,7 @@ def pinnacle_nba_props(pin: PinnaclePublic, ev, match_id: str) -> tuple[list[Odd
 # ---------------------------------------------------------------- linjeflytt
 # Överspridning per marknad (negativ binomial, form r): varians = μ + μ²/r.
 # Modellversion (loggas på varje ny prognos). Byt vid metodändring; äldre rader behåller sin (eller ingen = legacy).
-NBA_MODEL_VERSION = "2026-11-11-koherent"
+NBA_MODEL_VERSION = "2026-11-14-minuter-stack"   # + skuggfält p_modell_min, p_stack (styr inte)
 LAST_MODEL: dict = {}    # senaste skanningens modell per match (models, teams) – används av news.nba_teammate_fn
 NB_R = {"points": 15, "rebounds": 10, "assists": 10, "threes": 8, "steals": 30, "blocks": 15,
         "pra": 15, "pr": 15, "ra": 12}
@@ -540,6 +547,11 @@ def nba_scan(root: Path, settings_path: Path) -> dict:
         except Exception as e:
             diag.log(f"NBA rättning: {type(e).__name__}: {e}")
         lg.save()
+    try:   # inlärd blandning modell/marknad – skattas på avgjorda modelltestrader, används av NÄSTA skanning
+        from .nba_minutes import save_stack
+        save_stack(root, test.bets)
+    except Exception as e:  # noqa: BLE001
+        diag.log(f"NBA stackning: fel {type(e).__name__}: {e}")
     try:   # utvärdering på framåtriktad data + status per marknad (används av nästa skanning)
         from .nba_eval import evaluate as nba_evaluate, markdown as nba_md
         ev = nba_evaluate(root)
@@ -599,10 +611,11 @@ def model_test_rows(root: Path, rows: list, per: dict, settings: dict, cfg: Conf
     for mid, (th, ta) in teams.items():
         evd = next(v[0] for v in per.values() if v[0]["id"] == mid)
         m = {}
+        sp = SPREADS.get(mid)
         if th:
-            m.update(nm.expected(th, ta, evd["commence_time"], league))
+            m.update(nm.expected(th, ta, evd["commence_time"], league, sp))
         if ta:
-            m.update(nm.expected(ta, th, evd["commence_time"], league))
+            m.update(nm.expected(ta, th, evd["commence_time"], league, sp))
         models[mid] = m
     LAST_MODEL.update(models=models, teams=teams)   # för lagnyheter (rollförändring när en lagkamrat blir out)
     n_inj = sum(1 for v in nm.injuries().values() if any(s in v for s in ("out", "doubtful")))
@@ -639,6 +652,16 @@ def model_test_rows(root: Path, rows: list, per: dict, settings: dict, cfg: Conf
             off[mk] = max(-0.7, min(0.7, sum(core) / len(core)))
     diag.log("NBA-modell nivåavvikelse (dras bort): " + ", ".join(f"{k} {v:+.2f}" for k, v in sorted(off.items())))
     w0 = settings.get("nba_model_weight", 0.3)
+    # Skugga (nba_minutes): minuter som fördelning + utklassning, och inlärd blandning modell/marknad.
+    from .nba_minutes import load_stack, nb_over_minutes, r_conditional, stack_p
+    stack = load_stack(root)
+    cv2 = [(e["_min_sd"] / e["_min"]) ** 2 for m in models.values() for e in m.values()
+           if e.get("_min", 0) >= 10 and e.get("_min_sd")]
+    mean_cv2 = sum(cv2) / len(cv2) if cv2 else 0.0
+    n_bo = sum(1 for mid in models if SPREADS.get(mid) is not None)
+    diag.log(f"NBA minutmodell (skugga): medel cv² {mean_cv2:.3f}, spread från Pinnacle för {n_bo} av {len(models)} matcher; "
+             f"stackning: " + (", ".join(f"{k} b_m {v['b_modell']:+.2f} b_k {v['b_marknad']:.2f} (n {v['n']})"
+                                         for k, v in sorted(stack.items())) or "ingen skattning än"))
     out = []
     for r, p_mod_over, p_mkt_over, mu, games in pairs:
         c = r.row.decision.cand
@@ -652,7 +675,23 @@ def model_test_rows(root: Path, rows: list, per: dict, settings: dict, cfg: Conf
         cand = dataclasses.replace(c, p=p)
         d = evaluate(cand, cfg.decision)
         d.reasons.append(f"modell {pm:.0%} (väntat {mu:.1f}), marknad {c.p:.0%}, vikt {w:.2f}, dq {dq:.2f}")
-        out.append(ScanRow(r.sport, r.match, r.kickoff, Row(d, pm, c.p, w), r.n_groups, mu))
+        sr = ScanRow(r.sport, r.match, r.kickoff, Row(d, pm, c.p, w), r.n_groups, mu)
+        extra = {"p_stack": None, "p_modell_min": None, "minuter": None, "minuter_sd": None}
+        try:
+            mk_e = models[c.match_id][match_model_player(models[c.match_id], c.player_id)]
+            ps_over = stack_p(stack, c.market, pm_over, p_mkt_over)
+            extra["p_stack"] = round(1.0 - ps_over if under else ps_over, 4)
+            if mk_e.get("_min"):
+                rate = mu / mk_e["_min"]
+                r_v = r_conditional(NB_R.get(c.market, 15), mean_cv2)
+                pmm = nb_over_minutes(rate, mk_e["_min_bo"], mk_e.get("_min_sd", 0.0), c.line, r_v)
+                pmm = min(max(pmm, 0.01), 0.99)
+                extra.update(p_modell_min=round(1.0 - pmm if under else pmm, 4),
+                             minuter=round(mk_e["_min_bo"], 1), minuter_sd=round(mk_e.get("_min_sd", 0.0), 1))
+        except (KeyError, TypeError, ValueError, ZeroDivisionError):
+            pass
+        sr.extra = extra
+        out.append(sr)
     n_play = sum(1 for x in out if x.row.decision.playable and x.row.decision.show)
     diag.log(f"NBA-modelltest: {n_play} spelbara enligt modellen av {len(out)} ben med modell")
     return out

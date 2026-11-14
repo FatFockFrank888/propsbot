@@ -56,9 +56,10 @@ def all_params(settings_path: Path) -> dict:
          "(alla gemensamma krav); risktak: högst 5u per spel och 5 % per match."),
         ("LIVE: insats", f"¼ Kelly × {s.get('football_kelly_scale', 0.5):g}, högst {s.get('football_live_max_units', 5)}u per spel",
          "Insatsen följer styrkan (edge och odds) som i NBA, men i halv storlek eftersom fotbollen saknar historik "
-         "med edge och CLV. Går automatiskt upp till full ¼ Kelly när 50 spel med stängning visar positiv CLV (t ≥ 1), med en notis."),
-        ("Automatisk uppgradering", f"{s.get('graduation_min_bets', 50)} spel, CLV > 0 (t ≥ {s.get('graduation_min_t', 1.0):g})",
-         "Prövas vid varje skanning för fotbollsprops (halv -> full insats) och sides/totals (data -> LIVE med notiser, ¼ Kelly upp till 5u). "
+         "med edge och CLV. Går automatiskt upp till full ¼ Kelly när 50 spel med stängning visar positiv CLV (t-gräns som tål upprepad prövning, se nedan), med en notis."),
+        ("Automatisk uppgradering", f"{s.get('graduation_min_bets', 50)} spel, CLV > 0, t ≥ ~3,7 vid 50 spel (~3,0 vid 500)",
+         "Gränsen är tidsoberoende (Robbins, α " + f"{s.get('graduation_alpha', 0.10):g}" + " delat på 2 marknader): en marknad utan verklig CLV "
+         "uppgraderas inte av slump fast den prövas vid varje skanning. Prövas vid varje skanning för fotbollsprops (halv -> full insats) och sides/totals (data -> LIVE med notiser, ¼ Kelly upp till 5u). "
          "Vänder CLV till negativt över minst 30 spel går marknaden tillbaka till försiktigt läge."),
         ("Marknader som spelas", ", ".join(s.get("football_markets", ["shots_on_target"])),
          "Övriga marknader används bara för att mäta Kambis marginal."),

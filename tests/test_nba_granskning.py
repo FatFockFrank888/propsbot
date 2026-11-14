@@ -159,3 +159,12 @@ def test_sgo_budget_gap_and_429_pause(tmp_path, monkeypatch):
 def time_day(t):
     import time
     return time.strftime("%Y-%m-%d", time.gmtime(t))
+
+
+def test_benjamini_hochberg():
+    from propsbot.nba_eval import benjamini_hochberg
+    # 11 marknader: en tydlig, resten brus. Bara den tydliga klarar FDR 0,10.
+    p = {"a": 0.001, **{f"m{i}": 0.04 + 0.08 * i for i in range(10)}}
+    assert benjamini_hochberg(p, 0.10) == {"a"}
+    assert benjamini_hochberg({"x": 0.04, "y": 0.045}, 0.05) == {"x", "y"}   # stegvis: båda under q·i/m
+    assert benjamini_hochberg({"x": 0.3}, 0.10) == set()

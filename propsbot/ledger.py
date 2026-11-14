@@ -131,6 +131,7 @@ class Ledger:
                 "p_modell": (lambda x: None if x is None or x != x else x)(getattr(r.row, "p_model", None)),
                 "p_marknad": (lambda x: None if x is None or x != x else x)(getattr(r.row, "p_market", None)),
                 "utfall": None, "resultat_enheter": None,
+                **(getattr(r, "extra", None) or {}),   # skuggfält (t.ex. NBA p_stack, p_modell_min)
             }
             self.bets.append(b)
             self.by_key[k] = b
