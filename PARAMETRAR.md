@@ -26,8 +26,8 @@ Genereras från de värden boten använder (`python -m propsbot parametrar`).
 | Parameter | Värde | Förklaring |
 |---|---|---|
 | Status | bara datainsamling (inga notiser) | football_live i settings.json. Pausat 2026-11-07 (on hold) tills vi hittar en skarp källa för fotbollsprops – Kambis marginal ~20 % och ingen referens. Påslaget 2026-11-04. Spelen är regelspelen (alla gemensamma krav); risktak: högst 5u per spel och 5 % per match. |
-| LIVE: insats | ¼ Kelly × 0.5, högst 5u per spel | Insatsen följer styrkan (edge och odds) som i NBA/NHL, men i halv storlek eftersom fotbollen saknar historik med edge och CLV. Går automatiskt upp till full ¼ Kelly när 50 spel med stängning visar positiv CLV (t ≥ 1), med en notis. |
-| Automatisk uppgradering | 50 spel, CLV > 0 (t ≥ 1) | Prövas vid varje skanning för fotbollsprops (halv -> full insats) och sides/totals (data -> LIVE med notiser, ¼ Kelly upp till 5u). Vänder CLV till negativt över minst 30 spel går marknaden tillbaka till försiktigt läge. |
+| LIVE: insats | ¼ Kelly × 0.5, högst 5u per spel | Insatsen följer styrkan (edge och odds) som i NBA/NHL, men i halv storlek eftersom fotbollen saknar historik med edge och CLV. Går automatiskt upp till full ¼ Kelly när 50 spel med stängning visar positiv CLV (t-gräns som tål upprepad prövning, se nedan), med en notis. |
+| Automatisk uppgradering | 50 spel, CLV > 0, t ≥ ~3,7 vid 50 spel (~3,0 vid 500) | Gränsen är tidsoberoende (Robbins, α 0.1 delat på 2 marknader): en marknad utan verklig CLV uppgraderas inte av slump fast den prövas vid varje skanning. Prövas vid varje skanning för fotbollsprops (halv -> full insats) och sides/totals (data -> LIVE med notiser, ¼ Kelly upp till 5u). Vänder CLV till negativt över minst 30 spel går marknaden tillbaka till försiktigt läge. |
 | Marknader som spelas | shots_on_target | Övriga marknader används bara för att mäta Kambis marginal. |
 | Edgekrav per marknad (före gemensamt krav) | shots 2 %, shots_on_target 2 %, goal 4 %, assist 4 % | Gemensamma kravet 5 % gäller ovanpå. |
 | Utan Pinnacle/tvåsidig källa | +3 % edge, minst 3 källor |  |

@@ -122,3 +122,25 @@ python -m pytest -q
 python -m pytest -q tests/test_nba_granskning.py
 python -m propsbot.nba_eval <mapp med nba_*.json>
 ```
+
+## 9. Tillägg 2026-11-14 (gren `modellforbattringar`)
+
+Efter en jämförelse med en extern modellbeskrivning. Det som redan fanns (devig power/Shin per bolag, CLV,
+¼ Kelly med tak, tak per match) är oförändrat.
+
+1. **Graduering tål upprepad prövning** (`graduation.py`). "t ≥ 1 vid varje skanning" uppgraderar till slut en
+   marknad utan CLV av slump. Nu en tidsoberoende gräns (Robbins normalblandning, α 0,10 delat på 2 marknader):
+   t ≥ 3,7 vid 50 spel, 3,0 vid 500. Sides (redan uppgraderad, t 6,8) påverkas inte.
+2. **Benjamini–Hochberg på status per marknad** (`nba_eval.py`). "validated" kräver dessutom att marknaden klarar
+   BH (FDR 0,10) över alla prövade marknader; p = max av ensidiga bootstrap-p för Brier och CLV.
+3. **Skuggfält på modelltestrader** (`nba_minutes.py`) – styr INTE LIVE, utvärderas under "Skuggmodeller":
+   * `p_modell_min`: minuter som fördelning (spelarens egen spridning, Gauss–Hermite) med r krympt så att
+     genomsnittlig varians är oförändrad, plus utklassningsrisk ur Pinnacles spread (hämtas i samma anrop).
+   * `p_stack`: inlärd blandning σ(a + b_m·logit p_modell + b_k·logit p_marknad) per marknad, ridge mot
+     "lita på marknaden" (400 obs), skattad på avgjorda rader och använd först nästa skanning (`nba_stack.json`).
+     Med dagens 181 rader blir b_m ≈ 0,05–0,1, alltså nästan bara marknaden – som Brier-jämförelsen säger.
+   Varför inte direkt i LIVE: modellkravet (modelledge ≥ 5 %) var det starkaste filtret i 4/11-analysen. Med en
+   vikt nära 0 blir modelledgen ≈ marknadsedgen och kravet slutar filtrera. Det beslutet ska tas på data.
+4. **Sides 1X2, devig-artefakt?** Kontrollerat på 420 avgjorda 1X2-rader (spel + skugga): edge hemma 2,8 %,
+   borta 3,3 %, och utfall mot Pinnacles p ligger inom brus för alla sidor och oddsband. Ingen ändring.
+   Råpriserna sparas inte, så Shin mot power kan inte räknas om i efterhand.

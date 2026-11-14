@@ -120,7 +120,9 @@ def test_graduation_up_and_down(tmp_path):
     from propsbot.graduation import check
     s = {"graduation_min_bets": 50, "graduation_min_t": 1.0}
     assert not check(tmp_path, "sides", [1.0, 2.0, -0.5] * 10, s, "Sides", False, lambda *_: None)   # för få spel
-    good = [2.0, 1.0, -0.5, 1.5, 0.5] * 10                                                            # 50 spel, snitt +0,9
+    weak = [2.0, 1.0, -0.5, 1.5, 0.5, -1.0, -1.5, 3.0, -2.0, 1.0] * 5                                 # snitt +0,4, t ≈ 1,9
+    assert not check(tmp_path, "sides", weak, s, "Sides", False, lambda *_: None)                     # slumpnivå räcker inte
+    good = [2.0, 1.0, -0.5, 1.5, 0.5] * 10                                                            # 50 spel, snitt +0,9, t ≈ 6
     assert check(tmp_path, "sides", good, s, "Sides", False, lambda *_: None)
     assert check(tmp_path, "sides", good + [-0.2], s, "Sides", False, lambda *_: None)               # stannar uppe
     assert not check(tmp_path, "sides", [-1.0, -0.5, 0.2] * 12, s, "Sides", False, lambda *_: None)  # vänt -> ner
