@@ -34,6 +34,7 @@ EXCLUDE = ("quarter", "half", "1st", "2nd", "3rd", "4th", "first", "double", "tr
 PIN_BASKETBALL = 4
 SAMPLE: dict = {}
 SPREADS: dict = {}       # match_id -> hemmalagets spread hos Pinnacle (huvudlinjen)
+TOTALS: dict = {}        # match_id -> matchens total (poäng) hos Pinnacle (huvudlinjen), för nba_factors
 
 
 def nba_market(label: str) -> str | None:
@@ -182,6 +183,11 @@ def pinnacle_nba_props(pin: PinnaclePublic, ev, match_id: str) -> tuple[list[Odd
             for pr in mkt.get("prices") or []:
                 if pr.get("designation") == "home" and pr.get("points") is not None:
                     SPREADS[match_id] = float(pr["points"])
+        if (mkt.get("matchupId") == ev.matchup_id and mkt.get("type") == "total" and mkt.get("period", 0) == 0
+                and not mkt.get("isAlternate")):
+            for pr in mkt.get("prices") or []:
+                if pr.get("designation") == "over" and pr.get("points") is not None:
+                    TOTALS[match_id] = float(pr["points"])
     for mkt in markets:
         sid = mkt.get("matchupId")
         if sid not in specials or mkt.get("isAlternate"):
@@ -205,7 +211,7 @@ def pinnacle_nba_props(pin: PinnaclePublic, ev, match_id: str) -> tuple[list[Odd
 # ---------------------------------------------------------------- linjeflytt
 # Överspridning per marknad (negativ binomial, form r): varians = μ + μ²/r.
 # Modellversion (loggas på varje ny prognos). Byt vid metodändring; äldre rader behåller sin (eller ingen = legacy).
-NBA_MODEL_VERSION = "2026-11-14-minuter-stack"   # + skuggfält p_modell_min, p_stack (styr inte)
+NBA_MODEL_VERSION = "2026-11-14-faktorer"   # + skuggfält p_faktorer(_ra), f_*, traff_* (nba_factors, styr inte)
 LAST_MODEL: dict = {}    # senaste skanningens modell per match (models, teams) – används av news.nba_teammate_fn
 NB_R = {"points": 15, "rebounds": 10, "assists": 10, "threes": 8, "steals": 30, "blocks": 15,
         "pra": 15, "pr": 15, "ra": 12}
@@ -618,6 +624,34 @@ def model_test_rows(root: Path, rows: list, per: dict, settings: dict, cfg: Conf
             m.update(nm.expected(ta, th, evd["commence_time"], league, sp))
         models[mid] = m
     LAST_MODEL.update(models=models, teams=teams)   # för lagnyheter (rollförändring när en lagkamrat blir out)
+    # Faktormodell (skugga, nba_factors): position, tempo, marknadens lagtotal, användning, schema, motståndare.
+    from .nba_factors import FactorModel, factor_summary
+    from .nba_minutes import blowout_minutes
+    fm = FactorModel(nm)
+    fmodels: dict[str, dict] = {}
+    try:
+        fm.set_league([t for pair in teams.values() for t in pair if t])
+        for mid, (th, ta) in teams.items():
+            evd = next(v[0] for v in per.values() if v[0]["id"] == mid)
+            sp, tot = SPREADS.get(mid), TOTALS.get(mid)
+            f = {}
+            for t, o, home in ((th, ta, True), (ta, th, False)):
+                if not t:
+                    continue
+                e = fm.expected(t, o, evd["commence_time"], home, tot, sp)
+                bo = blowout_minutes({k: x["_min"] for k, x in e.items()}, sp)
+                for k, x in e.items():
+                    x["_min_bo"] = bo[k]
+                    x["_team"], x["_opp"], x["_home"] = t, (o.team_id if o else None), home
+                f.update(e)
+            fmodels[mid] = f
+        n_tot = sum(1 for mid in teams if TOTALS.get(mid) is not None)
+        diag.log(f"NBA faktormodell (skugga): {sum(len(f) for f in fmodels.values())} spelare, Pinnacle-total för "
+                 f"{n_tot} av {len(teams)} matcher, ligatempo {fm.league['pace']:.1f}" if fm.league else
+                 "NBA faktormodell (skugga): ingen ligabaslinje (boxscores i äldre format?)")
+    except Exception as e:  # noqa: BLE001 – skuggmodellen får aldrig stoppa skanningen
+        diag.log(f"NBA faktormodell: fel {type(e).__name__}: {e}")
+        fmodels = {}
     n_inj = sum(1 for v in nm.injuries().values() if any(s in v for s in ("out", "doubtful")))
     diag.log(f"NBA-modell: {n_found} matcher hos ESPN, {sum(len(m) for m in models.values())} spelare, "
              f"{nm.fetched} nya boxscores, {n_inj} skadade (out/doubtful)")
@@ -651,9 +685,41 @@ def model_test_rows(root: Path, rows: list, per: dict, settings: dict, cfg: Conf
             core = g[cut:len(g) - cut] or g
             off[mk] = max(-0.7, min(0.7, sum(core) / len(core)))
     diag.log("NBA-modell nivåavvikelse (dras bort): " + ", ".join(f"{k} {v:+.2f}" for k, v in sorted(off.items())))
+    # Samma nivåkalibrering för faktormodellen (egen per marknad), på dess egen minutfördelning.
+    from .nba_minutes import load_stack, nb_over_minutes, r_conditional, stack_p
+    cv2_f = [(e["_min_sd"] / e["_min"]) ** 2 for m in fmodels.values() for e in m.values()
+             if e.get("_min", 0) >= 10 and e.get("_min_sd")]
+    mean_cv2_f = sum(cv2_f) / len(cv2_f) if cv2_f else 0.0
+    f_over: dict[int, float] = {}
+    gaps_f: dict[str, list[float]] = {}
+    seen_f: set = set()
+    for i, (r, _pmo, p_mkt_over, _mu, _g) in enumerate(pairs):
+        c = r.row.decision.cand
+        fmm = fmodels.get(c.match_id) or {}
+        k = match_model_player(fmm, c.player_id) if fmm else None
+        if not k or c.market not in fmm[k] or not fmm[k].get("_min"):
+            continue
+        e = fmm[k]
+        try:
+            pf = nb_over_minutes(e[c.market] / e["_min"], e["_min_bo"], e.get("_min_sd", 0.0), c.line,
+                                 r_conditional(NB_R.get(c.market, 15), mean_cv2_f))
+        except (ValueError, ZeroDivisionError):
+            continue
+        f_over[i] = pf = min(max(pf, 0.01), 0.99)
+        gk = (c.match_id, c.player_id, c.market, c.line)
+        if 0.15 <= p_mkt_over <= 0.85 and gk not in seen_f:
+            seen_f.add(gk)
+            gaps_f.setdefault(c.market, []).append(logit(pf) - logit(p_mkt_over))
+    off_f = {}
+    for mk, g in gaps_f.items():
+        if len(g) >= 20:
+            g = sorted(g)
+            cut = len(g) // 5
+            core = g[cut:len(g) - cut] or g
+            off_f[mk] = max(-0.7, min(0.7, sum(core) / len(core)))
+    diag.log("NBA faktormodell nivåavvikelse: " + (", ".join(f"{k} {v:+.2f}" for k, v in sorted(off_f.items())) or "–"))
     w0 = settings.get("nba_model_weight", 0.3)
     # Skugga (nba_minutes): minuter som fördelning + utklassning, och inlärd blandning modell/marknad.
-    from .nba_minutes import load_stack, nb_over_minutes, r_conditional, stack_p
     stack = load_stack(root)
     cv2 = [(e["_min_sd"] / e["_min"]) ** 2 for m in models.values() for e in m.values()
            if e.get("_min", 0) >= 10 and e.get("_min_sd")]
@@ -663,7 +729,7 @@ def model_test_rows(root: Path, rows: list, per: dict, settings: dict, cfg: Conf
              f"stackning: " + (", ".join(f"{k} b_m {v['b_modell']:+.2f} b_k {v['b_marknad']:.2f} (n {v['n']})"
                                          for k, v in sorted(stack.items())) or "ingen skattning än"))
     out = []
-    for r, p_mod_over, p_mkt_over, mu, games in pairs:
+    for i, (r, p_mod_over, p_mkt_over, mu, games) in enumerate(pairs):
         c = r.row.decision.cand
         r.expected = mu
         # Datakvalitet (dq 0,2–1): tunt underlag (få matcher) -> modellen väger mindre, marknaden mer.
@@ -690,6 +756,24 @@ def model_test_rows(root: Path, rows: list, per: dict, settings: dict, cfg: Conf
                              minuter=round(mk_e["_min_bo"], 1), minuter_sd=round(mk_e.get("_min_sd", 0.0), 1))
         except (KeyError, TypeError, ValueError, ZeroDivisionError):
             pass
+        extra.update(p_faktorer=None, p_faktorer_ra=None, vantat_faktorer=None)
+        if i in f_over:
+            try:
+                fmm = fmodels[c.match_id]
+                fe = fmm[match_model_player(fmm, c.player_id)]
+                pfm_over, pf_over, _w = coherent_blend(f_over[i], p_mkt_over, off_f.get(c.market, 0.0), w0, dq)
+                extra.update(p_faktorer_ra=round(1.0 - pfm_over if under else pfm_over, 4),
+                             p_faktorer=round(1.0 - pf_over if under else pf_over, 4),
+                             vantat_faktorer=round(fe[c.market], 2), minuter_faktorer=round(fe["_min_bo"], 1),
+                             **factor_summary(fe, c.market))
+                t = fe["_team"]
+                hr = fm.hit_rates(t, match_model_player(t.players, c.player_id) or c.player_id,
+                                  c.market, c.line, fe["_opp"], fe["_home"])
+                # träffbild för VÅR sida (andel matcher som hade vunnit), heltalslinjer förekommer inte
+                extra.update({k: (round(1.0 - v, 3) if under and v is not None and not k.endswith("_n") else v)
+                              for k, v in hr.items()})
+            except (KeyError, TypeError, ValueError, ZeroDivisionError):
+                pass
         sr.extra = extra
         out.append(sr)
     n_play = sum(1 for x in out if x.row.decision.playable and x.row.decision.show)

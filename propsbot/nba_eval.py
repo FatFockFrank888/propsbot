@@ -178,7 +178,7 @@ def summarize(bets: list[dict], rnd: random.Random) -> dict:
     }
 
 
-SHADOW_FIELDS = ("p_stack", "p_modell_min")
+SHADOW_FIELDS = ("p_stack", "p_modell_min", "p_faktorer", "p_faktorer_ra")   # p_faktorer: nba_factors
 
 
 def _shadow_brier(settled: list[dict], rnd: random.Random) -> dict:

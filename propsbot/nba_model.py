@@ -30,6 +30,18 @@ COMBO = {"pra": ("points", "rebounds", "assists"), "pr": ("points", "rebounds"),
 OPP_ELASTICITY = {"points": 0.8, "threes": 0.6, "assists": 0.5, "rebounds": 0.3,
                   "steals": 0.0, "blocks": 0.0}
 OUT_STATUS = ("out", "doubtful", "suspension", "inactive")
+BOX_VERSION = 2          # v2: position, skottförsök, offensiva returer och bollförluster per rad (tempo, nba_factors)
+
+
+def _att(v) -> float:
+    """'4-13' -> 13 (försök). 0 om det saknas."""
+    v = str(v or "").strip()
+    if "-" in v and not v.startswith("-"):
+        try:
+            return float(v.split("-")[1])
+        except ValueError:
+            return 0.0
+    return 0.0
 
 
 def _ts(s: str) -> float:
@@ -63,6 +75,9 @@ class NbaPlayer:
     minutes: float                         # viktat snitt (bara matcher där han spelade)
     per_min: dict[str, float] = field(default_factory=dict)
     min_sd: float = 0.0                    # viktad standardavvikelse för minuterna (nba_minutes)
+    pos: str = ""                          # G / F / C (ESPN)
+    presence: float = 1.0                  # viktad andel av lagets matcher i urvalet där han spelade
+    last_age: int = 0                      # 0 = spelade lagets senaste match, 3 = har missat de tre senaste
 
 
 @dataclass
@@ -72,6 +87,10 @@ class NbaTeam:
     players: dict[str, NbaPlayer]
     allowed: float                         # insläppta poäng per match (viktat)
     last_game: float | None
+    scored: float = 114.0                  # gjorda poäng per match (viktat)
+    games: list = field(default_factory=list)         # urvalet: [(ts, event_id, motståndar-id, hemma?)] nyast först
+    season_games: list = field(default_factory=list)  # hela säsongen hittills, samma form
+    season_year: int | None = None
 
 
 class NbaModel:
@@ -87,6 +106,9 @@ class NbaModel:
         self._boards: dict[str, list] = {}
         self._teams: dict[str, NbaTeam] = {}
         self._injuries: dict[str, str] | None = None
+        self._comments: dict[str, str] = {}
+        self._box_mem: dict[str, dict] = {}
+        self.upgrade_boxes = True        # hämta om boxscores i äldre format (en gång) för tempo/position
 
     # ------------------------------------------------------------ hämtning
     def board(self, day: str) -> list:
@@ -111,12 +133,28 @@ class NbaModel:
 
     def box(self, event_id: str) -> dict | None:
         f = self.dir / f"{event_id}.json"
+        if event_id in self._box_mem:
+            return self._box_mem[event_id]
+        out = self._box_load(event_id, f)
+        if out is not None:
+            self._box_mem[event_id] = out
+        return out
+
+    def _box_load(self, event_id: str, f: Path) -> dict | None:
+        old = None
         if f.exists():
-            return json.loads(f.read_text(encoding="utf-8"))
-        raw = self.c.get(f"{ESPN}/summary", {"event": event_id}, ttl=86400)
+            old = json.loads(f.read_text(encoding="utf-8"))
+            if old.get("v", 1) >= BOX_VERSION or not self.upgrade_boxes:
+                return old
+        try:
+            raw = self.c.get(f"{ESPN}/summary", {"event": event_id}, ttl=86400)
+        except SourceError:
+            if old is not None:
+                return old        # äldre format räcker för grundmodellen
+            raise
         if not raw:
-            return None
-        out = {"teams": {}, "score": {}}
+            return old
+        out = {"v": BOX_VERSION, "teams": {}, "score": {}}
         for comp in ((raw.get("header") or {}).get("competitions") or [])[:1]:
             for c in comp.get("competitors", []):
                 out["score"][str(c.get("id") or (c.get("team") or {}).get("id"))] = _num(c.get("score"))
@@ -132,8 +170,13 @@ class NbaModel:
                     vals = {lab: _num(v) for lab, v in zip(labels, st)}
                     if not vals.get("MIN"):
                         continue
-                    rows.append({"n": (a.get("athlete") or {}).get("displayName", ""),
+                    raw_v = dict(zip(labels, st))
+                    ath = a.get("athlete") or {}
+                    rows.append({"n": ath.get("displayName", ""),
                                  "s": bool(a.get("starter")), "min": vals.get("MIN"),
+                                 "p": ((ath.get("position") or {}).get("abbreviation") or "")[:1].upper(),
+                                 "fga": _att(raw_v.get("FG")), "fta": _att(raw_v.get("FT")),
+                                 "oreb": vals.get("OREB") or 0.0, "to": vals.get("TO") or 0.0,
                                  **{k: vals.get(LABEL[k]) or 0.0 for k in STATS}})
             out["teams"][tid] = rows
         if out["teams"]:
@@ -156,14 +199,20 @@ class NbaModel:
                 status = (inj.get("status") or inj.get("type", {}).get("description") or "").lower()
                 if name:
                     self._injuries[name_key(name)] = status
+                    self._comments[name_key(name)] = " ".join(
+                        str(inj.get(x) or "") for x in ("shortComment", "longComment")).lower()
         return self._injuries
+
+    def injury_comment(self, key: str) -> str:
+        self.injuries()
+        return self._comments.get(key, "")
 
     # ------------------------------------------------------------ lagmodell
     def team(self, team_id: str, before: float) -> NbaTeam | None:
         if team_id in self._teams:
             return self._teams[team_id]
         sched = self.c.get(f"{ESPN}/teams/{team_id}/schedule", ttl=6 * 3600) or {}
-        done = []
+        done, info = [], {}
         for ev in sched.get("events", []) or []:
             comp = (ev.get("competitions") or [{}])[0]
             st = (comp.get("status") or ev.get("status") or {}).get("type", {})
@@ -173,25 +222,39 @@ class NbaModel:
                 continue
             if st.get("completed") and t < before:
                 done.append((t, str(ev["id"])))
+                opp, home = None, None
+                for x in comp.get("competitors", []) or []:
+                    xid = str(x.get("id") or (x.get("team") or {}).get("id") or "")
+                    if xid == str(team_id):
+                        home = x.get("homeAway") == "home"
+                    elif xid:
+                        opp = xid
+                info[str(ev["id"])] = (opp, home)
         done.sort(reverse=True)
         last_game = done[0][0] if done else None
+        season_games = [(t, e, *info.get(e, (None, None))) for t, e in done]
         done = done[: self.n]
         if not done:
             return None
         acc: dict[str, dict] = {}
-        allowed, wsum = 0.0, 0.0
+        allowed, scored, wsum, wall = 0.0, 0.0, 0.0, 0.0
         for age, (_, eid) in enumerate(done):
             bx = self.box(eid)
             if not bx or team_id not in bx["teams"]:
                 continue
             w = 0.5 ** (age / self.hl)
+            wall += w
             opp = [v for k, v in bx["score"].items() if k != team_id and v is not None]
             if opp:
                 allowed += w * opp[0]
+                scored += w * (bx["score"].get(team_id) or 0.0)
                 wsum += w
             for p in bx["teams"][team_id]:
                 a = acc.setdefault(name_key(p["n"]), {"name": p["n"], "w": 0.0, "wmin": 0.0, "wmin2": 0.0, "g": 0, "s": 0,
-                                                     **{k: 0.0 for k in STATS}})
+                                                     "pos": p.get("p", ""), "age": age, **{k: 0.0 for k in STATS}})
+                a["age"] = min(a["age"], age)
+                if not a["pos"] and p.get("p"):
+                    a["pos"] = p["p"]
                 a["w"] += w
                 a["wmin"] += w * p["min"]
                 a["wmin2"] += w * p["min"] ** 2
@@ -211,9 +274,14 @@ class NbaModel:
             var = max(0.0, a["wmin2"] / a["w"] - m_avg ** 2) * (a["g"] / (a["g"] - 1) if a["g"] > 1 else 1.0)
             # få matcher: krymp mot en typisk spridning (6 min) så att 2 likadana matcher inte ger sd 0
             sd = math.sqrt((a["g"] * var + 3 * 36.0) / (a["g"] + 3))
-            players[k] = NbaPlayer(a["name"], team_id, a["g"], a["s"], m_avg, per_min, sd)
+            players[k] = NbaPlayer(a["name"], team_id, a["g"], a["s"], m_avg, per_min, sd, a["pos"],
+                                   a["w"] / wall if wall else 1.0, a["age"])
+        sample = {e for _, e in done}
         tm = NbaTeam(team_id, (sched.get("team") or {}).get("displayName", team_id), players,
-                     allowed / wsum if wsum else 114.0, last_game)
+                     allowed / wsum if wsum else 114.0, last_game,
+                     scored / wsum if wsum else 114.0,
+                     [g for g in season_games if g[1] in sample], season_games,
+                     (sched.get("season") or {}).get("year"))
         self._teams[team_id] = tm
         return tm
 
