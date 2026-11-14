@@ -1,4 +1,4 @@
-# NBA – utvärdering på framåtriktad data (2026-11-14T08:40:00+00:00)
+# NBA – utvärdering på framåtriktad data (2026-11-14T08:58:03+00:00)
 
 Bara bokförda prognoser (gjorda före matchen). Unika prestationer = spelare × match × marknad.
 
@@ -7,7 +7,7 @@ Bara bokförda prognoser (gjorda före matchen). Unika prestationer = spelare ×
 | live | 19 | 19 | 17 | 9 | 19 | +4.2 % | +0.5 % | 4.0 | 2.64 (+1.16…+4.05) | 3.56 | 0.26 | – |
 | spel | 329 | 329 | 93 | 13 | 312 | +5.4 % | +3.5 % | 14.5 | 2.36 (+2.04…+2.67) | 2.60 | 0.23 | – |
 | skugga | 879 | 879 | 101 | 13 | 840 | +3.1 % | +3.4 % | 19.6 | 1.42 (+1.21…+1.65) | 1.79 | 0.27 | – |
-| modelltest | 796 | 796 | 103 | 14 | 754 | +9.1 % | +8.9 % | 17.5 | 1.35 (+1.07…+1.72) | 1.94 | 0.22 | 0.2649 / 0.2418 (256) |
+| modelltest | 797 | 797 | 103 | 14 | 754 | +9.1 % | +8.9 % | 17.5 | 1.35 (+1.07…+1.72) | 1.94 | 0.22 | 0.2649 / 0.2418 (256) |
 
 ## Status per marknad
 
