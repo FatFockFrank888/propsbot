@@ -108,6 +108,26 @@
   tbody tr:hover td { background:rgba(255,255,255,.025); }
   td.n, th.n { text-align:right; font-variant-numeric:tabular-nums; }
   td.wrapt { white-space:normal; min-width:200px; }
+  /* radarn: två rader per cell så att hela raden ryms i fönstret */
+  table.rt td { padding:8px 10px; vertical-align:middle; }
+  table.rt th { padding-left:10px; padding-right:10px; }
+  table.rt .c2 { color:var(--mute); font-size:12px; margin-top:2px; }
+  table.rt td.m, table.rt td.w { white-space:normal; min-width:130px; max-width:230px; }
+  table.rt th { white-space:nowrap; }
+  table.rt .anb { padding:1px 8px; font-size:11.5px; }
+  /* mobil: varje rad blir ett kort i två kolumner (spelare/edge, spel/odds, match/sannolikhet) */
+  @media (max-width:640px) {
+    table.rt thead { display:none; }
+    table.rt, table.rt tbody { display:block; }
+    table.rt tr { display:grid; grid-template-columns:minmax(0,1fr) auto; grid-template-areas:"p e" "s o" "m sa";
+                  gap:6px 12px; padding:11px 12px; border-bottom:1px solid var(--line); }
+    table.rt tr.play { background:rgba(63,207,142,.06); }
+    table.rt td { display:block; padding:0; border:0; white-space:normal; min-width:0; max-width:none; background:none !important; }
+    table.rt td:nth-child(1) { grid-area:p; } table.rt td:nth-child(2) { grid-area:m; }
+    table.rt td:nth-child(3) { grid-area:s; } table.rt td:nth-child(4) { grid-area:o; }
+    table.rt td:nth-child(5) { grid-area:sa; } table.rt td:nth-child(6) { grid-area:e; }
+    table.rt td.empty { grid-column:1 / -1; }
+  }
   .pos { color:var(--good); } .neg { color:var(--dim); } .loss { color:var(--bad); }
   tr.play td { background:rgba(63,207,142,.06); }
   .pill { display:inline-block; padding:2px 9px; border-radius:var(--r-pill); font-size:11.5px; font-weight:600; background:var(--panel2); color:var(--dim); }
@@ -298,13 +318,11 @@
       <label><input type="checkbox" id="onlyLive"> Bara LIVE</label>
     </div>
     <div class="sub" style="margin-bottom:10px">Håll muspekaren över en rad för reglerna som stoppade den.</div>
-    <div class="wrap"><table>
+    <div class="wrap"><table class="rt">
       <thead><tr>
-        <th data-k="sport">Sport</th><th data-k="spelare">Spelare</th><th data-k="match">Match</th><th data-k="avspark">Start</th>
-        <th data-k="spel">Spel</th><th class="n" data-k="prognos">Prognos</th><th class="n" data-k="odds">Odds</th>
-        <th data-k="bolag">Bolag</th><th class="n" data-k="sannolikhet">Sannolikhet</th>
-        <th class="n" data-k="ratt_odds">Rätt odds</th><th class="n" data-k="edge">Edge</th>
-        <th class="n" data-k="spela_fran">Spela från</th><th class="n" data-k="insats">Insats</th>
+        <th data-k="spelare">Spelare</th><th data-k="avspark">Match · start</th>
+        <th data-k="spel">Spel · prognos</th><th class="n" data-k="odds">Odds</th>
+        <th class="n" data-k="sannolikhet">Sannolikhet</th><th class="n" data-k="edge" title="Edge · spela från · insats">Edge · från · insats</th>
       </tr></thead>
       <tbody id="rRows"></tbody>
     </table></div>
@@ -682,12 +700,14 @@ function renderRadar() {
   rs.sort((a, b) => (a[sortKey] > b[sortKey] ? 1 : a[sortKey] < b[sortKey] ? -1 : 0) * sortDir);
   document.getElementById("rRows").innerHTML = rs.slice(0, 600).map(r => `
     <tr class="${r.spelbar ? "play" : ""}" title="${esc(r.kommentar)}">
-      <td>${tag(r.sport)}</td><td style="white-space:nowrap">${r.live ? "⚡ " : ""}${esc(r.spelare)} ${anBtn(r)}</td><td>${esc(r.match)}</td><td>${fmtTs(utcTs(r.avspark))}</td>
-      <td>${esc(r.spel)}</td><td class="n">${nf(r.prognos)}</td><td class="n">${nf(r.odds)}</td><td>${esc(r.bolag)}</td>
-      <td class="n">${pct(r.sannolikhet)}</td><td class="n">${nf(r.ratt_odds)}</td>
-      <td class="n ${r.edge > 0 ? "pos" : "neg"}">${pct(r.edge)}</td><td class="n">${sf(r.spela_fran)}</td>
-      <td class="n ${r.spelbar ? "pos" : "neg"}" title="styrka -> 1–10u">${r.insats ? (r.insats >= 10 ? "<b>10u</b>" : r.insats + "u") : "–"}</td></tr>`).join("")
-    || `<tr><td colspan="13" class="empty">Inga ben med minst 2 % edge just nu.</td></tr>`;
+      <td class="w"><div class="c1">${cur === "alla" ? tag(r.sport) + " " : ""}${r.live ? "⚡ " : ""}<b>${esc(r.spelare)}</b></div>${anBtn(r) ? `<div class="c2">${anBtn(r)}</div>` : ""}</td>
+      <td class="m"><div class="c1">${esc(r.match)}</div><div class="c2">${fmtTs(utcTs(r.avspark))}</div></td>
+      <td class="w"><div class="c1">${esc(r.spel)}</div><div class="c2">${r.prognos == null ? "" : "prognos " + nf(r.prognos, 1)}</div></td>
+      <td class="n"><div class="c1"><b>${nf(r.odds)}</b></div><div class="c2">${esc(r.bolag)}</div></td>
+      <td class="n"><div class="c1">${pct(r.sannolikhet)}</div><div class="c2">rätt ${nf(r.ratt_odds)}</div></td>
+      <td class="n"><div class="c1 ${r.edge > 0 ? "pos" : "neg"}"><b>${pct(r.edge)}</b></div>
+        <div class="c2" title="spela till lägst detta odds · insats efter styrkan (1–10u)">från ${sf(r.spela_fran)} · <span class="${r.spelbar ? "pos" : ""}">${r.insats ? (r.insats >= 10 ? "<b>10u</b>" : r.insats + "u") : "–"}</span></div></td></tr>`).join("")
+    || `<tr><td colspan="6" class="empty">Inga ben med minst 2 % edge just nu.</td></tr>`;
 }
 
 // --------------------------------------------------------------- ANALYSPANEL (NBA)
