@@ -302,7 +302,8 @@
   <div class="bar1">
     <div class="brand"><i></i>Propsbot</div>
     <nav class="tabs" id="tabs">
-      <button class="tab on" data-t="nu">Spela nu <span class="ct hidden" id="ctNu"></span></button>
+      <button class="tab on" data-t="nu">Official Bets <span class="ct hidden" id="ctNu"></span></button>
+      <button class="tab" data-t="avg">Avgjorda <span class="ct hidden" id="ctAvg"></span></button>
       <button class="tab" data-t="topp">Topp 5</button>
       <button class="tab" data-t="radar">Radar</button>
       <button class="tab" data-t="res">Resultat</button>
@@ -326,15 +327,26 @@
   <!-- ======================================================= SPELA NU -->
   <section id="nu">
     <div id="nuNote" class="sub"></div>
-    <h2><span class="led" id="nuLed"></span>Öppna LIVE-spel <span class="n" id="nuCount"></span></h2>
+    <h2><span class="led" id="nuLed"></span>⏳ Väntar på start <span class="n" id="nuCount"></span></h2>
     <div class="cards" id="nuCards"></div>
-    <h2>Senast avgjorda</h2>
-    <div class="list" id="nuDone"></div>
+    <h2><span class="led" id="pgLed"></span>🔥 Pågår nu <span class="n" id="pgCount"></span></h2>
+    <div class="cards" id="pgCards"></div>
+    <div id="pgStale"></div>
     <div class="note"><b>Spela till lägst Spela från-oddset.</b> Bara LIVE-spel skickas som notis – ett per spelare och match.
       <span class="rk r1" style="display:inline-grid;min-width:22px;height:20px;font-size:12px">1</span> –
       <span class="rk r3" style="display:inline-grid;min-width:22px;height:20px;font-size:12px">3</span> = de tre starkaste som går att spela just nu.
-      <b>Styrka</b> = edge nu + halva modellens edge (högst 15) + hur oddset rört sig sedan spelet lades (±5) + sharp money (+1 med oss, −2 mot oss).
-      <b>Insats 1–10u</b> följer styrkan när spelet lades: 10u = maxinsats, ett av de starkaste spelen (1u = 0,2 % av kassan).</div>
+      <b>Styrka</b> = edge nu + hur oddset rört sig sedan spelet lades (±5) + sharp money (+1 med oss, −2 mot oss). Modellen visas i analysen men påverkar inte styrkan.
+      <b>Insats 1–10u</b> följer edgen när spelet lades: 7 % ≈ 2u, 10 % ≈ 5u, 15 % = 10u (1u = 0,2 % av kassan).
+      <b>Pågår nu</b> = matchen har startat, spelet är inte avgjort än. Avgjorda spel ligger under fliken <b>Avgjorda</b>.</div>
+  </section>
+
+  <!-- ======================================================= AVGJORDA -->
+  <section id="avg" class="hidden">
+    <div class="tiles" id="avgTiles"></div>
+    <div class="controls"><div class="chipsel" id="avgRange"></div></div>
+    <div class="cards" id="avgCards"></div>
+    <div class="note">Avgjorda Official Bets (LIVE-spel med notis), senast avgjorda först. <b>CLV</b> = mot den skarpa stängningen
+      (Pinnacle, eller DraftKings där Pinnacle saknar marknaden) – det säger mer om spelet var bra än om det vann. Klicka <b>Analys</b> för underlaget när spelet lades.</div>
   </section>
 
   <!-- ======================================================= TOPP 5 -->
@@ -492,16 +504,20 @@ function norm(b, sport, typ) {
   const done = b.avspark && b.avspark < Date.now() / 1000;
   // CLV mot skarp stängning (Pinnacle/DK-referensen vid start) mot vårt odds; annars bolagets eget stängningsodds
   const clvBolag = b.stangning && b.odds && done ? (1 / b.stangning - 1 / b.odds) * 100 : null;
-  const skarp = done && b.clv_skarp_pp != null;
-  const clv = skarp ? b.clv_skarp_pp : clvBolag;
+  // props: skarp_stang_p (Pinnacle/DK-referensen); fotbollens sides: pin_stang_p (Pinnacle utan marginal)
+  const skarpP = b.skarp_stang_p ?? b.pin_stang_p ?? null;
+  const clvSkarp = b.clv_skarp_pp ?? (skarpP && b.odds ? (skarpP - 1 / b.odds) * 100 : null);
+  const skarp = done && clvSkarp != null;
+  const clv = skarp ? clvSkarp : clvBolag;
   return {sport, typ, pk: `${sport}|${b.match_id || b.match}|${b.spelare_id || b.spelare}`,
     bokford: b.bokford, avspark: b.avspark, match: b.match, spelare: b.spelare, spelare_id: b.spelare_id,
     mkKey: b.marknad, marknad: (MK[b.marknad] || b.marknad) + (sport === "nba" && b.marknad === "assists" ? " (NBA)" : ""),
     spel: b.spel_text || spel(b.marknad, b.linje, b.sida), bolag: b.bolag, odds: b.odds, stangning: b.stangning,
-    clv, clvBolag, skarp, skarpP: b.skarp_stang_p, skarpVer: b.skarp_verifierad, clvPin: b.clv_pin_pp, clvDk: b.clv_dk_pp, p: b.sannolikhet, edge: b.edge, pm: b.p_modell, pmk: b.p_marknad, u: (b.insats_pct || 0) / U, status: b.status,
+    clv, clvBolag, skarp, skarpP, skarpVer: b.skarp_verifierad ?? (b.pin_stang_p != null), clvPin: b.clv_pin_pp, clvDk: b.clv_dk_pp, p: b.sannolikhet, edge: b.edge, pm: b.p_modell, pmk: b.p_marknad, u: (b.insats_pct || 0) / U, status: b.status,
     sida: ({under: "Under", home: "Hemma", draw: "Oavgjort", away: "Borta"})[b.sida] || "Över", utfall: b.utfall, stopp: b.stopp || "",
     spela_fran: b.spela_fran, notis: b.notis, linje: b.linje, nyhet: b.nyhet, nyhetStatus: b.nyhet_status, nyhetTs: b.nyhet_ts, sidaKey: b.sida || "over", modell_edge: b.modell_edge,
-    res: b.resultat_enheter == null ? null : b.resultat_enheter / U};
+    res: b.resultat_enheter == null ? null : b.resultat_enheter / U,
+    analys: b.analys, prognos: b.prognos, ratt_odds: b.ratt_odds, forv_clv_pp: b.forv_clv_pp, clv_signal: b.clv_signal};
 }
 function normParlay(x, sport) {
   return {sport, typ: "Parlay", bokford: x.bokford, avspark: Math.max(...x.ben.map(l => l.avspark || 0)),
@@ -653,16 +669,30 @@ function strength(r) {
   return {score: E + Mp + R + S, ok, oddsNow, edgeNow: cur ? cur.edge : null, M, S, why: why.join(" · "),
           cur: cur ? {...cur, sport: r.sport} : null};
 }
+// Analysen för ett Official Bet: radarns rad om den finns kvar (aktuell), annars den som sparades på spelet.
+function anOf(r, cur) {
+  if (cur) return cur;
+  return {sport: r.sport, spelare: r.spelare, match: r.match, avspark: r.avspark ? new Date(r.avspark * 1000).toISOString().slice(0, 16).replace("T", " ") : null,
+    spel: r.spel, marknad: r.mkKey, linje: r.linje, sida: r.sidaKey, odds: r.odds, bolag: r.bolag, ratt_odds: r.ratt_odds || (r.p ? 1 / r.p : null),
+    sannolikhet: r.p, edge: r.edge, insats: Math.round(r.u) || null, spelbar: true, live: true, spela_fran: r.spela_fran, p_modell: r.pm,
+    kommentar: r.stopp, analys: r.analys || {}, prognos: r.prognos, forv_clv_pp: r.forv_clv_pp, clv_signal: r.clv_signal};
+}
 function renderNu() {
   const now = Date.now() / 1000;
   const live = rows().filter(r => r.typ === "Live");
   const open = live.filter(r => r.status === "öppen" && r.avspark > now);
+  // Pågår = startat de senaste 4 h; äldre öppna spel väntar på rättning (resultatkällan har inte svarat)
+  const going = live.filter(r => r.status === "öppen" && r.avspark && r.avspark <= now && r.avspark > now - 4 * 3600).sort((a, b) => b.avspark - a.avspark);
+  const stale = live.filter(r => r.status === "öppen" && r.avspark && r.avspark <= now - 4 * 3600).sort((a, b) => b.avspark - a.avspark);
   open.forEach(r => r.st = strength(r));
   open.filter(r => r.st.ok).sort((a, b) => b.st.score - a.st.score).slice(0, 3).forEach((r, i) => r.rank = i + 1);
   open.sort((a, b) => (b.st.ok - a.st.ok) || (b.st.score - a.st.score) || (a.avspark - b.avspark));
   document.getElementById("nuCount").textContent = open.length || "";
   document.getElementById("nuLed").classList.toggle("off", !open.length);
+  document.getElementById("pgCount").textContent = going.length || "";
+  document.getElementById("pgLed").classList.toggle("off", !going.length);
   const ct = document.getElementById("ctNu"); ct.textContent = open.filter(r => r.st.ok).length; ct.classList.toggle("hidden", !open.some(r => r.st.ok));
+  const sportChip = r => `<span class="chip">${SPORTS[r.sport].icon} ${SPORTS[r.sport].name}</span>`;
   document.getElementById("nuCards").innerHTML = open.map(r => betCard(r, {
     rank: r.rank, dim: !r.st.ok, title: r.st.why,
     badge: r.st.ok ? "" : `<span class="chip b">spela inte nu</span>`,
@@ -670,20 +700,54 @@ function renderNu() {
             ["Insats", Math.round(r.u) + "u", uSub(r.u), Math.round(r.u) >= 10 ? "pos" : ""], ["Styrka", nf(r.st.score, 1), "", ""]],
     cmp: cushionBar(r.st.oddsNow, r.spela_fran),
     chips: [r.notis === false ? `<span class="chip w">notis väntar</span>` : r.notis === null ? `<span class="chip">spärrad</span>` : `<span class="chip l">⚡ LIVE · notis</span>`,
-            r.st.M != null ? `<span class="chip ${r.st.M > 0 ? "g" : "w"}">modell ${sgn(r.st.M)} %</span>` : "",
             r.st.S > 0 ? `<span class="chip g">sharp money ⬆</span>` : r.st.S < 0 ? `<span class="chip b">sharp mot oss</span>` : "",
-            `<span class="chip">${SPORTS[r.sport].icon} ${SPORTS[r.sport].name}</span>`, anBtn(r.st.cur)].join("")
-  })).join("") || `<div class="emptybox"><b>Inga öppna LIVE-spel just nu</b>Du får en notis så fort något klarar alla krav. Sidan uppdateras själv varannan minut.</div>`;
-  const done = live.filter(r => r.status !== "öppen").sort((a, b) => b.avspark - a.avspark).slice(0, 25);
-  document.getElementById("nuDone").innerHTML = done.map(r => `<div class="li">
-      <span class="pill ${r.status}">${r.status}</span>
-      <div style="min-width:0"><div class="t1">${esc(r.spelare)} · ${esc(r.spel)}</div><div class="t2">${tag(r.sport)} ${esc(r.match)} · ${fmtTs(r.avspark)}${r.utfall != null ? " · utfall " + esc(r.utfall) : ""}</div></div>
-      <div class="mid">odds ${nf(r.odds)}${r.skarp ? ` · skarp ${nf(1 / r.skarpP)}` : r.stangning ? ` → ${nf(r.stangning)}` : ""}<br><span class="${cls(r.clv)}" title="${esc(clvTip(r))}">CLV ${sgn(r.clv)} pe</span></div>
-      <div class="res ${cls(r.res)}">${sgn(r.res)}u</div></div>`).join("")
-    || `<div class="empty">Inga avgjorda LIVE-spel än.</div>`;
+            sportChip(r), anBtn(anOf(r, r.st.cur))].join("")
+  })).join("") || `<div class="emptybox"><b>Inga Official Bets inför start just nu</b>Du får en notis så fort något klarar alla krav. Sidan uppdateras själv varannan minut.</div>`;
+  document.getElementById("pgCards").innerHTML = going.map(r => betCard(r, {
+    badge: `<span class="chip i">pågår</span>`,
+    stats: [["Odds", nf(r.odds), r.bolag], ["Edge", pct(r.edge), "vid bokning", "pos"],
+            ["Insats", Math.round(r.u) + "u", uSub(r.u), Math.round(r.u) >= 10 ? "pos" : ""],
+            ["CLV", r.clv == null ? "–" : sgn(r.clv) + " pe", r.skarp ? "skarp stängning" : "väntar på stängning", cls(r.clv)]],
+    cmp: r.clv != null ? `<div class="cmp">${closeTxt(r)}<span class="${cls(r.clv)}">CLV ${sgn(r.clv)} pe</span></div>` : "",
+    chips: [`<span class="chip l">⚡ LIVE</span>`, sportChip(r), anBtn(anOf(r))].join("")
+  })).join("") || `<div class="empty">Inga Official Bets pågår just nu.</div>`;
+  document.getElementById("pgStale").innerHTML = stale.length ? `<div class="note">⚠️ ${stale.length} äldre spel väntar på rättning (resultatet har inte hittats än): `
+    + stale.slice(0, 8).map(r => `${esc(r.match)} · ${esc(r.spel)} (${fmtTs(r.avspark)})`).join("; ") + (stale.length > 8 ? " …" : "") + `</div>` : "";
   const notes = [];
   for (const s of sel()) if (D[s] && D[s].live_enabled === false) notes.push(`${SPORTS[s].icon} ${SPORTS[s].name}: spel pausade.`);
   document.getElementById("nuNote").innerHTML = notes.join("<br>");
+  const done = live.filter(r => ["vunnen", "förlorad", "push"].includes(r.status) && r.avspark > now - 86400);
+  const ca = document.getElementById("ctAvg"); ca.textContent = done.length; ca.classList.toggle("hidden", !done.length);
+}
+
+// --------------------------------------------------------------- AVGJORDA
+let avgRange = "7";
+function renderAvg() {
+  const now = Date.now() / 1000;
+  const all = rows().filter(r => r.typ === "Live" && r.status !== "öppen")
+    .filter(r => avgRange === "alla" || r.avspark > now - (+avgRange) * 86400)
+    .sort((a, b) => b.avspark - a.avspark);
+  const dec = all.filter(r => r.status === "vunnen" || r.status === "förlorad");
+  const won = dec.filter(r => r.status === "vunnen").length;
+  const st = dec.reduce((s, r) => s + (r.u || 0), 0), res = all.reduce((s, r) => s + (r.res || 0), 0);
+  const clvs = all.filter(r => r.clv != null).map(r => r.clv);
+  const mc = clvs.length ? clvs.reduce((a, b) => a + b, 0) / clvs.length : null;
+  document.getElementById("avgRange").innerHTML = [["1", "1 dag"], ["3", "3 dagar"], ["7", "7 dagar"], ["30", "30 dagar"], ["alla", "Alla"]]
+    .map(([k, l]) => `<button class="${k === avgRange ? "on" : ""}" onclick="avgRange='${k}';renderAvg()">${l}</button>`).join("");
+  document.getElementById("avgTiles").innerHTML = [
+    ["Avgjorda", String(all.length), `${won}–${dec.length - won}${all.length - dec.length ? ` · ${all.length - dec.length} struken/push` : ""}`],
+    ["Träff", dec.length ? pct(won / dec.length, 0) : "–", "vunna av avgjorda"],
+    ["Resultat", (res > 0 ? "+" : "") + nf(res, 1) + "u", st ? `ROI ${pct(res / st)}` : "", cls(res)],
+    ["Snitt-CLV", mc == null ? "–" : sgn(mc, 2) + " pe", clvs.length ? `slog stängningen ${pct(clvs.filter(x => x > 0).length / clvs.length, 0)}` : "", cls(mc)]]
+    .map(([k, v, x, c]) => `<div class="tile"><div class="k">${k}</div><div class="v ${c || ""}">${v}</div><div class="x">${x}</div></div>`).join("");
+  document.getElementById("avgCards").innerHTML = all.map(r => betCard(r, {
+    badge: resultBadge(r),
+    stats: [["Odds", nf(r.odds), r.bolag], ["Edge", pct(r.edge), "vid bokning"],
+            ["Resultat", r.res == null ? "–" : sgn(r.res) + "u", `${Math.round(r.u)}u insats`, cls(r.res)],
+            ["CLV", r.clv == null ? "–" : sgn(r.clv) + " pe", r.skarp ? (r.skarpVer ? "skarp stängning" : "skarp, äldre notering") : r.clv != null ? "mot Unibet" : "", cls(r.clv)]],
+    cmp: r.clv != null ? `<div class="cmp">${closeTxt(r)}<span>${r.utfall != null ? "utfall <b>" + esc(r.utfall) + "</b>" : ""}</span></div>` : "",
+    chips: [`<span class="chip">${SPORTS[r.sport].icon} ${SPORTS[r.sport].name}</span>`, anBtn(anOf(r))].join("")
+  })).join("") || `<div class="emptybox"><b>Inga avgjorda Official Bets i perioden</b>Välj en längre period ovan.</div>`;
 }
 
 // --------------------------------------------------------------- TOPP 5
@@ -1116,7 +1180,8 @@ function renderParam() {
 
 // --------------------------------------------------------------- ram
 const HERO = {
-  nu: ["Spela nu", "LIVE-spelen som klarar alla krav. Spela till lägst spela från-oddset."],
+  nu: ["Official Bets", "Spelen som klarar alla krav (⚡ LIVE, notis). Spela till lägst spela från-oddset."],
+  avg: ["Avgjorda Official Bets", "Senast avgjorda först – resultat, CLV mot skarp stängning och analysen bakom spelet."],
   topp: ["Dagens topp 5", "De starkaste LIVE-spelen för speldagen – listan ligger fast när oddset rör sig."],
   radar: ["Radar", "Alla ben med minst 2 % edge just nu. Grön rad = klarar alla regler, ⚡ = LIVE-spel."],
   res: ["Resultat", "Slår vi stängningsoddset (CLV) är edgen verklig – det syns långt före resultatet."],
@@ -1131,8 +1196,8 @@ function render() {
   document.getElementById("heroTitle").textContent = HERO[tab][0];
   document.getElementById("heroLead").textContent = HERO[tab][1];
   document.querySelectorAll(".tab[data-t]").forEach(b => b.classList.toggle("on", b.dataset.t === tab));
-  ["nu", "topp", "radar", "res", "bok", "parlay", "param"].forEach(id => document.getElementById(id).classList.toggle("hidden", id !== tab));
-  ({nu: renderNu, topp: renderTopp, radar: renderRadar, res: renderRes, bok: renderBok, parlay: renderParlay, param: renderParam})[tab]();
+  ["nu", "avg", "topp", "radar", "res", "bok", "parlay", "param"].forEach(id => document.getElementById(id).classList.toggle("hidden", id !== tab));
+  ({nu: renderNu, avg: renderAvg, topp: renderTopp, radar: renderRadar, res: renderRes, bok: renderBok, parlay: renderParlay, param: renderParam})[tab]();
   history.replaceState(null, "", `#${cur}${tab === "nu" ? "" : "/" + tab}`);
 }
 async function load() {
@@ -1167,7 +1232,7 @@ setHH(); addEventListener("resize", setHH);
 document.getElementById("aCsv").onclick = csv;
 { const [s, t] = location.hash.slice(1).split("/");
   if (SPORTS[s] || s === "alla") cur = s;
-  if (["nu", "topp", "radar", "res", "bok", "parlay", "param"].includes(t)) tab = t;
+  if (["nu", "avg", "topp", "radar", "res", "bok", "parlay", "param"].includes(t)) tab = t;
   if (location.hash === "#bokforing") tab = "bok"; }
 load(); setInterval(load, 120000);
 // Hemskärmsappen (iPhone) pausar timern i bakgrunden: hämta ny data direkt när sidan visas igen.
