@@ -557,6 +557,17 @@ def nba_scan(root: Path, settings_path: Path) -> dict:
                        if q.book == sb or (q.market not in pin_mk and q.book in dk_books)}
     live_rows = select_live(rows, test_rows, dict(settings, live_blocked_markets=sorted(blocked)), live, sharp_lines)         if settings.get("live_on", True) else []
     new_live = record_live(live, live_rows, rows, evd_by_id)
+    try:   # Official Bets: analysen (radarradens) sparas på LIVE-spelet fram till start, så den finns kvar efteråt
+        from .ledger import bet_key as _bk
+        by_k = {_bk(r): r for r in rows if getattr(r, "analys", None) is not None}
+        t_an = time.time()
+        for b in live.bets:
+            r = by_k.get(b["key"])
+            if r is not None and b.get("status") == "öppen" and (b.get("avspark") or 0) > t_an:
+                b["analys"], b["prognos"] = r.analys, getattr(r, "expected", None)
+                b["analys_ts"] = t_an
+    except Exception as e:  # noqa: BLE001 – webbtillägg, får aldrig stoppa skanningen
+        diag.log(f"NBA analys på LIVE-spel: fel {type(e).__name__}: {e}")
     recheck(live, nba_status_fn(injuries), settings, "NBA", True, diag.log)
     from .news import nba_injury_list, nba_teammate_fn
     recheck(live, nba_teammate_fn(LAST_MODEL, nba_injury_list(JsonClient(root / ".cache_odds", ttl_s=600)), NB_R),
