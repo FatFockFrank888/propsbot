@@ -290,6 +290,7 @@
   .ft td { padding:7px 6px; border-bottom:1px solid var(--line); vertical-align:top; }
   .ft td.n { text-align:right; white-space:nowrap; font-weight:700; }
   .pan .why { color:var(--mute); font-size:12px; font-weight:400; }
+  .chip .why, td .why { color:var(--mute); font-weight:400; }
   .hr { display:flex; gap:8px; flex-wrap:wrap; }
   .hr > div { background:var(--panel2); border:1px solid var(--line); border-radius:var(--r-sm); padding:7px 11px; min-width:92px; }
   .hr .k { color:var(--dim); font-size:11.5px; } .hr .v { font-weight:700; font-size:15px; }
@@ -671,6 +672,18 @@ function strength(r) {
   return {score: E + Mp + R + S, ok, oddsNow, edgeNow: cur ? cur.edge : null, M, S, why: why.join(" · "),
           cur: cur ? {...cur, sport: r.sport} : null};
 }
+// Pinnacle och DraftKings: rättvisa odds för vår sida (radarradens analys, eller spelets senaste notering).
+function refOf(r, cur) {
+  const ref = (cur && cur.analys && cur.analys.ref) || (r.analys && r.analys.ref) || {};
+  const st = r.bolagSt || {};
+  return {pin: ref.pin_p ?? r.pinP ?? null, dk: ref.dk_p ?? r.dkP ?? null,
+          pinL: ref.pin_linje ?? st.pin_linje ?? null, dkL: ref.dk_linje ?? st.dk_linje ?? null};
+}
+function refTxt(r, cur, sep = " · ") {
+  const x = refOf(r, cur), f = (lab, p, l) => p == null ? `${lab} –` : `${lab} <b>${nf(1 / p)}</b>${l != null ? `<span class="why" title="omräknad från linje ${nf(l, 1)}"> (${nf(l, 1)})</span>` : ""}`;
+  return x.pin == null && x.dk == null ? "" : f("Pin", x.pin, x.pinL) + sep + f("DK", x.dk, x.dkL);
+}
+const refChip = (r, cur) => { const t = refTxt(r, cur); return t ? `<span class="chip" title="rättvisa odds för vår sida (utan marginal)">${t}</span>` : ""; };
 // Analysen för ett Official Bet: radarns rad om den finns kvar (aktuell), annars den som sparades på spelet.
 function anOf(r, cur) {
   if (cur) return {...cur, bet: r};
@@ -704,7 +717,7 @@ function renderNu() {
     cmp: cushionBar(r.st.oddsNow, r.spela_fran),
     chips: [r.notis === false ? `<span class="chip w">notis väntar</span>` : r.notis === null ? `<span class="chip">spärrad</span>` : `<span class="chip l">⚡ LIVE · notis</span>`,
             r.st.S > 0 ? `<span class="chip g">sharp money ⬆</span>` : r.st.S < 0 ? `<span class="chip b">sharp mot oss</span>` : "",
-            sportChip(r), anBtn(anOf(r, r.st.cur))].join("")
+            refChip(r, r.st.cur), sportChip(r), anBtn(anOf(r, r.st.cur))].join("")
   })).join("") || `<div class="emptybox"><b>Inga Official Bets inför start just nu</b>Du får en notis så fort något klarar alla krav. Sidan uppdateras själv varannan minut.</div>`;
   document.getElementById("pgCards").innerHTML = going.map(r => betCard(r, {
     badge: `<span class="chip i">pågår</span>`,
@@ -712,7 +725,7 @@ function renderNu() {
             ["Insats", Math.round(r.u) + "u", uSub(r.u), Math.round(r.u) >= 10 ? "pos" : ""],
             ["CLV", r.clv == null ? "–" : sgn(r.clv) + " pe", r.skarp ? "skarp stängning" : "väntar på stängning", cls(r.clv)]],
     cmp: r.clv != null ? `<div class="cmp">${closeTxt(r)}<span class="${cls(r.clv)}">CLV ${sgn(r.clv)} pe</span></div>` : "",
-    chips: [`<span class="chip l">⚡ LIVE</span>`, sportChip(r), anBtn(anOf(r))].join("")
+    chips: [`<span class="chip l">⚡ LIVE</span>`, refChip(r), sportChip(r), anBtn(anOf(r))].join("")
   })).join("") || `<div class="empty">Inga Official Bets pågår just nu.</div>`;
   document.getElementById("pgStale").innerHTML = stale.length ? `<div class="note">⚠️ ${stale.length} äldre spel väntar på rättning (resultatet har inte hittats än): `
     + stale.slice(0, 8).map(r => `${esc(r.match)} · ${esc(r.spel)} (${fmtTs(r.avspark)})`).join("; ") + (stale.length > 8 ? " …" : "") + `</div>` : "";
@@ -749,7 +762,7 @@ function renderAvg() {
             ["Resultat", r.res == null ? "–" : sgn(r.res) + "u", `${Math.round(r.u)}u insats`, cls(r.res)],
             ["CLV", r.clv == null ? "–" : sgn(r.clv) + " pe", r.skarp ? (r.skarpVer ? "skarp stängning" : "skarp, äldre notering") : r.clv != null ? "mot Unibet" : "", cls(r.clv)]],
     cmp: r.clv != null ? `<div class="cmp">${closeTxt(r)}<span>${r.utfall != null ? "utfall <b>" + esc(r.utfall) + "</b>" : ""}</span></div>` : "",
-    chips: [`<span class="chip">${SPORTS[r.sport].icon} ${SPORTS[r.sport].name}</span>`, anBtn(anOf(r))].join("")
+    chips: [refChip(r), `<span class="chip">${SPORTS[r.sport].icon} ${SPORTS[r.sport].name}</span>`, anBtn(anOf(r))].join("")
   })).join("") || `<div class="emptybox"><b>Inga avgjorda Official Bets i perioden</b>Välj en längre period ovan.</div>`;
 }
 
@@ -820,7 +833,7 @@ function renderRadar() {
   tb.className = wide ? "rw" : "rt";
   const H = wide
     ? [["spelare", "Spelare"], ["mkName", "Marknad"], ["spel", "Spel"], ["prognos", "Prognos", "n"], ["match", "Match"], ["avspark", "Start"],
-       ["odds", "Odds", "n"], ["bolag", "Bolag"], ["sannolikhet", "Sannolikhet", "n"], ["p_modell", "Modell", "n x15"], ["ratt_odds", "Rätt odds", "n x15"],
+       ["odds", "Odds", "n"], ["bolag", "Bolag"], ["sannolikhet", "Sannolikhet", "n"], ["p_modell", "Modell", "n x15"], ["ratt_odds", "Rätt odds", "n x15"], [null, "Pinnacle · DK", "n"],
        ["edge", "Edge", "n"], ["spela_fran", "Spela från", "n"], ["insats", "Insats", "n"], ["forv_clv_pp", "Förv. CLV", "n x17"], ["kommentar", "Regler · källor", "x17"], [null, ""]]
     : [["spelare", "Spelare"], ["avspark", "Match · start"], ["spel", "Spel · prognos"], ["odds", "Odds", "n"], ["sannolikhet", "Sannolikhet", "n"], ["edge", "Edge · från · insats", "n"]];
   document.getElementById("rHead").innerHTML = `<tr>${H.map(([k, l, c]) =>
@@ -840,6 +853,7 @@ function renderRadar() {
       <td class="n">${pct(r.sannolikhet)}</td>
       <td class="n x15">${r.p_modell == null ? "–" : pct(r.p_modell)}</td>
       <td class="n x15">${nf(r.ratt_odds)}</td>
+      <td class="n" title="rättvisa odds för vår sida hos Pinnacle och DraftKings (linje inom parentes = omräknad från bolagets närmaste linje)">${refTxt({}, r, "<br>") || "–"}</td>
       <td class="n ${r.edge > 0 ? "pos" : "neg"}"><b>${pct(r.edge)}</b></td>
       <td class="n">${sf(r.spela_fran)}</td>
       <td class="n ${r.spelbar ? "pos" : ""}">${uTxt(r)}</td>
@@ -855,7 +869,7 @@ function renderRadar() {
       <td class="m"><div class="c1">${esc(r.match)}</div><div class="c2">${fmtTs(utcTs(r.avspark))}</div></td>
       <td class="w"><div class="c1">${esc(r.spel)}</div><div class="c2">${r.prognos == null ? "" : "prognos " + nf(r.prognos, 1)}</div></td>
       <td class="n"><div class="c1"><b>${nf(r.odds)}</b></div><div class="c2">${esc(r.bolag)}</div></td>
-      <td class="n"><div class="c1">${pct(r.sannolikhet)}</div><div class="c2">rätt ${nf(r.ratt_odds)}</div></td>
+      <td class="n"><div class="c1">${pct(r.sannolikhet)}</div><div class="c2">rätt ${nf(r.ratt_odds)}</div>${refTxt({}, r) ? `<div class="c2">${refTxt({}, r)}</div>` : ""}</td>
       <td class="n"><div class="c1 ${r.edge > 0 ? "pos" : "neg"}"><b>${pct(r.edge)}</b></div>
         <div class="c2" title="spela till lägst detta odds · insats efter styrkan (1–10u)">från ${sf(r.spela_fran)} · <span class="${r.spelbar ? "pos" : ""}">${r.insats ? (r.insats >= 10 ? "<b>10u</b>" : r.insats + "u") : "–"}</span></div></td></tr>`).join("")
     || `<tr><td colspan="6" class="empty">Inga ben med minst 2 % edge just nu.</td></tr>`;
@@ -901,13 +915,14 @@ function booksCmp(r) {
   const b = r.bet || {}, a = r.analys || {}, under = (r.sida || "over") === "under", sd = under ? "under" : "over";
   const our = b.odds || r.odds, cl = p => p == null || !our ? null : (p - 1 / our) * 100;
   const fo = p => p ? nf(1 / p) : "–";
-  const raw = (snap, bk) => { const o = snap?.odds?.[bk]; return o ? `${nf(o.over)} / ${nf(o.under)}` : ""; };
+  const raw = (snap, bk) => { const k = Object.keys(snap?.odds || {}).find(x => x === bk || x.startsWith(bk + " ("));
+    const o = k && snap.odds[k]; return o ? `${k !== bk ? k.slice(bk.length + 1) + " " : ""}${nf(o.over)} / ${nf(o.under)}` : ""; };
   const rowsB = [];
   rowsB.push({n: `${esc(b.bolag || "unibet")} <span class='why'>vi spelar här</span>`, bok: nf(our), st: b.stangU ? nf(b.stangU) : "–",
     rawB: raw(b.bolagBok, "unibet"), rawS: raw(b.bolagSt, "unibet"), clv: b.clvBolag, note: "faktiskt odds, vår sida"});
   if (b.pinP0 != null || b.pinP != null) rowsB.push({n: "Pinnacle" + (b.bolagSt?.pin_flyttad ? " <span class='why'>omräknad från närliggande linje</span>" : ""),
     bok: fo(b.pinP0), st: fo(b.pinP), rawB: raw(b.bolagBok, "pinnacle"), rawS: raw(b.bolagSt, "pinnacle"), clv: cl(b.pinP), note: "rättvisa odds"});
-  if (b.dkP0 != null || b.dkP != null) rowsB.push({n: "DraftKings", bok: fo(b.dkP0), st: fo(b.dkP),
+  if (b.dkP0 != null || b.dkP != null) rowsB.push({n: "DraftKings" + (b.bolagSt?.dk_linje != null ? ` <span class='why'>omräknad från linje ${nf(b.bolagSt.dk_linje, 1)}</span>` : ""), bok: fo(b.dkP0), st: fo(b.dkP),
     rawB: raw(b.bolagBok, "draftkings"), rawS: raw(b.bolagSt, "draftkings"), clv: cl(b.dkP), note: "rättvisa odds"});
   if (b.smkP0 != null || b.smkP != null) rowsB.push({n: "Smarkets (börs)", bok: fo(b.smkP0), st: fo(b.smkP), clv: cl(b.smkP), note: "rättvisa odds"});
   if (b.pMk != null || b.skarpP != null) rowsB.push({n: "<b>Referens</b> <span class='why'>Pinnacle/DK-konsensus – CLV räknas mot denna</span>",
@@ -916,10 +931,12 @@ function booksCmp(r) {
   if (!r.bet && (a.odds_bolag || []).length) {
     const pick = ["unibet", "pinnacle", "us_draftkings"];
     const cur = a.odds_bolag.filter(o => pick.includes(o.bolag));
-    if (!cur.length) return "";
+    const rt = refTxt({}, r);
+    if (!cur.length && !rt) return "";
     return `<h3>Bolagen just nu · ${sd === "under" ? "under" : "över"} ${nf(r.linje ?? lineOf(r.spel), 1)}</h3>
       <table class="ft"><tr><td class="why">Bolag</td><td class="n why">Över</td><td class="n why">Under</td></tr>
-      ${cur.map(o => `<tr><td>${esc(o.bolag.replace("us_", ""))}</td><td class="n">${nf(o.over)}</td><td class="n">${nf(o.under)}</td></tr>`).join("")}</table>`;
+      ${cur.map(o => `<tr><td>${esc(o.bolag.replace("us_", ""))}</td><td class="n">${nf(o.over)}</td><td class="n">${nf(o.under)}</td></tr>`).join("")}</table>
+      ${rt ? `<div class="txt">Rättvisa odds för vår sida (utan marginal): ${rt}. Linje inom parentes = omräknad från bolagets närmaste linje.</div>` : ""}`;
   }
   if (rowsB.length < 2) return "";
   const hasRaw = rowsB.some(x => x.rawB || x.rawS);
