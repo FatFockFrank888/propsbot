@@ -29,6 +29,7 @@ vår väg, och de spelen hade klart bättre CLV och ROI än flyttar mot oss.
 """
 from __future__ import annotations
 
+import time
 from collections import defaultdict
 
 from .market import devig_power
@@ -55,7 +56,10 @@ def recompute(b: dict) -> None:
     ts, ko = b.get("skarp_stang_ts"), b.get("avspark")
     b["skarp_verifierad"] = bool(ts and ko and ko - ts <= VERIFIED_MIN * 60)
     if b.get("skarp_flyttad_fran") is None:
-        b["skarp_status"] = "verifierad" if b["skarp_verifierad"] else "gammal notering" if ts else None
+        # status sätts först när matchen startat (före start är stängningen inte känd än)
+        started = bool(ko and ko <= time.time())
+        b["skarp_status"] = (("verifierad" if b["skarp_verifierad"] else "gammal notering" if ts else None)
+                             if started else None)
     b["clv_skarp_pp"] = _pp(b.get("skarp_stang_p"), b.get("odds"))
     b["clv_pin_pp"] = _pp(b.get("pin_stang_p"), b.get("odds"))
     b["clv_dk_pp"] = _pp(b.get("dk_stang_p"), b.get("odds"))
@@ -217,6 +221,8 @@ def apply_moved(ledger, hist_d: dict) -> int:
     for b in ledger.bets:
         ko, ts = b.get("avspark"), b.get("skarp_stang_ts")
         if not ko or not ts or b.get("skarp_verifierad") or b.get("skarp_flyttad_fran") is not None:
+            continue
+        if ko > time.time():      # stängningen är inte känd före start
             continue
         lines = by.get(f"{b.get('match_id')}|{b.get('spelare_id')}|{b.get('marknad')}")
         if not lines:
