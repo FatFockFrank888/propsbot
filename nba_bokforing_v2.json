@@ -14686,7 +14686,7 @@
 "edge": 0.21535000000000037,
 "spela_fran": 1.88,
 "insats_pct": 0.0156531240466264,
-"stangning": 2.23,
+"stangning": 2.25,
 "status": "öppen",
 "stopp": "sharp money med oss: referensen +11.5 enheter",
 "clv_signal": false,
@@ -14695,28 +14695,28 @@
 "p_marknad": 0.5450000000000002,
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1794777864.9167476,
+"stangning_ts": 1794783407.7735515,
 "modellversion": "2026-11-14-faktorer",
 "prognos_ts": 1794777864.9167266,
-"skarp_stang_p": 0.5450000000000002,
-"skarp_stang_ts": 1794777864.7247176,
+"skarp_stang_p": 0.825,
+"skarp_stang_ts": 1794783407.5956218,
 "skarp_kalla": "skanning",
-"skarp_verifierad": false,
+"skarp_verifierad": true,
 "skarp_status": null,
-"clv_skarp_pp": 9.656950672645753,
+"clv_skarp_pp": 37.656950672645735,
 "clv_pin_pp": null,
 "clv_dk_pp": null,
 "bolag_stangning": {
-"ts": 1794782600.8151443,
+"ts": 1794783407.8300862,
 "odds": {
 "unibet": {
 "over": 1.58,
-"under": 2.28
+"under": 2.25
 }
 },
 "pin_flyttad": false
 },
-"bolag_stang_ts": 1794782600.8151443
+"bolag_stang_ts": 1794783407.8300862
 },
 {
 "key": "nba1028754046|keyonte george|points|19.5|unibet|under",
@@ -14785,7 +14785,7 @@
 "edge": 0.10337704202275577,
 "spela_fran": 1.91,
 "insats_pct": 0.02,
-"stangning": 2.06,
+"stangning": 1.95,
 "status": "öppen",
 "stopp": "sharp money med oss: referensen +7.8 enheter",
 "clv_signal": false,
@@ -14794,11 +14794,11 @@
 "p_marknad": 0.5356199233120174,
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1794782600.7591357,
+"stangning_ts": 1794783407.7735515,
 "modellversion": "2026-11-14-faktorer",
 "prognos_ts": 1794782600.759105,
-"skarp_stang_p": 0.5356199233120174,
-"skarp_stang_ts": 1794782600.601065,
+"skarp_stang_p": 0.5240693198814862,
+"skarp_stang_ts": 1794783407.5956218,
 "skarp_kalla": "skanning",
 "pin_stang_p": 0.5356199233120174,
 "bolag_bokning": {
@@ -14817,26 +14817,32 @@
 "pin_p": 0.5356199233120174
 },
 "bolag_stangning": {
-"ts": 1794782600.8151443,
+"ts": 1794783407.8300862,
 "odds": {
 "unibet": {
-"over": 2.06,
-"under": 1.7
+"over": 1.95,
+"under": 1.79
 },
 "pinnacle": {
 "over": 1.758,
 "under": 2.0
+},
+"draftkings": {
+"over": 1.88,
+"under": 1.86
 }
 },
 "pin_flyttad": false,
-"pin_p": 0.5356199233120174
+"pin_p": 0.5356199233120174,
+"dk_p": 0.4970389740562749
 },
-"bolag_stang_ts": 1794782600.8151443,
+"bolag_stang_ts": 1794783407.8300862,
 "skarp_verifierad": false,
 "skarp_status": null,
-"clv_skarp_pp": 5.018303010813385,
+"clv_skarp_pp": 3.8632426677602694,
 "clv_pin_pp": 5.018303010813385,
-"clv_dk_pp": null
+"clv_dk_pp": 1.1602080852391394,
+"dk_stang_p": 0.4970389740562749
 },
 {
 "key": "nba1028754059|naji marshall|ra|7.5|unibet",
@@ -14869,11 +14875,11 @@
 "p_marknad": 0.5044728392273036,
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1794782600.7591357,
+"stangning_ts": 1794783407.7735515,
 "modellversion": "2026-11-14-faktorer",
 "prognos_ts": 1794782600.7591195,
 "skarp_stang_p": 0.5044728392273036,
-"skarp_stang_ts": 1794782600.601065,
+"skarp_stang_ts": 1794783407.5956218,
 "skarp_kalla": "skanning",
 "dk_stang_p": 0.5044728392273036,
 "bolag_bokning": {
@@ -14892,7 +14898,7 @@
 "dk_p": 0.5044728392273036
 },
 "bolag_stangning": {
-"ts": 1794782600.8151443,
+"ts": 1794783407.8300862,
 "odds": {
 "unibet": {
 "over": 2.12,
@@ -14906,11 +14912,86 @@
 "pin_flyttad": false,
 "dk_p": 0.5044728392273036
 },
-"bolag_stang_ts": 1794782600.8151443,
+"bolag_stang_ts": 1794783407.8300862,
 "skarp_verifierad": true,
 "skarp_status": null,
 "clv_skarp_pp": 3.277472601975645,
 "clv_pin_pp": null,
 "clv_dk_pp": 3.277472601975645
+},
+{
+"key": "nba1028754052|tari eason|threes|1.5|unibet|under",
+"id": 376,
+"bokford": 1794783407.7735252,
+"match_id": "nba1028754052",
+"match": "Washington Wizards – Houston Rockets",
+"hemma": "Washington Wizards",
+"borta": "Houston Rockets",
+"liga": "NBA",
+"avspark": 1794787200.0,
+"spelare": "Tari Eason",
+"spelare_id": "tari eason",
+"marknad": "threes",
+"linje": 1.5,
+"sida": "under",
+"bolag": "unibet",
+"odds": 1.68,
+"sannolikhet": 0.633152565084711,
+"ratt_odds": 1.5793981658531346,
+"edge": 0.0636963093423144,
+"spela_fran": 1.62,
+"insats_pct": 0.012993913036062302,
+"stangning": 1.68,
+"status": "öppen",
+"stopp": "",
+"clv_signal": false,
+"forv_clv_pp": 3.791446984661573,
+"p_modell": null,
+"p_marknad": 0.633152565084711,
+"utfall": null,
+"resultat_enheter": null,
+"stangning_ts": 1794783407.7735515,
+"modellversion": "2026-11-14-faktorer",
+"prognos_ts": 1794783407.7735252,
+"skarp_stang_p": 0.633152565084711,
+"skarp_stang_ts": 1794783407.5956218,
+"skarp_kalla": "skanning",
+"dk_stang_p": 0.633152565084711,
+"bolag_bokning": {
+"ts": 1794783407.8300862,
+"odds": {
+"unibet": {
+"over": 2.1,
+"under": 1.68
+},
+"draftkings": {
+"over": 2.47,
+"under": 1.51
+}
+},
+"pin_flyttad": false,
+"dk_p": 0.633152565084711
+},
+"bolag_stangning": {
+"ts": 1794783407.8300862,
+"odds": {
+"unibet": {
+"over": 2.1,
+"under": 1.68
+},
+"draftkings": {
+"over": 2.47,
+"under": 1.51
+}
+},
+"pin_flyttad": false,
+"dk_p": 0.633152565084711
+},
+"bolag_stang_ts": 1794783407.8300862,
+"skarp_verifierad": false,
+"skarp_status": null,
+"clv_skarp_pp": 3.791446984661573,
+"clv_pin_pp": null,
+"clv_dk_pp": 3.791446984661573
 }
 ]

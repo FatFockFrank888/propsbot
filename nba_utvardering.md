@@ -1,12 +1,12 @@
-# NBA – utvärdering på framåtriktad data (2026-11-15T22:43:23+00:00)
+# NBA – utvärdering på framåtriktad data (2026-11-15T22:56:49+00:00)
 
 Bara bokförda prognoser (gjorda före matchen). Unika prestationer = spelare × match × marknad.
 
 | Bokföring | Rader | Prestationer | Matcher | Dagar | Avgjorda | ROI flat | ROI modell | Max DD (u) | CLV pe skarp (95 %) | CLV pe skarp verifierad | Verifierad täckning | Slog skarp stängning | CLV pe mot Unibets stängning | Brier modell / marknad (n) |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | live | 20 | 20 | 18 | 10 | 19 | +4.2 % | +0.5 % | 4.0 | 3.08 (+2.36…+3.77) | 3.18 | 0.95 | +85.0 % | 2.97 | – |
-| spel | 353 | 353 | 103 | 15 | 323 | +4.9 % | +2.8 % | 14.5 | 2.01 (+1.60…+2.36) | 1.87 | 0.81 | +77.4 % | 2.73 | – |
-| skugga | 991 | 991 | 115 | 15 | 885 | +2.0 % | +2.1 % | 27.0 | 0.83 (+0.56…+1.17) | 0.78 | 0.85 | +65.8 % | 1.74 | – |
+| spel | 354 | 354 | 103 | 15 | 323 | +4.9 % | +2.8 % | 14.5 | 2.01 (+1.60…+2.36) | 1.87 | 0.81 | +77.4 % | 2.73 | – |
+| skugga | 993 | 993 | 115 | 15 | 885 | +2.0 % | +2.1 % | 27.0 | 0.83 (+0.56…+1.17) | 0.78 | 0.85 | +65.8 % | 1.74 | – |
 | modelltest | 889 | 889 | 116 | 15 | 798 | +8.7 % | +8.5 % | 17.5 | -0.07 (-0.48…+0.49) | -0.13 | 0.82 | +44.8 % | 1.98 | 0.2702 / 0.2433 (300) |
 
 ## Marknadsstatus för LIVE (marknadsbaserade spel mot skarp stängning)
@@ -19,10 +19,10 @@ Bara bokförda prognoser (gjorda före matchen). Unika prestationer = spelare ×
 | points | **ok** | 565 | 1.14 (+0.71…+1.57) | +66.0 % | -0.1 % |
 | pr | **osäker** | 25 | 1.47 (-2.29…+2.95) | +68.2 % | -6.6 % |
 | pra | **osäker** | 20 | 1.09 (-0.19…+3.23) | +73.7 % | -4.1 % |
-| ra | **osäker** | 47 | 0.82 (-1.16…+0.97) | +75.0 % | +8.9 % |
-| rebounds | **ok** | 280 | 1.04 (+0.77…+1.42) | +72.0 % | -2.9 % |
+| ra | **osäker** | 48 | 0.82 (-1.16…+0.97) | +75.0 % | +8.9 % |
+| rebounds | **ok** | 281 | 1.04 (+0.77…+1.42) | +72.0 % | -2.9 % |
 | steals | **ok** | 27 | 3.59 (+2.62…+5.63) | +88.5 % | +37.0 % |
-| threes | **ok** | 164 | 1.17 (+0.38…+1.90) | +66.2 % | +15.1 % |
+| threes | **ok** | 165 | 1.17 (+0.38…+1.90) | +66.2 % | +15.1 % |
 
 ## Skarp stängning per status
 
