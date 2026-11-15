@@ -634,10 +634,20 @@ def attach_analysis(rows: list, test_rows: list, per: dict) -> int:
             if q.side in ("over", "under") and (q.side not in b or q.ts >= b.get("_ts_" + q.side, 0)):
                 b[q.side] = round(q.odds, 3)
                 b["_ts_" + q.side] = q.ts
+    from .skarp_clv import book_probs
+    bp_all = book_probs([q for _evd, qs, _names in per.values() for q in qs])
     n = 0
     for r in rows:
         k = key(r)
         an = dict(by_key.get(k) or {})
+        # Referensbolagen för vår sida (rättvisa sannolikheter): Pinnacle och DraftKings, omräknade från
+        # närliggande linje när bolaget inte har exakt vår linje.
+        bp = bp_all.get(k[:4]) or {}
+        under = k[4] == "under"
+        side_p = lambda p: None if p is None else (1.0 - p if under else p)   # noqa: E731
+        an["ref"] = {"pin_p": side_p(bp.get("pinnacle")), "dk_p": side_p(bp.get("draftkings")),
+                     "pin_linje": bp.get("_pinnacle_linje"), "dk_linje": bp.get("_draftkings_linje"),
+                     "pin_flyttad": bool(bp.get("_pin_flyttad"))}
         tab = books.get(k[:4]) or {}
         an["odds_bolag"] = sorted(({"bolag": bk, "over": v.get("over"), "under": v.get("under")}
                                    for bk, v in tab.items()), key=lambda x: x["bolag"])

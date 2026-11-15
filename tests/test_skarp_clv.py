@@ -66,3 +66,17 @@ def test_book_snapshots_for_analysis():
     old = _bet(bokford=0.0)                     # bokat långt tidigare: ingen falsk "bokning"-notering
     update(NS(bets=[old]), {}, 9_000.0, book_probs(qs))
     assert "bolag_bokning" not in old and "bolag_stangning" in old
+
+
+def test_dk_other_line_is_translated_to_ours():
+    """DraftKings har ofta bara en huvudlinje: närmaste linje räknas om till Unibets linje."""
+    qs = [OddsQuote("unibet", "m", "p", "threes", 2.5, "over", 2.32, 0),
+          OddsQuote("us_draftkings", "m", "p", "threes", 1.5, "over", 1.45, 0),
+          OddsQuote("us_draftkings", "m", "p", "threes", 1.5, "under", 2.75, 0)]
+    d = book_probs(qs)[("m", "p", "threes", 2.5)]
+    assert d["_draftkings_linje"] == 1.5 and 0.3 < d["draftkings"] < 0.55
+    assert d["_raw"]["draftkings (1.5)"] == {"over": 1.45, "under": 2.75}
+    b = _bet(marknad="threes", linje=2.5, bokford=8_990.0)
+    b["match_id"], b["spelare_id"] = "m", "p"
+    update(NS(bets=[b]), {}, 9_000.0, book_probs(qs))
+    assert b["bolag_stangning"]["dk_linje"] == 1.5 and b["dk_stang_p"] == d["draftkings"]

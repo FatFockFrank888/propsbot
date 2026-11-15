@@ -94,6 +94,35 @@ def book_probs(quotes) -> dict[tuple, dict]:
         if k in moved:
             d["_pin_flyttad"] = True
         out[k] = d
+    # Saknar ett bolag exakt vår linje (vanligt för DraftKings: en huvudlinje per spelare) räknas närmaste
+    # tvåsidiga linje om till vår linje – samma negativa binomial som nba.interpolate_pinnacle.
+    try:
+        from .nba import MAX_LINE_GAP
+    except Exception:  # noqa: BLE001
+        MAX_LINE_GAP = {}
+    lines: dict[tuple, dict[str, dict[float, tuple]]] = defaultdict(lambda: defaultdict(dict))
+    for k, books in by.items():
+        for name in ("pinnacle", "draftkings"):
+            s_ = books.get(name, {})
+            if "over" in s_ and "under" in s_ and not (name == "pinnacle" and k in moved):
+                lines[k[:3]][name][k[3]] = (devig_power((s_["over"], s_["under"]))[0], s_["over"], s_["under"])
+    for k, d in out.items():
+        for name in ("pinnacle", "draftkings"):
+            if name in d:
+                continue
+            cand = lines.get(k[:3], {}).get(name, {})
+            gap = MAX_LINE_GAP.get(k[2], 1.5)
+            near = [ln for ln in cand if ln != k[3] and abs(ln - k[3]) <= gap]
+            if not near:
+                continue
+            ln = min(near, key=lambda x: abs(x - k[3]))
+            p_ln, o_over, o_under = cand[ln]
+            p = translate(p_ln, ln, k[3], k[2])
+            if p is None:
+                continue
+            d[name] = p
+            d["_" + name + "_linje"] = ln
+            d["_raw"][name + f" ({ln:g})"] = {"over": round(o_over, 3), "under": round(o_under, 3)}
     return out
 
 
@@ -115,7 +144,8 @@ def update(ledger, hist_d: dict, now: float, books: dict | None = None, source: 
             bp = books.get((b.get("match_id"), b.get("spelare_id"), b.get("marknad"), b.get("linje")))
             if bp:
                 under = b.get("sida") == "under"
-                snap = {"ts": now, "odds": bp.get("_raw", {}), "pin_flyttad": bool(bp.get("_pin_flyttad"))}
+                snap = {"ts": now, "odds": bp.get("_raw", {}), "pin_flyttad": bool(bp.get("_pin_flyttad")),
+                        "pin_linje": bp.get("_pinnacle_linje"), "dk_linje": bp.get("_draftkings_linje")}
                 if "pinnacle" in bp:
                     b["pin_stang_p"] = snap["pin_p"] = 1.0 - bp["pinnacle"] if under else bp["pinnacle"]
                 if "draftkings" in bp:
