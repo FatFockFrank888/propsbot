@@ -122,10 +122,12 @@ def test_cleanup_removes_nhl_state(tmp_path):
 def test_strength_units_scale():
     """Insats 1–10u efter styrkan: svaga spel 1u, de starkaste 10u (max)."""
     from propsbot.strength import score, units_for, units_from, stake_text
-    assert [units_for(s) for s in (3, 7, 9.5, 11, 14, 17, 20, 30)] == [1, 1, 3, 4, 6, 8, 10, 10]
-    assert units_from(0.05) == 1                          # 5 % edge utan modell: styrka 6
-    assert units_from(0.10, 0.10) == 7                    # 10 + 5 + 1 = 16
-    assert units_from(0.13, 0.14, sharp=1) == 10          # 13 + 7 + 1 + 1 = 22
+    assert [units_for(s) for s in (3, 7, 8, 10, 12, 14, 16, 30)] == [1, 1, 2, 4, 6, 8, 10, 10]
+    assert units_from(0.05) == 1                          # 5 % edge: styrka 6
+    assert units_from(0.07) == 2                          # LIVE-golvet 7 %: 7 + 1 = 8
+    assert units_from(0.10, 0.10) == 5                    # modellen räknas inte (MODEL_W = 0): 10 + 1
+    assert units_from(0.13, 0.14, sharp=1) == 9           # 13 + 1 + 1 = 15
+    assert units_from(0.15, sharp=1) == 10
     assert units_from(0.13, 0.14, sharp=1, cap=5) == 5
     assert score(0.20) == 15 - 2.5 + 1                     # edge över 15 dras ner
     assert "MAX" in stake_text(10) and "MAX" not in stake_text(9)
@@ -145,4 +147,4 @@ def test_live_stake_follows_strength():
     b, mb = row("b", 0.14, 0.15)
     out = select_live([a, b], [ma, mb], {"live_min_edge": {"assists": 0.05}, "live_odds_window": [1.6, 3.0]},
                       NS(bets=[]))
-    assert {r.row.decision.cand.player_id: round(r.live_stake / 0.002) for r in out} == {"a": 3, "b": 10}
+    assert {r.row.decision.cand.player_id: round(r.live_stake / 0.002) for r in out} == {"a": 1, "b": 9}

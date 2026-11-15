@@ -149,14 +149,14 @@
   "nba_max_events": 15,
   "parlays_enabled": true,
   "parlay_max_legs": 3,
-  "parlay_min_leg_edge": 0.05,
+  "parlay_min_leg_edge": 0.06,
   "parlay_max_odds": 40.0,
   "parlay_max_stake": 0.005,
   "parlay_pool_per_book": 8,
   "parlay_max_suggestions": 5,
   "ntfy_topic": "",
   "watch_interval_minutes": 10,
-  "min_edge_all": 0.05,
+  "min_edge_all": 0.06,
   "max_odds_drop": 0.03,
   "football_shadow": false,
   "football_odds_window": [
@@ -174,14 +174,23 @@
   "cards_enabled": true,
   "football_live": false,
   "live_min_edge": {
-    "points": 0.05,
-    "threes": 0.05,
-    "assists": 0.05,
-    "rebounds": 0.05
+    "points": 0.07,
+    "threes": 0.07,
+    "assists": 0.07,
+    "rebounds": 0.07
   },
   "live_model_min_edge": 0.05,
-  "live_model_required_markets": [
-    "points"
+  "live_model_required_markets": [],
+  "live_use_model": false,
+  "nba_markets_off": [
+    "steals",
+    "blocks"
+  ],
+  "nba_play_markets": [
+    "points",
+    "rebounds",
+    "assists",
+    "threes"
   ],
   "live_max_edge": 0.15,
   "football_live_max_units": 10,

@@ -454,7 +454,7 @@ const utcTs = s => s ? Date.parse(String(s).replace(" ", "T") + ":00Z") / 1000 :
 const units = f => !f || f <= 0 ? 0 : Math.max(1, Math.min(10, Math.round(f / U)));
 const uFmt = f => f == null ? "–" : units(f) + "u";
 // Insats 1–10u efter styrkan (samma regel som propsbot/strength.py): 10u = maxinsats, ett av de starkaste spelen.
-const strengthU = s => Math.max(1, Math.min(10, Math.round((s - 5) / 1.5)));
+const strengthU = s => Math.max(1, Math.min(10, Math.round((s - 6) / 1)));   // samma skala som strength.py
 const uSub = u => Math.round(u) >= 10 ? "MAX · starkt spel" : nf(u * U * 100, 1) + " % av kassan";
 const tag = s => `<span class="tag ${s}">${SPORTS[s].name}</span>`;
 const cls = x => x > 0 ? "pos" : x < 0 ? "loss" : "";
@@ -641,7 +641,7 @@ function strength(r) {
   const E = cur ? cur.edge * 100 : 0;
   let M = r.modell_edge != null ? r.modell_edge * 100
         : cur && cur.p_modell != null && cur.odds ? (cur.p_modell * cur.odds - 1) * 100 : null;
-  const Mp = M == null ? 0 : 0.5 * Math.max(-15, Math.min(15, M));
+  const Mp = 0;   // 15/11: modellen visas men påverkar inte styrkan (slog inte skarp stängning)
   const R = r.odds && oddsNow ? Math.max(-5, Math.min(5, (1 / oddsNow - 1 / r.odds) * 100)) : 0;
   const k = (cur?.kommentar || "").toLowerCase();
   const S = /sharp money (with|med) (us|oss)/.test(k) ? 1 : /sharp (money mot oss|moved .* against)/.test(k) ? -2 : 0;
@@ -693,7 +693,7 @@ const playDay = ts => new Date((ts - DAY_SHIFT_H * 3600) * 1000).toLocaleDateStr
 function betScore(r) {
   const E = (r.edge || 0) * 100, Ec = Math.min(E, 15) - Math.max(0, E - 15) * 0.5;
   const M = r.modell_edge != null ? r.modell_edge * 100 : null;
-  const Mp = M == null ? 0 : 0.5 * Math.max(-15, Math.min(15, M));
+  const Mp = 0;   // 15/11: modellen visas men påverkar inte styrkan (slog inte skarp stängning)
   const k = (r.stopp || "").toLowerCase();
   const S = /sharp money (with|med) (us|oss)/.test(k) ? 1 : /sharp (money mot oss|moved .* against)/.test(k) ? -2 : 0;
   return {score: Ec + Mp + S + 1, E, M, S};

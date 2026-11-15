@@ -266,6 +266,16 @@ def evaluate(root: Path) -> dict:
         s_live = summarize([b for b in data["live"] if b.get("marknad") == mk], rnd)
         out["per_marknad"][mk] = {"modelltest": s, "live": s_live}
         out["status"][mk] = status(s)
+    # Status för LIVE-spärren: de marknadsbaserade spelen (spel + skugga + LIVE) mot skarp stängning.
+    # degraded = CLV-intervallet helt under 0; ok = helt över 0; annars osäker (spärrar inte).
+    out["status_marknad"], out["per_marknad_spel"] = {}, {}
+    mb = data["spel"] + data["skugga"] + data["live"]
+    for mk in sorted({b.get("marknad") for b in mb if b.get("marknad")}):
+        s = summarize([b for b in mb if b.get("marknad") == mk], rnd)
+        c = s.get("clv_verifierad_ci95") or s.get("clv_ci95")
+        out["per_marknad_spel"][mk] = s
+        out["status_marknad"][mk] = ("insufficient_data" if not c else "degraded" if c[1] < 0
+                                     else "ok" if c[0] > 0 else "osäker")
     # Multipeltestning: "validated" måste klara Benjamini–Hochberg över alla marknader som prövats.
     pv = {}
     for mk, d in out["per_marknad"].items():
@@ -302,6 +312,12 @@ def markdown(r: dict) -> str:
                  f"{_f(s['roi_flat'], pct=True)} | {_f(s['roi_modell'], pct=True)} | {_f(s['max_drawdown_flat_u'], 1)} | "
                  f"{_f(s['clv_pp'], 2)} ({'–' if not ci else f'{ci[0]:+.2f}…{ci[1]:+.2f}'}) | {_f(s['clv_verifierad_pp'], 2)} | {_f(s['clv_tackning'], 2)} | {_f(s.get('clv_slog'), pct=True)} | {_f(s.get('clv_bolag_pp'), 2)} | "
                  + ("–" if not br else f"{br['modell']:.4f} / {br['marknad']:.4f} ({br['n']})") + " |")
+    L += ["", "## Marknadsstatus för LIVE (marknadsbaserade spel mot skarp stängning)", "",
+          "| Marknad | Status | Spel | CLV pe skarp (95 %) | Slog | ROI flat |", "|---|---|---|---|---|---|"]
+    for mk, s_ in (r.get("per_marknad_spel") or {}).items():
+        ci = s_.get("clv_verifierad_ci95") or s_.get("clv_ci95")
+        L.append(f"| {mk} | **{r['status_marknad'][mk]}** | {s_['rader']} | {_f(s_['clv_pp'], 2)} "
+                 f"({'–' if not ci else f'{ci[0]:+.2f}…{ci[1]:+.2f}'}) | {_f(s_.get('clv_slog'), pct=True)} | {_f(s_['roi_flat'], pct=True)} |")
     L += ["", "## Skarp stängning per status", "",
           "Verifierad = referensens notering högst 60 min före start. Flyttad linje = vår linje försvann men en närliggande "
           "fanns kvar; stängningen omräknad till vår linje. För oss = över + linjen upp / under + linjen ned (pengar på vår sida).", "",

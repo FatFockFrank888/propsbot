@@ -475,6 +475,17 @@ def nba_scan(root: Path, settings_path: Path) -> dict:
             import traceback
             diag.log(f"NBA-modell: FEL {type(e).__name__}: {e}")
             diag.lines.append(traceback.format_exc())
+    # Marknader (15/11): steals/blocks bort helt (Pinnacle saknar dem, Unibet har ~20 linjer per körning).
+    # Spelbart bara där Pinnacle har marknaden (points, rebounds, assists, threes); pr/pra/ra = skuggspel.
+    off = set(settings.get("nba_markets_off", ["steals", "blocks"]))
+    rows = [r for r in rows if r.row.decision.cand.market not in off]
+    test_rows = [r for r in test_rows if r.row.decision.cand.market not in off]
+    play_mk = set(settings.get("nba_play_markets", ["points", "rebounds", "assists", "threes"]))
+    for r in rows:
+        d = r.row.decision
+        if d.cand.market not in play_mk and d.playable:
+            d.playable, d.stake = False, 0.0
+            d.reasons.append("marknad utan Pinnacle – bara skuggspel")
     try:
         n_an = attach_analysis(rows, test_rows, per)
         diag.log(f"NBA analyssida: {n_an} ben med analys")
@@ -523,7 +534,9 @@ def nba_scan(root: Path, settings_path: Path) -> dict:
     live = Ledger(root / "nba_live.json")
     # Status per marknad från förra skanningens utvärdering (nba_eval): "degraded" ger inga LIVE-spel.
     try:
-        mstat = json.loads((root / "nba_utvardering.json").read_text(encoding="utf-8")).get("status", {})
+        _ev = json.loads((root / "nba_utvardering.json").read_text(encoding="utf-8"))
+        # Spärren följer de marknadsbaserade spelens skarpa CLV (status_marknad), inte modelltestet.
+        mstat = _ev.get("status_marknad") or _ev.get("status", {})
     except (FileNotFoundError, json.JSONDecodeError):
         mstat = {}
     blocked = {mk for mk, st in mstat.items() if st == "degraded"} if settings.get("live_block_degraded", True) else set()

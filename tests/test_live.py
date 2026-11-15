@@ -44,9 +44,21 @@ def test_live_model_required_for_points_and_disagreement_blocks():
     reb_against = row("m3", "c", "rebounds", 2.0, 0.56)   # modellen säger emot: nej
     thr_backed = row("m4", "d", "threes", 2.0, 0.53)      # lägre edge men modellens stöd: först
     model = [row("m3", "c", "rebounds", 2.0, 0.51), row("m4", "d", "threes", 2.0, 0.56)]
-    out = select_live([pts_nomodel, ast_nomodel, reb_against, thr_backed], model, S, L())
+    out = select_live([pts_nomodel, ast_nomodel, reb_against, thr_backed], model, dict(S, live_use_model=True), L())
     assert [r.row.decision.cand.player_id for r in out] == ["d", "b"]
     assert out[1].live_model_edge is None
+
+
+def test_live_ignores_model_by_default():
+    """15/11: modellen slog inte skarp stängning – LIVE väljer och rankar bara på edge mot Pinnacle/DK."""
+    pts_nomodel = row("m1", "a", "points", 2.0, 0.56)
+    reb_against = row("m3", "c", "rebounds", 2.0, 0.57)
+    thr_backed = row("m4", "d", "threes", 2.0, 0.53)
+    model = [row("m3", "c", "rebounds", 2.0, 0.51), row("m4", "d", "threes", 2.0, 0.56)]
+    out = select_live([pts_nomodel, reb_against, thr_backed], model, S, L())
+    ids = [r.row.decision.cand.player_id for r in out]
+    assert set(ids) <= {"a", "c", "d"} and ids == sorted(ids, key=lambda i: -next(
+        r.row.decision.cand.edge for r in (pts_nomodel, reb_against, thr_backed) if r.row.decision.cand.player_id == i))
 
 
 def test_live_requires_pinnacle_line():

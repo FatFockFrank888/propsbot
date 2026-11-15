@@ -45,6 +45,9 @@ def select_live(rows, model_rows, settings: dict, live_ledger, sharp_lines: set 
     lo, hi = settings.get("live_odds_window", [1.40, 3.00])
     m_min = settings.get("live_model_min_edge", 0.05)
     need_model = set(settings.get("live_model_required_markets", ["points"]))
+    # 15/11: modellen slår inte den skarpa stängningen (modelltest CLV ≈ 0, Brier sämre än marknaden),
+    # så den varken filtrerar, rankar eller sätter insats på LIVE-spel längre.
+    use_model = settings.get("live_use_model", False)
     max_edge = settings.get("live_max_edge", 0.15)
     min_groups = settings.get("live_min_groups", 2)
     max_u = settings.get("live_max_units", 10)
@@ -72,14 +75,15 @@ def select_live(rows, model_rows, settings: dict, live_ledger, sharp_lines: set 
         if sharp_lines is not None and (c.match_id, c.player_id, c.market, c.line) not in sharp_lines:
             continue
         me = model_edge.get(_key(c))
-        if me is None and c.market in need_model:
-            continue
-        if me is not None and me < m_min:   # modellen säger emot
-            continue
-        r.live_model_edge = me
+        if use_model:
+            if me is None and c.market in need_model:
+                continue
+            if me is not None and me < m_min:   # modellen säger emot
+                continue
+        r.live_model_edge = me                  # sparas för uppföljning även när den inte styr
         cands.append(r)
-    # modellens stöd först (högst CLV i datan), sedan störst edge
-    cands.sort(key=lambda r: (r.live_model_edge is None, -r.row.decision.cand.edge))
+    # Störst edge först (edgen mot Pinnacle/DK förutsäger skarp CLV; modellen gjorde det inte, 15/11).
+    cands.sort(key=lambda r: ((r.live_model_edge is None) if use_model else 0, -r.row.decision.cand.edge))
 
     # det som redan är bokfört live räknas in i taken
     from collections import Counter
@@ -99,7 +103,7 @@ def select_live(rows, model_rows, settings: dict, live_ledger, sharp_lines: set 
             out.append(r)                    # redan live – behåll (för stängningsodds)
             continue
         day = _us_day(c.now + c.minutes_to_kickoff * 60)
-        u = units_from(c.edge, r.live_model_edge, sharp_signal("; ".join(d.reasons)), cap=max_u)
+        u = units_from(c.edge, r.live_model_edge if use_model else None, sharp_signal("; ".join(d.reasons)), cap=max_u)
         if n_match[c.match_id] >= per_match or n_day[day] >= per_day or u_used[day] + u > u_day:
             continue
         r.live_stake = u * UNIT
