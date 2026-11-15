@@ -550,6 +550,13 @@ def nba_scan(root: Path, settings_path: Path) -> dict:
             if "modellversion" not in b and (b.get("bokford") or 0) > t_now - 900:
                 b["modellversion"] = NBA_MODEL_VERSION
                 b["prognos_ts"] = b.get("bokford")
+    try:   # CLV mot skarp stängning (Pinnacle/DK-referensen + Pinnacle och DK var för sig)
+        from .skarp_clv import refresh as skarp_refresh
+        n_sk = skarp_refresh((ledger, shadow, test, live), hist.d, time.time(),
+                             [q for _e, qs, _n in per.values() for q in qs])
+        diag.log(f"NBA skarp stängning: {n_sk} spel uppdaterade")
+    except Exception as e:  # noqa: BLE001 – får aldrig stoppa skanningen
+        diag.log(f"NBA skarp stängning: FEL {type(e).__name__}: {e}")
     ec = JsonClient(root / ".cache_odds", ttl_s=900)
     for lg in (ledger, shadow, test, live):
         try:

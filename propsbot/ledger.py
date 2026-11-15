@@ -14,6 +14,7 @@ from pathlib import Path
 
 from .decision import kelly_stake
 from .scan import ScanRow
+from .skarp_clv import stats as skarp_stats
 
 
 def rensa_nan(x):
@@ -183,8 +184,11 @@ class Ledger:
             "insats_pct": staked, "resultat_pct": profit,
             "roi": profit / staked if staked else None,
             "clv_snitt": sum(clv) / len(clv) if clv else None,
-            "clv_pp": sum(clv_pp) / len(clv_pp) if clv_pp else None,
-            "clv_antal": len(clv_pp),
+            **(sk := skarp_stats(bets, time.time())),
+            # CLV mot skarp stängning (Pinnacle/DK) där den finns, annars mot bolagets eget stängningsodds
+            "clv_pp": sk["clv_skarp_pp"] if sk["clv_skarp_antal"] else (sum(clv_pp) / len(clv_pp) if clv_pp else None),
+            "clv_antal": sk["clv_skarp_antal"] or len(clv_pp),
+            "clv_bolag_pp": sum(clv_pp) / len(clv_pp) if clv_pp else None, "clv_bolag_antal": len(clv_pp),
             "forvantat_pct": sum(b["edge"] * b["insats_pct"] for b in settled),
             "per_bolag": per_book,
         }

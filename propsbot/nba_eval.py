@@ -8,7 +8,8 @@ prognos som gjordes före matchen, med de odds och sannolikheter som gällde då
 
 Begrepp
   * EV (edge i boten)  = p × odds − 1            (halvlinjer; heltalslinjer används inte – se GRANSKNING_NBA.md)
-  * CLV (pe)           = 1/stängning − 1/odds    (samma bolag, samma linje; ett riktmärke, inte bevis för EV)
+  * CLV (pe)           = p_skarp_stängning − 1/odds  (Pinnacle/DK-referensens rättvisa sannolikhet för vår sida
+                         vid sista notering före start mot Unibet-oddset vi tog; se skarp_clv.py)
   * Brier / log loss   = modellens resp. marknadens sannolikhet för vår sida mot utfallet, på SAMMA spel
 Oberoende: samma spelare, match och marknad räknas som EN prestation (linjer och bolag avdupliceras), och
 konfidensintervall tas med block-bootstrap över speldagar (amerikansk tid) med fast seed.
@@ -126,20 +127,26 @@ def summarize(bets: list[dict], rnd: random.Random) -> dict:
         eq += r
         peak = max(peak, eq)
         dd = max(dd, peak - eq)
-    started = [b for b in bets if b.get("avspark") and b.get("stangning") and b.get("odds")
-               and b["avspark"] < datetime.now(timezone.utc).timestamp()]
+    now_ts = datetime.now(timezone.utc).timestamp()
+    # CLV mäts mot den SKARPA stängningen (Pinnacle/DK-referensens rättvisa sannolikhet för vår sida
+    # vid sista notering före start), inte mot Unibets eget stängningsodds (skarp_clv.py).
+    started = [b for b in bets if b.get("avspark") and b["avspark"] < now_ts and b.get("clv_skarp_pp") is not None]
     clv_day = defaultdict(list)
     for b in started:
-        clv_day[_us_day(b["avspark"])].append((1 / b["stangning"] - 1 / b["odds"]) * 100)
+        clv_day[_us_day(b["avspark"])].append(b["clv_skarp_pp"])
     clv_all = [v for vs in clv_day.values() for v in vs]
-    # Verifierad stängning = ett senare odds på samma bolag och linje har setts (stangning_ts, från 2026-11-11).
-    # Utan tidsstämpel kan "stängningen" vara spelets eget odds (CLV 0) – räknas som legacy, inte som täckt.
-    ver = [b for b in started if b.get("stangning_ts")]
+    # Verifierad = skarp notering högst 60 min före start (äldre: linjen försvann hos referensen).
+    ver = [b for b in started if b.get("skarp_verifierad")]
     clv_ver_day = defaultdict(list)
     for b in ver:
-        clv_ver_day[_us_day(b["avspark"])].append((1 / b["stangning"] - 1 / b["odds"]) * 100)
+        clv_ver_day[_us_day(b["avspark"])].append(b["clv_skarp_pp"])
     clv_ver = [v for vs in clv_ver_day.values() for v in vs]
-    ages = [(b["avspark"] - b["stangning_ts"]) / 60 for b in ver]
+    ages = [(b["avspark"] - b["skarp_stang_ts"]) / 60 for b in started]
+    # Gamla måttet (Unibets eget stängningsodds, verifierat) – bara som jämförelse.
+    bolag = [(1 / b["stangning"] - 1 / b["odds"]) * 100 for b in bets
+             if b.get("avspark") and b["avspark"] < now_ts and b.get("stangning_ts") and b.get("odds")]
+    pin = [b["clv_pin_pp"] for b in started if b.get("clv_pin_pp") is not None]
+    dk = [b["clv_dk_pp"] for b in started if b.get("clv_dk_pp") is not None]
     # Brier / log loss på samma spel (modell vs marknad), unika prestationer
     br_day = defaultdict(list)
     pairs = []
@@ -171,7 +178,11 @@ def summarize(bets: list[dict], rnd: random.Random) -> dict:
         "clv_verifierad_pp": (sum(clv_ver) / len(clv_ver)) if clv_ver else None,
         "clv_verifierad_ci95": _boot(clv_ver_day, lambda xs: sum(xs) / len(xs), rnd),
         "clv_p": _boot_p(clv_ver_day if len(clv_ver_day) >= 3 else clv_day, rnd, +1),
-        "clv_tackning": (len(ver) / max(1, len([b for b in bets if b.get("avspark") and b["avspark"] < datetime.now(timezone.utc).timestamp()]))) if bets else None,
+        "clv_tackning": (len(ver) / max(1, len([b for b in bets if b.get("avspark") and b["avspark"] < now_ts]))) if bets else None,
+        "clv_slog": (sum(v > 0 for v in clv_all) / len(clv_all)) if clv_all else None,
+        "clv_bolag_pp": (sum(bolag) / len(bolag)) if bolag else None,
+        "clv_pin_pp": (sum(pin) / len(pin)) if pin else None, "clv_pin_antal": len(pin),
+        "clv_dk_pp": (sum(dk) / len(dk)) if dk else None, "clv_dk_antal": len(dk),
         "stangning_min_fore_start_median": sorted(ages)[len(ages) // 2] if ages else None,
         "brier": brier,
         "skuggmodeller": _shadow_brier(settled, rnd),
@@ -265,14 +276,14 @@ def _f(x, d=3, pct=False):
 def markdown(r: dict) -> str:
     L = [f"# NBA – utvärdering på framåtriktad data ({r['skapad']})", "",
          "Bara bokförda prognoser (gjorda före matchen). Unika prestationer = spelare × match × marknad.", "",
-         "| Bokföring | Rader | Prestationer | Matcher | Dagar | Avgjorda | ROI flat | ROI modell | Max DD (u) | CLV pe legacy (95 %) | CLV pe verifierad | Verifierad täckning | Brier modell / marknad (n) |",
-         "|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
+         "| Bokföring | Rader | Prestationer | Matcher | Dagar | Avgjorda | ROI flat | ROI modell | Max DD (u) | CLV pe skarp (95 %) | CLV pe skarp verifierad | Verifierad täckning | Slog skarp stängning | CLV pe mot Unibets stängning | Brier modell / marknad (n) |",
+         "|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|"]
     for k, s in r["per_bokforing"].items():
         br = s["brier"]
         ci = s["clv_ci95"]
         L.append(f"| {k} | {s['rader']} | {s['prestationer']} | {s['matcher']} | {s['dagar']} | {s['avgjorda']} | "
                  f"{_f(s['roi_flat'], pct=True)} | {_f(s['roi_modell'], pct=True)} | {_f(s['max_drawdown_flat_u'], 1)} | "
-                 f"{_f(s['clv_pp'], 2)} ({'–' if not ci else f'{ci[0]:+.2f}…{ci[1]:+.2f}'}) | {_f(s['clv_verifierad_pp'], 2)} | {_f(s['clv_tackning'], 2)} | "
+                 f"{_f(s['clv_pp'], 2)} ({'–' if not ci else f'{ci[0]:+.2f}…{ci[1]:+.2f}'}) | {_f(s['clv_verifierad_pp'], 2)} | {_f(s['clv_tackning'], 2)} | {_f(s.get('clv_slog'), pct=True)} | {_f(s.get('clv_bolag_pp'), 2)} | "
                  + ("–" if not br else f"{br['modell']:.4f} / {br['marknad']:.4f} ({br['n']})") + " |")
     L += ["", "## Status per marknad", "", "| Marknad | Status | Brier modell / marknad (n) | Skillnad 95 % | CLV pe (95 %) modelltest | LIVE avgjorda | LIVE ROI flat |",
           "|---|---|---|---|---|---|---|"]

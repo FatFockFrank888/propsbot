@@ -450,8 +450,9 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
     scale = settings.get("football_kelly_scale", 0.5)
     from .graduation import check as _grad
     from .ledger import Ledger as _L2
-    _clv = [(1 / b["stangning"] - 1 / b["odds"]) * 100 for b in _L2(root / "bokforing_v3.json").counted
-            if b.get("stangning") and b.get("odds") and b.get("avspark") and b["avspark"] < time.time()]
+    # CLV mot skarp stängning (Pinnacle-referensen), inte mot Unibets eget stängningsodds
+    _clv = [b["clv_skarp_pp"] for b in _L2(root / "bokforing_v3.json").counted
+            if b.get("clv_skarp_pp") is not None and b.get("avspark") and b["avspark"] < time.time()]
     if settings.get("football_live", False) and _grad(root, "fotboll_props", _clv, settings, "Fotbollsprops", notify, diag.log):
         scale = 1.0   # bevisad CLV: full ¼ Kelly som NBA
     cap_u = settings.get("football_live_max_units", 10)
@@ -490,6 +491,12 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
     from .export import write_site
     from .ledger import Ledger
     from .results import settle_open
+    def _skarp(lg):   # CLV mot skarp stängning (Pinnacle-referensen), även bakåt
+        try:
+            from .skarp_clv import refresh as skarp_refresh
+            skarp_refresh((lg,), hist.d, time.time(), [q for _e, qs, _n in data for q in qs])
+        except Exception as e:  # noqa: BLE001 – får aldrig stoppa skanningen
+            diag.log(f"Skarp stängning: FEL {type(e).__name__}: {e}")
     ledger = Ledger(root / "bokforing_v3.json")   # v3: ren start 3/11 (bara skott på mål, nya regler)
     evd_by_id = {evd["id"]: evd for evd, _, _ in data}
     new_bets = ledger.record(rows, evd_by_id)
@@ -504,6 +511,7 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
             diag.log(line)
     except Exception as e:  # rättningen får aldrig stoppa skanningen
         diag.log(f"Rättning: oväntat fel {type(e).__name__}: {e}")
+    _skarp(ledger)
     ledger.save()
     diag.log(f"Bokförda nya spel: {len(new_bets)}")
     # Skuggspel: ben med minst 2 % edge inom oddsramen som stoppades av reglerna.
@@ -519,6 +527,7 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
         settle_open(shadow_ledger, JsonClient(root / ".cache_odds", ttl_s=900))
     except Exception as e:
         diag.log(f"Rättning (skuggspel): {type(e).__name__}: {e}")
+    _skarp(shadow_ledger)
     shadow_ledger.save()
     diag.log(f"Skuggspel: {len(new_shadow)} nya bokförda (stoppade av reglerna, minst 2 % edge)")
     test_ledger = Ledger(root / "bokforing_modell_v4.json")   # v4: ren start 3/11
@@ -528,6 +537,7 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
         settle_open(test_ledger, JsonClient(root / ".cache_odds", ttl_s=900))
     except Exception as e:
         diag.log(f"Rättning (modelltest): {type(e).__name__}: {e}")
+    _skarp(test_ledger)
     test_ledger.save()
     n_test = sum(r.row.decision.playable and r.row.decision.show for r in shadow_rows)
     diag.log(f"Modelltest: {n_test} spelbara enligt modellen, {len(new_test)} nya testspel bokförda")

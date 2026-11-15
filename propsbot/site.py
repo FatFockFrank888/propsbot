@@ -27,6 +27,9 @@ def _load(p: Path, default):
         return default
 
 
+from .skarp_clv import stats as _skarp_stats
+
+
 def _summary(bets: list[dict]) -> dict:
     """Samma nycklar som fotbollens/NBA:s Ledger.summary() (andelar av bankrullen)."""
     done = [b for b in bets if b.get("status") in ("vunnen", "förlorad", "push")]
@@ -41,10 +44,14 @@ def _summary(bets: list[dict]) -> dict:
     now = time.time()
     clv = [(1 / b["stangning"] - 1 / b["odds"]) * 100 for b in bets
            if b.get("stangning") and b.get("odds") and b.get("avspark") and b["avspark"] < now]
+    sk = _skarp_stats(bets, now)
     return {"antal": len(bets), "rattade": len(done), "oppna": sum(b.get("status") == "öppen" for b in bets),
             "vunna": sum(b.get("status") == "vunnen" for b in done), "insats_pct": st, "resultat_pct": res,
             "roi": res / st if st else None, "per_bolag": per,
-            "clv_pp": sum(clv) / len(clv) if clv else None, "clv_antal": len(clv)}
+            "clv_bolag_pp": sum(clv) / len(clv) if clv else None, "clv_bolag_antal": len(clv), **sk,
+            # CLV = mot skarp stängning där den finns (props), annars bolagets eget stängningsodds (t.ex. sides)
+            "clv_pp": sk["clv_skarp_pp"] if sk["clv_skarp_antal"] else (sum(clv) / len(clv) if clv else None),
+            "clv_antal": sk["clv_skarp_antal"] or len(clv)}
 
 
 def build_site(root: Path, settings_path: Path) -> None:
