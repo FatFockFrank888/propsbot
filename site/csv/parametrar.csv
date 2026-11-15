@@ -35,18 +35,18 @@ Fotboll,Startelvor (props),krävs,"Används när den finns: har ESPN matchen är
 Fotboll,Startelvor (sides/totals),väntar inte,Av sedan 7/11: Pinnacle prisar redan in laguppställningar och nyheter. Spärren stoppade 138 skuggspel som slog Pinnacles stängning med +2 pe i snitt. Startelvan syns ändå i loggen och sharp money-spärren gäller.
 Fotboll,Skarpa referenser (sides),Pinnacle + Smarkets (börs),"Smarkets öppna API: köp/sälj-mitten när spreaden är högst 4 pe. Finns båda är facit snittet och Smarkets måste också visa värde. Hörnor – total, lagtotal och handikapp (Kambis 3-vägs = tvåvägs halvlinjer) – jämförs bara mot Smarkets (Pinnacle saknar dem), mot det försiktiga priset (mitten minus halva spreaden) och med +1 % extra edge; ett hörnspel och ett målspel per match; rättas mot ESPN:s matchprotokoll. Spelarprops, fouls och målskytt hos Smarkets saknar likviditet – används inte."
 Fotboll,Sides/totals: edgekrav,3 % (alternativ Pinnacle-linje +1 %),Lägre än 5 % eftersom referensen är Pinnacles huvudlinje (skarpast i världen): mot den är 3 % en verklig edge. 1 %–3 % bokförs som Sides-skugga för att mäta nivån.
-Fotboll,Sides/totals: högsta edge,10 %,"Större edge mot Pinnacle = nästan alltid gammal linje, nyhet (uppställning/skada) eller fel match. Bokförs som skugga."
-Fotboll,Sides/totals: oddsram,"1,40–6,00",Bredare än props uppåt så att oavgjort och små skrällar kommer med.
+Fotboll,Sides/totals: högsta edge,15 %,"Större edge mot Pinnacle = nästan alltid gammal linje, nyhet (uppställning/skada) eller fel match. Bokförs som skugga."
+Fotboll,Sides/totals: oddsram,"1,25–10,00",Bredare än props uppåt så att oavgjort och små skrällar kommer med.
 Fotboll,Sides/totals: Pinnacles insatsgräns,minst 500; under 2000 krävs +1 % edge,Gränsen visar hur skarp Pinnacles linje är. Låg gräns (ofta lägre divisioner) = svagare referens -> högre krav.
 Fotboll,Sides/totals: mindre ligor,"på – alla Kambi-ligor (ej esport) inom 12 h före avspark, max 150 matcher",Lägre divisioner och mindre ligor har oftare felsatta linjer. Bara huvudmarknaderna hämtas (snabbt). Rättas mot ESPN:s samlade resultattavla.
 Fotboll,Sides/totals: övrigt,"max oddsfall 3 %, sharp money mot oss 2 pe, ett spel per match, inom 24 h före avspark, insats 1–10u efter styrkan (max 10u)",Samma spärrar som övriga sporter. Rättas mot ESPN:s slutresultat.
 NBA,Status,LIVE (notiser),
-NBA,LIVE: edgekrav per marknad,"points 7 %, threes 7 %, assists 7 %, rebounds 7 %","Marknader som saknas här (steals, blocks, PRA …) spelas inte live."
-NBA,LIVE: högsta edge,15 %,Större edge slog inte stängningen i datan (oftast fel i linje/modell).
+NBA,LIVE: edgekrav per marknad,"points 7 %, threes 7 %, assists 7 %, rebounds 7 %, steals 7 %, blocks 7 %, pr 7 %, pra 7 %, ra 7 %, pa 7 %","Marknader som saknas här (steals, blocks, PRA …) spelas inte live."
+NBA,LIVE: högsta edge,20 %,Större edge slog inte stängningen i datan (oftast fel i linje/modell).
 NBA,LIVE: modellen,får inte säga emot (modellens edge ≥ 5 % om den har en rad); krävs för ,"12/11, 1 378 spel: assist/returer/trepoängare utan modellrad slog stängningen med +2,8 pe (t 11,6); poäng över utan modellens stöd gav −18 %. Spel med modellens stöd väljs först."
 NBA,LIVE: jämförelsekällor,"minst 2, varav Pinnacle","Pinnacle, Kalshi, DraftKings (via ESPN), SportsGameOdds, The Odds API"
-NBA,LIVE: oddsram,"1,60–3,00",
-NBA,LIVE: risk,"insats 1–10u efter styrkan, max 10u/spel, 2/match, 16 spel och 40u per matchdag",
+NBA,LIVE: oddsram,"1,50–3,50",
+NBA,LIVE: risk,"insats 1–10u efter styrkan, max 10u/spel, 3/match, 20 spel och 100u per matchdag",
 NBA,Modellvikt,0.3 × dq,"Blandas med marknaden i log-odds. dq = datakvalitet 0,2–1 (antal matcher i underlaget / 15): tunt underlag -> marknaden väger mer. Halveras när modell och marknad skiljer mycket."
 NBA,Brier modell / marknad,visas under Resultat,Mäter om modellen slår marknadens egen sannolikhet på avgjorda spel (lägre = bättre).
 NBA,Matcher,"inom 30 h, max 15",
