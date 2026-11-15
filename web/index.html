@@ -517,7 +517,9 @@ function norm(b, sport, typ) {
     sida: ({under: "Under", home: "Hemma", draw: "Oavgjort", away: "Borta"})[b.sida] || "Över", utfall: b.utfall, stopp: b.stopp || "",
     spela_fran: b.spela_fran, notis: b.notis, linje: b.linje, nyhet: b.nyhet, nyhetStatus: b.nyhet_status, nyhetTs: b.nyhet_ts, sidaKey: b.sida || "over", modell_edge: b.modell_edge,
     res: b.resultat_enheter == null ? null : b.resultat_enheter / U,
-    analys: b.analys, prognos: b.prognos, ratt_odds: b.ratt_odds, forv_clv_pp: b.forv_clv_pp, clv_signal: b.clv_signal};
+    analys: b.analys, prognos: b.prognos, bolagBok: b.bolag_bokning, bolagSt: b.bolag_stangning,
+    pinP: b.pin_stang_p, dkP: b.dk_stang_p, pinP0: b.pin_p ?? b.bolag_bokning?.pin_p, dkP0: b.bolag_bokning?.dk_p,
+    smkP0: b.smk_p, smkP: b.smk_stang_p, pMk: b.p_marknad, stangU: b.stangning, ratt_odds: b.ratt_odds, forv_clv_pp: b.forv_clv_pp, clv_signal: b.clv_signal};
 }
 function normParlay(x, sport) {
   return {sport, typ: "Parlay", bokford: x.bokford, avspark: Math.max(...x.ben.map(l => l.avspark || 0)),
@@ -671,11 +673,12 @@ function strength(r) {
 }
 // Analysen för ett Official Bet: radarns rad om den finns kvar (aktuell), annars den som sparades på spelet.
 function anOf(r, cur) {
-  if (cur) return cur;
+  if (cur) return {...cur, bet: r};
   return {sport: r.sport, spelare: r.spelare, match: r.match, avspark: r.avspark ? new Date(r.avspark * 1000).toISOString().slice(0, 16).replace("T", " ") : null,
     spel: r.spel, marknad: r.mkKey, linje: r.linje, sida: r.sidaKey, odds: r.odds, bolag: r.bolag, ratt_odds: r.ratt_odds || (r.p ? 1 / r.p : null),
     sannolikhet: r.p, edge: r.edge, insats: Math.round(r.u) || null, spelbar: true, live: true, spela_fran: r.spela_fran, p_modell: r.pm,
-    kommentar: r.stopp, analys: r.analys || {}, prognos: r.prognos, forv_clv_pp: r.forv_clv_pp, clv_signal: r.clv_signal};
+    kommentar: r.stopp, analys: r.analys || {}, prognos: r.prognos, forv_clv_pp: r.forv_clv_pp, clv_signal: r.clv_signal,
+    bet: r};
 }
 function renderNu() {
   const now = Date.now() / 1000;
@@ -892,6 +895,43 @@ function logChart(rows, line, under) {
       <text x="${cx + bw / 2}" y="${H - 6}" text-anchor="middle">${nf(r.min, 0)} min</text>`; }).join("");
   return `<svg class="ch" viewBox="0 0 ${W} ${H}" width="100%">${bars}<line x1="${P}" x2="${W - P}" y1="${y(line)}" y2="${y(line)}" stroke="var(--accent)" stroke-width="2" stroke-dasharray="4 3"/></svg>`;
 }
+// Bolagen vid bokning och vid stängning: Unibet (där vi spelar) mot Pinnacle och DraftKings.
+// Rättvisa odds = bolagets pris utan marginal för vår sida. CLV = stängningens sannolikhet − 1/vårt odds.
+function booksCmp(r) {
+  const b = r.bet || {}, a = r.analys || {}, under = (r.sida || "over") === "under", sd = under ? "under" : "over";
+  const our = b.odds || r.odds, cl = p => p == null || !our ? null : (p - 1 / our) * 100;
+  const fo = p => p ? nf(1 / p) : "–";
+  const raw = (snap, bk) => { const o = snap?.odds?.[bk]; return o ? `${nf(o.over)} / ${nf(o.under)}` : ""; };
+  const rowsB = [];
+  rowsB.push({n: `${esc(b.bolag || "unibet")} <span class='why'>vi spelar här</span>`, bok: nf(our), st: b.stangU ? nf(b.stangU) : "–",
+    rawB: raw(b.bolagBok, "unibet"), rawS: raw(b.bolagSt, "unibet"), clv: b.clvBolag, note: "faktiskt odds, vår sida"});
+  if (b.pinP0 != null || b.pinP != null) rowsB.push({n: "Pinnacle" + (b.bolagSt?.pin_flyttad ? " <span class='why'>omräknad från närliggande linje</span>" : ""),
+    bok: fo(b.pinP0), st: fo(b.pinP), rawB: raw(b.bolagBok, "pinnacle"), rawS: raw(b.bolagSt, "pinnacle"), clv: cl(b.pinP), note: "rättvisa odds"});
+  if (b.dkP0 != null || b.dkP != null) rowsB.push({n: "DraftKings", bok: fo(b.dkP0), st: fo(b.dkP),
+    rawB: raw(b.bolagBok, "draftkings"), rawS: raw(b.bolagSt, "draftkings"), clv: cl(b.dkP), note: "rättvisa odds"});
+  if (b.smkP0 != null || b.smkP != null) rowsB.push({n: "Smarkets (börs)", bok: fo(b.smkP0), st: fo(b.smkP), clv: cl(b.smkP), note: "rättvisa odds"});
+  if (b.pMk != null || b.skarpP != null) rowsB.push({n: "<b>Referens</b> <span class='why'>Pinnacle/DK-konsensus – CLV räknas mot denna</span>",
+    bok: fo(b.pMk ?? b.p), st: fo(b.skarpP), clv: b.skarp ? b.clv : cl(b.skarpP), note: "rättvisa odds", main: true});
+  // inget bokat spel: visa bolagens odds just nu (radarn)
+  if (!r.bet && (a.odds_bolag || []).length) {
+    const pick = ["unibet", "pinnacle", "us_draftkings"];
+    const cur = a.odds_bolag.filter(o => pick.includes(o.bolag));
+    if (!cur.length) return "";
+    return `<h3>Bolagen just nu · ${sd === "under" ? "under" : "över"} ${nf(r.linje ?? lineOf(r.spel), 1)}</h3>
+      <table class="ft"><tr><td class="why">Bolag</td><td class="n why">Över</td><td class="n why">Under</td></tr>
+      ${cur.map(o => `<tr><td>${esc(o.bolag.replace("us_", ""))}</td><td class="n">${nf(o.over)}</td><td class="n">${nf(o.under)}</td></tr>`).join("")}</table>`;
+  }
+  if (rowsB.length < 2) return "";
+  const hasRaw = rowsB.some(x => x.rawB || x.rawS);
+  return `<h3>Bolagen: när spelet lades → stängning · ${esc(r.spel || (under ? "under" : "över"))}</h3>
+    <table class="ft"><tr><td class="why">Bolag</td><td class="n why">Vid bokning</td><td class="n why">Stängning</td>
+      ${hasRaw ? `<td class="n why">Odds över / under (bokning → stängning)</td>` : ""}<td class="n why">CLV för oss</td></tr>
+    ${rowsB.map(x => `<tr${x.main ? ` style="font-weight:700"` : ""}><td>${x.n}<div class="why">${x.note}</div></td><td class="n">${x.bok}</td><td class="n">${x.st}</td>
+      ${hasRaw ? `<td class="n why">${x.rawB || "–"}${x.rawS && x.rawS !== x.rawB ? " → " + x.rawS : ""}</td>` : ""}
+      <td class="n ${cls(x.clv)}">${x.clv == null ? "–" : sgn(x.clv, 2) + " pe"}</td></tr>`).join("")}</table>
+    <div class="txt">Rättvisa odds = bolagets pris utan marginal för vår sida. Stängning = senaste notering före start${b.status === "öppen" && b.avspark > Date.now() / 1000 ? " (matchen har inte startat – siffrorna uppdateras fram till start)" : ""}.
+      CLV för oss = stängningens sannolikhet minus sannolikheten i vårt odds ${nf(our)} hos ${esc(b.bolag || "unibet")} – positivt betyder att vi fick bättre pris än marknaden stängde på.</div>`;
+}
 function openAn(i) {
   const r = AN[i], a = r.analys || {}, under = (r.sida || "over") === "under", line = r.linje ?? lineOf(r.spel);
   const side = under ? "under" : "över", mk = MK[r.marknad] || r.marknad;
@@ -930,6 +970,8 @@ function openAn(i) {
       <div><div class="k">Prognos</div><div class="v">${r.prognos == null ? "–" : nf(r.prognos, 1)}</div><div class="s">${r.linje == null ? "" : "linje " + nf(r.linje, 1)}</div></div>
     </div>
     ${cushionBar(r.odds, r.spela_fran) ? `<div style="margin-top:12px">${cushionBar(r.odds, r.spela_fran)}</div>` : ""}
+
+    ${booksCmp(r)}
 
     <h3>Källor och regler</h3>
     ${why.length ? `<ul class="ab">${why.map(w => `<li>${esc(w)}</li>`).join("")}</ul>` : `<div class="txt">Inga anmärkningar – alla regler klarade.</div>`}

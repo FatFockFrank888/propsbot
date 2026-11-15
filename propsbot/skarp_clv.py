@@ -65,24 +65,35 @@ def recompute(b: dict) -> None:
     b["clv_dk_pp"] = _pp(b.get("dk_stang_p"), b.get("odds"))
 
 
-def book_probs(quotes) -> dict[tuple, dict[str, float]]:
-    """(match_id, spelare, marknad, linje) -> {"pinnacle": p_över, "draftkings": p_över}, tvåsidigt utan marginal.
-    Pinnacle ensidigt (bara över) får 3 % marginal, som i scan.group_fair_prob."""
+def book_probs(quotes) -> dict[tuple, dict]:
+    """(match_id, spelare, marknad, linje) -> {"pinnacle": p_över, "draftkings": p_över, "_raw": {...}}.
+    p är tvåsidigt utan marginal; Pinnacle ensidigt (bara över) får 3 % marginal, som i scan.group_fair_prob.
+    "_raw": bolagens faktiska odds {"pinnacle"/"draftkings"/"unibet": {"over": o, "under": o}} för analysen;
+    "_pin_flyttad": Pinnacles pris är omräknat från en närliggande linje (nba.interpolate_pinnacle)."""
     by: dict[tuple, dict[str, dict[str, float]]] = defaultdict(lambda: defaultdict(dict))
+    moved: set = set()
     for q in quotes:
-        name = "pinnacle" if q.book == "pinnacle" else "draftkings" if q.book in DK_BOOKS else None
+        name = ("pinnacle" if q.book == "pinnacle" else "draftkings" if q.book in DK_BOOKS
+                else "unibet" if q.book == "unibet" else None)
         if name and q.odds and q.odds > 1.0:
-            by[(q.match_id, q.player_id, q.market, q.line)][name][q.side] = q.odds
-    out: dict[tuple, dict[str, float]] = {}
+            k = (q.match_id, q.player_id, q.market, q.line)
+            by[k][name][q.side] = q.odds
+            if name == "pinnacle" and str(getattr(q, "variant", "")).startswith("flyttad"):
+                moved.add(k)
+    out: dict[tuple, dict] = {}
     for k, books in by.items():
-        d = {}
+        d: dict = {}
         for name, s in books.items():
+            if name == "unibet":
+                continue
             if "over" in s and "under" in s:
                 d[name] = devig_power((s["over"], s["under"]))[0]
             elif name == "pinnacle" and "over" in s:
                 d[name] = 1.0 / (s["over"] * 1.03)
-        if d:
-            out[k] = d
+        d["_raw"] = {name: {sd: round(o, 3) for sd, o in s.items()} for name, s in books.items()}
+        if k in moved:
+            d["_pin_flyttad"] = True
+        out[k] = d
     return out
 
 
@@ -104,10 +115,15 @@ def update(ledger, hist_d: dict, now: float, books: dict | None = None, source: 
             bp = books.get((b.get("match_id"), b.get("spelare_id"), b.get("marknad"), b.get("linje")))
             if bp:
                 under = b.get("sida") == "under"
+                snap = {"ts": now, "odds": bp.get("_raw", {}), "pin_flyttad": bool(bp.get("_pin_flyttad"))}
                 if "pinnacle" in bp:
-                    b["pin_stang_p"] = 1.0 - bp["pinnacle"] if under else bp["pinnacle"]
+                    b["pin_stang_p"] = snap["pin_p"] = 1.0 - bp["pinnacle"] if under else bp["pinnacle"]
                 if "draftkings" in bp:
-                    b["dk_stang_p"] = 1.0 - bp["draftkings"] if under else bp["draftkings"]
+                    b["dk_stang_p"] = snap["dk_p"] = 1.0 - bp["draftkings"] if under else bp["draftkings"]
+                # Analysen: bolagens odds vid bokningen (första noteringen) och senast före start (= stängning)
+                if "bolag_bokning" not in b and now - (b.get("bokford") or 0) < 1800:   # bara i bokningens körning
+                    b["bolag_bokning"] = snap
+                b["bolag_stangning"] = snap
                 b["bolag_stang_ts"] = now
                 changed = True
         if changed:

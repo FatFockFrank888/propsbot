@@ -48,3 +48,21 @@ def test_clv_prefers_sharp_and_stats():
     b["clv_skarp_pp"] = (0.50 - 1 / 2.10) * 100
     s = stats([b], 20_000.0)
     assert s["clv_skarp_antal"] == 1 and s["clv_skarp_slog"] == 1.0
+
+
+def test_book_snapshots_for_analysis():
+    """Analysen: bolagens odds vid bokningen och senast före start sparas på spelet."""
+    qs = [OddsQuote("pinnacle", "m1", "p1", "points", 20.5, "over", 1.90, 0),
+          OddsQuote("pinnacle", "m1", "p1", "points", 20.5, "under", 1.90, 0),
+          OddsQuote("unibet", "m1", "p1", "points", 20.5, "over", 2.10, 0)]
+    b = _bet(bokford=8_990.0)
+    lg = NS(bets=[b])
+    update(lg, {}, 9_000.0, book_probs(qs))
+    assert b["bolag_bokning"]["odds"]["unibet"]["over"] == 2.10
+    assert b["bolag_bokning"]["odds"]["pinnacle"] == {"over": 1.90, "under": 1.90}
+    qs[0] = OddsQuote("pinnacle", "m1", "p1", "points", 20.5, "over", 1.80, 0)
+    update(lg, {}, 9_500.0, book_probs(qs))
+    assert b["bolag_bokning"]["ts"] == 9_000.0 and b["bolag_stangning"]["odds"]["pinnacle"]["over"] == 1.80
+    old = _bet(bokford=0.0)                     # bokat långt tidigare: ingen falsk "bokning"-notering
+    update(NS(bets=[old]), {}, 9_000.0, book_probs(qs))
+    assert "bolag_bokning" not in old and "bolag_stangning" in old
