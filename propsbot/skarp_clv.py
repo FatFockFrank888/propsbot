@@ -17,6 +17,15 @@ Fält på spelet:
   pin_stang_p, dk_stang_p          Pinnacles resp. DraftKings rättvisa sannolikhet (om de fanns)
   clv_skarp_pp, clv_pin_pp, clv_dk_pp
   skarp_kalla                      "skanning" (löpande) eller "bakåt" (rekonstruerad ur datahistoriken)
+  skarp_status                     verifierad | flyttad linje | borttagen | gammal notering (se classify)
+  skarp_flyttad_fran, skarp_flytt_for_oss
+                                   linjen som referensen flyttade till och om flytten gick vår väg
+
+Försvinner vår linje hos referensen men en närliggande linje för samma spelare och marknad finns kvar
+till start (NBA), räknas den linjens stängning om till vår linje med samma negativa binomial som
+nba.interpolate_pinnacle. Flytten säger också åt vilket håll pengarna gick: över + linjen upp
+(under + linjen ned) = pengar på vår sida. Analys 15/11 (NBA, 31/10–15/11): ~80 % av flyttarna gick
+vår väg, och de spelen hade klart bättre CLV och ROI än flyttar mot oss.
 """
 from __future__ import annotations
 
@@ -45,6 +54,8 @@ VERIFIED_MIN = 60   # skarp stängning noterad högst så här många minuter f�
 def recompute(b: dict) -> None:
     ts, ko = b.get("skarp_stang_ts"), b.get("avspark")
     b["skarp_verifierad"] = bool(ts and ko and ko - ts <= VERIFIED_MIN * 60)
+    if b.get("skarp_flyttad_fran") is None:
+        b["skarp_status"] = "verifierad" if b["skarp_verifierad"] else "gammal notering" if ts else None
     b["clv_skarp_pp"] = _pp(b.get("skarp_stang_p"), b.get("odds"))
     b["clv_pin_pp"] = _pp(b.get("pin_stang_p"), b.get("odds"))
     b["clv_dk_pp"] = _pp(b.get("dk_stang_p"), b.get("odds"))
@@ -129,6 +140,8 @@ def refresh(ledgers, hist_d: dict | None, now: float, quotes=None) -> int:
         apply_backfill(lg)
         if hist_d is not None or books is not None:
             n += update(lg, hist_d or {}, now, books)
+        if hist_d:
+            apply_moved(lg, hist_d)
     return n
 
 
@@ -145,4 +158,94 @@ def stats(bets: list[dict], now: float) -> dict:
     return {"clv_skarp_pp": a, "clv_skarp_antal": na, "clv_skarp_slog": ba,
             "clv_skarp_ver_pp": v, "clv_skarp_ver_antal": nv, "clv_skarp_ver_slog": bv,
             "clv_pin_pp": pn, "clv_pin_antal": npn, "clv_dk_pp": dk, "clv_dk_antal": ndk,
-            "clv_skarp_tackning": (na / len(st)) if st else None}
+            "clv_skarp_tackning": (na / len(st)) if st else None,
+            "clv_skarp_per_status": {k: {"n": len(v), "clv_pp": sum(v) / len(v)} for k, v in _by_status(st).items()}}
+
+
+def _by_status(st: list[dict]) -> dict[str, list[float]]:
+    g: dict[str, list[float]] = defaultdict(list)
+    for b in st:
+        if b.get("clv_skarp_pp") is None:
+            continue
+        k = b.get("skarp_status") or "?"
+        if k == "flyttad linje":
+            k += " (för oss)" if b.get("skarp_flytt_for_oss") else " (mot oss)"
+        g[k].append(b["clv_skarp_pp"])
+    return g
+
+
+def _lines_by_player(hist_d: dict) -> dict[str, dict[float, list]]:
+    """match|spelare|marknad -> {linje: [(p_över, ts), ...]} ur historikens nycklar (båda sidor)."""
+    out: dict[str, dict[float, list]] = defaultdict(lambda: defaultdict(list))
+    for k, h in hist_d.items():
+        parts = k.split("|")
+        if len(parts) < 4 or len(h) < 4 or h[2] is None or h[3] is None:
+            continue
+        try:
+            ln = float(parts[3])
+        except ValueError:
+            continue
+        p_over = 1.0 - h[2] if len(parts) > 4 and parts[4] == "under" else h[2]
+        out["|".join(parts[:3])][ln].append((p_over, h[3]))
+    return out
+
+
+def translate(p_over: float, from_line: float, to_line: float, market: str) -> float | None:
+    """P(över to_line) givet referensens P(över from_line) – samma metod som nba.interpolate_pinnacle."""
+    from .nba import NB_R
+    from .player_model import nb_over
+    if market not in NB_R:
+        return None
+    r = NB_R[market]
+    lo, hi = 0.01, 120.0
+    for _ in range(60):
+        mid = (lo + hi) / 2
+        if nb_over(mid, from_line, r) < p_over:
+            lo = mid
+        else:
+            hi = mid
+    p = nb_over((lo + hi) / 2, to_line, r)
+    return p if 0.03 < p < 0.97 else None
+
+
+def apply_moved(ledger, hist_d: dict) -> int:
+    """Spel vars linje försvann hos referensen > 60 min före start: finns en närliggande linje kvar
+    (noterad efter vår sista notering, före start) räknas dess stängning om till vår linje."""
+    from .nba import MAX_LINE_GAP
+    by = _lines_by_player(hist_d)
+    n = 0
+    for b in ledger.bets:
+        ko, ts = b.get("avspark"), b.get("skarp_stang_ts")
+        if not ko or not ts or b.get("skarp_verifierad") or b.get("skarp_flyttad_fran") is not None:
+            continue
+        lines = by.get(f"{b.get('match_id')}|{b.get('spelare_id')}|{b.get('marknad')}")
+        if not lines:
+            continue
+        gap = MAX_LINE_GAP.get(b.get("marknad"), 1.5)
+        best = None
+        for ln, obs in lines.items():
+            if ln == b.get("linje") or abs(ln - b["linje"]) > gap:
+                continue
+            pre = [o for o in obs if ts < o[1] < ko]
+            if pre:
+                o = max(pre, key=lambda x: x[1])
+                if best is None or (o[1], -abs(ln - b["linje"])) > (best[2], -abs(best[0] - b["linje"])):
+                    best = (ln, o[0], o[1])
+        if not best:
+            if ko - ts > VERIFIED_MIN * 60:
+                b["skarp_status"] = "borttagen"
+            continue
+        ln, p_over, t = best
+        p = translate(p_over, ln, b["linje"], b.get("marknad"))
+        if p is None:
+            continue
+        under = b.get("sida") == "under"
+        b["skarp_stang_p_egen_linje"], b["skarp_stang_ts_egen_linje"] = b.get("skarp_stang_p"), ts
+        b["skarp_stang_p"] = 1.0 - p if under else p
+        b["skarp_stang_ts"] = t
+        b["skarp_flyttad_fran"] = ln
+        b["skarp_flytt_for_oss"] = (ln > b["linje"]) != under   # över + linjen upp = pengar på vår sida
+        recompute(b)
+        b["skarp_status"] = "flyttad linje"
+        n += 1
+    return n

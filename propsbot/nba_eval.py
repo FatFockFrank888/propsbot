@@ -181,6 +181,7 @@ def summarize(bets: list[dict], rnd: random.Random) -> dict:
         "clv_tackning": (len(ver) / max(1, len([b for b in bets if b.get("avspark") and b["avspark"] < now_ts]))) if bets else None,
         "clv_slog": (sum(v > 0 for v in clv_all) / len(clv_all)) if clv_all else None,
         "clv_bolag_pp": (sum(bolag) / len(bolag)) if bolag else None,
+        "clv_per_status": _skarp_status(started, settled),
         "clv_pin_pp": (sum(pin) / len(pin)) if pin else None, "clv_pin_antal": len(pin),
         "clv_dk_pp": (sum(dk) / len(dk)) if dk else None, "clv_dk_antal": len(dk),
         "stangning_min_fore_start_median": sorted(ages)[len(ages) // 2] if ages else None,
@@ -190,6 +191,22 @@ def summarize(bets: list[dict], rnd: random.Random) -> dict:
 
 
 SHADOW_FIELDS = ("p_stack", "p_modell_min", "p_faktorer", "p_faktorer_ra")   # p_faktorer: nba_factors
+
+
+def _skarp_status(started: list[dict], settled: list[dict]) -> dict:
+    """Skarp CLV och ROI flat per stängningsstatus (verifierad / flyttad linje för resp. mot oss / borttagen)."""
+    def key(b):
+        k = b.get("skarp_status") or "?"
+        return k + ((" (för oss)" if b.get("skarp_flytt_for_oss") else " (mot oss)") if k == "flyttad linje" else "")
+    g = defaultdict(list)
+    for b in started:
+        g[key(b)].append(b["clv_skarp_pp"])
+    roi = defaultdict(list)
+    for b in settled:
+        if b.get("clv_skarp_pp") is not None and b["status"] in ("vunnen", "förlorad"):
+            roi[key(b)].append((b["odds"] - 1) if b["status"] == "vunnen" else -1.0)
+    return {k: {"n": len(v), "clv_pp": sum(v) / len(v),
+                "roi_flat": (sum(roi[k]) / len(roi[k])) if roi.get(k) else None} for k, v in sorted(g.items())}
 
 
 def _shadow_brier(settled: list[dict], rnd: random.Random) -> dict:
@@ -285,6 +302,13 @@ def markdown(r: dict) -> str:
                  f"{_f(s['roi_flat'], pct=True)} | {_f(s['roi_modell'], pct=True)} | {_f(s['max_drawdown_flat_u'], 1)} | "
                  f"{_f(s['clv_pp'], 2)} ({'–' if not ci else f'{ci[0]:+.2f}…{ci[1]:+.2f}'}) | {_f(s['clv_verifierad_pp'], 2)} | {_f(s['clv_tackning'], 2)} | {_f(s.get('clv_slog'), pct=True)} | {_f(s.get('clv_bolag_pp'), 2)} | "
                  + ("–" if not br else f"{br['modell']:.4f} / {br['marknad']:.4f} ({br['n']})") + " |")
+    L += ["", "## Skarp stängning per status", "",
+          "Verifierad = referensens notering högst 60 min före start. Flyttad linje = vår linje försvann men en närliggande "
+          "fanns kvar; stängningen omräknad till vår linje. För oss = över + linjen upp / under + linjen ned (pengar på vår sida).", "",
+          "| Bokföring | Status | n | CLV pe skarp | ROI flat |", "|---|---|---|---|---|"]
+    for k, s_ in r["per_bokforing"].items():
+        for st_, x in (s_.get("clv_per_status") or {}).items():
+            L.append(f"| {k} | {st_} | {x['n']} | {_f(x['clv_pp'], 2)} | {_f(x['roi_flat'], pct=True)} |")
     L += ["", "## Status per marknad", "", "| Marknad | Status | Brier modell / marknad (n) | Skillnad 95 % | CLV pe (95 %) modelltest | LIVE avgjorda | LIVE ROI flat |",
           "|---|---|---|---|---|---|---|"]
     for mk, d in r["per_marknad"].items():

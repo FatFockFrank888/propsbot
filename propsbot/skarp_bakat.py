@@ -9,7 +9,7 @@ Körs för hand (behöver hela datagrenens historik):
     git fetch origin data
     python -m propsbot.skarp_bakat [ref=origin/data] [ut=propsbot/skarp_stangning_bakat.json]
 
-Resultatet (linjenyckel -> [p, ts]) läses in av boten vid varje körning (apply_backfill) och
+Resultatet (linjenyckel -> [p, ts], alla linjer för spelare/marknader som bokförts) läses in av boten vid varje körning (apply_backfill) och
 fylls i på spel som saknar skarp stängning eller har en äldre notering. Idempotent.
 """
 from __future__ import annotations
@@ -50,13 +50,13 @@ def _show_many(specs: list[str]) -> list[bytes | None]:
 
 def build(ref: str = "origin/data") -> dict[str, list]:
     from .skarp_clv import line_key_bet
-    # avspark per linjenyckel från bokföringarnas senaste version
+    # avspark per spelare/marknad (alla linjer och sidor behövs för flyttade linjer)
     kickoff: dict[str, float] = {}
     for f in LEDGERS:
         raw = _show_many([f"{ref}:{f}"])[0]
         for b in (json.loads(raw) if raw else []):
             if b.get("avspark") and b.get("match_id"):
-                kickoff[line_key_bet(b)] = float(b["avspark"])
+                kickoff["|".join(line_key_bet(b).split("|")[:3])] = float(b["avspark"])
     commits = _git("rev-list", "--reverse", ref).split()
     best: dict[str, list] = {}
     for f in HIST_FILES:
@@ -69,7 +69,7 @@ def build(ref: str = "origin/data") -> dict[str, list]:
             except json.JSONDecodeError:
                 continue
             for k, h in d.items():
-                ko = kickoff.get(k)
+                ko = kickoff.get("|".join(k.split("|")[:3]))
                 if ko is None or len(h) < 4 or h[2] is None or h[3] >= ko:
                     continue
                 if k not in best or h[3] > best[k][1]:
@@ -83,9 +83,11 @@ def apply_backfill(ledger, path: Path = BACKFILL) -> int:
         bf = json.loads(path.read_text(encoding="utf-8"))
     except (FileNotFoundError, json.JSONDecodeError):
         return 0
-    from .skarp_clv import update
+    from .skarp_clv import apply_moved, update
     hist_like = {k: [None, None, v[0], v[1]] for k, v in bf.items()}
-    return update(ledger, hist_like, 0.0, None, source="bakåt")
+    n = update(ledger, hist_like, 0.0, None, source="bakåt")
+    apply_moved(ledger, hist_like)
+    return n
 
 
 def main(argv: list[str]) -> None:
