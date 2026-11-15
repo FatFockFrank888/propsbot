@@ -1,47 +1,38 @@
-NBA-skanning 2026-11-15 21:44
-Kambi NBA: 0 matcher, bolag: 
-NBA tid: Kambi-props 0 s
-Pinnacle NBA: FEL SourceError: HTTP 403 för https://guest.api.arcadia.pinnacle.com/0.1/sports/4/leagues
-Kalshi: 257 likvida linjer av 1971 öppna marknader
-Kalshi: 0 linjer kopplade till matcher
+NBA-skanning 2026-11-15 22:04
+Kambi NBA: 6 matcher, bolag: atg, betmgm, expekt, leovegas, paf, svenskaspel, unibet
+NBA tid: Kambi-props 16 s
+Pinnacle NBA: 6 matcher, 406 spelarodds (8 s)
+Kalshi: 306 likvida linjer av 1970 öppna marknader
+Kalshi: 196 linjer kopplade till matcher
 DK/FD: 0 nya hämtningar, 0 odds i bruk, krediter kvar 313, dagsbudget 18 (andel 60%), förbrukat idag 10
 SportsGameOdds NBA: vilar efter kvotfel till 16/11 19:35 UTC
-DraftKings via ESPN: 0 matcher, 0 spelarodds (referens)
-NBA linjer: 0 med samma linje hos Pinnacle, 0 flyttade från närliggande linje
-NBA-odds (unibet/pinnacle) per marknad: 
-NBA faktormodell (skugga): ingen ligabaslinje (boxscores i äldre format?)
-NBA-modell: 0 matcher hos ESPN, 0 spelare, 0 nya boxscores, 76 skadade (out/doubtful)
-NBA-modell nivåavvikelse (dras bort): 
-NBA faktormodell nivåavvikelse: –
-NBA minutmodell (skugga): medel cv² 0.000, spread från Pinnacle för 0 av 0 matcher; stackning: _alla b_m -0.00 b_k 1.20 (n 294), assists b_m +0.05 b_k 1.20 (n 52), blocks b_m +0.01 b_k 1.20 (n 4), points b_m +0.01 b_k 1.20 (n 99), pr b_m -0.04 b_k 1.16 (n 22), pra b_m -0.01 b_k 1.07 (n 15), ra b_m +0.00 b_k 1.20 (n 19), rebounds b_m -0.01 b_k 1.08 (n 48), steals b_m -0.05 b_k 1.15 (n 6), threes b_m -0.03 b_k 1.12 (n 29)
-NBA-modelltest: 0 spelbara enligt modellen av 0 ben med modell
-NBA analyssida: 0 ben med analys
-NBA CLV-signal: 0 ben släppta
-NBA lagnyheter: 106 spelare på skadelistan, 0 ben stoppade, 0 markerade (questionable)
-NBA spelregler: stoppade {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0} (modelltest {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0})
-NBA: 0 spelbara ben av 0
-NBA LIVE: 0 spel uppfyller live-kraven, 0 nya bokförda live
-NBA skarp stängning: 0 spel uppdaterade
+DraftKings via ESPN: 6 matcher, 622 spelarodds (referens)
+NBA namnexempel Utah Jazz: Kambi ['ace bailey', 'darryn peterson', 'devin vassell', 'dylan harper', 'josh okogie', 'julian champagnie'] | Pinnacle ['ace bailey', 'darryn peterson', 'devin vassell', 'dylan harper', 'julian champagnie', 'keldon johnson']
+NBA Pinnacle-exempel: ['Winning Margin Range', 'Utah Jazz Points Odd/Even', 'Winning Margin Range 1st Half', 'San Antonio Spurs Points Odd/Even', 'Total Points Odd/Even', 'Moneyline and Total Points', 'Ace Bailey Total Threes Made', 'Ace Bailey Total Points']
+NBA linjer: 163 med samma linje hos Pinnacle, 38 flyttade från närliggande linje
+NBA-odds (unibet/pinnacle) per marknad: pinnacle:assists 76, pinnacle:points 170, pinnacle:rebounds 132, pinnacle:threes 104, unibet:assists 106, unibet:blocks 94, unibet:pa 106, unibet:points 150, unibet:pr 138, unibet:pra 106, unibet:ra 106, unibet:rebounds 138, unibet:steals 144, unibet:threes 124
+NBA faktormodell (skugga): 129 spelare, Pinnacle-total för 6 av 6 matcher, ligatempo 100.5
+NBA-modell: 6 matcher hos ESPN, 129 spelare, 0 nya boxscores, 77 skadade (out/doubtful)
+NBA-modell nivåavvikelse (dras bort): assists +0.13, pa +0.14, points +0.27, pr +0.22, pra +0.27, ra +0.34, rebounds +0.35, threes -0.00
+NBA faktormodell nivåavvikelse: assists -0.12, pa -0.33, points -0.08, pr -0.14, pra -0.19, ra +0.08, rebounds +0.03, threes -0.15
+NBA minutmodell (skugga): medel cv² 0.075, spread från Pinnacle för 5 av 6 matcher; stackning: _alla b_m +0.00 b_k 1.20 (n 300), assists b_m +0.05 b_k 1.20 (n 52), blocks b_m +0.02 b_k 1.19 (n 4), points b_m +0.02 b_k 1.20 (n 102), pr b_m -0.03 b_k 1.15 (n 22), pra b_m -0.02 b_k 1.07 (n 16), ra b_m -0.00 b_k 1.20 (n 20), rebounds b_m -0.02 b_k 1.04 (n 49), steals b_m -0.05 b_k 1.14 (n 6), threes b_m -0.03 b_k 1.11 (n 29)
+NBA-modelltest: 35 spelbara enligt modellen av 572 ben med modell
+NBA analyssida: 572 ben med analys
+NBA CLV-signal: 1 ben släppta
+NBA lagnyheter: 106 spelare på skadelistan, 8 ben stoppade, 0 markerade (questionable)
+NBA spelregler: stoppade {'edge': 7, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0} (modelltest {'edge': 27, 'spelare': 2, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0})
+NBA: 1 spelbara ben av 664
+NBA SPEL: Utah Jazz – San Antonio Spurs | Keyonte George points under 19.5 | unibet 1.92 | p 58.6% | edge 12.5%
+NBA LIVE: 1 spel uppfyller live-kraven, 1 nya bokförda live
+NBA LIVE SPEL: Utah Jazz – San Antonio Spurs | Keyonte George points under 19.5 | unibet 1.92 | edge 12.5% | 9u
+NBA skarp stängning: 41 spel uppdaterade
 NBA: hittar inte Dejounte Murray i boxscore (New Orleans Pelicans – Memphis Grizzlies) – väntar
 NBA: hittar inte Dejounte Murray i boxscore (New Orleans Pelicans – Memphis Grizzlies) – väntar
 NBA: hittar inte Ajay Mitchell i boxscore (LA Clippers – Oklahoma City Thunder) – väntar
 NBA: hittar inte Donovan Mitchell i boxscore (Cleveland Cavaliers – Dallas Mavericks) – väntar
-NBA rättad: Kentavious Caldwell-Pope points över 5.5 -> vunnen (9)
-NBA rättad: Pascal Siakam ra över 10.5 -> förlorad (4)
-NBA rättad: LeBron James assists över 6.5 -> vunnen (11)
-NBA rättad: VJ Edgecombe assists över 3.5 -> förlorad (6)
-NBA rättad: Tyrese Maxey rebounds över 3.5 -> förlorad (4)
-NBA rättad: Kelly Oubre Jr. assists över 1.5 -> vunnen (2)
-NBA rättad: Obi Toppin rebounds över 3.5 -> förlorad (2)
 NBA: hittar inte Pelle Larsson i boxscore (Miami Heat – Cleveland Cavaliers) – väntar
 NBA: hittar inte Dejounte Murray i boxscore (New Orleans Pelicans – Memphis Grizzlies) – väntar
 NBA: hittar inte Ajay Mitchell i boxscore (LA Clippers – Oklahoma City Thunder) – väntar
 NBA: hittar inte Donovan Mitchell i boxscore (Cleveland Cavaliers – Dallas Mavericks) – väntar
-NBA rättad: Kentavious Caldwell-Pope points över 5.5 -> vunnen (9)
-NBA rättad: Dean Wade points över 5.5 -> vunnen (12)
-NBA rättad: VJ Edgecombe pra över 23.5 -> förlorad (21)
-NBA rättad: Aaron Nesmith points över 13.5 -> vunnen (12)
-NBA rättad: Anfernee Simons ra över 3.5 -> förlorad (0)
-NBA rättad: Obi Toppin rebounds över 3.5 -> förlorad (2)
 NBA LIVE-status per marknad (skarp CLV, marknadsspel): assists ok, blocks ok, pa insufficient_data, points ok, pr osäker, pra osäker, ra osäker, rebounds ok, steals ok, threes ok
 NBA modellstatus per marknad (modelltest, styr inte): assists shadow, blocks insufficient_data, points shadow, pr insufficient_data, pra insufficient_data, ra insufficient_data, rebounds degraded, steals insufficient_data, threes insufficient_data
