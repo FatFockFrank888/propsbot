@@ -1,4 +1,4 @@
-# NBA – utvärdering på framåtriktad data (2026-11-15T00:34:33+00:00)
+# NBA – utvärdering på framåtriktad data (2026-11-15T00:48:58+00:00)
 
 Bara bokförda prognoser (gjorda före matchen). Unika prestationer = spelare × match × marknad.
 
@@ -6,8 +6,8 @@ Bara bokförda prognoser (gjorda före matchen). Unika prestationer = spelare ×
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
 | live | 19 | 19 | 17 | 9 | 19 | +4.2 % | +0.5 % | 4.0 | 2.64 (+1.16…+4.05) | 3.56 | 0.26 | – |
 | spel | 340 | 340 | 97 | 14 | 312 | +5.4 % | +3.5 % | 14.5 | 2.37 (+2.05…+2.68) | 2.63 | 0.25 | – |
-| skugga | 920 | 920 | 106 | 14 | 840 | +3.1 % | +3.4 % | 19.6 | 1.42 (+1.21…+1.64) | 1.77 | 0.28 | – |
-| modelltest | 837 | 837 | 107 | 14 | 754 | +9.1 % | +8.9 % | 17.5 | 1.34 (+1.07…+1.72) | 1.86 | 0.23 | 0.2649 / 0.2418 (256) |
+| skugga | 920 | 920 | 106 | 14 | 840 | +3.1 % | +3.4 % | 19.6 | 1.42 (+1.21…+1.64) | 1.76 | 0.28 | – |
+| modelltest | 837 | 837 | 107 | 14 | 754 | +9.1 % | +8.9 % | 17.5 | 1.34 (+1.07…+1.71) | 1.84 | 0.23 | 0.2649 / 0.2418 (256) |
 
 ## Status per marknad
 
@@ -18,10 +18,10 @@ Bara bokförda prognoser (gjorda före matchen). Unika prestationer = spelare ×
 | points | **shadow** | 0.2717 / 0.2404 (88) | -0.0037…+0.0647 | 0.84 (+0.60…+1.19) | 4 | +0.0 % |
 | pr | **insufficient_data** | 0.3168 / 0.2507 (18) | +0.0432…+0.0970 | 0.46 (+0.37…+0.64) | 0 | – |
 | pra | **insufficient_data** | 0.3306 / 0.2532 (12) | -0.1571…+0.1243 | 1.18 (-0.06…+1.88) | 0 | – |
-| ra | **insufficient_data** | 0.2109 / 0.2327 (16) | -0.1515…+0.0085 | 1.80 (-0.49…+2.81) | 0 | – |
+| ra | **insufficient_data** | 0.2109 / 0.2327 (16) | -0.1515…+0.0085 | 1.70 (-0.37…+2.80) | 0 | – |
 | rebounds | **shadow** | 0.2435 / 0.2411 (40) | -0.0332…+0.0422 | 1.37 (+0.92…+1.79) | 4 | -0.0 % |
-| steals | **insufficient_data** | 0.3008 / 0.2693 (5) | -0.0814…+0.1517 | 2.04 (+0.35…+3.77) | 0 | – |
-| threes | **insufficient_data** | 0.2820 / 0.2504 (28) | -0.0462…+0.0893 | 1.61 (+0.89…+2.67) | 7 | +42.4 % |
+| steals | **insufficient_data** | 0.3008 / 0.2693 (5) | -0.0814…+0.1517 | 1.87 (+0.28…+3.42) | 0 | – |
+| threes | **insufficient_data** | 0.2820 / 0.2504 (28) | -0.0410…+0.0884 | 1.61 (+0.91…+2.60) | 7 | +42.4 % |
 
 p för validering (max av Brier- och CLV-p) – Benjamini–Hochberg q = 0.1 över 3 marknader: rebounds 0.543, assists 0.561, points 0.956
 
