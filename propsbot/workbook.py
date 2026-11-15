@@ -25,7 +25,7 @@ UNIT = 0.002
 FONT = "Arial"
 MK = {"shots": "Skott", "shots_on_target": "Skott på mål", "goal": "Mål", "assist": "Assist",
       "points": "Poäng", "rebounds": "Returer", "assists": "Assist (NBA)", "threes": "Trepoängare",
-      "steals": "Steals", "blocks": "Blocks", "pra": "PRA", "pr": "Poäng + returer", "ra": "Returer + assist", "fouls": "Fouls",
+      "steals": "Steals", "blocks": "Blocks", "pra": "PRA", "pr": "Poäng + returer", "ra": "Returer + assist", "pa": "Poäng + assist", "fouls": "Fouls",
       "cards": "Kort",
       "1x2": "1X2", "total": "Mål totalt", "ah": "Asiatiskt handikapp", "corners": "Hörnor",
       "cah": "Hörnhandikapp", "corners_home": "Hörnor hemmalag", "corners_away": "Hörnor bortalag"}

@@ -618,7 +618,7 @@ def notify_new(playable: list[ScanRow], settings: dict, root: Path, live: bool =
         c = r.row.decision.cand
         d = r.row.decision
         key = f"{c.match_id}|{c.player_id}|{c.market}|{c.line}" + ("|under" if c.best.side == "under" else "")
-        nba = c.market in ("points", "rebounds", "assists", "threes", "steals", "blocks", "pra", "pr", "ra")
+        nba = c.market in ("points", "rebounds", "assists", "threes", "steals", "blocks", "pra", "pr", "ra", "pa")
         sport = "nba" if nba else "fotboll"
         # Ett spel per spelare och match, över allt: samma ben skickas aldrig igen (inte ens vid
         # bättre odds eller annat bolag) och ingen annan marknad/linje/sida på samma spelare.

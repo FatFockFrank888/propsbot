@@ -25,7 +25,7 @@ from .props_text import name_key, person_name, same_match
 URL = "https://api.sportsgameodds.com/v2/events"
 STAT = {"points": "points", "rebounds": "rebounds", "assists": "assists", "threePointersMade": "threes",
         "steals": "steals", "blocks": "blocks", "points+rebounds+assists": "pra", "points+rebounds": "pr",
-        "rebounds+assists": "ra"}
+        "rebounds+assists": "ra", "points+assists": "pa"}
 BOOK = {"caesars": "williamhill_us"}           # samma namn som The Odds API använder för Caesars
 SGO_MAX_AGE_S = 1800
 

@@ -21,7 +21,7 @@ U = 0.002
 SPORTS = {"fotboll": "data.json", "nba": "nba/data.json"}
 NAME = {"fotboll": "Fotboll", "nba": "NBA"}
 MK = {"shots": "skott", "shots_on_target": "skott på mål", "sog": "skott på mål", "points": "poäng",
-      "rebounds": "returer", "assists": "assist", "threes": "trepoängare", "pra": "PRA", "1x2": "1X2",
+      "rebounds": "returer", "assists": "assist", "threes": "trepoängare", "pra": "PRA", "pr": "poäng + returer", "ra": "returer + assist", "pa": "poäng + assist", "1x2": "1X2",
       "total": "mål totalt", "ah": "handikapp", "corners": "hörnor", "cah": "hörnhandikapp", "corners_home": "hörnor", "corners_away": "hörnor"}
 SIDES = ("1x2", "total", "ah", "corners", "cah", "corners_home", "corners_away")
 

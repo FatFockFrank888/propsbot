@@ -69,3 +69,12 @@ def test_live_requires_pinnacle_line():
     out = select_live([with_pin, without_pin, other_line], [], S, L(), sharp)
     assert [r.row.decision.cand.player_id for r in out] == ["a"]
     assert len(select_live([with_pin, without_pin], [], S, L())) == 2   # None = inget krav
+
+
+def test_live_dk_reference_for_markets_pinnacle_lacks():
+    """Steals/blocks/kombos: DraftKings-linjen räcker som referens (Pinnacle saknar marknaden)."""
+    s = {"live_min_edge": {"steals": 0.07, "pa": 0.07}, "live_odds_window": [1.5, 3.5]}
+    st = row("m1", "a", "steals", 2.0, 0.56)
+    pa = row("m2", "b", "pa", 2.0, 0.56)
+    sharp = {("m1", "a", "steals", 4.5), ("m2", "b", "pa", 4.5)}   # byggs i nba.py av Pinnacle + DK
+    assert [r.row.decision.cand.player_id for r in select_live([st, pa], [], s, L(), sharp)] == ["a", "b"]

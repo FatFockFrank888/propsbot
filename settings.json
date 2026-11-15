@@ -177,22 +177,40 @@
     "points": 0.07,
     "threes": 0.07,
     "assists": 0.07,
-    "rebounds": 0.07
+    "rebounds": 0.07,
+    "steals": 0.07,
+    "blocks": 0.07,
+    "pr": 0.07,
+    "pra": 0.07,
+    "ra": 0.07,
+    "pa": 0.07
   },
   "live_model_min_edge": 0.05,
   "live_model_required_markets": [],
   "live_use_model": false,
-  "nba_markets_off": [
-    "steals",
-    "blocks"
-  ],
+  "nba_markets_off": [],
   "nba_play_markets": [
+    "points",
+    "rebounds",
+    "assists",
+    "threes",
+    "steals",
+    "blocks",
+    "pr",
+    "pra",
+    "ra",
+    "pa"
+  ],
+  "nba_pinnacle_markets": [
     "points",
     "rebounds",
     "assists",
     "threes"
   ],
-  "live_max_edge": 0.15,
+  "live_max_edge": 0.20,
+  "live_max_per_day": 20,
+  "live_max_units_day": 100,
+  "live_max_per_match": 3,
   "football_live_max_units": 10,
   "football_kelly_scale": 0.5,
   "sides_lineup_gate": false,
@@ -208,11 +226,11 @@
     "corners_away"
   ],
   "sides_min_edge": 0.03,
-  "sides_max_edge": 0.1,
+  "sides_max_edge": 0.15,
   "sides_alt_extra_edge": 0.01,
   "sides_odds_window": [
-    1.4,
-    6.0
+    1.25,
+    10.0
   ],
   "sides_min_pin_limit": 500,
   "sides_max_hours": 24,
@@ -227,8 +245,8 @@
   "sides_extra_hours": 12,
   "sides_extra_max_events": 150,
   "live_odds_window": [
-    1.6,
-    3.0
+    1.5,
+    3.5
   ],
   "sides_extra_books": 2,
   "sides_smarkets_max_events": 100

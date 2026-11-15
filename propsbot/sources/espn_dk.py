@@ -28,10 +28,12 @@ SB = "https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard"
 CORE = "https://sports.core.api.espn.com/v2/sports/basketball/leagues/nba"
 MARKETS = {"Total Points": "points", "Total Rebounds": "rebounds", "Total Assists": "assists",
            "Total 3-Point Field Goals": "threes", "Total Points, Rebounds, and Assists": "pra",
-           "Total Points and Rebounds": "pr", "Total Assists and Rebounds": "ra"}
+           "Total Points and Rebounds": "pr", "Total Assists and Rebounds": "ra",
+           "Total Points and Assists": "pa"}
 MILESTONE = {"points": "Points Milestones", "rebounds": "Rebounds Milestones", "assists": "Assists Milestones",
              "threes": "3-Point Field Goals Milestones", "pra": "Points + Assists + Rebounds Milestones",
-             "pr": "Points + Rebounds Milestones", "ra": "Rebounds + Assists Milestones"}
+             "pr": "Points + Rebounds Milestones", "ra": "Rebounds + Assists Milestones",
+             "pa": "Points + Assists Milestones"}
 MAX_NEW_ATHLETES = 120
 MAX_AGE_S = 3 * 3600
 

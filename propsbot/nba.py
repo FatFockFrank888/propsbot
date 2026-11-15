@@ -24,10 +24,11 @@ from .sources.kambi_public import BASES, KambiEvent
 from .sources.pinnacle_public import BASE as PIN_BASE, PinnaclePublic, american_to_decimal
 from .sources.props_text import name_key, person_name, same_match, same_person
 
-NBA_MARKETS = ("points", "rebounds", "assists", "threes", "steals", "blocks", "pra", "pr", "ra")
+NBA_MARKETS = ("points", "rebounds", "assists", "threes", "steals", "blocks", "pra", "pr", "ra", "pa")
 NBA_LABEL = {"points": "Poäng", "rebounds": "Returer", "assists": "Assist",
              "threes": "Trepoängare", "steals": "Steals", "blocks": "Blocks",
-             "pra": "PRA", "pr": "Poäng + returer", "ra": "Returer + assist"}
+             "pra": "PRA", "pr": "Poäng + returer", "ra": "Returer + assist",
+             "pa": "Poäng + assist"}
 EXCLUDE = ("quarter", "half", "1st", "2nd", "3rd", "4th", "first", "double", "triple",
            "turnover", "most", "team", "race", "odd", "even", "milestone",
            "highest", "lowest", "exact", "both", " or ", "&nbsp")
@@ -47,7 +48,9 @@ def nba_market(label: str) -> str | None:
         return "pr"
     if re.search(r"rebounds?\s*(and|&|\+)\s*assists?|rebs?\s*\+\s*asts?|\br\+a\b", s):
         return "ra"
-    if re.search(r"\+|&| and ", s):          # andra kombinationer (P+A, S+B …) används inte
+    if re.search(r"points?\s*(and|&|\+)\s*assists?|pts\s*\+\s*asts?|\bp\+a\b", s):
+        return "pa"
+    if re.search(r"\+|&| and ", s):          # andra kombinationer (S+B …) används inte
         return None
     if "steal" in s:
         return "steals"
@@ -214,8 +217,8 @@ def pinnacle_nba_props(pin: PinnaclePublic, ev, match_id: str) -> tuple[list[Odd
 NBA_MODEL_VERSION = "2026-11-14-faktorer"   # + skuggfält p_faktorer(_ra), f_*, traff_* (nba_factors, styr inte)
 LAST_MODEL: dict = {}    # senaste skanningens modell per match (models, teams) – används av news.nba_teammate_fn
 NB_R = {"points": 15, "rebounds": 10, "assists": 10, "threes": 8, "steals": 30, "blocks": 15,
-        "pra": 15, "pr": 15, "ra": 12}
-MAX_LINE_GAP = {"points": 3.0, "pra": 4.0, "pr": 3.5, "ra": 2.5}   # övriga: 1,5
+        "pra": 15, "pr": 15, "ra": 12, "pa": 15}
+MAX_LINE_GAP = {"points": 3.0, "pra": 4.0, "pr": 3.5, "ra": 2.5, "pa": 3.5}   # övriga: 1,5
 
 
 def interpolate_pinnacle(quotes: list[OddsQuote], moved: set | None = None) -> int:
@@ -273,7 +276,7 @@ def interpolate_pinnacle(quotes: list[OddsQuote], moved: set | None = None) -> i
 ESPN_NBA = "https://site.api.espn.com/apis/site/v2/sports/basketball/nba"
 BOX_KEYS = {"points": ("PTS",), "rebounds": ("REB",), "assists": ("AST",), "threes": ("3PT",),
             "steals": ("STL",), "blocks": ("BLK",)}
-COMBOS = {"pra": ("PTS", "REB", "AST"), "pr": ("PTS", "REB"), "ra": ("REB", "AST")}
+COMBOS = {"pra": ("PTS", "REB", "AST"), "pr": ("PTS", "REB"), "ra": ("REB", "AST"), "pa": ("PTS", "AST")}
 
 
 def _box_value(labels: list[str], stats: list[str], market: str) -> float | None:
@@ -475,17 +478,18 @@ def nba_scan(root: Path, settings_path: Path) -> dict:
             import traceback
             diag.log(f"NBA-modell: FEL {type(e).__name__}: {e}")
             diag.lines.append(traceback.format_exc())
-    # Marknader (15/11): steals/blocks bort helt (Pinnacle saknar dem, Unibet har ~20 linjer per körning).
-    # Spelbart bara där Pinnacle har marknaden (points, rebounds, assists, threes); pr/pra/ra = skuggspel.
-    off = set(settings.get("nba_markets_off", ["steals", "blocks"]))
+    # Marknader: Pinnacle är referens där Pinnacle har marknaden (points, rebounds, assists, threes);
+    # för övriga (steals, blocks, pr, pra, ra, pa) är DraftKings m.fl. referens (Pinnacle saknar dem).
+    # nba_markets_off stänger av en marknad helt; nba_play_markets = vilka som får bli spel.
+    off = set(settings.get("nba_markets_off", []))
     rows = [r for r in rows if r.row.decision.cand.market not in off]
     test_rows = [r for r in test_rows if r.row.decision.cand.market not in off]
-    play_mk = set(settings.get("nba_play_markets", ["points", "rebounds", "assists", "threes"]))
+    play_mk = set(settings.get("nba_play_markets", NBA_MARKETS))
     for r in rows:
         d = r.row.decision
         if d.cand.market not in play_mk and d.playable:
             d.playable, d.stake = False, 0.0
-            d.reasons.append("marknad utan Pinnacle – bara skuggspel")
+            d.reasons.append("marknaden avstängd för spel (nba_play_markets) – bara skuggspel")
     try:
         n_an = attach_analysis(rows, test_rows, per)
         diag.log(f"NBA analyssida: {n_an} ben med analys")
@@ -545,7 +549,12 @@ def nba_scan(root: Path, settings_path: Path) -> dict:
     sharp_lines = None
     if settings.get("live_require_sharp", True):
         sb = settings.get("sharp_book", "pinnacle")
-        sharp_lines = {(q.match_id, q.player_id, q.market, q.line) for _e, qs, _n in per.values() for q in qs if q.book == sb}
+        # Referenslinje för LIVE: Pinnacle där Pinnacle har marknaden; DraftKings för marknader Pinnacle saknar
+        # (steals, blocks, pr, pra, ra, pa) – man kan inte jämföra mot ett bolag som inte erbjuder marknaden.
+        pin_mk = set(settings.get("nba_pinnacle_markets", ["points", "rebounds", "assists", "threes"]))
+        dk_books = set(settings.get("nba_dk_books", ["us_draftkings", "oa_us_draftkings"]))
+        sharp_lines = {(q.match_id, q.player_id, q.market, q.line) for _e, qs, _n in per.values() for q in qs
+                       if q.book == sb or (q.market not in pin_mk and q.book in dk_books)}
     live_rows = select_live(rows, test_rows, dict(settings, live_blocked_markets=sorted(blocked)), live, sharp_lines)         if settings.get("live_on", True) else []
     new_live = record_live(live, live_rows, rows, evd_by_id)
     recheck(live, nba_status_fn(injuries), settings, "NBA", True, diag.log)

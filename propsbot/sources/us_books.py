@@ -34,7 +34,7 @@ BOOKS = ["draftkings", "fanduel", "betmgm", "williamhill_us", "fanatics", "espnb
 MARKETS = [
     ("player_points", "points"), ("player_threes", "threes"), ("player_assists", "assists"),
     ("player_rebounds", "rebounds"), ("player_points_rebounds_assists", "pra"),
-    ("player_points_rebounds", "pr"), ("player_rebounds_assists", "ra"),
+    ("player_points_rebounds", "pr"), ("player_rebounds_assists", "ra"), ("player_points_assists", "pa"),
     ("player_steals", "steals"), ("player_blocks", "blocks"),
 ]
 OURS = dict(MARKETS)

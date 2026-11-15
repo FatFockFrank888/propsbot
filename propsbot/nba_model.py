@@ -25,7 +25,7 @@ STATS = ("points", "rebounds", "assists", "threes", "steals", "blocks")
 LABEL = {"points": "PTS", "rebounds": "REB", "assists": "AST", "threes": "3PT", "steals": "STL",
          "blocks": "BLK"}
 COMBO = {"pra": ("points", "rebounds", "assists"), "pr": ("points", "rebounds"),
-         "ra": ("rebounds", "assists")}
+         "ra": ("rebounds", "assists"), "pa": ("points", "assists")}
 # Matchup-känslighet mot motståndarens insläppta poäng (elasticitet).
 OPP_ELASTICITY = {"points": 0.8, "threes": 0.6, "assists": 0.5, "rebounds": 0.3,
                   "steals": 0.0, "blocks": 0.0}

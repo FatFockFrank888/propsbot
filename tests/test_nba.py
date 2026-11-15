@@ -13,7 +13,8 @@ def test_nba_market_labels():
     assert nba_market("Rebounds + Assists by the player") == "ra"
     assert nba_market("Steals by the player - Including Overtime") == "steals"
     assert nba_market("Blocks by the player") == "blocks"
-    assert nba_market("Points + Assists") is None
+    assert nba_market("Points + Assists") == "pa"          # PA spelas sedan 15/11 (DK som referens)
+    assert nba_market("Steals + Blocks") is None
     assert nba_market("Points scored by the player - 1st Quarter") is None
     assert nba_market("To record a double double") is None
 
