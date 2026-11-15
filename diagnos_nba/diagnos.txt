@@ -1,27 +1,29 @@
-NBA-skanning 2026-11-15 20:23
-Kambi NBA: 0 matcher, bolag: 
-NBA tid: Kambi-props 0 s
-Pinnacle NBA: FEL SourceError: HTTP 403 för https://guest.api.arcadia.pinnacle.com/0.1/sports/4/leagues
-Kalshi: 192 likvida linjer av 2210 öppna marknader
-Kalshi: 0 linjer kopplade till matcher
+NBA-skanning 2026-11-15 20:43
+Kambi NBA: 8 matcher, bolag: atg, betmgm, expekt, leovegas, paf, svenskaspel, unibet
+NBA tid: Kambi-props 67 s
+Pinnacle NBA: 8 matcher, 538 spelarodds (10 s)
+Kalshi: 206 likvida linjer av 1997 öppna marknader
+Kalshi: 220 linjer kopplade till matcher
 DK/FD: 0 nya hämtningar, 0 odds i bruk, krediter kvar 313, dagsbudget 18 (andel 60%), förbrukat idag 10
 SportsGameOdds NBA: vilar efter kvotfel till 16/11 19:35 UTC
-DraftKings via ESPN: 0 matcher, 0 spelarodds (referens)
-NBA linjer: 0 med samma linje hos Pinnacle, 0 flyttade från närliggande linje
-NBA-odds (unibet/pinnacle) per marknad: 
-NBA faktormodell (skugga): ingen ligabaslinje (boxscores i äldre format?)
-NBA-modell: 0 matcher hos ESPN, 0 spelare, 0 nya boxscores, 74 skadade (out/doubtful)
-NBA-modell nivåavvikelse (dras bort): 
-NBA faktormodell nivåavvikelse: –
-NBA minutmodell (skugga): medel cv² 0.000, spread från Pinnacle för 0 av 0 matcher; stackning: _alla b_m -0.00 b_k 1.20 (n 294), assists b_m +0.05 b_k 1.20 (n 52), blocks b_m +0.01 b_k 1.20 (n 4), points b_m +0.01 b_k 1.20 (n 99), pr b_m -0.04 b_k 1.16 (n 22), pra b_m -0.01 b_k 1.07 (n 15), ra b_m +0.00 b_k 1.20 (n 19), rebounds b_m -0.01 b_k 1.08 (n 48), steals b_m -0.05 b_k 1.15 (n 6), threes b_m -0.03 b_k 1.12 (n 29)
-NBA-modelltest: 0 spelbara enligt modellen av 0 ben med modell
-NBA analyssida: 0 ben med analys
-NBA CLV-signal: 0 ben släppta
-NBA lagnyheter: 107 spelare på skadelistan, 0 ben stoppade, 0 markerade (questionable)
-NBA spelregler: stoppade {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0} (modelltest {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0})
-NBA: 0 spelbara ben av 0
+DraftKings via ESPN: 8 matcher, 632 spelarodds (referens)
+NBA namnexempel Phoenix Suns: Kambi ['collin gillespie', 'collin sexton', 'devin booker', 'dillon brooks', 'jake laravia', 'jalen green'] | Pinnacle ['collin gillespie', 'collin sexton', 'devin booker', 'dillon brooks', 'jake laravia', 'jalen green']
+NBA Pinnacle-exempel: ['Winning Margin Range 1st Half', 'Phoenix Suns Points Odd/Even', 'Total Points Odd/Even', 'Winning Margin Range', 'Los Angeles Lakers Points Odd/Even', 'Moneyline and Total Points', 'Collin Gillespie Total Threes Made', 'Collin Gillespie Total Assists']
+NBA linjer: 224 med samma linje hos Pinnacle, 43 flyttade från närliggande linje
+NBA-odds (unibet/pinnacle) per marknad: pinnacle:assists 92, pinnacle:points 224, pinnacle:rebounds 174, pinnacle:threes 134, unibet:assists 146, unibet:blocks 118, unibet:pa 146, unibet:points 208, unibet:pr 192, unibet:pra 144, unibet:ra 144, unibet:rebounds 192, unibet:steals 200, unibet:threes 170
+NBA faktormodell (skugga): 177 spelare, Pinnacle-total för 8 av 8 matcher, ligatempo 100.5
+NBA-modell: 8 matcher hos ESPN, 177 spelare, 0 nya boxscores, 74 skadade (out/doubtful)
+NBA-modell nivåavvikelse (dras bort): assists +0.01, pa +0.04, points +0.22, pr +0.13, pra -0.02, rebounds +0.21, threes -0.04
+NBA faktormodell nivåavvikelse: assists -0.27, pa -0.53, points -0.18, pr -0.35, pra -0.48, rebounds -0.09, threes -0.22
+NBA minutmodell (skugga): medel cv² 0.079, spread från Pinnacle för 8 av 8 matcher; stackning: _alla b_m -0.00 b_k 1.20 (n 294), assists b_m +0.05 b_k 1.20 (n 52), blocks b_m +0.01 b_k 1.20 (n 4), points b_m +0.01 b_k 1.20 (n 99), pr b_m -0.04 b_k 1.16 (n 22), pra b_m -0.01 b_k 1.07 (n 15), ra b_m +0.00 b_k 1.20 (n 19), rebounds b_m -0.01 b_k 1.08 (n 48), steals b_m -0.05 b_k 1.15 (n 6), threes b_m -0.03 b_k 1.12 (n 29)
+NBA-modelltest: 51 spelbara enligt modellen av 698 ben med modell
+NBA analyssida: 698 ben med analys
+NBA CLV-signal: 3 ben släppta
+NBA lagnyheter: 107 spelare på skadelistan, 4 ben stoppade, 0 markerade (questionable)
+NBA spelregler: stoppade {'edge': 9, 'spelare': 0, 'oddsfall': 1, 'sharp': 0, 'fotboll': 0} (modelltest {'edge': 41, 'spelare': 3, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0})
+NBA: 0 spelbara ben av 796
 NBA LIVE: 0 spel uppfyller live-kraven, 0 nya bokförda live
-NBA skarp stängning: 0 spel uppdaterade
+NBA skarp stängning: 62 spel uppdaterade
 NBA: hittar inte Dejounte Murray i boxscore (New Orleans Pelicans – Memphis Grizzlies) – väntar
 NBA: hittar inte Dejounte Murray i boxscore (New Orleans Pelicans – Memphis Grizzlies) – väntar
 NBA: hittar inte Ajay Mitchell i boxscore (LA Clippers – Oklahoma City Thunder) – väntar
