@@ -588,7 +588,10 @@ def nba_scan(root: Path, settings_path: Path) -> dict:
         ev = nba_evaluate(root)
         (root / "nba_utvardering.json").write_text(json.dumps(ev, ensure_ascii=False), encoding="utf-8")
         (root / "nba_utvardering.md").write_text(nba_md(ev), encoding="utf-8")
-        diag.log("NBA status per marknad: " + ", ".join(f"{k} {v}" for k, v in sorted(ev["status"].items())))
+        diag.log("NBA LIVE-status per marknad (skarp CLV, marknadsspel): "
+                 + ", ".join(f"{k} {v}" for k, v in sorted((ev.get("status_marknad") or {}).items())))
+        diag.log("NBA modellstatus per marknad (modelltest, styr inte): "
+                 + ", ".join(f"{k} {v}" for k, v in sorted(ev["status"].items())))
     except Exception as e:  # noqa: BLE001 – utvärderingen får aldrig stoppa skanningen
         diag.log(f"NBA utvärdering: fel {type(e).__name__}: {e}")
     diag.save()
