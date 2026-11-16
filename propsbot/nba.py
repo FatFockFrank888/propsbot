@@ -214,7 +214,7 @@ def pinnacle_nba_props(pin: PinnaclePublic, ev, match_id: str) -> tuple[list[Odd
 # ---------------------------------------------------------------- linjeflytt
 # Överspridning per marknad (negativ binomial, form r): varians = μ + μ²/r.
 # Modellversion (loggas på varje ny prognos). Byt vid metodändring; äldre rader behåller sin (eller ingen = legacy).
-NBA_MODEL_VERSION = "2026-11-14-faktorer"   # + skuggfält p_faktorer(_ra), f_*, traff_* (nba_factors, styr inte)
+NBA_MODEL_VERSION = "2026-11-15-betyg"   # + skuggfält p_faktorer(_ra), f_*, traff_* (nba_factors, styr inte)
 LAST_MODEL: dict = {}    # senaste skanningens modell per match (models, teams) – används av news.nba_teammate_fn
 NB_R = {"points": 15, "rebounds": 10, "assists": 10, "threes": 8, "steals": 30, "blocks": 15,
         "pra": 15, "pr": 15, "ra": 12, "pa": 15}
@@ -443,6 +443,14 @@ def nba_scan(root: Path, settings_path: Path) -> dict:
     mc = Counter()
     n_exact = n_moved = 0
     sample_done = False
+    if settings.get("nba_closing_archive", True):
+        try:   # skarpa stängningsodds för alla linjer (backtest-underlag); före interpolering
+            from .stang_arkiv import run as archive_run
+            for _evd, _qs, _nm in per.values():
+                _unify_players(_qs, _nm)
+            archive_run(root, per, time.time(), diag)
+        except Exception as e:  # noqa: BLE001 – arkivet får aldrig stoppa skanningen
+            diag.log(f"Stängningsarkiv: FEL {type(e).__name__}: {str(e)[:200]}")
     for evd, qs_all, names in per.values():
         if not sample_done and qs_all:
             kn = sorted({q.player_id for q in qs_all if q.provider == "kambi"})[:6]
@@ -736,6 +744,31 @@ def model_test_rows(root: Path, rows: list, per: dict, settings: dict, cfg: Conf
     except Exception as e:  # noqa: BLE001 – skuggmodellen får aldrig stoppa skanningen
         diag.log(f"NBA faktormodell: fel {type(e).__name__}: {e}")
         fmodels = {}
+    # Spelarbetyg (skugga, 15/11): hela säsongens takt per minut med långsam glömska och starkare krympning
+    # mot laget, i stället för senaste 12 matcherna. Väntat värde = betygets takt × grundmodellens minuter
+    # (nuvarande roll). Bokförs som p_betyg / p_betyg_ra och utvärderas i nba_eval – styr inte LIVE.
+    rmodels: dict[str, dict] = {}
+    if settings.get("nba_ratings_shadow", True):
+        try:
+            rm = NbaModel(nm.c, root / "espn_nba", n_games=settings.get("nba_ratings_games", 82),
+                          half_life=settings.get("nba_ratings_half_life", 25.0),
+                          prior_minutes=settings.get("nba_ratings_prior_min", 240.0))
+            rm.upgrade_boxes = False
+            for mid, (th, ta) in teams.items():
+                evd = next(v[0] for v in per.values() if v[0]["id"] == mid)
+                r_m = {}
+                for t, o in ((th, ta), (ta, th)):
+                    if t:
+                        rt = rm.team(t.team_id, evd["commence_time"])
+                        ro = rm.team(o.team_id, evd["commence_time"]) if o else None
+                        if rt:
+                            r_m.update(rm.expected(rt, ro, evd["commence_time"], league, SPREADS.get(mid)))
+                rmodels[mid] = r_m
+            diag.log(f"NBA spelarbetyg (skugga): {sum(len(x) for x in rmodels.values())} spelare, "
+                     f"{rm.fetched} nya boxscores")
+        except Exception as e:  # noqa: BLE001 – skuggmodellen får aldrig stoppa skanningen
+            diag.log(f"NBA spelarbetyg: fel {type(e).__name__}: {e}")
+            rmodels = {}
     n_inj = sum(1 for v in nm.injuries().values() if any(s in v for s in ("out", "doubtful")))
     diag.log(f"NBA-modell: {n_found} matcher hos ESPN, {sum(len(m) for m in models.values())} spelare, "
              f"{nm.fetched} nya boxscores, {n_inj} skadade (out/doubtful)")
@@ -840,7 +873,21 @@ def model_test_rows(root: Path, rows: list, per: dict, settings: dict, cfg: Conf
                              minuter=round(mk_e["_min_bo"], 1), minuter_sd=round(mk_e.get("_min_sd", 0.0), 1))
         except (KeyError, TypeError, ValueError, ZeroDivisionError):
             pass
-        extra.update(p_faktorer=None, p_faktorer_ra=None, vantat_faktorer=None)
+        extra.update(p_faktorer=None, p_faktorer_ra=None, vantat_faktorer=None,
+                     p_betyg=None, p_betyg_ra=None, vantat_betyg=None)
+        try:
+            rmm = rmodels[c.match_id]
+            re_ = rmm[match_model_player(rmm, c.player_id)]
+            be = models[c.match_id][match_model_player(models[c.match_id], c.player_id)]
+            if re_.get("_min") and be.get("_min_bo"):
+                mu_r = re_[c.market] / re_["_min"] * be["_min_bo"]
+                pr_over = min(max(nb_over(mu_r, c.line, NB_R.get(c.market, 15)), 0.01), 0.99)
+                prm_over, prb_over, _w = coherent_blend(pr_over, p_mkt_over, 0.0, w0, dq)
+                extra.update(p_betyg_ra=round(1.0 - prm_over if under else prm_over, 4),
+                             p_betyg=round(1.0 - prb_over if under else prb_over, 4),
+                             vantat_betyg=round(mu_r, 2))
+        except (KeyError, TypeError, ValueError, ZeroDivisionError):
+            pass
         # Analyssidan (webben): allt som bokförs + det som bara behövs för att visa (logg, frånvaro). Bokförs inte.
         an = {"p_modell": round(pm, 4), "p_marknad": round(c.p, 4), "p_slutlig": round(p, 4), "vantat": round(mu, 2),
               "nb_r": NB_R.get(c.market, 15), "modell_vikt": round(w, 2), "dq": round(dq, 2), "matcher": games,
