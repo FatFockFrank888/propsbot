@@ -1,11 +1,11 @@
-# NBA – utvärdering på framåtriktad data (2026-11-16T09:11:05+00:00)
+# NBA – utvärdering på framåtriktad data (2026-11-16T09:18:40+00:00)
 
 Bara bokförda prognoser (gjorda före matchen). Unika prestationer = spelare × match × marknad.
 
 | Bokföring | Rader | Prestationer | Matcher | Dagar | Avgjorda | ROI flat | ROI modell | Max DD (u) | CLV pe skarp (95 %) | CLV pe skarp verifierad | Verifierad täckning | Slog skarp stängning | CLV pe mot Unibets stängning | Brier modell / marknad (n) |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | live | 21 | 21 | 19 | 10 | 21 | +15.3 % | +21.4 % | 4.0 | 3.10 (+2.37…+3.74) | 3.19 | 0.95 | +85.7 % | 3.04 | – |
-| spel | 364 | 364 | 108 | 16 | 340 | +3.9 % | +1.9 % | 14.5 | 2.20 (+1.69…+2.76) | 2.10 | 0.81 | +77.7 % | 2.55 | – |
+| spel | 365 | 365 | 108 | 16 | 340 | +3.9 % | +1.9 % | 14.5 | 2.20 (+1.69…+2.76) | 2.10 | 0.81 | +77.7 % | 2.55 | – |
 | skugga | 1025 | 1025 | 119 | 16 | 959 | +1.3 % | +1.3 % | 35.7 | 0.87 (+0.61…+1.20) | 0.83 | 0.85 | +65.9 % | 1.80 | – |
 | modelltest | 915 | 915 | 120 | 16 | 851 | +6.8 % | +6.5 % | 22.3 | -0.09 (-0.48…+0.44) | -0.15 | 0.82 | +44.2 % | 1.85 | 0.2758 / 0.2450 (353) |
 
@@ -20,7 +20,7 @@ Bara bokförda prognoser (gjorda före matchen). Unika prestationer = spelare ×
 | pr | **osäker** | 29 | 1.15 (-2.26…+2.95) | +65.5 % | +0.7 % |
 | pra | **osäker** | 21 | 0.94 (-0.41…+2.90) | +70.0 % | -13.6 % |
 | ra | **osäker** | 52 | 0.72 (-1.16…+0.89) | +69.4 % | +2.6 % |
-| rebounds | **ok** | 290 | 1.09 (+0.81…+1.48) | +72.2 % | -2.4 % |
+| rebounds | **ok** | 291 | 1.09 (+0.81…+1.48) | +72.2 % | -2.4 % |
 | steals | **ok** | 27 | 4.85 (+3.10…+10.14) | +88.9 % | +31.8 % |
 | threes | **ok** | 171 | 1.51 (+0.55…+2.34) | +67.9 % | +11.1 % |
 
