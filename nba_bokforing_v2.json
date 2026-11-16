@@ -14597,14 +14597,14 @@
 "spela_fran": 1.55,
 "insats_pct": 0.02,
 "stangning": 1.52,
-"status": "öppen",
+"status": "förlorad",
 "stopp": "sharp money med oss: referensen +6.9 enheter",
 "clv_signal": false,
 "forv_clv_pp": 7.517108988013533,
 "p_modell": null,
 "p_marknad": 0.6615686136554815,
-"utfall": null,
-"resultat_enheter": null,
+"utfall": 9,
+"resultat_enheter": -0.02,
 "stangning_ts": 1794764536.9605322,
 "modellversion": "2026-11-14-faktorer",
 "prognos_ts": 1794758421.320995,
@@ -15237,5 +15237,97 @@
 "clv_skarp_pp": 4.495792800436615,
 "clv_pin_pp": null,
 "clv_dk_pp": -3.2616210180752447
+},
+{
+"key": "nba1028754066|aday mara|rebounds|6.5|unibet",
+"id": 380,
+"bokford": 1794792862.3578656,
+"match_id": "nba1028754066",
+"match": "Sacramento Kings – Oklahoma City Thunder",
+"hemma": "Sacramento Kings",
+"borta": "Oklahoma City Thunder",
+"liga": "NBA",
+"avspark": 1794794400.0,
+"spelare": "Aday Mara",
+"spelare_id": "aday mara",
+"marknad": "rebounds",
+"linje": 6.5,
+"sida": "over",
+"bolag": "unibet",
+"odds": 2.5,
+"sannolikhet": 0.45997527491096585,
+"ratt_odds": 2.1740298980060677,
+"edge": 0.1499381872774146,
+"spela_fran": 2.22,
+"insats_pct": 0.006439186949818743,
+"stangning": 2.5,
+"status": "öppen",
+"stopp": "",
+"clv_signal": false,
+"forv_clv_pp": 6.1880886092456455,
+"p_modell": null,
+"p_marknad": 0.45997527491096585,
+"utfall": null,
+"resultat_enheter": null,
+"stangning_ts": 1794792862.357894,
+"modellversion": "2026-11-15-betyg",
+"prognos_ts": 1794792862.3578656,
+"skarp_stang_p": 0.45997527491096585,
+"skarp_stang_ts": 1794792862.2352452,
+"skarp_kalla": "skanning",
+"pin_stang_p": 0.4643800766879827,
+"dk_stang_p": 0.4413435509189358,
+"bolag_bokning": {
+"ts": 1794792862.4309595,
+"odds": {
+"unibet": {
+"over": 2.5,
+"under": 1.49
+},
+"pinnacle": {
+"over": 2.0,
+"under": 1.758
+},
+"draftkings": {
+"over": 2.09,
+"under": 1.69
+}
+},
+"pin_flyttad": false,
+"pin_komb": false,
+"pin_linje": null,
+"dk_linje": null,
+"pin_p": 0.4643800766879827,
+"dk_p": 0.4413435509189358
+},
+"bolag_stangning": {
+"ts": 1794792862.4309595,
+"odds": {
+"unibet": {
+"over": 2.5,
+"under": 1.49
+},
+"pinnacle": {
+"over": 2.0,
+"under": 1.758
+},
+"draftkings": {
+"over": 2.09,
+"under": 1.69
+}
+},
+"pin_flyttad": false,
+"pin_komb": false,
+"pin_linje": null,
+"dk_linje": null,
+"pin_p": 0.4643800766879827,
+"dk_p": 0.4413435509189358
+},
+"bolag_stang_ts": 1794792862.4309595,
+"skarp_verifierad": true,
+"skarp_status": null,
+"clv_skarp_pp": 5.997527491096583,
+"clv_pin_pp": 6.438007668798268,
+"clv_dk_pp": 4.1343550918935765
 }
 ]
