@@ -15088,14 +15088,14 @@
 "spela_fran": 1.75,
 "insats_pct": 0.01372124162783734,
 "stangning": 1.79,
-"status": "öppen",
+"status": "förlorad",
 "stopp": "",
 "clv_signal": false,
 "forv_clv_pp": 4.145916354802992,
 "p_modell": null,
 "p_marknad": 0.5849374244175951,
-"utfall": null,
-"resultat_enheter": null,
+"utfall": 21,
+"resultat_enheter": -0.01372124162783734,
 "stangning_ts": 1794790683.4063482,
 "modellversion": "2026-11-15-betyg",
 "prognos_ts": 1794789362.2471538,
@@ -15180,14 +15180,14 @@
 "spela_fran": 1.94,
 "insats_pct": 0.011678226176086477,
 "stangning": 2.07,
-"status": "öppen",
+"status": "förlorad",
 "stopp": "sharp money med oss: referensen +6.2 enheter",
 "clv_signal": false,
 "forv_clv_pp": 7.599303793673986,
 "p_modell": null,
 "p_marknad": 0.5280497154439797,
-"utfall": null,
-"resultat_enheter": null,
+"utfall": 7,
+"resultat_enheter": -0.011678226176086477,
 "stangning_ts": 1794789699.6807165,
 "modellversion": "2026-11-15-betyg",
 "prognos_ts": 1794789699.6806922,
@@ -15429,7 +15429,7 @@
 "edge": 0.09891623136530359,
 "spela_fran": 2.28,
 "insats_pct": 0.01705452264919029,
-"stangning": 2.45,
+"stangning": 2.12,
 "status": "öppen",
 "stopp": "",
 "clv_signal": false,
@@ -15438,13 +15438,13 @@
 "p_marknad": 0.44853723729196066,
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1794802068.5274854,
+"stangning_ts": 1794805690.719666,
 "modellversion": "2026-11-15-betyg",
 "prognos_ts": 1794800488.2624831,
-"skarp_stang_p": 0.44853723729196066,
-"skarp_stang_ts": 1794802068.4394794,
+"skarp_stang_p": 0.44246066163436903,
+"skarp_stang_ts": 1794805690.5529888,
 "skarp_kalla": "skanning",
-"dk_stang_p": 0.4485372372919607,
+"dk_stang_p": 0.44246066163436903,
 "bolag_bokning": {
 "ts": 1794800488.3160262,
 "odds": {
@@ -15464,28 +15464,190 @@
 "dk_p": 0.4485372372919607
 },
 "bolag_stangning": {
-"ts": 1794802068.5665324,
+"ts": 1794805690.7934737,
 "odds": {
 "unibet": {
-"over": 2.45,
-"under": 1.5
+"over": 2.12,
+"under": 1.66
 },
 "draftkings": {
-"over": 2.06,
-"under": 1.71
+"over": 2.08,
+"under": 1.69
 }
 },
 "pin_flyttad": false,
 "pin_komb": false,
 "pin_linje": null,
 "dk_linje": null,
-"dk_p": 0.4485372372919607
+"dk_p": 0.44246066163436903
 },
-"bolag_stang_ts": 1794802068.5665324,
+"bolag_stang_ts": 1794805690.7934737,
 "skarp_verifierad": false,
 "skarp_status": null,
-"clv_skarp_pp": 4.037397198583825,
+"clv_skarp_pp": 3.4297396328246634,
 "clv_pin_pp": null,
-"clv_dk_pp": 4.037397198583831
+"clv_dk_pp": 3.4297396328246634
+},
+{
+"key": "nba1028754045|sidy cissoko|assists|1.5|unibet|under",
+"id": 383,
+"bokford": 1794805690.7196274,
+"match_id": "nba1028754045",
+"match": "Minnesota Timberwolves – Portland Trail Blazers",
+"hemma": "Minnesota Timberwolves",
+"borta": "Portland Trail Blazers",
+"liga": "NBA",
+"avspark": 1794877200.0,
+"spelare": "Sidy Cissoko",
+"spelare_id": "sidy cissoko",
+"marknad": "assists",
+"linje": 1.5,
+"sida": "under",
+"bolag": "unibet",
+"odds": 2.3,
+"sannolikhet": 0.46298028063888963,
+"ratt_odds": 2.1599192056734036,
+"edge": 0.06485464546944608,
+"spela_fran": 2.21,
+"insats_pct": 0.012472047205662709,
+"stangning": 2.3,
+"status": "öppen",
+"stopp": "sharp money med oss: referensen +7.0 enheter",
+"clv_signal": false,
+"forv_clv_pp": 6.296139973369213,
+"p_modell": null,
+"p_marknad": 0.46298028063888963,
+"utfall": null,
+"resultat_enheter": null,
+"stangning_ts": 1794805690.719666,
+"modellversion": "2026-11-15-betyg",
+"prognos_ts": 1794805690.7196274,
+"skarp_stang_p": 0.46298028063888963,
+"skarp_stang_ts": 1794805690.5529888,
+"skarp_kalla": "skanning",
+"dk_stang_p": 0.46298028063888963,
+"bolag_bokning": {
+"ts": 1794805690.7934737,
+"odds": {
+"unibet": {
+"over": 1.56,
+"under": 2.3
+},
+"draftkings": {
+"over": 1.75,
+"under": 2.0
+}
+},
+"pin_flyttad": false,
+"pin_komb": false,
+"pin_linje": null,
+"dk_linje": null,
+"dk_p": 0.46298028063888963
+},
+"bolag_stangning": {
+"ts": 1794805690.7934737,
+"odds": {
+"unibet": {
+"over": 1.56,
+"under": 2.3
+},
+"draftkings": {
+"over": 1.75,
+"under": 2.0
+}
+},
+"pin_flyttad": false,
+"pin_komb": false,
+"pin_linje": null,
+"dk_linje": null,
+"dk_p": 0.46298028063888963
+},
+"bolag_stang_ts": 1794805690.7934737,
+"skarp_verifierad": false,
+"skarp_status": null,
+"clv_skarp_pp": 2.8197671943237412,
+"clv_pin_pp": null,
+"clv_dk_pp": 2.8197671943237412
+},
+{
+"key": "nba1028754058|draymond green|points|6.5|unibet|under",
+"id": 384,
+"bokford": 1794805690.7196453,
+"match_id": "nba1028754058",
+"match": "New Orleans Pelicans – Golden State Warriors",
+"hemma": "New Orleans Pelicans",
+"borta": "Golden State Warriors",
+"liga": "NBA",
+"avspark": 1794877200.0,
+"spelare": "Draymond Green",
+"spelare_id": "draymond green",
+"marknad": "points",
+"linje": 6.5,
+"sida": "under",
+"bolag": "unibet",
+"odds": 1.98,
+"sannolikhet": 0.5377304650336325,
+"ratt_odds": 1.8596677425324128,
+"edge": 0.06470632076659233,
+"spela_fran": 1.9,
+"insats_pct": 0.016506714481273582,
+"stangning": 1.98,
+"status": "öppen",
+"stopp": "",
+"clv_signal": false,
+"forv_clv_pp": 3.267995998312745,
+"p_modell": null,
+"p_marknad": 0.5377304650336325,
+"utfall": null,
+"resultat_enheter": null,
+"stangning_ts": 1794805690.719666,
+"modellversion": "2026-11-15-betyg",
+"prognos_ts": 1794805690.7196453,
+"skarp_stang_p": 0.5377304650336325,
+"skarp_stang_ts": 1794805690.5529888,
+"skarp_kalla": "skanning",
+"dk_stang_p": 0.5377304650336325,
+"bolag_bokning": {
+"ts": 1794805690.7934737,
+"odds": {
+"unibet": {
+"over": 1.76,
+"under": 1.98
+},
+"draftkings": {
+"over": 2.02,
+"under": 1.76
+}
+},
+"pin_flyttad": false,
+"pin_komb": false,
+"pin_linje": null,
+"dk_linje": null,
+"dk_p": 0.5377304650336325
+},
+"bolag_stangning": {
+"ts": 1794805690.7934737,
+"odds": {
+"unibet": {
+"over": 1.76,
+"under": 1.98
+},
+"draftkings": {
+"over": 2.02,
+"under": 1.76
+}
+},
+"pin_flyttad": false,
+"pin_komb": false,
+"pin_linje": null,
+"dk_linje": null,
+"dk_p": 0.5377304650336325
+},
+"bolag_stang_ts": 1794805690.7934737,
+"skarp_verifierad": false,
+"skarp_status": null,
+"clv_skarp_pp": 3.267995998312745,
+"clv_pin_pp": null,
+"clv_dk_pp": 3.267995998312745
 }
 ]
