@@ -78,3 +78,19 @@ def test_live_dk_reference_for_markets_pinnacle_lacks():
     pa = row("m2", "b", "pa", 2.0, 0.56)
     sharp = {("m1", "a", "steals", 4.5), ("m2", "b", "pa", 4.5)}   # byggs i nba.py av Pinnacle + DK
     assert [r.row.decision.cand.player_id for r in select_live([st, pa], [], s, L(), sharp)] == ["a", "b"]
+
+
+def test_teammate_news_holds_unders_only():
+    """Lagkamrat nyss out: under-spel på laget väntar (referensen kan släpa), över påverkas inte."""
+    from propsbot.news import hold_after_teammate_news
+    team = NS(name="Utah Jazz", players={"a": NS(minutes=30), "b": NS(minutes=28), "star": NS(minutes=34)})
+    last = {"models": {"m1": {"a": {}, "b": {}, "star": {}}}, "teams": {"m1": (team, None)}}
+    under = row("m1", "a", "points", 2.0, 0.56)
+    under.row.decision.cand.best = OddsQuote(book="unibet", match_id="m1", player_id="a", market="points",
+                                             line=4.5, side="under", odds=2.0, ts=0.0)
+    over = row("m1", "b", "points", 2.0, 0.56)
+    inj = [{"key": "star", "name": "Star", "team": "Utah Jazz", "status": "out", "ts": 1000.0}]
+    assert hold_after_teammate_news([under, over], inj, last, 1000.0 + 600) == 1
+    assert not under.row.decision.playable and over.row.decision.playable
+    under.row.decision.playable = True
+    assert hold_after_teammate_news([under], inj, last, 1000.0 + 3600) == 0     # efter 45 min: inget stopp

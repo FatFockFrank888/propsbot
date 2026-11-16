@@ -116,6 +116,7 @@ def cmd_free(args) -> None:
     # En bot, två sporter: varje sport körs för sig så att ett fel i en aldrig stoppar de andra.
     try:
         rows = scan_once(_state_root(), Path(args.settings))
+        KICKOFFS.extend(_ts(r.kickoff) for r in rows)
         print()
         print(format_scan(rows))
     except Exception as e:
@@ -132,6 +133,19 @@ def cmd_free(args) -> None:
     except Exception as e:
         print(f"Webbsidan: fel {type(e).__name__}: {e}")
         traceback.print_exc()
+    try:   # sides: matcherna i sides-bokföringen och radarn
+        import json as _j
+        for f in ("sides_radar.json", "sides_spel.json", "sides_skugga.json"):
+            fp = _state_root() / f
+            if fp.exists():
+                KICKOFFS.extend(_ts(b.get("avspark")) for b in _j.loads(fp.read_text(encoding="utf-8"))[-400:])
+    except Exception as e:  # noqa: BLE001
+        print(f"Paus: sides-tider fel {type(e).__name__}: {e}")
+    try:
+        from .scan import load_settings as _ls
+        write_pause(_state_root(), _ls(Path(args.settings)))
+    except Exception as e:  # noqa: BLE001 – får aldrig stoppa körningen; arbetsflödet har en standardpaus
+        print(f"Paus: fel {type(e).__name__}: {e}")
     # Topp 5 skickas inte som notis (14/11): topp 5 är alltid LIVE-spel som redan fått en egen notis.
     try:
         from .workbook import build
@@ -141,6 +155,39 @@ def cmd_free(args) -> None:
         write_csv_exports(_state_root(), _state_root() / "site" / "csv")
     except Exception as e:
         print(f"Excel-bokföring: fel {type(e).__name__}: {e}")
+
+
+KICKOFFS: list = []   # starttider (unix) för matcher som skannats i körningen – styr pausen till nästa
+
+
+def _ts(x) -> float | None:
+    from datetime import datetime
+    if isinstance(x, (int, float)):
+        return float(x)
+    try:
+        return datetime.fromisoformat(str(x).replace("Z", "+00:00").replace(" ", "T")
+                                      + ("" if "+" in str(x) or "Z" in str(x) else "+00:00")).timestamp()
+    except ValueError:
+        return None
+
+
+def write_pause(root: Path, settings: dict, now: float | None = None) -> int:
+    """Paus till nästa körning (sekunder) efter hur nära nästa start är. Läses av arbetsflödet.
+    Nära start rör sig Pinnacle (startbesked ~30 min före) medan Unibet släpar – där är CLV högst
+    (bokat < 1 h före start: +2,3 pe mot +0,9 för 1–3 h), så då körs boten tätare."""
+    import time as _t
+    now = now or _t.time()
+    soon = [k - now for k in KICKOFFS if k and k > now]
+    nxt = min(soon) / 60 if soon else None
+    steps = settings.get("pause_steps", [[90, 60], [180, 240]])     # [minuter till start, paus i sekunder]
+    pause = settings.get("pause_default_s", 480)
+    for mins, sec in sorted(steps):
+        if nxt is not None and nxt <= mins:
+            pause = sec
+            break
+    (root / "paus_sekunder.txt").write_text(str(int(pause)), encoding="utf-8")
+    print(f"Paus till nästa körning: {pause} s" + (f" (nästa start om {nxt:.0f} min)" if nxt is not None else ""))
+    return pause
 
 
 def run_nba(root: Path, settings_path: Path) -> None:
@@ -155,6 +202,7 @@ def run_nba(root: Path, settings_path: Path) -> None:
     if not settings.get("nba_enabled", True):
         return
     res = nba_scan(root, settings_path)
+    KICKOFFS.extend(_ts(e.get("commence_time")) for e in (res.get("evd") or {}).values())
     sugg = suggest(res["rows"], res["evd"], settings)
     pl = ParlayLedger(root / "nba_parlays_v2.json")
     new_p = pl.record(sugg)

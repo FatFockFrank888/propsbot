@@ -91,3 +91,20 @@ def test_under_is_evaluated_and_settled(tmp_path):
     assert b["key"].endswith("|under")
     lg.settle(b, 20, True)
     assert b["status"] == "vunnen"                       # 20 poäng < 24,5
+
+
+def test_pinnacle_combos_from_parts():
+    """PRA/PR/RA/PA räknas ur Pinnacles poäng, returer och assist (egen referens pinnacle_komb)."""
+    from propsbot.models import OddsQuote as Q
+    from propsbot.nba import pinnacle_combos
+    qs = []
+    for mk, ln in (("points", 20.5), ("rebounds", 5.5), ("assists", 4.5)):
+        qs += [Q("pinnacle", "m", "p", mk, ln, "over", 1.95, 0), Q("pinnacle", "m", "p", mk, ln, "under", 1.95, 0)]
+    qs += [Q("unibet", "m", "p", "pra", 30.5, "over", 1.9, 0, provider="kambi"),
+           Q("unibet", "m", "p", "pa", 25.5, "over", 1.9, 0, provider="kambi"),
+           Q("unibet", "m", "p", "ra", 9.5, "over", 1.9, 0, provider="kambi")]
+    assert pinnacle_combos(qs) == 3
+    k = {(q.market, q.side): 1 / q.odds for q in qs if q.book == "pinnacle_komb"}
+    assert 0.5 < k[("pra", "over")] < 0.65          # medel ≈ 31,5 mot linjen 30,5
+    assert abs(k[("pra", "over")] + k[("pra", "under")] - 1) < 1e-9
+    assert 0.45 < k[("pa", "over")] < 0.6 and 0.45 < k[("ra", "over")] < 0.65

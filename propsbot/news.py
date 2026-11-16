@@ -189,3 +189,38 @@ def nba_teammate_fn(last: dict, injuries: list[dict], nb_r: dict, min_minutes: f
                      + (f" (vid bokning modell {b['modell_edge']:+.0%})" if b.get("modell_edge") is not None else ""))
         return ("lag:" + ",".join(sorted(i["key"] for i in new_out)), text)
     return fn
+
+
+def hold_after_teammate_news(rows, injuries: list[dict], last: dict, now: float, window_min: float = 45.0,
+                             min_minutes: float = 15.0) -> int:
+    """En lagkamrat (minst 15 min/match) har nyss blivit out/doubtful: hans minuter och bollinnehav går till
+    de andra, så deras linjer ska upp. Hinner referensen (Pinnacle/DK) inte reagera ser UNDER-spel på
+    lagkamraterna ut som edge fast de inte är det. Under window_min minuter efter nyheten blir under-spel
+    på laget inte spelbara. Över-spel påverkas inte (nyheten talar för dem). Returnerar antal stoppade."""
+    from .clv_signal import _block
+    from .nba_model import match_model_player
+    models, teams = last.get("models") or {}, last.get("teams") or {}
+    fresh = [i for i in injuries if any(x in i["status"] for x in BAD) and 0 < now - i["ts"] < window_min * 60]
+    if not fresh:
+        return 0
+    n = 0
+    for r in rows:
+        d = r.row.decision
+        c = d.cand
+        if not d.playable or c.best.side != "under":
+            continue
+        m, pair = models.get(c.match_id), teams.get(c.match_id)
+        if not m or not pair:
+            continue
+        k = match_model_player(m, c.player_id or "")
+        team = next((t for t in pair if t and k and k in t.players), None)
+        if team is None:
+            continue
+        hit = [i for i in fresh if i["team"] == team.name and i["key"] != k
+               and team.players.get(i["key"]) is not None and team.players[i["key"]].minutes >= min_minutes]
+        if hit:
+            age = min((now - i["ts"]) / 60 for i in hit)
+            _block(d, f"lagkamrat nyss ute ({', '.join(i['name'] for i in hit)}, {age:.0f} min sedan) – "
+                      f"under spärras {window_min:.0f} min tills referensen hunnit reagera")
+            n += 1
+    return n

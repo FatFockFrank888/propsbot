@@ -99,10 +99,17 @@ jobs:
       - if: steps.deploy.outcome == 'failure'
         uses: actions/deploy-pages@v4
 
-      # Paus mellan skanningarna (nästa körning står redan i kö och startar när denna är klar):
-      # 8 min, 55 min 04–06 UTC.
+      # Paus mellan skanningarna (nästa körning står redan i kö och startar när denna är klar).
+      # Boten skriver pausen i state/paus_sekunder.txt efter hur nära nästa start är:
+      # 1 min när en match startar inom 90 min, 4 min inom 3 h, annars 8 min. 55 min 04–06 UTC
+      # om ingen match är nära. Saknas filen: 8 min.
       - name: Paus före nästa körning
         if: ${{ !cancelled() }}
         run: |
+          P=$(cat state/paus_sekunder.txt 2>/dev/null | tr -cd '0-9')
+          [ -z "$P" ] && P=480
           H=$(date -u +%H)
-          if [ "$H" -ge 4 ] && [ "$H" -lt 6 ]; then sleep 3300; else sleep 480; fi
+          if [ "$H" -ge 4 ] && [ "$H" -lt 6 ] && [ "$P" -ge 480 ]; then P=3300; fi
+          [ "$P" -gt 3600 ] && P=3600
+          echo "paus $P s"
+          sleep "$P"

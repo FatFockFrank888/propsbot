@@ -189,6 +189,24 @@
   "live_model_required_markets": [],
   "live_use_model": false,
   "nba_markets_off": [],
+  "nba_pinnacle_combos": true,
+  "nba_combo_rho": {
+    "points+rebounds": 0.3,
+    "points+assists": 0.4,
+    "rebounds+assists": 0.2
+  },
+  "nba_news_hold_min": 45,
+  "pause_default_s": 480,
+  "pause_steps": [
+    [
+      90,
+      60
+    ],
+    [
+      180,
+      240
+    ]
+  ],
   "nba_play_markets": [
     "points",
     "rebounds",

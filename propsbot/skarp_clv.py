@@ -72,14 +72,17 @@ def book_probs(quotes) -> dict[tuple, dict]:
     "_pin_flyttad": Pinnacles pris är omräknat från en närliggande linje (nba.interpolate_pinnacle)."""
     by: dict[tuple, dict[str, dict[str, float]]] = defaultdict(lambda: defaultdict(dict))
     moved: set = set()
+    komb: set = set()      # Pinnacle-kombo (PRA/PR/RA/PA) räknad ur Pinnacles delar
     for q in quotes:
-        name = ("pinnacle" if q.book == "pinnacle" else "draftkings" if q.book in DK_BOOKS
+        name = ("pinnacle" if q.book in ("pinnacle", "pinnacle_komb") else "draftkings" if q.book in DK_BOOKS
                 else "unibet" if q.book == "unibet" else None)
         if name and q.odds and q.odds > 1.0:
             k = (q.match_id, q.player_id, q.market, q.line)
             by[k][name][q.side] = q.odds
             if name == "pinnacle" and str(getattr(q, "variant", "")).startswith("flyttad"):
                 moved.add(k)
+            if q.book == "pinnacle_komb":
+                komb.add(k)
     out: dict[tuple, dict] = {}
     for k, books in by.items():
         d: dict = {}
@@ -93,6 +96,8 @@ def book_probs(quotes) -> dict[tuple, dict]:
         d["_raw"] = {name: {sd: round(o, 3) for sd, o in s.items()} for name, s in books.items()}
         if k in moved:
             d["_pin_flyttad"] = True
+        if k in komb:
+            d["_pin_komb"] = True
         out[k] = d
     # Saknar ett bolag exakt vår linje (vanligt för DraftKings: en huvudlinje per spelare) räknas närmaste
     # tvåsidiga linje om till vår linje – samma negativa binomial som nba.interpolate_pinnacle.
@@ -145,6 +150,7 @@ def update(ledger, hist_d: dict, now: float, books: dict | None = None, source: 
             if bp:
                 under = b.get("sida") == "under"
                 snap = {"ts": now, "odds": bp.get("_raw", {}), "pin_flyttad": bool(bp.get("_pin_flyttad")),
+                        "pin_komb": bool(bp.get("_pin_komb")),
                         "pin_linje": bp.get("_pinnacle_linje"), "dk_linje": bp.get("_draftkings_linje")}
                 if "pinnacle" in bp:
                     b["pin_stang_p"] = snap["pin_p"] = 1.0 - bp["pinnacle"] if under else bp["pinnacle"]

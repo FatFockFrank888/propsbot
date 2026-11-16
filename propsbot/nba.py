@@ -221,6 +221,77 @@ NB_R = {"points": 15, "rebounds": 10, "assists": 10, "threes": 8, "steals": 30, 
 MAX_LINE_GAP = {"points": 3.0, "pra": 4.0, "pr": 3.5, "ra": 2.5, "pa": 3.5}   # övriga: 1,5
 
 
+def _mu_for(p: float, line: float, r: float) -> float:
+    """Medelvärdet μ där P(X > line) = p för en negativ binomial med form r."""
+    from .player_model import nb_over
+    lo, hi = 0.01, 120.0
+    for _ in range(60):
+        mid = (lo + hi) / 2
+        if nb_over(mid, line, r) < p:
+            lo = mid
+        else:
+            hi = mid
+    return (lo + hi) / 2
+
+
+COMBO_PARTS = {"pra": ("points", "rebounds", "assists"), "pr": ("points", "rebounds"),
+               "ra": ("rebounds", "assists"), "pa": ("points", "assists")}
+# Korrelation mellan en spelares poäng, returer och assist i samma match (främst via speltiden).
+COMBO_RHO = {frozenset(("points", "rebounds")): 0.30, frozenset(("points", "assists")): 0.40,
+             frozenset(("rebounds", "assists")): 0.20}
+
+
+def pinnacle_combos(quotes: list[OddsQuote], rho: dict | None = None) -> int:
+    """Pinnacle saknar kombomarknader (PRA, PR, RA, PA). Räkna fram dem ur Pinnacles egna linjer för
+    poäng, returer och assist: varje dels medel μ (ur Pinnacles pris utan marginal), varians för negativ
+    binomial, plus korrelation mellan delarna; summan anpassas till en negativ binomial med samma medel
+    och varians. Läggs in som egen referens "pinnacle_komb" (egen grupp, inte "pinnacle": skärpan är
+    härledd, inte Pinnacles egen prissättning) på Kambis kombolinjer. Returnerar antal linjer."""
+    from .market import devig_power
+    from .player_model import nb_over
+    rho = rho or COMBO_RHO
+    pin: dict[tuple, dict[float, dict[str, float]]] = defaultdict(lambda: defaultdict(dict))
+    combo_lines: set[tuple] = set()
+    match_id = None
+    for q in quotes:
+        match_id = q.match_id
+        if q.book == "pinnacle" and not str(q.variant).startswith("flyttad"):
+            pin[(q.player_id, q.market)][q.line][q.side] = q.odds
+        elif q.provider == "kambi" and q.market in COMBO_PARTS:
+            combo_lines.add((q.player_id, q.market, q.line))
+    added = 0
+    now = time.time()
+    for pid, mk, line in combo_lines:
+        parts = []
+        for part in COMBO_PARTS[mk]:
+            lines = {ln: d for ln, d in pin.get((pid, part), {}).items() if "over" in d and "under" in d}
+            if not lines:
+                break
+            ln = min(lines, key=lambda x: abs(x - (line / len(COMBO_PARTS[mk]))))   # huvudlinjen räcker
+            p_over = devig_power((lines[ln]["over"], lines[ln]["under"]))[0]
+            r = NB_R.get(part, 15)
+            mu = _mu_for(p_over, ln, r)
+            parts.append((part, mu, mu + mu * mu / r))
+        if len(parts) != len(COMBO_PARTS[mk]):
+            continue
+        m = sum(x[1] for x in parts)
+        v = sum(x[2] for x in parts)
+        for i in range(len(parts)):
+            for j in range(i + 1, len(parts)):
+                v += 2 * rho.get(frozenset((parts[i][0], parts[j][0])), 0.0) * (parts[i][2] * parts[j][2]) ** 0.5
+        if v <= m * 1.01:
+            continue
+        r_sum = m * m / (v - m)
+        p_new = nb_over(m, line, r_sum)
+        if not 0.03 < p_new < 0.97:
+            continue
+        for side, pr in (("over", p_new), ("under", 1 - p_new)):
+            quotes.append(OddsQuote("pinnacle_komb", match_id, pid, mk, line, side, 1 / pr, now,
+                                    provider="pinnacle_komb", variant="kombination av Pinnacles delar"))
+        added += 1
+    return added
+
+
 def interpolate_pinnacle(quotes: list[OddsQuote], moved: set | None = None) -> int:
     """Lägg till Pinnacle-sannolikhet på Kambis linjer när Pinnacle har en närliggande linje.
 
@@ -441,7 +512,7 @@ def nba_scan(root: Path, settings_path: Path) -> dict:
             diag.log(f"DraftKings via ESPN: FEL {type(e).__name__}: {str(e)[:200]}")
     rows = []
     mc = Counter()
-    n_exact = n_moved = 0
+    n_exact = n_moved = n_komb = 0
     sample_done = False
     if settings.get("nba_closing_archive", True):
         try:   # skarpa stängningsodds för alla linjer (backtest-underlag); före interpolering
@@ -462,6 +533,9 @@ def nba_scan(root: Path, settings_path: Path) -> dict:
         n_exact += len({(q.player_id, q.market, q.line) for q in qs_all if q.provider == "kambi"} & pin_keys)
         moved_keys: set = set()
         n_moved += interpolate_pinnacle(qs_all, moved_keys)
+        if settings.get("nba_pinnacle_combos", True):
+            n_komb += pinnacle_combos(qs_all, {frozenset(k.split("+")): v for k, v in
+                                                settings.get("nba_combo_rho", {}).items()} or None)
         evd["_moved"] = moved_keys
         mc.update(f"{q.book}:{q.market}" for q in qs_all if q.book in ("unibet", "pinnacle"))
         if qs_all:
@@ -475,7 +549,8 @@ def nba_scan(root: Path, settings_path: Path) -> dict:
             rows += res
     if SAMPLE.get("pin_desc"):
         diag.log(f"NBA Pinnacle-exempel: {SAMPLE['pin_desc']}")
-    diag.log(f"NBA linjer: {n_exact} med samma linje hos Pinnacle, {n_moved} flyttade från närliggande linje")
+    diag.log(f"NBA linjer: {n_exact} med samma linje hos Pinnacle, {n_moved} flyttade från närliggande linje, "
+             f"{n_komb} kombolinjer (PRA/PR/RA/PA) räknade ur Pinnacles poäng/returer/assist")
     diag.log("NBA-odds (unibet/pinnacle) per marknad: " + ", ".join(f"{k} {v}" for k, v in sorted(mc.items())))
     rows.sort(key=lambda r: -r.row.decision.cand.edge)
     test_rows = []
@@ -519,6 +594,14 @@ def nba_scan(root: Path, settings_path: Path) -> dict:
     nb, nw = block_nba(rows, injuries)
     nb2, _ = block_nba(test_rows, injuries)
     diag.log(f"NBA lagnyheter: {len(injuries)} spelare på skadelistan, {nb + nb2} ben stoppade, {nw} markerade (questionable)")
+    try:   # färsk lagnyhet: under-spel på lagkamraterna väntar tills referensen hunnit reagera
+        from .news import hold_after_teammate_news, nba_injury_list as _inj_list
+        n_hold = hold_after_teammate_news(rows, _inj_list(JsonClient(root / ".cache_odds", ttl_s=600)), LAST_MODEL,
+                                          time.time(), settings.get("nba_news_hold_min", 45))
+        if n_hold:
+            diag.log(f"NBA lagnyheter: {n_hold} under-spel väntar (lagkamrat nyss ute, referensen kan släpa)")
+    except Exception as e:  # noqa: BLE001 – får aldrig stoppa skanningen
+        diag.log(f"NBA lagnyheter (vänta): fel {type(e).__name__}: {e}")
     from .clv_signal import final_rules, taken_players
     nr = final_rules(rows, settings, hist, "nba", taken_players(Ledger(root / "nba_bokforing_v2.json")))
     nt = final_rules(test_rows, settings, None, "", taken_players(Ledger(root / "nba_modelltest.json")))
@@ -557,12 +640,12 @@ def nba_scan(root: Path, settings_path: Path) -> dict:
     sharp_lines = None
     if settings.get("live_require_sharp", True):
         sb = settings.get("sharp_book", "pinnacle")
-        # Referenslinje för LIVE: Pinnacle där Pinnacle har marknaden; DraftKings för marknader Pinnacle saknar
-        # (steals, blocks, pr, pra, ra, pa) – man kan inte jämföra mot ett bolag som inte erbjuder marknaden.
+        # Referenslinje för LIVE: Pinnacle där Pinnacle har marknaden; DraftKings (eller kombos räknade ur
+        # Pinnacles delar) för marknader Pinnacle saknar (steals, blocks, pr, pra, ra, pa) – man kan inte jämföra mot ett bolag som inte erbjuder marknaden.
         pin_mk = set(settings.get("nba_pinnacle_markets", ["points", "rebounds", "assists", "threes"]))
         dk_books = set(settings.get("nba_dk_books", ["us_draftkings", "oa_us_draftkings"]))
         sharp_lines = {(q.match_id, q.player_id, q.market, q.line) for _e, qs, _n in per.values() for q in qs
-                       if q.book == sb or (q.market not in pin_mk and q.book in dk_books)}
+                       if q.book == sb or (q.market not in pin_mk and (q.book in dk_books or q.book == "pinnacle_komb"))}
     live_rows = select_live(rows, test_rows, dict(settings, live_blocked_markets=sorted(blocked)), live, sharp_lines)         if settings.get("live_on", True) else []
     new_live = record_live(live, live_rows, rows, evd_by_id)
     try:   # Official Bets: analysen (radarradens) sparas på LIVE-spelet fram till start, så den finns kvar efteråt
@@ -655,7 +738,7 @@ def attach_analysis(rows: list, test_rows: list, per: dict) -> int:
         side_p = lambda p: None if p is None else (1.0 - p if under else p)   # noqa: E731
         an["ref"] = {"pin_p": side_p(bp.get("pinnacle")), "dk_p": side_p(bp.get("draftkings")),
                      "pin_linje": bp.get("_pinnacle_linje"), "dk_linje": bp.get("_draftkings_linje"),
-                     "pin_flyttad": bool(bp.get("_pin_flyttad"))}
+                     "pin_flyttad": bool(bp.get("_pin_flyttad")), "pin_komb": bool(bp.get("_pin_komb"))}
         tab = books.get(k[:4]) or {}
         an["odds_bolag"] = sorted(({"bolag": bk, "over": v.get("over"), "under": v.get("under")}
                                    for bk, v in tab.items()), key=lambda x: x["bolag"])
