@@ -573,6 +573,12 @@ def nba_scan(root: Path, settings_path: Path) -> dict:
         if d.cand.market not in play_mk and d.playable:
             d.playable, d.stake = False, 0.0
             d.reasons.append("marknaden avstängd för spel (nba_play_markets) – bara skuggspel")
+        # Kombos (PRA/PR/RA/PA): Pinnacle-kombinationen är härledd (korrelationerna inte uppmätta än) och får
+        # inte ensam bära ett spel – minst två oberoende referenser (t.ex. DraftKings/FanDuel + kombinationen).
+        elif d.cand.market in COMBO_PARTS and d.playable and (r.n_groups or 0) < settings.get("nba_combo_min_groups", 2):
+            d.playable, d.stake = False, 0.0
+            d.reasons.append(f"kombo med bara {r.n_groups or 0} referens – kräver minst "
+                             f"{settings.get('nba_combo_min_groups', 2)} (Pinnacle-kombinationen räcker inte ensam)")
     try:
         n_an = attach_analysis(rows, test_rows, per)
         diag.log(f"NBA analyssida: {n_an} ben med analys")
