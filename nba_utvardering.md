@@ -1,4 +1,4 @@
-# NBA – utvärdering på framåtriktad data (2026-11-16T20:10:41+00:00)
+# NBA – utvärdering på framåtriktad data (2026-11-16T20:16:12+00:00)
 
 Bara bokförda prognoser (gjorda före matchen). Unika prestationer = spelare × match × marknad.
 
@@ -6,7 +6,7 @@ Bara bokförda prognoser (gjorda före matchen). Unika prestationer = spelare ×
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | live | 23 | 23 | 21 | 11 | 21 | +15.3 % | +21.4 % | 4.0 | 3.10 (+2.37…+3.74) | 3.19 | 0.95 | +85.7 % | 3.04 | – |
 | spel | 374 | 374 | 111 | 16 | 340 | +3.9 % | +1.9 % | 14.5 | 2.20 (+1.69…+2.76) | 2.10 | 0.81 | +77.7 % | 2.55 | – |
-| skugga | 1072 | 1072 | 123 | 16 | 959 | +1.3 % | +1.3 % | 35.7 | 0.87 (+0.61…+1.20) | 0.83 | 0.85 | +65.9 % | 1.80 | – |
+| skugga | 1073 | 1073 | 123 | 16 | 959 | +1.3 % | +1.3 % | 35.7 | 0.87 (+0.61…+1.20) | 0.83 | 0.85 | +65.9 % | 1.80 | – |
 | modelltest | 944 | 944 | 124 | 16 | 851 | +6.8 % | +6.5 % | 22.3 | -0.09 (-0.48…+0.44) | -0.15 | 0.82 | +44.2 % | 1.85 | 0.2758 / 0.2450 (353) |
 
 ## Marknadsstatus för LIVE (marknadsbaserade spel mot skarp stängning)
@@ -20,7 +20,7 @@ Bara bokförda prognoser (gjorda före matchen). Unika prestationer = spelare ×
 | pr | **osäker** | 34 | 1.15 (-2.26…+2.95) | +65.5 % | +0.7 % |
 | pra | **osäker** | 23 | 0.94 (-0.41…+2.90) | +70.0 % | -13.6 % |
 | ra | **osäker** | 58 | 0.72 (-1.16…+0.89) | +69.4 % | +2.6 % |
-| rebounds | **ok** | 300 | 1.09 (+0.81…+1.48) | +72.2 % | -2.4 % |
+| rebounds | **ok** | 301 | 1.09 (+0.81…+1.48) | +72.2 % | -2.4 % |
 | steals | **ok** | 27 | 4.85 (+3.10…+10.14) | +88.9 % | +31.8 % |
 | threes | **ok** | 176 | 1.51 (+0.55…+2.34) | +67.9 % | +11.1 % |
 
