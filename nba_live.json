@@ -1377,7 +1377,7 @@
 "edge": 0.10273694640592024,
 "spela_fran": 1.84,
 "insats_pct": 0.01,
-"stangning": 1.9,
+"stangning": 1.85,
 "status": "öppen",
 "stopp": "",
 "clv_signal": false,
@@ -1387,14 +1387,14 @@
 "utfall": null,
 "resultat_enheter": null,
 "modell_edge": 0.15660244887014874,
-"stangning_ts": 1794852288.194249,
+"stangning_ts": 1794852669.8093388,
 "analys": {
 "p_stack": 0.5534,
 "p_modell_min": 0.6196,
 "minuter": 32.0,
 "minuter_sd": 5.1,
-"p_faktorer": 0.5598,
-"p_faktorer_ra": 0.5996,
+"p_faktorer": 0.5614,
+"p_faktorer_ra": 0.6061,
 "vantat_faktorer": 17.68,
 "p_betyg": 0.5829,
 "p_betyg_ra": 0.6894,
@@ -1423,15 +1423,15 @@
 "traff_mot_n": 0,
 "traff_hemmaborta": 0.5,
 "traff_hemmaborta_n": 4,
-"p_modell": 0.6741,
+"p_modell": 0.6757,
 "p_marknad": 0.547,
-"p_slutlig": 0.5788,
+"p_slutlig": 0.5792,
 "vantat": 18.33,
 "nb_r": 15,
 "modell_vikt": 0.24,
 "dq": 0.8,
 "matcher": 12,
-"nivajustering": 0.29,
+"nivajustering": 0.3,
 "logg": [
 {
 "ts": 1794704400.0,
@@ -1520,18 +1520,18 @@
 "odds_bolag": [
 {
 "bolag": "atg",
-"over": 1.83,
-"under": 1.9
+"over": 1.88,
+"under": 1.85
 },
 {
 "bolag": "betmgm",
-"over": 1.83,
-"under": 1.9
+"over": 1.88,
+"under": 1.85
 },
 {
 "bolag": "expekt",
-"over": 1.83,
-"under": 1.9
+"over": 1.88,
+"under": 1.85
 },
 {
 "bolag": "kalshi",
@@ -1540,13 +1540,13 @@
 },
 {
 "bolag": "leovegas",
-"over": 1.83,
-"under": 1.9
+"over": 1.88,
+"under": 1.85
 },
 {
 "bolag": "paf",
-"over": 1.83,
-"under": 1.9
+"over": 1.88,
+"under": 1.85
 },
 {
 "bolag": "pinnacle",
@@ -1555,13 +1555,13 @@
 },
 {
 "bolag": "svenskaspel",
-"over": 1.83,
-"under": 1.9
+"over": 1.88,
+"under": 1.85
 },
 {
 "bolag": "unibet",
-"over": 1.83,
-"under": 1.9
+"over": 1.88,
+"under": 1.85
 },
 {
 "bolag": "us_draftkings",
@@ -1571,11 +1571,11 @@
 ]
 },
 "prognos": 18.326765185724316,
-"analys_ts": 1794852288.1953216,
+"analys_ts": 1794852669.8112876,
 "modellversion": "2026-11-15-betyg",
 "prognos_ts": 1794844040.00221,
 "skarp_stang_p": 0.5469869578581694,
-"skarp_stang_ts": 1794852287.9608936,
+"skarp_stang_ts": 1794852669.4410903,
 "skarp_kalla": "skanning",
 "pin_stang_p": 0.5558147293509117,
 "dk_stang_p": 0.5175500468317258,
@@ -1603,11 +1603,11 @@
 "dk_p": 0.5130632027464663
 },
 "bolag_stangning": {
-"ts": 1794852288.2066,
+"ts": 1794852669.906708,
 "odds": {
 "unibet": {
-"over": 1.83,
-"under": 1.9
+"over": 1.88,
+"under": 1.85
 },
 "pinnacle": {
 "over": 2.08,
@@ -1625,7 +1625,7 @@
 "pin_p": 0.5558147293509117,
 "dk_p": 0.5175500468317258
 },
-"bolag_stang_ts": 1794852288.2066,
+"bolag_stang_ts": 1794852669.906708,
 "skarp_verifierad": false,
 "skarp_status": null,
 "clv_skarp_pp": 4.193645280766434,
@@ -1664,19 +1664,19 @@
 "utfall": null,
 "resultat_enheter": null,
 "modell_edge": 0.0003586145534664187,
-"stangning_ts": 1794852288.194249,
+"stangning_ts": 1794852669.8093388,
 "analys": {
-"p_stack": 0.5401,
-"p_modell_min": 0.2418,
-"minuter": 36.4,
+"p_stack": 0.5416,
+"p_modell_min": 0.1896,
+"minuter": 39.2,
 "minuter_sd": 4.2,
-"p_faktorer": 0.4836,
-"p_faktorer_ra": 0.3167,
-"vantat_faktorer": 9.32,
-"p_betyg": 0.4933,
-"p_betyg_ra": 0.3559,
-"vantat_betyg": 9.47,
-"minuter_faktorer": 31.8,
+"p_faktorer": 0.4988,
+"p_faktorer_ra": 0.246,
+"vantat_faktorer": 10.08,
+"p_betyg": 0.4796,
+"p_betyg_ra": 0.301,
+"vantat_betyg": 10.19,
+"minuter_faktorer": 34.4,
 "f_anv": 1.0,
 "f_miljo": 1.0,
 "f_tempo": 1.009,
@@ -1700,15 +1700,15 @@
 "traff_mot_n": 2,
 "traff_hemmaborta": 0.6,
 "traff_hemmaborta_n": 5,
-"p_modell": 0.3193,
+"p_modell": 0.2607,
 "p_marknad": 0.5332,
-"p_slutlig": 0.4843,
-"vantat": 10.56,
+"p_slutlig": 0.5009,
+"vantat": 11.35,
 "nb_r": 10,
-"modell_vikt": 0.22,
+"modell_vikt": 0.11,
 "dq": 0.73,
 "matcher": 11,
-"nivajustering": 0.21,
+"nivajustering": 0.18,
 "logg": [
 {
 "ts": 1794704400.0,
@@ -1796,7 +1796,7 @@
 },
 {
 "namn": "Isaiah Stewart",
-"status": "day-to-day",
+"status": "out",
 "min": 17.9,
 "redan_borta": false
 },
@@ -1879,12 +1879,12 @@
 }
 ]
 },
-"prognos": 10.558095096801749,
-"analys_ts": 1794852288.1953216,
+"prognos": 11.352938967741432,
+"analys_ts": 1794852669.8112876,
 "modellversion": "2026-11-15-betyg",
 "prognos_ts": 1794845314.4831789,
 "skarp_stang_p": 0.5331713358839865,
-"skarp_stang_ts": 1794852287.9608936,
+"skarp_stang_ts": 1794852669.4410903,
 "skarp_kalla": "skanning",
 "pin_stang_p": 0.5366681530046142,
 "bolag_bokning": {
@@ -1906,7 +1906,7 @@
 "pin_p": 0.5486310192781136
 },
 "bolag_stangning": {
-"ts": 1794852288.2066,
+"ts": 1794852669.906708,
 "odds": {
 "unibet": {
 "over": 1.85,
@@ -1923,17 +1923,17 @@
 "dk_linje": null,
 "pin_p": 0.5366681530046142
 },
-"bolag_stang_ts": 1794852288.2066,
+"bolag_stang_ts": 1794852669.906708,
 "skarp_verifierad": false,
 "skarp_status": null,
 "clv_skarp_pp": 4.297525745261393,
 "clv_pin_pp": 4.64720745732417,
 "clv_dk_pp": null,
-"nyhet_lag_status": "lag:scotty pippen jr",
-"nyhet_lag": "Lagkamrat ute: Scotty Pippen Jr. (out). Modellen nu: Cedric Coward väntat 10.6 (37 min), under 7.5 28%, edge vid 2.04: -44% (vid bokning modell +0%)",
-"nyhet_lag_ts": "2026-11-16T17:24:11+00:00",
-"nyhet": "Cedric Coward inte längre på skadelistan (ESPN)",
-"nyhet_status": "ok",
+"nyhet_lag_status": "lag:isaiah stewart,scotty pippen jr",
+"nyhet_lag": "Lagkamrat ute: Isaiah Stewart (out), Scotty Pippen Jr. (out). Modellen nu: Cedric Coward väntat 11.4 (39 min), under 7.5 23%, edge vid 2.04: -54% (vid bokning modell +0%)",
+"nyhet_lag_ts": "2026-11-16T18:11:09+00:00",
+"nyhet": "Lagkamrat ute: Isaiah Stewart (out), Scotty Pippen Jr. (out). Modellen nu: Cedric Coward väntat 11.4 (39 min), under 7.5 23%, edge vid 2.04: -54% (vid bokning modell +0%)",
+"nyhet_status": "lag:isaiah stewart,scotty pippen jr",
 "nyhet_ts": "2026-11-16T17:31:25+00:00"
 }
 ]
