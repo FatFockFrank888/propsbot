@@ -1,4 +1,4 @@
-# NBA – utvärdering på framåtriktad data (2026-11-16T00:11:17+00:00)
+# NBA – utvärdering på framåtriktad data (2026-11-16T00:23:55+00:00)
 
 Bara bokförda prognoser (gjorda före matchen). Unika prestationer = spelare × match × marknad.
 
@@ -6,8 +6,8 @@ Bara bokförda prognoser (gjorda före matchen). Unika prestationer = spelare ×
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | live | 20 | 20 | 18 | 10 | 19 | +4.2 % | +0.5 % | 4.0 | 3.08 (+2.36…+3.77) | 3.18 | 0.95 | +85.0 % | 2.97 | – |
 | spel | 355 | 355 | 103 | 15 | 323 | +4.9 % | +2.8 % | 14.5 | 2.17 (+1.68…+2.70) | 2.07 | 0.81 | +77.5 % | 2.60 | – |
-| skugga | 1000 | 1000 | 115 | 15 | 885 | +2.0 % | +2.1 % | 27.0 | 0.88 (+0.60…+1.21) | 0.84 | 0.86 | +66.0 % | 1.81 | – |
-| modelltest | 895 | 895 | 116 | 15 | 798 | +8.7 % | +8.5 % | 17.5 | -0.10 (-0.48…+0.44) | -0.16 | 0.82 | +44.2 % | 1.88 | 0.2702 / 0.2433 (300) |
+| skugga | 1001 | 1001 | 115 | 15 | 885 | +2.0 % | +2.1 % | 27.0 | 0.88 (+0.60…+1.21) | 0.84 | 0.86 | +66.0 % | 1.81 | – |
+| modelltest | 896 | 896 | 116 | 15 | 798 | +8.7 % | +8.5 % | 17.5 | -0.09 (-0.48…+0.44) | -0.15 | 0.82 | +44.3 % | 1.88 | 0.2702 / 0.2433 (300) |
 
 ## Marknadsstatus för LIVE (marknadsbaserade spel mot skarp stängning)
 
@@ -16,7 +16,7 @@ Bara bokförda prognoser (gjorda före matchen). Unika prestationer = spelare ×
 | assists | **ok** | 222 | 0.93 (+0.13…+1.63) | +69.0 % | +2.9 % |
 | blocks | **ok** | 14 | 4.14 (+2.62…+5.27) | +100.0 % | +26.2 % |
 | pa | **insufficient_data** | 1 | 0.76 (–) | +100.0 % | – |
-| points | **ok** | 566 | 1.17 (+0.73…+1.61) | +66.4 % | -0.1 % |
+| points | **ok** | 567 | 1.17 (+0.73…+1.61) | +66.4 % | -0.1 % |
 | pr | **osäker** | 25 | 1.29 (-2.29…+2.95) | +65.2 % | -6.6 % |
 | pra | **osäker** | 20 | 1.09 (-0.19…+3.23) | +73.7 % | -4.1 % |
 | ra | **osäker** | 49 | 0.80 (-1.16…+1.18) | +70.2 % | +8.9 % |
@@ -44,7 +44,7 @@ Verifierad = referensens notering högst 60 min före start. Flyttad linje = vå
 | skugga | flyttad linje (för oss) | 163 | 4.55 | +15.1 % |
 | skugga | flyttad linje (mot oss) | 40 | -4.97 | -0.2 % |
 | skugga | verifierad | 625 | 0.27 | +0.0 % |
-| modelltest | ? | 28 | -0.33 | -35.3 % |
+| modelltest | ? | 29 | -0.26 | -35.3 % |
 | modelltest | borttagen | 97 | 0.02 | +24.6 % |
 | modelltest | flyttad linje (för oss) | 101 | 4.46 | +13.6 % |
 | modelltest | flyttad linje (mot oss) | 45 | -5.91 | -26.8 % |
@@ -60,11 +60,11 @@ Verifierad = referensens notering högst 60 min före start. Flyttad linje = vå
 | pr | **insufficient_data** | 0.3262 / 0.2496 (22) | +0.0526…+0.1123 | 0.91 (-1.14…+2.42) | 0 | – |
 | pra | **insufficient_data** | 0.3134 / 0.2522 (16) | -0.0721…+0.1252 | 0.08 (-1.23…+1.54) | 0 | – |
 | ra | **insufficient_data** | 0.2634 / 0.2408 (20) | -0.0477…+0.1480 | 0.29 (-1.62…+1.31) | 0 | – |
-| rebounds | **degraded** | 0.2812 / 0.2529 (49) | -0.0190…+0.0916 | -0.61 (-1.05…-0.25) | 4 | -0.0 % |
+| rebounds | **degraded** | 0.2812 / 0.2529 (49) | -0.0190…+0.0916 | -0.60 (-1.04…-0.22) | 4 | -0.0 % |
 | steals | **insufficient_data** | 0.3103 / 0.2511 (6) | -0.0368…+0.1597 | 3.97 (+1.78…+5.75) | 0 | – |
 | threes | **insufficient_data** | 0.2782 / 0.2487 (29) | -0.0450…+0.0877 | 0.14 (-0.82…+1.74) | 7 | +42.4 % |
 
-p för validering (max av Brier- och CLV-p) – Benjamini–Hochberg q = 0.1 över 3 marknader: assists 0.498, points 0.959, rebounds 0.990
+p för validering (max av Brier- och CLV-p) – Benjamini–Hochberg q = 0.1 över 3 marknader: assists 0.498, points 0.959, rebounds 0.989
 
 ## Skuggmodeller (modelltest, samma spel)
 
