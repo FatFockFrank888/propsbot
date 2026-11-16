@@ -14373,14 +14373,14 @@
 "spela_fran": 2.01,
 "insats_pct": 0.016403451616459175,
 "stangning": 1.98,
-"status": "öppen",
+"status": "vunnen",
 "stopp": "sharp money med oss: referensen +6.6 enheter",
 "clv_signal": false,
 "forv_clv_pp": 8.755373586026144,
 "p_modell": null,
 "p_marknad": 0.5088863474819336,
-"utfall": null,
-"resultat_enheter": null,
+"utfall": 1,
+"resultat_enheter": 0.019684141939751012,
 "stangning_ts": 1794753815.7147055,
 "modellversion": "2026-11-14-faktorer",
 "prognos_ts": 1794749009.0935662,
@@ -15063,5 +15063,97 @@
 "clv_skarp_pp": 21.3974358974359,
 "clv_pin_pp": null,
 "clv_dk_pp": null
+},
+{
+"key": "nba1028754048|brayden burries|pr|19.5|unibet|under",
+"id": 378,
+"bokford": 1794789362.2471538,
+"match_id": "nba1028754048",
+"match": "Milwaukee Bucks – Atlanta Hawks",
+"hemma": "Milwaukee Bucks",
+"borta": "Atlanta Hawks",
+"liga": "NBA",
+"avspark": 1794790800.0,
+"spelare": "Brayden Burries",
+"spelare_id": "brayden burries",
+"marknad": "pr",
+"linje": 19.5,
+"sida": "under",
+"bolag": "unibet",
+"odds": 1.84,
+"sannolikhet": 0.5849374244175951,
+"ratt_odds": 1.7095845782062422,
+"edge": 0.07628486092837505,
+"spela_fran": 1.75,
+"insats_pct": 0.01372124162783734,
+"stangning": 1.84,
+"status": "öppen",
+"stopp": "",
+"clv_signal": false,
+"forv_clv_pp": 4.145916354802992,
+"p_modell": null,
+"p_marknad": 0.5849374244175951,
+"utfall": null,
+"resultat_enheter": null,
+"stangning_ts": 1794789362.2471733,
+"modellversion": "2026-11-15-betyg",
+"prognos_ts": 1794789362.2471538,
+"skarp_stang_p": 0.5849374244175951,
+"skarp_stang_ts": 1794789362.1337886,
+"skarp_kalla": "skanning",
+"pin_stang_p": 0.5849374244175951,
+"dk_stang_p": 0.5380815579551346,
+"bolag_bokning": {
+"ts": 1794789362.2905955,
+"odds": {
+"unibet": {
+"over": 1.89,
+"under": 1.84
+},
+"pinnacle": {
+"over": 2.409,
+"under": 1.71
+},
+"draftkings (18.5)": {
+"over": 1.8,
+"under": 1.95
+}
+},
+"pin_flyttad": false,
+"pin_komb": true,
+"pin_linje": null,
+"dk_linje": 18.5,
+"pin_p": 0.5849374244175951,
+"dk_p": 0.5380815579551346
+},
+"bolag_stangning": {
+"ts": 1794789362.2905955,
+"odds": {
+"unibet": {
+"over": 1.89,
+"under": 1.84
+},
+"pinnacle": {
+"over": 2.409,
+"under": 1.71
+},
+"draftkings (18.5)": {
+"over": 1.8,
+"under": 1.95
+}
+},
+"pin_flyttad": false,
+"pin_komb": true,
+"pin_linje": null,
+"dk_linje": 18.5,
+"pin_p": 0.5849374244175951,
+"dk_p": 0.5380815579551346
+},
+"bolag_stang_ts": 1794789362.2905955,
+"skarp_verifierad": true,
+"skarp_status": null,
+"clv_skarp_pp": 4.145916354802992,
+"clv_pin_pp": 4.145916354802992,
+"clv_dk_pp": -0.5396702914430618
 }
 ]
