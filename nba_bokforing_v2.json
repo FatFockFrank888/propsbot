@@ -15086,7 +15086,7 @@
 "edge": 0.07628486092837505,
 "spela_fran": 1.75,
 "insats_pct": 0.01372124162783734,
-"stangning": 1.84,
+"stangning": 1.83,
 "status": "öppen",
 "stopp": "",
 "clv_signal": false,
@@ -15095,14 +15095,14 @@
 "p_marknad": 0.5849374244175951,
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1794789362.2471733,
+"stangning_ts": 1794789699.6807165,
 "modellversion": "2026-11-15-betyg",
 "prognos_ts": 1794789362.2471538,
 "skarp_stang_p": 0.5849374244175951,
-"skarp_stang_ts": 1794789362.1337886,
+"skarp_stang_ts": 1794789699.5289774,
 "skarp_kalla": "skanning",
 "pin_stang_p": 0.5849374244175951,
-"dk_stang_p": 0.5380815579551346,
+"dk_stang_p": 0.5468392989235201,
 "bolag_bokning": {
 "ts": 1794789362.2905955,
 "odds": {
@@ -15127,19 +15127,19 @@
 "dk_p": 0.5380815579551346
 },
 "bolag_stangning": {
-"ts": 1794789362.2905955,
+"ts": 1794789699.7384858,
 "odds": {
 "unibet": {
-"over": 1.89,
-"under": 1.84
+"over": 1.9,
+"under": 1.83
 },
 "pinnacle": {
 "over": 2.409,
 "under": 1.71
 },
 "draftkings (18.5)": {
-"over": 1.8,
-"under": 1.95
+"over": 1.82,
+"under": 1.91
 }
 },
 "pin_flyttad": false,
@@ -15147,13 +15147,94 @@
 "pin_linje": null,
 "dk_linje": 18.5,
 "pin_p": 0.5849374244175951,
-"dk_p": 0.5380815579551346
+"dk_p": 0.5468392989235201
 },
-"bolag_stang_ts": 1794789362.2905955,
+"bolag_stang_ts": 1794789699.7384858,
 "skarp_verifierad": true,
 "skarp_status": null,
 "clv_skarp_pp": 4.145916354802992,
 "clv_pin_pp": 4.145916354802992,
-"clv_dk_pp": -0.5396702914430618
+"clv_dk_pp": 0.33610380539549345
+},
+{
+"key": "nba1028754048|nate ament|pr|12.5|unibet",
+"id": 379,
+"bokford": 1794789699.6806922,
+"match_id": "nba1028754048",
+"match": "Milwaukee Bucks – Atlanta Hawks",
+"hemma": "Milwaukee Bucks",
+"borta": "Atlanta Hawks",
+"liga": "NBA",
+"avspark": 1794790800.0,
+"spelare": "Nate Ament",
+"spelare_id": "nate ament",
+"marknad": "pr",
+"linje": 12.5,
+"sida": "over",
+"bolag": "unibet",
+"odds": 2.07,
+"sannolikhet": 0.5280497154439797,
+"ratt_odds": 1.893761081111858,
+"edge": 0.09306291096903796,
+"spela_fran": 1.94,
+"insats_pct": 0.011678226176086477,
+"stangning": 2.07,
+"status": "öppen",
+"stopp": "sharp money med oss: referensen +6.2 enheter",
+"clv_signal": false,
+"forv_clv_pp": 7.599303793673986,
+"p_modell": null,
+"p_marknad": 0.5280497154439797,
+"utfall": null,
+"resultat_enheter": null,
+"stangning_ts": 1794789699.6807165,
+"modellversion": "2026-11-15-betyg",
+"prognos_ts": 1794789699.6806922,
+"skarp_stang_p": 0.5280497154439797,
+"skarp_stang_ts": 1794789699.5289774,
+"skarp_kalla": "skanning",
+"dk_stang_p": 0.5280497154439797,
+"bolag_bokning": {
+"ts": 1794789699.7384858,
+"odds": {
+"unibet": {
+"over": 2.07,
+"under": 1.68
+},
+"draftkings": {
+"over": 1.78,
+"under": 1.97
+}
+},
+"pin_flyttad": false,
+"pin_komb": false,
+"pin_linje": null,
+"dk_linje": null,
+"dk_p": 0.5280497154439797
+},
+"bolag_stangning": {
+"ts": 1794789699.7384858,
+"odds": {
+"unibet": {
+"over": 2.07,
+"under": 1.68
+},
+"draftkings": {
+"over": 1.78,
+"under": 1.97
+}
+},
+"pin_flyttad": false,
+"pin_komb": false,
+"pin_linje": null,
+"dk_linje": null,
+"dk_p": 0.5280497154439797
+},
+"bolag_stang_ts": 1794789699.7384858,
+"skarp_verifierad": true,
+"skarp_status": null,
+"clv_skarp_pp": 4.495792800436615,
+"clv_pin_pp": null,
+"clv_dk_pp": 4.495792800436615
 }
 ]
