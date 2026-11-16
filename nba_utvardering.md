@@ -1,4 +1,4 @@
-# NBA – utvärdering på framåtriktad data (2026-11-16T01:08:55+00:00)
+# NBA – utvärdering på framåtriktad data (2026-11-16T01:13:59+00:00)
 
 Bara bokförda prognoser (gjorda före matchen). Unika prestationer = spelare × match × marknad.
 
@@ -6,7 +6,7 @@ Bara bokförda prognoser (gjorda före matchen). Unika prestationer = spelare ×
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | live | 20 | 20 | 18 | 10 | 19 | +4.2 % | +0.5 % | 4.0 | 3.08 (+2.36…+3.77) | 3.18 | 0.95 | +85.0 % | 2.97 | – |
 | spel | 357 | 357 | 104 | 15 | 329 | +4.9 % | +3.0 % | 14.5 | 2.18 (+1.69…+2.73) | 2.09 | 0.81 | +77.6 % | 2.56 | – |
-| skugga | 1006 | 1006 | 115 | 15 | 904 | +1.2 % | +1.1 % | 33.1 | 0.88 (+0.61…+1.22) | 0.83 | 0.85 | +65.8 % | 1.82 | – |
+| skugga | 1006 | 1006 | 115 | 15 | 904 | +1.2 % | +1.1 % | 33.1 | 0.88 (+0.61…+1.22) | 0.83 | 0.85 | +65.9 % | 1.82 | – |
 | modelltest | 898 | 898 | 116 | 15 | 814 | +8.1 % | +7.6 % | 17.5 | -0.09 (-0.48…+0.44) | -0.15 | 0.82 | +44.3 % | 1.89 | 0.2734 / 0.2451 (316) |
 
 ## Marknadsstatus för LIVE (marknadsbaserade spel mot skarp stängning)
@@ -19,7 +19,7 @@ Bara bokförda prognoser (gjorda före matchen). Unika prestationer = spelare ×
 | points | **ok** | 567 | 1.18 (+0.74…+1.58) | +66.4 % | -0.3 % |
 | pr | **osäker** | 29 | 1.38 (-2.26…+2.95) | +65.4 % | -1.1 % |
 | pra | **osäker** | 20 | 1.09 (-0.16…+3.34) | +73.7 % | -9.1 % |
-| ra | **osäker** | 50 | 0.72 (-1.16…+0.88) | +68.8 % | +5.5 % |
+| ra | **osäker** | 50 | 0.72 (-1.16…+0.89) | +69.4 % | +5.5 % |
 | rebounds | **ok** | 285 | 1.06 (+0.80…+1.43) | +71.7 % | -3.8 % |
 | steals | **ok** | 27 | 4.85 (+3.09…+10.19) | +88.9 % | +37.0 % |
 | threes | **ok** | 167 | 1.51 (+0.56…+2.41) | +67.9 % | +13.6 % |
@@ -39,7 +39,7 @@ Verifierad = referensens notering högst 60 min före start. Flyttad linje = vå
 | spel | flyttad linje (för oss) | 39 | 4.41 | +0.0 % |
 | spel | flyttad linje (mot oss) | 10 | -4.45 | +4.0 % |
 | spel | verifierad | 234 | 1.74 | +8.4 % |
-| skugga | ? | 50 | 0.73 | -21.0 % |
+| skugga | ? | 51 | 0.73 | -21.0 % |
 | skugga | borttagen | 96 | 0.99 | -10.0 % |
 | skugga | flyttad linje (för oss) | 164 | 4.62 | +13.6 % |
 | skugga | flyttad linje (mot oss) | 40 | -4.97 | -5.8 % |
