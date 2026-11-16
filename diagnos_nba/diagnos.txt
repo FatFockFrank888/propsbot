@@ -1,13 +1,13 @@
-NBA-skanning 2026-11-16 01:33
+NBA-skanning 2026-11-16 01:39
 Kambi NBA: 2 matcher, bolag: atg, betmgm, expekt, leovegas, paf, svenskaspel, unibet
-NBA tid: Kambi-props 6 s
+NBA tid: Kambi-props 5 s
 Pinnacle NBA: 1 matcher, 54 spelarodds (2 s)
-Kalshi: 81 likvida linjer av 973 öppna marknader
-Kalshi: 62 linjer kopplade till matcher
+Kalshi: 85 likvida linjer av 962 öppna marknader
+Kalshi: 68 linjer kopplade till matcher
 DK/FD: 0 nya hämtningar, 476 odds i bruk, krediter kvar 306, dagsbudget 19 (andel 60%), förbrukat idag 7
 SportsGameOdds NBA: vilar efter kvotfel till 16/11 19:35 UTC
-DraftKings via ESPN: 1 matcher, 72 spelarodds (referens)
-Stängningsarkiv (Pinnacle/DK): 102 tvåsidiga linjer noterade, 0 rader arkiverade
+DraftKings via ESPN: 1 matcher, 78 spelarodds (referens)
+Stängningsarkiv (Pinnacle/DK): 105 tvåsidiga linjer noterade, 0 rader arkiverade
 NBA namnexempel Sacramento Kings: Kambi ['aday mara', 'ajay mitchell', 'alex caruso', 'bennett stirtz', 'darius acuff jr', 'domantas sabonis'] | Pinnacle ['aday mara', 'ajay mitchell', 'darius acuff jr', 'domantas sabonis', 'isaiah hartenstein', 'jared mccain']
 NBA Pinnacle-exempel: ['Winning Margin Range', 'Sacramento Kings Points Odd/Even', 'Winning Margin Range 1st Half', 'Oklahoma City Thunder Points Odd/Even', 'Total Points Odd/Even', 'Moneyline and Total Points', 'Aday Mara Total Points', 'Aday Mara Total Rebounds']
 NBA linjer: 18 med samma linje hos Pinnacle, 9 flyttade från närliggande linje, 20 kombolinjer (PRA/PR/RA/PA) räknade ur Pinnacles poäng/returer/assist
@@ -17,33 +17,24 @@ NBA spelarbetyg (skugga): 42 spelare, 0 nya boxscores
 NBA-modell: 2 matcher hos ESPN, 41 spelare, 0 nya boxscores, 89 skadade (out/doubtful)
 NBA-modell nivåavvikelse (dras bort): 
 NBA faktormodell nivåavvikelse: –
-NBA minutmodell (skugga): medel cv² 0.065, spread från Pinnacle för 1 av 2 matcher; stackning: _alla b_m -0.01 b_k 1.16 (n 316), assists b_m +0.04 b_k 1.20 (n 56), blocks b_m +0.01 b_k 1.12 (n 4), points b_m -0.00 b_k 1.20 (n 106), pr b_m -0.04 b_k 1.18 (n 23), pra b_m -0.03 b_k 0.99 (n 18), ra b_m -0.01 b_k 1.18 (n 20), rebounds b_m -0.02 b_k 0.98 (n 52), steals b_m -0.06 b_k 1.07 (n 6), threes b_m -0.04 b_k 1.00 (n 31)
-NBA-modelltest: 7 spelbara enligt modellen av 96 ben med modell
-NBA analyssida: 96 ben med analys
+NBA minutmodell (skugga): medel cv² 0.065, spread från Pinnacle för 1 av 2 matcher; stackning: _alla b_m -0.02 b_k 1.16 (n 319), assists b_m +0.04 b_k 1.20 (n 56), blocks b_m +0.00 b_k 1.12 (n 4), points b_m -0.01 b_k 1.20 (n 106), pr b_m -0.05 b_k 1.14 (n 24), pra b_m -0.04 b_k 0.98 (n 20), ra b_m -0.02 b_k 1.18 (n 20), rebounds b_m -0.02 b_k 0.98 (n 52), steals b_m -0.06 b_k 1.07 (n 6), threes b_m -0.05 b_k 1.00 (n 31)
+NBA-modelltest: 7 spelbara enligt modellen av 94 ben med modell
+NBA analyssida: 94 ben med analys
 NBA CLV-signal: 0 ben släppta
 NBA lagnyheter: 103 spelare på skadelistan, 0 ben stoppade, 0 markerade (questionable)
 NBA lagnyheter: 1 under-spel väntar (lagkamrat nyss ute, referensen kan släpa)
-NBA spelregler: stoppade {'edge': 2, 'spelare': 1, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0} (modelltest {'edge': 5, 'spelare': 2, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0})
-NBA: 1 spelbara ben av 114
-NBA SPEL: Sacramento Kings – Oklahoma City Thunder | Aday Mara rebounds över 6.5 | unibet 2.50 | p 46.0% | edge 15.0%
-NBA LIVE: 1 spel uppfyller live-kraven, 1 nya bokförda live
-NBA LIVE SPEL: Sacramento Kings – Oklahoma City Thunder | Aday Mara rebounds over 6.5 | unibet 2.50 | edge 15.0% | 10u
+NBA spelregler: stoppade {'edge': 1, 'spelare': 0, 'oddsfall': 1, 'sharp': 0, 'fotboll': 0} (modelltest {'edge': 5, 'spelare': 2, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0})
+NBA: 0 spelbara ben av 112
+NBA LIVE: 0 spel uppfyller live-kraven, 0 nya bokförda live
 NBA skarp stängning: 13 spel uppdaterade
-NBA rättad: Dylan Harper rebounds över 5.5 -> förlorad (9)
+NBA rättad: Keyonte George points över 19.5 -> vunnen (13)
 NBA: hittar inte Ajay Mitchell i boxscore (LA Clippers – Oklahoma City Thunder) – väntar
 NBA: hittar inte Donovan Mitchell i boxscore (Cleveland Cavaliers – Dallas Mavericks) – väntar
-NBA rättad: Victor Wembanyama assists över 2.5 -> förlorad (6)
 NBA: hittar inte De'Aaron Fox i boxscore (Utah Jazz – San Antonio Spurs) – väntar
-NBA rättad: Darryn Peterson points över 19.5 -> vunnen (17)
-NBA rättad: Julian Champagnie pr över 14.5 -> förlorad (9)
-NBA rättad: Keldon Johnson points över 9.5 -> vunnen (11)
-NBA rättad: Dylan Harper ra över 9.5 -> vunnen (13)
-NBA rättad: Stephon Castle pa över 22.5 -> vunnen (29)
+NBA rättad: Devin Vassell ra över 6.5 -> vunnen (7)
 NBA: hittar inte Ajay Mitchell i boxscore (LA Clippers – Oklahoma City Thunder) – väntar
 NBA: hittar inte Donovan Mitchell i boxscore (Cleveland Cavaliers – Dallas Mavericks) – väntar
-NBA rättad: Keyonte George pra över 30.5 -> förlorad (25)
-NBA rättad: Darryn Peterson pra över 27.5 -> förlorad (26)
 NBA: hittar inte De'Aaron Fox i boxscore (Utah Jazz – San Antonio Spurs) – väntar
-NBA rättad: Ace Bailey pr över 19.5 -> förlorad (15)
+NBA rättad: Keyonte George points över 19.5 -> vunnen (13)
 NBA LIVE-status per marknad (skarp CLV, marknadsspel): assists ok, blocks ok, pa insufficient_data, points ok, pr osäker, pra osäker, ra osäker, rebounds ok, steals ok, threes ok
 NBA modellstatus per marknad (modelltest, styr inte): assists shadow, blocks insufficient_data, points degraded, pr insufficient_data, pra insufficient_data, ra insufficient_data, rebounds degraded, steals insufficient_data, threes shadow
