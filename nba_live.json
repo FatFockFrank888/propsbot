@@ -1377,7 +1377,7 @@
 "edge": 0.10273694640592024,
 "spela_fran": 1.84,
 "insats_pct": 0.01,
-"stangning": 1.88,
+"stangning": 1.87,
 "status": "öppen",
 "stopp": "",
 "clv_signal": false,
@@ -1387,14 +1387,14 @@
 "utfall": null,
 "resultat_enheter": null,
 "modell_edge": 0.15660244887014874,
-"stangning_ts": 1794849469.8944032,
+"stangning_ts": 1794849851.082422,
 "analys": {
 "p_stack": 0.5527,
 "p_modell_min": 0.6196,
 "minuter": 32.0,
 "minuter_sd": 5.1,
-"p_faktorer": 0.5549,
-"p_faktorer_ra": 0.5819,
+"p_faktorer": 0.5555,
+"p_faktorer_ra": 0.5843,
 "vantat_faktorer": 17.74,
 "p_betyg": 0.5824,
 "p_betyg_ra": 0.6894,
@@ -1423,7 +1423,7 @@
 "traff_mot_n": 0,
 "traff_hemmaborta": 0.5,
 "traff_hemmaborta_n": 4,
-"p_modell": 0.6704,
+"p_modell": 0.6706,
 "p_marknad": 0.5463,
 "p_slutlig": 0.5773,
 "vantat": 18.33,
@@ -1521,17 +1521,17 @@
 {
 "bolag": "atg",
 "over": 1.85,
-"under": 1.88
+"under": 1.87
 },
 {
 "bolag": "betmgm",
 "over": 1.85,
-"under": 1.88
+"under": 1.87
 },
 {
 "bolag": "expekt",
 "over": 1.85,
-"under": 1.88
+"under": 1.87
 },
 {
 "bolag": "kalshi",
@@ -1541,12 +1541,12 @@
 {
 "bolag": "leovegas",
 "over": 1.85,
-"under": 1.88
+"under": 1.87
 },
 {
 "bolag": "paf",
 "over": 1.85,
-"under": 1.88
+"under": 1.87
 },
 {
 "bolag": "pinnacle",
@@ -1556,12 +1556,12 @@
 {
 "bolag": "svenskaspel",
 "over": 1.85,
-"under": 1.88
+"under": 1.87
 },
 {
 "bolag": "unibet",
 "over": 1.85,
-"under": 1.88
+"under": 1.87
 },
 {
 "bolag": "us_draftkings",
@@ -1571,11 +1571,11 @@
 ]
 },
 "prognos": 18.326765185724316,
-"analys_ts": 1794849469.8966942,
+"analys_ts": 1794849851.084671,
 "modellversion": "2026-11-15-betyg",
 "prognos_ts": 1794844040.00221,
 "skarp_stang_p": 0.5463191604013726,
-"skarp_stang_ts": 1794849469.496205,
+"skarp_stang_ts": 1794849850.6703212,
 "skarp_kalla": "skanning",
 "pin_stang_p": 0.5558147293509117,
 "dk_stang_p": 0.5130632027464663,
@@ -1603,11 +1603,11 @@
 "dk_p": 0.5130632027464663
 },
 "bolag_stangning": {
-"ts": 1794849469.9132793,
+"ts": 1794849851.2836182,
 "odds": {
 "unibet": {
 "over": 1.85,
-"under": 1.88
+"under": 1.87
 },
 "pinnacle": {
 "over": 2.08,
@@ -1625,7 +1625,7 @@
 "pin_p": 0.5558147293509117,
 "dk_p": 0.5130632027464663
 },
-"bolag_stang_ts": 1794849469.9132793,
+"bolag_stang_ts": 1794849851.2836182,
 "skarp_verifierad": false,
 "skarp_status": null,
 "clv_skarp_pp": 4.126865535086754,
@@ -1664,7 +1664,7 @@
 "utfall": null,
 "resultat_enheter": null,
 "modell_edge": 0.0003586145534664187,
-"stangning_ts": 1794849469.8944032,
+"stangning_ts": 1794849851.082422,
 "analys": {
 "p_stack": 0.5451,
 "p_modell_min": 0.2418,
@@ -1700,7 +1700,7 @@
 "traff_mot_n": 2,
 "traff_hemmaborta": 0.6,
 "traff_hemmaborta_n": 5,
-"p_modell": 0.31,
+"p_modell": 0.3101,
 "p_marknad": 0.5379,
 "p_slutlig": 0.4856,
 "vantat": 10.56,
@@ -1880,11 +1880,11 @@
 ]
 },
 "prognos": 10.558095096801749,
-"analys_ts": 1794849469.8966942,
+"analys_ts": 1794849851.084671,
 "modellversion": "2026-11-15-betyg",
 "prognos_ts": 1794845314.4831789,
 "skarp_stang_p": 0.5378557274412736,
-"skarp_stang_ts": 1794849469.496205,
+"skarp_stang_ts": 1794849850.6703212,
 "skarp_kalla": "skanning",
 "pin_stang_p": 0.5433509531261547,
 "bolag_bokning": {
@@ -1906,7 +1906,7 @@
 "pin_p": 0.5486310192781136
 },
 "bolag_stangning": {
-"ts": 1794849469.9132793,
+"ts": 1794849851.2836182,
 "odds": {
 "unibet": {
 "over": 1.85,
@@ -1923,11 +1923,16 @@
 "dk_linje": null,
 "pin_p": 0.5433509531261547
 },
-"bolag_stang_ts": 1794849469.9132793,
+"bolag_stang_ts": 1794849851.2836182,
 "skarp_verifierad": false,
 "skarp_status": null,
 "clv_skarp_pp": 4.76596490099011,
 "clv_pin_pp": 5.315487469478214,
-"clv_dk_pp": null
+"clv_dk_pp": null,
+"nyhet_lag_status": "lag:scotty pippen jr",
+"nyhet_lag": "Lagkamrat ute: Scotty Pippen Jr. (out). Modellen nu: Cedric Coward väntat 10.6 (37 min), under 7.5 28%, edge vid 2.04: -44% (vid bokning modell +0%)",
+"nyhet_lag_ts": "2026-11-16T17:24:11+00:00",
+"nyhet": "Lagkamrat ute: Scotty Pippen Jr. (out). Modellen nu: Cedric Coward väntat 10.6 (37 min), under 7.5 28%, edge vid 2.04: -44% (vid bokning modell +0%)",
+"nyhet_status": "lag:scotty pippen jr"
 }
 ]
