@@ -17182,7 +17182,7 @@
 "edge": 0.10222192740930325,
 "spela_fran": 2.13,
 "insats_pct": 0.013146410156281305,
-"stangning": 2.3,
+"stangning": 2.08,
 "status": "öppen",
 "stopp": "",
 "clv_signal": false,
@@ -17191,11 +17191,11 @@
 "p_marknad": 0.4792269249605666,
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1794909716.3454514,
+"stangning_ts": 1794928311.0845044,
 "modellversion": "2026-11-15-betyg",
 "prognos_ts": 1794892151.6463282,
-"skarp_stang_p": 0.4822051850252879,
-"skarp_stang_ts": 1794909716.1888952,
+"skarp_stang_p": 0.44323027633635376,
+"skarp_stang_ts": 1794928310.9206302,
 "skarp_kalla": "skanning",
 "dk_stang_p": 0.482205185025288,
 "bolag_bokning": {
@@ -17217,24 +17217,30 @@
 "dk_p": 0.4792269249605666
 },
 "bolag_stangning": {
-"ts": 1794927816.2558725,
+"ts": 1794928311.148091,
 "odds": {
 "unibet": {
 "over": 2.08,
 "under": 1.68
+},
+"pinnacle": {
+"over": 2.08,
+"under": 1.694
 }
 },
 "pin_flyttad": false,
 "pin_komb": false,
 "pin_linje": null,
-"dk_linje": null
+"dk_linje": null,
+"pin_p": 0.4432302763363537
 },
-"bolag_stang_ts": 1794927816.2558725,
+"bolag_stang_ts": 1794928311.148091,
 "skarp_verifierad": false,
 "skarp_status": null,
-"clv_skarp_pp": 4.74225763296357,
-"clv_pin_pp": null,
-"clv_dk_pp": 4.742257632963575
+"clv_skarp_pp": 0.8447667640701539,
+"clv_pin_pp": 0.8447667640701484,
+"clv_dk_pp": 4.742257632963575,
+"pin_stang_p": 0.4432302763363537
 },
 {
 "key": "nba1028754051|og anunoby|assists|1.5|unibet|under",
@@ -17293,7 +17299,7 @@
 "dk_p": 0.44134355091893573
 },
 "bolag_stangning": {
-"ts": 1794927816.2558725,
+"ts": 1794928311.148091,
 "odds": {
 "unibet": {
 "over": 1.54,
@@ -17305,7 +17311,7 @@
 "pin_linje": null,
 "dk_linje": null
 },
-"bolag_stang_ts": 1794927816.2558725,
+"bolag_stang_ts": 1794928311.148091,
 "skarp_verifierad": false,
 "skarp_status": null,
 "clv_skarp_pp": 2.9820917174079806,
@@ -17343,11 +17349,11 @@
 "p_marknad": 0.5088863474819338,
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1794927816.1713495,
+"stangning_ts": 1794928311.0845044,
 "modellversion": "2026-11-15-betyg",
 "prognos_ts": 1794914995.7917588,
 "skarp_stang_p": 0.483578218291135,
-"skarp_stang_ts": 1794927815.942718,
+"skarp_stang_ts": 1794928310.9206302,
 "skarp_kalla": "skanning",
 "dk_stang_p": 0.48357821829113506,
 "bolag_bokning": {
@@ -17369,7 +17375,7 @@
 "dk_p": 0.5088863474819338
 },
 "bolag_stangning": {
-"ts": 1794927816.2558725,
+"ts": 1794928311.148091,
 "odds": {
 "unibet": {
 "over": 1.96,
@@ -17386,7 +17392,7 @@
 "dk_linje": null,
 "dk_p": 0.48357821829113506
 },
-"bolag_stang_ts": 1794927816.2558725,
+"bolag_stang_ts": 1794928311.148091,
 "skarp_verifierad": false,
 "skarp_status": null,
 "clv_skarp_pp": 0.7387742100658845,
@@ -17424,11 +17430,11 @@
 "p_marknad": 0.5781635492466206,
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1794927816.1713495,
+"stangning_ts": 1794928311.0845044,
 "modellversion": "2026-11-15-betyg",
 "prognos_ts": 1794916710.9030583,
 "skarp_stang_p": 0.5812599916802497,
-"skarp_stang_ts": 1794927815.942718,
+"skarp_stang_ts": 1794928310.9206302,
 "skarp_kalla": "skanning",
 "dk_stang_p": 0.5812599916802497,
 "bolag_bokning": {
@@ -17450,7 +17456,7 @@
 "dk_p": 0.5781635492466206
 },
 "bolag_stangning": {
-"ts": 1794927816.2558725,
+"ts": 1794928311.148091,
 "odds": {
 "unibet": {
 "over": 2.12,
@@ -17467,11 +17473,92 @@
 "dk_linje": null,
 "dk_p": 0.5812599916802497
 },
-"bolag_stang_ts": 1794927816.2558725,
+"bolag_stang_ts": 1794928311.148091,
 "skarp_verifierad": false,
 "skarp_status": null,
 "clv_skarp_pp": 4.6500633391479695,
 "clv_pin_pp": null,
 "clv_dk_pp": 4.6500633391479695
+},
+{
+"key": "nba1028754035|cade cunningham|threes|2.5|unibet|under",
+"id": 407,
+"bokford": 1794928311.084482,
+"match_id": "nba1028754035",
+"match": "San Antonio Spurs – Detroit Pistons",
+"hemma": "San Antonio Spurs",
+"borta": "Detroit Pistons",
+"liga": "NBA",
+"avspark": 1794963600.0,
+"spelare": "Cade Cunningham",
+"spelare_id": "cade cunningham",
+"marknad": "threes",
+"linje": 2.5,
+"sida": "under",
+"bolag": "unibet",
+"odds": 1.74,
+"sannolikhet": 0.6115523232910138,
+"ratt_odds": 1.6351830610643254,
+"edge": 0.06410104252636417,
+"spela_fran": 1.67,
+"insats_pct": 0.0171947985000218,
+"stangning": 1.74,
+"status": "öppen",
+"stopp": "sharp money med oss: referensen +3.0 enheter",
+"clv_signal": false,
+"forv_clv_pp": 5.198584541823504,
+"p_modell": null,
+"p_marknad": 0.6115523232910138,
+"utfall": null,
+"resultat_enheter": null,
+"stangning_ts": 1794928311.0845044,
+"modellversion": "2026-11-15-betyg",
+"prognos_ts": 1794928311.084482,
+"skarp_stang_p": 0.6115523232910138,
+"skarp_stang_ts": 1794928310.9206302,
+"skarp_kalla": "skanning",
+"pin_stang_p": 0.6115523232910138,
+"bolag_bokning": {
+"ts": 1794928311.148091,
+"odds": {
+"unibet": {
+"over": 2.0,
+"under": 1.74
+},
+"pinnacle": {
+"over": 2.34,
+"under": 1.556
+}
+},
+"pin_flyttad": false,
+"pin_komb": false,
+"pin_linje": null,
+"dk_linje": null,
+"pin_p": 0.6115523232910138
+},
+"bolag_stangning": {
+"ts": 1794928311.148091,
+"odds": {
+"unibet": {
+"over": 2.0,
+"under": 1.74
+},
+"pinnacle": {
+"over": 2.34,
+"under": 1.556
+}
+},
+"pin_flyttad": false,
+"pin_komb": false,
+"pin_linje": null,
+"dk_linje": null,
+"pin_p": 0.6115523232910138
+},
+"bolag_stang_ts": 1794928311.148091,
+"skarp_verifierad": false,
+"skarp_status": null,
+"clv_skarp_pp": 3.683967961285295,
+"clv_pin_pp": 3.683967961285295,
+"clv_dk_pp": null
 }
 ]
