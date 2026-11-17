@@ -1,4 +1,4 @@
-Skanning 2026-11-17 11:04
+Skanning 2026-11-17 11:13
 Kambi unibet (ubse): OK, 0 matcher i valda ligor
 Kambi paf (paf): OK, 0 matcher i valda ligor
 Kambi atg (atg): OK, 0 matcher i valda ligor
@@ -69,10 +69,10 @@ Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
   First Team To Score | units=1st Goal | kategori=Team Props | deltagare=Remo,Chapecoense,Neither  ->  används inte (lagmarknad)
   Remo Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
   Chapecoense To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-Sides mindre ligor: 66 Kambi-matcher inom 12 h, 139 Pinnacle-matcher, 61 med Pinnacle, 61 matchade: Africa Cup of Nations Qualification, CONCACAF / Nations League, England / EFL Trophy, England / Isthmian League Premier Division, England / National League North, England / National League South, England / Northern League Premier Division, England / Southern League Premier Division Central, England 
-Sides/totals: 63 matcher med Kambi + Pinnacle, 1016 linjer, 0 nya spel, 1 nya skuggspel, Smarkets-priser i 50 av 50; bästa edge +5.5% (Quorn FC 1X2: 1), +5.4% (Wales 1X2: 1), +4.7% (Worcester City över 2.5)
+Sides mindre ligor: 66 Kambi-matcher inom 12 h, 140 Pinnacle-matcher, 61 med Pinnacle, 61 matchade: Africa Cup of Nations Qualification, CONCACAF / Nations League, England / EFL Trophy, England / Isthmian League Premier Division, England / National League North, England / National League South, England / Northern League Premier Division, England / Southern League Premier Division Central, England 
+Sides/totals: 63 matcher med Kambi + Pinnacle, 1016 linjer, 0 nya spel, 0 nya skuggspel, Smarkets-priser i 50 av 50; bästa edge +5.5% (Wales 1X2: 1), +5.5% (Quorn FC 1X2: 1), +4.0% (Worcester City över 2.5)
 Fotboll extra bolag: 0 nya hämtningar, 0 odds i bruk, krediter kvar 296, dagsbudget 20 (andel 40%), förbrukat idag 0
-Tid: hämtning 384 s
+Tid: hämtning 419 s
 Marginal över alla matcher: uppmätt marginal: shots_on_target stege k=1.18 (7 spelare; marginal vid 3,00 ≈ 22%)
   Coritiba-PR – Santos-SP: modell bra.1, 27 spelare
   Remo-PA – Chapecoense-SC: modell bra.1, 29 spelare
@@ -83,8 +83,8 @@ Modellens nivåavvikelse mot marknaden (log-odds, dras bort): shots -0.20, shots
   Chelsea (W) – Paris SG (W): saknar matchlinjer från Pinnacle
   Coritiba-PR – Santos-SP: väntade mål Pinnacle 2.94 mot Kambi 3.04 (kvot 0.968); uppmätt marginal: goal k=1.66, assist k=1.64
 Exempel uppmätt marginal: goal k=1.66, assist k=1.64
-  Remo-PA – Chapecoense-SC: väntade mål Pinnacle 3.13 mot Kambi 3.04 (kvot 1.030); uppmätt marginal: goal k=1.42, assist k=1.38, shots_on_target stege k=1.18 (7 spelare; marginal vid 3,00 ≈ 22%)
-Tid: modell och utvärdering 27 s
+  Remo-PA – Chapecoense-SC: väntade mål Pinnacle 3.13 mot Kambi 3.04 (kvot 1.031); uppmätt marginal: goal k=1.42, assist k=1.38, shots_on_target stege k=1.18 (7 spelare; marginal vid 3,00 ≈ 22%)
+Tid: modell och utvärdering 39 s
 Bolag med spelarodds: atg, betmgm, expekt, leovegas, paf, svenskaspel, unibet
 Spelarodds per marknad: assist 315, goal 2228, shots 871, shots_on_target 686
 Kambi-marknader: assist='to give an assist (settled using opta data)':315; goal='1st goalscorer':659; goal='to score':1156; goal='to score at least 2 goals':364; goal='to score at least 3 goals':49; shots="player's shots (settled using opta data)":871; shots_on_target="player's shots on target (settled using opta data)":686
@@ -92,15 +92,15 @@ Pinnacle har inga spelarprops här – använder linjejustering mot Pinnacles ma
 CLV-signal: 0 ben släppta (Pinnacle rör sig åt vårt håll)
 Startelvor: 0 spelbara ben klara, 0 väntar på startelvan, 0 stoppade (inte i startelvan)
 Spelregler: stoppade {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0} (modelltest {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0})
-Spelarmodell: 0 av 98 ben har modell, 2 nya matcher hämtade från ESPN
-Bästa edge marknad shots_on_target: -5.5%, -5.8%, -5.8% (av 87 ben)
-Bästa edge modelltest shots_on_target: -1.8%, -2.9%, -3.3% (av 87 ben)
+Spelarmodell: 0 av 98 ben har modell, 0 nya matcher hämtade från ESPN
+Bästa edge marknad shots_on_target: -5.4%, -5.7%, -5.8% (av 87 ben)
+Bästa edge modelltest shots_on_target: -1.7%, -2.8%, -3.3% (av 87 ben)
 0 spelbara ben.
 Bokförda nya spel: 0
 Skuggspel: 0 nya bokförda (stoppade av reglerna, minst 2 % edge)
 Modelltest: 0 spelbara enligt modellen, 0 nya testspel bokförda
 Fouls (test): 0 ben med modell, 0 klarar kraven, 0 nya bokförda, bästa edge –, 0 nya ESPN-matcher, domare känd i 0 matcher
 Domare: 40 kommande matcher med utsedd domare (UEFA + football-data)
-Kort (test): 350 Kambi-odds, 23 ben med modell, 1 klarar kraven, 0 nya bokförda, bästa edge +6.1%, -6.3%, -8.7%, 2 nya ESPN-matcher
+Kort (test): 350 Kambi-odds, 23 ben med modell, 1 klarar kraven, 0 nya bokförda, bästa edge +6.1%, -6.3%, -8.7%, 0 nya ESPN-matcher
 Parlays: 0 förslag, 0 nya bokförda
 Notiser skickade: 0
