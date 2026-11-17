@@ -1387,16 +1387,16 @@
 "utfall": null,
 "resultat_enheter": null,
 "modell_edge": 0.15660244887014874,
-"stangning_ts": 1794873417.6444426,
+"stangning_ts": 1794873741.280936,
 "analys": {
-"p_stack": 0.512,
+"p_stack": 0.5137,
 "p_modell_min": 0.6179,
 "minuter": 32.0,
 "minuter_sd": 5.1,
-"p_faktorer": 0.5338,
-"p_faktorer_ra": 0.5999,
+"p_faktorer": 0.5376,
+"p_faktorer_ra": 0.6107,
 "vantat_faktorer": 17.77,
-"p_betyg": 0.5567,
+"p_betyg": 0.5578,
 "p_betyg_ra": 0.6879,
 "vantat_betyg": 17.0,
 "minuter_faktorer": 28.9,
@@ -1423,15 +1423,15 @@
 "traff_mot_n": 0,
 "traff_hemmaborta": 0.5,
 "traff_hemmaborta_n": 4,
-"p_modell": 0.6802,
-"p_marknad": 0.5125,
-"p_slutlig": 0.5546,
+"p_modell": 0.6871,
+"p_marknad": 0.514,
+"p_slutlig": 0.5576,
 "vantat": 18.33,
 "nb_r": 15,
 "modell_vikt": 0.24,
 "dq": 0.8,
 "matcher": 12,
-"nivajustering": 0.32,
+"nivajustering": 0.35,
 "logg": [
 {
 "ts": 1794704400.0,
@@ -1511,7 +1511,7 @@
 "minuter_sd_faktorer": 5.1,
 "ref": {
 "pin_p": 0.5112432234645723,
-"dk_p": 0.5058415696280208,
+"dk_p": 0.5159732791343152,
 "pin_linje": null,
 "dk_linje": null,
 "pin_flyttad": false,
@@ -1565,20 +1565,20 @@
 },
 {
 "bolag": "us_draftkings",
-"over": 1.9,
-"under": 1.86
+"over": 1.94,
+"under": 1.83
 }
 ]
 },
 "prognos": 18.326765185724316,
-"analys_ts": 1794873417.6462986,
+"analys_ts": 1794873741.2833471,
 "modellversion": "2026-11-15-betyg",
 "prognos_ts": 1794844040.00221,
-"skarp_stang_p": 0.5124983842115765,
-"skarp_stang_ts": 1794873417.2724495,
+"skarp_stang_p": 0.5140178460932467,
+"skarp_stang_ts": 1794873740.841138,
 "skarp_kalla": "skanning",
 "pin_stang_p": 0.5112432234645723,
-"dk_stang_p": 0.5058415696280208,
+"dk_stang_p": 0.5159732791343152,
 "bolag_bokning": {
 "ts": 1794844040.0140147,
 "odds": {
@@ -1603,7 +1603,7 @@
 "dk_p": 0.5130632027464663
 },
 "bolag_stangning": {
-"ts": 1794873417.65886,
+"ts": 1794873741.2966073,
 "odds": {
 "unibet": {
 "over": 1.89,
@@ -1614,8 +1614,8 @@
 "under": 1.833
 },
 "draftkings": {
-"over": 1.9,
-"under": 1.86
+"over": 1.94,
+"under": 1.83
 }
 },
 "pin_flyttad": false,
@@ -1623,14 +1623,14 @@
 "pin_linje": null,
 "dk_linje": null,
 "pin_p": 0.5112432234645723,
-"dk_p": 0.5058415696280208
+"dk_p": 0.5159732791343152
 },
-"bolag_stang_ts": 1794873417.65886,
+"bolag_stang_ts": 1794873741.2966073,
 "skarp_verifierad": true,
 "skarp_status": null,
-"clv_skarp_pp": 0.7447879161071369,
+"clv_skarp_pp": 0.8967341042741661,
 "clv_pin_pp": 0.6192718414067211,
-"clv_dk_pp": 0.07910645775157654
+"clv_dk_pp": 1.092277408381015
 },
 {
 "key": "nba1028754072|cedric coward|rebounds|7.5|unibet|under",
