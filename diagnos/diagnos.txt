@@ -1,31 +1,114 @@
-Skanning 2026-11-17 13:46
+Skanning 2026-11-17 13:54
 Kambi unibet (ubse): OK, 0 matcher i valda ligor
 Kambi paf (paf): OK, 0 matcher i valda ligor
 Kambi atg (atg): OK, 0 matcher i valda ligor
 Kambi leovegas (leose): OK, 0 matcher i valda ligor
-Kambi svenskaspel (svenskaspel): OK, 0 matcher i valda ligor
-Kambi expekt (expektse): OK, 0 matcher i valda ligor
-Kambi betmgm (betmgmse): OK, 0 matcher i valda ligor
+Kambi svenskaspel (svenskaspel): OK, 10 matcher i valda ligor
+Kambi expekt (expektse): OK
+Kambi betmgm (betmgmse): OK
+Pinnacle: OK, 25 ligor
+Pinnacle: 6 matcher, matchlinjer för 6 av 10 Kambi-matcher, 0 spelarodds som används
+Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
+  Double Chance 1st Half | units=Regular | kategori=Team Props | deltagare=Coritiba Or Santos,Draw Or Santos,Draw Or Coritiba  ->  används inte (lagmarknad)
+  Moneyline and Total Goals | units=Regular | kategori=Team Props | deltagare=Coritiba & Over 2.5,Coritiba & Under 2.5,Draw & Over 2.5,Draw & Under 2.5,Santos & Over 2.5,Santos & Under 2.5  ->  används inte (lagmarknad)
+  Double Chance | units=Regular | kategori=Team Props | deltagare=Coritiba Or Santos,Draw Or Santos,Draw Or Coritiba  ->  används inte (lagmarknad)
+  Total Goals Range | units=Regular | kategori=Team Props | deltagare=0 - 1,2 - 3,4 - 6,7+  ->  används inte (lagmarknad)
+  Draw No Bet | units=Regular | kategori=Team Props | deltagare=Coritiba,Santos  ->  används inte (lagmarknad)
+  Total Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  Santos Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
+  Draw No Bet 1st Half | units=Regular | kategori=Team Props | deltagare=Coritiba,Santos  ->  används inte (lagmarknad)
+  Correct Score | units=Regular | kategori=Team Props | deltagare=Coritiba 0, Santos 0,Coritiba 0, Santos 1,Coritiba 0, Santos 2,Coritiba 0, Santos 3,Coritiba 0, Santos 4,Coritiba 0, Santos 5,Coritiba 0, Santos 6,Coritiba 1, Santos 0,Coritiba 1, Santos 1,Coritiba 1, Santos 2,Coritiba 1, Santos 3,Coritiba 1, Santos 4,Coritiba 1, Santos 5,Coritiba 1, Santos 6,Coritiba 2, Santos 0,Coritiba 2, Santos 1,Coritiba 2, Santos 2,Coritiba 2, Santos 3,Coritiba 2, Santos 4,Coritiba 2, Santos 5,Coritiba 2, Santos 6,Coritiba 3, Santos 0,Coritiba 3, Santos 1,Coritiba 3, Santos 2,Coritiba 3, Santos 3,Coritiba 3, Santos 4,Coritiba 3, Santos 5,Coritiba 3, Santos 6,Coritiba 4, Santos 0,Coritiba 4, Santos 1,Coritiba 4, Santos 2,Coritiba 4, Santos 3,Coritiba 4, Santos 4,Coritiba 4, Santos 5,Coritiba 4, Santos 6,Coritiba 5, Santos 0,Coritiba 5, Santos 1,Coritiba 5, Santos 2,Coritiba 5, Santos 3,Coritiba 5, Santos 4,Coritiba 5, Santos 5,Coritiba 5, Santos 6,Coritiba 6, Santos 0,Coritiba 6, Santos 1,Coritiba 6, Santos 2,Coritiba 6, Santos 3,Coritiba 6, Santos 4,Coritiba 6, Santos 5,Coritiba 6, Santos 6  ->  används inte (lagmarknad)
+  Santos Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  Winning Margin 1st Half | units=Regular | kategori=Team Props | deltagare=Coritiba By 1,Coritiba By 2+,Santos By 1,Santos By 2+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
+  First Team To Score 1st Half | units=1st Goal | kategori=Team Props | deltagare=Coritiba,Santos,Neither  ->  används inte (lagmarknad)
+  Either Team To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Santos To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Coritiba Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
+  Exact Total Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
+  Exact Total Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5,6+  ->  används inte (lagmarknad)
+  Both Teams To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  First Team To Score | units=1st Goal | kategori=Team Props | deltagare=Coritiba,Santos,Neither  ->  används inte (lagmarknad)
+  Both Teams To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  3-Way Handicap Coritiba +2 | units=Regular | kategori=Team Props | deltagare=Coritiba (+2),Draw - (Coritiba +2),Santos (-2)  ->  används inte (lagmarknad)
+  Total Goals Range 1st Half | units=Regular | kategori=Team Props | deltagare=0 - 1,2 - 3,4+  ->  används inte (lagmarknad)
+  3-Way Handicap Coritiba -1 | units=Regular | kategori=Team Props | deltagare=Coritiba (-1),Draw - (Coritiba -1),Santos (+1)  ->  används inte (lagmarknad)
+  Coritiba Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  Coritiba To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Winning Margin | units=Regular | kategori=Team Props | deltagare=Coritiba By 1,Coritiba By 2,Coritiba By 3,Coritiba By 4+,Santos By 1,Santos By 2,Santos By 3,Santos By 4+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
+  Total Goals Odd/Even 1st Half | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  Correct Score 1st Half | units=Regular | kategori=Team Props | deltagare=Coritiba 0, Santos 0,Coritiba 0, Santos 1,Coritiba 0, Santos 2,Coritiba 0, Santos 3,Coritiba 1, Santos 0,Coritiba 1, Santos 1,Coritiba 1, Santos 2,Coritiba 1, Santos 3,Coritiba 2, Santos 0,Coritiba 2, Santos 1,Coritiba 2, Santos 2,Coritiba 2, Santos 3,Coritiba 3, Santos 0,Coritiba 3, Santos 1,Coritiba 3, Santos 2,Coritiba 3, Santos 3  ->  används inte (lagmarknad)
+  Santos To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Either Team To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Coritiba Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
+  3-Way Handicap Coritiba +1 | units=Regular | kategori=Team Props | deltagare=Coritiba (+1),Draw - (Coritiba +1),Santos (-1)  ->  används inte (lagmarknad)
+  Coritiba To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Santos Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
+  Both Teams To Score and Moneyline | units=Regular | kategori=Team Props | deltagare=Yes & Coritiba,Yes & Draw,Yes & Santos,No & Coritiba,No & Draw,No & Santos  ->  används inte (lagmarknad)
+  Odd/Even and Total Goals | units=Regular | kategori=Team Props | deltagare=Odd & Over 2.5,Odd & Under 2.5,Even & Over 2.5,Even & Under 2.5  ->  används inte (lagmarknad)
+  Coritiba To Win To Nil | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Santos To Win To Nil | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Coritiba To Win To Nil 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Santos To Win To Nil 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Both Teams To Score and Total Goals | units=Regular | kategori=Team Props | deltagare=Yes & Over 2.5,Yes & Under 2.5,No & Over 2.5,No & Under 2.5  ->  används inte (lagmarknad)
+  3-Way Handicap Remo -1 | units=Regular | kategori=Team Props | deltagare=Remo (-1),Draw - (Remo -1),Chapecoense (+1)  ->  används inte (lagmarknad)
+  Winning Margin | units=Regular | kategori=Team Props | deltagare=Remo By 1,Remo By 2,Remo By 3,Remo By 4+,Chapecoense By 1,Chapecoense By 2,Chapecoense By 3,Chapecoense By 4+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
+  Remo Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  Draw No Bet | units=Regular | kategori=Team Props | deltagare=Remo,Chapecoense  ->  används inte (lagmarknad)
+  Chapecoense To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Correct Score | units=Regular | kategori=Team Props | deltagare=Remo 0, Chapecoense 0,Remo 0, Chapecoense 1,Remo 0, Chapecoense 2,Remo 0, Chapecoense 3,Remo 0, Chapecoense 4,Remo 0, Chapecoense 5,Remo 0, Chapecoense 6,Remo 1, Chapecoense 0,Remo 1, Chapecoense 1,Remo 1, Chapecoense 2,Remo 1, Chapecoense 3,Remo 1, Chapecoense 4,Remo 1, Chapecoense 5,Remo 1, Chapecoense 6,Remo 2, Chapecoense 0,Remo 2, Chapecoense 1,Remo 2, Chapecoense 2,Remo 2, Chapecoense 3,Remo 2, Chapecoense 4,Remo 2, Chapecoense 5,Remo 2, Chapecoense 6,Remo 3, Chapecoense 0,Remo 3, Chapecoense 1,Remo 3, Chapecoense 2,Remo 3, Chapecoense 3,Remo 3, Chapecoense 4,Remo 3, Chapecoense 5,Remo 3, Chapecoense 6,Remo 4, Chapecoense 0,Remo 4, Chapecoense 1,Remo 4, Chapecoense 2,Remo 4, Chapecoense 3,Remo 4, Chapecoense 4,Remo 4, Chapecoense 5,Remo 4, Chapecoense 6,Remo 5, Chapecoense 0,Remo 5, Chapecoense 1,Remo 5, Chapecoense 2,Remo 5, Chapecoense 3,Remo 5, Chapecoense 4,Remo 5, Chapecoense 5,Remo 5, Chapecoense 6,Remo 6, Chapecoense 0,Remo 6, Chapecoense 1,Remo 6, Chapecoense 2,Remo 6, Chapecoense 3,Remo 6, Chapecoense 4,Remo 6, Chapecoense 5,Remo 6, Chapecoense 6  ->  används inte (lagmarknad)
+  Remo To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Correct Score 1st Half | units=Regular | kategori=Team Props | deltagare=Remo 0, Chapecoense 0,Remo 0, Chapecoense 1,Remo 0, Chapecoense 2,Remo 0, Chapecoense 3,Remo 1, Chapecoense 0,Remo 1, Chapecoense 1,Remo 1, Chapecoense 2,Remo 1, Chapecoense 3,Remo 2, Chapecoense 0,Remo 2, Chapecoense 1,Remo 2, Chapecoense 2,Remo 2, Chapecoense 3,Remo 3, Chapecoense 0,Remo 3, Chapecoense 1,Remo 3, Chapecoense 2,Remo 3, Chapecoense 3  ->  används inte (lagmarknad)
+  Chapecoense Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
+  3-Way Handicap Remo -2 | units=Regular | kategori=Team Props | deltagare=Remo (-2),Draw - (Remo -2),Chapecoense (+2)  ->  används inte (lagmarknad)
+  Remo To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Chapecoense Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  Remo Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
+  Chapecoense Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
+  Draw No Bet 1st Half | units=Regular | kategori=Team Props | deltagare=Remo,Chapecoense  ->  används inte (lagmarknad)
+  First Team To Score 1st Half | units=1st Goal | kategori=Team Props | deltagare=Remo,Chapecoense,Neither  ->  används inte (lagmarknad)
+  First Team To Score | units=1st Goal | kategori=Team Props | deltagare=Remo,Chapecoense,Neither  ->  används inte (lagmarknad)
+  Remo Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
+  Chapecoense To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
 Sides mindre ligor: 64 Kambi-matcher inom 12 h, 134 Pinnacle-matcher, 58 med Pinnacle, 58 matchade: Africa Cup of Nations Qualification, CONCACAF / Nations League, Colombia / Copa Dimayor, England / EFL Trophy, England / Isthmian League Premier Division, England / National League North, England / National League South, England / Northern League Premier Division, England / Southern League Premier D
-Sides/totals: 58 matcher med Kambi + Pinnacle, 981 linjer, 0 nya spel, 0 nya skuggspel, Smarkets-priser i 45 av 45; bästa edge +9.6% (Wales 1X2: 1), +5.5% (Quorn FC 1X2: 1), +4.9% (Argentina över 3)
+Sides/totals: 64 matcher med Kambi + Pinnacle, 1191 linjer, 0 nya spel, 0 nya skuggspel, Smarkets-priser i 45 av 45; bästa edge +9.4% (Wales 1X2: 1), +6.2% (Coritiba-PR 1X2: X), +5.5% (Quorn FC 1X2: 1)
 Fotboll extra bolag: 0 nya hämtningar, 0 odds i bruk, krediter kvar 296, dagsbudget 20 (andel 40%), förbrukat idag 0
-Tid: hämtning 335 s
-Marginal över alla matcher: uppmätt marginal: otillräckligt underlag i matchen
-Modellens nivåavvikelse mot marknaden (log-odds, dras bort): 
-Tid: modell och utvärdering 0 s
-Bolag med spelarodds: inga
-Spelarodds per marknad: 
-Kambi-marknader: 
+Tid: hämtning 431 s
+Marginal över alla matcher: uppmätt marginal: shots_on_target stege k=1.24 (21 spelare; marginal vid 3,00 ≈ 30%)
+  Coritiba-PR – Santos-SP: modell bra.1, 27 spelare
+  Remo-PA – Chapecoense-SC: modell bra.1, 29 spelare
+  Flamengo-RJ – Athletico Paranaense-PR: modell bra.1, 27 spelare
+  Cruzeiro-MG – Palmeiras-SP: modell bra.1, 32 spelare
+  Grêmio-RS – Bahia-BA: modell – hittar inte matchen hos ESPN
+  Corinthians-SP – Botafogo-RJ: modell – hittar inte matchen hos ESPN
+Modellens nivåavvikelse mot marknaden (log-odds, dras bort): shots -0.17, shots_on_target -0.04
+  Real Madrid (W) – Inter Milan (W): saknar matchlinjer från Pinnacle
+  BK Häcken (W) – Manchester City (W): saknar matchlinjer från Pinnacle
+  Juventus (W) – OH Leuven (W): saknar matchlinjer från Pinnacle
+  Chelsea (W) – Paris SG (W): saknar matchlinjer från Pinnacle
+  Coritiba-PR – Santos-SP: väntade mål Pinnacle 2.90 mot Kambi 3.04 (kvot 0.956); uppmätt marginal: goal k=1.67, assist k=1.65
+Exempel uppmätt marginal: goal k=1.67, assist k=1.65
+  Remo-PA – Chapecoense-SC: väntade mål Pinnacle 3.15 mot Kambi 3.12 (kvot 1.012); uppmätt marginal: goal k=1.43, assist k=1.39, shots_on_target stege k=1.14 (7 spelare; marginal vid 3,00 ≈ 17%)
+  Flamengo-RJ – Athletico Paranaense-PR: väntade mål Pinnacle 3.26 mot Kambi 3.39 (kvot 0.961); uppmätt marginal: goal k=1.63, assist k=1.72
+  Cruzeiro-MG – Palmeiras-SP: väntade mål Pinnacle 2.83 mot Kambi 2.92 (kvot 0.969); uppmätt marginal: goal k=1.61, assist k=1.57, shots_on_target stege k=1.24 (7 spelare; marginal vid 3,00 ≈ 30%)
+  Grêmio-RS – Bahia-BA: väntade mål Pinnacle 2.95 mot Kambi 2.96 (kvot 0.996); uppmätt marginal: goal k=1.59, assist k=1.57, shots_on_target stege k=1.26 (7 spelare; marginal vid 3,00 ≈ 33%)
+  Corinthians-SP – Botafogo-RJ: väntade mål Pinnacle 2.71 mot Kambi 2.79 (kvot 0.973); uppmätt marginal: goal k=1.56, assist k=1.58
+Tid: modell och utvärdering 61 s
+Bolag med spelarodds: atg, betmgm, expekt, leovegas, paf, svenskaspel, unibet
+Spelarodds per marknad: assist 1231, goal 3837, shots 2659, shots_on_target 2547
+Kambi-marknader: assist='to give an assist (settled using opta data)':1231; goal='1st goalscorer':638; goal='to score':2191; goal='to score at least 2 goals':861; goal='to score at least 3 goals':119; goal='to score at least 4 goals':28; shots="player's shots (settled using opta data)":2659; shots_on_target="player's shots on target (settled using opta data)":2547
 Pinnacle har inga spelarprops här – använder linjejustering mot Pinnacles matchlinjer.
 CLV-signal: 0 ben släppta (Pinnacle rör sig åt vårt håll)
 Startelvor: 0 spelbara ben klara, 0 väntar på startelvan, 0 stoppade (inte i startelvan)
 Spelregler: stoppade {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0} (modelltest {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0})
-Spelarmodell: 0 av 0 ben har modell, 0 nya matcher hämtade från ESPN
+Spelarmodell: 0 av 308 ben har modell, 0 nya matcher hämtade från ESPN
+Bästa edge marknad shots_on_target: -6.3%, -6.4%, -6.5% (av 287 ben)
+Bästa edge modelltest shots_on_target: -3.5%, -4.2%, -4.7% (av 187 ben)
 0 spelbara ben.
 Bokförda nya spel: 0
 Skuggspel: 0 nya bokförda (stoppade av reglerna, minst 2 % edge)
 Modelltest: 0 spelbara enligt modellen, 0 nya testspel bokförda
 Fouls (test): 0 ben med modell, 0 klarar kraven, 0 nya bokförda, bästa edge –, 0 nya ESPN-matcher, domare känd i 0 matcher
-Kort (test): 0 Kambi-odds, 0 ben med modell, 0 klarar kraven, 0 nya bokförda, bästa edge –, 0 nya ESPN-matcher
+Domare: 40 kommande matcher med utsedd domare (UEFA + football-data)
+Kort (test): 1330 Kambi-odds, 52 ben med modell, 2 klarar kraven, 0 nya bokförda, bästa edge +19.1%, +6.1%, -4.7%, 0 nya ESPN-matcher
 Parlays: 0 förslag, 0 nya bokförda
 Notiser skickade: 0
