@@ -1,22 +1,22 @@
-# NBA – utvärdering på framåtriktad data (2026-11-17T01:04:21+00:00)
+# NBA – utvärdering på framåtriktad data (2026-11-17T01:10:24+00:00)
 
 Bara bokförda prognoser (gjorda före matchen). Unika prestationer = spelare × match × marknad.
 
 | Bokföring | Rader | Prestationer | Matcher | Dagar | Avgjorda | ROI flat | ROI modell | Max DD (u) | CLV pe skarp (95 %) | CLV pe skarp verifierad | Verifierad täckning | Slog skarp stängning | CLV pe mot Unibets stängning | Brier modell / marknad (n) |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| live | 25 | 25 | 21 | 11 | 21 | +15.3 % | +21.4 % | 4.0 | 2.77 (+1.98…+3.59) | 2.84 | 0.96 | +84.0 % | 2.79 | – |
+| live | 26 | 26 | 22 | 11 | 21 | +15.3 % | +21.4 % | 4.0 | 2.77 (+1.98…+3.59) | 2.84 | 0.96 | +84.0 % | 2.79 | – |
 | spel | 380 | 380 | 111 | 16 | 340 | +3.9 % | +1.9 % | 14.5 | 2.18 (+1.70…+2.75) | 2.04 | 0.81 | +77.4 % | 2.59 | – |
-| skugga | 1096 | 1096 | 123 | 16 | 959 | +1.3 % | +1.3 % | 35.7 | 0.87 (+0.62…+1.17) | 0.81 | 0.85 | +65.9 % | 1.76 | – |
+| skugga | 1097 | 1097 | 123 | 16 | 959 | +1.3 % | +1.3 % | 35.7 | 0.87 (+0.62…+1.17) | 0.81 | 0.85 | +65.9 % | 1.76 | – |
 | modelltest | 959 | 959 | 124 | 16 | 851 | +6.8 % | +6.5 % | 22.3 | -0.06 (-0.43…+0.44) | -0.15 | 0.81 | +44.6 % | 1.81 | 0.2758 / 0.2450 (353) |
 
 ## Marknadsstatus för LIVE (marknadsbaserade spel mot skarp stängning)
 
 | Marknad | Status | Spel | CLV pe skarp (95 %) | Slog | ROI flat |
 |---|---|---|---|---|---|
-| assists | **ok** | 238 | 0.95 (+0.17…+1.56) | +69.1 % | +3.4 % |
+| assists | **ok** | 239 | 0.95 (+0.17…+1.56) | +69.1 % | +3.4 % |
 | blocks | **ok** | 14 | 4.14 (+2.62…+5.14) | +100.0 % | +26.2 % |
 | pa | **insufficient_data** | 7 | 0.59 (–) | +71.4 % | -2.0 % |
-| points | **ok** | 607 | 1.19 (+0.72…+1.57) | +66.9 % | +0.1 % |
+| points | **ok** | 608 | 1.19 (+0.72…+1.57) | +66.9 % | +0.1 % |
 | pr | **osäker** | 38 | 1.55 (-0.93…+3.28) | +73.0 % | +0.7 % |
 | pra | **osäker** | 24 | 0.63 (-0.30…+2.68) | +66.7 % | -13.6 % |
 | ra | **osäker** | 58 | 0.40 (-2.12…+0.71) | +64.3 % | +2.6 % |
