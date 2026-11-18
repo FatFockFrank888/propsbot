@@ -17942,14 +17942,14 @@
 "spela_fran": 2.53,
 "insats_pct": 0.01334976235193243,
 "stangning": 2.7,
-"status": "öppen",
+"status": "förlorad",
 "stopp": "",
 "clv_signal": false,
 "forv_clv_pp": 3.3621623701163115,
 "p_modell": null,
 "p_marknad": 0.40399199407153347,
-"utfall": null,
-"resultat_enheter": null,
+"utfall": 0,
+"resultat_enheter": -0.01334976235193243,
 "stangning_ts": 1794974119.138538,
 "modellversion": "2026-11-15-betyg",
 "prognos_ts": 1794962842.8969357,
@@ -18012,14 +18012,14 @@
 "spela_fran": 2.51,
 "insats_pct": 0.009287987268564927,
 "stangning": 2.6,
-"status": "öppen",
+"status": "förlorad",
 "stopp": "",
 "clv_signal": false,
 "forv_clv_pp": 3.0197354546125874,
 "p_modell": null,
 "p_marknad": 0.40755584511216364,
-"utfall": null,
-"resultat_enheter": null,
+"utfall": 2,
+"resultat_enheter": -0.009287987268564927,
 "stangning_ts": 1794966818.0943346,
 "modellversion": "2026-11-15-betyg",
 "prognos_ts": 1794965879.2245908,
@@ -18065,5 +18065,86 @@
 "clv_skarp_pp": 3.0197354546125874,
 "clv_pin_pp": null,
 "clv_dk_pp": 4.447796018734168
+},
+{
+"key": "nba1028754034|nate ament|points|7.5|unibet|under",
+"id": 414,
+"bokford": 1794987872.2471154,
+"match_id": "nba1028754034",
+"match": "Miami Heat – Milwaukee Bucks",
+"hemma": "Miami Heat",
+"borta": "Milwaukee Bucks",
+"liga": "NBA",
+"avspark": 1795046400.0,
+"spelare": "Nate Ament",
+"spelare_id": "nate ament",
+"marknad": "points",
+"linje": 7.5,
+"sida": "under",
+"bolag": "unibet",
+"odds": 2.0,
+"sannolikhet": 0.5418730620134926,
+"ratt_odds": 1.8454506601309886,
+"edge": 0.08374612402698522,
+"spela_fran": 1.89,
+"insats_pct": 0.02,
+"stangning": 2.0,
+"status": "öppen",
+"stopp": "",
+"clv_signal": false,
+"forv_clv_pp": 4.187306201349261,
+"p_modell": null,
+"p_marknad": 0.5418730620134926,
+"utfall": null,
+"resultat_enheter": null,
+"stangning_ts": 1794987872.2471426,
+"modellversion": "2026-11-15-betyg",
+"prognos_ts": 1794987872.2471154,
+"skarp_stang_p": 0.5418730620134926,
+"skarp_stang_ts": 1794987872.122879,
+"skarp_kalla": "skanning",
+"dk_stang_p": 0.5418730620134926,
+"bolag_bokning": {
+"ts": 1794987872.3178613,
+"odds": {
+"unibet": {
+"over": 1.74,
+"under": 2.0
+},
+"draftkings": {
+"over": 2.04,
+"under": 1.75
+}
+},
+"pin_flyttad": false,
+"pin_komb": false,
+"pin_linje": null,
+"dk_linje": null,
+"dk_p": 0.5418730620134926
+},
+"bolag_stangning": {
+"ts": 1794987872.3178613,
+"odds": {
+"unibet": {
+"over": 1.74,
+"under": 2.0
+},
+"draftkings": {
+"over": 2.04,
+"under": 1.75
+}
+},
+"pin_flyttad": false,
+"pin_komb": false,
+"pin_linje": null,
+"dk_linje": null,
+"dk_p": 0.5418730620134926
+},
+"bolag_stang_ts": 1794987872.3178613,
+"skarp_verifierad": false,
+"skarp_status": null,
+"clv_skarp_pp": 4.187306201349261,
+"clv_pin_pp": null,
+"clv_dk_pp": 4.187306201349261
 }
 ]
