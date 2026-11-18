@@ -3078,7 +3078,7 @@
 "edge": 0.10804145396871401,
 "spela_fran": 2.03,
 "insats_pct": 0.012,
-"stangning": 1.74,
+"stangning": 1.75,
 "status": "öppen",
 "stopp": "skadelista: day-to-day (ESPN) – kolla före start",
 "clv_signal": false,
@@ -3088,21 +3088,21 @@
 "utfall": null,
 "resultat_enheter": null,
 "modell_edge": 0.10205769967309108,
-"stangning_ts": 1795044841.3843982,
+"stangning_ts": 1795045371.8807747,
 "analys": {
-"p_stack": 0.5012,
-"p_modell_min": 0.4902,
-"minuter": 25.6,
+"p_stack": 0.5032,
+"p_modell_min": 0.6174,
+"minuter": 29.9,
 "minuter_sd": 6.1,
-"p_faktorer": 0.4841,
-"p_faktorer_ra": 0.419,
-"vantat_faktorer": 4.69,
-"p_betyg": 0.4752,
-"p_betyg_ra": 0.3761,
-"vantat_betyg": 4.96,
-"minuter_faktorer": 22.6,
-"f_anv": 1.011,
-"f_miljo": 1.018,
+"p_faktorer": 0.5056,
+"p_faktorer_ra": 0.5311,
+"vantat_faktorer": 5.54,
+"p_betyg": 0.4977,
+"p_betyg_ra": 0.4918,
+"vantat_betyg": 5.8,
+"minuter_faktorer": 26.7,
+"f_anv": 1.018,
+"f_miljo": 1.002,
 "f_tempo": 1.0,
 "f_pos": 0.984,
 "f_mot": 0.92,
@@ -3112,7 +3112,7 @@
 "f_minutbegransning": false,
 "f_tillbaka": false,
 "f_miljo_kalla": "pinnacle",
-"f_lag_poang": 110.8,
+"f_lag_poang": 110.2,
 "f_mot_n": 3,
 "traff_l5": 0.6,
 "traff_l5_n": 5,
@@ -3124,15 +3124,15 @@
 "traff_mot_n": 3,
 "traff_hemmaborta": 0.667,
 "traff_hemmaborta_n": 6,
-"p_modell": 0.4897,
-"p_marknad": 0.5006,
-"p_slutlig": 0.4984,
-"vantat": 5.75,
+"p_modell": 0.6012,
+"p_marknad": 0.4992,
+"p_slutlig": 0.5199,
+"vantat": 6.77,
 "nb_r": 10,
 "modell_vikt": 0.2,
 "dq": 0.67,
 "matcher": 10,
-"nivajustering": -0.02,
+"nivajustering": 0.03,
 "logg": [
 {
 "ts": 1794877200.0,
@@ -3213,14 +3213,8 @@
 "redan_borta": false
 },
 {
-"namn": "Draymond Green",
-"status": "day-to-day",
-"min": 24.9,
-"redan_borta": false
-},
-{
 "namn": "Al Horford",
-"status": "day-to-day",
+"status": "out",
 "min": 16.0,
 "redan_borta": false
 },
@@ -3237,7 +3231,7 @@
 "minuter_sd_faktorer": 6.1,
 "ref": {
 "pin_p": 0.4931882964154754,
-"dk_p": 0.517794814974712,
+"dk_p": 0.516421781708865,
 "pin_linje": null,
 "dk_linje": null,
 "pin_flyttad": false,
@@ -3246,27 +3240,32 @@
 "odds_bolag": [
 {
 "bolag": "atg",
-"over": 1.74,
+"over": 1.75,
 "under": 2.0
 },
 {
 "bolag": "betmgm",
-"over": 1.74,
+"over": 1.75,
 "under": 2.0
 },
 {
 "bolag": "expekt",
-"over": 1.74,
+"over": 1.75,
 "under": 2.0
 },
 {
+"bolag": "kalshi",
+"over": 1.961,
+"under": 2.041
+},
+{
 "bolag": "leovegas",
-"over": 1.74,
+"over": 1.75,
 "under": 2.0
 },
 {
 "bolag": "paf",
-"over": 1.74,
+"over": 1.75,
 "under": 2.0
 },
 {
@@ -3276,33 +3275,33 @@
 },
 {
 "bolag": "svenskaspel",
-"over": 1.74,
+"over": 1.75,
 "under": 2.0
 },
 {
 "bolag": "unibet",
-"over": 1.74,
+"over": 1.75,
 "under": 2.0
 },
 {
 "bolag": "us_draftkings",
 "over": 1.81,
-"under": 1.93
+"under": 1.92
 }
 ]
 },
-"prognos": 5.74501861048128,
-"analys_ts": 1795044841.3866985,
-"nyhet_status": "day-to-day",
-"nyhet": "Draymond Green: day-to-day enligt ESPN:s skadelista",
-"nyhet_ts": "2026-11-18T22:15:11+00:00",
+"prognos": 6.771392477097755,
+"analys_ts": 1795045371.8840706,
+"nyhet_status": "lag:al horford",
+"nyhet": "Lagkamrat ute: Al Horford (out). Modellen nu: Draymond Green väntat 6.8 (30 min), över 5.5 61%, edge vid 2.20: +34% (vid bokning modell +10%)",
+"nyhet_ts": "2026-11-18T23:42:51+00:00",
 "modellversion": "2026-11-15-betyg",
 "prognos_ts": 1795040111.560497,
-"skarp_stang_p": 0.500572212357283,
-"skarp_stang_ts": 1795044840.8986332,
+"skarp_stang_p": 0.4991958667500694,
+"skarp_stang_ts": 1795045371.2245126,
 "skarp_kalla": "skanning",
 "pin_stang_p": 0.4931882964154754,
-"dk_stang_p": 0.517794814974712,
+"dk_stang_p": 0.516421781708865,
 "bolag_bokning": {
 "ts": 1795040111.6420732,
 "odds": {
@@ -3327,10 +3326,10 @@
 "dk_p": 0.5280497154439797
 },
 "bolag_stangning": {
-"ts": 1795044841.3953922,
+"ts": 1795045372.2276664,
 "odds": {
 "unibet": {
-"over": 1.74,
+"over": 1.75,
 "under": 2.0
 },
 "pinnacle": {
@@ -3339,7 +3338,7 @@
 },
 "draftkings": {
 "over": 1.81,
-"under": 1.93
+"under": 1.92
 }
 },
 "pin_flyttad": false,
@@ -3347,13 +3346,16 @@
 "pin_linje": null,
 "dk_linje": null,
 "pin_p": 0.4931882964154754,
-"dk_p": 0.517794814974712
+"dk_p": 0.516421781708865
 },
-"bolag_stang_ts": 1795044841.3953922,
+"bolag_stang_ts": 1795045372.2276664,
 "skarp_verifierad": false,
 "skarp_status": null,
-"clv_skarp_pp": 4.602675781182847,
+"clv_skarp_pp": 4.465041220461485,
 "clv_pin_pp": 3.864284187002087,
-"clv_dk_pp": 6.324936042925749
+"clv_dk_pp": 6.187632716341046,
+"nyhet_lag_status": "lag:al horford",
+"nyhet_lag": "Lagkamrat ute: Al Horford (out). Modellen nu: Draymond Green väntat 6.8 (30 min), över 5.5 61%, edge vid 2.20: +34% (vid bokning modell +10%)",
+"nyhet_lag_ts": "2026-11-18T23:42:52+00:00"
 }
 ]
