@@ -1,4 +1,4 @@
-Skanning 2026-11-18 23:04
+Skanning 2026-11-18 23:15
 Kambi unibet (ubse): OK, 16 matcher i valda ligor
 Kambi paf (paf): OK
 Kambi atg (atg): OK
@@ -70,11 +70,10 @@ Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
   Cruzeiro To Win To Nil 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
   Both Teams To Score and Total Goals | units=Regular | kategori=Team Props | deltagare=Yes & Over 2.5,Yes & Under 2.5,No & Over 2.5,No & Under 2.5  ->  används inte (lagmarknad)
 Sides mindre ligor: 3 Kambi-matcher inom 12 h, 17 Pinnacle-matcher, 2 med Pinnacle, 2 matchade: Bolivia / Copa Bolivia, Puerto Rico / LPR Pro
-Sides/totals: 11 matcher med Kambi + Pinnacle, 332 linjer, 0 nya spel, 0 nya skuggspel, Smarkets-priser i 6 av 6; bästa edge +4.1% (Corinthians-SP 1X2: 1), +4.0% (Always Ready 1X2: 1), +3.8% (Orlando City 1X2: 2)
-Hörnmodell: football-data.co.uk 2627: 17 av 17 ligor hämtade
+Sides/totals: 11 matcher med Kambi + Pinnacle, 332 linjer, 0 nya spel, 0 nya skuggspel, Smarkets-priser i 6 av 6; bästa edge +4.3% (Always Ready 1X2: 1), +4.1% (Corinthians-SP 1X2: 1), +3.8% (Orlando City 1X2: 2)
 Hörnmodell (test): 7861 matcher i underlaget (17 ligor), 0 matcher med modell, 0 Kambi-linjer, 0 nya testspel; bästa edge 
 Fotboll extra bolag: 0 nya hämtningar, 0 odds i bruk, krediter kvar 278, dagsbudget 20 (andel 40%), förbrukat idag 0
-Tid: hämtning 338 s
+Tid: hämtning 296 s
 Marginal över alla matcher: uppmätt marginal: shots stege k=1.08 (35 spelare; marginal vid 3,00 ≈ 9%), shots_on_target stege k=1.10 (77 spelare; marginal vid 3,00 ≈ 12%)
   Flamengo-RJ – Athletico Paranaense-PR: modell bra.1, 27 spelare
   Cruzeiro-MG – Palmeiras-SP: modell bra.1, 32 spelare
@@ -88,7 +87,7 @@ Marginal över alla matcher: uppmätt marginal: shots stege k=1.08 (35 spelare; 
 Modellens nivåavvikelse mot marknaden (log-odds, dras bort): shots -0.51, shots_on_target -0.12
   Flamengo-RJ – Athletico Paranaense-PR: väntade mål Pinnacle 3.31 mot Kambi 3.48 (kvot 0.952); uppmätt marginal: goal k=1.23, assist k=1.22, shots stege k=1.20 (7 spelare; marginal vid 3,00 ≈ 25%), shots_on_target stege k=1.06 (7 spelare; marginal vid 3,00 ≈ 7%)
 Exempel uppmätt marginal: goal k=1.23, assist k=1.22, shots stege k=1.20 (7 spelare; marginal vid 3,00 ≈ 25%), shots_on_target stege k=1.06 (7 spelare; marginal vid 3,00 ≈ 7%)
-  Cruzeiro-MG – Palmeiras-SP: väntade mål Pinnacle 2.98 mot Kambi 2.97 (kvot 1.005); uppmätt marginal: goal k=1.10, assist k=1.11, shots stege k=1.04 (7 spelare; marginal vid 3,00 ≈ 4%), shots_on_target stege k=1.18 (14 spelare; marginal vid 3,00 ≈ 22%)
+  Cruzeiro-MG – Palmeiras-SP: väntade mål Pinnacle 2.99 mot Kambi 2.97 (kvot 1.008); uppmätt marginal: goal k=1.10, assist k=1.11, shots stege k=1.04 (7 spelare; marginal vid 3,00 ≈ 4%), shots_on_target stege k=1.18 (14 spelare; marginal vid 3,00 ≈ 22%)
   Grêmio-RS – Bahia-BA: väntade mål Pinnacle 3.04 mot Kambi 3.00 (kvot 1.014); uppmätt marginal: goal k=1.15, assist k=1.19, shots stege k=1.10 (7 spelare; marginal vid 3,00 ≈ 12%), shots_on_target stege k=1.17 (14 spelare; marginal vid 3,00 ≈ 21%)
   Corinthians-SP – Botafogo-RJ: väntade mål Pinnacle 2.73 mot Kambi 2.83 (kvot 0.964); uppmätt marginal: goal k=1.21, assist k=1.24, shots_on_target stege k=1.10 (7 spelare; marginal vid 3,00 ≈ 12%)
   Paris FC (W) – HB Køge (W): saknar matchlinjer från Pinnacle
@@ -112,7 +111,7 @@ Startelvor: 0 spelbara ben klara, 0 väntar på startelvan, 0 stoppade (inte i s
 Spelregler: stoppade {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0} (modelltest {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0})
 Spelarmodell: 0 av 272 ben har modell, 0 nya matcher hämtade från ESPN
 Bästa edge marknad shots_on_target: -2.5%, -3.0%, -3.1% (av 228 ben)
-Bästa edge modelltest shots_on_target: -3.0%, -3.6%, -4.1% (av 97 ben)
+Bästa edge modelltest shots_on_target: -3.0%, -3.6%, -4.0% (av 97 ben)
 0 spelbara ben.
 Bokförda nya spel: 0
 Skuggspel: 0 nya bokförda (stoppade av reglerna, minst 2 % edge)
