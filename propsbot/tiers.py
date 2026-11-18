@@ -300,8 +300,9 @@ MK = {"points": "poäng", "rebounds": "returer", "assists": "assist", "threes": 
 
 
 def notify_a(root: Path, bets: list[dict], settings: dict, log=print) -> int:
-    """En notis per nytt spel i de nivåer som ger notis (tier_notify, standard A och B)."""
-    topic = settings.get("ntfy_topic")
+    """En notis per nytt spel i de nivåer som ger notis (tier_notify, standard A och B).
+    Egen kanal tier_ntfy_topic (18/11: propsbot-tier-ab-…); saknas den används den vanliga ntfy_topic."""
+    topic = settings.get("tier_ntfy_topic") or settings.get("ntfy_topic")
     if not topic or not bets:
         return 0
     from datetime import datetime, timezone

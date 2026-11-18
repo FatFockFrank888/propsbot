@@ -863,7 +863,7 @@ async function sendMina(msg) {
   return false;
 }
 function changeTopic() {
-  const t = prompt("Din ntfy-kanal (samma namn som i ntfy-appen, t.ex. propsbot-abc123):", myTopic());
+  const t = prompt("Din ursprungliga propsbot-kanal i ntfy (den du haft från början – inte tier-ab eller live):", myTopic());
   if (t == null) return;
   LS.set("pb_topic", cleanTopic(t));
   // spel som inte nått boten skickas om till den nya kanalen
@@ -879,7 +879,7 @@ function openTake(ident) {
     <div class="sub">${esc(b.spelare_id === "match" || b.spelare_id === "hörnor" ? b.match : b.spelare + " · " + b.match)}<br>
       <b>${esc(b.spel_text || spel(b.marknad, b.linje, b.sida))}</b> · ${tierChip(b.tier || "C")} · boten: ${nf(b.odds)} hos ${esc(b.bolag || "")}</div>
     <div class="form">
-      ${myTopic() ? "" : `<label>Din ntfy-kanal (samma namn som i ntfy-appen – sparas bara i den här webbläsaren)
+      ${myTopic() ? "" : `<label>Din ursprungliga propsbot-kanal i ntfy (den du haft från början – INTE tier-ab eller live). Sparas bara i den här webbläsaren
         <input id="tkTopic" placeholder="propsbot-…" autocomplete="off"></label>`}
       <div class="row"><label>Odds du fick<input id="tkOdds" type="number" step="0.01" min="1.01" value="${o.odds ?? b.odds ?? ""}"></label>
         <label>Units (1u = 1 % av kassan)<input id="tkU" type="number" step="0.5" min="0.5" max="20" value="${o.units ?? b.units ?? 1}"></label></div>
@@ -982,6 +982,58 @@ function liveEvents(b, s) {
   return (s.keyEvents || []).filter(e => /goal|penalty|red card/i.test(e.type?.text || "") || e.scoringPlay).slice(-3).reverse()
     .map(e => `${e.clock?.displayValue || ""} ${esc(e.type?.text || "")}${e.participants ? " – " + esc(e.participants.map(p => p.athlete?.displayName).join(", ")) : ""}`);
 }
+// ---- plingar på sidan (medan den är öppen). Webbläsare kräver ett tryck innan ljud får spelas: knappen 🔔.
+let AC = null;
+const soundOn = () => LS.get("pb_ljud", false);
+function toggleSound() {
+  const on = !soundOn(); LS.set("pb_ljud", on);
+  if (on) { AC = AC || new (window.AudioContext || window.webkitAudioContext)(); AC.resume(); tone("stat"); }
+  renderMina();
+}
+// olika ljud: mål = tre stigande toner, statistik = kort pling, vunnet = ackord, förlorat/rött = låg ton
+const SOUNDS = {stat: [[880, 0, .12]], goal: [[660, 0, .15], [880, .16, .15], [1175, .32, .3]], won: [[784, 0, .5], [988, 0, .5], [1319, 0, .6]],
+                lost: [[220, 0, .45]], red: [[330, 0, .2], [247, .22, .35]]};
+function tone(kind) {
+  if (!soundOn()) return;
+  try {
+    AC = AC || new (window.AudioContext || window.webkitAudioContext)(); if (AC.state === "suspended") AC.resume();
+    const t0 = AC.currentTime;
+    for (const [f, at, dur] of SOUNDS[kind] || SOUNDS.stat) {
+      const o = AC.createOscillator(), g = AC.createGain(); o.type = "sine"; o.frequency.value = f;
+      g.gain.setValueAtTime(0.0001, t0 + at); g.gain.exponentialRampToValueAtTime(0.3, t0 + at + 0.02); g.gain.exponentialRampToValueAtTime(0.0001, t0 + at + dur);
+      o.connect(g).connect(AC.destination); o.start(t0 + at); o.stop(t0 + at + dur + 0.05);
+    }
+  } catch (e) { /* ljud stöds inte */ }
+}
+function toast(txt, kind) {
+  let box = document.getElementById("toasts");
+  if (!box) { box = document.createElement("div"); box.id = "toasts"; box.style.cssText = "position:fixed;right:14px;bottom:14px;z-index:80;display:grid;gap:8px;max-width:min(380px,92vw)"; document.body.appendChild(box); }
+  const el = document.createElement("div");
+  el.style.cssText = `background:var(--panel2);border:1px solid ${kind === "won" ? "var(--good)" : kind === "lost" || kind === "red" ? "var(--bad)" : "var(--accent)"};border-radius:12px;padding:10px 14px;font-size:13.5px;box-shadow:0 6px 24px rgba(0,0,0,.4)`;
+  el.innerHTML = txt; box.appendChild(el); setTimeout(() => el.remove(), 9000);
+}
+const LINE_DONE = new Set();
+function pageAlerts(b, old, nu) {
+  if (!old) return;   // första läsningen: ingen historik
+  const who = b.spelare_id === "match" || b.spelare_id === "hörnor" ? b.match : b.spelare, line = b.linje ?? 0;
+  const score = `${esc(nu.gs.ah)} ${nu.gs.home}–${nu.gs.away} ${esc(nu.gs.aa)}`;
+  if (b.sport !== "nba") {
+    for (const id of nu.goals) if (!old.goals.includes(id)) { tone("goal"); toast(`⚽ <b>MÅL</b> – ${esc(b.match)}<br>${score}`, "goal"); }
+    for (const id of nu.reds) if (!old.reds.includes(id)) { tone("red"); toast(`🟥 <b>Rött kort</b> – ${esc(b.match)}`, "red"); }
+  }
+  if (LINE_DONE.has(b.ident) || nu.v == null || old.v == null) return;
+  const perEvent = !["match"].includes(b.spelare_id) || ["corners", "corners_home", "corners_away", "cah"].includes(b.marknad);
+  if (perEvent && nu.v > old.v) {
+    const over = !["1x2", "ml", "ah", "spread", "cah"].includes(b.marknad) && nu.v > line;
+    if (over) {
+      LINE_DONE.add(b.ident);
+      const won = b.sida !== "under"; tone(won ? "won" : "lost");
+      toast(`${won ? "✅ <b>VUNNET</b>" : "❌ <b>FÖRLORAT</b>"}: ${esc(who)} ${esc(b.spel_text || spel(b.marknad, b.linje, b.sida))}<br>${nf(nu.v, 0)} mot ${nf(line, 1)} · ${score}`, won ? "won" : "lost");
+    } else if (b.sport === "nba" || b.spelare_id !== "match") {
+      tone("stat"); toast(`${b.sport === "nba" ? "🏀" : b.marknad?.startsWith("corner") ? "🚩" : "⚽"} <b>${esc(who)}</b> +${nf(nu.v - old.v, 0)} ${esc((MK[b.marknad] || b.marknad).toLowerCase())} → <b>${nf(nu.v, 0)}</b> av ${nf(line, 1)}<br>${score} · ${esc(nu.gs.detail)}`, "stat");
+    }
+  }
+}
 async function liveTick() {
   const now = Date.now() / 1000;
   const act = minaAll().filter(b => b.status === "öppen" && b.avspark && now > b.avspark - 900 && now < b.avspark + 5 * 3600);
@@ -989,12 +1041,17 @@ async function liveTick() {
     const ev = await espnEvent(b); if (!ev) return;
     try {
       const s = await (await fetch(`${ESPN_API}/${ev[0]}/summary?event=${ev[1]}`)).json();
-      LIVE[b.ident] = {gs: gameState(s), v: statNow(b, s), evs: liveEvents(b, s), ts: now};
+      const nu = {gs: gameState(s), v: statNow(b, s), evs: liveEvents(b, s), ts: now,
+                  goals: (s.keyEvents || []).filter(e => e.scoringPlay || /^goal|own goal|penalty - scored/i.test(e.type?.text || "")).map(e => String(e.id)),
+                  reds: (s.keyEvents || []).filter(e => /red card/i.test(e.type?.text || "")).map(e => String(e.id))};
+      pageAlerts(b, LIVE[b.ident], nu);
+      LIVE[b.ident] = nu;
     } catch (e) { /* nästa omgång */ }
   }));
   if (tab === "mina" && !document.hidden) renderMina();
 }
-setInterval(() => { if (tab === "mina" && !document.hidden) liveTick(); }, 15000);
+// Livescore och plingar uppdateras var 15:e s medan sidan är öppen (oavsett flik), så att plingarna kommer även i andra flikar.
+setInterval(() => { if (!document.hidden) liveTick(); }, 15000);
 function minaCard(b) {
   const L = LIVE[b.ident], now = Date.now() / 1000, under = b.sida === "under", line = b.linje ?? 0;
   const r = {...norm(b, b.sport, "Mina"), u: b.units, res: b.resultat_u, tier: b.tier};
@@ -1027,10 +1084,11 @@ function renderMina() {
     ["Resultat", sgn(res, 1) + "u", st ? `ROI ${pct(res / st)}` : "", cls(res)], ["CLV på ditt odds", mc == null ? "–" : sgn(mc, 2) + " pe", cl.length ? `${cl.length} spel` : "", cls(mc)]]
     .map(([k, v, x, c]) => `<div class="tile"><div class="k">${k}</div><div class="v ${c || ""}">${v}</div><div class="x">${x}</div></div>`).join("");
   const waiting = all.filter(b => !b.synkad).length;
-  document.getElementById("minaSetup").innerHTML = myTopic()
+  document.getElementById("minaSetup").innerHTML = `<div class="controls"><button class="take ${soundOn() ? "on" : ""}" onclick="toggleSound()">${soundOn() ? "🔔 Ljud på" : "🔕 Ljud av – tryck för plingar på sidan"}</button>
+      <span class="sub">Plingar och rutor här när något händer i dina matcher (medan sidan är öppen). Mål, retur, poäng och vunnet har olika ljud.</span></div>` + (myTopic()
     ? `<div class="note">Kopplad till ntfy-kanalen <b>${esc(myTopic())}</b> <button class="take" onclick="changeTopic()">Byt kanal</button>
        ${waiting ? `<br>⏳ ${waiting} spel väntar på boten (läses in inom ~10 min). Syns de inte efter 20 min: kontrollera att kanalnamnet är exakt samma som i appen.` : ""}</div>`
-    : `<div class="note">Koppla sidan till boten: tryck <b>＋ Jag tog spelet</b> på ett spel i fliken Spel och fyll i din ntfy-kanal (samma namn som i appen). Den sparas bara i den här webbläsaren.</div>`;
+    : `<div class="note">Koppla sidan till boten: tryck <b>＋ Jag tog spelet</b> på ett spel i fliken Spel och fyll i din ursprungliga propsbot-kanal i ntfy (inte tier-ab eller live). Den sparas bara i den här webbläsaren.</div>`);
   document.getElementById("minaCount").textContent = open.length || "";
   document.getElementById("minaLed").classList.toggle("off", !open.some(b => LIVE[b.ident]?.gs.state === "in"));
   const ct = document.getElementById("ctMina"); ct.textContent = open.length; ct.classList.toggle("hidden", !open.length);
@@ -1565,6 +1623,11 @@ setHH(); addEventListener("resize", setHH);
 ["q", "mk", "only", "side", "onlyLive"].forEach(id => document.getElementById(id).oninput = renderRadar);
 ["aTyp", "aMk", "aBook", "aSida", "aStatus", "aOmin", "aOmax", "aPmin", "aGroup"].forEach(id => document.getElementById(id).oninput = renderBok);
 document.getElementById("aCsv").onclick = csv;
+// Kopplingslänken från boten (notisen "koppla Mina spel"): #koppla=<kanal> sparar exakt rätt kanalnamn.
+{ const m = location.hash.match(/^#koppla=([^&]+)/);
+  if (m) { LS.set("pb_topic", cleanTopic(decodeURIComponent(m[1]))); history.replaceState(null, "", location.pathname + "#alla/mina");
+           setTimeout(() => toast("✅ <b>Kopplad till boten</b> – spelen du tar synkas nu mellan dina enheter.", "won"), 800);
+           for (const [id, x] of Object.entries(pending())) sendMina({...x, bet: undefined}); } }
 { const [s, t] = location.hash.slice(1).split("/");
   if (SPORTS[s] || s === "alla") cur = s;
   if (["nu", "avg", "mina", "topp", "radar", "res", "bok", "parlay", "param"].includes(t)) tab = t;

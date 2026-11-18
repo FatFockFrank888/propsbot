@@ -84,3 +84,13 @@ def test_run_records_and_settles(tmp_path):
     assert "totala poäng över 228.5" == spel.bets[0]["spel_text"]
     b = spel.bets[0]
     assert ns.settle(spel, {"nba1": (120, 115)}) and b["status"] == "vunnen"
+
+
+def test_team_stat_markets_are_not_game_total():
+    raw = {"betOffers": [{"criterion": {"englishLabel": "Atlanta Hawks assists - Including Overtime"},
+                          "betOfferType": {"englishName": "Over/Under"},
+                          "outcomes": [o("OT_OVER", 1.9, 25.5), o("OT_UNDER", 1.9, 25.5)]},
+                         {"criterion": {"englishLabel": "Boston Celtics made threes - Including Overtime"},
+                          "betOfferType": {"englishName": "Over/Under"},
+                          "outcomes": [o("OT_OVER", 1.9, 13.5), o("OT_UNDER", 1.9, 13.5)]}]}
+    assert ns.kambi_main(raw, "Boston Celtics", "Atlanta Hawks") == {}

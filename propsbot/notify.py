@@ -17,12 +17,12 @@ def new_topic() -> str:
     return "propsbot-" + secrets.token_hex(6)
 
 
-def send(topic: str, title: str, message: str, priority: int = 4, tags: str = "soccer") -> bool:
+def send(topic: str, title: str, message: str, priority: int = 4, tags: str = "soccer", click: str | None = None) -> bool:
     if not topic:
         return False
     # ntfy tar emot JSON på rot-URL:en; då fungerar å, ä, ö även i rubriken.
     body = json.dumps({"topic": topic, "title": title, "message": message,
-                       "priority": priority, "tags": tags.split(",")}).encode("utf-8")
+                       "priority": priority, "tags": tags.split(","), **({"click": click} if click else {})}).encode("utf-8")
     req = urllib.request.Request(NTFY, data=body, method="POST",
                                  headers={"Content-Type": "application/json"})
     try:

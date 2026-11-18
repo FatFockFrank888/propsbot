@@ -63,7 +63,9 @@ def kambi_main(raw: dict, home: str, away: str) -> dict:
         outs = bo.get("outcomes") or []
         if any(o.get("status", "OPEN") != "OPEN" for o in outs):
             continue
-        if "handicap" in lab or "spread" in lab or typ == "handicap":
+        # bara matchens egna marknader: "Point Spread/Handicap", "Total Points", "Moneyline" (inte lagens
+        # assist/trepoängare o.d. – "Atlanta Hawks assists - Including Overtime" är också Over/Under)
+        if lab.startswith(("point spread", "handicap")):
             mk = "spread"
             for o in outs:
                 if o.get("line") is None or not o.get("odds"):
@@ -72,7 +74,7 @@ def kambi_main(raw: dict, home: str, away: str) -> dict:
                 ln = o["line"] / 1000
                 if side and _line_ok(ln):
                     put((mk, ln, side), o["odds"] / 1000)
-        elif "total" in lab or typ in ("over/under", "total"):
+        elif lab.startswith("total points"):
             mk = "game_total"
             for o in outs:
                 if o.get("line") is None or not o.get("odds"):
@@ -81,7 +83,7 @@ def kambi_main(raw: dict, home: str, away: str) -> dict:
                 ln = o["line"] / 1000
                 if side and _line_ok(ln):
                     put((mk, ln, side), o["odds"] / 1000)
-        else:
+        elif lab.startswith(("moneyline", "including overtime", "match odds")):
             if len(outs) != 2 or any(o.get("type") == "OT_CROSS" or not o.get("odds") for o in outs):
                 continue
             sides = [_side(o, home, away) for o in outs]
@@ -90,6 +92,8 @@ def kambi_main(raw: dict, home: str, away: str) -> dict:
             mk = "ml"
             for o, sd in zip(outs, sides):
                 put(("ml", 0.0, sd), o["odds"] / 1000)
+        else:
+            continue
         LABELS[lab] = mk
     return out
 

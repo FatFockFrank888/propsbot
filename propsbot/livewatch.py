@@ -66,7 +66,8 @@ class Watcher:
     def __init__(self, settings: dict, send=None, get=None, log=print):
         from .notify import send as _send
         self.s = settings
-        self.topic = settings.get("ntfy_topic")
+        # egen kanal för plingarna under match (18/11), så att de kan ha ett eget ljud i ntfy-appen
+        self.topic = settings.get("live_ntfy_topic") or settings.get("ntfy_topic")
         self.send = send or (lambda t, m, prio, tags: _send(self.topic, t, m, priority=prio, tags=tags))
         self.get = get or mina._get
         self.log = log
