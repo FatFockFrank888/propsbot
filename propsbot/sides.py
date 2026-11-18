@@ -604,7 +604,7 @@ def run(root: Path, data: list, settings: dict, diag, notify: bool = True) -> di
     if notify and s.get("ntfy_topic"):
         unsettled_alert(spel, s["ntfy_topic"], now, diag.log)
     sent = 0
-    if notify and s.get("sides_live") and s.get("ntfy_topic") and new_spel:
+    if notify and s.get("sides_live") and not s.get("tiers_on", True) and s.get("ntfy_topic") and new_spel:
         sent = _notify(root, new_spel, s)
     spel.save()
     skugga.save()

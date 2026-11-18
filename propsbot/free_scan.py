@@ -584,7 +584,7 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
                 tf.write_text(th, encoding="utf-8")
                 diag.log("Testnotis skickad till mobilen.")
         # Fotbollen är inte live (bara datainsamling) tills den visar edge och CLV.
-        n = notify_new(playable, settings, root, live=True) if settings.get("football_live", False) else 0
+        n = notify_new(playable, settings, root, live=True) if settings.get("football_live", False) and not settings.get("tiers_on", True) else 0
         from .clv_signal import units
         for x in (new_parlays if settings.get("live_enabled", True) and settings.get("parlays_notify", False)
                   and settings.get("football_live", False) else []):

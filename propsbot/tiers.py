@@ -1,0 +1,361 @@
+"""A/B/C Tier: ersätter "Official Bets" (18/11).
+
+Varje spel som boten bokför (LIVE, regelspel, skuggspel – props och sides, fotboll och NBA) prövas mot tre
+nästlade nivåer. Ett spel hamnar i den HÖGSTA nivå det klarar, och varje spelare och match (sides: match och
+grupp) får högst ett spel. Nivåerna rättas var för sig, så att vi ser om t.ex. B presterar bättre än A
+(för strikta krav = för lite omsättning och större varians).
+
+  C Tier  edge och statistik talar för spelet: edge ≥ tier_c_min_edge (4 %) mot konsensus utan marginal,
+          odds tier_c_odds (1,40–6,50), inga hårda spärrar (skadelista, startelva, orimlig edge …) och inget
+          sharp money mot oss. Bara bokföring – för att se om kraven är för skarpa och vad som ska kalibreras.
+  B Tier  C + fokus på CLV: odds tier_b_odds (1,60–6,00), edge ≥ tier_b_min_edge (5 %) och ≤ tier_b_max_edge,
+          Pinnacle (eller DraftKings där Pinnacle saknar marknaden) som referens, oddset faller inte, ingen
+          annan skarp källa säger emot, förväntad CLV ≥ 0 där den finns. Spelas.
+  A Tier  B + klarar ALLA våra parametrar (NBA: LIVE-kraven i live.py; fotboll: alla regler = regelspel),
+          odds tier_a_odds (1,60–3,50). Spelas och är den enda nivån som ger notis.
+
+Insats: flat 1–3u, 1u = tier_unit (1 %) av kassan. 1u standard, 2u high (edge ≥ tier_2u_edge), 3u maxbet
+(edge ≥ tier_3u_edge och ≤ tier_3u_max_edge, Pinnacle som referens och sharp money med oss). Riktigt höga
+edgar (> 20 %) är oftast fel i linjen och blir aldrig maxbet. Tak för spelade nivåer (A + B):
+tier_max_units_day per speldag och nivå (A 10u, B 8u – egna budgetar så att B aldrig tränger undan A) och
+tier_max_per_match spel per match och nivå – spel över taket bokförs i sin nivå
+med "tak" och räknas i flat-statistiken men inte som spelade.
+
+Ett spel klassas när det först syns och låses (värden som ändras fram till start, t.ex. Pinnacles pris,
+ändrar inte nivån i efterhand). En senare rad på samma spelare och match får uppgradera nivån före start.
+Resultat och CLV hämtas från källbokföringen vid varje körning.
+"""
+from __future__ import annotations
+
+import json
+import time
+from pathlib import Path
+
+TIERS = ("A", "B", "C")
+RANK = {"A": 3, "B": 2, "C": 1}
+
+# (sport, fil, källa). Källan styr A: "live" = NBA LIVE-kraven, "spel" = alla regler (fotboll).
+SOURCES = [
+    ("nba", "nba_live.json", "live"),
+    ("nba", "nba_bokforing_v2.json", "spel"),
+    ("nba", "nba_skugga_v2.json", "skugga"),
+    ("nba", "nba_sides_spel.json", "spel"),
+    ("nba", "nba_sides_skugga.json", "skugga"),
+    ("fotboll", "bokforing_v3.json", "spel"),
+    ("fotboll", "bokforing_skugga_v4.json", "skugga"),
+    ("fotboll", "sides_spel.json", "spel"),
+    ("fotboll", "sides_skugga.json", "skugga"),
+]
+SRC_RANK = {"live": 3, "spel": 2, "skugga": 1}
+
+DEFAULTS = {
+    "tiers_on": True,
+    "tier_unit": 0.01,
+    "tier_c_min_edge": 0.04, "tier_c_odds": [1.40, 6.50], "tier_max_edge": 0.25,
+    "tier_b_min_edge": 0.05, "tier_b_max_edge": 0.20, "tier_b_odds": [1.60, 6.00],
+    "tier_a_odds": [1.60, 3.50],
+    "tier_2u_edge": 0.09, "tier_3u_edge": 0.12, "tier_3u_max_edge": 0.20,
+    "tier_max_units_day": {"A": 10, "B": 8}, "tier_max_per_match": 2,
+    "tier_notify_max_age_s": 3600,
+}
+
+# Spärrar som gör spelet ospelbart i alla nivåer (fel i underlaget eller spelaren spelar inte).
+HARD = ("inte i startelvan", "matchen har startat", "kunde inte mätas", "orimlig", "avviker",
+        "kontrollera manuellt", "lagkamrat nyss ute", "startelvan okänd", "kombo med bara",
+        "oddset är", "väntar på startelvor")
+# Spärrar som säger att CLV-läget är dåligt: stoppar B och A, inte C.
+CLV_BAD = ("oddset har fallit", "för svag referens", "håller inte med", "Pinnacles linje flyttad")
+DK_MARKETS_OK = ("steals", "blocks", "pr", "pra", "ra", "pa")
+
+
+def cfg(settings: dict) -> dict:
+    return {k: settings.get(k, v) for k, v in DEFAULTS.items()}
+
+
+def _stopp(b: dict) -> str:
+    return b.get("stopp") or ""
+
+
+def hard_block(b: dict) -> str | None:
+    s = _stopp(b)
+    for part in s.split("; "):
+        if part.startswith("skadelista") and "kolla före start" not in part:
+            return part
+        if any(h in part for h in HARD):
+            return part
+    return None
+
+
+def sharp_ref(b: dict, sport: str = "") -> bool:
+    """Skarp referens för linjen: Pinnacle, eller DraftKings för NBA-marknader som Pinnacle saknar.
+    NBA-spel före 15/11 har bara den samlade skarpa referensen (Pinnacle/DK, skarp_stang_p) – den räknas."""
+    if b.get("pin_stang_p") is not None or b.get("pin_p") is not None:
+        return True
+    if b.get("marknad") in DK_MARKETS_OK and b.get("dk_stang_p") is not None:
+        return True
+    return sport == "nba" and b.get("skarp_stang_p") is not None
+
+
+def classify(b: dict, src: str, sport: str, c: dict) -> tuple[str | None, list[str]]:
+    """Nivå för ett bokfört spel + varför det inte nådde högre."""
+    why: list[str] = []
+    e, o = b.get("edge") or 0.0, b.get("odds") or 0.0
+    hb = hard_block(b)
+    if hb:
+        return None, [hb]
+    s = _stopp(b)
+    lo, hi = c["tier_c_odds"]
+    if e < c["tier_c_min_edge"] or e > c["tier_max_edge"] or not (lo <= o <= hi) or "sharp money mot oss" in s:
+        return None, ["klarar inte C"]
+    tier = "C"
+    lo, hi = c["tier_b_odds"]
+    if not (lo <= o <= hi):
+        why.append(f"odds {o:.2f} utanför B {lo:.2f}–{hi:.2f}")
+    if e < c["tier_b_min_edge"]:
+        why.append(f"edge {e:.1%} < B {c['tier_b_min_edge']:.0%}")
+    if e > c["tier_b_max_edge"]:
+        why.append(f"edge {e:.1%} > B {c['tier_b_max_edge']:.0%}")
+    if not sharp_ref(b, sport):
+        why.append("ingen skarp referens (Pinnacle/DK)")
+    bad = next((p for p in s.split("; ") if any(x in p for x in CLV_BAD)), None)
+    if bad:
+        why.append(bad)
+    if b.get("forv_clv_pp") is not None and b["forv_clv_pp"] < 0:
+        why.append(f"förväntad CLV {b['forv_clv_pp']:+.1f} pe")
+    if why:
+        return tier, why
+    tier = "B"
+    lo, hi = c["tier_a_odds"]
+    if sport == "nba" and b.get("spelare_id") not in ("match",) and src != "live":
+        why.append("klarar inte LIVE-kraven")
+    elif src not in ("live", "spel"):
+        why.append("stoppad av en regel")
+    if not (lo <= o <= hi):
+        why.append(f"odds {o:.2f} utanför A {lo:.2f}–{hi:.2f}")
+    if why:
+        return tier, why
+    return "A", []
+
+
+def units_for(b: dict, c: dict, sport: str = "") -> int:
+    e = b.get("edge") or 0.0
+    s = _stopp(b)
+    if e >= c["tier_3u_edge"] and e <= c["tier_3u_max_edge"] and sharp_ref(b, sport) and "sharp money med oss" in s:
+        return 3
+    if e >= c["tier_2u_edge"]:
+        return 2
+    return 1
+
+
+def _day(ts: float) -> str:
+    return time.strftime("%Y-%m-%d", time.gmtime((ts or 0) - 6 * 3600))
+
+
+def _ident(sport: str, b: dict) -> str:
+    who = b.get("spelare_id") or b.get("spelare")
+    if who in ("match", "hörnor"):
+        who = f"{who}|{'hörnor' if b.get('spelare_id') == 'hörnor' else 'mål'}"
+    return f"{sport}|{b.get('match_id')}|{who}"
+
+
+SYNC = ("status", "utfall", "stangning", "stangning_ts", "skarp_stang_p", "skarp_stang_ts", "skarp_verifierad",
+        "skarp_status", "pin_stang_p", "dk_stang_p", "smk_stang_p", "clv_skarp_pp", "clv_pin_pp", "clv_dk_pp",
+        "nyhet", "nyhet_status", "nyhet_ts", "dubblett")
+COPY = ("match_id", "match", "hemma", "borta", "liga", "avspark", "spelare", "spelare_id", "marknad", "linje", "sida",
+        "spel_text", "bolag", "odds", "sannolikhet", "ratt_odds", "edge", "spela_fran", "stopp", "forv_clv_pp",
+        "p_modell", "p_marknad", "pin_p", "smk_p", "modell_edge", "analys", "prognos", "bolag_bokning", "bolag_stangning")
+
+
+class TierBook:
+    def __init__(self, path: Path):
+        self.path = path
+        try:
+            d = json.loads(path.read_text(encoding="utf-8"))
+        except (FileNotFoundError, json.JSONDecodeError):
+            d = {}
+        self.bets: list[dict] = d.get("bets", [])
+        self.seen: set = set(d.get("sedda", []))
+
+    def save(self) -> None:
+        from .ledger import rensa_nan
+        self.path.write_text(json.dumps(rensa_nan({"bets": self.bets, "sedda": sorted(self.seen)}),
+                                        ensure_ascii=False, allow_nan=False), encoding="utf-8")
+
+
+def _load(root: Path, sports: set) -> list[tuple[str, str, str, dict]]:
+    out = []
+    for sport, fname, src in SOURCES:
+        if sport not in sports:
+            continue
+        f = root / fname
+        if not f.exists():
+            continue
+        try:
+            bets = json.loads(f.read_text(encoding="utf-8"))
+        except json.JSONDecodeError:
+            continue
+        for b in bets if isinstance(bets, list) else []:
+            if b.get("key"):
+                out.append((sport, fname, src, b))
+    return out
+
+
+def _result_u(tb: dict, src_b: dict) -> float | None:
+    st, u = tb.get("status"), tb["units"]
+    if st not in ("vunnen", "förlorad", "push", "struken"):
+        return None
+    ins, res = src_b.get("insats_pct"), src_b.get("resultat_enheter")
+    if ins and res is not None:          # exakt kvot från källan (asiatiska linjer: halv vinst/förlust)
+        return res / ins * u
+    if st == "vunnen":
+        return (tb["odds"] - 1.0) * u
+    if st == "förlorad":
+        return -float(u)
+    return 0.0
+
+
+def update(root: Path, settings: dict, now: float | None = None, sports: tuple = ("nba", "fotboll"),
+           log=print) -> dict:
+    """Klassa nya spel, uppgradera, synka resultat. Returnerar {"book", "new_a": [...]}."""
+    now = now or time.time()
+    c = cfg(settings)
+    book = TierBook(root / "tiers.json")
+    by_ident = {b["ident"]: b for b in book.bets}
+    allb = _load(root, set(sports))
+    src_by = {(f, b["key"]): b for _s, f, _src, b in allb}
+    # Samma spel kan stå i flera filer (LIVE-spelet finns också bland regelspelen): bästa källan vinner.
+    best: dict = {}
+    for sport, f, src, b in allb:
+        k = (sport, b["key"])
+        if k not in best or SRC_RANK[src] > SRC_RANK[best[k][2]]:
+            best[k] = (sport, f, src, b)
+    todo = sorted((x for x in best.values() if f"{x[1]}|{x[3]['key']}" not in book.seen),
+                  key=lambda x: (x[3].get("bokford") or 0, -SRC_RANK[x[2]]))
+    # tak: spelade units per speldag och spel per match (A + B)
+    u_day: dict = {}
+    n_match: dict = {}
+    for tb in book.bets:
+        if tb.get("spelad"):
+            kd, km = (tb["tier"], _day(tb.get("avspark"))), (tb["tier"], tb["match_id"])
+            u_day[kd] = u_day.get(kd, 0) + tb["units"]
+            n_match[km] = n_match.get(km, 0) + 1
+    n_new, n_up = 0, 0
+    for sport, f, src, b in todo:
+        book.seen.add(f"{f}|{b['key']}")
+        if b.get("dubblett"):
+            continue
+        tier, why = classify(b, src, sport, c)
+        if tier is None:
+            continue
+        ident = _ident(sport, b)
+        old = by_ident.get(ident)
+        t_seen = b.get("bokford") or now
+        if old is not None:
+            if RANK[tier] <= RANK[old["tier"]] or (old.get("avspark") or 0) <= t_seen:
+                continue
+        u = units_for(b, c, sport)
+        tb = {k: b.get(k) for k in COPY}
+        tb.update(ident=ident, sport=sport, tier=tier, units=u, kalla=src, kalla_fil=f, kalla_key=b["key"],
+                  bokford=t_seen, inte_hogre=why, unit_pct=c["tier_unit"])
+        if old is not None:
+            tb["uppgraderad_fran"] = old["tier"]
+            tb["id"] = old["id"]
+            if old.get("spelad"):   # frigör det gamla spelets plats i taken
+                u_day[(old["tier"], _day(old.get("avspark")))] -= old["units"]
+                n_match[(old["tier"], old["match_id"])] -= 1
+            if old.get("notis"):
+                tb["notis"] = True
+        else:
+            tb["id"] = len(book.bets) + 1
+        if b.get("notis"):        # källan har redan skickat notis (gamla LIVE-notisen) – ingen dubblett
+            tb["notis"] = True
+        if tier in ("A", "B"):
+            kd, km = (tier, _day(tb.get("avspark"))), (tier, tb["match_id"])
+            cap = c["tier_max_units_day"]
+            cap = cap.get(tier, 10) if isinstance(cap, dict) else cap
+            if u_day.get(kd, 0) + u > cap or n_match.get(km, 0) >= c["tier_max_per_match"]:
+                tb["tak"], tb["spelad"] = True, False
+            else:
+                tb["spelad"] = True
+                u_day[kd] = u_day.get(kd, 0) + u
+                n_match[km] = n_match.get(km, 0) + 1
+        else:
+            tb["spelad"] = False
+        if old is not None:
+            book.bets[book.bets.index(old)] = tb
+            n_up += 1
+        else:
+            book.bets.append(tb)
+            n_new += 1
+        by_ident[ident] = tb
+    # A-spel utan notis före start (nya, uppgraderade eller misslyckade förra körningen – skickas igen)
+    new_a = [tb for tb in book.bets if tb["tier"] == "A" and tb.get("spelad") and not tb.get("notis")
+             and (tb.get("avspark") or 0) > now and now - (tb.get("bokford") or 0) <= c["tier_notify_max_age_s"]]
+    for tb in book.bets:   # resultat och CLV från källan
+        sb = src_by.get((tb["kalla_fil"], tb["kalla_key"]))
+        if sb is None:
+            continue
+        for k in SYNC:
+            if k in sb:
+                tb[k] = sb[k]
+        tb["resultat_u"] = _result_u(tb, sb)
+        # sides: CLV mot Pinnacles stängning (utan marginal) när källan inte räknat clv_skarp_pp
+        if (tb.get("clv_skarp_pp") is None and tb.get("pin_stang_p") and tb.get("odds")
+                and (tb.get("avspark") or now) < now):
+            tb["clv_skarp_pp"] = (tb["pin_stang_p"] - 1 / tb["odds"]) * 100
+    book.save()
+    cnt = {t: sum(1 for b in book.bets if b["tier"] == t) for t in TIERS}
+    log(f"Tiers: {n_new} nya, {n_up} uppgraderade, {len(new_a)} nya A för notis; totalt "
+        + ", ".join(f"{t} {n}" for t, n in cnt.items()))
+    return {"book": book, "new_a": new_a}
+
+
+def units_text(u: int) -> str:
+    return {1: "1u – standard", 2: "2u – high", 3: "3u – MAXBET 💪"}.get(u, f"{u}u")
+
+
+MK = {"points": "poäng", "rebounds": "returer", "assists": "assist", "threes": "trepoängare", "steals": "steals",
+      "blocks": "blocks", "pra": "PRA", "pr": "poäng+returer", "ra": "returer+assist", "pa": "poäng+assist",
+      "shots_on_target": "skott på mål", "shots": "skott", "goal": "mål", "assist": "assist"}
+
+
+def notify_a(root: Path, bets: list[dict], settings: dict, log=print) -> int:
+    """En notis per nytt A Tier-spel (bara A ger notis)."""
+    topic = settings.get("ntfy_topic")
+    if not topic or not bets:
+        return 0
+    from datetime import datetime, timezone
+    from .notify import send
+    sent = 0
+    for b in bets:
+        txt = b.get("spel_text") or (f"{MK.get(b['marknad'], b['marknad'])} "
+                                     f"{'under' if b.get('sida') == 'under' else 'över'} {b['linje']:g}")
+        who = b["spelare"] if b.get("spelare_id") not in ("match", "hörnor") else b["match"]
+        up = f" (uppgraderad från {b['uppgraderad_fran']})" if b.get("uppgraderad_fran") else ""
+        title = f"A TIER {'NBA' if b['sport'] == 'nba' else 'FOTBOLL'}: {who} {txt}"
+        ko = datetime.fromtimestamp(b["avspark"], timezone.utc).strftime("%Y-%m-%d %H:%M")
+        msg = (f"{b['match']} · {b.get('liga') or ''} ({ko} UTC){up}\n"
+               f"{b['bolag']}: {b['odds']:.2f}  (spela från {b['spela_fran']:.2f})\n"
+               f"Edge {b['edge']:.1%}\nInsats: {units_text(b['units'])} ({b['units'] * b['unit_pct']:.0%} av kassan)")
+        if send(topic, title, msg, priority=4 if b["units"] >= 3 else 3,
+                tags="basketball" if b["sport"] == "nba" else "soccer"):
+            b["notis"] = True
+            sent += 1
+    log(f"Tiers: {sent} A-notiser skickade")
+    return sent
+
+
+def run(root: Path, settings: dict, notify: bool = True, log=print) -> dict:
+    res = update(root, settings, log=log)
+    if notify:
+        notify_a(root, res["new_a"], settings, log)
+        res["book"].save()
+    site = root / "site"
+    site.mkdir(parents=True, exist_ok=True)
+    from .ledger import rensa_nan
+    pub = [{k: v for k, v in b.items() if k != "analys"} | ({"analys": b["analys"]} if b.get("status") == "öppen" else {})
+           for b in res["book"].bets]
+    (site / "tiers.json").write_text(json.dumps(rensa_nan({"uppdaterad_ts": time.time(), "regler": cfg(settings),
+                                                           "bets": pub}), ensure_ascii=False, allow_nan=False),
+                                     encoding="utf-8")
+    return res

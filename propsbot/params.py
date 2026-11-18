@@ -28,7 +28,29 @@ def all_params(settings_path: Path) -> dict:
     live_th = s.get("live_min_edge", {})
     llo, lhi = s.get("live_odds_window", [1.60, 3.00])
 
-    shared = [
+    from .tiers import cfg as _tcfg
+    t = _tcfg(s)
+    _cap = t["tier_max_units_day"]
+    _cap = ", ".join(f"{k} {v}u" for k, v in _cap.items()) if isinstance(_cap, dict) else f"{_cap}u"
+    tiers = [
+        ("A/B/C Tier", "på" if t["tiers_on"] else "av",
+         "Ersätter Official Bets (18/11). Varje bokfört spel (LIVE, regelspel, skuggspel; props och sides; fotboll och NBA) hamnar "
+         "i den högsta nivå det klarar. Ett spel per spelare och match. Nivåerna rättas var för sig (fliken Tier-resultat)."),
+        ("C Tier", f"edge ≥ {_pct(t['tier_c_min_edge'])}, odds {_odds(*t['tier_c_odds'])}",
+         "Edge och statistik talar för spelet. Inga hårda spärrar (skadelista out/doubtful, startelva, orimlig edge, avvikande pris) "
+         f"och inget sharp money mot oss. Edge över {_pct(t['tier_max_edge'])} räknas inte. Bara bokföring: visar om kraven för B/A är för skarpa."),
+        ("B Tier", f"C + edge {_pct(t['tier_b_min_edge'])}–{_pct(t['tier_b_max_edge'])}, odds {_odds(*t['tier_b_odds'])}",
+         "Fokus på CLV: Pinnacle (eller DraftKings där Pinnacle saknar marknaden) som referens, oddset har inte fallit, ingen annan skarp "
+         "källa säger emot, Pinnacles gräns räcker, förväntad CLV ≥ 0 där den finns. Spelas, ingen notis."),
+        ("A Tier", f"B + alla parametrar, odds {_odds(*t['tier_a_odds'])}",
+         "NBA: klarar LIVE-kraven (se NBA nedan). Fotboll: klarar alla regler (regelspel). Spelas och är den ENDA nivån som ger notis."),
+        ("Insats (A/B)", f"flat 1–3u, 1u = {_pct(t['tier_unit'])} av kassan",
+         f"1u standard. 2u high: edge ≥ {_pct(t['tier_2u_edge'])}. 3u maxbet: edge {_pct(t['tier_3u_edge'])}–{_pct(t['tier_3u_max_edge'])} "
+         "med Pinnacle som referens och sharp money med oss (högre edge är oftast fel i linjen). Ingen Kelly."),
+        ("Tak (A/B)", f"{_cap} per speldag, {t['tier_max_per_match']} spel per match och nivå",
+         "Egna budgetar per nivå, så att B aldrig tränger undan A. Spel över taket bokförs i sin nivå med \"tak\": de räknas i ROI flat och CLV men inte som spelade."),
+    ]
+    shared = tiers + [
         ("Spelbara bolag", ", ".join(s["playable_books"]), "Bara Kambi-bolag. Paf och LeoVegas läses bara för att mäta marginalen."),
         ("Minsta edge (alla spel)", _pct(s.get("min_edge_all", 0.05)), "edge = sannolikhet × odds − 1. Gäller alla marknader och sporter."),
         ("Oddsram", _odds(lo, hi), "Inga spel utanför."),
@@ -45,8 +67,8 @@ def all_params(settings_path: Path) -> dict:
          "Över alla marknader, linjer, sidor (över/under), bolag och körningar. Störst edge vinner; det som redan skickats står kvar."),
         ("Över eller under", "den sida som har EV+",
          "Båda sidor prövas på samma krav. Under kräver en tvåsidig eller skarp referens (annars är marginalen på undersidan okänd)."),
-        ("Notiser", "bara LIVE-spel", "En notis per spel, aldrig två på samma spelare i samma match. Misslyckad notis skickas igen nästa körning (före start)."),
-        ("Unit", "1u = 0,2 % av bankrullen, 1–10u efter styrkan",
+        ("Notiser", "bara A Tier" if t["tiers_on"] else "bara LIVE-spel", "En notis per spel, aldrig två på samma spelare i samma match. Misslyckad notis skickas igen nästa körning (före start)."),
+        ("Unit (data/LIVE-bokföringen)", "1u = 0,2 % av bankrullen, 1–10u efter styrkan",
          "LIVE-insatsen följer styrkan (samma tal som Topp 5: edge upp till 15 + halva modellens edge + sharp money + 1). "
          "Styrka ≤ 7 = 1u, 9,5 = 3u, 11 = 4u, 14 = 6u, 17 = 8u, ≥ 20 = 10u. 10u (2 %) = maxinsats, ett av de starkaste spelen. "
          "Radarn visar samma skala. Data- och skuggbokföringen behåller ¼ Kelly (taket 10u)."),
