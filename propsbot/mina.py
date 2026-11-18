@@ -38,13 +38,22 @@ def topic_of(settings: dict) -> str | None:
 
 
 # ------------------------------------------------------------------ inläsning av klick
+POLL_ERR: list = []
+
+
 def poll(topic: str, since: str = "24h") -> list[dict]:
-    """ntfy:s historik för kanalen (rad-JSON). Bara "message"-händelser."""
+    """ntfy:s historik för kanalen (rad-JSON). Bara "message"-händelser. Fel sparas i POLL_ERR (loggas)."""
     url = f"{NTFY}/{topic}/json?poll=1&since={since}"
-    try:
-        with urllib.request.urlopen(urllib.request.Request(url, headers={"User-Agent": "propsbot/1.0"}), timeout=20) as r:
-            raw = r.read().decode("utf-8", errors="replace")
-    except Exception:  # noqa: BLE001 – får aldrig stoppa skanningen
+    raw = None
+    for _ in range(3):   # ntfy svarar ibland 429 (för många anrop) – försök igen
+        try:
+            with urllib.request.urlopen(urllib.request.Request(url, headers={"User-Agent": "propsbot/1.0"}), timeout=20) as r:
+                raw = r.read().decode("utf-8", errors="replace")
+            break
+        except Exception as e:  # noqa: BLE001 – får aldrig stoppa skanningen
+            POLL_ERR.append(f"{type(e).__name__}: {e}")
+            time.sleep(3)
+    if raw is None:
         return []
     out = []
     for line in raw.splitlines():
@@ -296,7 +305,8 @@ def run(root: Path, settings: dict, log=print, now: float | None = None) -> dict
         tiers = {b["ident"]: b for b in json.loads((root / "tiers.json").read_text(encoding="utf-8")).get("bets", [])}
     except (FileNotFoundError, json.JSONDecodeError):
         tiers = {}
-    n_new = apply_messages(book, poll(topic) if topic else [], tiers, now)
+    msgs = poll(topic) if topic else []
+    n_new = apply_messages(book, msgs, tiers, now)
     n_set = settle(book, root, now)
     for b in book.bets.values():   # ESPN-matchen (för livescore på sidan och bevakningen)
         if not b.get("espn") and b.get("avspark") and now > b["avspark"] - 36 * 3600 and b.get("status") == "öppen":
@@ -317,5 +327,6 @@ def run(root: Path, settings: dict, log=print, now: float | None = None) -> dict
         flag.write_text(str(len(soon)), encoding="utf-8")
     elif flag.exists():
         flag.unlink()
-    log(f"Mina spel: {len(book.bets)} spel, {n_new} nya/ändrade klick, {n_set} nyrättade, {len(soon)} att bevaka live")
+    log(f"Mina spel: kanal {'satt' if topic else 'SAKNAS'}, {len(msgs)} meddelanden lästa"
+        + (f" (ntfy-fel: {POLL_ERR[-1]})" if POLL_ERR else "") + f", {len(book.bets)} spel, {n_new} nya/ändrade klick, {n_set} nyrättade, {len(soon)} att bevaka live")
     return {"book": book, "soon": soon}

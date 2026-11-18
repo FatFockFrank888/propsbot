@@ -12,7 +12,7 @@ grupp) får högst ett spel. Nivåerna rättas var för sig, så att vi ser om t
           Pinnacle (eller DraftKings där Pinnacle saknar marknaden) som referens, oddset faller inte, ingen
           annan skarp källa säger emot, förväntad CLV ≥ 0 där den finns. Spelas.
   A Tier  B + klarar ALLA våra parametrar (NBA: LIVE-kraven i live.py; fotboll: alla regler = regelspel),
-          odds tier_a_odds (1,60–3,50). Spelas och är den enda nivån som ger notis.
+          odds tier_a_odds (1,60–3,50). Spelas. Notis för nya spel i A och B (tier_notify, 18/11).
 
 Insats: flat 1–3u, 1u = tier_unit (1 %) av kassan. 1u standard, 2u high (edge ≥ tier_2u_edge), 3u maxbet
 (edge ≥ tier_3u_edge och ≤ tier_3u_max_edge, Pinnacle som referens och sharp money med oss). Riktigt höga
@@ -54,6 +54,7 @@ DEFAULTS = {
     "tier_a_odds": [1.60, 3.50],
     "tier_2u_edge": 0.09, "tier_3u_edge": 0.12, "tier_3u_max_edge": 0.20,
     "tier_notify_max_age_s": 3600,
+    "tier_notify": ["A", "B"],      # 18/11: notis för nya A- och B-spel (var bara A)
 }
 
 # Spärrar som gör spelet ospelbart i alla nivåer (fel i underlaget eller spelaren spelar inte).
@@ -267,7 +268,8 @@ def update(root: Path, settings: dict, now: float | None = None, sports: tuple =
             n_new += 1
         by_ident[ident] = tb
     # A-spel utan notis före start (nya, uppgraderade eller misslyckade förra körningen – skickas igen)
-    new_a = [tb for tb in book.bets if tb["tier"] == "A" and tb.get("spelad") and not tb.get("notis")
+    nt = set(c["tier_notify"])
+    new_a = [tb for tb in book.bets if tb["tier"] in nt and tb.get("spelad") and not tb.get("notis")
              and (tb.get("avspark") or 0) > now and now - (tb.get("bokford") or 0) <= c["tier_notify_max_age_s"]]
     for tb in book.bets:   # resultat och CLV från källan
         sb = src_by.get((tb["kalla_fil"], tb["kalla_key"]))
@@ -283,7 +285,7 @@ def update(root: Path, settings: dict, now: float | None = None, sports: tuple =
             tb["clv_skarp_pp"] = (tb["pin_stang_p"] - 1 / tb["odds"]) * 100
     book.save()
     cnt = {t: sum(1 for b in book.bets if b["tier"] == t) for t in TIERS}
-    log(f"Tiers: {n_new} nya, {n_up} uppgraderade, {len(new_a)} nya A för notis; totalt "
+    log(f"Tiers: {n_new} nya, {n_up} uppgraderade, {len(new_a)} nya för notis ({'/'.join(sorted(nt))}); totalt "
         + ", ".join(f"{t} {n}" for t, n in cnt.items()))
     return {"book": book, "new_a": new_a}
 
@@ -298,7 +300,7 @@ MK = {"points": "poäng", "rebounds": "returer", "assists": "assist", "threes": 
 
 
 def notify_a(root: Path, bets: list[dict], settings: dict, log=print) -> int:
-    """En notis per nytt A Tier-spel (bara A ger notis)."""
+    """En notis per nytt spel i de nivåer som ger notis (tier_notify, standard A och B)."""
     topic = settings.get("ntfy_topic")
     if not topic or not bets:
         return 0
@@ -310,16 +312,16 @@ def notify_a(root: Path, bets: list[dict], settings: dict, log=print) -> int:
                                      f"{'under' if b.get('sida') == 'under' else 'över'} {b['linje']:g}")
         who = b["spelare"] if b.get("spelare_id") not in ("match", "hörnor") else b["match"]
         up = f" (uppgraderad från {b['uppgraderad_fran']})" if b.get("uppgraderad_fran") else ""
-        title = f"A TIER {'NBA' if b['sport'] == 'nba' else 'FOTBOLL'}: {who} {txt}"
+        title = f"{b['tier']} TIER {'NBA' if b['sport'] == 'nba' else 'FOTBOLL'}: {who} {txt}"
         ko = datetime.fromtimestamp(b["avspark"], timezone.utc).strftime("%Y-%m-%d %H:%M")
         msg = (f"{b['match']} · {b.get('liga') or ''} ({ko} UTC){up}\n"
                f"{b['bolag']}: {b['odds']:.2f}  (spela från {b['spela_fran']:.2f})\n"
                f"Edge {b['edge']:.1%}\nInsats: {units_text(b['units'])} ({b['units'] * b['unit_pct']:.0%} av kassan)")
-        if send(topic, title, msg, priority=4 if b["units"] >= 3 else 3,
+        if send(topic, title, msg, priority=5 if b["units"] >= 3 else 4 if b["tier"] == "A" else 3,
                 tags="basketball" if b["sport"] == "nba" else "soccer"):
             b["notis"] = True
             sent += 1
-    log(f"Tiers: {sent} A-notiser skickade")
+    log(f"Tiers: {sent} notiser skickade")
     return sent
 
 
