@@ -92,3 +92,14 @@ def test_half_win_on_quarter_line():
     b = {"status": "vunnen", "units": 2, "odds": 2.0}
     src = {"insats_pct": 0.01, "resultat_enheter": 0.0045, "odds": 1.9}       # halv vinst på 1,90
     assert abs(mina._user_result(b, src) - 0.0045 / 0.01 / 0.9 * 1.0 * 2) < 1e-9
+
+
+def test_pairing_link_once(tmp_path, monkeypatch):
+    import propsbot.notify as nt
+    sent = []
+    monkeypatch.setattr(nt, "send", lambda topic, title, msg, **k: sent.append((topic, k.get("click"))) or True)
+    s = {"ntfy_topic": "propsbot-abc"}
+    assert mina.send_pairing_link(tmp_path, s, log=lambda *_: None)
+    assert not mina.send_pairing_link(tmp_path, s, log=lambda *_: None)          # bara en gång per kanal
+    assert sent == [("propsbot-abc", "https://fatfockfrank888.github.io/propsbot/#koppla=propsbot-abc")]
+    assert "propsbot-abc" not in (tmp_path / "koppling_skickad.txt").read_text()   # bara en hash sparas

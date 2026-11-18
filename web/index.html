@@ -1623,6 +1623,11 @@ setHH(); addEventListener("resize", setHH);
 ["q", "mk", "only", "side", "onlyLive"].forEach(id => document.getElementById(id).oninput = renderRadar);
 ["aTyp", "aMk", "aBook", "aSida", "aStatus", "aOmin", "aOmax", "aPmin", "aGroup"].forEach(id => document.getElementById(id).oninput = renderBok);
 document.getElementById("aCsv").onclick = csv;
+// Kopplingslänken från boten (notisen "koppla Mina spel"): #koppla=<kanal> sparar exakt rätt kanalnamn.
+{ const m = location.hash.match(/^#koppla=([^&]+)/);
+  if (m) { LS.set("pb_topic", cleanTopic(decodeURIComponent(m[1]))); history.replaceState(null, "", location.pathname + "#alla/mina");
+           setTimeout(() => toast("✅ <b>Kopplad till boten</b> – spelen du tar synkas nu mellan dina enheter.", "won"), 800);
+           for (const [id, x] of Object.entries(pending())) sendMina({...x, bet: undefined}); } }
 { const [s, t] = location.hash.slice(1).split("/");
   if (SPORTS[s] || s === "alla") cur = s;
   if (["nu", "avg", "mina", "topp", "radar", "res", "bok", "parlay", "param"].includes(t)) tab = t;

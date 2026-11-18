@@ -297,10 +297,40 @@ def decided(b: dict, v: float | None) -> str | None:
 
 
 # ------------------------------------------------------------------ körningen
+SITE_URL = "https://fatfockfrank888.github.io/propsbot/"
+
+
+def send_pairing_link(root: Path, settings: dict, log=print, force: bool = False) -> bool:
+    """Skicka EN notis till den vanliga kanalen med en länk som kopplar webbsidan till rätt kanal (#koppla=...).
+    Då behöver kanalnamnet aldrig skrivas in för hand (felskrivet namn = boten får aldrig klicken).
+    Bara en hash av kanalen sparas i läget (kanalnamnet ska inte synas publikt)."""
+    import hashlib
+    from urllib.parse import quote
+    from .notify import send
+    t = settings.get("ntfy_topic")
+    if not t:
+        return False
+    h = hashlib.sha1(("koppla|" + t).encode()).hexdigest()[:12]
+    f = root / "koppling_skickad.txt"
+    if not force and f.exists() and f.read_text(encoding="utf-8").strip() == h:
+        return False
+    url = settings.get("site_url", SITE_URL) + "#koppla=" + quote(t)
+    ok = send(t, "propsbot: koppla Mina spel", "Tryck här (på varje enhet du använder – mobil och dator) så kopplas webbsidan till boten "
+              "och spelen du tar synkas automatiskt.", priority=4, tags="link", click=url)
+    if ok:
+        f.write_text(h, encoding="utf-8")
+        log("Mina spel: kopplingslänk skickad till den vanliga kanalen")
+    return ok
+
+
 def run(root: Path, settings: dict, log=print, now: float | None = None) -> dict:
     now = now or time.time()
     book = Book(root / "mina_spel.json")
     topic = topic_of(settings)
+    try:
+        send_pairing_link(root, settings, log)
+    except Exception as e:  # noqa: BLE001
+        log(f"Mina spel: kopplingslänk fel {type(e).__name__}: {e}")
     try:
         tiers = {b["ident"]: b for b in json.loads((root / "tiers.json").read_text(encoding="utf-8")).get("bets", [])}
     except (FileNotFoundError, json.JSONDecodeError):
