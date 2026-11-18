@@ -1,4 +1,4 @@
-Skanning 2026-11-18 15:29
+Skanning 2026-11-18 15:38
 Kambi unibet (ubse): OK, 10 matcher i valda ligor
 Kambi paf (paf): OK
 Kambi atg (atg): OK
@@ -69,12 +69,11 @@ Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
   First Team To Score | units=1st Goal | kategori=Team Props | deltagare=Remo,Chapecoense,Neither  ->  används inte (lagmarknad)
   Remo Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
   Chapecoense To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-Sides mindre ligor: 29 Kambi-matcher inom 12 h, 104 Pinnacle-matcher, 24 med Pinnacle, 24 matchade: Algeria / Ligue 1, England / Southern League Premier Division South, England / WSL Cup (W), Northern Ireland / NIFL Championship, Peru / Liga 1, Poland / III Liga, Scotland / Premier League (W), Slovenia / Cup, Spain / Copa del Rey, Spain / Segunda RFEF 1, Spain / Segunda RFEF 5, Uganda / Premier Le
-  Sides rättad: FC Bengaluru United – Sreenidi Deccan FC under 2.5 -> förlorad (2–2)
-Sides/totals: 30 matcher med Kambi + Pinnacle, 395 linjer, 0 nya spel, 1 nya skuggspel, Smarkets-priser i 19 av 19; bästa edge +7.8% (Vipers SC 1X2: 2), +7.8% (Nottingham Forest (W) 1X2: 1), +3.9% (Coritiba-PR 1X2: 2)
+Sides mindre ligor: 29 Kambi-matcher inom 12 h, 105 Pinnacle-matcher, 24 med Pinnacle, 24 matchade: Algeria / Ligue 1, England / Southern League Premier Division South, England / WSL Cup (W), Northern Ireland / NIFL Championship, Peru / Liga 1, Poland / III Liga, Scotland / Premier League (W), Slovenia / Cup, Spain / Copa del Rey, Spain / Segunda RFEF 1, Spain / Segunda RFEF 5, Uganda / Premier Le
+Sides/totals: 30 matcher med Kambi + Pinnacle, 395 linjer, 0 nya spel, 0 nya skuggspel, Smarkets-priser i 19 av 19; bästa edge +7.8% (Vipers SC 1X2: 2), +3.9% (Coritiba-PR 1X2: 2), +3.8% (Corinthians-SP 1X2: 1)
 Hörnmodell (test): 7861 matcher i underlaget (17 ligor), 0 matcher med modell, 0 Kambi-linjer, 0 nya testspel; bästa edge 
 Fotboll extra bolag: 0 nya hämtningar, 0 odds i bruk, krediter kvar 278, dagsbudget 20 (andel 40%), förbrukat idag 0
-Tid: hämtning 299 s
+Tid: hämtning 336 s
 Marginal över alla matcher: uppmätt marginal: shots stege k=1.08 (7 spelare; marginal vid 3,00 ≈ 9%), shots_on_target stege k=1.21 (28 spelare; marginal vid 3,00 ≈ 26%)
   Coritiba-PR – Santos-SP: modell bra.1, 27 spelare
   Remo-PA – Chapecoense-SC: modell bra.1, 29 spelare
@@ -89,12 +88,12 @@ Modellens nivåavvikelse mot marknaden (log-odds, dras bort): shots -0.22, shots
   Chelsea (W) – Paris SG (W): saknar matchlinjer från Pinnacle
   Coritiba-PR – Santos-SP: väntade mål Pinnacle 2.94 mot Kambi 3.00 (kvot 0.982); uppmätt marginal: goal k=1.66, assist k=1.62
 Exempel uppmätt marginal: goal k=1.66, assist k=1.62
-  Remo-PA – Chapecoense-SC: väntade mål Pinnacle 2.79 mot Kambi 2.75 (kvot 1.014); uppmätt marginal: goal k=1.43, assist k=1.36, shots_on_target stege k=1.22 (7 spelare; marginal vid 3,00 ≈ 27%)
-  Flamengo-RJ – Athletico Paranaense-PR: väntade mål Pinnacle 3.47 mot Kambi 3.54 (kvot 0.980); uppmätt marginal: goal k=1.72, assist k=1.77
+  Remo-PA – Chapecoense-SC: väntade mål Pinnacle 2.80 mot Kambi 2.75 (kvot 1.019); uppmätt marginal: goal k=1.42, assist k=1.36, shots_on_target stege k=1.22 (7 spelare; marginal vid 3,00 ≈ 27%)
+  Flamengo-RJ – Athletico Paranaense-PR: väntade mål Pinnacle 3.40 mot Kambi 3.54 (kvot 0.961); uppmätt marginal: goal k=1.74, assist k=1.78
   Cruzeiro-MG – Palmeiras-SP: väntade mål Pinnacle 2.98 mot Kambi 2.90 (kvot 1.029); uppmätt marginal: goal k=1.56, assist k=1.53, shots_on_target stege k=1.18 (14 spelare; marginal vid 3,00 ≈ 22%)
   Grêmio-RS – Bahia-BA: väntade mål Pinnacle 3.01 mot Kambi 2.98 (kvot 1.010); uppmätt marginal: goal k=1.63, assist k=1.61, shots_on_target stege k=1.20 (7 spelare; marginal vid 3,00 ≈ 25%)
   Corinthians-SP – Botafogo-RJ: väntade mål Pinnacle 2.73 mot Kambi 2.84 (kvot 0.961); uppmätt marginal: goal k=1.56, assist k=1.60, shots stege k=1.08 (7 spelare; marginal vid 3,00 ≈ 9%)
-Tid: modell och utvärdering 64 s
+Tid: modell och utvärdering 66 s
 Bolag med spelarodds: atg, betmgm, expekt, leovegas, paf, svenskaspel, unibet
 Spelarodds per marknad: assist 1245, goal 3837, shots 2645, shots_on_target 2610
 Kambi-marknader: assist='to give an assist (settled using opta data)':1245; goal='1st goalscorer':610; goal='to score':2212; goal='to score at least 2 goals':861; goal='to score at least 3 goals':126; goal='to score at least 4 goals':28; shots="player's shots (settled using opta data)":2645; shots_on_target="player's shots on target (settled using opta data)":2610
@@ -104,7 +103,7 @@ Startelvor: 0 spelbara ben klara, 0 väntar på startelvan, 0 stoppade (inte i s
 Spelregler: stoppade {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0} (modelltest {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0})
 Spelarmodell: 0 av 316 ben har modell, 0 nya matcher hämtade från ESPN
 Bästa edge marknad shots_on_target: -5.8%, -5.9%, -5.9% (av 291 ben)
-Bästa edge modelltest shots_on_target: -2.6%, -2.7%, -2.8% (av 186 ben)
+Bästa edge modelltest shots_on_target: -2.6%, -2.6%, -2.6% (av 186 ben)
 0 spelbara ben.
 Bokförda nya spel: 0
 Skuggspel: 0 nya bokförda (stoppade av reglerna, minst 2 % edge)
