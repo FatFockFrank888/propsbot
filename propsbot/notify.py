@@ -36,6 +36,9 @@ def send_telegram(chat_id, title: str, message: str, priority: int = 4, click: s
     import os
     token = os.environ.get("TELEGRAM_TOKEN")
     if not token or not chat_id:
+        if chat_id and not token and not getattr(send_telegram, "_warned", False):
+            print("  VARNING: Telegram-chatt kopplad men TELEGRAM_TOKEN saknas (GitHub-hemlighet) – skickar bara till ntfy", flush=True)
+            send_telegram._warned = True
         return False
     body = {"chat_id": chat_id, "text": f"<b>{html.escape(title)}</b>\n{html.escape(message)}", "parse_mode": "HTML",
             "disable_web_page_preview": True, "disable_notification": priority <= 2}

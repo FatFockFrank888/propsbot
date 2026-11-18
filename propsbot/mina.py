@@ -351,9 +351,10 @@ def run(root: Path, settings: dict, log=print, now: float | None = None) -> dict
     from .ledger import rensa_nan
     (site / "mina_spel.json").write_text(json.dumps(rensa_nan({"uppdaterad_ts": now, "spel": list(book.bets.values())}),
                                                     ensure_ascii=False), encoding="utf-8")
-    # livebevakningen startas när ett av dina spel startar inom 25 min eller pågår (arbetsflödet läser filen)
+    # livebevakningen startas när ett av dina spel startar inom 60 min eller pågår (arbetsflödet läser filen).
+    # 60 min (var 25): en skanning tar ~10 min och nästa kan komma upp till ~20 min senare.
     soon = [b for b in book.bets.values() if b.get("status") == "öppen" and b.get("avspark")
-            and b["avspark"] - 25 * 60 <= now <= b["avspark"] + 5 * 3600]
+            and b["avspark"] - 60 * 60 <= now <= b["avspark"] + 5 * 3600]
     flag = root / "live_start.txt"
     if soon:
         flag.write_text(str(len(soon)), encoding="utf-8")

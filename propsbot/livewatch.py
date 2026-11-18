@@ -190,6 +190,10 @@ def main(root: Path, settings: dict, log=print) -> None:
     except (FileNotFoundError, json.JSONDecodeError):
         tiers = {}
     w = Watcher(settings, log=log)
+    import os
+    from .notify import TG_ROUTE
+    log(f"Livebevakning: {len(book.bets)} spel, kanal {'satt' if w.topic else 'SAKNAS'}, Telegram "
+        + ("på" if os.environ.get("TELEGRAM_TOKEN") and w.topic in TG_ROUTE else "AV (TELEGRAM_TOKEN eller telegram_chats saknas)"))
     last_poll = 0.0
     idle_since = None
     while time.time() - t0 < MAX_S:
