@@ -9,7 +9,8 @@ Genereras från de värden boten använder (`python -m propsbot parametrar`).
 | A/B/C Tier | på | Ersätter Official Bets (18/11). Varje bokfört spel (LIVE, regelspel, skuggspel; props och sides; fotboll och NBA) hamnar i den högsta nivå det klarar. Ett spel per spelare och match. Nivåerna rättas var för sig (fliken Tier-resultat). |
 | C Tier | edge ≥ 4 %, odds 1,40–6,50 | Edge och statistik talar för spelet. Inga hårda spärrar (skadelista out/doubtful, startelva, orimlig edge, avvikande pris) och inget sharp money mot oss. Edge över 25 % räknas inte. Bara bokföring: visar om kraven för B/A är för skarpa. |
 | B Tier | C + edge 5 %–20 %, odds 1,60–6,00 | Fokus på CLV: Pinnacle (eller DraftKings där Pinnacle saknar marknaden) som referens, oddset har inte fallit, ingen annan skarp källa säger emot, Pinnacles gräns räcker, förväntad CLV ≥ 0 där den finns. Spelas, ingen notis. |
-| A Tier | B + alla parametrar, odds 1,60–3,50 | NBA: klarar LIVE-kraven (se NBA nedan). Fotboll: klarar alla regler (regelspel). Spelas och är den ENDA nivån som ger notis. |
+| A Tier | B + alla parametrar, odds 1,60–3,50 | NBA: klarar LIVE-kraven (se NBA nedan). Fotboll: klarar alla regler (regelspel). Spelas. |
+| Notiser för nya spel | A och B Tier | En notis per nytt spel i nivån (rubrik "A TIER …" / "B TIER …"). C ger aldrig notis. |
 | Insats (A/B) | flat 1–3u, 1u = 1 % av kassan | 1u standard. 2u high: edge ≥ 9 %. 3u maxbet: edge 12 %–20 % med Pinnacle som referens och sharp money med oss (högre edge är oftast fel i linjen). Ingen Kelly. |
 | Tak (A/B) | inga | Inga dags- eller matchbudgetar (18/11): du väljer själv vilka spel du tar. Alla A- och B-spel räknas som spelade. |
 | Spelbara bolag | svenskaspel, betmgm, expekt, atg, unibet | Bara Kambi-bolag. Paf och LeoVegas läses bara för att mäta marginalen. |
@@ -23,7 +24,7 @@ Genereras från de värden boten använder (`python -m propsbot parametrar`).
 | Orimlig edge | 25 % | Större edge = nästan alltid fel linje, olika regler eller spelaren spelar inte. Inte spelbart. |
 | Ett spel per spelare och match | ja, över allt | Över alla marknader, linjer, sidor (över/under), bolag och körningar. Störst edge vinner; det som redan skickats står kvar. |
 | Över eller under | den sida som har EV+ | Båda sidor prövas på samma krav. Under kräver en tvåsidig eller skarp referens (annars är marginalen på undersidan okänd). |
-| Notiser | bara A Tier | En notis per spel, aldrig två på samma spelare i samma match. Misslyckad notis skickas igen nästa körning (före start). |
+| Notiser | nya spel i A/B Tier | En notis per spel, aldrig två på samma spelare i samma match. Misslyckad notis skickas igen nästa körning (före start). |
 | Unit (data/LIVE-bokföringen) | 1u = 0,2 % av bankrullen, 1–10u efter styrkan | LIVE-insatsen följer styrkan (samma tal som Topp 5: edge upp till 15 + halva modellens edge + sharp money + 1). Styrka ≤ 7 = 1u, 9,5 = 3u, 11 = 4u, 14 = 6u, 17 = 8u, ≥ 20 = 10u. 10u (2 %) = maxinsats, ett av de starkaste spelen. Radarn visar samma skala. Data- och skuggbokföringen behåller ¼ Kelly (taket 10u). |
 | Skuggspel | ≥ 2 % edge, stoppat av en regel | Bokförs och rättas för att se om reglerna kostar eller sparar pengar. Ingen notis. |
 

@@ -7,7 +7,7 @@ NHL togs bort 12/11 (förlorade mot Kambi: med bara Bovada+Pinnacle som referens
 | Var | Vad |
 |---|---|
 | Webbsida | https://fatfockfrank888.github.io/propsbot/ – Spela nu · Radar · Resultat · Bokföring & analys · Parlays · Parametrar, med sportväljare (Alla/Fotboll/NBA) |
-| Notiser | ntfy, en kanal. Bara **A Tier** (sedan 18/11; tidigare LIVE-spel), **ett spel per spelare och match** över alla marknader, linjer, sidor och bolag. Misslyckad notis skickas igen nästa körning. |
+| Notiser | ntfy, en kanal. Nya spel i **A och B Tier** (sedan 18/11; tidigare LIVE-spel), **ett spel per spelare och match** över alla marknader, linjer, sidor och bolag. Misslyckad notis skickas igen nästa körning. |
 | Google-arket | `sheet/propsbot_ark.gs` (Apps Script) bygger en flik per sport från `…/propsbot/csv/*.csv` |
 | Parametrar | [PARAMETRAR.md](PARAMETRAR.md) (`python -m propsbot parametrar`) och fliken Parametrar på webbsidan |
 | Kod | `propsbot/` fotboll + NBA · `propsbot/site.py` webbsidan · `web/index.html` sidan |
@@ -15,7 +15,7 @@ NHL togs bort 12/11 (förlorade mot Kambi: med bara Bovada+Pinnacle som referens
 
 **A/B/C Tier (18/11, `propsbot/tiers.py`):** ersätter Official Bets. Varje bokfört spel hamnar i den högsta nivå
 det klarar – **C** edge ≥ 4 % och statistiken talar för (bara bokföring), **B** C + CLV-fokus (Pinnacle/DK som referens,
-oddset faller inte, odds 1,60–6,00; spelas), **A** B + alla parametrar (odds 1,60–3,50; spelas, enda nivån med notis).
+oddset faller inte, odds 1,60–6,00; spelas), **A** B + alla parametrar (odds 1,60–3,50; spelas). Notis för nya spel i A och B.
 Flat 1–3u, 1u = 1 % av kassan (1u standard, 2u high, 3u maxbet). Nivåerna rättas var för sig i fliken *Tier-resultat*
 så att vi ser om kraven är för strikta. Bokföring i `tiers.json`, webbens data i `site/tiers.json`. Gränserna: `tier_*` i `settings.json`.
 

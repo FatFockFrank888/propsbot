@@ -343,8 +343,8 @@
     <h2><span class="led" id="pgLed"></span>🔥 Pågår nu <span class="n" id="pgCount"></span></h2>
     <div class="cards" id="pgCards"></div>
     <div id="pgStale"></div>
-    <div class="note"><b>Tre nivåer.</b> <span class="tier tA">A</span> klarar alla våra parametrar – spelas och är den enda nivån med notis.
-      <span class="tier tB">B</span> edge + fokus på CLV (Pinnacle/DK som referens, oddset faller inte, odds 1,60–6,00) – spelas.
+    <div class="note"><b>Tre nivåer.</b> <span class="tier tA">A</span> klarar alla våra parametrar – spelas, notis.
+      <span class="tier tB">B</span> edge + fokus på CLV (Pinnacle/DK som referens, oddset faller inte, odds 1,60–6,00) – spelas, notis.
       <span class="tier tC">C</span> edge och statistik talar för spelet – bara bokföring, för att se om kraven är för skarpa.
       Varje spel hamnar i den högsta nivå det klarar, ett spel per spelare och match.
       <b>Insats flat 1–3u</b> (1u = 1 % av kassan): 1u standard, 2u high, 3u maxbet. Inga tak – du väljer själv vad du tar.
@@ -833,7 +833,9 @@ function renderAvg() {
 // boten läser kanalen vid varje körning (propsbot/mina.py) och publicerar mina_spel.json.
 const LS = {get: (k, d) => { try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch (e) { return d; } },
             set: (k, v) => localStorage.setItem(k, JSON.stringify(v))};
-const myTopic = () => LS.get("pb_topic", "");
+// Kanalnamnet städas: "https://ntfy.sh/propsbot-abc/" eller " propsbot-abc-mina " -> "propsbot-abc"
+const cleanTopic = t => String(t || "").trim().replace(/^https?:\/\//i, "").replace(/^ntfy\.sh\//i, "").replace(/[\/\s]+/g, "").replace(/-mina$/, "");
+const myTopic = () => cleanTopic(LS.get("pb_topic", ""));
 const pending = () => LS.get("pb_mina", {});
 function minaAll() {
   const out = new Map();
@@ -851,8 +853,22 @@ const takeBtn = r => r.ident ? `<button class="take ${isTaken(r.ident) ? "on" : 
 async function sendMina(msg) {
   const t = myTopic();
   if (!t) return false;
-  try { await fetch("https://ntfy.sh/" + encodeURIComponent(t + "-mina"), {method: "POST", body: JSON.stringify(msg)}); return true; }
-  catch (e) { return false; }
+  for (let i = 0; i < 3; i++) {   // ntfy svarar ibland 429 (för många anrop): försök igen
+    try {
+      const r = await fetch("https://ntfy.sh/" + encodeURIComponent(t + "-mina"), {method: "POST", body: JSON.stringify(msg)});
+      if (r.ok) return true;
+    } catch (e) { /* nätfel – försök igen */ }
+    await new Promise(ok => setTimeout(ok, 1500));
+  }
+  return false;
+}
+function changeTopic() {
+  const t = prompt("Din ntfy-kanal (samma namn som i ntfy-appen, t.ex. propsbot-abc123):", myTopic());
+  if (t == null) return;
+  LS.set("pb_topic", cleanTopic(t));
+  // spel som inte nått boten skickas om till den nya kanalen
+  for (const [id, x] of Object.entries(pending())) if (!((MINAD && MINAD.spel) || []).some(b => b.ident === id)) sendMina({...x, bet: undefined});
+  render();
 }
 function openTake(ident) {
   const r = TIER.find(x => x.ident === ident), mine = minaAll().find(b => b.ident === ident);
@@ -876,7 +892,7 @@ function openTake(ident) {
 }
 async function saveTake(ident) {
   const tp = document.getElementById("tkTopic");
-  if (tp) { if (!tp.value.trim()) { document.getElementById("tkMsg").textContent = "Fyll i din ntfy-kanal först."; return; } LS.set("pb_topic", tp.value.trim()); }
+  if (tp) { if (!cleanTopic(tp.value)) { document.getElementById("tkMsg").textContent = "Fyll i din ntfy-kanal först."; return; } LS.set("pb_topic", cleanTopic(tp.value)); }
   const odds = parseFloat(document.getElementById("tkOdds").value.replace(",", ".")), units = parseFloat(document.getElementById("tkU").value.replace(",", "."));
   if (!(odds > 1.01) || !(units > 0)) { document.getElementById("tkMsg").textContent = "Kontrollera odds och units."; return; }
   const r = TIER.find(x => x.ident === ident), b = r ? r.raw : (minaAll().find(x => x.ident === ident) || {});
@@ -1010,7 +1026,11 @@ function renderMina() {
   document.getElementById("minaTiles").innerHTML = [["Spel", String(all.length), `${open.length} öppna`], ["V–F", `${won}–${dec.length - won}`, dec.length ? `träff ${pct(won / dec.length, 0)}` : ""],
     ["Resultat", sgn(res, 1) + "u", st ? `ROI ${pct(res / st)}` : "", cls(res)], ["CLV på ditt odds", mc == null ? "–" : sgn(mc, 2) + " pe", cl.length ? `${cl.length} spel` : "", cls(mc)]]
     .map(([k, v, x, c]) => `<div class="tile"><div class="k">${k}</div><div class="v ${c || ""}">${v}</div><div class="x">${x}</div></div>`).join("");
-  document.getElementById("minaSetup").innerHTML = myTopic() ? "" : `<div class="note">Koppla sidan till boten: tryck <b>＋ Jag tog spelet</b> på ett spel i fliken Spel och fyll i din ntfy-kanal (samma namn som i appen). Den sparas bara i den här webbläsaren.</div>`;
+  const waiting = all.filter(b => !b.synkad).length;
+  document.getElementById("minaSetup").innerHTML = myTopic()
+    ? `<div class="note">Kopplad till ntfy-kanalen <b>${esc(myTopic())}</b> <button class="take" onclick="changeTopic()">Byt kanal</button>
+       ${waiting ? `<br>⏳ ${waiting} spel väntar på boten (läses in inom ~10 min). Syns de inte efter 20 min: kontrollera att kanalnamnet är exakt samma som i appen.` : ""}</div>`
+    : `<div class="note">Koppla sidan till boten: tryck <b>＋ Jag tog spelet</b> på ett spel i fliken Spel och fyll i din ntfy-kanal (samma namn som i appen). Den sparas bara i den här webbläsaren.</div>`;
   document.getElementById("minaCount").textContent = open.length || "";
   document.getElementById("minaLed").classList.toggle("off", !open.some(b => LIVE[b.ident]?.gs.state === "in"));
   const ct = document.getElementById("ctMina"); ct.textContent = open.length; ct.classList.toggle("hidden", !open.length);
@@ -1492,7 +1512,7 @@ function renderParam() {
 
 // --------------------------------------------------------------- ram
 const HERO = {
-  nu: ["Spel", "A, B och C Tier. A och B spelas (flat 1–3u), bara A ger notis. Spela till lägst spela från-oddset."],
+  nu: ["Spel", "A, B och C Tier. A och B spelas (flat 1–3u) och ger notis för nya spel. Spela till lägst spela från-oddset."],
   mina: ["Mina spel", "Spelen du tagit – livescore, din insats och ditt resultat. Notiser under match för varje händelse."],
   avg: ["Tier-resultat", "Varje nivå rättad för sig – presterar B bättre än A är kraven för strikta."],
   topp: ["Dagens topp 5", "De starkaste LIVE-spelen för speldagen – listan ligger fast när oddset rör sig."],

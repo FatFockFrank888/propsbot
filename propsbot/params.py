@@ -41,7 +41,8 @@ def all_params(settings_path: Path) -> dict:
          "Fokus på CLV: Pinnacle (eller DraftKings där Pinnacle saknar marknaden) som referens, oddset har inte fallit, ingen annan skarp "
          "källa säger emot, Pinnacles gräns räcker, förväntad CLV ≥ 0 där den finns. Spelas, ingen notis."),
         ("A Tier", f"B + alla parametrar, odds {_odds(*t['tier_a_odds'])}",
-         "NBA: klarar LIVE-kraven (se NBA nedan). Fotboll: klarar alla regler (regelspel). Spelas och är den ENDA nivån som ger notis."),
+         "NBA: klarar LIVE-kraven (se NBA nedan). Fotboll: klarar alla regler (regelspel). Spelas."),
+        ("Notiser för nya spel", " och ".join(t["tier_notify"]) + " Tier", "En notis per nytt spel i nivån (rubrik \"A TIER …\" / \"B TIER …\"). C ger aldrig notis."),
         ("Insats (A/B)", f"flat 1–3u, 1u = {_pct(t['tier_unit'])} av kassan",
          f"1u standard. 2u high: edge ≥ {_pct(t['tier_2u_edge'])}. 3u maxbet: edge {_pct(t['tier_3u_edge'])}–{_pct(t['tier_3u_max_edge'])} "
          "med Pinnacle som referens och sharp money med oss (högre edge är oftast fel i linjen). Ingen Kelly."),
@@ -64,7 +65,7 @@ def all_params(settings_path: Path) -> dict:
          "Över alla marknader, linjer, sidor (över/under), bolag och körningar. Störst edge vinner; det som redan skickats står kvar."),
         ("Över eller under", "den sida som har EV+",
          "Båda sidor prövas på samma krav. Under kräver en tvåsidig eller skarp referens (annars är marginalen på undersidan okänd)."),
-        ("Notiser", "bara A Tier" if t["tiers_on"] else "bara LIVE-spel", "En notis per spel, aldrig två på samma spelare i samma match. Misslyckad notis skickas igen nästa körning (före start)."),
+        ("Notiser", ("nya spel i " + "/".join(t["tier_notify"]) + " Tier") if t["tiers_on"] else "bara LIVE-spel", "En notis per spel, aldrig två på samma spelare i samma match. Misslyckad notis skickas igen nästa körning (före start)."),
         ("Unit (data/LIVE-bokföringen)", "1u = 0,2 % av bankrullen, 1–10u efter styrkan",
          "LIVE-insatsen följer styrkan (samma tal som Topp 5: edge upp till 15 + halva modellens edge + sharp money + 1). "
          "Styrka ≤ 7 = 1u, 9,5 = 3u, 11 = 4u, 14 = 6u, 17 = 8u, ≥ 20 = 10u. 10u (2 %) = maxinsats, ett av de starkaste spelen. "
