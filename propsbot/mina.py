@@ -170,10 +170,12 @@ def settle(book: Book, root: Path, now: float) -> int:
 
 # ------------------------------------------------------------------ ESPN: match och livestatistik
 def _get(url: str, params: dict | None = None):
+    """ESPN m.fl. JSON. Samma webbläsar-User-Agent som resten av boten: ESPN svarar 403 på "propsbot/1.0"."""
     from urllib.parse import urlencode
+    from .sources.http import UA
     full = url + ("?" + urlencode(params) if params else "")
     try:
-        with urllib.request.urlopen(urllib.request.Request(full, headers={"User-Agent": "propsbot/1.0"}), timeout=20) as r:
+        with urllib.request.urlopen(urllib.request.Request(full, headers={"User-Agent": UA, "Accept": "application/json"}), timeout=20) as r:
             return json.loads(r.read().decode("utf-8"))
     except Exception:  # noqa: BLE001
         return None
