@@ -178,6 +178,11 @@ def load_settings(path: Path) -> dict:
         path.write_text(json.dumps(DEFAULT_SETTINGS, indent=2, ensure_ascii=False), encoding="utf-8")
     if os.environ.get("NTFY_TOPIC"):
         s["ntfy_topic"] = os.environ["NTFY_TOPIC"]
+    try:   # Telegram-kopplingen följer inställningarna (notify.send skickar till båda)
+        from .notify import configure
+        configure(s)
+    except Exception:  # noqa: BLE001
+        pass
     return s
 
 

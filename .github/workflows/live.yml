@@ -35,5 +35,6 @@ jobs:
       - name: Bevaka dina spel
         env:
           NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           PROPSBOT_STATE_DIR: state
         run: python -m propsbot live

@@ -61,6 +61,7 @@ jobs:
       - name: Skanna, bokför, rätta och skicka notiser
         env:
           NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
           SGO_API_KEY: ${{ secrets.SGO_API_KEY }}
           GOAL_API_KEY: ${{ secrets.LIVESCORE }}   # goal-api.com (hemligheten heter LIVESCORE)
