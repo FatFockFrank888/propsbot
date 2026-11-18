@@ -1,0 +1,39 @@
+name: live-bevakning
+
+# Notiser under match för spelen du tagit (fliken Mina spel). Startas av bevaka-odds när ett av dina
+# spel börjar inom 25 min eller pågår; kör tills alla dina matcher är slut (högst ~5 h 40 min, sedan
+# tar nästa start över). Skriver ingenting till datagrenen – läget läses bara.
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: live
+  cancel-in-progress: false
+
+jobs:
+  live:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - run: pip install -r requirements.txt
+
+      - name: Hämta sparat läge (bara läsning)
+        run: |
+          git fetch --depth 1 origin data:data
+          git worktree add state data
+
+      - name: Bevaka dina spel
+        env:
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+          PROPSBOT_STATE_DIR: state
+        run: python -m propsbot live
