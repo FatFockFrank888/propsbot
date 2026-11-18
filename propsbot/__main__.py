@@ -133,6 +133,8 @@ def cmd_free(args) -> None:
         _st = _ls_t(Path(args.settings))
         if _st.get("tiers_on", True):
             tiers_run(_state_root(), _st, notify=bool(_st.get("ntfy_topic")) and _st.get("live_enabled", True))
+        from .mina import run as mina_run   # spelen du tagit: klick från sidan, rättning på ditt odds, livestart
+        mina_run(_state_root(), _st)
     except Exception as e:  # noqa: BLE001 – får aldrig stoppa körningen
         print(f"Tiers: fel {type(e).__name__}: {e}")
         traceback.print_exc()
@@ -197,6 +199,12 @@ def write_pause(root: Path, settings: dict, now: float | None = None) -> int:
     (root / "paus_sekunder.txt").write_text(str(int(pause)), encoding="utf-8")
     print(f"Paus till nästa körning: {pause} s" + (f" (nästa start om {nxt:.0f} min)" if nxt is not None else ""))
     return pause
+
+
+def cmd_live(args) -> None:
+    from .livewatch import main as live_main
+    from .scan import load_settings
+    live_main(_state_root(), load_settings(Path(args.settings)))
 
 
 def run_nba(root: Path, settings_path: Path) -> None:
@@ -330,6 +338,10 @@ def main() -> None:
     s.add_argument("--db", default=str(ROOT / "propsbot.sqlite"))
     s.add_argument("--bara-spel", action="store_true")
     s.set_defaults(func=cmd_scan)
+
+    lv = sub.add_parser("live", help="livebevakning av dina spel (notiser under match)")
+    lv.add_argument("--settings", default=str(ROOT / "settings.json"))
+    lv.set_defaults(func=cmd_live)
 
     pa = sub.add_parser("parametrar", help="skriv alla parametrar per sport till PARAMETRAR.md")
     pa.add_argument("--settings", default=str(ROOT / "settings.json"))

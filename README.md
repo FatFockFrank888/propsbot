@@ -31,6 +31,14 @@ Jämförs mot Unibets hörnor totalt, lagens hörnor och hörnhandikapp; ett tes
 `bokforing_hornor_test.json` (typ *Hörn-test*), med Kambis pris utan marginal sparat för att mäta modellen mot marknaden.
 Inga notiser och inte i A/B/C förrän modellen visat sig.
 
+**Mina spel & livebevakning (18/11, `propsbot/mina.py`, `propsbot/livewatch.py`, `.github/workflows/live.yml`):**
+tryck **＋ Jag tog spelet** på ett spel (odds, units och bolag förifyllda, ändra till det du fick). Klicket skickas till
+ntfy-kanalen `<NTFY_TOPIC>-mina` (ingen telefon prenumererar på den); boten läser den vid varje körning och sparar
+`mina_spel.json` (rättning, resultat och CLV på **ditt** odds). Fliken *Mina spel* visar livescore direkt från ESPN.
+När ett av dina spel startar inom 25 min startar `bevaka-odds` arbetsflödet `live-bevakning`, som läser ESPN var 20:e
+sekund och skickar en notis för varje händelse som rör ditt spel (retur, poäng, trepoängare, assist, skott, mål, straff,
+rött kort, hörna, bortdömt mål) tills spelet är vunnet/förlorat eller matchen slut. Fulla notiser även nattetid.
+
 **Över eller under:** båda sidor prövas på samma krav; den sida som har EV+ och klarar alla regler spelas.
 Under kräver en tvåsidig eller skarp referens. Fotbollens Kambi-marknader (skott på mål, kort) är bara
 "över/ja", så där finns ingen undersida att spela.

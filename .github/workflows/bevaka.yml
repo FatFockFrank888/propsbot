@@ -83,6 +83,26 @@ jobs:
             git fetch -q --deepen=50 origin data && git rebase -q -X theirs FETCH_HEAD               || { git rebase --abort 2>/dev/null; echo "kunde inte spara"; break; }
           done
 
+      # Dina spel (Mina spel) som startar inom 25 min eller pågår: starta livebevakningen (live.yml).
+      # Startas bara om ingen livebevakning redan kör eller väntar.
+      - name: Starta livebevakning
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ -f state/live_start.txt ]; then
+            busy=0
+            for st in in_progress queued pending; do
+              n=$(gh run list --repo "$GITHUB_REPOSITORY" --workflow live.yml --status $st --limit 1 --json databaseId -q length 2>/dev/null || echo 0)
+              busy=$((busy + ${n:-0}))
+            done
+            if [ "$busy" -eq 0 ]; then
+              gh workflow run live.yml --repo "$GITHUB_REPOSITORY" --ref main || echo "kunde inte starta livebevakningen"
+            else
+              echo "livebevakningen kör redan"
+            fi
+          fi
+
       - uses: actions/upload-pages-artifact@v3
         with:
           path: state/site
