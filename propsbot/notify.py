@@ -11,6 +11,46 @@ import urllib.request
 from pathlib import Path
 
 NTFY = "https://ntfy.sh"
+TG = "https://api.telegram.org"
+# Telegram (18/11): ntfy:s iPhone-app gav inga pushnotiser. configure() kopplar varje ntfy-kanal till en
+# Telegram-chatt: {ntfy-kanal: chat_id}. Token i miljövariabeln TELEGRAM_TOKEN (GitHub-hemlighet).
+TG_ROUTE: dict = {}
+TG_ONLY = False
+
+
+def configure(settings: dict) -> None:
+    """Läser telegram_chats = {"main": id, "tier": id, "live": id} och kopplar rollerna till ntfy-kanalerna."""
+    global TG_ONLY
+    chats = settings.get("telegram_chats") or {}
+    TG_ROUTE.clear()
+    for role, key in (("main", "ntfy_topic"), ("tier", "tier_ntfy_topic"), ("live", "live_ntfy_topic")):
+        t = settings.get(key) or settings.get("ntfy_topic")
+        cid = chats.get(role) or chats.get("main")
+        if t and cid and t not in TG_ROUTE:
+            TG_ROUTE[t] = cid
+    TG_ONLY = bool(settings.get("telegram_only", False))
+
+
+def send_telegram(chat_id, title: str, message: str, priority: int = 4, click: str | None = None) -> bool:
+    import html
+    import os
+    token = os.environ.get("TELEGRAM_TOKEN")
+    if not token or not chat_id:
+        return False
+    body = {"chat_id": chat_id, "text": f"<b>{html.escape(title)}</b>\n{html.escape(message)}", "parse_mode": "HTML",
+            "disable_web_page_preview": True, "disable_notification": priority <= 2}
+    if click:
+        body["reply_markup"] = {"inline_keyboard": [[{"text": "Öppna", "url": click}]]}
+    req = urllib.request.Request(f"{TG}/bot{token}/sendMessage", data=json.dumps(body).encode("utf-8"), method="POST",
+                                 headers={"Content-Type": "application/json"})
+    try:
+        with urllib.request.urlopen(req, timeout=15) as r:
+            ok = json.loads(r.read().decode("utf-8")).get("ok", False)
+    except Exception as e:  # notiser får aldrig stoppa skanningen
+        print(f"  (kunde inte skicka Telegram: {type(e).__name__})")
+        return False
+    print(f"  telegram: {'ok' if ok else 'FEL'} – {title}", flush=True)
+    return ok
 
 
 def new_topic() -> str:
@@ -20,6 +60,10 @@ def new_topic() -> str:
 def send(topic: str, title: str, message: str, priority: int = 4, tags: str = "soccer", click: str | None = None) -> bool:
     if not topic:
         return False
+    tg = TG_ROUTE.get(topic)
+    tg_ok = send_telegram(tg, title, message, priority, click) if tg else False
+    if TG_ONLY and tg:
+        return tg_ok
     # ntfy tar emot JSON på rot-URL:en; då fungerar å, ä, ö även i rubriken.
     body = json.dumps({"topic": topic, "title": title, "message": message,
                        "priority": priority, "tags": tags.split(","), **({"click": click} if click else {})}).encode("utf-8")
@@ -30,7 +74,7 @@ def send(topic: str, title: str, message: str, priority: int = 4, tags: str = "s
             raw = r.read()
     except Exception as e:  # notiser får aldrig stoppa skanningen
         print(f"  (kunde inte skicka notis: {e})")
-        return False
+        return tg_ok                  # gick den fram på Telegram räknas den som skickad (ingen dubblett)
     log_receipt(raw, title)
     return True
 
