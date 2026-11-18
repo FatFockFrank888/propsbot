@@ -863,7 +863,7 @@ async function sendMina(msg) {
   return false;
 }
 function changeTopic() {
-  const t = prompt("Din ntfy-kanal (samma namn som i ntfy-appen, t.ex. propsbot-abc123):", myTopic());
+  const t = prompt("Din ursprungliga propsbot-kanal i ntfy (den du haft från början – inte tier-ab eller live):", myTopic());
   if (t == null) return;
   LS.set("pb_topic", cleanTopic(t));
   // spel som inte nått boten skickas om till den nya kanalen
@@ -879,7 +879,7 @@ function openTake(ident) {
     <div class="sub">${esc(b.spelare_id === "match" || b.spelare_id === "hörnor" ? b.match : b.spelare + " · " + b.match)}<br>
       <b>${esc(b.spel_text || spel(b.marknad, b.linje, b.sida))}</b> · ${tierChip(b.tier || "C")} · boten: ${nf(b.odds)} hos ${esc(b.bolag || "")}</div>
     <div class="form">
-      ${myTopic() ? "" : `<label>Din ntfy-kanal (samma namn som i ntfy-appen – sparas bara i den här webbläsaren)
+      ${myTopic() ? "" : `<label>Din ursprungliga propsbot-kanal i ntfy (den du haft från början – INTE tier-ab eller live). Sparas bara i den här webbläsaren
         <input id="tkTopic" placeholder="propsbot-…" autocomplete="off"></label>`}
       <div class="row"><label>Odds du fick<input id="tkOdds" type="number" step="0.01" min="1.01" value="${o.odds ?? b.odds ?? ""}"></label>
         <label>Units (1u = 1 % av kassan)<input id="tkU" type="number" step="0.5" min="0.5" max="20" value="${o.units ?? b.units ?? 1}"></label></div>
@@ -1030,7 +1030,7 @@ function renderMina() {
   document.getElementById("minaSetup").innerHTML = myTopic()
     ? `<div class="note">Kopplad till ntfy-kanalen <b>${esc(myTopic())}</b> <button class="take" onclick="changeTopic()">Byt kanal</button>
        ${waiting ? `<br>⏳ ${waiting} spel väntar på boten (läses in inom ~10 min). Syns de inte efter 20 min: kontrollera att kanalnamnet är exakt samma som i appen.` : ""}</div>`
-    : `<div class="note">Koppla sidan till boten: tryck <b>＋ Jag tog spelet</b> på ett spel i fliken Spel och fyll i din ntfy-kanal (samma namn som i appen). Den sparas bara i den här webbläsaren.</div>`;
+    : `<div class="note">Koppla sidan till boten: tryck <b>＋ Jag tog spelet</b> på ett spel i fliken Spel och fyll i din ursprungliga propsbot-kanal i ntfy (inte tier-ab eller live). Den sparas bara i den här webbläsaren.</div>`;
   document.getElementById("minaCount").textContent = open.length || "";
   document.getElementById("minaLed").classList.toggle("off", !open.some(b => LIVE[b.ident]?.gs.state === "in"));
   const ct = document.getElementById("ctMina"); ct.textContent = open.length; ct.classList.toggle("hidden", !open.length);

@@ -42,7 +42,12 @@ def all_params(settings_path: Path) -> dict:
          "källa säger emot, Pinnacles gräns räcker, förväntad CLV ≥ 0 där den finns. Spelas, ingen notis."),
         ("A Tier", f"B + alla parametrar, odds {_odds(*t['tier_a_odds'])}",
          "NBA: klarar LIVE-kraven (se NBA nedan). Fotboll: klarar alla regler (regelspel). Spelas."),
-        ("Notiser för nya spel", " och ".join(t["tier_notify"]) + " Tier", "En notis per nytt spel i nivån (rubrik \"A TIER …\" / \"B TIER …\"). C ger aldrig notis."),
+        ("Notiser för nya spel", " och ".join(t["tier_notify"]) + " Tier" + (f" · kanal {s['tier_ntfy_topic']}" if s.get("tier_ntfy_topic") else ""),
+         "En notis per nytt spel i nivån (rubrik \"A TIER …\" / \"B TIER …\") i en egen ntfy-kanal (tier_ntfy_topic). C ger aldrig notis. "
+         "Övriga notiser (nyheter, uppgraderingar) går till den vanliga kanalen."),
+        ("Livenotiser (Mina spel)", s.get("live_ntfy_topic") or "vanliga kanalen",
+         "Plingarna under match för dina spel (mål, straff, rött kort, returer, poäng, vunnet/förlorat) i en egen kanal (live_ntfy_topic), "
+         "så att den kan ha ett eget ljud i ntfy-appen."),
         ("Insats (A/B)", f"flat 1–3u, 1u = {_pct(t['tier_unit'])} av kassan",
          f"1u standard. 2u high: edge ≥ {_pct(t['tier_2u_edge'])}. 3u maxbet: edge {_pct(t['tier_3u_edge'])}–{_pct(t['tier_3u_max_edge'])} "
          "med Pinnacle som referens och sharp money med oss (högre edge är oftast fel i linjen). Ingen Kelly."),

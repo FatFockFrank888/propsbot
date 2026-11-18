@@ -10,7 +10,8 @@ Genereras från de värden boten använder (`python -m propsbot parametrar`).
 | C Tier | edge ≥ 4 %, odds 1,40–6,50 | Edge och statistik talar för spelet. Inga hårda spärrar (skadelista out/doubtful, startelva, orimlig edge, avvikande pris) och inget sharp money mot oss. Edge över 25 % räknas inte. Bara bokföring: visar om kraven för B/A är för skarpa. |
 | B Tier | C + edge 5 %–20 %, odds 1,60–6,00 | Fokus på CLV: Pinnacle (eller DraftKings där Pinnacle saknar marknaden) som referens, oddset har inte fallit, ingen annan skarp källa säger emot, Pinnacles gräns räcker, förväntad CLV ≥ 0 där den finns. Spelas, ingen notis. |
 | A Tier | B + alla parametrar, odds 1,60–3,50 | NBA: klarar LIVE-kraven (se NBA nedan). Fotboll: klarar alla regler (regelspel). Spelas. |
-| Notiser för nya spel | A och B Tier | En notis per nytt spel i nivån (rubrik "A TIER …" / "B TIER …"). C ger aldrig notis. |
+| Notiser för nya spel | A och B Tier · kanal propsbot-tier-ab-8f44db | En notis per nytt spel i nivån (rubrik "A TIER …" / "B TIER …") i en egen ntfy-kanal (tier_ntfy_topic). C ger aldrig notis. Övriga notiser (nyheter, uppgraderingar) går till den vanliga kanalen. |
+| Livenotiser (Mina spel) | propsbot-live-28c022 | Plingarna under match för dina spel (mål, straff, rött kort, returer, poäng, vunnet/förlorat) i en egen kanal (live_ntfy_topic), så att den kan ha ett eget ljud i ntfy-appen. |
 | Insats (A/B) | flat 1–3u, 1u = 1 % av kassan | 1u standard. 2u high: edge ≥ 9 %. 3u maxbet: edge 12 %–20 % med Pinnacle som referens och sharp money med oss (högre edge är oftast fel i linjen). Ingen Kelly. |
 | Tak (A/B) | inga | Inga dags- eller matchbudgetar (18/11): du väljer själv vilka spel du tar. Alla A- och B-spel räknas som spelade. |
 | Spelbara bolag | svenskaspel, betmgm, expekt, atg, unibet | Bara Kambi-bolag. Paf och LeoVegas läses bara för att mäta marginalen. |
