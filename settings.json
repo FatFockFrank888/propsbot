@@ -306,5 +306,14 @@
   "nba_sides_shadow_min_edge": 0.01,
   "nba_sides_min_pin_limit": 500,
   "nba_sides_blowout_max": 0.4,
-  "nba_sides_max_hours": 24
+  "nba_sides_max_hours": 24,
+  "corners_enabled": true,
+  "corners_min_edge": 0.05,
+  "corners_max_edge": 0.25,
+  "corners_odds": [
+    1.4,
+    6.5
+  ],
+  "corners_half_life_days": 120,
+  "corners_shrink_k": 6.0
 }

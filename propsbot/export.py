@@ -98,6 +98,12 @@ def write_site(site: Path, rows: list[ScanRow], ledger: Ledger, settings: dict,
         k_ledger = _L(kl)
         data["kort_test"] = sorted(k_ledger.counted, key=lambda b: -b["bokford"])
         data["kort_sammanfattning"] = k_ledger.summary()
+    hl = site.parent / "bokforing_hornor_test.json" if sport == "Fotboll" else None
+    if hl and hl.exists():   # hörnmodellen (corners.py): bara testbokföring
+        from .ledger import Ledger as _L
+        h_ledger = _L(hl)
+        data["horn_test"] = sorted(h_ledger.counted, key=lambda b: -b["bokford"])
+        data["horn_sammanfattning"] = h_ledger.summary()
     if sport == "Fotboll":   # sides & totals mot Pinnacle – samma flikar som props
         from .ledger import Ledger as _L
         data["sides_live"] = bool(settings.get("sides_live"))

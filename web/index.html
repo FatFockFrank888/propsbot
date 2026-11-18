@@ -550,6 +550,7 @@ function buildAll() {
     (d.modelltest || []).forEach(b => ALL.push(norm(b, s, "Modelltest")));
     (d.fouls_test || []).forEach(b => ALL.push(norm(b, s, "Fouls-test")));
     (d.kort_test || []).forEach(b => ALL.push(norm(b, s, "Kort-test")));
+    (d.horn_test || []).forEach(b => ALL.push(norm(b, s, "Hörn-test")));
     // Sides-spel med notis är riktiga LIVE-spel (Spela nu, Resultat); övriga är data.
     (d.sides_spel || []).forEach(b => ALL.push(norm(b, s, b.notis ? "Live" : "Sides")));
     (d.sides_skugga || []).forEach(b => ALL.push(norm(b, s, "Sides-skugga")));
@@ -567,7 +568,7 @@ const tierChip = t => `<span class="tier t${t}">${t}</span>`;
 const UTXT = {1: "standard", 2: "high", 3: "MAXBET"};
 // Samma spelare kan finnas i flera bokföringar (t.ex. Skugga och Modelltest). När typerna blandas
 // räknas varje spelare och match en gång, i den viktigaste typen: Live > Spel > Skugga > Modelltest > test.
-const TYPE_ORDER = ["Live", "Spel", "Skugga", "Modelltest", "Fouls-test", "Kort-test", "Sides", "Sides-skugga"];
+const TYPE_ORDER = ["Live", "Spel", "Skugga", "Modelltest", "Fouls-test", "Kort-test", "Hörn-test", "Sides", "Sides-skugga"];
 function uniq(rs) {
   const best = new Map(), out = [];
   for (const r of rs) {
@@ -1128,7 +1129,7 @@ function calib(rs) {
         <td class="n ${Math.abs(act - exp) < 0.08 ? "pos" : "loss"}">${pct(act)}</td></tr>`; }).join("") + `</tbody></table>`;
 }
 function renderRes() {
-  const TYPES = ["Live", "Spel", "Skugga", "Modelltest", "Fouls-test", "Kort-test", "Sides", "Sides-skugga", "Parlay"];
+  const TYPES = ["Live", "Spel", "Skugga", "Modelltest", "Fouls-test", "Kort-test", "Hörn-test", "Sides", "Sides-skugga", "Parlay"];
   document.getElementById("resCards").innerHTML = sel().filter(s => D[s]).map(s => {
     const all = ALL.filter(r => r.sport === s);
     const main = D[s].live ? "Live" : "Spel";

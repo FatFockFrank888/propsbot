@@ -301,6 +301,12 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
                 diag.log(f"Sides mindre ligor: FEL {type(e).__name__}: {e}")
                 extra = []
             run_sides(root, data + extra, settings, diag, notify=notify)
+            if settings.get("corners_enabled", True):
+                try:   # hörnmodell i bakgrunden (football-data.co.uk) mot Unibets hörnlinjer – bara testbokföring
+                    from .corners import run as corners_run
+                    corners_run(root, data + extra, settings, diag)
+                except Exception as e:  # noqa: BLE001
+                    diag.log(f"Hörnmodell: FEL {type(e).__name__}: {e}")
         except Exception as e:  # noqa: BLE001 – får aldrig stoppa skanningen
             diag.log(f"Sides/totals: FEL {type(e).__name__}: {e}")
             diag.lines.append(traceback.format_exc())

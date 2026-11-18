@@ -24,6 +24,13 @@ Kambi mot Pinnacle utan marginal, med samma regler som fotbollens sides. Över p
 utklassningsrisk (P(|marginal| > 15) > 40 % ur Pinnacles spread). Bokföring `nba_sides_spel.json` /
 `nba_sides_skugga.json`; spelen går in i A/B/C Tier som allt annat.
 
+**Hörnmodell (18/11, `propsbot/corners.py`) – bara testdata:** football-data.co.uk (gratis CSV, hörnor per match,
+17 ligor, innevarande + förra säsongen; `hornor_<säsong>.json` i läget, hämtas högst var 12:e timme). Väntade hörnor =
+marknadens förväntan ur Pinnacles 1X2 och mål 2,5 × lagens egna hörnor utöver oddsen, negativ binomial per lag.
+Jämförs mot Unibets hörnor totalt, lagens hörnor och hörnhandikapp; ett testspel per match i
+`bokforing_hornor_test.json` (typ *Hörn-test*), med Kambis pris utan marginal sparat för att mäta modellen mot marknaden.
+Inga notiser och inte i A/B/C förrän modellen visat sig.
+
 **Över eller under:** båda sidor prövas på samma krav; den sida som har EV+ och klarar alla regler spelas.
 Under kräver en tvåsidig eller skarp referens. Fotbollens Kambi-marknader (skott på mål, kort) är bara
 "över/ja", så där finns ingen undersida att spela.

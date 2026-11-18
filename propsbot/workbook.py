@@ -34,10 +34,11 @@ SIDA = {"under": "Under", "home": "Hemma", "draw": "Oavgjort", "away": "Borta"}
 LEDGERS = [  # (fil, sport, typ) – sorterat per sport
     ("bokforing_v3.json", "Fotboll", "Spel"), ("bokforing_skugga_v4.json", "Fotboll", "Skugga"),
     ("bokforing_modell_v4.json", "Fotboll", "Modelltest"), ("parlays_v3.json", "Fotboll", "Parlay"),
-    ("bokforing_fouls_test.json", "Fotboll", "Fouls-test"), ("bokforing_kort_test.json", "Fotboll", "Kort-test"),
+    ("bokforing_fouls_test.json", "Fotboll", "Fouls-test"), ("bokforing_kort_test.json", "Fotboll", "Kort-test"), ("bokforing_hornor_test.json", "Fotboll", "Hörn-test"),
     ("sides_spel.json", "Fotboll", "Sides"), ("sides_skugga.json", "Fotboll", "Sides-skugga"),
     ("nba_live.json", "NBA", "Live"), ("nba_bokforing_v2.json", "NBA", "Spel"), ("nba_skugga_v2.json", "NBA", "Skugga"),
     ("nba_modelltest.json", "NBA", "Modelltest"), ("nba_parlays_v2.json", "NBA", "Parlay"),
+    ("nba_sides_spel.json", "NBA", "Sides"), ("nba_sides_skugga.json", "NBA", "Sides-skugga"),
 ]
 
 

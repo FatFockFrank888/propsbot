@@ -75,6 +75,14 @@ def all_params(settings_path: Path) -> dict:
         ("Skuggspel", "≥ 2 % edge, stoppat av en regel", "Bokförs och rättas för att se om reglerna kostar eller sparar pengar. Ingen notis."),
     ]
     football = [
+        ("Hörnmodell (test)", "på" if s.get("corners_enabled", True) else "av",
+         "Bara bokföring (bokforing_hornor_test.json), ingen notis, inte i A/B/C. Underlag: football-data.co.uk (hörnor per match, 17 ligor, "
+         "innevarande + förra säsongen). Väntade hörnor = marknadens förväntan ur Pinnacles 1X2 och mål 2,5 × lagens egna hörnor "
+         f"utöver oddsen (vikt 0,5, halveringstid {s.get('corners_half_life_days', 120)} d, krympning {s.get('corners_shrink_k', 6.0):g} matcher), "
+         "negativ binomial per lag. Holdout 45 d: Brier 0,2227 mot 0,2258 (bara lagdata)."),
+        ("Hörnmodell: testspel", f"edge {_pct(s.get('corners_min_edge', 0.05))}–{_pct(s.get('corners_max_edge', 0.25))} mot modellen, "
+         f"odds {_odds(*s.get('corners_odds', [1.40, 6.50]))}, ett per match",
+         "Unibets hörnor totalt, lagens hörnor och hörnhandikapp. Kambis pris utan marginal sparas (p_marknad) för att mäta modellen mot marknaden."),
         ("Status", "LIVE (notiser)" if s.get("football_live") else "bara datainsamling (inga notiser)",
          "football_live i settings.json. Pausat 2026-11-07 (on hold) tills vi hittar en skarp källa för fotbollsprops – Kambis marginal ~20 % och ingen referens. Påslaget 2026-11-04. Spelen är regelspelen "
          "(alla gemensamma krav); risktak: högst 10u per spel och 5 % per match."),
