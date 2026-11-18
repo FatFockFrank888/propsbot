@@ -127,6 +127,15 @@ def cmd_free(args) -> None:
     except Exception as e:
         print(f"NBA: fel {type(e).__name__}: {e}")
         traceback.print_exc()
+    try:   # A/B/C Tier (ersätter Official Bets): klassning, flat 1–3u, rättning, notis bara för A
+        from .scan import load_settings as _ls_t
+        from .tiers import run as tiers_run
+        _st = _ls_t(Path(args.settings))
+        if _st.get("tiers_on", True):
+            tiers_run(_state_root(), _st, notify=bool(_st.get("ntfy_topic")) and _st.get("live_enabled", True))
+    except Exception as e:  # noqa: BLE001 – får aldrig stoppa körningen
+        print(f"Tiers: fel {type(e).__name__}: {e}")
+        traceback.print_exc()
     try:
         from .site import build_site
         build_site(_state_root(), Path(args.settings))
@@ -222,8 +231,9 @@ def run_nba(root: Path, settings_path: Path) -> None:
     if settings.get("ntfy_topic"):
         nba_settings = dict(settings, ntfy_topic=settings["ntfy_topic"])
         # Bara LIVE-spelen skickas som notis; övrigt bokförs som data.
-        n = notify_new(res.get("live_rows", []) if settings.get("live_on", True) else res["playable"],
-                       nba_settings, root, live=True)
+        # Med tiers_on skickas notiserna av tiers.py (bara A Tier); de gamla LIVE-notiserna är av.
+        n = 0 if settings.get("tiers_on", True) else notify_new(
+            res.get("live_rows", []) if settings.get("live_on", True) else res["playable"], nba_settings, root, live=True)
         from .clv_signal import units
         from .notify import send
         for x in (new_p if settings.get("live_enabled", True) and settings.get("parlays_notify", False) else []):

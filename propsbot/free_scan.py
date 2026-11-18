@@ -301,6 +301,12 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
                 diag.log(f"Sides mindre ligor: FEL {type(e).__name__}: {e}")
                 extra = []
             run_sides(root, data + extra, settings, diag, notify=notify)
+            if settings.get("corners_enabled", True):
+                try:   # hörnmodell i bakgrunden (football-data.co.uk) mot Unibets hörnlinjer – bara testbokföring
+                    from .corners import run as corners_run
+                    corners_run(root, data + extra, settings, diag)
+                except Exception as e:  # noqa: BLE001
+                    diag.log(f"Hörnmodell: FEL {type(e).__name__}: {e}")
         except Exception as e:  # noqa: BLE001 – får aldrig stoppa skanningen
             diag.log(f"Sides/totals: FEL {type(e).__name__}: {e}")
             diag.lines.append(traceback.format_exc())
@@ -584,7 +590,7 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
                 tf.write_text(th, encoding="utf-8")
                 diag.log("Testnotis skickad till mobilen.")
         # Fotbollen är inte live (bara datainsamling) tills den visar edge och CLV.
-        n = notify_new(playable, settings, root, live=True) if settings.get("football_live", False) else 0
+        n = notify_new(playable, settings, root, live=True) if settings.get("football_live", False) and not settings.get("tiers_on", True) else 0
         from .clv_signal import units
         for x in (new_parlays if settings.get("live_enabled", True) and settings.get("parlays_notify", False)
                   and settings.get("football_live", False) else []):
