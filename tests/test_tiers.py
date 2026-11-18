@@ -36,12 +36,12 @@ def test_units():
     assert units_for(bet(edge=0.22, stopp="sharp money med oss"), C) == 2   # orimligt hög edge: aldrig maxbet
 
 
-def test_run_upgrade_settle_and_caps(tmp_path):
+def test_run_upgrade_settle_no_caps(tmp_path):
     now = time.time()
     skugga = [bet(key="s1", odds=1.5, bokford=now - 600)]                 # C först
     live = [bet(key="l1", linje=21.5, bokford=now - 60, edge=0.10)]       # sedan A på samma spelare
     spel = [bet(key="b%d" % i, match_id="m%d" % (i + 2), spelare_id="q%d" % i, bokford=now - 30, edge=0.10)
-            for i in range(6)]                                            # B: 2u styck, budget 8u -> 4 spelas
+            for i in range(6)]                                            # B: 2u styck, inga tak -> alla 6 spelas
     (tmp_path / "nba_skugga_v2.json").write_text(json.dumps(skugga))
     (tmp_path / "nba_live.json").write_text(json.dumps(live))
     (tmp_path / "nba_bokforing_v2.json").write_text(json.dumps(live + spel))
@@ -57,7 +57,7 @@ def test_run_upgrade_settle_and_caps(tmp_path):
     assert "s1" not in bets and bets["l1"]["tier"] == "A" and bets["l1"]["uppgraderad_fran"] == "C"
     assert len(sent) == 1 and "A TIER" in sent[0][1] and bets["l1"]["notis"]
     b_played = [b for b in res["book"].bets if b["tier"] == "B" and b["spelad"]]
-    assert len(b_played) == 4 and sum(b.get("tak", False) for b in res["book"].bets) == 2
+    assert len(b_played) == 6 and not any(b.get("tak") for b in res["book"].bets)
     # rättning från källan
     live[0].update(status="vunnen", resultat_enheter=0.002, avspark=now - 10)
     (tmp_path / "nba_live.json").write_text(json.dumps(live))

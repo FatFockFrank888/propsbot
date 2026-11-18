@@ -16,10 +16,8 @@ grupp) får högst ett spel. Nivåerna rättas var för sig, så att vi ser om t
 
 Insats: flat 1–3u, 1u = tier_unit (1 %) av kassan. 1u standard, 2u high (edge ≥ tier_2u_edge), 3u maxbet
 (edge ≥ tier_3u_edge och ≤ tier_3u_max_edge, Pinnacle som referens och sharp money med oss). Riktigt höga
-edgar (> 20 %) är oftast fel i linjen och blir aldrig maxbet. Tak för spelade nivåer (A + B):
-tier_max_units_day per speldag och nivå (A 10u, B 8u – egna budgetar så att B aldrig tränger undan A) och
-tier_max_per_match spel per match och nivå – spel över taket bokförs i sin nivå
-med "tak" och räknas i flat-statistiken men inte som spelade.
+edgar (> 20 %) är oftast fel i linjen och blir aldrig maxbet. Inga tak (18/11): inga dags- eller matchbudgetar –
+varje A- och B-spel räknas som spelat (användaren väljer själv vad som tas).
 
 Ett spel klassas när det först syns och låses (värden som ändras fram till start, t.ex. Pinnacles pris,
 ändrar inte nivån i efterhand). En senare rad på samma spelare och match får uppgradera nivån före start.
@@ -55,7 +53,6 @@ DEFAULTS = {
     "tier_b_min_edge": 0.05, "tier_b_max_edge": 0.20, "tier_b_odds": [1.60, 6.00],
     "tier_a_odds": [1.60, 3.50],
     "tier_2u_edge": 0.09, "tier_3u_edge": 0.12, "tier_3u_max_edge": 0.20,
-    "tier_max_units_day": {"A": 10, "B": 8}, "tier_max_per_match": 2,
     "tier_notify_max_age_s": 3600,
 }
 
@@ -231,14 +228,9 @@ def update(root: Path, settings: dict, now: float | None = None, sports: tuple =
             best[k] = (sport, f, src, b)
     todo = sorted((x for x in best.values() if f"{x[1]}|{x[3]['key']}" not in book.seen),
                   key=lambda x: (x[3].get("bokford") or 0, -SRC_RANK[x[2]]))
-    # tak: spelade units per speldag och spel per match (A + B)
-    u_day: dict = {}
-    n_match: dict = {}
-    for tb in book.bets:
-        if tb.get("spelad"):
-            kd, km = (tb["tier"], _day(tb.get("avspark"))), (tb["tier"], tb["match_id"])
-            u_day[kd] = u_day.get(kd, 0) + tb["units"]
-            n_match[km] = n_match.get(km, 0) + 1
+    for tb in book.bets:   # tak finns inte längre (18/11): äldre spel över taket räknas som spelade
+        if tb.pop("tak", None):
+            tb["spelad"] = tb["tier"] in ("A", "B")
     n_new, n_up = 0, 0
     for sport, f, src, b in todo:
         book.seen.add(f"{f}|{b['key']}")
@@ -260,27 +252,13 @@ def update(root: Path, settings: dict, now: float | None = None, sports: tuple =
         if old is not None:
             tb["uppgraderad_fran"] = old["tier"]
             tb["id"] = old["id"]
-            if old.get("spelad"):   # frigör det gamla spelets plats i taken
-                u_day[(old["tier"], _day(old.get("avspark")))] -= old["units"]
-                n_match[(old["tier"], old["match_id"])] -= 1
             if old.get("notis"):
                 tb["notis"] = True
         else:
             tb["id"] = len(book.bets) + 1
         if b.get("notis"):        # källan har redan skickat notis (gamla LIVE-notisen) – ingen dubblett
             tb["notis"] = True
-        if tier in ("A", "B"):
-            kd, km = (tier, _day(tb.get("avspark"))), (tier, tb["match_id"])
-            cap = c["tier_max_units_day"]
-            cap = cap.get(tier, 10) if isinstance(cap, dict) else cap
-            if u_day.get(kd, 0) + u > cap or n_match.get(km, 0) >= c["tier_max_per_match"]:
-                tb["tak"], tb["spelad"] = True, False
-            else:
-                tb["spelad"] = True
-                u_day[kd] = u_day.get(kd, 0) + u
-                n_match[km] = n_match.get(km, 0) + 1
-        else:
-            tb["spelad"] = False
+        tb["spelad"] = tier in ("A", "B")
         if old is not None:
             book.bets[book.bets.index(old)] = tb
             n_up += 1

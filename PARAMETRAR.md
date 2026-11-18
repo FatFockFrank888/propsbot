@@ -11,7 +11,7 @@ Genereras från de värden boten använder (`python -m propsbot parametrar`).
 | B Tier | C + edge 5 %–20 %, odds 1,60–6,00 | Fokus på CLV: Pinnacle (eller DraftKings där Pinnacle saknar marknaden) som referens, oddset har inte fallit, ingen annan skarp källa säger emot, Pinnacles gräns räcker, förväntad CLV ≥ 0 där den finns. Spelas, ingen notis. |
 | A Tier | B + alla parametrar, odds 1,60–3,50 | NBA: klarar LIVE-kraven (se NBA nedan). Fotboll: klarar alla regler (regelspel). Spelas och är den ENDA nivån som ger notis. |
 | Insats (A/B) | flat 1–3u, 1u = 1 % av kassan | 1u standard. 2u high: edge ≥ 9 %. 3u maxbet: edge 12 %–20 % med Pinnacle som referens och sharp money med oss (högre edge är oftast fel i linjen). Ingen Kelly. |
-| Tak (A/B) | A 10u, B 8u per speldag, 2 spel per match och nivå | Egna budgetar per nivå, så att B aldrig tränger undan A. Spel över taket bokförs i sin nivå med "tak": de räknas i ROI flat och CLV men inte som spelade. |
+| Tak (A/B) | inga | Inga dags- eller matchbudgetar (18/11): du väljer själv vilka spel du tar. Alla A- och B-spel räknas som spelade. |
 | Spelbara bolag | svenskaspel, betmgm, expekt, atg, unibet | Bara Kambi-bolag. Paf och LeoVegas läses bara för att mäta marginalen. |
 | Minsta edge (alla spel) | 6 % | edge = sannolikhet × odds − 1. Gäller alla marknader och sporter. |
 | Oddsram | 1,40–6,00 | Inga spel utanför. |
@@ -71,7 +71,7 @@ Genereras från de värden boten använder (`python -m propsbot parametrar`).
 | LIVE: modellen | får inte säga emot (modellens edge ≥ 5 % om den har en rad); krävs för  | 12/11, 1 378 spel: assist/returer/trepoängare utan modellrad slog stängningen med +2,8 pe (t 11,6); poäng över utan modellens stöd gav −18 %. Spel med modellens stöd väljs först. |
 | LIVE: jämförelsekällor | minst 2, varav Pinnacle | Pinnacle, Kalshi, DraftKings (via ESPN), SportsGameOdds, The Odds API |
 | LIVE: oddsram | 1,60–3,50 |  |
-| LIVE: risk | insats 1–10u efter styrkan, max 10u/spel, 3/match, 20 spel och 100u per matchdag |  |
+| LIVE: risk | max 10u/spel i LIVE-bokföringen; inga tak per match eller dag | Taken togs bort 18/11 (du väljer själv). Insatsen du spelar är nivåernas flat 1–3u. |
 | Modellvikt | 0.3 × dq | Blandas med marknaden i log-odds. dq = datakvalitet 0,2–1 (antal matcher i underlaget / 15): tunt underlag -> marknaden väger mer. Halveras när modell och marknad skiljer mycket. |
 | Brier modell / marknad | visas under Resultat | Mäter om modellen slår marknadens egen sannolikhet på avgjorda spel (lägre = bättre). |
 | Matcher | inom 30 h, max 15 |  |

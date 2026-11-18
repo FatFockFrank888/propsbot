@@ -17,8 +17,8 @@ LIVE-spelen skickas som notis. Kraven bygger på 509 unika avgjorda NBA-spel (3/
   * odds live_odds_window (1,60–3,00; golvet höjt från 1,40 den 12/11)
   * alla vanliga spärrar (oddsfall, sharp money mot oss, ett spel per spelare) gäller redan
   * insats 1–10u efter styrkan (propsbot/strength.py, samma tal som Topp 5): 10u = de starkaste spelen.
-  * riskkontroll: högst live_max_units per spel (10), live_max_per_match spel per match,
-    live_max_per_day spel och live_max_units_day units per matchdag (amerikansk tid).
+  * inga tak per match eller dag (18/11, användaren väljer själv). live_max_per_match, live_max_per_day och
+    live_max_units_day kan sättas i settings.json för att slå på dem igen.
     Bästa edge först; resten bokförs inte live.
 """
 from __future__ import annotations
@@ -51,9 +51,11 @@ def select_live(rows, model_rows, settings: dict, live_ledger, sharp_lines: set 
     max_edge = settings.get("live_max_edge", 0.15)
     min_groups = settings.get("live_min_groups", 2)
     max_u = settings.get("live_max_units", 10)
-    per_match = settings.get("live_max_per_match", 2)
-    per_day = settings.get("live_max_per_day", 8)
-    u_day = settings.get("live_max_units_day", 25)
+    # Inga tak som standard (18/11): None = ingen gräns. Kan sättas igen i settings.json.
+    inf = float("inf")
+    per_match = settings.get("live_max_per_match") or inf
+    per_day = settings.get("live_max_per_day") or inf
+    u_day = settings.get("live_max_units_day") or inf
 
     model_edge = {}
     for r in model_rows or []:

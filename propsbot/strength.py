@@ -11,7 +11,7 @@ Samma tal som rankar fliken Topp 5. Insatsen följer styrkan över hela skalan 1
     LIVE-exempel: edge 7 % -> 2u, 10 % -> 5u, 13 % -> 8u, 15 % -> 10u (+1u om sharp money med oss)
 
 Tidigare var LIVE-insatsen ¼ Kelly med tak 5u, och nästan alla spel hamnade på taket.
-Dagstaket (live_max_units_day) gäller som förut.
+Inga dags- eller matchtak sedan 18/11 (live_max_* = None).
 """
 from __future__ import annotations
 
