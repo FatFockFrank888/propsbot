@@ -295,5 +295,16 @@
     "B": 8
   },
   "tier_max_per_match": 2,
-  "tier_notify_max_age_s": 3600
+  "tier_notify_max_age_s": 3600,
+  "nba_sides_enabled": true,
+  "nba_sides_min_edge": 0.03,
+  "nba_sides_max_edge": 0.15,
+  "nba_sides_odds_window": [
+    1.4,
+    6.5
+  ],
+  "nba_sides_shadow_min_edge": 0.01,
+  "nba_sides_min_pin_limit": 500,
+  "nba_sides_blowout_max": 0.4,
+  "nba_sides_max_hours": 24
 }

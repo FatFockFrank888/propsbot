@@ -108,6 +108,11 @@ def kambi_nba_props(c: JsonClient, offering: str, book: str, market: str, ev: Ka
             break
     if not raw:
         return [], {}
+    try:   # NBA sides/totals: matchmarknaderna finns i samma svar (inga extra anrop)
+        from . import nba_sides
+        nba_sides.KAMBI.setdefault(match_id, {})[book] = nba_sides.kambi_main(raw, ev.home, ev.away)
+    except Exception:  # noqa: BLE001 – tillägg, får aldrig stoppa props
+        pass
     now = time.time()
     qs, names = [], {}
     for bo in raw.get("betOffers", []):
@@ -180,6 +185,11 @@ def pinnacle_nba_props(pin: PinnaclePublic, ev, match_id: str) -> tuple[list[Odd
         pmap = {p["id"]: (p.get("name") or "").lower() for p in m.get("participants", []) if "id" in p}
         specials[int(m["id"])] = (player, mk, pmap)
     qs, names = [], {}
+    try:   # NBA sides/totals: Pinnacles moneyline, spread och total (samma svar)
+        from . import nba_sides
+        nba_sides.PIN[match_id] = nba_sides.pinnacle_main(markets, ev.matchup_id)
+    except Exception:  # noqa: BLE001
+        pass
     for mkt in markets:   # huvudspread (för utklassningsrisk i minutmodellen, nba_minutes)
         if (mkt.get("matchupId") == ev.matchup_id and mkt.get("type") == "spread" and mkt.get("period", 0) == 0
                 and not mkt.get("isAlternate")):
@@ -711,6 +721,12 @@ def nba_scan(root: Path, settings_path: Path) -> dict:
                  + ", ".join(f"{k} {v}" for k, v in sorted(ev["status"].items())))
     except Exception as e:  # noqa: BLE001 – utvärderingen får aldrig stoppa skanningen
         diag.log(f"NBA utvärdering: fel {type(e).__name__}: {e}")
+    if settings.get("nba_sides_enabled", True):
+        try:   # NBA sides & totals mot Pinnacle (moneyline, spread, totala poäng)
+            from .nba_sides import run as nba_sides_run
+            nba_sides_run(root, [v[0] for v in per.values()], settings, diag, SPREADS)
+        except Exception as e:  # noqa: BLE001 – får aldrig stoppa skanningen
+            diag.log(f"NBA sides/totals: FEL {type(e).__name__}: {e}")
     diag.save()
     return {"rows": rows, "playable": playable, "ledger": ledger, "shadow": shadow, "test": test,
             "live": live, "live_rows": live_rows,

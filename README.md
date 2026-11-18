@@ -19,6 +19,11 @@ oddset faller inte, odds 1,60–6,00; spelas), **A** B + alla parametrar (odds 1
 Flat 1–3u, 1u = 1 % av kassan (1u standard, 2u high, 3u maxbet). Nivåerna rättas var för sig i fliken *Tier-resultat*
 så att vi ser om kraven är för strikta. Bokföring i `tiers.json`, webbens data i `site/tiers.json`. Gränserna: `tier_*` i `settings.json`.
 
+**NBA sides & totals (18/11, `propsbot/nba_sides.py`):** moneyline, spread och totala poäng (inkl. förlängning) hos
+Kambi mot Pinnacle utan marginal, med samma regler som fotbollens sides. Över på totalen stoppas vid hög
+utklassningsrisk (P(|marginal| > 15) > 40 % ur Pinnacles spread). Bokföring `nba_sides_spel.json` /
+`nba_sides_skugga.json`; spelen går in i A/B/C Tier som allt annat.
+
 **Över eller under:** båda sidor prövas på samma krav; den sida som har EV+ och klarar alla regler spelas.
 Under kräver en tvåsidig eller skarp referens. Fotbollens Kambi-marknader (skott på mål, kort) är bara
 "över/ja", så där finns ingen undersida att spela.

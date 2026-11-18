@@ -484,7 +484,10 @@ const MK = {shots: "Skott", shots_on_target: "Skott på mål", goal: "Mål", ass
   points: "Poäng", rebounds: "Returer", assists: "Assist", threes: "Trepoängare", steals: "Steals", blocks: "Blocks",
   pra: "PRA", pr: "Poäng + returer", ra: "Returer + assist", pa: "Poäng + assist",
     "1x2": "1X2", total: "Mål totalt", ah: "Asiatiskt handikapp", corners: "Hörnor",
-  cah: "Hörnhandikapp", corners_home: "Hörnor hemmalag", corners_away: "Hörnor bortalag"};
+  cah: "Hörnhandikapp", corners_home: "Hörnor hemmalag", corners_away: "Hörnor bortalag",
+  ml: "Moneyline", spread: "Spread", game_total: "Totala poäng"};
+const SIDE_MK = ["1x2", "total", "ah", "corners", "cah", "corners_home", "corners_away", "ml", "spread", "game_total"];
+const SIDE_AV = {total: "MÅL", ah: "AH", ml: "ML", spread: "SPR", game_total: "TOT"};
 const spel = (m, l, side) => {
   if (m === "cards") return side === "under" ? "får inget kort" : "får kort";
   if (m === "goal" && l === 0.5 && side !== "under") return "gör mål";
@@ -618,7 +621,7 @@ const SPORT_COL = {fotboll: "var(--s-fotboll)", nba: "var(--s-nba)"};
 const initials = s => String(s || "?").replace(/[^\p{L}\p{N} ]/gu, " ").trim().split(/\s+/).slice(0, 2).map(w => w[0]).join("").toUpperCase() || "?";
 const pctS = (x, d = 1) => x == null || isNaN(x) ? "–" : (x > 0 ? "+" : "") + nf(x * 100, d) + " %";
 function betLine(r) {
-  if (r.mkKey && ["1x2", "total", "ah", "corners", "cah", "corners_home", "corners_away"].includes(r.mkKey)) return {ar: "", txt: r.spel};
+  if (r.mkKey && SIDE_MK.includes(r.mkKey)) return {ar: "", txt: r.spel};
   if (r.linje == null) return {ar: "", txt: r.spel};
   const up = r.sidaKey !== "under";
   if (r.mkKey === "cards") return {ar: up ? "↑" : "↓", up, txt: up ? "Får kort" : "Inget kort"};
@@ -636,9 +639,9 @@ setInterval(() => document.querySelectorAll(".cd[data-ts]").forEach(e => e.textC
 function betCard(r, o = {}) {
   const L = betLine(r), now = Date.now() / 1000;
   const when = r.avspark > now ? `<b class="cd" data-ts="${r.avspark}">${countdown(r.avspark)}</b>` : fmtTs(r.avspark);
-  const isSide = r.spelare_id === "match" || ["Mål", "Oavgjort"].includes(r.spelare) || /^(1x2|total|ah)$/.test(r.mkKey || "");
+  const isSide = r.spelare_id === "match" || ["Mål", "Oavgjort"].includes(r.spelare) || /^(1x2|total|ah|ml|spread|game_total)$/.test(r.mkKey || "");
   return `<div class="bc ${o.rank && o.rank <= 3 ? "top" + o.rank : ""} ${o.dim ? "dim" : ""}" title="${esc(o.title || "")}">
-    <div class="hd"><div class="av">${esc(isSide ? (r.mkKey === "total" ? "MÅL" : r.mkKey === "ah" ? "AH" : "1X2") : initials(r.spelare))}<span class="sd" style="background:${SPORT_COL[r.sport]}"></span></div>
+    <div class="hd"><div class="av">${esc(isSide ? (SIDE_AV[r.mkKey] || "1X2") : initials(r.spelare))}<span class="sd" style="background:${SPORT_COL[r.sport]}"></span></div>
       <div style="min-width:0"><div class="who">${esc(isSide ? r.match : r.spelare)}</div>
         <div class="meta">${isSide ? "" : esc(r.match) + " · "}${when}</div></div>
       <div class="badge">${o.badge || ""}${o.rank ? `<span class="rk r${o.rank}">${o.rank}</span>` : ""}</div></div>

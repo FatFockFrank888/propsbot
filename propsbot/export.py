@@ -114,6 +114,14 @@ def write_site(site: Path, rows: list[ScanRow], ledger: Ledger, settings: dict,
                 lg = _L(f)
                 data[key] = sorted(lg.counted, key=lambda b: -b["bokford"])
                 data[key + "_sammanfattning"] = lg.summary()
+    if sport == "NBA":   # NBA sides & totals mot Pinnacle (nba_sides.py) – samma flikar som fotbollens sides
+        from .ledger import Ledger as _L
+        for fname, key in (("nba_sides_spel.json", "sides_spel"), ("nba_sides_skugga.json", "sides_skugga")):
+            f = site.parent.parent / fname
+            if f.exists():
+                lg = _L(f)
+                data[key] = sorted(lg.counted, key=lambda b: -b["bokford"])
+                data[key + "_sammanfattning"] = lg.summary()
     (site / "data.json").write_text(json.dumps(rensa_nan(data), ensure_ascii=False, allow_nan=False),
                                     encoding="utf-8")
     if (WEB / "index.html").exists():

@@ -163,6 +163,14 @@ def all_params(settings_path: Path) -> dict:
         ("Matcher", f"inom {s.get('nba_hours_ahead', 30)} h, max {s.get('nba_max_events', 15)}", ""),
         ("US-bolag via The Odds API", f"{s.get('nba_us_fetch_window', [40, 240])[0]}–{s.get('nba_us_fetch_window', [40, 240])[1]} min före start",
          f"Andel av krediterna: {_pct(s.get('oddsapi_share_nba', 0.6))}."),
+        ("Sides/totals", ("på" if s.get("nba_sides_enabled", True) else "av") + " – moneyline, spread, totala poäng mot Pinnacle",
+         "Hela matchen inkl. förlängning. Pinnacle utan marginal är facit; samma regler som fotbollens sides (insatsgräns, "
+         "alternativ linje +1 % edge, oddsfall, sharp money, ett spel per match). Inga extra anrop: priserna finns i props-svaren."),
+        ("Sides/totals: edge", f"{_pct(s.get('nba_sides_min_edge', 0.03))}–{_pct(s.get('nba_sides_max_edge', 0.15))}",
+         "Under = skuggspel (från 1 %). Över = nästan alltid gammal linje eller nyhet."),
+        ("Sides/totals: oddsram", _odds(*s.get("nba_sides_odds_window", [1.40, 6.50])), "Nivåerna (A/B/C) har sina egna oddsramar ovanpå."),
+        ("Sides/totals: utklassning", f"över på totalen stoppas vid risk > {_pct(s.get('nba_sides_blowout_max', 0.40))}",
+         "P(|marginal| > 15) ur Pinnacles spread (marginal ~ Normal(spread, 12,5)). 40 % ≈ spread 11,5: tempot går ner och startarna sätter sig."),
     ]
     sec = lambda rows: [{"namn": a, "varde": b, "forklaring": c} for a, b, c in rows]
     return {"Gemensamt": sec(shared), "Fotboll": sec(football), "NBA": sec(nba)}

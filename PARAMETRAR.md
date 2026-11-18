@@ -74,4 +74,8 @@ Genereras från de värden boten använder (`python -m propsbot parametrar`).
 | Brier modell / marknad | visas under Resultat | Mäter om modellen slår marknadens egen sannolikhet på avgjorda spel (lägre = bättre). |
 | Matcher | inom 30 h, max 15 |  |
 | US-bolag via The Odds API | 40–240 min före start | Andel av krediterna: 60 %. |
+| Sides/totals | på – moneyline, spread, totala poäng mot Pinnacle | Hela matchen inkl. förlängning. Pinnacle utan marginal är facit; samma regler som fotbollens sides (insatsgräns, alternativ linje +1 % edge, oddsfall, sharp money, ett spel per match). Inga extra anrop: priserna finns i props-svaren. |
+| Sides/totals: edge | 3 %–15 % | Under = skuggspel (från 1 %). Över = nästan alltid gammal linje eller nyhet. |
+| Sides/totals: oddsram | 1,40–6,50 | Nivåerna (A/B/C) har sina egna oddsramar ovanpå. |
+| Sides/totals: utklassning | över på totalen stoppas vid risk > 40 % | P(/marginal/ > 15) ur Pinnacles spread (marginal ~ Normal(spread, 12,5)). 40 % ≈ spread 11,5: tempot går ner och startarna sätter sig. |
 
