@@ -1,4 +1,4 @@
-# NBA – utvärdering på framåtriktad data (2026-11-18T01:04:16+00:00)
+# NBA – utvärdering på framåtriktad data (2026-11-18T01:12:11+00:00)
 
 Bara bokförda prognoser (gjorda före matchen). Unika prestationer = spelare × match × marknad.
 
@@ -7,7 +7,7 @@ Bara bokförda prognoser (gjorda före matchen). Unika prestationer = spelare ×
 | live | 27 | 27 | 23 | 12 | 26 | -0.1 % | +0.2 % | 4.0 | 2.86 (+2.21…+3.62) | 2.92 | 0.96 | +85.2 % | 2.59 | – |
 | spel | 390 | 390 | 116 | 17 | 360 | +4.7 % | +2.9 % | 14.5 | 2.21 (+1.74…+2.75) | 2.07 | 0.81 | +77.9 % | 2.68 | – |
 | skugga | 1153 | 1153 | 128 | 17 | 1045 | +2.1 % | +1.9 % | 39.8 | 0.87 (+0.61…+1.16) | 0.82 | 0.85 | +65.9 % | 1.83 | – |
-| modelltest | 1004 | 1004 | 129 | 17 | 908 | +5.5 % | +5.3 % | 34.2 | -0.01 (-0.39…+0.50) | -0.09 | 0.81 | +45.5 % | 1.89 | 0.2773 / 0.2441 (410) |
+| modelltest | 1004 | 1004 | 129 | 17 | 908 | +5.5 % | +5.3 % | 34.2 | -0.00 (-0.39…+0.50) | -0.09 | 0.81 | +45.5 % | 1.89 | 0.2773 / 0.2441 (410) |
 
 ## Marknadsstatus för LIVE (marknadsbaserade spel mot skarp stängning)
 
@@ -44,7 +44,7 @@ Verifierad = referensens notering högst 60 min före start. Flyttad linje = vå
 | skugga | flyttad linje (för oss) | 168 | 4.63 | +14.5 % |
 | skugga | flyttad linje (mot oss) | 41 | -4.90 | -6.9 % |
 | skugga | verifierad | 625 | 0.27 | +0.0 % |
-| modelltest | ? | 106 | 0.21 | -20.1 % |
+| modelltest | ? | 107 | 0.22 | -20.1 % |
 | modelltest | borttagen | 122 | 0.28 | +11.6 % |
 | modelltest | flyttad linje (för oss) | 105 | 4.40 | +11.6 % |
 | modelltest | flyttad linje (mot oss) | 45 | -5.91 | -25.0 % |
@@ -59,7 +59,7 @@ Verifierad = referensens notering högst 60 min före start. Flyttad linje = vå
 | pa | **insufficient_data** | 0.2954 / 0.2548 (7) | – | -1.22 (–) | 0 | – |
 | points | **degraded** | 0.2760 / 0.2413 (128) | +0.0070…+0.0592 | -0.51 (-0.91…+0.10) | 6 | -1.3 % |
 | pr | **degraded** | 0.3077 / 0.2508 (37) | +0.0355…+0.0884 | 0.74 (-0.73…+1.93) | 0 | – |
-| pra | **degraded** | 0.3470 / 0.2526 (30) | +0.0042…+0.1337 | 0.07 (-0.92…+1.29) | 0 | – |
+| pra | **degraded** | 0.3470 / 0.2526 (30) | +0.0042…+0.1337 | 0.11 (-0.86…+1.29) | 0 | – |
 | ra | **insufficient_data** | 0.2353 / 0.2380 (28) | -0.0657…+0.0695 | 0.14 (-1.37…+1.12) | 0 | – |
 | rebounds | **shadow** | 0.2804 / 0.2543 (67) | -0.0084…+0.0732 | -0.40 (-0.89…+0.15) | 7 | -7.1 % |
 | steals | **insufficient_data** | 0.3103 / 0.2511 (6) | -0.0375…+0.1564 | 3.49 (+1.50…+5.26) | 0 | – |
