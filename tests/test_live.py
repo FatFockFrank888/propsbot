@@ -29,7 +29,10 @@ def test_live_thresholds_model_agreement_and_caps():
     steals = row("m2", "g", "steals", 2.0, 0.60)        # inte en live-marknad
     model = [row(r.row.decision.cand.match_id, r.row.decision.cand.player_id, r.row.decision.cand.market,
                  2.0, 0.55) for r in (pts_lo, pts_hi, thr, thr2, one_src, steals)]
-    out = select_live([pts_lo, pts_hi, thr, thr2, one_src, no_model, steals], model, S, L())
+    rows_ = [pts_lo, pts_hi, thr, thr2, one_src, no_model, steals]
+    free = select_live(rows_, model, S, L())             # 18/11: inga tak som standard
+    assert len([r for r in free if r.row.decision.cand.match_id == "m1"]) == 3
+    out = select_live(rows_, model, {"live_max_per_match": 2}, L())   # tak kan slås på igen i settings
     picked = {r.row.decision.cand.player_id for r in out}
     m1 = picked - {"f"}
     assert m1 in ({"b", "d"}, {"b", "c"})

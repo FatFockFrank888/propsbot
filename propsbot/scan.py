@@ -152,9 +152,9 @@ DEFAULT_SETTINGS = {
     "live_odds_window": [1.60, 3.00],   # 12/11: odds 1,40–1,60 gav −62 % (12 NBA-spel); samma golv som jämförelsesajten
     "live_block_degraded": True,    # NBA: marknader med status degraded (nba_eval) ger inga LIVE-spel
     "live_max_units": 10,         # 14/11: insats 1–10u efter styrkan (strength.py); 10u = 2 % av bankrullen
-    "live_max_per_match": 2,
-    "live_max_per_day": 16,       # 12/11: dubbla volymen när assist/returer/trepoängare inte kräver modellrad
-    "live_max_units_day": 40,     # högst 8 % av bankrullen per matchdag (12/11: 10 % var för högt med korrelerade spel)
+    "live_max_per_match": None,   # 18/11: inga tak – användaren väljer själv vilka spel som tas
+    "live_max_per_day": None,
+    "live_max_units_day": None,
     "football_live": False,       # fotbollen samlar bara data
     "football_markets": ["shots_on_target"],   # bara skott på mål (3/11)
     # Fouls (Player's fouls conceded): egen modell, bara testbokföring (bokforing_fouls_test.json).

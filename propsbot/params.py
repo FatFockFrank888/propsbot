@@ -30,8 +30,6 @@ def all_params(settings_path: Path) -> dict:
 
     from .tiers import cfg as _tcfg
     t = _tcfg(s)
-    _cap = t["tier_max_units_day"]
-    _cap = ", ".join(f"{k} {v}u" for k, v in _cap.items()) if isinstance(_cap, dict) else f"{_cap}u"
     tiers = [
         ("A/B/C Tier", "på" if t["tiers_on"] else "av",
          "Ersätter Official Bets (18/11). Varje bokfört spel (LIVE, regelspel, skuggspel; props och sides; fotboll och NBA) hamnar "
@@ -47,8 +45,7 @@ def all_params(settings_path: Path) -> dict:
         ("Insats (A/B)", f"flat 1–3u, 1u = {_pct(t['tier_unit'])} av kassan",
          f"1u standard. 2u high: edge ≥ {_pct(t['tier_2u_edge'])}. 3u maxbet: edge {_pct(t['tier_3u_edge'])}–{_pct(t['tier_3u_max_edge'])} "
          "med Pinnacle som referens och sharp money med oss (högre edge är oftast fel i linjen). Ingen Kelly."),
-        ("Tak (A/B)", f"{_cap} per speldag, {t['tier_max_per_match']} spel per match och nivå",
-         "Egna budgetar per nivå, så att B aldrig tränger undan A. Spel över taket bokförs i sin nivå med \"tak\": de räknas i ROI flat och CLV men inte som spelade."),
+        ("Tak (A/B)", "inga", "Inga dags- eller matchbudgetar (18/11): du väljer själv vilka spel du tar. Alla A- och B-spel räknas som spelade."),
     ]
     shared = tiers + [
         ("Spelbara bolag", ", ".join(s["playable_books"]), "Bara Kambi-bolag. Paf och LeoVegas läses bara för att mäta marginalen."),
@@ -163,8 +160,8 @@ def all_params(settings_path: Path) -> dict:
          "poäng över utan modellens stöd gav −18 %. Spel med modellens stöd väljs först."),
         ("LIVE: jämförelsekällor", f"minst {s.get('live_min_groups', 2)}" + (", varav Pinnacle" if s.get('live_require_sharp', True) else ""), "Pinnacle, Kalshi, DraftKings (via ESPN), SportsGameOdds, The Odds API"),
         ("LIVE: oddsram", _odds(llo, lhi), ""),
-        ("LIVE: risk", f"insats 1–10u efter styrkan, max {_u(s.get('live_max_units', 10))}/spel, {s.get('live_max_per_match', 2)}/match, "
-                       f"{s.get('live_max_per_day', 16)} spel och {_u(s.get('live_max_units_day', 40))} per matchdag", ""),
+        ("LIVE: risk", f"max {_u(s.get('live_max_units', 10))}/spel i LIVE-bokföringen; inga tak per match eller dag",
+         "Taken togs bort 18/11 (du väljer själv). Insatsen du spelar är nivåernas flat 1–3u."),
         ("Modellvikt", f"{s.get('nba_model_weight', 0.3):g} × dq", "Blandas med marknaden i log-odds. dq = datakvalitet 0,2–1 "
          f"(antal matcher i underlaget / {s.get('nba_dq_full_games', 15)}): tunt underlag -> marknaden väger mer. Halveras när modell och marknad skiljer mycket."),
         ("Brier modell / marknad", "visas under Resultat", "Mäter om modellen slår marknadens egen sannolikhet på avgjorda spel (lägre = bättre)."),
