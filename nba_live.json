@@ -2775,7 +2775,7 @@
 "edge": 0.09225706982554072,
 "spela_fran": 1.85,
 "insats_pct": 0.008,
-"stangning": 1.95,
+"stangning": 1.87,
 "status": "öppen",
 "stopp": "",
 "clv_signal": false,
@@ -2785,22 +2785,22 @@
 "utfall": null,
 "resultat_enheter": null,
 "modell_edge": 0.161942951336153,
-"stangning_ts": 1794962339.9743812,
+"stangning_ts": 1794962842.971312,
 "analys": {
-"p_stack": 0.5295,
-"p_modell_min": 0.5299,
+"p_stack": 0.5294,
+"p_modell_min": 0.5291,
 "minuter": 33.0,
 "minuter_sd": 4.7,
-"p_faktorer": 0.5653,
-"p_faktorer_ra": 0.6578,
-"vantat_faktorer": 10.27,
-"p_betyg": 0.5684,
-"p_betyg_ra": 0.6695,
-"vantat_betyg": 9.98,
+"p_faktorer": 0.5677,
+"p_faktorer_ra": 0.6669,
+"vantat_faktorer": 10.29,
+"p_betyg": 0.5682,
+"p_betyg_ra": 0.6689,
+"vantat_betyg": 9.99,
 "minuter_faktorer": 27.8,
 "f_anv": 1.013,
 "f_miljo": 1.0,
-"f_tempo": 1.014,
+"f_tempo": 1.015,
 "f_pos": 0.995,
 "f_mot": 1.003,
 "f_minuter_bas": 25.7,
@@ -2821,15 +2821,15 @@
 "traff_mot_n": 5,
 "traff_hemmaborta": 0.875,
 "traff_hemmaborta_n": 8,
-"p_modell": 0.6075,
+"p_modell": 0.61,
 "p_marknad": 0.5348,
-"p_slutlig": 0.5525,
-"vantat": 11.64,
+"p_slutlig": 0.5531,
+"vantat": 11.65,
 "nb_r": 10,
 "modell_vikt": 0.24,
 "dq": 0.8,
 "matcher": 12,
-"nivajustering": 0.31,
+"nivajustering": 0.32,
 "logg": [
 {
 "ts": 1794877200.0,
@@ -2943,18 +2943,18 @@
 "odds_bolag": [
 {
 "bolag": "atg",
-"over": 1.78,
-"under": 1.95
+"over": 1.86,
+"under": 1.87
 },
 {
 "bolag": "betmgm",
-"over": 1.78,
-"under": 1.95
+"over": 1.86,
+"under": 1.87
 },
 {
 "bolag": "expekt",
-"over": 1.78,
-"under": 1.95
+"over": 1.86,
+"under": 1.87
 },
 {
 "bolag": "kalshi",
@@ -2963,13 +2963,13 @@
 },
 {
 "bolag": "leovegas",
-"over": 1.78,
-"under": 1.95
+"over": 1.86,
+"under": 1.87
 },
 {
 "bolag": "paf",
-"over": 1.78,
-"under": 1.95
+"over": 1.86,
+"under": 1.87
 },
 {
 "bolag": "pinnacle",
@@ -2978,13 +2978,13 @@
 },
 {
 "bolag": "svenskaspel",
-"over": 1.78,
-"under": 1.95
+"over": 1.86,
+"under": 1.87
 },
 {
 "bolag": "unibet",
-"over": 1.78,
-"under": 1.95
+"over": 1.86,
+"under": 1.87
 },
 {
 "bolag": "us_draftkings",
@@ -2993,12 +2993,12 @@
 }
 ]
 },
-"prognos": 11.643851729771258,
-"analys_ts": 1794962339.9761047,
+"prognos": 11.652396301326975,
+"analys_ts": 1794962842.972524,
 "modellversion": "2026-11-15-betyg",
 "prognos_ts": 1794946420.6812305,
 "skarp_stang_p": 0.5347576405088681,
-"skarp_stang_ts": 1794962339.5493052,
+"skarp_stang_ts": 1794962842.618397,
 "skarp_kalla": "skanning",
 "pin_stang_p": 0.531201779320483,
 "dk_stang_p": 0.5310307922058655,
@@ -3026,11 +3026,11 @@
 "dk_p": 0.5370197193611104
 },
 "bolag_stangning": {
-"ts": 1794962340.2267725,
+"ts": 1794962843.2087626,
 "odds": {
 "unibet": {
-"over": 1.78,
-"under": 1.95
+"over": 1.86,
+"under": 1.87
 },
 "pinnacle": {
 "over": 1.98,
@@ -3048,7 +3048,7 @@
 "pin_p": 0.531201779320483,
 "dk_p": 0.5310307922058655
 },
-"bolag_stang_ts": 1794962340.2267725,
+"bolag_stang_ts": 1794962843.2087626,
 "skarp_verifierad": true,
 "skarp_status": null,
 "clv_skarp_pp": 2.970713545836301,
@@ -3057,7 +3057,8 @@
 "nyhet_lag_status": "lag:deni avdija",
 "nyhet_lag": "Lagkamrat ute: Deni Avdija (out). Modellen nu: Donovan Clingan väntat 11.6 (33 min), under 11.5 53%, edge vid 1.98: +6% (vid bokning modell +16%)",
 "nyhet_lag_ts": "2026-11-18T00:38:59+00:00",
-"nyhet": "Lagkamrat ute: Deni Avdija (out). Modellen nu: Donovan Clingan väntat 11.6 (33 min), under 11.5 53%, edge vid 1.98: +6% (vid bokning modell +16%)",
-"nyhet_status": "lag:deni avdija"
+"nyhet": "Donovan Clingan inte längre på skadelistan (ESPN)",
+"nyhet_status": "ok",
+"nyhet_ts": "2026-11-18T00:47:22+00:00"
 }
 ]
