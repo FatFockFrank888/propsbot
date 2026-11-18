@@ -1,4 +1,4 @@
-# NBA – utvärdering på framåtriktad data (2026-11-18T03:30:15+00:00)
+# NBA – utvärdering på framåtriktad data (2026-11-18T03:38:32+00:00)
 
 Bara bokförda prognoser (gjorda före matchen). Unika prestationer = spelare × match × marknad.
 
@@ -39,7 +39,7 @@ Verifierad = referensens notering högst 60 min före start. Flyttad linje = vå
 | spel | flyttad linje (för oss) | 39 | 4.41 | +0.0 % |
 | spel | flyttad linje (mot oss) | 10 | -4.45 | +4.0 % |
 | spel | verifierad | 234 | 1.74 | +8.4 % |
-| skugga | ? | 162 | 0.69 | -0.2 % |
+| skugga | ? | 163 | 0.70 | -0.2 % |
 | skugga | borttagen | 124 | 0.98 | -0.2 % |
 | skugga | flyttad linje (för oss) | 168 | 4.63 | +14.5 % |
 | skugga | flyttad linje (mot oss) | 41 | -4.90 | -6.9 % |
