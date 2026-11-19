@@ -1,4 +1,4 @@
-Skanning 2026-11-19 00:11
+Skanning 2026-11-19 00:19
 Kambi unibet (ubse): OK, 14 matcher i valda ligor
 Kambi paf (paf): OK
 Kambi atg (atg): OK
@@ -24,6 +24,7 @@ Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
   Gremio To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
   Correct Score 1st Half | units=Regular | kategori=Team Props | deltagare=Gremio 0, Bahia 0,Gremio 0, Bahia 1,Gremio 0, Bahia 2,Gremio 0, Bahia 3,Gremio 1, Bahia 0,Gremio 1, Bahia 1,Gremio 1, Bahia 2,Gremio 1, Bahia 3,Gremio 2, Bahia 0,Gremio 2, Bahia 1,Gremio 2, Bahia 2,Gremio 2, Bahia 3,Gremio 3, Bahia 0,Gremio 3, Bahia 1,Gremio 3, Bahia 2,Gremio 3, Bahia 3  ->  används inte (lagmarknad)
   Bahia Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
+  3-Way Handicap Gremio -2 | units=Regular | kategori=Team Props | deltagare=Gremio (-2),Draw - (Gremio -2),Bahia (+2)  ->  används inte (lagmarknad)
   Gremio To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
   Bahia Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
   Both Teams To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
@@ -68,12 +69,11 @@ Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
   Both Teams To Score and Moneyline | units=Regular | kategori=Team Props | deltagare=Yes & Corinthians,Yes & Draw,Yes & Botafogo FR RJ,No & Corinthians,No & Draw,No & Botafogo FR RJ  ->  används inte (lagmarknad)
   Botafogo FR RJ Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
   Corinthians To Win To Nil | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Botafogo FR RJ To Win To Nil | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-Sides mindre ligor: 4 Kambi-matcher inom 12 h, 27 Pinnacle-matcher, 2 med Pinnacle, 2 matchade: ASEAN Club Championship, Puerto Rico / LPR Pro
-Sides/totals: 9 matcher med Kambi + Pinnacle, 248 linjer, 0 nya spel, 0 nya skuggspel, Smarkets-priser i 3 av 3; bästa edge +3.8% (Orlando City 1X2: 2), +2.5% (Vasco da Gama-RJ 1X2: 1), +2.4% (Corinthians-SP 1X2: 1)
+Sides mindre ligor: 4 Kambi-matcher inom 12 h, 28 Pinnacle-matcher, 2 med Pinnacle, 2 matchade: ASEAN Club Championship, Puerto Rico / LPR Pro
+Sides/totals: 9 matcher med Kambi + Pinnacle, 250 linjer, 0 nya spel, 0 nya skuggspel, Smarkets-priser i 3 av 3; bästa edge +3.8% (Orlando City 1X2: 2), +3.1% (Corinthians-SP 1X2: 1), +2.5% (Vasco da Gama-RJ 1X2: 1)
 Hörnmodell (test): 7861 matcher i underlaget (17 ligor), 0 matcher med modell, 0 Kambi-linjer, 0 nya testspel; bästa edge 
 Fotboll extra bolag: 0 nya hämtningar, 0 odds i bruk, krediter kvar 272, dagsbudget 21 (andel 40%), förbrukat idag 0
-Tid: hämtning 253 s
+Tid: hämtning 264 s
 Marginal över alla matcher: uppmätt marginal: shots stege k=1.08 (21 spelare; marginal vid 3,00 ≈ 9%), shots_on_target stege k=1.08 (63 spelare; marginal vid 3,00 ≈ 9%)
   Grêmio-RS – Bahia-BA: modell – hittar inte matchen hos ESPN
   Corinthians-SP – Botafogo-RJ: modell – hittar inte matchen hos ESPN
@@ -83,9 +83,9 @@ Marginal över alla matcher: uppmätt marginal: shots stege k=1.08 (21 spelare; 
   Orlando City – FC Cincinnati: modell – hittar inte matchen hos ESPN
   Seattle Sounders – Real Salt Lake: modell – hittar inte matchen hos ESPN
 Modellens nivåavvikelse mot marknaden (log-odds, dras bort): shots -0.67
-  Grêmio-RS – Bahia-BA: väntade mål Pinnacle 3.06 mot Kambi 2.95 (kvot 1.036); uppmätt marginal: goal k=1.14, assist k=1.18, shots stege k=1.12 (7 spelare; marginal vid 3,00 ≈ 14%), shots_on_target stege k=1.17 (14 spelare; marginal vid 3,00 ≈ 21%)
-Exempel uppmätt marginal: goal k=1.14, assist k=1.18, shots stege k=1.12 (7 spelare; marginal vid 3,00 ≈ 14%), shots_on_target stege k=1.17 (14 spelare; marginal vid 3,00 ≈ 21%)
-  Corinthians-SP – Botafogo-RJ: väntade mål Pinnacle 2.70 mot Kambi 2.81 (kvot 0.959); uppmätt marginal: goal k=1.20, assist k=1.18, shots_on_target stege k=1.05 (14 spelare; marginal vid 3,00 ≈ 6%)
+  Grêmio-RS – Bahia-BA: väntade mål Pinnacle 2.98 mot Kambi 2.95 (kvot 1.008); uppmätt marginal: goal k=1.15, assist k=1.19, shots stege k=1.12 (7 spelare; marginal vid 3,00 ≈ 14%), shots_on_target stege k=1.17 (14 spelare; marginal vid 3,00 ≈ 21%)
+Exempel uppmätt marginal: goal k=1.15, assist k=1.19, shots stege k=1.12 (7 spelare; marginal vid 3,00 ≈ 14%), shots_on_target stege k=1.17 (14 spelare; marginal vid 3,00 ≈ 21%)
+  Corinthians-SP – Botafogo-RJ: väntade mål Pinnacle 2.70 mot Kambi 2.81 (kvot 0.961); uppmätt marginal: goal k=1.20, assist k=1.18, shots_on_target stege k=1.05 (14 spelare; marginal vid 3,00 ≈ 6%)
   Paris FC (W) – HB Køge (W): saknar matchlinjer från Pinnacle
   FK Austria Wien (W) – Bayern Munich (W): saknar matchlinjer från Pinnacle
   FC Barcelona (W) – Servette Chênois (W): saknar matchlinjer från Pinnacle
@@ -106,7 +106,7 @@ CLV-signal: 0 ben släppta (Pinnacle rör sig åt vårt håll)
 Startelvor: 0 spelbara ben klara, 0 väntar på startelvan, 0 stoppade (inte i startelvan)
 Spelregler: stoppade {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0} (modelltest {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0})
 Spelarmodell: 0 av 213 ben har modell, 0 nya matcher hämtade från ESPN
-Bästa edge marknad shots_on_target: -1.7%, -1.8%, -1.9% (av 183 ben)
+Bästa edge marknad shots_on_target: -1.8%, -2.2%, -2.5% (av 183 ben)
 Bästa edge modelltest shots_on_target: -2.2%, -2.9%, -3.3% (av 51 ben)
 0 spelbara ben.
 Bokförda nya spel: 0
