@@ -1,32 +1,32 @@
-NBA-skanning 2026-11-19 02:19
+NBA-skanning 2026-11-19 02:26
 Kambi NBA: 4 matcher, bolag: atg, betmgm, expekt, leovegas, paf, svenskaspel, unibet
-NBA tid: Kambi-props 16 s
+NBA tid: Kambi-props 11 s
 Pinnacle NBA: 3 matcher, 184 spelarodds (4 s)
-Kalshi: 254 likvida linjer av 3173 öppna marknader
-Kalshi: 141 linjer kopplade till matcher
+Kalshi: 233 likvida linjer av 3147 öppna marknader
+Kalshi: 140 linjer kopplade till matcher
 DK/FD: 0 nya hämtningar, 462 odds i bruk, krediter kvar 272, dagsbudget 21 (andel 60%), förbrukat idag 6
 SportsGameOdds NBA: vilar efter kvotfel till 19/11 19:43 UTC
-DraftKings via ESPN: 3 matcher, 378 spelarodds (referens)
-Stängningsarkiv (Pinnacle/DK): 321 tvåsidiga linjer noterade, 0 rader arkiverade
+DraftKings via ESPN: 3 matcher, 376 spelarodds (referens)
+Stängningsarkiv (Pinnacle/DK): 320 tvåsidiga linjer noterade, 0 rader arkiverade
 NBA namnexempel Denver Nuggets: Kambi ['aaron gordon', 'cameron johnson', 'christian braun', 'demar derozan', 'derrick white', 'jamal murray'] | Pinnacle ['aaron gordon', 'cameron johnson', 'christian braun', 'demar derozan', 'derrick white', 'jamal murray']
 NBA Pinnacle-exempel: ['Winning Margin Range 1st Half', 'Denver Nuggets Points Odd/Even', 'Total Points Odd/Even', 'Winning Margin Range', 'Boston Celtics Points Odd/Even', 'Moneyline and Total Points', 'Aaron Gordon Total Threes Made', 'Aaron Gordon Total Points']
 NBA linjer: 73 med samma linje hos Pinnacle, 17 flyttade från närliggande linje, 62 kombolinjer (PRA/PR/RA/PA) räknade ur Pinnacles poäng/returer/assist
 NBA-odds (unibet/pinnacle) per marknad: pinnacle:assists 30, pinnacle:points 84, pinnacle:rebounds 54, pinnacle:threes 50, unibet:assists 58, unibet:blocks 40, unibet:pa 58, unibet:points 86, unibet:pr 80, unibet:pra 56, unibet:ra 56, unibet:rebounds 80, unibet:steals 70, unibet:threes 62
 NBA faktormodell (skugga): 92 spelare, Pinnacle-total för 3 av 4 matcher, ligatempo 100.1
 NBA spelarbetyg (skugga): 92 spelare, 0 nya boxscores
-NBA-modell: 4 matcher hos ESPN, 92 spelare, 3 nya boxscores, 91 skadade (out/doubtful)
-NBA-modell nivåavvikelse (dras bort): pa -0.15, points +0.26, pr +0.12, pra -0.15, ra +0.04, rebounds +0.05, threes -0.05
-NBA faktormodell nivåavvikelse: pa -0.50, points -0.23, pr -0.33, pra -0.59, ra -0.33, rebounds -0.22, threes -0.20
+NBA-modell: 4 matcher hos ESPN, 92 spelare, 0 nya boxscores, 91 skadade (out/doubtful)
+NBA-modell nivåavvikelse (dras bort): pa -0.16, points +0.26, pr +0.12, pra -0.15, ra +0.04, rebounds +0.05, threes -0.04
+NBA faktormodell nivåavvikelse: pa -0.51, points -0.23, pr -0.33, pra -0.59, ra -0.33, rebounds -0.22, threes -0.19
 NBA minutmodell (skugga): medel cv² 0.098, spread från Pinnacle för 3 av 4 matcher; stackning: _alla b_m -0.05 b_k 1.20 (n 456), assists b_m +0.03 b_k 1.20 (n 70), blocks b_m -0.01 b_k 1.20 (n 4), pa b_m -0.03 b_k 0.99 (n 11), points b_m -0.03 b_k 1.20 (n 138), pr b_m -0.07 b_k 1.09 (n 45), pra b_m -0.08 b_k 1.12 (n 33), ra b_m -0.00 b_k 1.20 (n 29), rebounds b_m -0.06 b_k 1.06 (n 77), steals b_m -0.09 b_k 1.15 (n 8), threes b_m -0.04 b_k 1.16 (n 41)
-NBA-modelltest: 35 spelbara enligt modellen av 426 ben med modell
-NBA analyssida: 426 ben med analys
-NBA CLV-signal: 2 ben släppta
+NBA-modelltest: 33 spelbara enligt modellen av 424 ben med modell
+NBA analyssida: 424 ben med analys
+NBA CLV-signal: 0 ben släppta
 NBA lagnyheter: 99 spelare på skadelistan, 0 ben stoppade, 0 markerade (questionable)
-NBA spelregler: stoppade {'edge': 5, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0} (modelltest {'edge': 27, 'spelare': 3, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0})
-NBA: 0 spelbara ben av 460
+NBA spelregler: stoppade {'edge': 4, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0} (modelltest {'edge': 27, 'spelare': 2, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0})
+NBA: 0 spelbara ben av 458
 NBA LIVE: 0 spel uppfyller live-kraven, 0 nya bokförda live
 NBA skarp stängning: 50 spel uppdaterade
 NBA LIVE-status per marknad (skarp CLV, marknadsspel): assists ok, blocks ok, pa osäker, points ok, pr osäker, pra osäker, ra osäker, rebounds ok, steals ok, threes ok
 NBA modellstatus per marknad (modelltest, styr inte): assists shadow, blocks insufficient_data, pa insufficient_data, points degraded, pr degraded, pra degraded, ra insufficient_data, rebounds shadow, steals insufficient_data, threes shadow
-NBA sides/totals: 3 matcher med Kambi + Pinnacle, 74 linjer, 0 nya spel, 0 nya skuggspel, 0 över stoppade (utklassning); bästa edge +4.2% (totala poäng under 222.5), +3.4% (totala poäng under 221.5), +2.6% (totala poäng under 220.5)
+NBA sides/totals: 3 matcher med Kambi + Pinnacle, 74 linjer, 0 nya spel, 0 nya skuggspel, 0 över stoppade (utklassning); bästa edge +1.6% (Utah Jazz +13.5), +1.0% (Utah Jazz +12.5), +0.3% (totala poäng under 229.5)
 NBA sides: Kambis marknader moneyline - including overtime -> ml; point spread - including overtime -> spread; total points - including overtime -> game_total
