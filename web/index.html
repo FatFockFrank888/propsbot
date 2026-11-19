@@ -337,7 +337,8 @@
   <!-- ======================================================= SPELA NU -->
   <section id="nu">
     <div id="nuNote" class="sub"></div>
-    <div class="controls"><div class="chipsel" id="nuTier"></div></div>
+    <div class="controls"><div class="chipsel" id="nuTier"></div>
+      <input type="search" id="nuQ" placeholder="Sök spelare eller lag…" oninput="renderNu()"></div>
     <h2><span class="led" id="nuLed"></span>⏳ Väntar på start <span class="n" id="nuCount"></span></h2>
     <div class="cards" id="nuCards"></div>
     <h2><span class="led" id="pgLed"></span>🔥 Pågår nu <span class="n" id="pgCount"></span></h2>
@@ -742,7 +743,8 @@ function tierSel(id, curv, set, opts) {
 }
 const TIER_OPTS = [["AB", "A + B (spelas)"], ["A", "A"], ["B", "B"], ["C", "C"], ["ABC", "Alla"]];
 function tierCard(r, extra = {}) {
-  const chips = [takeBtn(r), tierChip(r.tier) + `<span class="why"> ${UTXT[r.u] || ""}</span>`,
+  const fresh = r.status === "öppen" && r.bokford && Date.now() / 1000 - r.bokford < 3600;
+  const chips = [fresh ? `<span class="chip l" title="bokat ${fmtTs(r.bokford)}">NY</span>` : "", takeBtn(r), tierChip(r.tier) + `<span class="why"> ${UTXT[r.u] || ""}</span>`,
     r.tier === "A" ? (r.notis ? `<span class="chip l">notis</span>` : "") : "",
     r.tier === "C" ? `<span class="chip">bara bokföring</span>` : "",
     r.uppFran ? `<span class="chip i">upp från ${r.uppFran}</span>` : "",
@@ -757,8 +759,10 @@ function renderNu() {
   const now = Date.now() / 1000;
   tierSel("nuTier", nuTier, k => { nuTier = k; renderNu(); }, TIER_OPTS);
   const all = tierRows(), tr = all.filter(r => nuTier.includes(r.tier));
-  const ord = (a, b) => (a.tier < b.tier ? -1 : a.tier > b.tier ? 1 : 0) || (b.u - a.u) || (b.edge - a.edge);
-  const open = tr.filter(r => r.status === "öppen" && r.avspark > now).sort((a, b) => ord(a, b) || (a.avspark - b.avspark));
+  // Senast bokade spel först (uppe till vänster) – det nya spelet från notisen hittas direkt.
+  const q = nkey(document.getElementById("nuQ")?.value || "");
+  const hit = r => !q || nkey(`${r.spelare} ${r.match} ${r.spel}`).includes(q);
+  const open = tr.filter(r => r.status === "öppen" && r.avspark > now && hit(r)).sort((a, b) => (b.bokford || 0) - (a.bokford || 0));
   const going = tr.filter(r => r.status === "öppen" && r.avspark && r.avspark <= now && r.avspark > now - 4 * 3600).sort((a, b) => b.avspark - a.avspark);
   const stale = tr.filter(r => r.status === "öppen" && r.avspark && r.avspark <= now - 4 * 3600);
   document.getElementById("nuCount").textContent = open.length || "";
@@ -1600,6 +1604,8 @@ async function load() {
   try { TIERD = await (await fetch("tiers.json?t=" + Date.now(), {cache: "no-store"})).json(); } catch (e) { TIERD = null; }
   try { MINAD = await (await fetch("mina_spel.json?t=" + Date.now(), {cache: "no-store"})).json(); } catch (e) { MINAD = null; }
   buildAll(); buildTiers();
+  // Notisens knapp "Öppna" (#ta=<spel>): öppna "Jag tog spelet" för just det spelet direkt.
+  if (TAKE_ID) { const id = TAKE_ID; TAKE_ID = null; tab = "nu"; setTimeout(() => openTake(id), 300); }
   const stale = [];
   // Nattpaus 04–06 UTC (55 min mellan körningarna): tillåt längre tid innan varningen.
   const hUtc = new Date().getUTCHours(), LIMIT = hUtc >= 4 && hUtc < 7 ? 120 : 75;
@@ -1623,6 +1629,8 @@ setHH(); addEventListener("resize", setHH);
 ["q", "mk", "only", "side", "onlyLive"].forEach(id => document.getElementById(id).oninput = renderRadar);
 ["aTyp", "aMk", "aBook", "aSida", "aStatus", "aOmin", "aOmax", "aPmin", "aGroup"].forEach(id => document.getElementById(id).oninput = renderBok);
 document.getElementById("aCsv").onclick = csv;
+let TAKE_ID = null;
+{ const m = location.hash.match(/^#ta=(.+)$/); if (m) { TAKE_ID = decodeURIComponent(m[1]); history.replaceState(null, "", location.pathname + "#alla"); } }
 // Kopplingslänken från boten (notisen "koppla Mina spel"): #koppla=<kanal> sparar exakt rätt kanalnamn.
 { const m = location.hash.match(/^#koppla=([^&]+)/);
   if (m) { LS.set("pb_topic", cleanTopic(decodeURIComponent(m[1]))); history.replaceState(null, "", location.pathname + "#alla/mina");

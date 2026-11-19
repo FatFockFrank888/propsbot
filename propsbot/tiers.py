@@ -318,7 +318,9 @@ def notify_a(root: Path, bets: list[dict], settings: dict, log=print) -> int:
         msg = (f"{b['match']} · {b.get('liga') or ''} ({ko} UTC){up}\n"
                f"{b['bolag']}: {b['odds']:.2f}  (spela från {b['spela_fran']:.2f})\n"
                f"Edge {b['edge']:.1%}\nInsats: {units_text(b['units'])} ({b['units'] * b['unit_pct']:.0%} av kassan)")
-        if send(topic, title, msg, priority=5 if b["units"] >= 3 else 4 if b["tier"] == "A" else 3,
+        from urllib.parse import quote
+        click = settings.get("site_url", "https://fatfockfrank888.github.io/propsbot/") + "#ta=" + quote(b["ident"], safe="")
+        if send(topic, title, msg, priority=5 if b["units"] >= 3 else 4 if b["tier"] == "A" else 3, click=click,
                 tags="basketball" if b["sport"] == "nba" else "soccer"):
             b["notis"] = True
             sent += 1
