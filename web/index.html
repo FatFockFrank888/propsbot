@@ -237,6 +237,13 @@
   .chip.b { color:var(--bad); background:rgba(240,97,109,.1); } .chip.i { color:var(--info); background:rgba(90,169,255,.1); }
   .chip.l { color:#111; background:var(--accent); font-weight:700; }
   .tier { display:inline-grid; place-items:center; min-width:26px; height:22px; padding:0 7px; border-radius:var(--r-pill); font:800 12px/1 var(--f-disp); letter-spacing:.02em; }
+  .whynot { font-size:12px; color:var(--dim); background:var(--panel2); border-radius:8px; padding:6px 9px; }
+  .whynot b { color:var(--text); }
+  .ml { display:grid; gap:6px; } .ml .row { display:grid; grid-template-columns:62px 1fr auto auto; gap:10px; align-items:center;
+    background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:9px 12px; cursor:pointer; font-variant-numeric:tabular-nums; }
+  .ml .row .t { font-size:12px; color:var(--dim); } .ml .row .w { min-width:0; } .ml .row .w b { display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .ml .row .w span { font-size:12px; color:var(--dim); } .ml .row .v { font-weight:700; text-align:right; } .ml .row .s { font-size:12px; text-align:right; min-width:92px; }
+  .ml .ex { margin:-2px 0 6px; }
   .take { border:1px solid var(--accent); color:var(--accent); background:none; border-radius:var(--r-pill); padding:3px 10px; font-size:11.5px; font-weight:700; cursor:pointer; }
   .take.on { background:var(--accent); color:#111; }
   .form { display:grid; gap:12px; margin-top:14px; } .form label { display:grid; gap:4px; font-size:12px; color:var(--dim); }
@@ -314,6 +321,7 @@
       <button class="tab on" data-t="nu">Spel <span class="ct hidden" id="ctNu"></span></button>
       <button class="tab" data-t="avg">Tier-resultat <span class="ct hidden" id="ctAvg"></span></button>
       <button class="tab" data-t="mina">Mina spel <span class="ct hidden" id="ctMina"></span></button>
+      <button class="tab" data-t="minbok">Min bokföring</button>
       <button class="tab" data-t="topp">Topp 5</button>
       <button class="tab" data-t="radar">Radar</button>
       <button class="tab" data-t="res">Resultat</button>
@@ -371,13 +379,25 @@
     <div class="tiles" id="minaTiles"></div>
     <div id="minaSetup"></div>
     <h2><span class="led" id="minaLed"></span>📺 Live och kommande <span class="n" id="minaCount"></span></h2>
-    <div class="cards" id="minaCards"></div>
-    <h2>Avgjorda</h2>
+    <div class="ml" id="minaCards"></div>
+    <h2>Nyss avgjorda <span class="n">senaste 12 h · äldre i Min bokföring</span></h2>
     <div class="cards" id="minaDone"></div>
     <div class="note"><b>Mina spel</b> = spelen du markerat med <b>＋ Jag tog spelet</b> (fliken Spel). Oddset och units är förifyllda – ändra till det du fick.
       Livescore hämtas direkt från ESPN var 15:e sekund medan sidan är öppen. <b>Notiser under match</b> (varje retur, poäng, mål, straff, rött kort, hörna …
-      tills spelet är vunnet eller matchen slut) skickas av livebevakningen till din vanliga ntfy-kanal, även när sidan är stängd.
+      tills spelet är vunnet eller matchen slut) skickas av livebevakningen till Telegram-gruppen <b>Propsbot live</b>, även när sidan är stängd.
+      Varje enskild ökning kommer tyst; "nära", vunnet/förlorat och sammanfattningen efter varje period plingar. Tryck på en rad för detaljer.
       ESPN ligger oftast 15–60 s efter TV-bilden. Resultat och CLV räknas på <b>ditt</b> odds.</div>
+  </section>
+
+  <!-- ======================================================= MIN BOKFÖRING -->
+  <section id="minbok" class="hidden">
+    <div class="tiles" id="mbTiles"></div>
+    <div class="controls"><div class="chipsel" id="mbRange"></div><button class="btn" onclick="minbokCsv()">Ladda ner CSV</button></div>
+    <div class="card"><div class="wrap free"><table class="rt"><thead><tr><th>Uppdelning</th><th class="n">Spel</th><th class="n">V–F</th><th class="n">Resultat</th><th class="n">ROI</th><th class="n">CLV</th></tr></thead>
+      <tbody id="mbSplit"></tbody></table></div></div>
+    <div class="card"><div class="wrap free"><table class="rt"><thead><tr><th>Datum</th><th>Spel</th><th>Nivå</th><th class="n">Odds</th><th class="n">Units</th><th>Status</th><th class="n">Utfall</th><th class="n">Resultat</th><th class="n">CLV</th></tr></thead>
+      <tbody id="mbRows"></tbody></table></div></div>
+    <div class="note">Alla dina avgjorda spel, räknade på <b>ditt</b> odds och dina units (1u = 1 % av kassan). Spelen flyttar hit från Mina spel 12 h efter att de avgjorts.</div>
   </section>
 
   <!-- ======================================================= TOPP 5 -->
@@ -748,12 +768,13 @@ function tierCard(r, extra = {}) {
     r.tier === "A" ? (r.notis ? `<span class="chip l">notis</span>` : "") : "",
     r.tier === "C" ? `<span class="chip">bara bokföring</span>` : "",
     r.uppFran ? `<span class="chip i">upp från ${r.uppFran}</span>` : "",
-    r.why.length ? `<span class="chip" title="${esc(r.why.join(" · "))}">varför inte ${r.tier === "B" ? "A" : r.tier === "C" ? "B" : ""}?</span>` : "",
+
     refChip(r), `<span class="chip">${SPORTS[r.sport].icon} ${SPORTS[r.sport].name}</span>`, anBtn(anOf(r))].filter(Boolean).join("");
+  const whyNot = r.why.length && r.tier !== "A" ? `<div class="whynot"><b>Inte ${r.tier === "B" ? "A" : "B"}:</b> ${esc(r.why.join(" · "))}</div>` : "";
   return betCard(r, {badge: extra.badge || tierChip(r.tier), dim: r.tier === "C", title: r.why.join(" · "),
     stats: extra.stats || [["Odds", nf(r.odds), r.bolag], ["Edge", pct(r.edge), "vid bokning", r.edge > 0 ? "pos" : ""],
       ["Insats", r.u + "u", nf(r.u, 0) + " % av kassan", r.u >= 3 ? "pos" : ""], ["Spela från", sf(r.spela_fran), ""]],
-    cmp: extra.cmp, chips});
+    cmp: (extra.cmp || "") + whyNot, chips});
 }
 function renderNu() {
   const now = Date.now() / 1000;
@@ -1077,10 +1098,73 @@ function minaCard(b) {
     cmp: bar, chips: [b.synkad ? "" : `<span class="chip w" title="boten tar in spelet vid nästa körning">väntar på boten</span>`,
       `<button class="take on" data-id="${esc(b.ident)}" onclick="openTake(this.dataset.id)">Ändra</button>`, `<span class="chip">${SPORTS[b.sport]?.icon || ""} ${SPORTS[b.sport]?.name || ""}</span>`].join("")});
 }
+// Kompakt rad per öppet spel: tid/klocka · spelare ÖVER/UNDER linje · siffra mot linjen · status. Tryck = hela kortet.
+const MEXP = new Set();
+function toggleMina(id) { MEXP.has(id) ? MEXP.delete(id) : MEXP.add(id); renderMina(); }
+function minaState(b, v) {
+  if (v == null || ["1x2", "ml", "ah", "spread", "cah"].includes(b.marknad)) return ["", ""];
+  const line = b.linje ?? 0;
+  if (b.sida === "under") { const room = Math.floor(line) - Math.round(v);
+    return room < 0 ? ["❌", "förlorat"] : room === 0 ? ["🟠", "en till = förlust"] : ["🟢", `tål ${room} till`]; }
+  const need = Math.floor(line) + 1 - Math.round(v);
+  return need <= 0 ? ["✅", "klart"] : need === 1 ? ["🟢", "behöver 1 till"] : ["🟡", `behöver ${need} till`];
+}
+function minaRow(b) {
+  const L = LIVE[b.ident], now = Date.now() / 1000, side = b.sida === "under" ? "UNDER" : "ÖVER";
+  const isSide = ["match", "hörnor"].includes(b.spelare_id);
+  const what = isSide ? esc(b.spel_text || b.match) : `${esc(b.spelare)} <span>· ${side} ${nf(b.linje, 1).replace(/,0$/, "")} ${esc((MK[b.marknad] || b.marknad).toLowerCase())}</span>`;
+  const t = L && L.gs.state === "in" ? `<b class="pos">${esc(L.gs.detail)}</b>` : L && L.gs.done ? "slut" : b.avspark > now ? countdown(b.avspark).replace("om ", "") : fmtTs(b.avspark);
+  const [emo, txt] = L ? minaState(b, L.v) : ["", ""];
+  return `<div class="row" data-id="${esc(b.ident)}" onclick="toggleMina(this.dataset.id)">
+    <div class="t">${t}</div><div class="w"><b>${what}</b><span>${esc(isSide ? "" : b.match)} · @ ${nf(b.odds)} · ${nf(b.units, 1).replace(/,0$/, "")}u${b.synkad ? "" : " · väntar på boten"}</span></div>
+    <div class="v">${L && L.v != null ? nf(L.v, 0) + `<span class="why"> / ${nf(b.linje, 1).replace(/,0$/, "")}</span>` : "–"}</div>
+    <div class="s">${emo} ${esc(txt)}</div></div>`;
+}
+// ---- Min bokföring: alla avgjorda spel (ditt odds)
+let mbRange = "alla";
+function minbokRows() {
+  const now = Date.now() / 1000;
+  return minaAll().filter(b => sel().includes(b.sport) && b.status !== "öppen" && (mbRange === "alla" || b.avspark > now - (+mbRange) * 86400))
+    .sort((a, b) => b.avspark - a.avspark);
+}
+function mbStats(rs) {
+  const dec = rs.filter(b => ["vunnen", "förlorad"].includes(b.status)), won = dec.filter(b => b.status === "vunnen").length;
+  const res = rs.reduce((a, b) => a + (b.resultat_u || 0), 0), st = rs.filter(b => b.status !== "struken").reduce((a, b) => a + (b.units || 0), 0);
+  const cl = rs.filter(b => b.clv_pp != null).map(b => b.clv_pp);
+  return {n: rs.length, won, lost: dec.length - won, res, roi: st ? res / st : null, clv: cl.length ? cl.reduce((a, b) => a + b, 0) / cl.length : null, st};
+}
+function renderMinbok() {
+  tierSel("mbRange", mbRange, k => { mbRange = k; renderMinbok(); }, [["1", "1 dag"], ["7", "7 dagar"], ["30", "30 dagar"], ["alla", "Alla"]]);
+  const rs = minbokRows(), x = mbStats(rs);
+  document.getElementById("mbTiles").innerHTML = [["Spel", String(x.n), `${x.won}–${x.lost}`], ["Resultat", sgn(x.res, 1) + "u", `${nf(x.st, 1)}u insatt`, cls(x.res)],
+    ["ROI", x.roi == null ? "–" : pctS(x.roi), "", cls(x.roi)], ["CLV på ditt odds", x.clv == null ? "–" : sgn(x.clv, 2) + " pe", "", cls(x.clv)]]
+    .map(([k, v, s2, c]) => `<div class="tile"><div class="k">${k}</div><div class="v ${c || ""}">${v}</div><div class="x">${s2}</div></div>`).join("");
+  const day = b => new Date(b.avspark * 1000).toLocaleDateString("sv-SE", tz);
+  const groups = [["Nivå", b => (b.tier || "–") + " Tier"], ["Sport", b => SPORTS[b.sport]?.name || b.sport], ["Marknad", b => MK[b.marknad] || b.marknad], ["Dag", day]];
+  document.getElementById("mbSplit").innerHTML = groups.map(([lab, f]) => {
+    const m = new Map(); for (const b of rs) { const k = f(b); m.set(k, [...(m.get(k) || []), b]); }
+    return `<tr><td colspan="6" class="why"><b>${lab}</b></td></tr>` + [...m.entries()].sort((a, b) => lab === "Dag" ? (a[0] < b[0] ? 1 : -1) : b[1].length - a[1].length).slice(0, lab === "Dag" ? 14 : 12)
+      .map(([k, v]) => { const y = mbStats(v); return `<tr><td>${esc(k)}</td><td class="n">${y.n}</td><td class="n">${y.won}–${y.lost}</td>
+        <td class="n ${cls(y.res)}">${sgn(y.res, 1)}u</td><td class="n ${cls(y.roi)}">${y.roi == null ? "–" : pctS(y.roi)}</td><td class="n ${cls(y.clv)}">${y.clv == null ? "–" : sgn(y.clv, 2)}</td></tr>`; }).join("");
+  }).join("") || `<tr><td colspan="6" class="empty">Inga avgjorda spel än.</td></tr>`;
+  document.getElementById("mbRows").innerHTML = rs.map(b => `<tr><td>${fmtTs(b.avspark)}</td>
+    <td class="wrapt">${esc(["match", "hörnor"].includes(b.spelare_id) ? b.spel_text || b.match : `${b.spelare} ${b.sida === "under" ? "UNDER" : "ÖVER"} ${b.linje} ${(MK[b.marknad] || b.marknad).toLowerCase()}`)}<div class="c2">${esc(b.match)}</div></td>
+    <td>${tierChip(b.tier || "C")}</td><td class="n">${nf(b.odds)}</td><td class="n">${nf(b.units, 1)}</td><td><span class="pill ${b.status}">${b.status}</span></td>
+    <td class="n">${b.utfall ?? "–"}</td><td class="n ${cls(b.resultat_u)}">${b.resultat_u == null ? "–" : sgn(b.resultat_u, 2) + "u"}</td>
+    <td class="n ${cls(b.clv_pp)}">${b.clv_pp == null ? "–" : sgn(b.clv_pp, 2)}</td></tr>`).join("") || `<tr><td colspan="9" class="empty">Inga avgjorda spel i perioden.</td></tr>`;
+}
+function minbokCsv() {
+  const head = ["datum", "sport", "nivå", "spelare", "match", "marknad", "sida", "linje", "bolag", "odds", "units", "status", "utfall", "resultat_u", "clv_pe"];
+  const q = v => `"${String(v ?? "").replace(/"/g, '""')}"`;
+  const lines = [head.join(";")].concat(minbokRows().map(b => [fmtTs(b.avspark), b.sport, b.tier, b.spelare, b.match, b.marknad, b.sida, b.linje, b.bolag,
+    b.odds, b.units, b.status, b.utfall, b.resultat_u?.toFixed?.(3), b.clv_pp?.toFixed?.(2)].map(q).join(";")));
+  const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob(["﻿" + lines.join("\n")], {type: "text/csv"}));
+  a.download = "min_bokforing.csv"; a.click();
+}
 function renderMina() {
   const now = Date.now() / 1000, all = minaAll().filter(b => sel().includes(b.sport));
-  const open = all.filter(b => b.status === "öppen").sort((a, b) => a.avspark - b.avspark);
-  const done = all.filter(b => b.status !== "öppen").sort((a, b) => b.avspark - a.avspark);
+  const open = all.filter(b => b.status === "öppen").sort((a, b) => ((LIVE[b.ident]?.gs.state === "in") - (LIVE[a.ident]?.gs.state === "in")) || (a.avspark - b.avspark));
+  const done = all.filter(b => b.status !== "öppen" && b.avspark > now - 12 * 3600 - 3 * 3600).sort((a, b) => b.avspark - a.avspark);
   const dec = done.filter(b => ["vunnen", "förlorad"].includes(b.status)), won = dec.filter(b => b.status === "vunnen").length;
   const res = done.reduce((a, b) => a + (b.resultat_u || 0), 0), st = done.filter(b => b.status !== "struken").reduce((a, b) => a + b.units, 0);
   const cl = done.filter(b => b.clv_pp != null).map(b => b.clv_pp), mc = cl.length ? cl.reduce((a, b) => a + b, 0) / cl.length : null;
@@ -1096,7 +1180,8 @@ function renderMina() {
   document.getElementById("minaCount").textContent = open.length || "";
   document.getElementById("minaLed").classList.toggle("off", !open.some(b => LIVE[b.ident]?.gs.state === "in"));
   const ct = document.getElementById("ctMina"); ct.textContent = open.length; ct.classList.toggle("hidden", !open.length);
-  document.getElementById("minaCards").innerHTML = open.map(minaCard).join("") || `<div class="emptybox"><b>Inga öppna spel</b>Tryck ＋ Jag tog spelet på ett spel i fliken Spel.</div>`;
+  document.getElementById("minaCards").innerHTML = open.map(b => minaRow(b) + (MEXP.has(b.ident) ? `<div class="ex">${minaCard(b)}</div>` : "")).join("")
+    || `<div class="emptybox"><b>Inga öppna spel</b>Tryck ＋ Jag tog spelet på ett spel i fliken Spel.</div>`;
   document.getElementById("minaDone").innerHTML = done.slice(0, 60).map(minaCard).join("") || `<div class="empty">Inga avgjorda spel än.</div>`;
   if (!renderMina.ticked) { renderMina.ticked = true; liveTick(); }
 }
@@ -1575,6 +1660,7 @@ function renderParam() {
 // --------------------------------------------------------------- ram
 const HERO = {
   nu: ["Spel", "A, B och C Tier. A och B spelas (flat 1–3u) och ger notis för nya spel. Spela till lägst spela från-oddset."],
+  minbok: ["Min bokföring", "Alla dina avgjorda spel – resultat, ROI och CLV på ditt odds, per dag, nivå och marknad."],
   mina: ["Mina spel", "Spelen du tagit – livescore, din insats och ditt resultat. Notiser under match för varje händelse."],
   avg: ["Tier-resultat", "Varje nivå rättad för sig – presterar B bättre än A är kraven för strikta."],
   topp: ["Dagens topp 5", "De starkaste LIVE-spelen för speldagen – listan ligger fast när oddset rör sig."],
@@ -1591,8 +1677,8 @@ function render() {
   document.getElementById("heroTitle").textContent = HERO[tab][0];
   document.getElementById("heroLead").textContent = HERO[tab][1];
   document.querySelectorAll(".tab[data-t]").forEach(b => b.classList.toggle("on", b.dataset.t === tab));
-  ["nu", "avg", "mina", "topp", "radar", "res", "bok", "parlay", "param"].forEach(id => document.getElementById(id).classList.toggle("hidden", id !== tab));
-  ({nu: renderNu, avg: renderAvg, mina: renderMina, topp: renderTopp, radar: renderRadar, res: renderRes, bok: renderBok, parlay: renderParlay, param: renderParam})[tab]();
+  ["nu", "avg", "mina", "minbok", "topp", "radar", "res", "bok", "parlay", "param"].forEach(id => document.getElementById(id).classList.toggle("hidden", id !== tab));
+  ({nu: renderNu, avg: renderAvg, mina: renderMina, minbok: renderMinbok, topp: renderTopp, radar: renderRadar, res: renderRes, bok: renderBok, parlay: renderParlay, param: renderParam})[tab]();
   history.replaceState(null, "", `#${cur}${tab === "nu" ? "" : "/" + tab}`);
 }
 async function load() {
@@ -1638,7 +1724,7 @@ let TAKE_ID = null;
            for (const [id, x] of Object.entries(pending())) sendMina({...x, bet: undefined}); } }
 { const [s, t] = location.hash.slice(1).split("/");
   if (SPORTS[s] || s === "alla") cur = s;
-  if (["nu", "avg", "mina", "topp", "radar", "res", "bok", "parlay", "param"].includes(t)) tab = t;
+  if (["nu", "avg", "mina", "minbok", "topp", "radar", "res", "bok", "parlay", "param"].includes(t)) tab = t;
   if (location.hash === "#bokforing") tab = "bok"; }
 load(); setInterval(load, 120000);
 // Hemskärmsappen (iPhone) pausar timern i bakgrunden: hämta ny data direkt när sidan visas igen.
