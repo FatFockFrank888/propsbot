@@ -3078,7 +3078,7 @@
 "edge": 0.10804145396871401,
 "spela_fran": 2.03,
 "insats_pct": 0.012,
-"stangning": 1.77,
+"stangning": 1.76,
 "status": "öppen",
 "stopp": "skadelista: day-to-day (ESPN) – kolla före start",
 "clv_signal": false,
@@ -3088,23 +3088,23 @@
 "utfall": null,
 "resultat_enheter": null,
 "modell_edge": 0.10205769967309108,
-"stangning_ts": 1795048487.833734,
+"stangning_ts": 1795048933.4635634,
 "analys": {
-"p_stack": 0.506,
-"p_modell_min": 0.6156,
+"p_stack": 0.5162,
+"p_modell_min": 0.6186,
 "minuter": 29.9,
 "minuter_sd": 6.1,
-"p_faktorer": 0.5079,
-"p_faktorer_ra": 0.5359,
-"vantat_faktorer": 5.5,
-"p_betyg": 0.4988,
-"p_betyg_ra": 0.4902,
-"vantat_betyg": 5.79,
+"p_faktorer": 0.5103,
+"p_faktorer_ra": 0.5129,
+"vantat_faktorer": 5.55,
+"p_betyg": 0.5064,
+"p_betyg_ra": 0.493,
+"vantat_betyg": 5.81,
 "minuter_faktorer": 26.7,
 "f_anv": 1.018,
 "f_miljo": 0.998,
 "f_tempo": 1.0,
-"f_pos": 0.98,
+"f_pos": 0.989,
 "f_mot": 0.92,
 "f_minuter_bas": 24.9,
 "f_b2b": false,
@@ -3124,15 +3124,15 @@
 "traff_mot_n": 3,
 "traff_hemmaborta": 0.667,
 "traff_hemmaborta_n": 6,
-"p_modell": 0.6211,
-"p_marknad": 0.5009,
-"p_slutlig": 0.5254,
-"vantat": 6.76,
+"p_modell": 0.6115,
+"p_marknad": 0.5097,
+"p_slutlig": 0.5304,
+"vantat": 6.78,
 "nb_r": 10,
 "modell_vikt": 0.2,
 "dq": 0.67,
 "matcher": 10,
-"nivajustering": -0.06,
+"nivajustering": -0.01,
 "logg": [
 {
 "ts": 1794877200.0,
@@ -3230,7 +3230,7 @@
 "hemma": false,
 "minuter_sd_faktorer": 6.1,
 "ref": {
-"pin_p": 0.4931882964154754,
+"pin_p": 0.5068117035845247,
 "dk_p": 0.517794814974712,
 "pin_linje": null,
 "dk_linje": null,
@@ -3240,47 +3240,47 @@
 "odds_bolag": [
 {
 "bolag": "atg",
-"over": 1.77,
+"over": 1.76,
 "under": 1.98
 },
 {
 "bolag": "betmgm",
-"over": 1.77,
+"over": 1.76,
 "under": 1.98
 },
 {
 "bolag": "expekt",
-"over": 1.77,
+"over": 1.76,
 "under": 1.98
 },
 {
 "bolag": "kalshi",
-"over": 1.923,
-"under": 2.083
+"over": 1.942,
+"under": 2.062
 },
 {
 "bolag": "leovegas",
-"over": 1.77,
+"over": 1.76,
 "under": 1.98
 },
 {
 "bolag": "paf",
-"over": 1.77,
+"over": 1.76,
 "under": 1.98
 },
 {
 "bolag": "pinnacle",
-"over": 1.893,
-"under": 1.847
+"over": 1.847,
+"under": 1.893
 },
 {
 "bolag": "svenskaspel",
-"over": 1.77,
+"over": 1.76,
 "under": 1.98
 },
 {
 "bolag": "unibet",
-"over": 1.77,
+"over": 1.76,
 "under": 1.98
 },
 {
@@ -3290,17 +3290,17 @@
 }
 ]
 },
-"prognos": 6.756545342962074,
-"analys_ts": 1795048487.8358498,
+"prognos": 6.782189433992158,
+"analys_ts": 1795048933.4650633,
 "nyhet_status": "ok",
 "nyhet": "Draymond Green inte längre på skadelistan (ESPN)",
 "nyhet_ts": "2026-11-18T23:52:23+00:00",
 "modellversion": "2026-11-15-betyg",
 "prognos_ts": 1795040111.560497,
-"skarp_stang_p": 0.500903463093147,
-"skarp_stang_ts": 1795048487.3240705,
+"skarp_stang_p": 0.5096883001904396,
+"skarp_stang_ts": 1795048933.0835323,
 "skarp_kalla": "skanning",
-"pin_stang_p": 0.4931882964154754,
+"pin_stang_p": 0.5068117035845247,
 "dk_stang_p": 0.517794814974712,
 "bolag_bokning": {
 "ts": 1795040111.6420732,
@@ -3326,15 +3326,15 @@
 "dk_p": 0.5280497154439797
 },
 "bolag_stangning": {
-"ts": 1795048487.8498774,
+"ts": 1795048933.479473,
 "odds": {
 "unibet": {
-"over": 1.77,
+"over": 1.76,
 "under": 1.98
 },
 "pinnacle": {
-"over": 1.893,
-"under": 1.847
+"over": 1.847,
+"under": 1.893
 },
 "draftkings": {
 "over": 1.81,
@@ -3345,17 +3345,615 @@
 "pin_komb": false,
 "pin_linje": null,
 "dk_linje": null,
-"pin_p": 0.4931882964154754,
+"pin_p": 0.5068117035845247,
 "dk_p": 0.517794814974712
 },
-"bolag_stang_ts": 1795048487.8498774,
+"bolag_stang_ts": 1795048933.479473,
 "skarp_verifierad": true,
 "skarp_status": null,
-"clv_skarp_pp": 4.635800854769251,
-"clv_pin_pp": 3.864284187002087,
+"clv_skarp_pp": 5.514284564498512,
+"clv_pin_pp": 5.2266249039070125,
 "clv_dk_pp": 6.324936042925749,
 "nyhet_lag_status": "lag:al horford",
 "nyhet_lag": "Lagkamrat ute: Al Horford (out). Modellen nu: Draymond Green väntat 6.8 (30 min), över 5.5 61%, edge vid 2.20: +34% (vid bokning modell +10%)",
 "nyhet_lag_ts": "2026-11-18T23:42:52+00:00"
+},
+{
+"key": "nba1028754467|gui santos|rebounds|3.5|unibet",
+"id": 29,
+"bokford": 1795048933.4635336,
+"match_id": "nba1028754467",
+"match": "Dallas Mavericks – Golden State Warriors",
+"hemma": "Dallas Mavericks",
+"borta": "Golden State Warriors",
+"liga": "NBA",
+"avspark": 1795050000.0,
+"spelare": "Gui Santos",
+"spelare_id": "gui santos",
+"marknad": "rebounds",
+"linje": 3.5,
+"sida": "over",
+"bolag": "unibet",
+"odds": 2.0,
+"sannolikhet": 0.546971525260344,
+"ratt_odds": 1.8282487365755036,
+"edge": 0.09394305052068797,
+"spela_fran": 1.87,
+"insats_pct": 0.008,
+"stangning": 2.0,
+"status": "öppen",
+"stopp": "",
+"clv_signal": false,
+"forv_clv_pp": 4.421512950747131,
+"p_modell": null,
+"p_marknad": 0.546971525260344,
+"utfall": null,
+"resultat_enheter": null,
+"modell_edge": 0.11021642910048146,
+"stangning_ts": 1795048933.4635634,
+"analys": {
+"p_stack": 0.5421,
+"p_modell_min": 0.6662,
+"minuter": 21.2,
+"minuter_sd": 5.6,
+"p_faktorer": 0.5563,
+"p_faktorer_ra": 0.5984,
+"vantat_faktorer": 4.32,
+"p_betyg": 0.5541,
+"p_betyg_ra": 0.5861,
+"vantat_betyg": 4.33,
+"minuter_faktorer": 18.7,
+"f_anv": 1.007,
+"f_miljo": 1.0,
+"f_tempo": 1.0,
+"f_pos": 1.045,
+"f_mot": 0.969,
+"f_minuter_bas": 17.5,
+"f_b2b": false,
+"f_tre_pa_fyra": false,
+"f_minutbegransning": false,
+"f_tillbaka": false,
+"f_miljo_kalla": "pinnacle",
+"f_lag_poang": 109.5,
+"f_mot_n": 2,
+"traff_l5": 0.6,
+"traff_l5_n": 5,
+"traff_l10": 0.6,
+"traff_l10_n": 10,
+"traff_sasong": 0.636,
+"traff_sasong_n": 11,
+"traff_mot": 1.0,
+"traff_mot_n": 2,
+"traff_hemmaborta": 0.667,
+"traff_hemmaborta_n": 6,
+"p_modell": 0.5917,
+"p_marknad": 0.547,
+"p_slutlig": 0.5551,
+"vantat": 4.83,
+"nb_r": 10,
+"modell_vikt": 0.18,
+"dq": 0.6,
+"matcher": 9,
+"nivajustering": 0.28,
+"logg": [
+{
+"ts": 1794877200.0,
+"mot": "NO",
+"hemma": false,
+"min": 19.0,
+"v": 7.0
+},
+{
+"ts": 1794623400.0,
+"mot": "SA",
+"hemma": false,
+"min": 21.0,
+"v": 4.0
+},
+{
+"ts": 1794450600.0,
+"mot": "HOU",
+"hemma": false,
+"min": 12.0,
+"v": 3.0
+},
+{
+"ts": 1794279600.0,
+"mot": "NO",
+"hemma": true,
+"min": 21.0,
+"v": 7.0
+},
+{
+"ts": 1794101400.0,
+"mot": "ORL",
+"hemma": true,
+"min": 12.0,
+"v": 1.0
+},
+{
+"ts": 1793583000.0,
+"mot": "LAC",
+"hemma": true,
+"min": 9.0,
+"v": 3.0
+},
+{
+"ts": 1793412000.0,
+"mot": "LAL",
+"hemma": true,
+"min": 16.0,
+"v": 5.0
+},
+{
+"ts": 1793066400.0,
+"mot": "DEN",
+"hemma": false,
+"min": 28.0,
+"v": 3.0
+},
+{
+"ts": 1792893600.0,
+"mot": "PHX",
+"hemma": false,
+"min": 23.0,
+"v": 4.0
+},
+{
+"ts": 1792807200.0,
+"mot": "MEM",
+"hemma": true,
+"min": 20.0,
+"v": 4.0
+}
+],
+"franvaro": [
+{
+"namn": "Stephen Curry",
+"status": "out",
+"min": 25.0,
+"redan_borta": false
+},
+{
+"namn": "Al Horford",
+"status": "out",
+"min": 16.0,
+"redan_borta": false
+},
+{
+"namn": "Brandon Williams",
+"status": "out",
+"min": 15.8,
+"redan_borta": true
+}
+],
+"lag": "Golden State Warriors",
+"mot": "DAL",
+"hemma": false,
+"minuter_sd_faktorer": 5.6,
+"ref": {
+"pin_p": 0.5586564490810643,
+"dk_p": 0.5340205044207678,
+"pin_linje": null,
+"dk_linje": null,
+"pin_flyttad": false,
+"pin_komb": false
+},
+"odds_bolag": [
+{
+"bolag": "atg",
+"over": 2.0,
+"under": 1.73
+},
+{
+"bolag": "betmgm",
+"over": 2.0,
+"under": 1.73
+},
+{
+"bolag": "expekt",
+"over": 2.0,
+"under": 1.73
+},
+{
+"bolag": "kalshi",
+"over": 1.98,
+"under": 2.02
+},
+{
+"bolag": "leovegas",
+"over": 2.0,
+"under": 1.73
+},
+{
+"bolag": "paf",
+"over": 2.0,
+"under": 1.73
+},
+{
+"bolag": "pinnacle",
+"over": 1.69,
+"under": 2.09
+},
+{
+"bolag": "svenskaspel",
+"over": 2.0,
+"under": 1.73
+},
+{
+"bolag": "unibet",
+"over": 2.0,
+"under": 1.73
+},
+{
+"bolag": "us_draftkings",
+"over": 1.76,
+"under": 1.99
+}
+]
+},
+"prognos": 4.8301167219123124,
+"analys_ts": 1795048933.4650633,
+"modellversion": "2026-11-15-betyg",
+"prognos_ts": 1795048933.4635336,
+"skarp_stang_p": 0.546971525260344,
+"skarp_stang_ts": 1795048933.0835323,
+"skarp_kalla": "skanning",
+"pin_stang_p": 0.5586564490810643,
+"dk_stang_p": 0.5340205044207678,
+"bolag_bokning": {
+"ts": 1795048933.479473,
+"odds": {
+"unibet": {
+"over": 2.0,
+"under": 1.73
+},
+"pinnacle": {
+"over": 1.69,
+"under": 2.09
+},
+"draftkings": {
+"over": 1.76,
+"under": 1.99
+}
+},
+"pin_flyttad": false,
+"pin_komb": false,
+"pin_linje": null,
+"dk_linje": null,
+"pin_p": 0.5586564490810643,
+"dk_p": 0.5340205044207678
+},
+"bolag_stangning": {
+"ts": 1795048933.479473,
+"odds": {
+"unibet": {
+"over": 2.0,
+"under": 1.73
+},
+"pinnacle": {
+"over": 1.69,
+"under": 2.09
+},
+"draftkings": {
+"over": 1.76,
+"under": 1.99
+}
+},
+"pin_flyttad": false,
+"pin_komb": false,
+"pin_linje": null,
+"dk_linje": null,
+"pin_p": 0.5586564490810643,
+"dk_p": 0.5340205044207678
+},
+"bolag_stang_ts": 1795048933.479473,
+"skarp_verifierad": true,
+"skarp_status": null,
+"clv_skarp_pp": 4.697152526034398,
+"clv_pin_pp": 5.865644908106427,
+"clv_dk_pp": 3.402050442076776
+},
+{
+"key": "nba1028754038|luguentz dort|threes|1.5|unibet",
+"id": 30,
+"bokford": 1795048933.4635518,
+"match_id": "nba1028754038",
+"match": "Oklahoma City Thunder – Atlanta Hawks",
+"hemma": "Oklahoma City Thunder",
+"borta": "Atlanta Hawks",
+"liga": "NBA",
+"avspark": 1795050000.0,
+"spelare": "Luguentz Dort",
+"spelare_id": "luguentz dort",
+"marknad": "threes",
+"linje": 1.5,
+"sida": "over",
+"bolag": "unibet",
+"odds": 1.88,
+"sannolikhet": 0.5805725700719366,
+"ratt_odds": 1.7224375582816351,
+"edge": 0.09147643173524078,
+"spela_fran": 1.76,
+"insats_pct": 0.008,
+"stangning": 1.88,
+"status": "öppen",
+"stopp": "",
+"clv_signal": false,
+"forv_clv_pp": 4.865767645491537,
+"p_modell": null,
+"p_marknad": 0.5805725700719366,
+"utfall": null,
+"resultat_enheter": null,
+"modell_edge": 0.06589815924358966,
+"stangning_ts": 1795048933.4635634,
+"analys": {
+"p_stack": 0.6014,
+"p_modell_min": 0.5247,
+"minuter": 29.6,
+"minuter_sd": 5.7,
+"p_faktorer": 0.5669,
+"p_faktorer_ra": 0.5231,
+"vantat_faktorer": 1.65,
+"p_betyg": 0.564,
+"p_betyg_ra": 0.5109,
+"vantat_betyg": 1.79,
+"minuter_faktorer": 26.2,
+"f_anv": 1.003,
+"f_miljo": 0.958,
+"f_tempo": 1.0,
+"f_pos": 1.021,
+"f_mot": 1.0,
+"f_minuter_bas": 23.3,
+"f_b2b": false,
+"f_tre_pa_fyra": false,
+"f_minutbegransning": false,
+"f_tillbaka": false,
+"f_miljo_kalla": "pinnacle",
+"f_lag_poang": 110.8,
+"f_mot_n": 0,
+"traff_l5": 0.2,
+"traff_l5_n": 5,
+"traff_l10": 0.4,
+"traff_l10_n": 10,
+"traff_sasong": 0.357,
+"traff_sasong_n": 14,
+"traff_mot": null,
+"traff_mot_n": 0,
+"traff_hemmaborta": 0.375,
+"traff_hemmaborta_n": 8,
+"p_modell": 0.5233,
+"p_marknad": 0.5806,
+"p_slutlig": 0.567,
+"vantat": 1.84,
+"nb_r": 8,
+"modell_vikt": 0.24,
+"dq": 0.8,
+"matcher": 12,
+"nivajustering": -0.0,
+"logg": [
+{
+"ts": 1794790800.0,
+"mot": "MIL",
+"hemma": false,
+"min": 18.0,
+"v": 0.0
+},
+{
+"ts": 1794618000.0,
+"mot": "CHI",
+"hemma": false,
+"min": 20.0,
+"v": 1.0
+},
+{
+"ts": 1794268800.0,
+"mot": "LAL",
+"hemma": true,
+"min": 18.0,
+"v": 1.0
+},
+{
+"ts": 1794097800.0,
+"mot": "BKN",
+"hemma": true,
+"min": 20.0,
+"v": 1.0
+},
+{
+"ts": 1794009600.0,
+"mot": "WSH",
+"hemma": true,
+"min": 32.0,
+"v": 5.0
+},
+{
+"ts": 1793836800.0,
+"mot": "WSH",
+"hemma": false,
+"min": 31.0,
+"v": 2.0
+},
+{
+"ts": 1793665800.0,
+"mot": "IND",
+"hemma": false,
+"min": 31.0,
+"v": 4.0
+},
+{
+"ts": 1793487600.0,
+"mot": "NO",
+"hemma": false,
+"min": 29.0,
+"v": 1.0
+},
+{
+"ts": 1793318400.0,
+"mot": "CLE",
+"hemma": true,
+"min": 22.0,
+"v": 1.0
+},
+{
+"ts": 1793228400.0,
+"mot": "MIA",
+"hemma": true,
+"min": 24.0,
+"v": 2.0
+}
+],
+"franvaro": [
+{
+"namn": "CJ McCollum",
+"status": "out",
+"min": 26.9,
+"redan_borta": false
+},
+{
+"namn": "Kingston Flemings",
+"status": "out",
+"min": 22.2,
+"redan_borta": false
+},
+{
+"namn": "Jock Landale",
+"status": "out",
+"min": 14.5,
+"redan_borta": false
+},
+{
+"namn": "Asa Newell",
+"status": "out",
+"min": 12.6,
+"redan_borta": true
+}
+],
+"lag": "Atlanta Hawks",
+"mot": "OKC",
+"hemma": false,
+"minuter_sd_faktorer": 5.7,
+"ref": {
+"pin_p": 0.6061625091012098,
+"dk_p": 0.48357821829113506,
+"pin_linje": null,
+"dk_linje": null,
+"pin_flyttad": false,
+"pin_komb": false
+},
+"odds_bolag": [
+{
+"bolag": "atg",
+"over": 1.88,
+"under": 1.85
+},
+{
+"bolag": "betmgm",
+"over": 1.88,
+"under": 1.85
+},
+{
+"bolag": "expekt",
+"over": 1.88,
+"under": 1.85
+},
+{
+"bolag": "kalshi",
+"over": 1.802,
+"under": 2.247
+},
+{
+"bolag": "leovegas",
+"over": 1.88,
+"under": 1.85
+},
+{
+"bolag": "paf",
+"over": 1.88,
+"under": 1.85
+},
+{
+"bolag": "pinnacle",
+"over": 1.568,
+"under": 2.31
+},
+{
+"bolag": "svenskaspel",
+"over": 1.88,
+"under": 1.85
+},
+{
+"bolag": "unibet",
+"over": 1.88,
+"under": 1.85
+},
+{
+"bolag": "us_draftkings",
+"over": 1.92,
+"under": 1.81
+}
+]
+},
+"prognos": 1.8367090854918213,
+"analys_ts": 1795048933.4650633,
+"modellversion": "2026-11-15-betyg",
+"prognos_ts": 1795048933.4635518,
+"skarp_stang_p": 0.5805725700719366,
+"skarp_stang_ts": 1795048933.0835323,
+"skarp_kalla": "skanning",
+"pin_stang_p": 0.6061625091012098,
+"dk_stang_p": 0.48357821829113506,
+"bolag_bokning": {
+"ts": 1795048933.479473,
+"odds": {
+"unibet": {
+"over": 1.88,
+"under": 1.85
+},
+"pinnacle": {
+"over": 1.568,
+"under": 2.31
+},
+"draftkings": {
+"over": 1.92,
+"under": 1.81
+}
+},
+"pin_flyttad": false,
+"pin_komb": false,
+"pin_linje": null,
+"dk_linje": null,
+"pin_p": 0.6061625091012098,
+"dk_p": 0.48357821829113506
+},
+"bolag_stangning": {
+"ts": 1795048933.479473,
+"odds": {
+"unibet": {
+"over": 1.88,
+"under": 1.85
+},
+"pinnacle": {
+"over": 1.568,
+"under": 2.31
+},
+"draftkings": {
+"over": 1.92,
+"under": 1.81
+}
+},
+"pin_flyttad": false,
+"pin_komb": false,
+"pin_linje": null,
+"dk_linje": null,
+"pin_p": 0.6061625091012098,
+"dk_p": 0.48357821829113506
+},
+"bolag_stang_ts": 1795048933.479473,
+"skarp_verifierad": true,
+"skarp_status": null,
+"clv_skarp_pp": 4.865767645491537,
+"clv_pin_pp": 7.424761548418857,
+"clv_dk_pp": -4.8336675325886205
 }
 ]
