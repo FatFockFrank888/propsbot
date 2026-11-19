@@ -1,6 +1,6 @@
-NBA-skanning 2026-11-19 15:20
+NBA-skanning 2026-11-19 15:28
 Kambi NBA: 4 matcher, bolag: atg, betmgm, expekt, leovegas, paf, svenskaspel, unibet
-NBA tid: Kambi-props 14 s
+NBA tid: Kambi-props 11 s
 Pinnacle NBA: 4 matcher, 258 spelarodds (5 s)
 Kalshi: 38 likvida linjer av 975 öppna marknader
 Kalshi: 38 linjer kopplade till matcher
@@ -10,20 +10,20 @@ DraftKings via ESPN: 4 matcher, 312 spelarodds (referens)
 Stängningsarkiv (Pinnacle/DK): 285 tvåsidiga linjer noterade, 0 rader arkiverade
 NBA namnexempel Minnesota Timberwolves: Kambi ['ayo dosunmu', 'jaden mcdaniels', 'jalen brunson', 'jonathan kuminga', 'josh hart', 'karl anthony towns'] | Pinnacle ['ayo dosunmu', 'jaden mcdaniels', 'jalen brunson', 'jonathan kuminga', 'josh hart', 'karl anthony towns']
 NBA Pinnacle-exempel: ['Winning Margin Range 1st Half', 'Total Points Odd/Even', 'Winning Margin Range', 'Minnesota Timberwolves Points Odd/Even', 'New York Knicks Points Odd/Even', 'Moneyline and Total Points', 'Ayo Dosunmu Total Threes Made', 'Ayo Dosunmu Total Assists']
-NBA linjer: 113 med samma linje hos Pinnacle, 16 flyttade från närliggande linje, 91 kombolinjer (PRA/PR/RA/PA) räknade ur Pinnacles poäng/returer/assist
-NBA-odds (unibet/pinnacle) per marknad: pinnacle:assists 40, pinnacle:points 102, pinnacle:rebounds 84, pinnacle:threes 64, unibet:assists 82, unibet:pa 82, unibet:points 96, unibet:pr 92, unibet:pra 82, unibet:ra 82, unibet:rebounds 92, unibet:threes 86
+NBA linjer: 111 med samma linje hos Pinnacle, 18 flyttade från närliggande linje, 91 kombolinjer (PRA/PR/RA/PA) räknade ur Pinnacles poäng/returer/assist
+NBA-odds (unibet/pinnacle) per marknad: pinnacle:assists 40, pinnacle:points 106, pinnacle:rebounds 84, pinnacle:threes 64, unibet:assists 82, unibet:pa 82, unibet:points 96, unibet:pr 92, unibet:pra 82, unibet:ra 82, unibet:rebounds 92, unibet:threes 86
 NBA faktormodell (skugga): 89 spelare, Pinnacle-total för 4 av 4 matcher, ligatempo 100.4
 NBA spelarbetyg (skugga): 90 spelare, 0 nya boxscores
 NBA-modell: 4 matcher hos ESPN, 89 spelare, 0 nya boxscores, 74 skadade (out/doubtful)
-NBA-modell nivåavvikelse (dras bort): assists -0.08, pa -0.01, points +0.16, pr +0.14, pra +0.01, ra +0.08, rebounds +0.23, threes -0.06
-NBA faktormodell nivåavvikelse: assists -0.30, pa -0.41, points -0.19, pr -0.27, pra -0.49, ra -0.31, rebounds -0.09, threes -0.19
+NBA-modell nivåavvikelse (dras bort): assists -0.09, pa -0.02, points +0.19, pr +0.13, pra +0.01, ra +0.07, rebounds +0.24, threes -0.06
+NBA faktormodell nivåavvikelse: assists -0.30, pa -0.41, points -0.20, pr -0.28, pra -0.49, ra -0.32, rebounds -0.08, threes -0.19
 NBA minutmodell (skugga): medel cv² 0.084, spread från Pinnacle för 4 av 4 matcher; stackning: _alla b_m -0.03 b_k 1.20 (n 552), assists b_m +0.05 b_k 1.20 (n 87), blocks b_m +0.00 b_k 1.20 (n 4), pa b_m -0.03 b_k 1.00 (n 19), points b_m +0.01 b_k 1.20 (n 157), pr b_m -0.06 b_k 0.99 (n 55), pra b_m -0.09 b_k 0.92 (n 38), ra b_m +0.01 b_k 1.20 (n 35), rebounds b_m -0.05 b_k 1.04 (n 100), steals b_m -0.06 b_k 1.17 (n 9), threes b_m -0.05 b_k 1.14 (n 48)
-NBA-modelltest: 36 spelbara enligt modellen av 444 ben med modell
-NBA analyssida: 444 ben med analys
+NBA-modelltest: 37 spelbara enligt modellen av 442 ben med modell
+NBA analyssida: 442 ben med analys
 NBA CLV-signal: 3 ben släppta
-NBA lagnyheter: 102 spelare på skadelistan, 0 ben stoppade, 2 markerade (questionable)
-NBA spelregler: stoppade {'edge': 10, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0} (modelltest {'edge': 20, 'spelare': 11, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0})
-NBA: 1 spelbara ben av 492
+NBA lagnyheter: 102 spelare på skadelistan, 0 ben stoppade, 1 markerade (questionable)
+NBA spelregler: stoppade {'edge': 8, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0} (modelltest {'edge': 20, 'spelare': 12, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0})
+NBA: 1 spelbara ben av 494
 NBA SPEL: Memphis Grizzlies – Golden State Warriors | Cedric Coward rebounds under 7.5 | unibet 1.97 | p 54.3% | edge 6.9%
 NBA LIVE: 0 spel uppfyller live-kraven, 0 nya bokförda live
 NBA skarp stängning: 36 spel uppdaterade
@@ -37,5 +37,5 @@ NBA: hittar inte Al Horford i boxscore (Dallas Mavericks – Golden State Warrio
 NBA: hittar inte Andrew Nembhard i boxscore (Indiana Pacers – Houston Rockets) – väntar
 NBA LIVE-status per marknad (skarp CLV, marknadsspel): assists ok, blocks ok, pa osäker, points ok, pr osäker, pra osäker, ra osäker, rebounds ok, steals ok, threes ok
 NBA modellstatus per marknad (modelltest, styr inte): assists shadow, blocks insufficient_data, pa insufficient_data, points shadow, pr degraded, pra degraded, ra shadow, rebounds degraded, steals insufficient_data, threes shadow
-NBA sides/totals: 4 matcher med Kambi + Pinnacle, 92 linjer, 0 nya spel, 0 nya skuggspel, 0 över stoppade (utklassning); bästa edge +0.2% (Memphis Grizzlies -4.5), +0.1% (Milwaukee Bucks +12.5), +0.0% (Minnesota Timberwolves +3.5)
+NBA sides/totals: 4 matcher med Kambi + Pinnacle, 92 linjer, 0 nya spel, 0 nya skuggspel, 0 över stoppade (utklassning); bästa edge +0.2% (Memphis Grizzlies -4.5), +0.1% (Milwaukee Bucks +12.5), -0.3% (Memphis Grizzlies -5.5)
 NBA sides: Kambis marknader moneyline - including overtime -> ml; point spread - including overtime -> spread; total points - including overtime -> game_total
