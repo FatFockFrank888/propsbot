@@ -2,6 +2,7 @@
 
 Flikar:
   Översikt          – nyckeltal (formler mot 'Alla spel')
+  A Tier, B Tier, C Tier – nivåernas spel (tiers.json), insats i nivåernas units (1u = tier_unit, 1 %)
   Alla spel         – en rad per spel (Excel-tabell med filter), CLV/resultat/intervall som formler
   Per marknad, Per bolag, Per sida, Per oddsintervall, Per sannolikhet, Per edge,
   Per typ, Per sport, Per CLV-signal, Per vecka – sammanställningar med COUNTIFS/SUMIFS
@@ -104,8 +105,37 @@ def _rows(root: Path) -> list[list]:
     return out
 
 
+TIER_TYPES = ("A Tier", "B Tier", "C Tier")
+
+
+def _tier_rows(root: Path) -> list[list]:
+    """En rad per spel i tiers.json, samma kolumner som _rows. Typ = "A Tier" / "B Tier" / "C Tier".
+    Insats i nivåernas units (1u = tier_unit), sista kolumnen = exakt resultat från källan (resultat_u)."""
+    try:
+        bets = json.loads((root / "tiers.json").read_text(encoding="utf-8")).get("bets", [])
+    except (FileNotFoundError, json.JSONDecodeError, AttributeError):
+        return []
+    now = datetime.now(timezone.utc).timestamp()
+    out = []
+    for b in bets:
+        if b.get("tier") not in ("A", "B", "C"):
+            continue
+        done = b.get("avspark") and b["avspark"] < now
+        spelare = b.get("spelare")
+        if b.get("spelare_id") in ("match", "hörnor"):
+            spelare = b.get("spel_text") or spelare
+        out.append([_dt(b.get("bokford")), "NBA" if b.get("sport") == "nba" else "Fotboll", f"{b['tier']} Tier",
+                    _dt(b.get("avspark")), b.get("match"), spelare, MK.get(b.get("marknad"), b.get("marknad")),
+                    SIDA.get(b.get("sida"), "Över"), b.get("linje"), b.get("bolag"), b.get("odds"),
+                    b.get("stangning") if done else None, None, b.get("sannolikhet"), b.get("edge"),
+                    b.get("units") or 0, "nej", b.get("status"), b.get("utfall"), b.get("resultat_u")])
+    out.sort(key=lambda r: r[0] or datetime.min, reverse=True)
+    return out
+
+
 def build(root: Path, path: Path) -> int:
     rows = _rows(root)
+    tier_rows = _tier_rows(root)
     wb = Workbook()
     base = Font(name=FONT, size=10)
     bold = Font(name=FONT, size=10, bold=True)
@@ -191,8 +221,10 @@ def build(root: Path, path: Path) -> int:
         ws.column_dimensions["AA"].width = 12
 
     ws = wb.active
-    ws.title = "LIVE"
-    kpi_box(ws, write_sheet(ws, [r for r in rows if r[2] == "Live"], "Live"))
+    for i, t in enumerate(TIER_TYPES):   # nivåerna först (ersätter LIVE-fliken, 18/11)
+        w = ws if i == 0 else wb.create_sheet(t)
+        w.title = t
+        kpi_box(w, write_sheet(w, [r[:19] for r in tier_rows if r[2] == t], t.replace(" ", "")))
     ws = wb.create_sheet("Alla spel")
     last = write_sheet(ws, rows, "AllaSpel")
     kpi_box(ws, last)
@@ -310,8 +342,8 @@ def build(root: Path, path: Path) -> int:
         o[f"A{i}"].border = o[f"B{i}"].border = thin
     o.column_dimensions["A"].width = 34
     o.column_dimensions["B"].width = 16
-    o["A18"] = ("Spel = riktiga spel före matchstart (notis skickad). Skugga = stoppade av en regel. "
-                "Modelltest = modellens val (ingen notis). Inga spel görs under pågående match (live/in-play).")
+    o["A18"] = ("A/B/C Tier = nivåerna (egna flikar, 1u = 1 % av kassan). A och B spelas (notis), C är bara bokföring. "
+                "Spel/Skugga/Modelltest i 'Alla spel' = källbokföringen (1u = 0,2 %). Inga spel under pågående match.")
     o["A19"] = "Filtrera i fliken 'Alla spel' (pilarna i rubrikraden). Övriga flikar sammanställer per grupp."
     for c in ("A18", "A19"):
         o[c].font = Font(name=FONT, size=9, italic=True, color="6B7280")
@@ -351,7 +383,8 @@ CSV_HEAD = ["Bokförd", "Sport", "Typ", "Avspark", "Match", "Spelare", "Marknad"
 
 
 def _csv_row(r: list) -> list:
-    """Samma rad som i Excel, men med CLV och resultat uträknade (CSV har inga formler)."""
+    """Samma rad som i Excel, men med CLV och resultat uträknade (CSV har inga formler).
+    En 20:e kolumn (tier-rader) är det exakta resultatet i units."""
     odds, close, units, status = r[10], r[11], r[15] or 0, r[17]
     clv = (odds / close - 1) if odds and close else None
     if status == "vunnen":
@@ -362,6 +395,8 @@ def _csv_row(r: list) -> list:
         res = 0.0
     else:
         res = None
+    if len(r) > 19 and r[19] is not None:
+        res = r[19]
     f = lambda d: d.strftime("%Y-%m-%d %H:%M") if d else ""
     def n(x, k=4):
         if x is None or x == "":
@@ -379,9 +414,10 @@ def write_csv_exports(root: Path, out_dir: Path) -> int:
     """site/csv/*.csv – läses in i Google Sheets med =IMPORTDATA(url; ","; "en_US") och uppdateras av sig själv."""
     import csv
     out_dir.mkdir(parents=True, exist_ok=True)
-    rows = [_csv_row(r) for r in _rows(root)]
+    tiers = [_csv_row(r) for r in _tier_rows(root)]
+    rows = tiers + [_csv_row(r) for r in _rows(root)]
     by = lambda sport: [r for r in rows if r[1] == sport and r[2] != "Parlay"]
-    sets = {"live": [r for r in rows if r[2] == "Live"], "alla_spel": rows,
+    sets = {"tiers": tiers, "live": [r for r in rows if r[2] == "Live"], "alla_spel": rows,
             "fotboll": by("Fotboll"), "nba": by("NBA"),
             "parlays": [r for r in rows if r[2] == "Parlay"]}
     for name, rs in sets.items():
@@ -395,7 +431,7 @@ def write_csv_exports(root: Path, out_dir: Path) -> int:
     for r in rows:
         g[(r[1], r[2])].append(r)
     order = {"Fotboll": 0, "NBA": 1}
-    torder = {t: i for i, t in enumerate(["Live", "Spel", "Skugga", "Modelltest", "Fouls-test", "Kort-test", "Sides", "Sides-skugga", "Parlay"])}
+    torder = {t: i for i, t in enumerate([*TIER_TYPES, "Live", "Spel", "Skugga", "Modelltest", "Fouls-test", "Kort-test", "Sides", "Sides-skugga", "Parlay"])}
     keys = sorted(g, key=lambda k: (order.get(k[0], 9), torder.get(k[1], 9)))
     for fname, only in (("sammanfattning.csv", None),):
       with open(out_dir / fname, "w", newline="", encoding="utf-8") as fh:
