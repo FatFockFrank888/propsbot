@@ -1,11 +1,11 @@
-# NBA – utvärdering på framåtriktad data (2026-11-19T03:41:57+00:00)
+# NBA – utvärdering på framåtriktad data (2026-11-19T03:56:39+00:00)
 
 Bara bokförda prognoser (gjorda före matchen). Unika prestationer = spelare × match × marknad.
 
 | Bokföring | Rader | Prestationer | Matcher | Dagar | Avgjorda | ROI flat | ROI modell | Max DD (u) | CLV pe skarp (95 %) | CLV pe skarp verifierad | Verifierad täckning | Slog skarp stängning | CLV pe mot Unibets stängning | Brier modell / marknad (n) |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | live | 32 | 32 | 26 | 13 | 27 | -3.8 % | -2.7 % | 4.2 | 3.25 (+2.39…+4.16) | 3.32 | 0.97 | +87.5 % | 2.46 | – |
-| spel | 429 | 429 | 127 | 18 | 382 | +3.0 % | +0.8 % | 14.5 | 2.23 (+1.79…+2.71) | 2.09 | 0.81 | +78.1 % | 2.65 | – |
+| spel | 429 | 429 | 127 | 18 | 383 | +3.3 % | +0.9 % | 14.5 | 2.23 (+1.79…+2.71) | 2.09 | 0.81 | +78.1 % | 2.65 | – |
 | skugga | 1287 | 1287 | 140 | 18 | 1146 | +3.9 % | +4.1 % | 39.8 | 0.86 (+0.64…+1.11) | 0.77 | 0.84 | +66.2 % | 1.76 | – |
 | modelltest | 1107 | 1107 | 141 | 18 | 987 | +4.7 % | +4.7 % | 34.2 | -0.02 (-0.36…+0.43) | -0.12 | 0.81 | +46.1 % | 1.81 | 0.2764 / 0.2440 (489) |
 
@@ -22,7 +22,7 @@ Bara bokförda prognoser (gjorda före matchen). Unika prestationer = spelare ×
 | ra | **osäker** | 72 | 0.42 (-1.48…+0.59) | +63.4 % | +8.9 % |
 | rebounds | **ok** | 360 | 1.08 (+0.77…+1.38) | +71.1 % | -4.9 % |
 | steals | **ok** | 31 | 4.48 (+2.78…+9.36) | +90.3 % | +40.0 % |
-| threes | **ok** | 213 | 1.47 (+0.70…+2.13) | +69.2 % | +12.6 % |
+| threes | **ok** | 213 | 1.47 (+0.70…+2.13) | +69.2 % | +13.0 % |
 
 ## Skarp stängning per status
 
@@ -34,7 +34,7 @@ Verifierad = referensens notering högst 60 min före start. Flyttad linje = vå
 | live | borttagen | 1 | 1.14 | -100.0 % |
 | live | flyttad linje (för oss) | 2 | 7.04 | -14.0 % |
 | live | verifierad | 16 | 2.48 | +12.9 % |
-| spel | ? | 67 | 2.98 | -10.6 % |
+| spel | ? | 67 | 2.98 | -8.3 % |
 | spel | borttagen | 55 | 2.93 | -22.5 % |
 | spel | flyttad linje (för oss) | 41 | 4.55 | +2.6 % |
 | spel | flyttad linje (mot oss) | 10 | -4.45 | +4.0 % |
