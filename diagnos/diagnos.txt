@@ -1,4 +1,4 @@
-Skanning 2026-11-19 23:14
+Skanning 2026-11-19 23:23
 Kambi unibet (ubse): OK, 22 matcher i valda ligor
 Kambi paf (paf): OK
 Kambi atg (atg): OK
@@ -7,7 +7,8 @@ Kambi svenskaspel (svenskaspel): OK
 Kambi expekt (expektse): OK
 Kambi betmgm (betmgmse): OK
 Pinnacle: OK, 25 ligor
-Pinnacle: 20 matcher, matchlinjer för 16 av 22 Kambi-matcher, 0 spelarodds som används
+  Nancy – Dijon: Pinnacle FEL HTTP 403 för https://guest.api.arcadia.pinnacle.com/0.1/matchups/1640278612/related
+Pinnacle: 20 matcher, matchlinjer för 15 av 22 Kambi-matcher, 0 spelarodds som används
 Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
   Double Chance 1st Half | units=Regular | kategori=Team Props | deltagare=Sao Paulo Or Fluminense,Draw Or Fluminense,Draw Or Sao Paulo  ->  används inte (lagmarknad)
   Moneyline and Total Goals | units=Regular | kategori=Team Props | deltagare=Sao Paulo & Over 2.5,Sao Paulo & Under 2.5,Draw & Over 2.5,Draw & Under 2.5,Fluminense & Over 2.5,Fluminense & Under 2.5  ->  används inte (lagmarknad)
@@ -70,11 +71,10 @@ Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
   Correct Score 1st Half | units=Regular | kategori=Team Props | deltagare=Orlando City 0, FC Cincinnati 0,Orlando City 0, FC Cincinnati 1,Orlando City 0, FC Cincinnati 2,Orlando City 0, FC Cincinnati 3,Orlando City 1, FC Cincinnati 0,Orlando City 1, FC Cincinnati 1,Orlando City 1, FC Cincinnati 2,Orlando City 1, FC Cincinnati 3,Orlando City 2, FC Cincinnati 0,Orlando City 2, FC Cincinnati 1,Orlando City 2, FC Cincinnati 2,Orlando City 2, FC Cincinnati 3,Orlando City 3, FC Cincinnati 0,Orlando City 3, FC Cincinnati 1,Orlando City 3, FC Cincinnati 2,Orlando City 3, FC Cincinnati 3  ->  används inte (lagmarknad)
   FC Cincinnati To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
 Sides mindre ligor: 11 Kambi-matcher inom 12 h, 32 Pinnacle-matcher, 10 med Pinnacle, 10 matchade: Armenia / Premier League, Azerbaijan / Premier League, Colombia / Torneo Dimayor, Indonesia / Liga 1, Japan / J1-League, Malaysia / Super League, Puerto Rico / LPR Pro, Vietnam / V-League 1
-Sides/totals: 26 matcher med Kambi + Pinnacle, 658 linjer, 0 nya spel, 0 nya skuggspel, Smarkets-priser i 21 av 21; bästa edge +3.1% (Athletic Bilbao 1X2: 2), +1.5% (Seattle Sounders 1X2: X), +1.2% (Negeri Sembilan FA 1X2: 1)
-Hörnmodell: football-data.co.uk 2627: 17 av 17 ligor hämtade
+Sides/totals: 25 matcher med Kambi + Pinnacle, 637 linjer, 0 nya spel, 0 nya skuggspel, Smarkets-priser i 20 av 20; bästa edge +3.1% (Athletic Bilbao 1X2: 2), +1.6% (Seattle Sounders 1X2: X), +1.2% (Negeri Sembilan FA 1X2: 1)
 Hörnmodell (test): 7861 matcher i underlaget (17 ligor), 11 matcher med modell, 1370 Kambi-linjer, 0 nya testspel; bästa edge +61.0% (Bayern Munich Bayern Munich hörnor över 9.5 @ 3.20), +18.1% (Darmstadt 98 1. FC Heidenheim hörnor över 7.5 @ 3.10), +17.7% (Athletic Bilbao Athletic Bilbao hörnor över 8.5 @ 3.50)
 Fotboll extra bolag: 0 nya hämtningar, 1190 odds i bruk, krediter kvar 262, dagsbudget 21 (andel 40%), förbrukat idag 4
-Tid: hämtning 391 s
+Tid: hämtning 386 s
 Marginal över alla matcher: uppmätt marginal: shots stege k=1.08 (7 spelare; marginal vid 3,00 ≈ 9%), shots_on_target stege k=1.08 (42 spelare; marginal vid 3,00 ≈ 9%)
   São Paulo-SP – Fluminense-RJ: modell – hittar inte matchen hos ESPN
   Orlando City – FC Cincinnati: modell – hittar inte matchen hos ESPN
@@ -100,7 +100,7 @@ Exempel uppmätt marginal: goal k=1.07, shots_on_target stege k=1.06 (14 spelare
   Troyes – Le Havre: väntade mål Pinnacle 2.70 mot Kambi 2.75 (kvot 0.981); uppmätt marginal: goal k=1.38, assist k=1.28, shots stege k=1.08 (7 spelare; marginal vid 3,00 ≈ 9%), shots_on_target stege k=1.24 (21 spelare; marginal vid 3,00 ≈ 30%)
   Athletic Bilbao – Espanyol: väntade mål Pinnacle 2.80 mot Kambi 2.84 (kvot 0.985); uppmätt marginal: goal k=1.57, assist k=1.59
   Club Atlético Vélez Sarsfield – Belgrano: saknar matchlinjer från Pinnacle
-Tid: modell och utvärdering 30 s
+Tid: modell och utvärdering 38 s
 Bolag med spelarodds: atg, betmgm, expekt, leovegas, oa_fanduel, oa_onexbet, paf, svenskaspel, unibet
 Spelarodds per marknad: assist 1295, goal 6187, shots 2260, shots_on_target 2827
 Kambi-marknader: assist='to give an assist (settled using opta data)':1295; goal='1st goalscorer':2338; goal='to score':2519; goal='to score at least 2 goals':1155; goal='to score at least 3 goals':147; goal='to score at least 4 goals':28; shots="player's shots (settled using opta data)":1504; shots_on_target="player's shots on target (settled using opta data)":2393
