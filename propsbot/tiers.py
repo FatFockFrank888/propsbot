@@ -66,8 +66,38 @@ CLV_BAD = ("oddset har fallit", "för svag referens", "håller inte med", "Pinna
 DK_MARKETS_OK = ("steals", "blocks", "pr", "pra", "ra", "pa")
 
 
+LIVE_KEYS = {"live_min_edge": {"points": 0.05, "threes": 0.05, "assists": 0.05, "rebounds": 0.05}, "live_max_edge": 0.15,
+             "live_odds_window": [1.60, 3.50], "nba_pinnacle_markets": ["points", "rebounds", "assists", "threes"]}
+
+
 def cfg(settings: dict) -> dict:
-    return {k: settings.get(k, v) for k, v in DEFAULTS.items()}
+    c = {k: settings.get(k, v) for k, v in DEFAULTS.items()}
+    c["_live"] = {k: settings.get(k, v) for k, v in LIVE_KEYS.items()}   # för "varför inte A" (NBA LIVE-kraven)
+    return c
+
+
+def live_reasons(b: dict, c: dict) -> list[str]:
+    """Konkret vilket NBA LIVE-krav (live.py) spelet inte klarade – visas som "Inte A: …" på sidan."""
+    L = c.get("_live") or LIVE_KEYS
+    mk, e, o = b.get("marknad"), b.get("edge") or 0.0, b.get("odds") or 0.0
+    need = (L["live_min_edge"] or {}).get(mk)
+    out = []
+    if need is None:
+        out.append(f"marknaden {MK.get(mk, mk)} spelas inte i A (för lite data)")
+    else:
+        if e < need:
+            out.append(f"edge {e:.1%} < A-krav {need:.0%}")
+        if e > L["live_max_edge"]:
+            out.append(f"edge {e:.1%} > A-tak {L['live_max_edge']:.0%}")
+    lo, hi = L["live_odds_window"]
+    if not (lo <= o <= hi):
+        out.append(f"odds {o:.2f} utanför A {lo:.2f}–{hi:.2f}")
+    if mk in L["nba_pinnacle_markets"] and b.get("pin_stang_p") is None and b.get("pin_p") is None:
+        out.append("Pinnacle saknar linjen")
+    stop = [p for p in _stopp(b).split("; ") if p and not p.startswith(("sharp money med", "linjejusterat", "modell "))]
+    if stop and not out:
+        out.append(stop[0])
+    return out or ["för få oberoende jämförelsekällor (minst 2) vid bokningen"]
 
 
 def _stopp(b: dict) -> str:
@@ -125,7 +155,7 @@ def classify(b: dict, src: str, sport: str, c: dict) -> tuple[str | None, list[s
     tier = "B"
     lo, hi = c["tier_a_odds"]
     if sport == "nba" and b.get("spelare_id") not in ("match",) and src != "live":
-        why.append("klarar inte LIVE-kraven")
+        why += live_reasons(b, c)
     elif src not in ("live", "spel"):
         why.append("stoppad av en regel")
     if not (lo <= o <= hi):
@@ -275,6 +305,11 @@ def update(root: Path, settings: dict, now: float | None = None, sports: tuple =
         sb = src_by.get((tb["kalla_fil"], tb["kalla_key"]))
         if sb is None:
             continue
+        if tb.get("status") == "öppen" and tb["tier"] != "A":   # "varför inte högre" räknas om (bara visning, nivån är låst)
+            try:
+                tb["inte_hogre"] = classify(sb, tb["kalla"], tb["sport"], c)[1] or tb.get("inte_hogre")
+            except Exception:  # noqa: BLE001
+                pass
         for k in SYNC:
             if k in sb:
                 tb[k] = sb[k]

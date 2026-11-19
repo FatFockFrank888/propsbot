@@ -24,6 +24,7 @@ from pathlib import Path
 from . import mina
 
 POLL_S = 20
+PRIO_QUIET = 2                   # tyst (Telegram: ingen pling) – varje enskild ökning
 MAX_S = 5 * 3600 + 40 * 60      # GitHub-jobbet får köra högst 6 h
 PRIO_BIG, PRIO_SMALL = 5, 4      # fulla notiser hela natten (användarens val 18/11)
 
@@ -46,6 +47,35 @@ def _who(b: dict) -> str:
 
 def _bet_txt(b: dict) -> str:
     return b.get("spel_text") or f"{mina.MK_SV.get(b['marknad'], b['marknad'])} {'under' if b.get('sida') == 'under' else 'över'} {_fmt(b['linje'])}"
+
+
+def _side(b: dict) -> str:
+    return "UNDER" if b.get("sida") == "under" else "ÖVER"
+
+
+def bet_head(b: dict) -> str:
+    """Spelet tydligt: "Carter Jr. · UNDER 7,5 returer @ 2,15"."""
+    if b.get("spelare_id") in ("match", "hörnor"):
+        return f"{b.get('spel_text') or b.get('match')} @ {b['odds']:.2f}"
+    unit = mina.MK_SV.get(b.get("marknad"), b.get("marknad"))
+    return f"{b['spelare']} · {_side(b)} {_fmt(b.get('linje') or 0)} {unit} @ {b['odds']:.2f}"
+
+
+def state(b: dict, v: float | None) -> tuple[str, str, int | None]:
+    """(emoji, text, marginal) för ett props/total-spel. Över: hur många till som behövs. Under: hur många till som tål."""
+    import math
+    if v is None or b.get("marknad") in ("1x2", "ml", "ah", "spread", "cah"):
+        return ("", "", None)
+    line = b.get("linje") or 0
+    if b.get("sida") == "under":
+        room = math.floor(line) - int(v)          # under 7,5 och 2 -> tål 5 till
+        if room < 0:
+            return ("❌", "förlorat", room)
+        return ("🟠" if room <= 1 else "🟢", "⚠️ en till = förlust" if room == 0 else f"tål {room} till", room)
+    need = math.floor(line) + 1 - int(v)          # över 3,5 och 2 -> behöver 2 till
+    if need <= 0:
+        return ("✅", "klart", need)
+    return ("🟢" if need <= 1 else "🟡", f"behöver {need} till", need)
 
 
 SOCCER_EVENTS = {"goal": ("⚽ MÅL", PRIO_BIG), "penalty": ("🎯 STRAFF", PRIO_BIG), "red": ("🟥 RÖTT KORT", PRIO_BIG)}
@@ -131,7 +161,8 @@ class Watcher:
                                 PRIO_BIG, "soccer")
             g["events"] = set(cur)
             g["kinds"] = {i: k for i, (k, _ev) in cur.items()}
-        # spelen: räknaren och avgörandet
+        # spelen: räknaren och avgörandet. Nivåer (18/11): varje ökning TYST, "nära" och avgjort MED LJUD,
+        # plus en sammanfattning per match efter varje period.
         for b in bets:
             if b["ident"] in self.closed:
                 continue
@@ -142,37 +173,46 @@ class Watcher:
             per_event = props or b.get("marknad") in ("corners", "corners_home", "corners_away", "cah")
             if first or v is None:
                 if first and v is not None and gs["state"] == "in":
-                    self.notify(f"👀 Bevakar: {_who(b)} {_bet_txt(b)}", f"Just nu {_fmt(v)} · {_score(gs)} · {_period(gs)}",
-                                PRIO_SMALL, "eyes")
+                    self.notify(f"👀 Bevakar: {bet_head(b)}", f"Just nu {_fmt(v)} · {_score(gs)} · {_period(gs)}", PRIO_QUIET, "eyes")
                 continue
+            emo, txt, marg = state(b, v)
             if per_event and old is not None and v > old:
-                line = b.get("linje") or 0
-                left = line - v
-                unit = mina.MK_SV.get(b["marknad"], b["marknad"])
-                if b.get("sida") == "under":
-                    tail = f"marginal {_fmt(max(0, left))} kvar till {_fmt(line)}" if left > 0 else "över linjen"
-                else:
-                    tail = f"{_fmt(max(0, left + 0.5))} kvar" if left > 0 else "linjen passerad"
                 icon = "🏀" if nba else "🚩" if b.get("marknad", "").startswith("corner") or b.get("marknad") == "cah" else "⚽"
-                self.notify(f"{icon} {_who(b)} +{_fmt(v - old)} {unit} → {_fmt(v)} av {_fmt(line)}",
-                            f"{tail} · {_score(gs)} · {_period(gs)}", PRIO_SMALL, "basketball" if nba else "soccer")
+                self.notify(f"{icon} {bet_head(b)}", f"{_fmt(v)} (+{_fmt(v - old)}) · {txt} · {_score(gs)} · {_period(gs)}",
+                            PRIO_QUIET, "basketball" if nba else "soccer")
             dec = mina.decided(b, v)
             if dec:
                 self.closed.add(b["ident"])
-                self.notify(("✅ VUNNET: " if dec == "vunnen" else "❌ FÖRLORAT: ") + f"{_who(b)} {_bet_txt(b)}",
-                            f"{_fmt(v)} mot linjen {_fmt(b.get('linje') or 0)} · {b['units']:g}u @ {b['odds']:.2f} · {_score(gs)} · {_period(gs)}",
+                self.notify(("✅ VUNNET: " if dec == "vunnen" else "❌ FÖRLORAT: ") + bet_head(b),
+                            f"{_fmt(v)} mot linjen {_fmt(b.get('linje') or 0)} · {b['units']:g}u · {_score(gs)} · {_period(gs)}",
                             PRIO_BIG, "white_check_mark" if dec == "vunnen" else "x")
                 continue
-            if (nba and not props and _period(gs) != g["period"]
-                    and any(w in _period(gs).lower() for w in ("end", "half"))):
-                self.notify(f"🏀 {_period(gs)}: {_bet_txt(b)}", f"{_score(gs)}", PRIO_SMALL, "basketball")
+            near = marg is not None and ((b.get("sida") == "under" and marg == 0) or (b.get("sida") != "under" and marg == 1))
+            if near and not b.get("_nara") and gs["state"] == "in":
+                b["_nara"] = True
+                self.notify(("⚠️ NÄRA FÖRLUST: " if b.get("sida") == "under" else "⚠️ NÄRA VINST: ") + bet_head(b),
+                            f"{_fmt(v)} · {txt} · {_score(gs)} · {_period(gs)}", PRIO_BIG, "warning")
+        # sammanfattning per match efter varje period (NBA: kvart/halvtid, fotboll: halvtid)
+        per = _period(gs)
+        if (not first and gs["state"] == "in" and per != g["period"]
+                and any(w in per.lower() for w in ("end", "half"))):
+            rows = []
+            for b in bets:
+                v = self.vals.get(b["ident"])
+                emo, txt, _m = state(b, v)
+                if b["ident"] in self.closed and not emo:
+                    continue
+                rows.append(f"{emo or '•'} {bet_head(b)} – {_fmt(v) if v is not None else '–'}" + (f" ({txt})" if txt else ""))
+            if rows:
+                self.notify(f"{'🏀' if nba else '⚽'} {per}: {bets[0]['match']}", f"{_score(gs)}\n" + "\n".join(rows), PRIO_SMALL,
+                            "basketball" if nba else "soccer")
         if not first and gs["done"] and not g["done"]:
             for b in bets:
                 if b["ident"] in self.closed:
                     continue
                 self.closed.add(b["ident"])
                 v = self.vals.get(b["ident"])
-                self.notify(f"🏁 Slut: {_who(b)} {_bet_txt(b)}",
+                self.notify(f"🏁 Slut: {bet_head(b)}",
                             f"Slutresultat {_score(gs)}" + (f" · räknare {_fmt(v)} mot {_fmt(b.get('linje') or 0)}" if v is not None else "")
                             + "\nRättas av boten inom några minuter.", PRIO_BIG, "checkered_flag")
         elif first and gs["done"]:

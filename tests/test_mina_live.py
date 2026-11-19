@@ -38,10 +38,21 @@ def run_steps(bets, summaries):
 def test_nba_increments_then_won_then_silent():
     sent = run_steps([dict(BET)], [nba_summ(1), nba_summ(2), nba_summ(3), nba_summ(4), nba_summ(5)])
     titles = [t for t, _m, _p in sent]
-    assert titles[0].startswith("👀 Bevakar")
-    assert "+1 returer → 2 av 3,5" in titles[1] and "+1 returer → 3 av 3,5" in titles[2]
-    assert titles[3].startswith("🏀") and titles[4].startswith("✅ VUNNET")
-    assert len(sent) == 5                                   # inget efter att spelet är vunnet
+    assert titles[0].startswith("👀 Bevakar: Immanuel Quickley · ÖVER 3,5 returer @ 2.06") and sent[0][2] == livewatch.PRIO_QUIET
+    assert titles[1] == "🏀 Immanuel Quickley · ÖVER 3,5 returer @ 2.06" and "2 (+1) · behöver 2 till" in sent[1][1]
+    assert sent[1][2] == livewatch.PRIO_QUIET                        # varje ökning är tyst
+    assert "behöver 1 till" in sent[2][1] and titles[3].startswith("⚠️ NÄRA VINST") and sent[3][2] == livewatch.PRIO_BIG
+    assert titles[5].startswith("✅ VUNNET: Immanuel Quickley · ÖVER 3,5")
+    assert len(sent) == 6                                          # inget efter att spelet är vunnet
+
+
+def test_under_state_texts_and_period_summary():
+    b = dict(BET, sida="under", linje=7.5)
+    assert livewatch.state(b, 2)[1] == "tål 5 till" and livewatch.state(b, 7)[1] == "⚠️ en till = förlust"
+    assert livewatch.state(b, 8)[0] == "❌" and livewatch.state(dict(BET), 2)[1] == "behöver 2 till"
+    sent = run_steps([dict(b)], [nba_summ(2, detail="Q1 1:00"), nba_summ(2, detail="End of 1st Quarter")])
+    summ = [x for x in sent if x[0].startswith("🏀 End of 1st Quarter")]
+    assert summ and "🟢 Immanuel Quickley · UNDER 7,5 returer @ 2.06 – 2 (tål 5 till)" in summ[0][1]
 
 
 def test_under_loses_and_final():
@@ -66,7 +77,7 @@ def test_soccer_goal_red_var_and_player():
     assert any(x.startswith("⚽ MÅL 55'") for x in t) and any(x.startswith("🟥 RÖTT KORT") for x in t)
     assert not any("Yellow" in x for x in t)               # gula kort ger ingen pling
     assert any(x.startswith("↩️ MÅL BORTDÖMT") for x in t)
-    assert any("+1 skott på mål → 1 av 1,5" in x for x in t) and t[-1].startswith("✅ VUNNET")
+    assert any(x == "⚽ Bukayo Saka · ÖVER 1,5 skott på mål @ 2.10" for x in t) and t[-1].startswith("✅ VUNNET")
 
 
 def test_messages_and_user_result(tmp_path):
