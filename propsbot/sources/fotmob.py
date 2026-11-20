@@ -50,3 +50,27 @@ class FotmobResults:
                 except (KeyError, TypeError, ValueError):
                     return None
         return None
+
+    def void_reason(self, home: str, away: str, start: float) -> str | None:
+        """"uppskjuten" / "inställd" / "avbruten" om FotMob har matchen med den statusen, annars None."""
+        from ..results import espn_match
+        for day in dict.fromkeys(datetime.fromtimestamp(t, timezone.utc).strftime("%Y%m%d")
+                                 for t in (start, start - 5 * 3600, start + 3 * 3600)):
+            for m in self._matches(day):
+                st = m.get("status") or {}
+                try:
+                    ts = datetime.fromisoformat(st["utcTime"].replace("Z", "+00:00")).timestamp()
+                except (KeyError, ValueError, AttributeError):
+                    continue
+                h, a = m.get("home") or {}, m.get("away") or {}
+                if not espn_match(home, away, start, h.get("name", ""), a.get("name", ""), ts):
+                    continue
+                r = ((st.get("reason") or {}).get("short") or "").upper()
+                if r in ("PP", "POSTP", "POSTP.", "PPD"):
+                    return "uppskjuten"
+                if r.startswith("AB"):
+                    return "avbruten"
+                if st.get("cancelled") or r in ("CAN", "CANC", "CANC."):
+                    return "inställd"
+                return None
+        return None

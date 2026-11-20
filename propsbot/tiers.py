@@ -188,7 +188,7 @@ def _ident(sport: str, b: dict) -> str:
 
 SYNC = ("status", "utfall", "stangning", "stangning_ts", "skarp_stang_p", "skarp_stang_ts", "skarp_verifierad",
         "skarp_status", "pin_stang_p", "dk_stang_p", "smk_stang_p", "clv_skarp_pp", "clv_pin_pp", "clv_dk_pp",
-        "nyhet", "nyhet_status", "nyhet_ts", "dubblett")
+        "nyhet", "nyhet_status", "nyhet_ts", "dubblett", "struken_orsak")
 COPY = ("match_id", "match", "hemma", "borta", "liga", "avspark", "spelare", "spelare_id", "marknad", "linje", "sida",
         "spel_text", "bolag", "odds", "sannolikhet", "ratt_odds", "edge", "spela_fran", "stopp", "forv_clv_pp",
         "p_modell", "p_marknad", "pin_p", "smk_p", "modell_edge", "analys", "prognos", "bolag_bokning", "bolag_stangning")

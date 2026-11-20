@@ -150,6 +150,9 @@ def all_params(settings_path: Path) -> dict:
         ("Sides/totals: övrigt", f"max oddsfall {_pct(s.get('max_odds_drop', 0.03))}, sharp money mot oss {s.get('sharp_against_pp', 2.0):g} pe, "
          f"ett spel per match, inom {s.get('sides_max_hours', 24)} h före avspark, insats 1–10u efter styrkan (max {s.get('sides_max_units', 10)}u)",
          "Samma spärrar som övriga sporter. Rättas mot ESPN:s slutresultat."),
+        ("Sides/totals: rättning", "ESPN, FotMob, LiveScore, goal-api; void efter 48 h vid uppskjuten/inställd/avbruten match",
+         "Ser en källa att matchen är uppskjuten, inställd eller avbruten och den inte spelats inom 48 h från avspark blir spelet "
+         "struket (void, insatsen tillbaka). Matcher som ingen källa täcker rättas för hand i rattning_manuell.json (repot)."),
     ]
     nba = [
         ("Status", "LIVE (notiser)" if s.get("live_on", True) and s.get("nba_enabled", True) else "av", ""),
