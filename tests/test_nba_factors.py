@@ -161,6 +161,12 @@ def test_model_test_rows_logs_factor_shadow(tmp_path, monkeypatch):
     assert x["f_lag_poang"] == 114.0 and x["f_miljo_kalla"] == "pinnacle"
     # under 29,5: stjärnan gjorde 30 i alla matcher -> 0 % för vår sida
     assert x["traff_l5"] == 0.0 and x["traff_sasong_n"] == 6
+    # kalibreringen (20/11): utan skattning gäller marknaden, inget modelltestspel, benet loggas i över-orientering
+    assert x["kalib_modell"] == "M0" and x["p_kalib"] == 0.5 and not out[0].row.decision.playable
+    from propsbot.nba_kalibrering import KalibLog
+    lg = KalibLog(tmp_path).rows
+    assert len(lg) == 1 and lg[0]["marknad"] == "points" and lg[0]["linje"] == 29.5 and lg[0]["pk"] == 0.5
+    assert lg[0]["pf"] is not None and lg[0]["hemma"] == "Boston Celtics" and lg[0]["status"] == "öppen"
     a = out[0].analys
     assert a["mot"] == "NY" and a["hemma"] is True and len(a["logg"]) == 6 and a["logg"][0]["v"] == 30
     assert a["franvaro"][0]["namn"] == "Hurt Guard" and a["p_marknad"] == 0.5 and a["nb_r"] == 15

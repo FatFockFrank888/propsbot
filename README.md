@@ -1,12 +1,12 @@
 # propsbot – en bot för fotboll och NBA
 
-**En körning, två sporter.** `python -m propsbot skanna` kör fotboll (skott på mål, fouls, kort, sides/totals)
+**En körning, två sporter.** `python -m propsbot skanna` kör fotboll (skott på mål, fouls, hörnor, sides/totals)
 och NBA (poäng, returer, assist, trepoängare …) efter varandra. Ett fel i en sport stoppar aldrig den andra.
 NHL togs bort 12/11 (förlorade mot Kambi: med bara Bovada+Pinnacle som referens låg sannolikheterna 6–8 pe för högt). GitHub Actions kör den var tionde minut dygnet runt.
 
 | Var | Vad |
 |---|---|
-| Webbsida | https://fatfockfrank888.github.io/propsbot/ – Spela nu · Radar · Resultat · Bokföring & analys · Parlays · Parametrar, med sportväljare (Alla/Fotboll/NBA) |
+| Webbsida | https://fatfockfrank888.github.io/propsbot/ – Spela nu · Radar · Resultat · Bokföring & analys · Parametrar, med sportväljare (Alla/Fotboll/NBA) |
 | Notiser | ntfy, en kanal. Nya spel i **A och B Tier** (sedan 18/11; tidigare LIVE-spel), **ett spel per spelare och match** över alla marknader, linjer, sidor och bolag. Misslyckad notis skickas igen nästa körning. |
 | Google-arket | `sheet/propsbot_ark.gs` (Apps Script) bygger Översikt (nyckeltalskort), 📊 Statistik (kurvor och uppdelningar) och en flik per sport från `…/propsbot/csv/*.csv`, med A/B/C Tier som huvudrader (kör menyn *Propsbot → Bygg om arket* efter uppdatering) |
 | Parametrar | [PARAMETRAR.md](PARAMETRAR.md) (`python -m propsbot parametrar`) och fliken Parametrar på webbsidan |
@@ -40,7 +40,7 @@ sekund och skickar en notis för varje händelse som rör ditt spel (retur, poä
 rött kort, hörna, bortdömt mål) tills spelet är vunnet/förlorat eller matchen slut. Fulla notiser även nattetid.
 
 **Över eller under:** båda sidor prövas på samma krav; den sida som har EV+ och klarar alla regler spelas.
-Under kräver en tvåsidig eller skarp referens. Fotbollens Kambi-marknader (skott på mål, kort) är bara
+Under kräver en tvåsidig eller skarp referens. Fotbollens Kambi-marknader (skott på mål) är bara
 "över/ja", så där finns ingen undersida att spela.
 
 **Secrets** (Settings → Secrets → Actions): `NTFY_TOPIC`, `ODDS_API_KEY`. Pinnacle använder den publika gästnyckeln i koden.
@@ -146,3 +146,12 @@ Se `GRANSKNING_NBA.md`. Efter varje NBA-skanning skriver `propsbot/nba_eval.py` 
 drawdown) och en status per marknad (insufficient_data / shadow / validated / degraded). Degraded ger inga
 LIVE-spel. Nya prognoser märks med `modellversion` och `prognos_ts`; äldre rader ändras aldrig.
 Kör lokalt: `python -m propsbot.nba_eval <mapp>`.
+
+## NBA: kalibrering av modellen (2026-11-20)
+
+`propsbot/nba_kalibrering.py` loggar **alla** ben modellen räknar på (inte bara de som bokas) i
+`nba_kalibrering.json.gz`, rättar dem mot ESPN och skattar om kalibreringen per marknad efter varje skanning:
+marknaden (M0), kalibrerad marknad (M1) eller marknad + modellens avvikelser (M2), prövat framåt på de nyaste
+benen. Modellen får vikt (M2) bara om den slår marknaden spel för spel (t ≥ 2). Modelltestet bokar bara på
+marknader med M2, med den kalibrerade sannolikheten. Status: `nba_kalibrering_modell.json` och loggraden
+"NBA kalibrering" i diagnosen. Bakgrund: `ANALYS_2026-11-20.md`.

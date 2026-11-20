@@ -324,7 +324,7 @@ function buildOverview_(ss) {
 
   row = heading_(sh, row, "Alla bokföringar (data)",
     "A/B/C Tier = nivåerna · Live = gamla LIVE-spelen · Spel = klarar reglerna · Skugga = stoppat av en regel · " +
-    "Modelltest = egna modellen · testmarknader · Parlay. Övriga typer än Tier: 1u = 0,2 % av kassan.");
+    "Modelltest = egna modellen · testmarknader (fouls, hörnor). Övriga typer än Tier: 1u = 0,2 % av kassan.");
   table_(sh, row, q_(RAW.sammanfattning, "A:K", "select A,B,C,D,E,F,G,H,I,J,K"), 11, 40,
     {2: F.int, 3: F.int, 4: F.int, 5: F.pct, 6: '0.0"u"', 7: F.u, 8: F.spct, 9: F.clv, 10: F.int},
     {results: [7, 8, 9], tiers: [1]});

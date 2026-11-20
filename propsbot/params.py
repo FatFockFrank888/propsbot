@@ -112,10 +112,6 @@ def all_params(settings_path: Path) -> dict:
         ("Ligor", f"{len(s.get('league_words', []))} st", ", ".join(s.get("league_words", []))),
         ("Fouls (test)", f"på, minst {_pct(s.get('fouls_min_edge', 0.05))} edge" if s.get("fouls_enabled", True) else "av",
          "Egen modell (ESPN), domarfaktor ±15 %. Bara datainsamling."),
-        ("Kort (test)", "på, datainsamling" if s.get("cards_enabled", True) else "av",
-         "\"To Get a Card\" hos Kambi. Egen modell: spelarens kort per match (ESPN) × domarens stränghet. Bara datainsamling."),
-        ("Parlays", f"{'på' if s.get('parlays_enabled') else 'av'}, max {s.get('parlay_max_legs', 3)} ben, minst {_pct(s.get('parlay_min_leg_edge', 0.05))} edge per ben",
-         "Notiser för parlays: " + ("på" if s.get("parlays_notify") else "av") + "."),
     ]
     so_lo, so_hi = s.get("sides_odds_window", [1.60, 4.00])
     football += [
@@ -168,8 +164,14 @@ def all_params(settings_path: Path) -> dict:
         ("LIVE: oddsram", _odds(llo, lhi), ""),
         ("LIVE: risk", f"max {_u(s.get('live_max_units', 10))}/spel i LIVE-bokföringen; inga tak per match eller dag",
          "Taken togs bort 18/11 (du väljer själv). Insatsen du spelar är nivåernas flat 1–3u."),
-        ("Modellvikt", f"{s.get('nba_model_weight', 0.3):g} × dq", "Blandas med marknaden i log-odds. dq = datakvalitet 0,2–1 "
-         f"(antal matcher i underlaget / {s.get('nba_dq_full_games', 15)}): tunt underlag -> marknaden väger mer. Halveras när modell och marknad skiljer mycket."),
+        ("Modellen: kalibrering", "automatisk, per marknad, prövad framåt",
+         "Alla ben modellen räknar på loggas och rättas (inte bara de som bokas). Varje körning prövas tre varianter på de "
+         "nyaste avgjorda benen: marknaden, kalibrerad marknad och marknad + modellens avvikelser. Modellen får vikt bara "
+         "om den slår marknaden spel för spel (t ≥ 2, minst 150 testben); vikten krymps då efter hur överkonfident den är. "
+         "Modelltestet bokar bara på marknader där modellen har förtjänat vikt (20/11: 1 143 spel visade ingen vikt)."),
+        ("Skuggspel", f"edge ≥ {_pct(s.get('nba_shadow_min_edge', 0.04))} som stoppats av en regel",
+         "Golvet höjdes från 2 % till 4 % (20/11): 1 036 skuggspel på 2–4 % gav ROI +0,3 % och CLV +0,4. "
+         "Marknadens och modellens träffsäkerhet följs i kalibreringsloggen, som har alla ben."),
         ("Brier modell / marknad", "visas under Resultat", "Mäter om modellen slår marknadens egen sannolikhet på avgjorda spel (lägre = bättre)."),
         ("Matcher", f"inom {s.get('nba_hours_ahead', 30)} h, max {s.get('nba_max_events', 15)}", ""),
         ("US-bolag via The Odds API", f"{s.get('nba_us_fetch_window', [40, 240])[0]}–{s.get('nba_us_fetch_window', [40, 240])[1]} min före start",

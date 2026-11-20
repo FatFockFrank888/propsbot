@@ -290,8 +290,7 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
     data = collect(settings, diag, root / ".cache_odds")
     # Fouls hålls utanför den vanliga kedjan (egen modell, egen testbokföring).
     fouls_data = [(evd, [q for q in qs if q.market == "fouls"], nm) for evd, qs, nm in data]
-    cards_data = [(evd, [q for q in qs if q.market == "cards"], nm) for evd, qs, nm in data]
-    data = [(evd, [q for q in qs if q.market not in ("fouls", "cards")], nm) for evd, qs, nm in data]
+    data = [(evd, [q for q in qs if q.market != "fouls"], nm) for evd, qs, nm in data]
     if settings.get("sides_enabled", True):
         try:   # sides & totals (1X2, mål över/under, asiatiskt handikapp) mot Pinnacle
             from .sides import extra_events, run as run_sides
@@ -553,29 +552,7 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
             fouls_run(root, fouls_data, pm, settings, cfg, diag)
         except Exception as e:
             diag.log(f"Fouls (test): FEL {type(e).__name__}: {str(e)[:200]}")
-    if settings.get("cards_enabled", True) and pm:
-        try:
-            from .cards import run as cards_run
-            cards_run(root, cards_data, pm, settings, cfg, diag)
-        except Exception as e:
-            diag.log(f"Kort (test): FEL {type(e).__name__}: {str(e)[:200]}")
-    parlay_data, new_parlays = None, []
-    if settings.get("parlays_enabled"):
-        from .parlays import ParlayLedger, suggest
-        sugg = suggest(rows, evd_by_id, settings)
-        pl = ParlayLedger(root / "parlays_v3.json")
-        new_parlays = pl.record(sugg)
-        try:
-            settle_open(pl.legs_ledger(), JsonClient(root / ".cache_odds", ttl_s=900))
-        except Exception as e:
-            diag.log(f"Rättning (parlays): {type(e).__name__}: {e}")
-        pl.update_status()
-        pl.save()
-        diag.log(f"Parlays: {len(sugg)} förslag, {len(new_parlays)} nya bokförda")
-        parlay_data = {"parlay_forslag": sugg,
-                       "parlay_bokforing": sorted(pl.items, key=lambda x: -x["bokford"]),
-                       "parlay_sammanfattning": pl.summary()}
-    write_site(root / "site", rows, ledger, settings, test_ledger, parlay_data, shadow_ledger)
+    write_site(root / "site", rows, ledger, settings, test_ledger, shadow_ledger=shadow_ledger)
 
     if notify and settings.get("ntfy_topic"):
         # Första körningen mot en ny kanal: skicka ett test så att man ser att det fungerar.
@@ -591,21 +568,12 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
                 diag.log("Testnotis skickad till mobilen.")
         # Fotbollen är inte live (bara datainsamling) tills den visar edge och CLV.
         n = notify_new(playable, settings, root, live=True) if settings.get("football_live", False) and not settings.get("tiers_on", True) else 0
-        from .clv_signal import units
-        for x in (new_parlays if settings.get("live_enabled", True) and settings.get("parlays_notify", False)
-                  and settings.get("football_live", False) else []):
-            legs = "\n".join(f"• {l['spelare']} {MARKET_LABEL.get(l['marknad'], l['marknad']).lower()} "
-                             f"{'under' if l.get('sida') == 'under' else 'över'} {l['linje']:g} ({l['odds']:.2f}) – {l['match']}"
-                             for l in x["ben"])
-            if send(settings["ntfy_topic"], f"PARLAY {x['antal_ben']} ben @ {x['odds']:.2f} hos {x['bolag']}",
-                    f"{legs}\nEV {x['ev']:.1%}, insats {units(x['insats_pct'])}/10 units"):
-                n += 1
         diag.log(f"Notiser skickade: {n}")
     diag.save()
     import os
     if os.environ.get("GITHUB_ACTIONS"):
         keep = [l for l in diag.lines if l.startswith(("Kambi", "Pinnacle", "Bolag", "VARNING"))
-                or l.startswith(("SPEL:", "Fouls", "Kort", "CLV-signal", "Tid:", "Exempel", "Marginal över", "Bästa edge", "Spelarodds", "Spelarmodell", "Modellens", "Modelltest", "Parlays", "Skuggspel", "Rätt",
+                or l.startswith(("SPEL:", "Fouls", "CLV-signal", "Tid:", "Exempel", "Marginal över", "Bästa edge", "Spelarodds", "Spelarmodell", "Modellens", "Modelltest", "Skuggspel", "Rätt",
                                  "Struken", "Bokförda"))
                 or "spelbara" in l or "otis" in l][:45]
         print("::notice title=diagnos::" + "%0A".join(x.replace("%", "%25") for x in keep))

@@ -93,14 +93,6 @@ DEFAULT_SETTINGS = {
     "kalshi_max_spread": 0.04,
     "kalshi_min_volume": 500,
     "nba_us_fetch_window": [40, 240],
-    # Parlays: 2–3 ben, olika matcher, samma bolag, minst 5 % edge per ben.
-    "parlays_enabled": True,
-    "parlay_max_legs": 3,
-    "parlay_min_leg_edge": 0.05,
-    "parlay_max_odds": 40.0,
-    "parlay_max_stake": 0.005,
-    "parlay_pool_per_book": 8,
-    "parlay_max_suggestions": 5,
     # Gemensamma spelregler (2/11, efter 210 spel): minst 5 % edge överallt, ett spel per
     # spelare och match, inget spel om oddset fallit > 3 %, inget spel när sharp money
     # (Pinnacle/konsensus) har rört sig mot oss. Fotbollen spelas på samma regler.
@@ -162,7 +154,6 @@ DEFAULT_SETTINGS = {
     "fouls_min_edge": 0.05,
     "fouls_min_apps": 2.5,
     "fouls_opp_elasticity": 0.5,
-    "parlays_notify": False,      # parlays bokförs som test, ingen notis
     # Notiser till mobilen via ntfy (gratis app). Tomt = av.
     "ntfy_topic": "",
     "watch_interval_minutes": 10,

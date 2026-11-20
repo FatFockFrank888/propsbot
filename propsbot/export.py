@@ -63,7 +63,7 @@ def radar_rows(rows: list[ScanRow], settings: dict, limit: int = 800, live_keys:
 
 
 def write_site(site: Path, rows: list[ScanRow], ledger: Ledger, settings: dict,
-               test_ledger: Ledger | None = None, parlays: dict | None = None,
+               test_ledger: Ledger | None = None,
                shadow_ledger: Ledger | None = None, sport: str = "Fotboll",
                live_ledger: Ledger | None = None, live_keys: set | None = None) -> None:
     site.mkdir(parents=True, exist_ok=True)
@@ -84,7 +84,6 @@ def write_site(site: Path, rows: list[ScanRow], ledger: Ledger, settings: dict,
         "modelltest_sammanfattning": test_ledger.summary() if test_ledger else None,
         "skuggspel": sorted(shadow_ledger.counted, key=lambda b: -b["bokford"]) if shadow_ledger else [],
         "skuggspel_sammanfattning": shadow_ledger.summary() if shadow_ledger else None,
-        **(parlays or {}),
     }
     fl = site.parent / "bokforing_fouls_test.json" if sport == "Fotboll" else None
     if fl and fl.exists():
@@ -92,12 +91,6 @@ def write_site(site: Path, rows: list[ScanRow], ledger: Ledger, settings: dict,
         f_ledger = _L(fl)
         data["fouls_test"] = sorted(f_ledger.counted, key=lambda b: -b["bokford"])
         data["fouls_sammanfattning"] = f_ledger.summary()
-    kl = site.parent / "bokforing_kort_test.json" if sport == "Fotboll" else None
-    if kl and kl.exists():
-        from .ledger import Ledger as _L
-        k_ledger = _L(kl)
-        data["kort_test"] = sorted(k_ledger.counted, key=lambda b: -b["bokford"])
-        data["kort_sammanfattning"] = k_ledger.summary()
     hl = site.parent / "bokforing_hornor_test.json" if sport == "Fotboll" else None
     if hl and hl.exists():   # hörnmodellen (corners.py): bara testbokföring
         from .ledger import Ledger as _L
