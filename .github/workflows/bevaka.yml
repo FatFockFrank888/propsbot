@@ -65,6 +65,7 @@ jobs:
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
           SGO_API_KEY: ${{ secrets.SGO_API_KEY }}
           GOAL_API_KEY: ${{ secrets.LIVESCORE }}   # goal-api.com (hemligheten heter LIVESCORE)
+          API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}   # api-sports.io: resultat och status för smala ligor (av utan nyckel)
           PROPSBOT_STATE_DIR: state
         run: python -m propsbot skanna
 
