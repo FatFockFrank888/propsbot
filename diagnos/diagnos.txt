@@ -1,4 +1,4 @@
-Skanning 2026-11-20 00:02
+Skanning 2026-11-20 00:13
 Kambi unibet (ubse): OK, 23 matcher i valda ligor
 Kambi paf (paf): OK
 Kambi atg (atg): OK
@@ -69,11 +69,11 @@ Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
   Winning Margin | units=Regular | kategori=Team Props | deltagare=Orlando City By 1,Orlando City By 2,Orlando City By 3,Orlando City By 4+,FC Cincinnati By 1,FC Cincinnati By 2,FC Cincinnati By 3,FC Cincinnati By 4+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
   Correct Score 1st Half | units=Regular | kategori=Team Props | deltagare=Orlando City 0, FC Cincinnati 0,Orlando City 0, FC Cincinnati 1,Orlando City 0, FC Cincinnati 2,Orlando City 0, FC Cincinnati 3,Orlando City 1, FC Cincinnati 0,Orlando City 1, FC Cincinnati 1,Orlando City 1, FC Cincinnati 2,Orlando City 1, FC Cincinnati 3,Orlando City 2, FC Cincinnati 0,Orlando City 2, FC Cincinnati 1,Orlando City 2, FC Cincinnati 2,Orlando City 2, FC Cincinnati 3,Orlando City 3, FC Cincinnati 0,Orlando City 3, FC Cincinnati 1,Orlando City 3, FC Cincinnati 2,Orlando City 3, FC Cincinnati 3  ->  används inte (lagmarknad)
   FC Cincinnati To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-Sides mindre ligor: 17 Kambi-matcher inom 12 h, 51 Pinnacle-matcher, 15 med Pinnacle, 15 matchade: Armenia / Premier League, Azerbaijan / Premier League, China / FA Cup, Colombia / Torneo Dimayor, India / Super League, Indonesia / Liga 1, Iraq / Stars League, Japan / J1-League, Malaysia / Super League, Poland / III Liga, Puerto Rico / LPR Pro, Vietnam / V-League 1
-Sides/totals: 31 matcher med Kambi + Pinnacle, 697 linjer, 0 nya spel, 0 nya skuggspel, Smarkets-priser i 23 av 23; bästa edge +3.1% (Athletic Bilbao 1X2: 2), +1.9% (São Paulo-SP 1X2: 2), +1.2% (Negeri Sembilan FA 1X2: 1)
+Sides mindre ligor: 17 Kambi-matcher inom 12 h, 56 Pinnacle-matcher, 15 med Pinnacle, 15 matchade: Armenia / Premier League, Azerbaijan / Premier League, China / FA Cup, Colombia / Torneo Dimayor, India / Super League, Indonesia / Liga 1, Iraq / Stars League, Japan / J1-League, Malaysia / Super League, Poland / III Liga, Puerto Rico / LPR Pro, Vietnam / V-League 1
+Sides/totals: 31 matcher med Kambi + Pinnacle, 697 linjer, 0 nya spel, 0 nya skuggspel, Smarkets-priser i 23 av 23; bästa edge +3.1% (Athletic Bilbao 1X2: 2), +1.5% (São Paulo-SP 1X2: 2), +1.2% (Negeri Sembilan FA 1X2: 1)
 Hörnmodell (test): 7861 matcher i underlaget (17 ligor), 11 matcher med modell, 1370 Kambi-linjer, 0 nya testspel; bästa edge +61.0% (Bayern Munich Bayern Munich hörnor över 9.5 @ 3.20), +18.1% (Darmstadt 98 1. FC Heidenheim hörnor över 7.5 @ 3.10), +17.7% (Athletic Bilbao Athletic Bilbao hörnor över 8.5 @ 3.50)
 Fotboll extra bolag: 0 nya hämtningar, 1190 odds i bruk, krediter kvar 262, dagsbudget 22 (andel 40%), förbrukat idag 0
-Tid: hämtning 396 s
+Tid: hämtning 389 s
 Marginal över alla matcher: uppmätt marginal: shots stege k=1.08 (21 spelare; marginal vid 3,00 ≈ 9%), shots_on_target stege k=1.12 (42 spelare; marginal vid 3,00 ≈ 14%)
   São Paulo-SP – Fluminense-RJ: modell – hittar inte matchen hos ESPN
   Orlando City – FC Cincinnati: modell – hittar inte matchen hos ESPN
@@ -87,8 +87,8 @@ Marginal över alla matcher: uppmätt marginal: shots stege k=1.08 (21 spelare; 
 Modellens nivåavvikelse mot marknaden (log-odds, dras bort): shots -0.13, shots_on_target -0.37
   São Paulo-SP – Fluminense-RJ: väntade mål Pinnacle 2.40 mot Kambi 2.42 (kvot 0.993); uppmätt marginal: goal k=1.08, shots stege k=1.11 (14 spelare; marginal vid 3,00 ≈ 13%), shots_on_target stege k=1.12 (14 spelare; marginal vid 3,00 ≈ 14%)
 Exempel uppmätt marginal: goal k=1.08, shots stege k=1.11 (14 spelare; marginal vid 3,00 ≈ 13%), shots_on_target stege k=1.12 (14 spelare; marginal vid 3,00 ≈ 14%)
-  Orlando City – FC Cincinnati: väntade mål Pinnacle 4.05 mot Kambi 3.88 (kvot 1.045); uppmätt marginal: goal k=1.17, assist k=1.16
-  Seattle Sounders – Real Salt Lake: väntade mål Pinnacle 3.11 mot Kambi 3.23 (kvot 0.964); uppmätt marginal: goal k=1.43, assist k=1.28
+  Orlando City – FC Cincinnati: väntade mål Pinnacle 4.04 mot Kambi 3.88 (kvot 1.042); uppmätt marginal: goal k=1.17, assist k=1.16
+  Seattle Sounders – Real Salt Lake: väntade mål Pinnacle 3.11 mot Kambi 3.23 (kvot 0.964); uppmätt marginal: goal k=1.43, assist k=1.30
   Western Sydney Wanderers – Adelaide United: saknar matchlinjer från Pinnacle
   Arminia Bielefeld – 1. FC Magdeburg: väntade mål Pinnacle 2.85 mot Kambi 2.97 (kvot 0.961); uppmätt marginal: goal k=1.52
   Darmstadt 98 – 1. FC Heidenheim: väntade mål Pinnacle 3.21 mot Kambi 3.28 (kvot 0.981); uppmätt marginal: goal k=1.57
@@ -99,10 +99,10 @@ Exempel uppmätt marginal: goal k=1.08, shots stege k=1.11 (14 spelare; marginal
   Troyes – Le Havre: väntade mål Pinnacle 2.70 mot Kambi 2.75 (kvot 0.981); uppmätt marginal: goal k=1.38, assist k=1.28, shots stege k=1.08 (7 spelare; marginal vid 3,00 ≈ 9%), shots_on_target stege k=1.24 (21 spelare; marginal vid 3,00 ≈ 30%)
   Athletic Bilbao – Espanyol: väntade mål Pinnacle 2.80 mot Kambi 2.84 (kvot 0.985); uppmätt marginal: goal k=1.57, assist k=1.59
   Club Atlético Vélez Sarsfield – Belgrano: saknar matchlinjer från Pinnacle
-Tid: modell och utvärdering 49 s
+Tid: modell och utvärdering 31 s
 Bolag med spelarodds: atg, betmgm, expekt, leovegas, oa_fanduel, oa_onexbet, paf, svenskaspel, unibet
-Spelarodds per marknad: assist 1260, goal 5942, shots 2289, shots_on_target 2785
-Kambi-marknader: assist='to give an assist (settled using opta data)':1260; goal='1st goalscorer':2289; goal='to score':2470; goal='to score at least 2 goals':1036; goal='to score at least 3 goals':126; goal='to score at least 4 goals':21; shots="player's shots (settled using opta data)":1533; shots_on_target="player's shots on target (settled using opta data)":2351
+Spelarodds per marknad: assist 1267, goal 5942, shots 2289, shots_on_target 2785
+Kambi-marknader: assist='to give an assist (settled using opta data)':1267; goal='1st goalscorer':2289; goal='to score':2470; goal='to score at least 2 goals':1036; goal='to score at least 3 goals':126; goal='to score at least 4 goals':21; shots="player's shots (settled using opta data)":1533; shots_on_target="player's shots on target (settled using opta data)":2351
 Pinnacle har inga spelarprops här – använder linjejustering mot Pinnacles matchlinjer.
 CLV-signal: 0 ben släppta (Pinnacle rör sig åt vårt håll)
 Startelvor: 0 spelbara ben klara, 0 väntar på startelvan, 0 stoppade (inte i startelvan)
