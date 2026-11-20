@@ -1,4 +1,4 @@
-Skanning 2026-11-20 01:12
+Skanning 2026-11-20 01:24
 Kambi unibet (ubse): OK, 22 matcher i valda ligor
 Kambi paf (paf): OK
 Kambi atg (atg): OK
@@ -7,7 +7,8 @@ Kambi svenskaspel (svenskaspel): OK
 Kambi expekt (expektse): OK
 Kambi betmgm (betmgmse): OK
 Pinnacle: OK, 25 ligor
-Pinnacle: 29 matcher, matchlinjer för 15 av 22 Kambi-matcher, 0 spelarodds som används
+  Arminia Bielefeld – 1. FC Magdeburg: Pinnacle FEL HTTP 403 för https://guest.api.arcadia.pinnacle.com/0.1/matchups/1640278619/related
+Pinnacle: 29 matcher, matchlinjer för 14 av 22 Kambi-matcher, 0 spelarodds som används
 Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
   Double Chance 1st Half | units=Regular | kategori=Team Props | deltagare=Seattle Sounders Or Real Salt Lake,Draw Or Real Salt Lake,Draw Or Seattle Sounders  ->  används inte (lagmarknad)
   Moneyline and Total Goals | units=Regular | kategori=Team Props | deltagare=Seattle Sounders & Over 3.5,Seattle Sounders & Under 3.5,Draw & Over 3.5,Draw & Under 3.5,Real Salt Lake & Over 3.5,Real Salt Lake & Under 3.5  ->  används inte (lagmarknad)
@@ -50,33 +51,32 @@ Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
   Seattle Sounders To Win To Nil 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
   Real Salt Lake To Win To Nil 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
   Both Teams To Score and Total Goals | units=Regular | kategori=Team Props | deltagare=Yes & Over 3.5,Yes & Under 3.5,No & Over 3.5,No & Under 3.5  ->  används inte (lagmarknad)
-  3-Way Handicap Arminia Bielefeld -1 | units=Regular | kategori=Team Props | deltagare=Arminia Bielefeld (-1),Draw - (Arminia Bielefeld -1),FC Magdeburg (+1)  ->  används inte (lagmarknad)
-  Winning Margin | units=Regular | kategori=Team Props | deltagare=Arminia Bielefeld By 1,Arminia Bielefeld By 2,Arminia Bielefeld By 3,Arminia Bielefeld By 4+,FC Magdeburg By 1,FC Magdeburg By 2,FC Magdeburg By 3,FC Magdeburg By 4+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
-  Arminia Bielefeld Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
-  3-Way Handicap Arminia Bielefeld -3 | units=Regular | kategori=Team Props | deltagare=Arminia Bielefeld (-3),Draw - (Arminia Bielefeld -3),FC Magdeburg (+3)  ->  används inte (lagmarknad)
-  Draw No Bet | units=Regular | kategori=Team Props | deltagare=Arminia Bielefeld,FC Magdeburg  ->  används inte (lagmarknad)
-  3-Way Handicap Arminia Bielefeld +3 | units=Regular | kategori=Team Props | deltagare=Arminia Bielefeld (+3),Draw - (Arminia Bielefeld +3),FC Magdeburg (-3)  ->  används inte (lagmarknad)
-  FC Magdeburg To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Correct Score | units=Regular | kategori=Team Props | deltagare=Arminia Bielefeld 0, FC Magdeburg 0,Arminia Bielefeld 0, FC Magdeburg 1,Arminia Bielefeld 0, FC Magdeburg 2,Arminia Bielefeld 0, FC Magdeburg 3,Arminia Bielefeld 0, FC Magdeburg 4,Arminia Bielefeld 0, FC Magdeburg 5,Arminia Bielefeld 0, FC Magdeburg 6,Arminia Bielefeld 1, FC Magdeburg 0,Arminia Bielefeld 1, FC Magdeburg 1,Arminia Bielefeld 1, FC Magdeburg 2,Arminia Bielefeld 1, FC Magdeburg 3,Arminia Bielefeld 1, FC Magdeburg 4,Arminia Bielefeld 1, FC Magdeburg 5,Arminia Bielefeld 1, FC Magdeburg 6,Arminia Bielefeld 2, FC Magdeburg 0,Arminia Bielefeld 2, FC Magdeburg 1,Arminia Bielefeld 2, FC Magdeburg 2,Arminia Bielefeld 2, FC Magdeburg 3,Arminia Bielefeld 2, FC Magdeburg 4,Arminia Bielefeld 2, FC Magdeburg 5,Arminia Bielefeld 2, FC Magdeburg 6,Arminia Bielefeld 3, FC Magdeburg 0,Arminia Bielefeld 3, FC Magdeburg 1,Arminia Bielefeld 3, FC Magdeburg 2,Arminia Bielefeld 3, FC Magdeburg 3,Arminia Bielefeld 3, FC Magdeburg 4,Arminia Bielefeld 3, FC Magdeburg 5,Arminia Bielefeld 3, FC Magdeburg 6,Arminia Bielefeld 4, FC Magdeburg 0,Arminia Bielefeld 4, FC Magdeburg 1,Arminia Bielefeld 4, FC Magdeburg 2,Arminia Bielefeld 4, FC Magdeburg 3,Arminia Bielefeld 4, FC Magdeburg 4,Arminia Bielefeld 4, FC Magdeburg 5,Arminia Bielefeld 4, FC Magdeburg 6,Arminia Bielefeld 5, FC Magdeburg 0,Arminia Bielefeld 5, FC Magdeburg 1,Arminia Bielefeld 5, FC Magdeburg 2,Arminia Bielefeld 5, FC Magdeburg 3,Arminia Bielefeld 5, FC Magdeburg 4,Arminia Bielefeld 5, FC Magdeburg 5,Arminia Bielefeld 5, FC Magdeburg 6,Arminia Bielefeld 6, FC Magdeburg 0,Arminia Bielefeld 6, FC Magdeburg 1,Arminia Bielefeld 6, FC Magdeburg 2,Arminia Bielefeld 6, FC Magdeburg 3,Arminia Bielefeld 6, FC Magdeburg 4,Arminia Bielefeld 6, FC Magdeburg 5,Arminia Bielefeld 6, FC Magdeburg 6  ->  används inte (lagmarknad)
-  Arminia Bielefeld To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Correct Score 1st Half | units=Regular | kategori=Team Props | deltagare=Arminia Bielefeld 0, FC Magdeburg 0,Arminia Bielefeld 0, FC Magdeburg 1,Arminia Bielefeld 0, FC Magdeburg 2,Arminia Bielefeld 0, FC Magdeburg 3,Arminia Bielefeld 1, FC Magdeburg 0,Arminia Bielefeld 1, FC Magdeburg 1,Arminia Bielefeld 1, FC Magdeburg 2,Arminia Bielefeld 1, FC Magdeburg 3,Arminia Bielefeld 2, FC Magdeburg 0,Arminia Bielefeld 2, FC Magdeburg 1,Arminia Bielefeld 2, FC Magdeburg 2,Arminia Bielefeld 2, FC Magdeburg 3,Arminia Bielefeld 3, FC Magdeburg 0,Arminia Bielefeld 3, FC Magdeburg 1,Arminia Bielefeld 3, FC Magdeburg 2,Arminia Bielefeld 3, FC Magdeburg 3  ->  används inte (lagmarknad)
-  3-Way Handicap Arminia Bielefeld +2 | units=Regular | kategori=Team Props | deltagare=Arminia Bielefeld (+2),Draw - (Arminia Bielefeld +2),FC Magdeburg (-2)  ->  används inte (lagmarknad)
-  FC Magdeburg Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
-  3-Way Handicap Arminia Bielefeld -2 | units=Regular | kategori=Team Props | deltagare=Arminia Bielefeld (-2),Draw - (Arminia Bielefeld -2),FC Magdeburg (+2)  ->  används inte (lagmarknad)
-  Arminia Bielefeld To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  FC Magdeburg Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
-  Arminia Bielefeld Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
-  FC Magdeburg Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
-  Draw No Bet 1st Half | units=Regular | kategori=Team Props | deltagare=Arminia Bielefeld,FC Magdeburg  ->  används inte (lagmarknad)
-  3-Way Handicap Arminia Bielefeld +1 | units=Regular | kategori=Team Props | deltagare=Arminia Bielefeld (+1),Draw - (Arminia Bielefeld +1),FC Magdeburg (-1)  ->  används inte (lagmarknad)
-Sides mindre ligor: 22 Kambi-matcher inom 12 h, 63 Pinnacle-matcher, 16 med Pinnacle, 16 matchade: Armenia / Premier League, Azerbaijan / Premier League, China / FA Cup, India / Super League, Indonesia / Liga 1, Iraq / Stars League, Japan / J1-League, Malaysia / Super League, Poland / III Liga, Qatar / Qatar Stars League, Romania / Liga II, Vietnam / V-League 1
-Sides/totals: 31 matcher med Kambi + Pinnacle, 672 linjer, 0 nya spel, 0 nya skuggspel, Smarkets-priser i 21 av 23; bästa edge +3.0% (Athletic Bilbao 1X2: 2), +1.7% (Al Duhail SC 1X2: 1), +1.2% (Puebla FC 1X2: 2)
+  3-Way Handicap Darmstadt +4 | units=Regular | kategori=Team Props | deltagare=Darmstadt (+4),Draw - (Darmstadt +4),Heidenheim (-4)  ->  används inte (lagmarknad)
+  3-Way Handicap Darmstadt -1 | units=Regular | kategori=Team Props | deltagare=Darmstadt (-1),Draw - (Darmstadt -1),Heidenheim (+1)  ->  används inte (lagmarknad)
+  Winning Margin | units=Regular | kategori=Team Props | deltagare=Darmstadt By 1,Darmstadt By 2,Darmstadt By 3,Darmstadt By 4+,Heidenheim By 1,Heidenheim By 2,Heidenheim By 3,Heidenheim By 4+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
+  Darmstadt Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  Draw No Bet | units=Regular | kategori=Team Props | deltagare=Darmstadt,Heidenheim  ->  används inte (lagmarknad)
+  3-Way Handicap Darmstadt +3 | units=Regular | kategori=Team Props | deltagare=Darmstadt (+3),Draw - (Darmstadt +3),Heidenheim (-3)  ->  används inte (lagmarknad)
+  Heidenheim To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Correct Score | units=Regular | kategori=Team Props | deltagare=Darmstadt 0, Heidenheim 0,Darmstadt 0, Heidenheim 1,Darmstadt 0, Heidenheim 2,Darmstadt 0, Heidenheim 3,Darmstadt 0, Heidenheim 4,Darmstadt 0, Heidenheim 5,Darmstadt 0, Heidenheim 6,Darmstadt 1, Heidenheim 0,Darmstadt 1, Heidenheim 1,Darmstadt 1, Heidenheim 2,Darmstadt 1, Heidenheim 3,Darmstadt 1, Heidenheim 4,Darmstadt 1, Heidenheim 5,Darmstadt 1, Heidenheim 6,Darmstadt 2, Heidenheim 0,Darmstadt 2, Heidenheim 1,Darmstadt 2, Heidenheim 2,Darmstadt 2, Heidenheim 3,Darmstadt 2, Heidenheim 4,Darmstadt 2, Heidenheim 5,Darmstadt 2, Heidenheim 6,Darmstadt 3, Heidenheim 0,Darmstadt 3, Heidenheim 1,Darmstadt 3, Heidenheim 2,Darmstadt 3, Heidenheim 3,Darmstadt 3, Heidenheim 4,Darmstadt 3, Heidenheim 5,Darmstadt 3, Heidenheim 6,Darmstadt 4, Heidenheim 0,Darmstadt 4, Heidenheim 1,Darmstadt 4, Heidenheim 2,Darmstadt 4, Heidenheim 3,Darmstadt 4, Heidenheim 4,Darmstadt 4, Heidenheim 5,Darmstadt 4, Heidenheim 6,Darmstadt 5, Heidenheim 0,Darmstadt 5, Heidenheim 1,Darmstadt 5, Heidenheim 2,Darmstadt 5, Heidenheim 3,Darmstadt 5, Heidenheim 4,Darmstadt 5, Heidenheim 5,Darmstadt 5, Heidenheim 6,Darmstadt 6, Heidenheim 0,Darmstadt 6, Heidenheim 1,Darmstadt 6, Heidenheim 2,Darmstadt 6, Heidenheim 3,Darmstadt 6, Heidenheim 4,Darmstadt 6, Heidenheim 5,Darmstadt 6, Heidenheim 6  ->  används inte (lagmarknad)
+  Darmstadt To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Correct Score 1st Half | units=Regular | kategori=Team Props | deltagare=Darmstadt 0, Heidenheim 0,Darmstadt 0, Heidenheim 1,Darmstadt 0, Heidenheim 2,Darmstadt 0, Heidenheim 3,Darmstadt 1, Heidenheim 0,Darmstadt 1, Heidenheim 1,Darmstadt 1, Heidenheim 2,Darmstadt 1, Heidenheim 3,Darmstadt 2, Heidenheim 0,Darmstadt 2, Heidenheim 1,Darmstadt 2, Heidenheim 2,Darmstadt 2, Heidenheim 3,Darmstadt 3, Heidenheim 0,Darmstadt 3, Heidenheim 1,Darmstadt 3, Heidenheim 2,Darmstadt 3, Heidenheim 3  ->  används inte (lagmarknad)
+  3-Way Handicap Darmstadt +2 | units=Regular | kategori=Team Props | deltagare=Darmstadt (+2),Draw - (Darmstadt +2),Heidenheim (-2)  ->  används inte (lagmarknad)
+  Heidenheim Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
+  3-Way Handicap Darmstadt -2 | units=Regular | kategori=Team Props | deltagare=Darmstadt (-2),Draw - (Darmstadt -2),Heidenheim (+2)  ->  används inte (lagmarknad)
+  Darmstadt To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Heidenheim Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  Darmstadt Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
+  Heidenheim Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
+  Draw No Bet 1st Half | units=Regular | kategori=Team Props | deltagare=Darmstadt,Heidenheim  ->  används inte (lagmarknad)
+  3-Way Handicap Darmstadt +1 | units=Regular | kategori=Team Props | deltagare=Darmstadt (+1),Draw - (Darmstadt +1),Heidenheim (-1)  ->  används inte (lagmarknad)
+Sides mindre ligor: 23 Kambi-matcher inom 12 h, 72 Pinnacle-matcher, 19 med Pinnacle, 19 matchade: Armenia / Premier League, Azerbaijan / Premier League, China / FA Cup, India / Super League, Indonesia / Liga 1, Indonesia / Liga 2, Iraq / Stars League, Japan / J1-League, Malaysia / Super League, Poland / III Liga, Qatar / Qatar Stars League, Romania / Liga II, Uganda / Premier League, Vietnam / V
+Sides/totals: 33 matcher med Kambi + Pinnacle, 663 linjer, 0 nya spel, 0 nya skuggspel, Smarkets-priser i 21 av 22; bästa edge +3.1% (Athletic Bilbao 1X2: 2), +1.7% (Al Duhail SC 1X2: 1), +1.2% (Puebla FC 1X2: 2)
 Hörnmodell (test): 7861 matcher i underlaget (17 ligor), 11 matcher med modell, 1370 Kambi-linjer, 0 nya testspel; bästa edge +61.0% (Bayern Munich Bayern Munich hörnor över 9.5 @ 3.20), +19.1% (Darmstadt 98 1. FC Heidenheim hörnor över 7.5 @ 3.10), +17.7% (Athletic Bilbao Athletic Bilbao hörnor över 8.5 @ 3.50)
 Fotboll extra bolag: 0 nya hämtningar, 610 odds i bruk, krediter kvar 262, dagsbudget 22 (andel 40%), förbrukat idag 0
-Tid: hämtning 369 s
+Tid: hämtning 380 s
 Marginal över alla matcher: uppmätt marginal: shots stege k=1.22 (7 spelare; marginal vid 3,00 ≈ 27%), shots_on_target stege k=1.16 (28 spelare; marginal vid 3,00 ≈ 19%)
   Seattle Sounders – Real Salt Lake: modell – hittar inte matchen hos ESPN
-  Arminia Bielefeld – 1. FC Magdeburg: modell ger.2, 27 spelare
   Darmstadt 98 – 1. FC Heidenheim: modell ger.2, 28 spelare
   Bayern Munich – 1. FC Köln: modell – hittar inte matchen hos ESPN
   Cercle Brugge – Westerlo: modell bel.1, 28 spelare
@@ -87,7 +87,7 @@ Modellens nivåavvikelse mot marknaden (log-odds, dras bort): shots -0.13, shots
   Seattle Sounders – Real Salt Lake: väntade mål Pinnacle 3.11 mot Kambi 3.23 (kvot 0.964); uppmätt marginal: goal k=1.43, assist k=1.30
 Exempel uppmätt marginal: goal k=1.43, assist k=1.30
   Western Sydney Wanderers – Adelaide United: saknar matchlinjer från Pinnacle
-  Arminia Bielefeld – 1. FC Magdeburg: väntade mål Pinnacle 2.87 mot Kambi 2.97 (kvot 0.966); uppmätt marginal: goal k=1.52
+  Arminia Bielefeld – 1. FC Magdeburg: saknar matchlinjer från Pinnacle
   Darmstadt 98 – 1. FC Heidenheim: väntade mål Pinnacle 3.22 mot Kambi 3.28 (kvot 0.983); uppmätt marginal: goal k=1.57
   AGF Aarhus – Lyngby: saknar matchlinjer från Pinnacle
   Bayern Munich – 1. FC Köln: väntade mål Pinnacle 4.76 mot Kambi 4.66 (kvot 1.022); uppmätt marginal: goal k=1.54, assist k=1.48, shots_on_target stege k=1.04 (7 spelare; marginal vid 3,00 ≈ 4%)
@@ -97,7 +97,7 @@ Exempel uppmätt marginal: goal k=1.43, assist k=1.30
   Athletic Bilbao – Espanyol: väntade mål Pinnacle 2.80 mot Kambi 2.84 (kvot 0.985); uppmätt marginal: goal k=1.57, assist k=1.59
   Club Atlético Vélez Sarsfield – Belgrano: saknar matchlinjer från Pinnacle
   Puebla FC – Atlético San Luis: väntade mål Pinnacle 2.97 mot Kambi 2.94 (kvot 1.010); uppmätt marginal: goal k=1.44, assist k=1.33
-Tid: modell och utvärdering 61 s
+Tid: modell och utvärdering 52 s
 Bolag med spelarodds: atg, betmgm, expekt, leovegas, oa_fanduel, oa_onexbet, paf, svenskaspel, unibet
 Spelarodds per marknad: assist 1218, goal 5767, shots 1630, shots_on_target 2374
 Kambi-marknader: assist='to give an assist (settled using opta data)':1218; goal='1st goalscorer':2177; goal='to score':2358; goal='to score at least 2 goals':1085; goal='to score at least 3 goals':126; goal='to score at least 4 goals':21; shots="player's shots (settled using opta data)":1246; shots_on_target="player's shots on target (settled using opta data)":2148
