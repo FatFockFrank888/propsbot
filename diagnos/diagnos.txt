@@ -1,33 +1,121 @@
-Skanning 2026-11-20 02:32
-Kambi unibet (ubse): FEL URLError för https://eu-offering.kambicdn.org/offering/v2018/ubse/listView/football/all/all/all/matches.json: <urlopen error timed out>
-Kambi paf (paf): FEL URLError för https://eu-offering.kambicdn.org/offering/v2018/paf/listView/football/all/all/all/matches.json: <urlopen error timed out>
-Kambi atg (atg): FEL URLError för https://eu-offering.kambicdn.org/offering/v2018/atg/listView/football/all/all/all/matches.json: <urlopen error timed out>
-Kambi leovegas (leose): FEL URLError för https://eu-offering.kambicdn.org/offering/v2018/leose/listView/football/all/all/all/matches.json: <urlopen error timed out>
-Kambi svenskaspel (svenskaspel): FEL URLError för https://eu-offering.kambicdn.org/offering/v2018/svenskaspel/listView/football/all/all/all/matches.json: <urlopen error timed out>
-Kambi expekt (expektse): FEL URLError för https://eu-offering.kambicdn.org/offering/v2018/expektse/listView/football/all/all/all/matches.json: <urlopen error timed out>
-Kambi betmgm (betmgmse): FEL URLError för https://eu-offering.kambicdn.org/offering/v2018/betmgmse/listView/football/all/all/all/matches.json: <urlopen error timed out>
-VARNING: inget Kambi-bolag svarade.
-Sides mindre ligor: FEL SourceError: URLError för https://eu-offering.kambicdn.org/offering/v2018/ubse/listView/football/all/all/all/matches.json: <urlopen error timed out>
-Sides/totals: 0 matcher med Kambi + Pinnacle, 0 linjer, 0 nya spel, 0 nya skuggspel, Smarkets-priser i 0 av 0; bästa edge 
-Hörnmodell (test): 7861 matcher i underlaget (17 ligor), 0 matcher med modell, 0 Kambi-linjer, 0 nya testspel; bästa edge 
-Fotboll extra bolag: 0 nya hämtningar, 0 odds i bruk, krediter kvar 262, dagsbudget 22 (andel 40%), förbrukat idag 0
-Tid: hämtning 719 s
-Marginal över alla matcher: uppmätt marginal: otillräckligt underlag i matchen
-Modellens nivåavvikelse mot marknaden (log-odds, dras bort): 
-Tid: modell och utvärdering 0 s
-Bolag med spelarodds: inga
-Spelarodds per marknad: 
-Kambi-marknader: 
+Skanning 2026-11-20 02:53
+Kambi unibet (ubse): OK, 22 matcher i valda ligor
+Kambi paf (paf): OK
+Kambi atg (atg): OK
+Kambi leovegas (leose): OK
+Kambi svenskaspel (svenskaspel): OK
+Kambi expekt (expektse): OK
+Kambi betmgm (betmgmse): OK
+Pinnacle: OK, 25 ligor
+Pinnacle: 43 matcher, matchlinjer för 15 av 22 Kambi-matcher, 0 spelarodds som används
+Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
+  Double Chance 1st Half | units=Regular | kategori=Team Props | deltagare=Seattle Sounders Or Real Salt Lake,Draw Or Real Salt Lake,Draw Or Seattle Sounders  ->  används inte (lagmarknad)
+  Moneyline and Total Goals | units=Regular | kategori=Team Props | deltagare=Seattle Sounders & Over 3.5,Seattle Sounders & Under 3.5,Draw & Over 3.5,Draw & Under 3.5,Real Salt Lake & Over 3.5,Real Salt Lake & Under 3.5  ->  används inte (lagmarknad)
+  Double Chance | units=Regular | kategori=Team Props | deltagare=Seattle Sounders Or Real Salt Lake,Draw Or Real Salt Lake,Draw Or Seattle Sounders  ->  används inte (lagmarknad)
+  Both Teams To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Either Team To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Seattle Sounders Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  Total Goals Range | units=Regular | kategori=Team Props | deltagare=0 - 1,2 - 3,4 - 6,7+  ->  används inte (lagmarknad)
+  Either Team To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Exact Total Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5,6+  ->  används inte (lagmarknad)
+  3-Way Handicap Seattle Sounders +1 | units=Regular | kategori=Team Props | deltagare=Seattle Sounders (+1),Draw - (Seattle Sounders +1),Real Salt Lake (-1)  ->  används inte (lagmarknad)
+  Real Salt Lake Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
+  3-Way Handicap Seattle Sounders -1 | units=Regular | kategori=Team Props | deltagare=Seattle Sounders (-1),Draw - (Seattle Sounders -1),Real Salt Lake (+1)  ->  används inte (lagmarknad)
+  Seattle Sounders To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Seattle Sounders Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
+  First Team To Score | units=1st Goal | kategori=Team Props | deltagare=Seattle Sounders,Real Salt Lake,Neither  ->  används inte (lagmarknad)
+  Winning Margin 1st Half | units=Regular | kategori=Team Props | deltagare=Seattle Sounders By 1,Seattle Sounders By 2+,Real Salt Lake By 1,Real Salt Lake By 2+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
+  Real Salt Lake To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Exact Total Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
+  Draw No Bet 1st Half | units=Regular | kategori=Team Props | deltagare=Seattle Sounders,Real Salt Lake  ->  används inte (lagmarknad)
+  Seattle Sounders To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Real Salt Lake To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Total Goals Odd/Even 1st Half | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  Seattle Sounders Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
+  Real Salt Lake Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
+  Correct Score | units=Regular | kategori=Team Props | deltagare=Seattle Sounders 0, Real Salt Lake 0,Seattle Sounders 0, Real Salt Lake 1,Seattle Sounders 0, Real Salt Lake 2,Seattle Sounders 0, Real Salt Lake 3,Seattle Sounders 0, Real Salt Lake 4,Seattle Sounders 0, Real Salt Lake 5,Seattle Sounders 0, Real Salt Lake 6,Seattle Sounders 1, Real Salt Lake 0,Seattle Sounders 1, Real Salt Lake 1,Seattle Sounders 1, Real Salt Lake 2,Seattle Sounders 1, Real Salt Lake 3,Seattle Sounders 1, Real Salt Lake 4,Seattle Sounders 1, Real Salt Lake 5,Seattle Sounders 1, Real Salt Lake 6,Seattle Sounders 2, Real Salt Lake 0,Seattle Sounders 2, Real Salt Lake 1,Seattle Sounders 2, Real Salt Lake 2,Seattle Sounders 2, Real Salt Lake 3,Seattle Sounders 2, Real Salt Lake 4,Seattle Sounders 2, Real Salt Lake 5,Seattle Sounders 2, Real Salt Lake 6,Seattle Sounders 3, Real Salt Lake 0,Seattle Sounders 3, Real Salt Lake 1,Seattle Sounders 3, Real Salt Lake 2,Seattle Sounders 3, Real Salt Lake 3,Seattle Sounders 3, Real Salt Lake 4,Seattle Sounders 3, Real Salt Lake 5,Seattle Sounders 3, Real Salt Lake 6,Seattle Sounders 4, Real Salt Lake 0,Seattle Sounders 4, Real Salt Lake 1,Seattle Sounders 4, Real Salt Lake 2,Seattle Sounders 4, Real Salt Lake 3,Seattle Sounders 4, Real Salt Lake 4,Seattle Sounders 4, Real Salt Lake 5,Seattle Sounders 4, Real Salt Lake 6,Seattle Sounders 5, Real Salt Lake 0,Seattle Sounders 5, Real Salt Lake 1,Seattle Sounders 5, Real Salt Lake 2,Seattle Sounders 5, Real Salt Lake 3,Seattle Sounders 5, Real Salt Lake 4,Seattle Sounders 5, Real Salt Lake 5,Seattle Sounders 5, Real Salt Lake 6,Seattle Sounders 6, Real Salt Lake 0,Seattle Sounders 6, Real Salt Lake 1,Seattle Sounders 6, Real Salt Lake 2,Seattle Sounders 6, Real Salt Lake 3,Seattle Sounders 6, Real Salt Lake 4,Seattle Sounders 6, Real Salt Lake 5,Seattle Sounders 6, Real Salt Lake 6  ->  används inte (lagmarknad)
+  Total Goals Range 1st Half | units=Regular | kategori=Team Props | deltagare=0 - 1,2 - 3,4+  ->  används inte (lagmarknad)
+  3-Way Handicap Seattle Sounders -2 | units=Regular | kategori=Team Props | deltagare=Seattle Sounders (-2),Draw - (Seattle Sounders -2),Real Salt Lake (+2)  ->  används inte (lagmarknad)
+  Both Teams To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Draw No Bet | units=Regular | kategori=Team Props | deltagare=Seattle Sounders,Real Salt Lake  ->  används inte (lagmarknad)
+  Correct Score 1st Half | units=Regular | kategori=Team Props | deltagare=Seattle Sounders 0, Real Salt Lake 0,Seattle Sounders 0, Real Salt Lake 1,Seattle Sounders 0, Real Salt Lake 2,Seattle Sounders 0, Real Salt Lake 3,Seattle Sounders 1, Real Salt Lake 0,Seattle Sounders 1, Real Salt Lake 1,Seattle Sounders 1, Real Salt Lake 2,Seattle Sounders 1, Real Salt Lake 3,Seattle Sounders 2, Real Salt Lake 0,Seattle Sounders 2, Real Salt Lake 1,Seattle Sounders 2, Real Salt Lake 2,Seattle Sounders 2, Real Salt Lake 3,Seattle Sounders 3, Real Salt Lake 0,Seattle Sounders 3, Real Salt Lake 1,Seattle Sounders 3, Real Salt Lake 2,Seattle Sounders 3, Real Salt Lake 3  ->  används inte (lagmarknad)
+  Winning Margin | units=Regular | kategori=Team Props | deltagare=Seattle Sounders By 1,Seattle Sounders By 2,Seattle Sounders By 3,Seattle Sounders By 4+,Real Salt Lake By 1,Real Salt Lake By 2,Real Salt Lake By 3,Real Salt Lake By 4+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
+  Total Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  First Team To Score 1st Half | units=1st Goal | kategori=Team Props | deltagare=Seattle Sounders,Real Salt Lake,Neither  ->  används inte (lagmarknad)
+  Real Salt Lake Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  Both Teams To Score and Moneyline | units=Regular | kategori=Team Props | deltagare=Yes & Seattle Sounders,Yes & Draw,Yes & Real Salt Lake,No & Seattle Sounders,No & Draw,No & Real Salt Lake  ->  används inte (lagmarknad)
+  Odd/Even and Total Goals | units=Regular | kategori=Team Props | deltagare=Odd & Over 3.5,Odd & Under 3.5,Even & Over 3.5,Even & Under 3.5  ->  används inte (lagmarknad)
+  Real Salt Lake To Win To Nil | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Seattle Sounders To Win To Nil | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Seattle Sounders To Win To Nil 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Real Salt Lake To Win To Nil 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Both Teams To Score and Total Goals | units=Regular | kategori=Team Props | deltagare=Yes & Over 3.5,Yes & Under 3.5,No & Over 3.5,No & Under 3.5  ->  används inte (lagmarknad)
+  3-Way Handicap Arminia Bielefeld -1 | units=Regular | kategori=Team Props | deltagare=Arminia Bielefeld (-1),Draw - (Arminia Bielefeld -1),FC Magdeburg (+1)  ->  används inte (lagmarknad)
+  Winning Margin | units=Regular | kategori=Team Props | deltagare=Arminia Bielefeld By 1,Arminia Bielefeld By 2,Arminia Bielefeld By 3,Arminia Bielefeld By 4+,FC Magdeburg By 1,FC Magdeburg By 2,FC Magdeburg By 3,FC Magdeburg By 4+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
+  Arminia Bielefeld Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  3-Way Handicap Arminia Bielefeld -3 | units=Regular | kategori=Team Props | deltagare=Arminia Bielefeld (-3),Draw - (Arminia Bielefeld -3),FC Magdeburg (+3)  ->  används inte (lagmarknad)
+  Draw No Bet | units=Regular | kategori=Team Props | deltagare=Arminia Bielefeld,FC Magdeburg  ->  används inte (lagmarknad)
+  3-Way Handicap Arminia Bielefeld +3 | units=Regular | kategori=Team Props | deltagare=Arminia Bielefeld (+3),Draw - (Arminia Bielefeld +3),FC Magdeburg (-3)  ->  används inte (lagmarknad)
+  FC Magdeburg To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Correct Score | units=Regular | kategori=Team Props | deltagare=Arminia Bielefeld 0, FC Magdeburg 0,Arminia Bielefeld 0, FC Magdeburg 1,Arminia Bielefeld 0, FC Magdeburg 2,Arminia Bielefeld 0, FC Magdeburg 3,Arminia Bielefeld 0, FC Magdeburg 4,Arminia Bielefeld 0, FC Magdeburg 5,Arminia Bielefeld 0, FC Magdeburg 6,Arminia Bielefeld 1, FC Magdeburg 0,Arminia Bielefeld 1, FC Magdeburg 1,Arminia Bielefeld 1, FC Magdeburg 2,Arminia Bielefeld 1, FC Magdeburg 3,Arminia Bielefeld 1, FC Magdeburg 4,Arminia Bielefeld 1, FC Magdeburg 5,Arminia Bielefeld 1, FC Magdeburg 6,Arminia Bielefeld 2, FC Magdeburg 0,Arminia Bielefeld 2, FC Magdeburg 1,Arminia Bielefeld 2, FC Magdeburg 2,Arminia Bielefeld 2, FC Magdeburg 3,Arminia Bielefeld 2, FC Magdeburg 4,Arminia Bielefeld 2, FC Magdeburg 5,Arminia Bielefeld 2, FC Magdeburg 6,Arminia Bielefeld 3, FC Magdeburg 0,Arminia Bielefeld 3, FC Magdeburg 1,Arminia Bielefeld 3, FC Magdeburg 2,Arminia Bielefeld 3, FC Magdeburg 3,Arminia Bielefeld 3, FC Magdeburg 4,Arminia Bielefeld 3, FC Magdeburg 5,Arminia Bielefeld 3, FC Magdeburg 6,Arminia Bielefeld 4, FC Magdeburg 0,Arminia Bielefeld 4, FC Magdeburg 1,Arminia Bielefeld 4, FC Magdeburg 2,Arminia Bielefeld 4, FC Magdeburg 3,Arminia Bielefeld 4, FC Magdeburg 4,Arminia Bielefeld 4, FC Magdeburg 5,Arminia Bielefeld 4, FC Magdeburg 6,Arminia Bielefeld 5, FC Magdeburg 0,Arminia Bielefeld 5, FC Magdeburg 1,Arminia Bielefeld 5, FC Magdeburg 2,Arminia Bielefeld 5, FC Magdeburg 3,Arminia Bielefeld 5, FC Magdeburg 4,Arminia Bielefeld 5, FC Magdeburg 5,Arminia Bielefeld 5, FC Magdeburg 6,Arminia Bielefeld 6, FC Magdeburg 0,Arminia Bielefeld 6, FC Magdeburg 1,Arminia Bielefeld 6, FC Magdeburg 2,Arminia Bielefeld 6, FC Magdeburg 3,Arminia Bielefeld 6, FC Magdeburg 4,Arminia Bielefeld 6, FC Magdeburg 5,Arminia Bielefeld 6, FC Magdeburg 6  ->  används inte (lagmarknad)
+  Arminia Bielefeld To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Correct Score 1st Half | units=Regular | kategori=Team Props | deltagare=Arminia Bielefeld 0, FC Magdeburg 0,Arminia Bielefeld 0, FC Magdeburg 1,Arminia Bielefeld 0, FC Magdeburg 2,Arminia Bielefeld 0, FC Magdeburg 3,Arminia Bielefeld 1, FC Magdeburg 0,Arminia Bielefeld 1, FC Magdeburg 1,Arminia Bielefeld 1, FC Magdeburg 2,Arminia Bielefeld 1, FC Magdeburg 3,Arminia Bielefeld 2, FC Magdeburg 0,Arminia Bielefeld 2, FC Magdeburg 1,Arminia Bielefeld 2, FC Magdeburg 2,Arminia Bielefeld 2, FC Magdeburg 3,Arminia Bielefeld 3, FC Magdeburg 0,Arminia Bielefeld 3, FC Magdeburg 1,Arminia Bielefeld 3, FC Magdeburg 2,Arminia Bielefeld 3, FC Magdeburg 3  ->  används inte (lagmarknad)
+  3-Way Handicap Arminia Bielefeld +2 | units=Regular | kategori=Team Props | deltagare=Arminia Bielefeld (+2),Draw - (Arminia Bielefeld +2),FC Magdeburg (-2)  ->  används inte (lagmarknad)
+  FC Magdeburg Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
+  3-Way Handicap Arminia Bielefeld -2 | units=Regular | kategori=Team Props | deltagare=Arminia Bielefeld (-2),Draw - (Arminia Bielefeld -2),FC Magdeburg (+2)  ->  används inte (lagmarknad)
+  Arminia Bielefeld To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  FC Magdeburg Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  Arminia Bielefeld Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
+  FC Magdeburg Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
+  Draw No Bet 1st Half | units=Regular | kategori=Team Props | deltagare=Arminia Bielefeld,FC Magdeburg  ->  används inte (lagmarknad)
+  3-Way Handicap Arminia Bielefeld +1 | units=Regular | kategori=Team Props | deltagare=Arminia Bielefeld (+1),Draw - (Arminia Bielefeld +1),FC Magdeburg (-1)  ->  används inte (lagmarknad)
+Sides mindre ligor: 41 Kambi-matcher inom 12 h, 95 Pinnacle-matcher, 37 med Pinnacle, 37 matchade: Algeria / Ligue 2, Armenia / Premier League, Azerbaijan / Premier League, China / FA Cup, Ethiopia / Premier League, India / I-League, India / Super League, Indonesia / Liga 1, Indonesia / Liga 2, Iraq / Stars League, Japan / J1-League, Malaysia / Super League, Poland / III Liga, Qatar / Qatar Stars
+  Sides rättad: Rekord Bielsko Biala (W) – Kks Lech Poznan (W) 1X2: 1 -> förlorad (0–1)
+Sides/totals: 52 matcher med Kambi + Pinnacle, 823 linjer, 0 nya spel, 2 nya skuggspel, Smarkets-priser i 23 av 24; bästa edge +5.1% (Sidi M'hamed Benali 1X2: 1), +4.6% (Cercle Brugge 1X2: 2), +2.4% (Seattle Sounders 1X2: 2)
+Hörnmodell (test): 7861 matcher i underlaget (17 ligor), 11 matcher med modell, 1370 Kambi-linjer, 0 nya testspel; bästa edge +60.5% (Bayern Munich Bayern Munich hörnor över 9.5 @ 3.20), +19.1% (Darmstadt 98 1. FC Heidenheim hörnor över 7.5 @ 3.10), +17.7% (Athletic Bilbao Athletic Bilbao hörnor över 8.5 @ 3.50)
+Fotboll extra bolag: 0 nya hämtningar, 610 odds i bruk, krediter kvar 262, dagsbudget 22 (andel 40%), förbrukat idag 0
+Tid: hämtning 393 s
+Marginal över alla matcher: uppmätt marginal: shots stege k=1.22 (7 spelare; marginal vid 3,00 ≈ 27%), shots_on_target stege k=1.16 (28 spelare; marginal vid 3,00 ≈ 19%)
+  Seattle Sounders – Real Salt Lake: modell – hittar inte matchen hos ESPN
+  Arminia Bielefeld – 1. FC Magdeburg: modell ger.2, 27 spelare
+  Darmstadt 98 – 1. FC Heidenheim: modell ger.2, 28 spelare
+  Bayern Munich – 1. FC Köln: modell – hittar inte matchen hos ESPN
+  Cercle Brugge – Westerlo: modell bel.1, 28 spelare
+  Troyes – Le Havre: modell fra.1, 30 spelare
+  Athletic Bilbao – Espanyol: modell esp.1, 30 spelare
+  Puebla FC – Atlético San Luis: modell – hittar inte matchen hos ESPN
+Modellens nivåavvikelse mot marknaden (log-odds, dras bort): shots -0.13, shots_on_target -0.40
+  Seattle Sounders – Real Salt Lake: väntade mål Pinnacle 3.09 mot Kambi 3.17 (kvot 0.974); uppmätt marginal: goal k=1.30
+Exempel uppmätt marginal: goal k=1.30
+  Western Sydney Wanderers – Adelaide United: saknar matchlinjer från Pinnacle
+  Arminia Bielefeld – 1. FC Magdeburg: väntade mål Pinnacle 2.87 mot Kambi 2.97 (kvot 0.966); uppmätt marginal: goal k=1.52
+  Darmstadt 98 – 1. FC Heidenheim: väntade mål Pinnacle 3.22 mot Kambi 3.28 (kvot 0.983); uppmätt marginal: goal k=1.57
+  AGF Aarhus – Lyngby: saknar matchlinjer från Pinnacle
+  Bayern Munich – 1. FC Köln: väntade mål Pinnacle 4.74 mot Kambi 4.66 (kvot 1.018); uppmätt marginal: goal k=1.54, assist k=1.49, shots_on_target stege k=1.04 (7 spelare; marginal vid 3,00 ≈ 4%)
+  FC Andorra – Leganés: saknar matchlinjer från Pinnacle
+  Cercle Brugge – Westerlo: väntade mål Pinnacle 3.36 mot Kambi 3.33 (kvot 1.010); uppmätt marginal: goal k=1.64, assist k=1.52
+  Troyes – Le Havre: väntade mål Pinnacle 2.70 mot Kambi 2.75 (kvot 0.981); uppmätt marginal: goal k=1.38, assist k=1.28, shots stege k=1.22 (7 spelare; marginal vid 3,00 ≈ 27%), shots_on_target stege k=1.24 (21 spelare; marginal vid 3,00 ≈ 30%)
+  Athletic Bilbao – Espanyol: väntade mål Pinnacle 2.80 mot Kambi 2.84 (kvot 0.985); uppmätt marginal: goal k=1.57, assist k=1.59
+  Club Atlético Vélez Sarsfield – Belgrano: saknar matchlinjer från Pinnacle
+  Puebla FC – Atlético San Luis: väntade mål Pinnacle 2.97 mot Kambi 2.94 (kvot 1.010); uppmätt marginal: goal k=1.44, assist k=1.33
+Tid: modell och utvärdering 44 s
+Bolag med spelarodds: atg, betmgm, expekt, leovegas, oa_fanduel, oa_onexbet, paf, svenskaspel, unibet
+Spelarodds per marknad: assist 1183, goal 5634, shots 1630, shots_on_target 2367
+Kambi-marknader: assist='to give an assist (settled using opta data)':1183; goal='1st goalscorer':2142; goal='to score':2323; goal='to score at least 2 goals':1022; goal='to score at least 3 goals':126; goal='to score at least 4 goals':21; shots="player's shots (settled using opta data)":1246; shots_on_target="player's shots on target (settled using opta data)":2141
 Pinnacle har inga spelarprops här – använder linjejustering mot Pinnacles matchlinjer.
 CLV-signal: 0 ben släppta (Pinnacle rör sig åt vårt håll)
 Startelvor: 0 spelbara ben klara, 0 väntar på startelvan, 0 stoppade (inte i startelvan)
 Spelregler: stoppade {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0} (modelltest {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0})
-Spelarmodell: 0 av 0 ben har modell, 0 nya matcher hämtade från ESPN
+Spelarmodell: 0 av 223 ben har modell, 0 nya matcher hämtade från ESPN
+Bästa edge marknad shots_on_target: -5.7%, -5.9%, -6.0% (av 191 ben)
+Bästa edge modelltest shots_on_target: -3.7%, -4.2%, -4.4% (av 103 ben)
 0 spelbara ben.
 Bokförda nya spel: 0
 Skuggspel: 0 nya bokförda (stoppade av reglerna, minst 2 % edge)
 Modelltest: 0 spelbara enligt modellen, 0 nya testspel bokförda
-Fouls (test): 0 ben med modell, 0 klarar kraven, 0 nya bokförda, bästa edge –, 0 nya ESPN-matcher, domare känd i 0 matcher
-Kort (test): 0 Kambi-odds, 0 ben med modell, 0 klarar kraven, 0 nya bokförda, bästa edge –, 0 nya ESPN-matcher
+Domare: 40 kommande matcher med utsedd domare (UEFA + football-data)
+Fouls (test): 45 ben med modell, 1 klarar kraven, 0 nya bokförda, bästa edge +86.8%, +49.1%, +12.2%, 0 nya ESPN-matcher, domare känd i 0 matcher
+Domare: 40 kommande matcher med utsedd domare (UEFA + football-data)
+Kort (test): 1077 Kambi-odds, 65 ben med modell, 3 klarar kraven, 0 nya bokförda, bästa edge +27.3%, +12.8%, +7.9%, 0 nya ESPN-matcher
 Parlays: 0 förslag, 0 nya bokförda
 Notiser skickade: 0
