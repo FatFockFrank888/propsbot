@@ -5095,14 +5095,14 @@
 "utfall": null,
 "resultat_enheter": null,
 "modell_edge": 0.08029167745639798,
-"stangning_ts": 1795213202.5147576,
+"stangning_ts": 1795214324.2528815,
 "analys": {
-"p_stack": 0.5262,
+"p_stack": 0.5261,
 "p_modell_min": 0.4819,
 "minuter": 32.6,
 "minuter_sd": 3.5,
-"p_faktorer": 0.5464,
-"p_faktorer_ra": 0.6391,
+"p_faktorer": 0.5481,
+"p_faktorer_ra": 0.646,
 "vantat_faktorer": 9.49,
 "p_betyg": 0.5455,
 "p_betyg_ra": 0.6351,
@@ -5132,17 +5132,17 @@
 "traff_hemmaborta": 0.429,
 "traff_hemmaborta_n": 7,
 "p_kalib": 0.5194,
-"p_blend": 0.5139,
+"p_blend": 0.5144,
 "kalib_modell": "M0",
-"p_modell": 0.4943,
+"p_modell": 0.4969,
 "p_marknad": 0.5194,
-"p_slutlig": 0.5139,
+"p_slutlig": 0.5144,
 "vantat": 11.61,
 "nb_r": 10,
 "modell_vikt": 0.22,
 "dq": 0.73,
 "matcher": 11,
-"nivajustering": 0.16,
+"nivajustering": 0.17,
 "logg": [
 {
 "ts": 1795057200.0,
@@ -5284,11 +5284,11 @@
 ]
 },
 "prognos": 11.605161562175303,
-"analys_ts": 1795213202.5174057,
+"analys_ts": 1795214324.256112,
 "modellversion": "2026-11-15-betyg",
 "prognos_ts": 1795213202.5147405,
 "skarp_stang_p": 0.5193709987771143,
-"skarp_stang_ts": 1795213202.2736793,
+"skarp_stang_ts": 1795214323.9773307,
 "skarp_kalla": "skanning",
 "pin_stang_p": 0.5156476601480882,
 "dk_stang_p": 0.5280497154439798,
@@ -5316,7 +5316,7 @@
 "dk_p": 0.5280497154439798
 },
 "bolag_stangning": {
-"ts": 1795213202.5294635,
+"ts": 1795214324.2741737,
 "odds": {
 "unibet": {
 "over": 1.68,
@@ -5338,11 +5338,291 @@
 "pin_p": 0.5156476601480882,
 "dk_p": 0.5280497154439798
 },
-"bolag_stang_ts": 1795213202.5294635,
+"bolag_stang_ts": 1795214324.2741737,
 "skarp_verifierad": false,
 "skarp_status": null,
 "clv_skarp_pp": 3.860176800788362,
 "clv_pin_pp": 3.4878429378857434,
 "clv_dk_pp": 4.72804846747491
+},
+{
+"key": "nba1028753902|day ron sharpe|rebounds|7.5|unibet|under",
+"id": 36,
+"bokford": 1795214324.2528632,
+"match_id": "nba1028753902",
+"match": "Brooklyn Nets – Orlando Magic",
+"hemma": "Brooklyn Nets",
+"borta": "Orlando Magic",
+"liga": "NBA",
+"avspark": 1795221000.0,
+"spelare": "Day'Ron Sharpe",
+"spelare_id": "day ron sharpe",
+"marknad": "rebounds",
+"linje": 7.5,
+"sida": "under",
+"bolag": "unibet",
+"odds": 2.02,
+"sannolikhet": 0.5322544491902441,
+"ratt_odds": 1.878800640410559,
+"edge": 0.07515398736429302,
+"spela_fran": 1.92,
+"insats_pct": 0.006,
+"stangning": 2.02,
+"status": "öppen",
+"stopp": "",
+"clv_signal": false,
+"forv_clv_pp": 3.608012178881015,
+"p_modell": null,
+"p_marknad": 0.5322544491902441,
+"utfall": null,
+"resultat_enheter": null,
+"modell_edge": 0.07515398736429302,
+"stangning_ts": 1795214324.2528815,
+"analys": {
+"p_stack": 0.529,
+"p_modell_min": 0.7055,
+"minuter": 23.7,
+"minuter_sd": 4.8,
+"p_faktorer": 0.5649,
+"p_faktorer_ra": 0.7733,
+"vantat_faktorer": 5.26,
+"p_betyg": 0.5621,
+"p_betyg_ra": 0.7566,
+"vantat_betyg": 5.66,
+"minuter_faktorer": 20.8,
+"f_anv": 1.0,
+"f_miljo": 1.0,
+"f_tempo": 0.984,
+"f_pos": 0.948,
+"f_mot": 1.037,
+"f_minuter_bas": 23.6,
+"f_b2b": false,
+"f_tre_pa_fyra": false,
+"f_minutbegransning": false,
+"f_tillbaka": false,
+"f_miljo_kalla": "pinnacle",
+"f_lag_poang": 108.5,
+"f_mot_n": 3,
+"traff_l5": 0.6,
+"traff_l5_n": 5,
+"traff_l10": 0.6,
+"traff_l10_n": 10,
+"traff_sasong": 0.571,
+"traff_sasong_n": 14,
+"traff_mot": 1.0,
+"traff_mot_n": 3,
+"traff_hemmaborta": 0.667,
+"traff_hemmaborta_n": 6,
+"p_kalib": 0.5323,
+"p_blend": 0.5856,
+"kalib_modell": "M0",
+"p_modell": 0.7372,
+"p_marknad": 0.5323,
+"p_slutlig": 0.5856,
+"vantat": 6.13,
+"nb_r": 10,
+"modell_vikt": 0.24,
+"dq": 0.8,
+"matcher": 12,
+"nivajustering": 0.17,
+"logg": [
+{
+"ts": 1795048200.0,
+"mot": "CHI",
+"hemma": true,
+"min": 22.0,
+"v": 5.0
+},
+{
+"ts": 1794875400.0,
+"mot": "PHI",
+"hemma": true,
+"min": 25.0,
+"v": 9.0
+},
+{
+"ts": 1794704400.0,
+"mot": "MEM",
+"hemma": false,
+"min": 28.0,
+"v": 11.0
+},
+{
+"ts": 1794445200.0,
+"mot": "NO",
+"hemma": false,
+"min": 19.0,
+"v": 4.0
+},
+{
+"ts": 1794184200.0,
+"mot": "DAL",
+"hemma": false,
+"min": 20.0,
+"v": 4.0
+},
+{
+"ts": 1794097800.0,
+"mot": "ATL",
+"hemma": false,
+"min": 32.0,
+"v": 10.0
+},
+{
+"ts": 1793838600.0,
+"mot": "CHA",
+"hemma": true,
+"min": 27.0,
+"v": 5.0
+},
+{
+"ts": 1793665800.0,
+"mot": "NY",
+"hemma": false,
+"min": 22.0,
+"v": 6.0
+},
+{
+"ts": 1793570400.0,
+"mot": "IND",
+"hemma": false,
+"min": 26.0,
+"v": 13.0
+},
+{
+"ts": 1793403000.0,
+"mot": "DET",
+"hemma": true,
+"min": 24.0,
+"v": 7.0
+}
+],
+"franvaro": [],
+"lag": "Brooklyn Nets",
+"mot": "ORL",
+"hemma": true,
+"minuter_sd_faktorer": 4.8,
+"ref": {
+"pin_p": 0.5290238741451648,
+"dk_p": 0.5544933253399935,
+"pin_linje": null,
+"dk_linje": null,
+"pin_flyttad": false,
+"pin_komb": false
+},
+"odds_bolag": [
+{
+"bolag": "atg",
+"over": 1.72,
+"under": 2.02
+},
+{
+"bolag": "betmgm",
+"over": 1.72,
+"under": 2.02
+},
+{
+"bolag": "expekt",
+"over": 1.72,
+"under": 2.02
+},
+{
+"bolag": "kalshi",
+"over": 2.105,
+"under": 1.905
+},
+{
+"bolag": "leovegas",
+"over": 1.72,
+"under": 2.02
+},
+{
+"bolag": "paf",
+"over": 1.72,
+"under": 2.02
+},
+{
+"bolag": "pinnacle",
+"over": 1.971,
+"under": 1.775
+},
+{
+"bolag": "svenskaspel",
+"over": 1.72,
+"under": 2.02
+},
+{
+"bolag": "unibet",
+"over": 1.72,
+"under": 2.02
+},
+{
+"bolag": "us_draftkings",
+"over": 2.07,
+"under": 1.7
+}
+]
+},
+"prognos": 6.127694678157913,
+"analys_ts": 1795214324.256112,
+"modellversion": "2026-11-15-betyg",
+"prognos_ts": 1795214324.2528632,
+"skarp_stang_p": 0.5322544491902441,
+"skarp_stang_ts": 1795214323.9773307,
+"skarp_kalla": "skanning",
+"pin_stang_p": 0.5290238741451648,
+"dk_stang_p": 0.5544933253399935,
+"bolag_bokning": {
+"ts": 1795214324.2741737,
+"odds": {
+"unibet": {
+"over": 1.72,
+"under": 2.02
+},
+"pinnacle": {
+"over": 1.971,
+"under": 1.775
+},
+"draftkings": {
+"over": 2.07,
+"under": 1.7
+}
+},
+"pin_flyttad": false,
+"pin_komb": false,
+"pin_linje": null,
+"dk_linje": null,
+"pin_p": 0.5290238741451648,
+"dk_p": 0.5544933253399935
+},
+"bolag_stangning": {
+"ts": 1795214324.2741737,
+"odds": {
+"unibet": {
+"over": 1.72,
+"under": 2.02
+},
+"pinnacle": {
+"over": 1.971,
+"under": 1.775
+},
+"draftkings": {
+"over": 2.07,
+"under": 1.7
+}
+},
+"pin_flyttad": false,
+"pin_komb": false,
+"pin_linje": null,
+"dk_linje": null,
+"pin_p": 0.5290238741451648,
+"dk_p": 0.5544933253399935
+},
+"bolag_stang_ts": 1795214324.2741737,
+"skarp_verifierad": false,
+"skarp_status": null,
+"clv_skarp_pp": 3.720494423974907,
+"clv_pin_pp": 3.3974369194669785,
+"clv_dk_pp": 5.944382038949847
 }
 ]
