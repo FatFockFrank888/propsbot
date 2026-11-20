@@ -37,8 +37,6 @@ Fotboll,Max odds-ålder,180 s,
 Fotboll,Max avvikelse från konsensus,18 %,
 Fotboll,Ligor,35 st,"England / Premier League, England / The Championship, England / Championship, Spain / La Liga, Spain / LaLiga, Germany / Bundesliga, Germany / 2. Bundesliga, Italy / Serie A, Italy / Serie B, France / Ligue 1, France / Ligue 2, Netherlands / Eredivisie, Portugal / Liga Portugal, Portugal / Primeira Liga, Belgium / Pro League, Belgium / Jupiler, Scotland / Premiership, Turkey / Süper Lig, Turkey / Super Lig, Denmark / Superliga, Norway / Eliteserien, Sweden / Allsvenskan, Austria / Bundesliga, Switzerland / Super League, Greece / Super League, USA / MLS, Brazil / Serie A, Argentina / Liga Profesional, Champions League, Europa League, Conference League, Australia / A-League, Brazil / Brasileirao, Brazil / Copa do Brasil, Mexico / Liga MX"
 Fotboll,Fouls (test),"på, minst 5 % edge","Egen modell (ESPN), domarfaktor ±15 %. Bara datainsamling."
-Fotboll,Kort (test),"på, datainsamling","""To Get a Card"" hos Kambi. Egen modell: spelarens kort per match (ESPN) × domarens stränghet. Bara datainsamling."
-Fotboll,Parlays,"på, max 3 ben, minst 6 % edge per ben",Notiser för parlays: av.
 Fotboll,Sides/totals: status,datainsamling (inga notiser),"1X2, mål över/under och asiatiskt handikapp hos Kambi mot Pinnacle utan marginal (start 5/11). LIVE slås på när ca 50 spel visar att vi slår Pinnacles stängning."
 Fotboll,Sides/totals: marknader,"1x2, total, ah, corners, cah, corners_home, corners_away","1X2, mål över/under och asiatiskt handikapp – halvlinjer (x,5) och asiatiska linjer: hela (push = insatsen tillbaka) och kvarts (halva insatsen på var närliggande linje). 90 minuter + tillägg."
 Fotboll,Startelvor (props),krävs,"Används när den finns: har ESPN matchen är props spelbara först när båda elvorna är kända (ca 1 h före avspark, senast 55 min före) och spelaren måste starta. Saknar ESPN matchen (mindre ligor) bortser vi från startelvan."
@@ -57,7 +55,8 @@ NBA,LIVE: modellen,får inte säga emot (modellens edge ≥ 5 % om den har en ra
 NBA,LIVE: jämförelsekällor,"minst 2, varav Pinnacle","Pinnacle, Kalshi, DraftKings (via ESPN), SportsGameOdds, The Odds API"
 NBA,LIVE: oddsram,"1,60–3,50",
 NBA,LIVE: risk,max 10u/spel i LIVE-bokföringen; inga tak per match eller dag,Taken togs bort 18/11 (du väljer själv). Insatsen du spelar är nivåernas flat 1–3u.
-NBA,Modellvikt,0.3 × dq,"Blandas med marknaden i log-odds. dq = datakvalitet 0,2–1 (antal matcher i underlaget / 15): tunt underlag -> marknaden väger mer. Halveras när modell och marknad skiljer mycket."
+NBA,Modellen: kalibrering,"automatisk, per marknad, prövad framåt","Alla ben modellen räknar på loggas och rättas (inte bara de som bokas). Varje körning prövas tre varianter på de nyaste avgjorda benen: marknaden, kalibrerad marknad och marknad + modellens avvikelser. Modellen får vikt bara om den slår marknaden spel för spel (t ≥ 2, minst 150 testben); vikten krymps då efter hur överkonfident den är. Modelltestet bokar bara på marknader där modellen har förtjänat vikt (20/11: 1 143 spel visade ingen vikt)."
+NBA,Skuggspel,edge ≥ 4 % som stoppats av en regel,"Golvet höjdes från 2 % till 4 % (20/11): 1 036 skuggspel på 2–4 % gav ROI +0,3 % och CLV +0,4. Marknadens och modellens träffsäkerhet följs i kalibreringsloggen, som har alla ben."
 NBA,Brier modell / marknad,visas under Resultat,Mäter om modellen slår marknadens egen sannolikhet på avgjorda spel (lägre = bättre).
 NBA,Matcher,"inom 30 h, max 15",
 NBA,US-bolag via The Odds API,40–240 min före start,Andel av krediterna: 60 %.

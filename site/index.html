@@ -326,7 +326,6 @@
       <button class="tab" data-t="radar">Radar</button>
       <button class="tab" data-t="res">Resultat</button>
       <button class="tab" data-t="bok">Bokföring</button>
-      <button class="tab" data-t="parlay">Parlays</button>
       <button class="tab" data-t="param">Parametrar</button>
     </nav>
     <div class="fresh" id="fresh"></div>
@@ -455,7 +454,7 @@
       <button id="aCsv" class="btn">⬇ CSV av filtret</button>
     </div>
     <div class="sub">Typer: <b>Live</b> = spelade (notis). <b>Spel</b> = klarar alla regler (data). <b>Skugga</b> = stoppat av en regel.
-      <b>Modelltest</b> = egna modellens val. <b>Fouls-/Kort-test</b> = nya marknader, bara data.
+      <b>Modelltest</b> = egna modellens val. <b>Fouls-/Hörn-test</b> = nya marknader, bara data.
       <b>Sides</b> = fotbollens 1X2, mål över/under och asiatiskt handikapp mot Pinnacle utan marginal (Sides-skugga = stoppat av en regel). CLV i procentenheter (positivt = vi slog stängningen).</div>
     <div class="sub" id="aUniq"></div>
     <div class="tiles" id="aTiles" style="margin-top:10px"></div>
@@ -475,20 +474,6 @@
       <thead><tr><th>Spelare</th><th>Spel</th><th>Start</th><th class="n" title="odds → stängning, CLV">Odds</th>
         <th class="n" title="sannolikhet, edge">Sannolikh.</th><th title="status, insats, utfall">Status</th><th class="n">Res.</th><th class="cm">Stopp / kommentar</th></tr></thead>
       <tbody id="aRows"></tbody></table></div>
-  </section>
-
-  <!-- ======================================================= PARLAYS -->
-  <section id="parlay" class="hidden">
-    <h2>Förslag just nu</h2>
-    <div class="wrap free"><table>
-      <thead><tr><th>Sport</th><th>Bolag</th><th>Ben</th><th class="n">Odds</th><th class="n">Sannolikhet</th>
-        <th class="n">EV</th><th class="n">Insats</th></tr></thead>
-      <tbody id="psug"></tbody></table></div>
-    <h2>Bokförda parlays</h2>
-    <div class="wrap"><table>
-      <thead><tr><th>Bokförd</th><th>Sport</th><th>Bolag</th><th>Ben (status)</th><th class="n">Odds</th>
-        <th class="n">EV</th><th class="n">Insats</th><th>Status</th><th class="n">Resultat</th></tr></thead>
-      <tbody id="pbets"></tbody></table></div>
   </section>
 
   <!-- ======================================================= PARAMETRAR -->
@@ -575,13 +560,6 @@ function norm(b, sport, typ) {
     pinP: b.pin_stang_p, dkP: b.dk_stang_p, pinP0: b.pin_p ?? b.bolag_bokning?.pin_p, dkP0: b.bolag_bokning?.dk_p,
     smkP0: b.smk_p, smkP: b.smk_stang_p, pMk: b.p_marknad, stangU: b.stangning, ratt_odds: b.ratt_odds, forv_clv_pp: b.forv_clv_pp, clv_signal: b.clv_signal};
 }
-function normParlay(x, sport) {
-  return {sport, typ: "Parlay", bokford: x.bokford, avspark: Math.max(...x.ben.map(l => l.avspark || 0)),
-    match: x.ben.map(l => l.match).join(" | "), spelare: x.ben.map(l => `${l.spelare} ${spel(l.marknad, l.linje, l.sida)}`).join(" + "),
-    mkKey: "parlay", marknad: `Parlay ${x.antal_ben} ben`, spel: `${x.antal_ben} ben`, bolag: x.bolag, odds: x.slutodds || x.odds,
-    stangning: null, clv: null, p: x.sannolikhet, edge: x.ev, u: (x.insats_pct || 0) / U, status: x.status, sida: "Över",
-    stopp: "", res: x.resultat_enheter == null ? null : x.resultat_enheter / U};
-}
 function buildAll() {
   ALL = [];
   for (const [s, d] of Object.entries(D)) {
@@ -591,12 +569,10 @@ function buildAll() {
     (d.skuggspel || []).forEach(b => ALL.push(norm(b, s, "Skugga")));
     (d.modelltest || []).forEach(b => ALL.push(norm(b, s, "Modelltest")));
     (d.fouls_test || []).forEach(b => ALL.push(norm(b, s, "Fouls-test")));
-    (d.kort_test || []).forEach(b => ALL.push(norm(b, s, "Kort-test")));
     (d.horn_test || []).forEach(b => ALL.push(norm(b, s, "Hörn-test")));
     // Sides-spel med notis är riktiga LIVE-spel (Spela nu, Resultat); övriga är data.
     (d.sides_spel || []).forEach(b => ALL.push(norm(b, s, b.notis ? "Live" : "Sides")));
     (d.sides_skugga || []).forEach(b => ALL.push(norm(b, s, "Sides-skugga")));
-    (d.parlay_bokforing || []).forEach(x => ALL.push(normParlay(x, s)));
   }
 }
 const rows = () => ALL.filter(r => sel().includes(r.sport));
@@ -611,11 +587,11 @@ const tierChip = t => `<span class="tier t${t}">${t}</span>`;
 const UTXT = {1: "standard", 2: "high", 3: "MAXBET"};
 // Samma spelare kan finnas i flera bokföringar (t.ex. Skugga och Modelltest). När typerna blandas
 // räknas varje spelare och match en gång, i den viktigaste typen: Live > Spel > Skugga > Modelltest > test.
-const TYPE_ORDER = ["Live", "Spel", "Skugga", "Modelltest", "Fouls-test", "Kort-test", "Hörn-test", "Sides", "Sides-skugga"];
+const TYPE_ORDER = ["Live", "Spel", "Skugga", "Modelltest", "Fouls-test", "Hörn-test", "Sides", "Sides-skugga"];
 function uniq(rs) {
   const best = new Map(), out = [];
   for (const r of rs) {
-    if (r.typ === "Parlay" || !r.pk) { out.push(r); continue; }
+    if (!r.pk) { out.push(r); continue; }
     const o = best.get(r.pk), rank = x => { const i = TYPE_ORDER.indexOf(x.typ); return i < 0 ? 99 : i; };
     if (!o || rank(r) < rank(o) || (rank(r) === rank(o) && (r.bokford || 0) < (o.bokford || 0))) best.set(r.pk, r);
   }
@@ -1509,7 +1485,7 @@ function calib(rs) {
         <td class="n ${Math.abs(act - exp) < 0.08 ? "pos" : "loss"}">${pct(act)}</td></tr>`; }).join("") + `</tbody></table>`;
 }
 function renderRes() {
-  const TYPES = ["Live", "Spel", "Skugga", "Modelltest", "Fouls-test", "Kort-test", "Hörn-test", "Sides", "Sides-skugga", "Parlay"];
+  const TYPES = ["Live", "Spel", "Skugga", "Modelltest", "Fouls-test", "Hörn-test", "Sides", "Sides-skugga"];
   document.getElementById("resCards").innerHTML = sel().filter(s => D[s]).map(s => {
     const all = ALL.filter(r => r.sport === s);
     const main = D[s].live ? "Live" : "Spel";
@@ -1594,7 +1570,7 @@ function renderBok() {
       <td class="n" data-l="CLV"><div class="${cls(x.clv)}">${sgn(x.clv, 2)}</div><div class="c2">slog ${pct(x.beat, 0)}</div></td>
       <td class="n" data-l="Snitt edge">${pct(x.edge)}</td></tr>`; }).join("")
     || `<tr><td colspan="7" class="empty">Inga spel matchar filtret.</td></tr>`;
-  const sr0 = filtered(true).filter(r => r.typ !== "Parlay" && (r.sida === "Över" || r.sida === "Under")), sr = mixed ? uniq(sr0) : sr0, by = {};
+  const sr0 = filtered(true).filter(r => r.sida === "Över" || r.sida === "Under"), sr = mixed ? uniq(sr0) : sr0, by = {};
   sr.forEach(r => { (by[r.marknad] = by[r.marknad] || {Över: [], Under: []})[r.sida].push(r); });
   const cells = (xs, s) => { const x = stats(xs); return `<td class="n" data-l="${s} avgj. · träff"><div>${x.done}</div><div class="c2">${x.done ? pct(x.won / x.done) : "–"}</div></td>
     <td class="n" data-l="${s} res. · ROI"><div class="${cls(x.res)}"><b>${x.done ? sgn(x.res) + "u" : "–"}</b></div><div class="c2">${pct(x.roi)}</div></td>
@@ -1632,23 +1608,7 @@ function csv() {
   a.download = `propsbot_${cur}_${new Date().toISOString().slice(0, 10)}.csv`; a.click();
 }
 
-// --------------------------------------------------------------- PARLAYS & PARAMETRAR
-function renderParlay() {
-  const legs = x => x.ben.map(l => `${esc(l.spelare)} – ${spel(l.marknad, l.linje, l.sida)} @ ${nf(l.odds)}
-    ${l.status ? `<span class="pill ${l.status}">${l.status}</span>` : `<span class="neg">(${esc(l.match)})</span>`}`).join("<br>");
-  const sug = [], bets = [];
-  for (const s of sel()) { (D[s]?.parlay_forslag || []).forEach(x => sug.push([s, x])); (D[s]?.parlay_bokforing || []).forEach(x => bets.push([s, x])); }
-  document.getElementById("psug").innerHTML = sug.map(([s, x]) => `<tr><td>${tag(s)}</td><td>${esc(x.bolag)}</td>
-    <td class="wrapt">${legs(x)}</td><td class="n">${nf(x.odds)}</td><td class="n">${pct(x.sannolikhet)}</td>
-    <td class="n pos">${pct(x.ev)}</td><td class="n">${uFmt(x.insats_pct)}</td></tr>`).join("")
-    || `<tr><td colspan="7" class="empty">Inga parlays med positivt EV just nu.</td></tr>`;
-  document.getElementById("pbets").innerHTML = bets.sort((a, b) => b[1].bokford - a[1].bokford).map(([s, x]) => `<tr>
-    <td>${fmtTs(x.bokford)}</td><td>${tag(s)}</td><td>${esc(x.bolag)}</td><td class="wrapt">${legs(x)}</td>
-    <td class="n">${nf(x.slutodds || x.odds)}</td><td class="n">${pct(x.ev)}</td><td class="n">${uFmt(x.insats_pct)}</td>
-    <td><span class="pill ${x.status}">${x.status}</span></td>
-    <td class="n ${cls(x.resultat_enheter)}">${x.resultat_enheter == null ? "–" : sgn(x.resultat_enheter / U) + "u"}</td></tr>`).join("")
-    || `<tr><td colspan="9" class="empty">Inga bokförda parlays än.</td></tr>`;
-}
+// --------------------------------------------------------------- PARAMETRAR
 function renderParam() {
   if (!PARAMS) { document.getElementById("pBody").innerHTML = `<div class="empty">Parametrarna kunde inte läsas.</div>`; return; }
   const want = ["Gemensamt", ...sel().map(s => SPORTS[s].name)];
@@ -1667,7 +1627,6 @@ const HERO = {
   radar: ["Radar", "Alla ben med minst 2 % edge just nu. Grön rad = klarar alla regler, ⚡ = LIVE-spel."],
   res: ["Resultat", "Slår vi stängningsoddset (CLV) är edgen verklig – det syns långt före resultatet."],
   bok: ["Bokföring & analys", "Varje bokfört spel. Standard är de riktiga spelen (Live); välj Alla typer för all data."],
-  parlay: ["Parlays", "2–3 ben från olika matcher hos samma bolag, minst 5 % edge per ben. Bara data."],
   param: ["Parametrar", "Alla regler och inställningar, hämtade från de värden boten använder just nu."]};
 function render() {
   AN.length = 0;
@@ -1677,8 +1636,8 @@ function render() {
   document.getElementById("heroTitle").textContent = HERO[tab][0];
   document.getElementById("heroLead").textContent = HERO[tab][1];
   document.querySelectorAll(".tab[data-t]").forEach(b => b.classList.toggle("on", b.dataset.t === tab));
-  ["nu", "avg", "mina", "minbok", "topp", "radar", "res", "bok", "parlay", "param"].forEach(id => document.getElementById(id).classList.toggle("hidden", id !== tab));
-  ({nu: renderNu, avg: renderAvg, mina: renderMina, minbok: renderMinbok, topp: renderTopp, radar: renderRadar, res: renderRes, bok: renderBok, parlay: renderParlay, param: renderParam})[tab]();
+  ["nu", "avg", "mina", "minbok", "topp", "radar", "res", "bok", "param"].forEach(id => document.getElementById(id).classList.toggle("hidden", id !== tab));
+  ({nu: renderNu, avg: renderAvg, mina: renderMina, minbok: renderMinbok, topp: renderTopp, radar: renderRadar, res: renderRes, bok: renderBok, param: renderParam})[tab]();
   history.replaceState(null, "", `#${cur}${tab === "nu" ? "" : "/" + tab}`);
 }
 async function load() {
@@ -1724,7 +1683,7 @@ let TAKE_ID = null;
            for (const [id, x] of Object.entries(pending())) sendMina({...x, bet: undefined}); } }
 { const [s, t] = location.hash.slice(1).split("/");
   if (SPORTS[s] || s === "alla") cur = s;
-  if (["nu", "avg", "mina", "minbok", "topp", "radar", "res", "bok", "parlay", "param"].includes(t)) tab = t;
+  if (["nu", "avg", "mina", "minbok", "topp", "radar", "res", "bok", "param"].includes(t)) tab = t;
   if (location.hash === "#bokforing") tab = "bok"; }
 load(); setInterval(load, 120000);
 // Hemskärmsappen (iPhone) pausar timern i bakgrunden: hämta ny data direkt när sidan visas igen.
