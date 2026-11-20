@@ -120,6 +120,15 @@ class EspnResults:
                         return lg, ev
         return None
 
+    def void_reason(self, home: str, away: str, start: float) -> str | None:
+        """"uppskjuten" / "inställd" / "avbruten" om ESPN har matchen med den statusen, annars None."""
+        hit = self.find_any(home, away, start)
+        if not hit:
+            return None
+        name = ((hit[1].get("status") or {}).get("type", {}) or {}).get("name", "").upper()
+        return {"STATUS_POSTPONED": "uppskjuten", "STATUS_CANCELED": "inställd", "STATUS_CANCELLED": "inställd",
+                "STATUS_ABANDONED": "avbruten", "STATUS_SUSPENDED": "avbruten", "STATUS_FORFEIT": "inställd"}.get(name)
+
     def find_event(self, home: str, away: str, start: float) -> tuple[str, str] | None:
         """(liga, id) om matchen är klar, (liga, "") om den inte är klar, None om den saknas."""
         hit = self.find_any(home, away, start)

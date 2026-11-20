@@ -353,11 +353,41 @@ def result_units(mk: str, ln: float, side: str, hg: int, ag: int, odds: float, s
     return res
 
 
+VOID_AFTER_H = 48   # uppskjuten/inställd/avbruten och inte spelad inom 48 h från avspark = void (vanlig spelbolagsregel)
+MANUAL_FILE = Path(__file__).resolve().parent.parent / "rattning_manuell.json"
+
+
+def manual_scores(path: Path = MANUAL_FILE) -> dict:
+    """Manuell rättning (rattning_manuell.json i repot) för matcher som resultatkällorna inte täcker:
+    {"<match_id>": {"resultat": "1-0"}} eller {"<match_id>": {"void": "uppskjuten"}}. Går före källorna."""
+    import re
+    try:
+        d = json.loads(path.read_text(encoding="utf-8"))
+    except (FileNotFoundError, json.JSONDecodeError):
+        return {}
+    out = {}
+    for mid, x in d.items():
+        if not isinstance(x, dict) or mid.startswith("_"):
+            continue
+        if x.get("void"):
+            out[mid] = ("void", f"{x['void']} (manuell rättning)")
+        elif x.get("resultat"):
+            m = re.match(r"\s*(\d+)\s*[-–:]\s*(\d+)\s*$", str(x["resultat"]))
+            if m:
+                out[mid] = (int(m.group(1)), int(m.group(2)))
+    return out
+
+
 def settle(lg: Ledger, scores: dict) -> list[str]:
-    """scores: {match_id: (hemmamål, bortamål)}."""
+    """scores: {match_id: (hemmamål, bortamål)} eller {match_id: ("void", orsak)}."""
     log = []
     for b in lg.bets:
         if b["status"] != "öppen" or b["match_id"] not in scores:
+            continue
+        v = scores[b["match_id"]]
+        if isinstance(v, tuple) and v and v[0] == "void":   # uppskjuten/inställd/avbruten: insatsen tillbaka
+            b.update(status="struken", utfall=None, resultat_enheter=0.0, struken_orsak=v[1])
+            log.append(f"Sides struken (void): {b['match']} {b.get('spel_text', '')} – {v[1]}")
             continue
         mk, ln, side = b["marknad"], b["linje"], b["sida"]
         sc = scores.get(("corners", b["match_id"])) if mk in CORNER_MARKETS else scores.get(b["match_id"])
@@ -390,6 +420,17 @@ def espn_scores(bets: list[dict], client, now: float, goal=None) -> dict:
             sc = goal.final_score(h, a, ko, now)
         if sc:
             out[b["match_id"]] = sc
+        elif now > ko + VOID_AFTER_H * 3600:   # uppskjuten/inställd/avbruten och inte spelad i tid: void
+            why = None
+            for src in (espn, fotmob, ls):
+                try:
+                    why = src.void_reason(h, a, ko)
+                except Exception:  # noqa: BLE001 – en källa som fallerar får inte stoppa rättningen
+                    why = None
+                if why:
+                    break
+            if why:
+                out[b["match_id"]] = ("void", f"{why} och inte spelad inom {VOID_AFTER_H} h")
     for b in bets:            # hörnor: ESPN:s matchprotokoll (wonCorners per lag)
         if b.get("marknad") not in CORNER_MARKETS or b["status"] != "öppen" or ("corners", b["match_id"]) in out                 or not b.get("avspark") or now < b["avspark"] + 2.5 * 3600:
             continue
@@ -585,6 +626,7 @@ def run(root: Path, data: list, settings: dict, diag, notify: bool = True) -> di
         from .sources.goal_api import GoalApiResults
         goal = GoalApiResults(root / "goal_api_lage.json")
         scores = espn_scores(spel.bets + skugga.bets, client, now, goal=goal if goal.enabled else None)
+        scores.update(manual_scores())   # manuell rättning går före källorna
         if goal.enabled:
             goal.save(now)
             if goal.error:
@@ -646,8 +688,8 @@ def unsettled_alert(lg: Ledger, topic: str, now: float, log=print) -> int:
     lines = [f"{b['match']} – {b.get('spel_text', '')} ({b['liga'].replace('Football / ', '')}, "
              f"{datetime.fromtimestamp(b['avspark'], timezone.utc).strftime('%d/%m %H:%M')} UTC)" for b in late]
     if send(topic, f"Fotboll: {len(late)} LIVE-spel kan inte rättas automatiskt",
-            "ESPN, FotMob och LiveScore saknar resultat (inställd/flyttad match eller liga som inte täcks). "
-            "Rätta för hand:\n" + "\n".join(lines[:10]), priority=3, tags="warning"):
+            "ESPN, FotMob och LiveScore saknar resultat (liga som inte täcks). Uppskjutna matcher blir void "
+            f"automatiskt efter {VOID_AFTER_H} h när en källa ser det. Rätta resten i rattning_manuell.json:\n" + "\n".join(lines[:10]), priority=3, tags="warning"):
         for b in late:
             b["rattning_saknas"] = now
         log(f"Sides: {len(late)} LIVE-spel utan resultat efter 3 dygn – notis skickad")

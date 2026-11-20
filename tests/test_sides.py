@@ -164,3 +164,42 @@ def test_kambi_corner_handicap_and_team_totals():
     # hemma -2.5: 7-4 vinner, 6-4 förlorar; borta +1.5 (= kryss+2 i 3-vägs -2): 5-4 vinner, 7-4 förlorar
     assert result_units("cah", -2.5, "home", 7, 4, 2.0, 1) > 0 and result_units("cah", -2.5, "home", 6, 4, 2.0, 1) < 0
     assert result_units("cah", 1.5, "away", 5, 4, 2.0, 1) > 0 and result_units("cah", 1.5, "away", 7, 4, 2.0, 1) < 0
+
+
+def test_void_and_manual(tmp_path, monkeypatch):
+    """Uppskjuten/inställd match blir void (struken, 0) efter 48 h; manuell rättning går före källorna."""
+    import json
+    lg = Ledger(tmp_path / "s.json")
+    b = {"key": "m1|1x2|0|draw", "match_id": "m1", "spelare_id": "match", "marknad": "1x2", "linje": 0.0, "sida": "draw",
+         "odds": 4.1, "insats_pct": 0.002, "status": "öppen", "match": "A – B", "spel_text": "1X2: X", "bokford": 1,
+         "hemma": "A", "borta": "B", "avspark": 1000.0}
+    lg.bets = [dict(b), dict(b, key="m2|total|2.5|under", match_id="m2", marknad="total", linje=2.5, sida="under")]
+
+    class Src:
+        def __init__(self, *a, why=None):
+            self.why = why
+        def final_score(self, *a):
+            return None
+        def void_reason(self, *a):
+            return self.why
+    import propsbot.results as R
+    import propsbot.sources.fotmob as FM
+    import propsbot.sources.livescore as LS
+    monkeypatch.setattr(R, "EspnResults", lambda c: Src())
+    monkeypatch.setattr(FM, "FotmobResults", lambda c: Src(why="uppskjuten"))
+    monkeypatch.setattr(LS, "LivescoreResults", lambda c: Src())
+    assert sides.espn_scores(lg.bets, None, 1000.0 + 24 * 3600) == {}          # före 48 h: vänta
+    sc = sides.espn_scores(lg.bets, None, 1000.0 + 49 * 3600)
+    assert sc["m1"][0] == "void" and "uppskjuten" in sc["m1"][1]
+    man = tmp_path / "man.json"
+    man.write_text(json.dumps({"_hur": "x", "m2": {"resultat": "1–0"}, "m3": {"void": "inställd"}}))
+    sc.update(sides.manual_scores(man))
+    assert sc["m2"] == (1, 0) and sc["m3"] == ("void", "inställd (manuell rättning)")
+    sides.settle(lg, sc)
+    assert lg.bets[0]["status"] == "struken" and lg.bets[0]["resultat_enheter"] == 0.0 and lg.bets[0]["struken_orsak"]
+    assert lg.bets[1]["status"] == "vunnen" and lg.bets[1]["utfall"] == "1–0"   # under 2,5 vid 1–0
+
+
+def test_repo_manual_file_parses():
+    assert sides.manual_scores()["k1029826151"] == (1, 0)
+    assert sides.manual_scores()["k1029469540"][0] == "void"

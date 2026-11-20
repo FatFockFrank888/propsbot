@@ -52,3 +52,20 @@ class LivescoreResults:
                 except (KeyError, TypeError, ValueError):
                     return None
         return None
+
+    def void_reason(self, home: str, away: str, start: float) -> str | None:
+        """"uppskjuten" / "inställd" / "avbruten" om LiveScore har matchen med den statusen, annars None."""
+        from ..results import espn_match
+        for day in dict.fromkeys(datetime.fromtimestamp(t, timezone.utc).strftime("%Y%m%d") for t in (start, start + 3 * 3600)):
+            for e in self._events(day):
+                try:
+                    ts = datetime.strptime(str(e["Esd"]), "%Y%m%d%H%M%S").replace(tzinfo=timezone.utc).timestamp()
+                    h, a = e["T1"][0]["Nm"], e["T2"][0]["Nm"]
+                except (KeyError, IndexError, TypeError, ValueError):
+                    continue
+                if not espn_match(home, away, start, h, a, ts):
+                    continue
+                eps = (e.get("Eps") or "").upper().rstrip(".")
+                return {"POSTP": "uppskjuten", "CANC": "inställd", "ABD": "avbruten", "ABAN": "avbruten",
+                        "INT": "avbruten", "AWD": "inställd"}.get(eps)
+        return None
