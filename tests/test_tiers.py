@@ -82,3 +82,24 @@ def test_tier_rows_in_csv(tmp_path):
     assert summ[1]["Resultat (u)"] == "2.0" and summ[1]["Insats (u)"] == "2.0"
     nba = list(csv.DictReader(open(tmp_path / "csv" / "nba.csv", encoding="utf-8")))
     assert nba[0]["Typ"] == "A Tier"
+
+
+def test_tier_stats_csv(tmp_path):
+    import csv
+    from propsbot.workbook import write_csv_exports
+    now = time.time()
+    (tmp_path / "tiers.json").write_text(json.dumps({"bets": [
+        dict(bet(), tier="A", sport="nba", units=2, status="vunnen", resultat_u=2.0, avspark=now - 3600),
+        dict(bet(spelare_id="p2", odds=1.7), tier="B", sport="nba", units=1, status="förlorad", resultat_u=-1.0,
+             avspark=now - 3600),
+        dict(bet(spelare_id="p3"), tier="C", sport="fotboll", units=1, status="öppen")]}))
+    write_csv_exports(tmp_path, tmp_path / "csv")
+    rd = lambda n: list(csv.DictReader(open(tmp_path / "csv" / n, encoding="utf-8")))
+    nk = {(r["Sport"], r["Nivå"]): r for r in rd("tier_nyckeltal.csv")}
+    assert nk[("Alla", "A+B")]["Resultat (u)"] == "1.0" and nk[("Alla", "A+B")]["ROI %"] == "33.3"
+    assert nk[("Alla", "C Tier")]["Öppna"] == "1" and nk[("Fotboll", "A+B")]["Spel"] == "0"
+    st = {(r["Dimension"], r["Grupp"]): r for r in rd("tier_stats.csv")}
+    assert st[("Insats", "2u")]["A res (u)"] == "2.0" and st[("Odds", "1,60–1,99")]["B res (u)"] == "-1.0"
+    kurva = rd("tier_kurva.csv")
+    assert kurva[0]["A+B"] == "0.0" and kurva[-1]["A+B"] == "1.0" and kurva[-1]["C Tier"] == "0.0"
+    assert rd("tier_vecka.csv")[0]["A Tier"] == "2.0"

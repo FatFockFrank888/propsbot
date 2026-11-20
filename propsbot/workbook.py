@@ -451,4 +451,124 @@ def write_csv_exports(root: Path, out_dir: Path) -> int:
             w.writerow([sport, typ, len(rs), len(done), won, round(100 * won / len(done), 1) if done else "",
                         round(stake, 1), round(res, 1), round(100 * res / stake, 1) if stake else "",
                         round(sum(clv) / len(clv), 2) if clv else "", sum(r[16] == "öppen" for r in rs), now])
+    write_tier_stats(tiers, out_dir)
     return len(rows)
+
+
+# ------------------------------------------------------------------ Tier-statistik för Google-arket
+DONE = ("vunnen", "förlorad", "push")
+ODDS_B = [(1.0, "1,00–1,59"), (1.6, "1,60–1,99"), (2.0, "2,00–2,49"), (2.5, "2,50–2,99"), (3.0, "3,00–3,99"),
+          (4.0, "4,00–5,99"), (6.0, "6,00+")]
+EDGE_B = [(-9.0, "under 4 %"), (0.04, "4–5,9 %"), (0.06, "6–8,9 %"), (0.09, "9–11,9 %"), (0.12, "12 %+")]
+
+
+def _bucket(x, bins) -> str:
+    if x in (None, ""):
+        return "–"
+    out = bins[0][1]
+    for lo, name in bins:
+        if float(x) >= lo:
+            out = name
+    return out
+
+
+def _agg(rs: list) -> dict:
+    """Nyckeltal för CSV-rader (index som i CSV_HEAD). Avgjorda = vunna + förlorade + push."""
+    done = [r for r in rs if r[16] in DONE]
+    won = sum(r[16] == "vunnen" for r in done)
+    stake = sum(r[15] or 0 for r in done)
+    res = sum(r[18] for r in rs if isinstance(r[18], (int, float)))
+    clv = [r[12] for r in rs if isinstance(r[12], (int, float))]
+    return {"spel": len(rs), "avgjorda": len(done), "vunna": won,
+            "traff": round(100 * won / len(done), 1) if done else "",
+            "insats": round(stake, 1), "res": round(res, 2), "roi": round(100 * res / stake, 1) if stake else "",
+            "clv": round(sum(clv) / len(clv), 2) if clv else "", "oppna": sum(r[16] == "öppen" for r in rs)}
+
+
+def write_tier_stats(tiers: list, out_dir: Path, now: datetime | None = None) -> None:
+    """Färdigräknad statistik för A/B/C Tier (Google-arkets Översikt och Statistik-flik):
+      tier_nyckeltal.csv  Sport (Alla/Fotboll/NBA) × Nivå (A+B, A, B, C): nyckeltal + resultat senaste 7 dagarna
+      tier_stats.csv      en rad per dimension och grupp: A+B-nyckeltal, sedan resultat och ROI per nivå
+      tier_kurva.csv      ackumulerat resultat per dag (avsparksdag) för A+B, A, B och C
+      tier_vecka.csv      resultat per vecka och nivå
+    Rader är CSV-rader (_csv_row); insats i nivåernas units (1u = tier_unit)."""
+    import csv
+    from datetime import timedelta
+    now = now or datetime.now(timezone.utc).replace(tzinfo=None)
+    levels = [("A+B", ("A Tier", "B Tier")), ("A Tier", ("A Tier",)), ("B Tier", ("B Tier",)), ("C Tier", ("C Tier",))]
+    pick = lambda rs, ts: [r for r in rs if r[2] in ts]
+    start = lambda r: datetime.strptime(r[3] or r[0], "%Y-%m-%d %H:%M") if (r[3] or r[0]) else None
+    week = lambda r: (lambda d: f"{d.isocalendar()[0]} v{d.isocalendar()[1]:02d}" if d else "–")(start(r))
+
+    def write(name, head, data):
+        with open(out_dir / name, "w", newline="", encoding="utf-8") as fh:
+            w = csv.writer(fh)
+            w.writerow(head)
+            w.writerows(data)
+
+    # 1. nyckeltal
+    data = []
+    since = now - timedelta(days=7)
+    for sport in ("Alla", "Fotboll", "NBA"):
+        rs = tiers if sport == "Alla" else [r for r in tiers if r[1] == sport]
+        for lvl, ts in levels:
+            sub = pick(rs, ts)
+            a = _agg(sub)
+            last7 = sum(r[18] for r in sub if isinstance(r[18], (int, float)) and start(r) and start(r) >= since)
+            data.append([sport, lvl, a["spel"], a["avgjorda"], a["vunna"], a["traff"], a["insats"], a["res"], a["roi"],
+                         a["clv"], a["oppna"], round(last7, 2)])
+    write("tier_nyckeltal.csv", ["Sport", "Nivå", "Spel", "Avgjorda", "Vunna", "Träff %", "Insats (u)", "Resultat (u)",
+                                 "ROI %", "Snitt-CLV %", "Öppna", "Senaste 7 d (u)"], data)
+
+    # 2. uppdelningar
+    dims = [
+        ("Sport", lambda r: r[1], ["Fotboll", "NBA"]),
+        ("Marknad", lambda r: r[6] or "–", None),
+        ("Odds", lambda r: _bucket(r[10], ODDS_B), [n for _, n in ODDS_B]),
+        ("Edge", lambda r: _bucket(r[14], EDGE_B), [n for _, n in EDGE_B]),
+        ("Insats", lambda r: f"{r[15]:g}u" if isinstance(r[15], (int, float)) else "–", ["1u", "2u", "3u"]),
+        ("Sida", lambda r: r[7] or "–", None),
+        ("Bolag", lambda r: r[9] or "–", None),
+        ("Vecka", week, None),
+    ]
+    data = []
+    for dim, key, order in dims:
+        groups: dict = {}
+        for r in tiers:
+            groups.setdefault(key(r), []).append(r)
+        names = [g for g in (order or []) if g in groups] + sorted(g for g in groups if g not in (order or []))
+        if dim == "Vecka":
+            names = sorted(groups, reverse=True)
+        elif order is None:   # flest A+B-spel först
+            names.sort(key=lambda g: -len(pick(groups[g], levels[0][1])))
+        for g in names:
+            ab = _agg(pick(groups[g], levels[0][1]))
+            row = [dim, g, ab["spel"], ab["avgjorda"], ab["traff"], ab["insats"], ab["res"], ab["roi"], ab["clv"]]
+            for _lvl, ts in levels[1:]:
+                a = _agg(pick(groups[g], ts))
+                row += [a["spel"], a["res"], a["roi"]]
+            data.append(row)
+    write("tier_stats.csv", ["Dimension", "Grupp", "Spel A+B", "Avgjorda", "Träff %", "Insats (u)", "Resultat (u)",
+                             "ROI %", "Snitt-CLV %", "A spel", "A res (u)", "A ROI %", "B spel", "B res (u)", "B ROI %",
+                             "C spel", "C res (u)", "C ROI %"], data)
+
+    # 3. kurva (ackumulerat per avsparksdag) och 4. per vecka
+    settled = sorted((r for r in tiers if isinstance(r[18], (int, float)) and start(r)), key=start)
+    acc = {lvl: 0.0 for lvl, _ in levels}
+    days: dict = {}
+    if settled:   # kurvan börjar på 0 dagen före första avgjorda spelet
+        days[(start(settled[0]) - timedelta(days=1)).strftime("%Y-%m-%d")] = [0.0] * len(levels)
+    for r in settled:
+        for lvl, ts in levels:
+            if r[2] in ts:
+                acc[lvl] += r[18]
+        days[start(r).strftime("%Y-%m-%d")] = [round(acc[lvl], 2) for lvl, _ in levels]
+    write("tier_kurva.csv", ["Datum", "A+B", "A Tier", "B Tier", "C Tier"], [[d] + v for d, v in days.items()])
+    weeks: dict = {}
+    for r in settled:
+        w = weeks.setdefault(week(r), {lvl: 0.0 for lvl, _ in levels})
+        for lvl, ts in levels:
+            if r[2] in ts:
+                w[lvl] += r[18]
+    write("tier_vecka.csv", ["Vecka", "A Tier", "B Tier", "C Tier"],
+          [[k] + [round(weeks[k][lvl], 2) for lvl in ("A Tier", "B Tier", "C Tier")] for k in sorted(weeks)])
