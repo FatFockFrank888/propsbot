@@ -5,9 +5,9 @@
  * Därefter finns menyn "Propsbot" i arket.
  *
  * Arkets uppbyggnad (allt uppdateras av sig självt via IMPORTDATA från botens webbsida):
- *   Översikt      – nyckeltal per sport (Fotboll, NBA) och totalt för LIVE-spelen
- *   ⚽ Fotboll     – Nyckeltal per typ · Öppna spel · Alla spel
- *   🏀 NBA         – Nyckeltal per typ · Öppna LIVE-spel · Alla spel
+ *   Översikt      – nyckeltal per sport (Fotboll, NBA) och nivå (A, B, C Tier)
+ *   ⚽ Fotboll     – Nyckeltal per typ · Öppna A/B Tier-spel · Avgjorda A/B/C Tier · Alla spel
+ *   🏀 NBA         – samma
  *   Parametrar    – alla regler per sport (samma som webbsidans flik)
  *   _data_*       – dolda rådataflikar (IMPORTDATA). Rör inte.
  * Gamla flikar raderas inte: de döps om till "arkiv – <namn>" och döljs.
@@ -15,10 +15,16 @@
 
 const BASE = "https://fatfockfrank888.github.io/propsbot/csv/";
 const SPORTS = [
-  {key: "fotboll", name: "Fotboll", tab: "⚽ Fotboll", color: "#d1fae5", main: "Live",
-   note: "LIVE = spelade spel (notis). Skott på mål."},
-  {key: "nba", name: "NBA", tab: "🏀 NBA", color: "#fef3c7", main: "Live", note: "LIVE = spelade spel (notis)."},
+  {key: "fotboll", name: "Fotboll", tab: "⚽ Fotboll", color: "#d1fae5"},
+  {key: "nba", name: "NBA", tab: "🏀 NBA", color: "#fef3c7"},
 ];
+// Nivåerna (ersätter LIVE, 18/11). Typ-kolumnen i CSV:erna heter "A Tier" / "B Tier" / "C Tier".
+const TIERS = [
+  {typ: "A Tier", color: "#bbf7d0", note: "spelas (notis)"},
+  {typ: "B Tier", color: "#bfdbfe", note: "spelas (notis)"},
+  {typ: "C Tier", color: "#e5e7eb", note: "bara bokföring"},
+];
+const TIER_NOTE = "A och B Tier spelas (notis), C Tier är bara bokföring. Flat 1–3u, 1u = 1 % av kassan.";
 const RAW = {sammanfattning: "_data_sammanfattning", fotboll: "_data_fotboll", nba: "_data_nba",
              parametrar: "_data_parametrar"};
 const OWN = ["Översikt", "Parametrar"].concat(SPORTS.map(s => s.tab)).concat(Object.values(RAW));
@@ -122,28 +128,31 @@ function buildOverview_(ss) {
   sh.getRange("A1").setValue("Propsbot – översikt").setFontSize(18).setFontWeight("bold");
   sh.getRange("A2").setFormula('="Senast uppdaterad (UTC): "&IFERROR(TEXT(INDEX(\'' + RAW.sammanfattning + '\'!L:L, 2), "yyyy-mm-dd hh:mm"), "–")')
     .setFontColor("#6b7280");
-  sh.getRange("A3").setValue("1u = 0,2 % av bankrullen. CLV i procentenheter (positivt = vi slog stängningsoddset). " +
+  sh.getRange("A3").setValue(TIER_NOTE + " Övriga typer: 1u = 0,2 %. CLV i procent (positivt = vi slog stängningsoddset). " +
     "Webbsida: https://fatfockfrank888.github.io/propsbot/").setFontColor("#6b7280");
   let row = 5;
   const cols = ["Sport", "Typ", "Spel", "Avgjorda", "Vunna", "Träff %", "Insats (u)", "Resultat (u)", "ROI %", "Snitt-CLV %", "Öppna"];
-  row = section_(sh, row, "Huvudsiffror per sport", "LIVE-spelen (de som skickas som notis) för varje sport.");
+  row = section_(sh, row, "Huvudsiffror per sport och nivå", "A, B och C Tier för varje sport. Totalt = A + B (det vi spelar).");
   sh.getRange(row, 1, 1, cols.length).setValues([cols]);
   headerRow_(sh, row, cols.length);
-  SPORTS.forEach((s, i) => {
-    const r = row + 1 + i;
+  let r = row + 1;
+  const played = [];
+  SPORTS.forEach(s => TIERS.forEach(t => {
     sh.getRange(r, 1).setFormula("=IFERROR(QUERY('" + RAW.sammanfattning + "'!A:K, \"select A,B,C,D,E,F,G,H,I,J,K where A='" +
-      s.name + "' and B='" + s.main + "'\", 0), {\"" + s.name + "\",\"" + s.main + "\",0,0,0,\"\",0,0,\"\",\"\",0})");
-    sh.getRange(r, 1, 1, cols.length).setBackground(s.color);
-  });
-  const tot = row + 1 + SPORTS.length;
-  sh.getRange(tot, 1, 1, 2).setValues([["Totalt", "huvudrader"]]).setFontWeight("bold");
+      s.name + "' and B='" + t.typ + "'\", 0), {\"" + s.name + "\",\"" + t.typ + "\",0,0,0,\"\",0,0,\"\",\"\",0})");
+    sh.getRange(r, 1, 1, cols.length).setBackground(t.color);
+    if (t.typ !== "C Tier") played.push(r);
+    r++;
+  }));
+  const tot = r;
+  sh.getRange(tot, 1, 1, 2).setValues([["Totalt", "A + B Tier"]]).setFontWeight("bold");
   ["C", "D", "E", "G", "H", "K"].forEach(c =>
-    sh.getRange(c + tot).setFormula("=SUM(" + c + (row + 1) + ":" + c + (tot - 1) + ")").setFontWeight("bold"));
+    sh.getRange(c + tot).setFormula("=" + played.map(x => c + x).join("+")).setFontWeight("bold"));
   sh.getRange("F" + tot).setFormula("=IF(D" + tot + ">0, ROUND(100*E" + tot + "/D" + tot + ", 1), \"\")");
   sh.getRange("I" + tot).setFormula("=IF(G" + tot + ">0, ROUND(100*H" + tot + "/G" + tot + ", 1), \"\")");
   row = tot + 2;
 
-  row = section_(sh, row, "Alla bokföringar", "Live = spelat · Spel = klarar reglerna (data) · Skugga = stoppat av en regel · " +
+  row = section_(sh, row, "Alla bokföringar", "A/B/C Tier = nivåerna · Live = gamla LIVE-spelen · Spel = klarar reglerna (data) · Skugga = stoppat av en regel · " +
     "Modelltest = egna modellen · Fouls-/Kort-test = nya marknader (data) · Parlay = kombinationer (data)");
   sh.getRange(row, 1).setFormula("=IFERROR(QUERY('" + RAW.sammanfattning + "'!A:K, \"select A,B,C,D,E,F,G,H,I,J,K\", 1), \"(inget än)\")");
   headerRow_(sh, row, cols.length);
@@ -166,36 +175,37 @@ function buildSport_(ss, s) {
   const DT = "yyyy-mm-dd hh:mm", PCT = "0.0%";
   const fmt = (r, col, n, f) => sh.getRange(r, col, n, 1).setNumberFormat(f);
   sh.getRange("A1").setValue(s.tab).setFontSize(18).setFontWeight("bold");
-  sh.getRange("A2").setValue(s.note + " Alla bokförda spel (även data) finns i sektion 4.").setFontColor("#6b7280");
+  sh.getRange("A2").setValue(TIER_NOTE + " Alla bokförda spel (även data) finns i sektion 4.").setFontColor("#6b7280");
   let row = 4;
 
   row = section_(sh, row, "1. Nyckeltal per typ", null, s.color);
   sh.getRange(row, 1).setFormula("=IFERROR(QUERY('" + RAW.sammanfattning + "'!A:K, \"select B,C,D,E,F,G,H,I,J,K where A='" +
     s.name + "'\", 1), \"(inget än)\")");
   headerRow_(sh, row, 10);
-  addResultColors_(sh, "G" + (row + 1) + ":G" + (row + 9));
-  addResultColors_(sh, "I" + (row + 1) + ":I" + (row + 9));
-  row += 10;
+  addResultColors_(sh, "G" + (row + 1) + ":G" + (row + 15));
+  addResultColors_(sh, "I" + (row + 1) + ":I" + (row + 15));
+  row += 16;
 
-  row = section_(sh, row, "2. Öppna LIVE-spel (det vi spelar)",
-    "Spela till lägst oddset i notisen. Tomt = inget LIVE-spel just nu (du får en notis när något klarar kraven).", s.color);
-  sh.getRange(row, 1).setFormula("=IFERROR(QUERY('" + raw + "'!A:S, \"select D,E,F,G,H,I,J,K,O,P where C='Live' and Q='öppen' " +
-    "order by D limit 12 label D 'Start'\", 1), \"(inga öppna LIVE-spel just nu)\")");
-  headerRow_(sh, row, 10);
-  fmt(row + 1, 1, 12, DT); fmt(row + 1, 9, 12, PCT);
-  row += 14;
+  row = section_(sh, row, "2. Öppna A och B Tier-spel (det vi spelar)",
+    "Spela till lägst oddset i notisen. Tomt = inget öppet A/B-spel just nu (du får en notis när något klarar kraven).", s.color);
+  sh.getRange(row, 1).setFormula("=IFERROR(QUERY('" + raw + "'!A:S, \"select C,D,E,F,G,H,I,J,K,O,P where (C='A Tier' or C='B Tier') " +
+    "and Q='öppen' order by D limit 15 label C 'Tier', D 'Start'\", 1), \"(inga öppna A/B Tier-spel just nu)\")");
+  headerRow_(sh, row, 11);
+  fmt(row + 1, 2, 15, DT); fmt(row + 1, 10, 15, PCT);
+  row += 17;
 
-  row = section_(sh, row, "3. Senaste avgjorda LIVE-spel", "De 20 senaste.", s.color);
-  sh.getRange(row, 1).setFormula("=IFERROR(QUERY('" + raw + "'!A:S, \"select D,F,G,H,I,J,K,L,M,Q,R,S where C='Live' and Q<>'öppen' " +
-    "order by D desc limit 20 label D 'Start'\", 1), \"(inga avgjorda LIVE-spel än)\")");
-  headerRow_(sh, row, 12);
-  fmt(row + 1, 1, 20, DT);
-  addResultColors_(sh, "L" + (row + 1) + ":L" + (row + 20));
-  addResultColors_(sh, "I" + (row + 1) + ":I" + (row + 20));
-  row += 22;
+  row = section_(sh, row, "3. Senaste avgjorda A, B och C Tier-spel", "De 30 senaste.", s.color);
+  sh.getRange(row, 1).setFormula("=IFERROR(QUERY('" + raw + "'!A:S, \"select C,D,F,G,H,I,J,K,L,M,P,Q,R,S where " +
+    "(C='A Tier' or C='B Tier' or C='C Tier') and Q<>'öppen' order by D desc limit 30 label C 'Tier', D 'Start'\", 1), " +
+    "\"(inga avgjorda Tier-spel än)\")");
+  headerRow_(sh, row, 14);
+  fmt(row + 1, 2, 30, DT);
+  addResultColors_(sh, "N" + (row + 1) + ":N" + (row + 30));
+  addResultColors_(sh, "J" + (row + 1) + ":J" + (row + 30));
+  row += 32;
 
   row = section_(sh, row, "4. Alla spel (alla typer, senaste först)",
-    "Live = spelat · Spel = klarar reglerna (data) · Skugga = stoppat av en regel · Modelltest · testmarknader. " +
+    "A/B/C Tier = nivåerna · Live = gamla LIVE-spelen · Spel = klarar reglerna (data) · Skugga = stoppat av en regel · Modelltest · testmarknader. " +
     "Filtrera med Data → Skapa ett filter.", s.color);
   sh.getRange(row, 1).setFormula(q_(raw, "select A,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S order by A desc"));
   headerRow_(sh, row, 18);

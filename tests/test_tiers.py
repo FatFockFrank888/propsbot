@@ -67,3 +67,18 @@ def test_run_upgrade_settle_no_caps(tmp_path):
     assert a["status"] == "vunnen" and a["resultat_u"] == 2.0        # 2u, odds 2,0
     assert len(res["book"].bets) == 7                                   # ingenting bokas om
     assert (tmp_path / "site" / "tiers.json").exists()
+
+
+def test_tier_rows_in_csv(tmp_path):
+    import csv
+    from propsbot.workbook import write_csv_exports
+    now = time.time()
+    (tmp_path / "tiers.json").write_text(json.dumps({"bets": [
+        dict(bet(), tier="A", sport="nba", units=2, status="vunnen", resultat_u=2.0, avspark=now - 3600),
+        dict(bet(spelare_id="p2"), tier="C", sport="fotboll", units=1, status="öppen")]}))
+    write_csv_exports(tmp_path, tmp_path / "csv")
+    summ = list(csv.DictReader(open(tmp_path / "csv" / "sammanfattning.csv", encoding="utf-8")))
+    assert [(r["Sport"], r["Typ"]) for r in summ] == [("Fotboll", "C Tier"), ("NBA", "A Tier")]
+    assert summ[1]["Resultat (u)"] == "2.0" and summ[1]["Insats (u)"] == "2.0"
+    nba = list(csv.DictReader(open(tmp_path / "csv" / "nba.csv", encoding="utf-8")))
+    assert nba[0]["Typ"] == "A Tier"
