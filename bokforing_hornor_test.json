@@ -77,7 +77,7 @@
 "metod": "odds+lag",
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795179779.388036
+"stangning_ts": 1795180757.976046
 },
 {
 "key": "k1028230554|corners|9.5|over|unibet",
@@ -117,7 +117,7 @@
 "metod": "odds+lag",
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795179779.388036
+"stangning_ts": 1795180757.976046
 },
 {
 "key": "k1028209218|corners_home|8.5|over|unibet",
@@ -157,7 +157,7 @@
 "metod": "odds+lag",
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795179779.388036
+"stangning_ts": 1795180757.976046
 },
 {
 "key": "k1027974435|corners_home|4.5|over|unibet",
@@ -197,7 +197,7 @@
 "metod": "lag",
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795179779.388036
+"stangning_ts": 1795180757.976046
 },
 {
 "key": "k1028143392|corners|11.5|under|unibet",
@@ -237,6 +237,86 @@
 "metod": "odds+lag",
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795179779.388036
+"stangning_ts": 1795180757.976046
+},
+{
+"key": "k1028328540|corners_away|3.5|over|unibet",
+"id": 7,
+"bokford": 1795180757.976046,
+"match_id": "k1028328540",
+"match": "Galatasaray – Samsunspor",
+"hemma": "Galatasaray",
+"borta": "Samsunspor",
+"liga": "Football / Turkey / Süper Lig",
+"fd_liga": "T1",
+"avspark": 1795266000.0,
+"spelare": "Samsunspor",
+"spelare_id": "hörnor",
+"marknad": "corners_away",
+"linje": 3.5,
+"sida": "over",
+"spel_text": "Samsunspor hörnor över 3.5",
+"bolag": "unibet",
+"odds": 2.6,
+"sannolikhet": 0.42186069160149076,
+"ratt_odds": 2.370450767061859,
+"edge": 0.09683779816387594,
+"spela_fran": 2.49,
+"insats_pct": 0.01,
+"stangning": 2.6,
+"p_modell": 0.42186069160149076,
+"p_marknad": 0.35323383084577115,
+"vantat_hemma": 7.4,
+"vantat_borta": 3.36,
+"underlag_matcher": [
+13.9,
+14.0
+],
+"status": "öppen",
+"stopp": "hörnmodell (lag): väntat 7.4–3.4 (T1)",
+"metod": "lag",
+"utfall": null,
+"resultat_enheter": null,
+"stangning_ts": 1795180757.976046
+},
+{
+"key": "k1028208891|corners_away|3.5|under|unibet",
+"id": 8,
+"bokford": 1795180757.976046,
+"match_id": "k1028208891",
+"match": "Sabadell FC – Granada",
+"hemma": "Sabadell FC",
+"borta": "Granada",
+"liga": "Football / Spain / La Liga 2",
+"fd_liga": "SP2",
+"avspark": 1795266000.0,
+"spelare": "Granada",
+"spelare_id": "hörnor",
+"marknad": "corners_away",
+"linje": 3.5,
+"sida": "under",
+"spel_text": "Granada hörnor under 3.5",
+"bolag": "unibet",
+"odds": 1.82,
+"sannolikhet": 0.6040832004985144,
+"ratt_odds": 1.6554011089445273,
+"edge": 0.09943142490729628,
+"spela_fran": 1.74,
+"insats_pct": 0.01,
+"stangning": 1.82,
+"p_modell": 0.6040832004985144,
+"p_marknad": 0.5,
+"vantat_hemma": 5.28,
+"vantat_borta": 3.22,
+"underlag_matcher": [
+10.6,
+17.3
+],
+"status": "öppen",
+"stopp": "hörnmodell (lag): väntat 5.3–3.2 (SP2)",
+"metod": "lag",
+"utfall": null,
+"resultat_enheter": null,
+"stangning_ts": 1795180757.976046
 }
 ]
