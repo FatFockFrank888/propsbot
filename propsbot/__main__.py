@@ -87,6 +87,8 @@ def _print_topic(topic: str) -> None:
 OBSOLETE = ("nba_usodds.json", "bokforing_v2.json", "bokforing_skugga_v3.json", "bokforing_modell_v3.json", "parlays_v2.json", "bokforing.json", "bokforing_skugga.json", "bokforing_skugga_v2.json", "parlays.json",
             "bokforing_modell.json", "bokforing_modell_v2.json", "nba_bokforing.json",
             "nba_skugga.json", "nba_parlays.json", "resultat",
+            # Kort-test och parlays borttagna 20/11 (gav ingen edge; historiken finns i data-grenens git-historik)
+            "bokforing_kort_test.json", "espn_kort", "parlays_v3.json", "nba_parlays_v2.json", "site/csv/parlays.csv",
             # NHL borttagen 12/11 (historiken finns kvar i data-grenens git-historik)
             "nhl", "site/nhl", ".cache_odds/nhl", "site/csv/nhl.csv", "site/csv/nhl_live.csv", "site/csv/nhl_sammanfattning.csv")
 
@@ -212,7 +214,6 @@ def run_nba(root: Path, settings_path: Path) -> None:
     from .export import write_site
     from .free_scan import notify_new
     from .nba import nba_scan
-    from .parlays import ParlayLedger, suggest
     from .results import settle_open  # noqa: F401  (fotbollens rättning används inte för NBA)
     from .scan import load_settings
     settings = load_settings(settings_path)
@@ -220,20 +221,8 @@ def run_nba(root: Path, settings_path: Path) -> None:
         return
     res = nba_scan(root, settings_path)
     KICKOFFS.extend(_ts(e.get("commence_time")) for e in (res.get("evd") or {}).values())
-    sugg = suggest(res["rows"], res["evd"], settings)
-    pl = ParlayLedger(root / "nba_parlays_v2.json")
-    new_p = pl.record(sugg)
-    from .nba import settle_nba
-    from .sources.http import JsonClient
-    try:
-        settle_nba(pl.legs_ledger(), JsonClient(root / ".cache_odds", ttl_s=900))
-    except Exception as e:
-        res["diag"].log(f"NBA parlay-rättning: {e}")
-    pl.update_status()
-    pl.save()
     write_site(root / "site" / "nba", res["rows"], res["ledger"], settings, res.get("test"),
-               {"parlay_forslag": sugg, "parlay_bokforing": sorted(pl.items, key=lambda x: -x["bokford"]),
-                "parlay_sammanfattning": pl.summary()}, res["shadow"], sport="NBA",
+               shadow_ledger=res["shadow"], sport="NBA",
                live_ledger=res.get("live") if settings.get("live_on", True) else None,
                live_keys={__import__("propsbot.ledger", fromlist=["bet_key"]).bet_key(r) for r in res.get("live_rows", [])})
     if settings.get("ntfy_topic"):
@@ -242,13 +231,6 @@ def run_nba(root: Path, settings_path: Path) -> None:
         # Med tiers_on skickas notiserna av tiers.py (bara A Tier); de gamla LIVE-notiserna är av.
         n = 0 if settings.get("tiers_on", True) else notify_new(
             res.get("live_rows", []) if settings.get("live_on", True) else res["playable"], nba_settings, root, live=True)
-        from .clv_signal import units
-        from .notify import send
-        for x in (new_p if settings.get("live_enabled", True) and settings.get("parlays_notify", False) else []):
-            legs = "\n".join(f"• {l['spelare']} {l['marknad']} {'under' if l.get('sida') == 'under' else 'över'} {l['linje']:g} ({l['odds']:.2f})"
-                             for l in x["ben"])
-            send(settings["ntfy_topic"], f"NBA PARLAY {x['antal_ben']} ben @ {x['odds']:.2f} hos {x['bolag']}",
-                 f"{legs}\nEV {x['ev']:.1%}, insats {units(x['insats_pct'])}/10 units")
         res["diag"].log(f"NBA notiser: {n}")
     if os.environ.get("GITHUB_ACTIONS"):
         keep = [l for l in res["diag"].lines if l.startswith(("Kambi NBA", "Pinnacle NBA", "NBA"))][:30]
@@ -265,7 +247,7 @@ def push_overview(settings: dict) -> str:
         ("Fotboll sides/totals: LIVE-spel 1X2, mål över/under, handikapp mot Pinnacle "
          f"(≥{settings.get('sides_min_edge', 0.03):.0%})") if settings.get("sides_live")
         else "Fotboll sides/totals (1X2, mål, handikapp mot Pinnacle): bara data tills vidare",
-        "Test (fouls, kort), skuggspel, modelltest, parlays: bara data",
+        "Test (fouls, hörnor), skuggspel, modelltest: bara data",
         "Ett spel per spelare och match – aldrig två notiser på samma spelare.",
     ]
     return "\n".join(lines)

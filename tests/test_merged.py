@@ -18,8 +18,8 @@ def test_player_guard_one_bet_per_player_and_match(tmp_path):
     assert g.allows("nba", "m2", "LeBron James", "points|25.5")          # annan match: ok
 
 
-def test_card_labels():
-    assert market_from_label("To Get a Card") == ("cards", 0.5)
+def test_card_labels():   # kort spelas inte sedan 20/11
+    assert market_from_label("To Get a Card") is None
     assert market_from_label("To Get a Red Card") is None
     assert market_from_label("To Score or Get a Card") is None
 

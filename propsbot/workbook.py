@@ -27,18 +27,17 @@ FONT = "Arial"
 MK = {"shots": "Skott", "shots_on_target": "Skott på mål", "goal": "Mål", "assist": "Assist",
       "points": "Poäng", "rebounds": "Returer", "assists": "Assist (NBA)", "threes": "Trepoängare",
       "steals": "Steals", "blocks": "Blocks", "pra": "PRA", "pr": "Poäng + returer", "ra": "Returer + assist", "pa": "Poäng + assist", "fouls": "Fouls",
-      "cards": "Kort",
       "1x2": "1X2", "total": "Mål totalt", "ah": "Asiatiskt handikapp", "corners": "Hörnor",
       "cah": "Hörnhandikapp", "corners_home": "Hörnor hemmalag", "corners_away": "Hörnor bortalag"}
 SIDA = {"under": "Under", "home": "Hemma", "draw": "Oavgjort", "away": "Borta"}
 
 LEDGERS = [  # (fil, sport, typ) – sorterat per sport
     ("bokforing_v3.json", "Fotboll", "Spel"), ("bokforing_skugga_v4.json", "Fotboll", "Skugga"),
-    ("bokforing_modell_v4.json", "Fotboll", "Modelltest"), ("parlays_v3.json", "Fotboll", "Parlay"),
-    ("bokforing_fouls_test.json", "Fotboll", "Fouls-test"), ("bokforing_kort_test.json", "Fotboll", "Kort-test"), ("bokforing_hornor_test.json", "Fotboll", "Hörn-test"),
+    ("bokforing_modell_v4.json", "Fotboll", "Modelltest"),
+    ("bokforing_fouls_test.json", "Fotboll", "Fouls-test"), ("bokforing_hornor_test.json", "Fotboll", "Hörn-test"),
     ("sides_spel.json", "Fotboll", "Sides"), ("sides_skugga.json", "Fotboll", "Sides-skugga"),
     ("nba_live.json", "NBA", "Live"), ("nba_bokforing_v2.json", "NBA", "Spel"), ("nba_skugga_v2.json", "NBA", "Skugga"),
-    ("nba_modelltest.json", "NBA", "Modelltest"), ("nba_parlays_v2.json", "NBA", "Parlay"),
+    ("nba_modelltest.json", "NBA", "Modelltest"),
     ("nba_sides_spel.json", "NBA", "Sides"), ("nba_sides_skugga.json", "NBA", "Sides-skugga"),
 ]
 
@@ -76,30 +75,19 @@ def _rows(root: Path) -> list[list]:
             items = _load_items(f)
         except (json.JSONDecodeError, ValueError):
             continue
-        if typ != "Parlay":   # ett spel per spelare och match: senare rader på samma spelare räknas inte
-            from .ledger import mark_duplicates
-            mark_duplicates(items)
+        from .ledger import mark_duplicates   # ett spel per spelare och match: senare rader räknas inte
+        mark_duplicates(items)
         for b in items:
             if b.get("dubblett"):
                 continue
             typ_b = "Live" if (typ == "Sides" and b.get("notis")) else typ   # sides med notis = LIVE
-            if typ == "Parlay":
-                legs = b.get("ben", [])
-                spelare = " + ".join(f"{l['spelare']} {MK.get(l['marknad'], l['marknad']).lower()} "
-                                     f"{'under' if l.get('sida') == 'under' else 'över'} {l['linje']:g}" for l in legs)
-                avs = max((l.get("avspark") or 0) for l in legs) if legs else None
-                row = [_dt(b.get("bokford")), sport, typ, _dt(avs), " | ".join(l["match"] for l in legs), spelare,
-                       f"Parlay {b.get('antal_ben')} ben", "", None, b.get("bolag"), b.get("slutodds") or b.get("odds"),
-                       None, None, b.get("sannolikhet"), b.get("ev"), (b.get("insats_pct") or 0) / UNIT, "nej",
-                       b.get("status"), None]
-            else:
-                done = b.get("avspark") and b["avspark"] < datetime.now(timezone.utc).timestamp()
-                row = [_dt(b.get("bokford")), sport, typ_b, _dt(b.get("avspark")), b.get("match"), b.get("spelare"),
-                       MK.get(b.get("marknad"), b.get("marknad")),
-                       SIDA.get(b.get("sida"), "Över"), b.get("linje"), b.get("bolag"),
-                       b.get("odds"), b.get("stangning") if done else None, None, b.get("sannolikhet"), b.get("edge"),
-                       (b.get("insats_pct") or 0) / UNIT, "ja" if b.get("clv_signal") else "nej",
-                       b.get("status"), b.get("utfall")]
+            done = b.get("avspark") and b["avspark"] < datetime.now(timezone.utc).timestamp()
+            row = [_dt(b.get("bokford")), sport, typ_b, _dt(b.get("avspark")), b.get("match"), b.get("spelare"),
+                   MK.get(b.get("marknad"), b.get("marknad")),
+                   SIDA.get(b.get("sida"), "Över"), b.get("linje"), b.get("bolag"),
+                   b.get("odds"), b.get("stangning") if done else None, None, b.get("sannolikhet"), b.get("edge"),
+                   (b.get("insats_pct") or 0) / UNIT, "ja" if b.get("clv_signal") else "nej",
+                   b.get("status"), b.get("utfall")]
             out.append(row)
     out.sort(key=lambda r: r[0] or datetime.min, reverse=True)
     return out
@@ -229,9 +217,8 @@ def build(root: Path, path: Path) -> int:
     last = write_sheet(ws, rows, "AllaSpel")
     kpi_box(ws, last)
     for title, tname, pick in (
-            ("NBA", "NBA", lambda r: r[1] == "NBA" and r[2] != "Parlay"),
-            ("Fotboll", "Fotboll", lambda r: r[1] == "Fotboll" and r[2] != "Parlay"),
-            ("Parlays", "Parlays", lambda r: r[2] == "Parlay")):
+            ("NBA", "NBA", lambda r: r[1] == "NBA"),
+            ("Fotboll", "Fotboll", lambda r: r[1] == "Fotboll")):
         sub = [r for r in rows if pick(r)]
         w = wb.create_sheet(title)
         kpi_box(w, write_sheet(w, sub, tname))
@@ -309,7 +296,7 @@ def build(root: Path, path: Path) -> int:
     group_sheet("Per oddsintervall", "Oddsintervall", odds_b)
     group_sheet("Per sannolikhet", "Sannolikhetsintervall", prob_b)
     group_sheet("Per edge", "Edgeintervall", edge_b)
-    group_sheet("Per typ", "Typ", ["Spel", "Skugga", "Modelltest", "Parlay"])
+    group_sheet("Per typ", "Typ", ["Spel", "Skugga", "Modelltest"])
     group_sheet("Per sport", "Sport", ["Fotboll", "NBA"])
     group_sheet("Per CLV-signal", "CLV-signal", ["ja", "nej"])
     group_sheet("Per vecka", "Vecka", weeks)
@@ -352,7 +339,7 @@ def build(root: Path, path: Path) -> int:
     e = wb.create_sheet("Förklaring")
     expl = [
         ("Kolumn", "Betydelse"),
-        ("Typ", "Spel = riktigt spel före matchstart (notis skickad). Skugga = minst 2 % edge men stoppat av en regel. Modelltest = spelarmodellens val. Parlay = kombinationsspel. Boten spelar aldrig live (under pågående match)."),
+        ("Typ", "Spel = riktigt spel före matchstart (notis skickad). Skugga = minst 2 % edge men stoppat av en regel. Modelltest = spelarmodellens val. Boten spelar aldrig live (under pågående match)."),
         ("Odds", "Bästa pris hos våra spelbolag när spelet bokfördes."),
         ("Stängning", "Senaste pris hos samma bolag före avspark (visas efter avspark)."),
         ("CLV (pe)", "Stängningens implicita sannolikhet minus vår, i procentenheter. Positivt = vi fick bättre pris än stängningen."),
@@ -416,10 +403,9 @@ def write_csv_exports(root: Path, out_dir: Path) -> int:
     out_dir.mkdir(parents=True, exist_ok=True)
     tiers = [_csv_row(r) for r in _tier_rows(root)]
     rows = tiers + [_csv_row(r) for r in _rows(root)]
-    by = lambda sport: [r for r in rows if r[1] == sport and r[2] != "Parlay"]
+    by = lambda sport: [r for r in rows if r[1] == sport]
     sets = {"tiers": tiers, "live": [r for r in rows if r[2] == "Live"], "alla_spel": rows,
-            "fotboll": by("Fotboll"), "nba": by("NBA"),
-            "parlays": [r for r in rows if r[2] == "Parlay"]}
+            "fotboll": by("Fotboll"), "nba": by("NBA")}
     for name, rs in sets.items():
         with open(out_dir / f"{name}.csv", "w", newline="", encoding="utf-8") as fh:
             w = csv.writer(fh)
@@ -431,7 +417,7 @@ def write_csv_exports(root: Path, out_dir: Path) -> int:
     for r in rows:
         g[(r[1], r[2])].append(r)
     order = {"Fotboll": 0, "NBA": 1}
-    torder = {t: i for i, t in enumerate([*TIER_TYPES, "Live", "Spel", "Skugga", "Modelltest", "Fouls-test", "Kort-test", "Sides", "Sides-skugga", "Parlay"])}
+    torder = {t: i for i, t in enumerate([*TIER_TYPES, "Live", "Spel", "Skugga", "Modelltest", "Fouls-test", "Hörn-test", "Sides", "Sides-skugga"])}
     keys = sorted(g, key=lambda k: (order.get(k[0], 9), torder.get(k[1], 9)))
     for fname, only in (("sammanfattning.csv", None),):
       with open(out_dir / fname, "w", newline="", encoding="utf-8") as fh:

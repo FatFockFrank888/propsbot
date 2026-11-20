@@ -22,7 +22,7 @@ from pathlib import Path
 HIST_FILES = ("pinnacle_historik.json", "nba_historik.json")
 LEDGERS = ("nba_bokforing_v2.json", "nba_skugga_v2.json", "nba_modelltest.json", "nba_live.json",
            "bokforing_v3.json", "bokforing_skugga_v4.json", "bokforing_modell_v4.json",
-           "bokforing_kort_test.json", "bokforing_fouls_test.json")
+           "bokforing_fouls_test.json")
 BACKFILL = Path(__file__).with_name("skarp_stangning_bakat.json")
 
 

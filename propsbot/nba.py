@@ -2,7 +2,7 @@
 
 Marknader: poäng, returer, assist, trepoängare, PRA (poäng + returer + assist).
 Samma regler som fotboll: odds 1,40–6,00, minst 5 % edge, ¼ Kelly, bokföring,
-skuggspel, parlays och notiser. Bästa pris jämförs mot konsensus från de ANDRA
+skuggspel och notiser. Bästa pris jämförs mot konsensus från de ANDRA
 källorna (Pinnacle väger tyngst, Kambi räknas som en röst).
 Rättning mot ESPN:s NBA-boxscore.
 """
@@ -633,8 +633,11 @@ def nba_scan(root: Path, settings_path: Path) -> dict:
     new = ledger.record(rows, evd_by_id)
     ledger.update_closing(rows, time.time())
     shadow = Ledger(root / "nba_skugga_v2.json")
+    # Golv 4 % (20/11, = C Tier): 1 036 skuggspel på 2–4 % gav ROI +0,3 % och CLV +0,4 – frågan är besvarad.
+    # Marknadens kalibrering följs i stället i kalibreringsloggen (nba_kalibrering.py), som har alla ben.
+    sh_min = settings.get("nba_shadow_min_edge", 0.04)
     shadow.record(rows, evd_by_id, predicate=lambda r: (not r.row.decision.playable and r.row.decision.show
-                                                       and (r.row.decision.cand.edge >= 0.02 or any(
+                                                       and (r.row.decision.cand.edge >= sh_min or any(
                                                            "live pausat" in x for x in r.row.decision.reasons))))
     shadow.update_closing(rows, time.time())
     test = Ledger(root / "nba_modelltest.json")
@@ -710,6 +713,12 @@ def nba_scan(root: Path, settings_path: Path) -> dict:
         save_stack(root, test.bets)
     except Exception as e:  # noqa: BLE001
         diag.log(f"NBA stackning: fel {type(e).__name__}: {e}")
+    try:   # kalibreringen: rätta loggen och skatta om (används av NÄSTA skanning – alltid framåtriktat)
+        from .nba_kalibrering import fit as kalib_fit, settle as kalib_settle, summary as kalib_summary
+        n_k = kalib_settle(root, ec)
+        diag.log(f"NBA kalibrering: {n_k} nya rättade ben; " + kalib_summary(kalib_fit(root)))
+    except Exception as e:  # noqa: BLE001 – får aldrig stoppa skanningen
+        diag.log(f"NBA kalibrering: fel {type(e).__name__}: {e}")
     try:   # utvärdering på framåtriktad data + status per marknad (används av nästa skanning)
         from .nba_eval import evaluate as nba_evaluate, markdown as nba_md
         ev = nba_evaluate(root)
@@ -950,6 +959,12 @@ def model_test_rows(root: Path, rows: list, per: dict, settings: dict, cfg: Conf
     diag.log(f"NBA minutmodell (skugga): medel cv² {mean_cv2:.3f}, spread från Pinnacle för {n_bo} av {len(models)} matcher; "
              f"stackning: " + (", ".join(f"{k} b_m {v['b_modell']:+.2f} b_k {v['b_marknad']:.2f} (n {v['n']})"
                                          for k, v in sorted(stack.items())) or "ingen skattning än"))
+    # Kalibrering (20/11, nba_kalibrering): skattad framåt på ALLA loggade ben, används av den här skanningen.
+    from .nba_kalibrering import KalibLog, load as load_kalib, params_for as kalib_params, predict as kalib_predict
+    kal = load_kalib(root)
+    klog = KalibLog(root)
+    evd_by_mid = {v[0]["id"]: v[0] for v in per.values()}
+    t_log = time.time()
     out = []
     for i, (r, p_mod_over, p_mkt_over, mu, games) in enumerate(pairs):
         c = r.row.decision.cand
@@ -1018,9 +1033,35 @@ def model_test_rows(root: Path, rows: list, per: dict, settings: dict, cfg: Conf
                           minuter_sd_faktorer=round(fe.get("_min_sd", 0.0), 1))
             except (KeyError, TypeError, ValueError, ZeroDivisionError):
                 pass
+        # Kalibrerad sannolikhet: det modelltestet bokar på. Utan förtjänad modellvikt (M2) på marknaden bokförs
+        # inget modelltestspel – raden loggas ändå, så modellen kan förtjäna vikten senare.
+        to_over = lambda x: None if x is None else (1.0 - x if under else x)
+        pf_over, pb_over = to_over(extra.get("p_faktorer_ra")), to_over(extra.get("p_betyg_ra"))
+        p_kal_over, aktiv = kalib_predict(kal, c.market, p_mkt_over, pm_over, pf_over, pb_over)
+        p_kal = 1.0 - p_kal_over if under else p_kal_over
+        kq = kalib_params(kal, c.market)
+        extra.update(p_kalib=round(p_kal, 4), p_blend=round(p, 4), kalib_modell=kq.get("modell", "M0"))
+        an.update(p_kalib=round(p_kal, 4), kalib_modell=kq.get("modell", "M0"))
+        d = evaluate(dataclasses.replace(c, p=p_kal), cfg.decision)
+        d.reasons.append(f"kalibrerad {p_kal:.0%} ({kq.get('modell', 'M0')}), modell {pm:.0%} (väntat {mu:.1f}), "
+                         f"marknad {c.p:.0%}, blandning {p:.0%}, dq {dq:.2f}")
+        if not aktiv:
+            d.playable = False
+            d.reasons.append("modellen har inte förtjänat vikt på marknaden (kalibreringen) – bara logg")
+        sr.row = Row(d, pm, c.p, w)
+        evd = evd_by_mid.get(c.match_id)
+        if evd is not None:
+            klog.upsert({"mid": c.match_id, "pid": c.player_id, "spelare": c.player_name, "hemma": evd["home_team"],
+                         "borta": evd["away_team"], "match": r.match, "avspark": evd["commence_time"], "mk": c.market,
+                         "ln": c.line, "pm": pm_over, "pk": p_mkt_over, "pf": pf_over, "pb": pb_over, "dq": dq}, t_log)
         sr.extra = extra
         sr.analys = {**extra, **an}
         out.append(sr)
+    try:
+        klog.save()
+    except OSError as e:
+        diag.log(f"NBA kalibreringslogg: kunde inte spara ({e})")
     n_play = sum(1 for x in out if x.row.decision.playable and x.row.decision.show)
-    diag.log(f"NBA-modelltest: {n_play} spelbara enligt modellen av {len(out)} ben med modell")
+    diag.log(f"NBA-modelltest: {n_play} spelbara enligt den kalibrerade modellen av {len(out)} ben med modell "
+             f"({len(klog.rows)} rader i kalibreringsloggen)")
     return out
