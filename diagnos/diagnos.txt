@@ -1,5 +1,5 @@
-Skanning 2026-11-20 17:39
-Kambi unibet (ubse): OK, 91 matcher i valda ligor
+Skanning 2026-11-20 17:59
+Kambi unibet (ubse): OK, 93 matcher i valda ligor
 Kambi paf (paf): OK
 Kambi atg (atg): OK
 Kambi leovegas (leose): OK
@@ -7,58 +7,19 @@ Kambi svenskaspel (svenskaspel): OK
 Kambi expekt (expektse): OK
 Kambi betmgm (betmgmse): OK
 Pinnacle: OK, 26 ligor
-  Annecy FC – Clermont: Pinnacle FEL HTTP 403 för https://guest.api.arcadia.pinnacle.com/0.1/matchups/1640278611/related
-  1. FC Union Berlin – RB Leipzig: Pinnacle FEL HTTP 403 för https://guest.api.arcadia.pinnacle.com/0.1/matchups/1639776948/related
-Pinnacle: 106 matcher, matchlinjer för 41 av 60 Kambi-matcher, 0 spelarodds som används
+  Southampton – Derby County: Pinnacle FEL HTTP 403 för https://guest.api.arcadia.pinnacle.com/0.1/matchups/1640231008/related
+  Panthrakikos Komotini – Panionios: Pinnacle FEL HTTP 403 för https://guest.api.arcadia.pinnacle.com/0.1/matchups/1640532350/related
+Pinnacle: 104 matcher, matchlinjer för 40 av 60 Kambi-matcher, 0 spelarodds som används
 Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
-  Double Chance 1st Half | units=Regular | kategori=Team Props | deltagare=Molde Or Bodo Glimt,Draw Or Bodo Glimt,Draw Or Molde  ->  används inte (lagmarknad)
-  Moneyline and Total Goals | units=Regular | kategori=Team Props | deltagare=Molde & Over 3.5,Molde & Under 3.5,Draw & Over 3.5,Draw & Under 3.5,Bodo Glimt & Over 3.5,Bodo Glimt & Under 3.5  ->  används inte (lagmarknad)
-  Double Chance | units=Regular | kategori=Team Props | deltagare=Molde Or Bodo Glimt,Draw Or Bodo Glimt,Draw Or Molde  ->  används inte (lagmarknad)
-  Both Teams To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Either Team To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Molde Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
-  Total Goals Range | units=Regular | kategori=Team Props | deltagare=0 - 1,2 - 3,4 - 6,7+  ->  används inte (lagmarknad)
-  3-Way Handicap Molde +2 | units=Regular | kategori=Team Props | deltagare=Molde (+2),Draw - (Molde +2),Bodo Glimt (-2)  ->  används inte (lagmarknad)
-  Exact Total Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5,6+  ->  används inte (lagmarknad)
-  Both Teams To Score and Moneyline | units=Regular | kategori=Team Props | deltagare=Yes & Molde,Yes & Draw,Yes & Bodo Glimt,No & Molde,No & Draw,No & Bodo Glimt  ->  används inte (lagmarknad)
-  Both Teams To Score and Total Goals | units=Regular | kategori=Team Props | deltagare=Yes & Over 3.5,Yes & Under 3.5,No & Over 3.5,No & Under 3.5  ->  används inte (lagmarknad)
-  3-Way Handicap Molde +1 | units=Regular | kategori=Team Props | deltagare=Molde (+1),Draw - (Molde +1),Bodo Glimt (-1)  ->  används inte (lagmarknad)
-  Bodo Glimt Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
-  3-Way Handicap Molde -1 | units=Regular | kategori=Team Props | deltagare=Molde (-1),Draw - (Molde -1),Bodo Glimt (+1)  ->  används inte (lagmarknad)
-  Molde To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Molde Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
-  First Team To Score | units=1st Goal | kategori=Team Props | deltagare=Molde,Bodo Glimt,Neither  ->  används inte (lagmarknad)
-  Winning Margin 1st Half | units=Regular | kategori=Team Props | deltagare=Molde By 1,Molde By 2+,Bodo Glimt By 1,Bodo Glimt By 2+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
-  Bodo Glimt To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Exact Total Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
-  Draw No Bet 1st Half | units=Regular | kategori=Team Props | deltagare=Molde,Bodo Glimt  ->  används inte (lagmarknad)
-  Molde To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  3-Way Handicap Molde +3 | units=Regular | kategori=Team Props | deltagare=Molde (+3),Draw - (Molde +3),Bodo Glimt (-3)  ->  används inte (lagmarknad)
-  Bodo Glimt To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Total Goals Odd/Even 1st Half | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
-  Molde Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
-  Bodo Glimt Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
-  Correct Score | units=Regular | kategori=Team Props | deltagare=Molde 0, Bodo Glimt 0,Molde 0, Bodo Glimt 1,Molde 0, Bodo Glimt 2,Molde 0, Bodo Glimt 3,Molde 0, Bodo Glimt 4,Molde 0, Bodo Glimt 5,Molde 0, Bodo Glimt 6,Molde 1, Bodo Glimt 0,Molde 1, Bodo Glimt 1,Molde 1, Bodo Glimt 2,Molde 1, Bodo Glimt 3,Molde 1, Bodo Glimt 4,Molde 1, Bodo Glimt 5,Molde 1, Bodo Glimt 6,Molde 2, Bodo Glimt 0,Molde 2, Bodo Glimt 1,Molde 2, Bodo Glimt 2,Molde 2, Bodo Glimt 3,Molde 2, Bodo Glimt 4,Molde 2, Bodo Glimt 5,Molde 2, Bodo Glimt 6,Molde 3, Bodo Glimt 0,Molde 3, Bodo Glimt 1,Molde 3, Bodo Glimt 2,Molde 3, Bodo Glimt 3,Molde 3, Bodo Glimt 4,Molde 3, Bodo Glimt 5,Molde 3, Bodo Glimt 6,Molde 4, Bodo Glimt 0,Molde 4, Bodo Glimt 1,Molde 4, Bodo Glimt 2,Molde 4, Bodo Glimt 3,Molde 4, Bodo Glimt 4,Molde 4, Bodo Glimt 5,Molde 4, Bodo Glimt 6,Molde 5, Bodo Glimt 0,Molde 5, Bodo Glimt 1,Molde 5, Bodo Glimt 2,Molde 5, Bodo Glimt 3,Molde 5, Bodo Glimt 4,Molde 5, Bodo Glimt 5,Molde 5, Bodo Glimt 6,Molde 6, Bodo Glimt 0,Molde 6, Bodo Glimt 1,Molde 6, Bodo Glimt 2,Molde 6, Bodo Glimt 3,Molde 6, Bodo Glimt 4,Molde 6, Bodo Glimt 5,Molde 6, Bodo Glimt 6  ->  används inte (lagmarknad)
-  Total Goals Range 1st Half | units=Regular | kategori=Team Props | deltagare=0 - 1,2 - 3,4+  ->  används inte (lagmarknad)
-  Both Teams To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Draw No Bet | units=Regular | kategori=Team Props | deltagare=Molde,Bodo Glimt  ->  används inte (lagmarknad)
-  Correct Score 1st Half | units=Regular | kategori=Team Props | deltagare=Molde 0, Bodo Glimt 0,Molde 0, Bodo Glimt 1,Molde 0, Bodo Glimt 2,Molde 0, Bodo Glimt 3,Molde 1, Bodo Glimt 0,Molde 1, Bodo Glimt 1,Molde 1, Bodo Glimt 2,Molde 1, Bodo Glimt 3,Molde 2, Bodo Glimt 0,Molde 2, Bodo Glimt 1,Molde 2, Bodo Glimt 2,Molde 2, Bodo Glimt 3,Molde 3, Bodo Glimt 0,Molde 3, Bodo Glimt 1,Molde 3, Bodo Glimt 2,Molde 3, Bodo Glimt 3  ->  används inte (lagmarknad)
-  Winning Margin | units=Regular | kategori=Team Props | deltagare=Molde By 1,Molde By 2,Molde By 3,Molde By 4+,Bodo Glimt By 1,Bodo Glimt By 2,Bodo Glimt By 3,Bodo Glimt By 4+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
-  Total Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
-  First Team To Score 1st Half | units=1st Goal | kategori=Team Props | deltagare=Molde,Bodo Glimt,Neither  ->  används inte (lagmarknad)
-  Bodo Glimt Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
-  Odd/Even and Total Goals | units=Regular | kategori=Team Props | deltagare=Odd & Over 3.5,Odd & Under 3.5,Even & Over 3.5,Even & Under 3.5  ->  används inte (lagmarknad)
-  Bodo Glimt To Win To Nil | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Molde To Win To Nil | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Molde To Win To Nil 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Bodo Glimt To Win To Nil 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
   Double Chance 1st Half | units=Regular | kategori=Team Props | deltagare=Red Star Or Pau FC,Draw Or Pau FC,Draw Or Red Star  ->  används inte (lagmarknad)
   Moneyline and Total Goals | units=Regular | kategori=Team Props | deltagare=Red Star & Over 2.5,Red Star & Under 2.5,Draw & Over 2.5,Draw & Under 2.5,Pau FC & Over 2.5,Pau FC & Under 2.5  ->  används inte (lagmarknad)
   Double Chance | units=Regular | kategori=Team Props | deltagare=Red Star Or Pau FC,Draw Or Pau FC,Draw Or Red Star  ->  används inte (lagmarknad)
   3-Way Handicap Red Star -1 | units=Regular | kategori=Team Props | deltagare=Red Star (-1),Draw - (Red Star -1),Pau FC (+1)  ->  används inte (lagmarknad)
   Winning Margin | units=Regular | kategori=Team Props | deltagare=Red Star By 1,Red Star By 2,Red Star By 3,Red Star By 4+,Pau FC By 1,Pau FC By 2,Pau FC By 3,Pau FC By 4+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
   Either Team To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Exact Total Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5,6+  ->  används inte (lagmarknad)
   Red Star Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  Total Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
   Draw No Bet | units=Regular | kategori=Team Props | deltagare=Red Star,Pau FC  ->  används inte (lagmarknad)
   Pau FC To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
   Correct Score | units=Regular | kategori=Team Props | deltagare=Red Star 0, Pau FC 0,Red Star 0, Pau FC 1,Red Star 0, Pau FC 2,Red Star 0, Pau FC 3,Red Star 0, Pau FC 4,Red Star 0, Pau FC 5,Red Star 0, Pau FC 6,Red Star 1, Pau FC 0,Red Star 1, Pau FC 1,Red Star 1, Pau FC 2,Red Star 1, Pau FC 3,Red Star 1, Pau FC 4,Red Star 1, Pau FC 5,Red Star 1, Pau FC 6,Red Star 2, Pau FC 0,Red Star 2, Pau FC 1,Red Star 2, Pau FC 2,Red Star 2, Pau FC 3,Red Star 2, Pau FC 4,Red Star 2, Pau FC 5,Red Star 2, Pau FC 6,Red Star 3, Pau FC 0,Red Star 3, Pau FC 1,Red Star 3, Pau FC 2,Red Star 3, Pau FC 3,Red Star 3, Pau FC 4,Red Star 3, Pau FC 5,Red Star 3, Pau FC 6,Red Star 4, Pau FC 0,Red Star 4, Pau FC 1,Red Star 4, Pau FC 2,Red Star 4, Pau FC 3,Red Star 4, Pau FC 4,Red Star 4, Pau FC 5,Red Star 4, Pau FC 6,Red Star 5, Pau FC 0,Red Star 5, Pau FC 1,Red Star 5, Pau FC 2,Red Star 5, Pau FC 3,Red Star 5, Pau FC 4,Red Star 5, Pau FC 5,Red Star 5, Pau FC 6,Red Star 6, Pau FC 0,Red Star 6, Pau FC 1,Red Star 6, Pau FC 2,Red Star 6, Pau FC 3,Red Star 6, Pau FC 4,Red Star 6, Pau FC 5,Red Star 6, Pau FC 6  ->  används inte (lagmarknad)
@@ -68,15 +29,55 @@ Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
   3-Way Handicap Red Star -2 | units=Regular | kategori=Team Props | deltagare=Red Star (-2),Draw - (Red Star -2),Pau FC (+2)  ->  används inte (lagmarknad)
   Red Star To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
   Pau FC Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  Both Teams To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
   Both Teams To Score and Moneyline | units=Regular | kategori=Team Props | deltagare=Yes & Red Star,Yes & Draw,Yes & Pau FC,No & Red Star,No & Draw,No & Pau FC  ->  används inte (lagmarknad)
   Odd/Even and Total Goals | units=Regular | kategori=Team Props | deltagare=Odd & Over 2.5,Odd & Under 2.5,Even & Over 2.5,Even & Under 2.5  ->  används inte (lagmarknad)
   Red Star To Win To Nil | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-Sides mindre ligor: 83 Kambi-matcher inom 12 h, 181 Pinnacle-matcher, 77 med Pinnacle, 77 matchade: Algeria / Ligue 1, Austria / Second League, Chile / Primera B, Chile / Primera Chile, Colombia / Liga Dimayor, Costa Rica / Primera Division Costa Rica, Denmark / 1st Division, England / League One, England / National League, France / Division 1 (W), Germany / 3. Liga, Italy / Serie C Girone A, Ital
-Sides/totals: 118 matcher med Kambi + Pinnacle, 2451 linjer, 1 nya spel, 2 nya skuggspel, Smarkets-priser i 82 av 95; bästa edge +5.2% (TOP Oss 1X2: 1), +5.0% (Nara Club över 3.5), +4.8% (Lazio 1X2: 2)
-Hörnmodell (test): 7861 matcher i underlaget (17 ligor), 30 matcher med modell, 4144 Kambi-linjer, 1 nya testspel; bästa edge +45.5% (Barnsley Barnsley hörnor under 4.5 @ 2.65), +41.7% (Bayern Munich Bayern Munich hörnor över 10.5 @ 3.60), +33.6% (1. FC Union Berlin RB Leipzig hörnor under 3.5 @ 3.80)
+  Red Star Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
+  Pau FC To Win To Nil | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Pau FC To Win To Nil 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Both Teams To Score and Total Goals | units=Regular | kategori=Team Props | deltagare=Yes & Over 2.5,Yes & Under 2.5,No & Over 2.5,No & Under 2.5  ->  används inte (lagmarknad)
+  Pau FC Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
+  Total Goals Range 1st Half | units=Regular | kategori=Team Props | deltagare=0 - 1,2 - 3,4+  ->  används inte (lagmarknad)
+  Draw No Bet 1st Half | units=Regular | kategori=Team Props | deltagare=Red Star,Pau FC  ->  används inte (lagmarknad)
+  Total Goals Odd/Even 1st Half | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  3-Way Handicap Red Star +1 | units=Regular | kategori=Team Props | deltagare=Red Star (+1),Draw - (Red Star +1),Pau FC (-1)  ->  används inte (lagmarknad)
+  Both Teams To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Total Goals Range | units=Regular | kategori=Team Props | deltagare=0 - 1,2 - 3,4 - 6,7+  ->  används inte (lagmarknad)
+  Either Team To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Exact Total Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
+  First Team To Score 1st Half | units=1st Goal | kategori=Team Props | deltagare=Red Star,Pau FC,Neither  ->  används inte (lagmarknad)
+  First Team To Score | units=1st Goal | kategori=Team Props | deltagare=Red Star,Pau FC,Neither  ->  används inte (lagmarknad)
+  Red Star Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
+  Pau FC To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Winning Margin 1st Half | units=Regular | kategori=Team Props | deltagare=Red Star By 1,Red Star By 2+,Pau FC By 1,Pau FC By 2+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
+  Red Star To Win To Nil 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Double Chance 1st Half | units=Regular | kategori=Team Props | deltagare=Guingamp Or Rodez,Draw Or Rodez,Draw Or Guingamp  ->  används inte (lagmarknad)
+  Moneyline and Total Goals | units=Regular | kategori=Team Props | deltagare=Guingamp & Over 3.5,Guingamp & Under 3.5,Draw & Over 3.5,Draw & Under 3.5,Rodez & Over 3.5,Rodez & Under 3.5  ->  används inte (lagmarknad)
+  Double Chance | units=Regular | kategori=Team Props | deltagare=Guingamp Or Rodez,Draw Or Rodez,Draw Or Guingamp  ->  används inte (lagmarknad)
+  3-Way Handicap Guingamp -1 | units=Regular | kategori=Team Props | deltagare=Guingamp (-1),Draw - (Guingamp -1),Rodez (+1)  ->  används inte (lagmarknad)
+  Winning Margin | units=Regular | kategori=Team Props | deltagare=Guingamp By 1,Guingamp By 2,Guingamp By 3,Guingamp By 4+,Rodez By 1,Rodez By 2,Rodez By 3,Rodez By 4+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
+  Guingamp Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  Draw No Bet | units=Regular | kategori=Team Props | deltagare=Guingamp,Rodez  ->  används inte (lagmarknad)
+  Rodez To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Correct Score | units=Regular | kategori=Team Props | deltagare=Guingamp 0, Rodez 0,Guingamp 0, Rodez 1,Guingamp 0, Rodez 2,Guingamp 0, Rodez 3,Guingamp 0, Rodez 4,Guingamp 0, Rodez 5,Guingamp 0, Rodez 6,Guingamp 1, Rodez 0,Guingamp 1, Rodez 1,Guingamp 1, Rodez 2,Guingamp 1, Rodez 3,Guingamp 1, Rodez 4,Guingamp 1, Rodez 5,Guingamp 1, Rodez 6,Guingamp 2, Rodez 0,Guingamp 2, Rodez 1,Guingamp 2, Rodez 2,Guingamp 2, Rodez 3,Guingamp 2, Rodez 4,Guingamp 2, Rodez 5,Guingamp 2, Rodez 6,Guingamp 3, Rodez 0,Guingamp 3, Rodez 1,Guingamp 3, Rodez 2,Guingamp 3, Rodez 3,Guingamp 3, Rodez 4,Guingamp 3, Rodez 5,Guingamp 3, Rodez 6,Guingamp 4, Rodez 0,Guingamp 4, Rodez 1,Guingamp 4, Rodez 2,Guingamp 4, Rodez 3,Guingamp 4, Rodez 4,Guingamp 4, Rodez 5,Guingamp 4, Rodez 6,Guingamp 5, Rodez 0,Guingamp 5, Rodez 1,Guingamp 5, Rodez 2,Guingamp 5, Rodez 3,Guingamp 5, Rodez 4,Guingamp 5, Rodez 5,Guingamp 5, Rodez 6,Guingamp 6, Rodez 0,Guingamp 6, Rodez 1,Guingamp 6, Rodez 2,Guingamp 6, Rodez 3,Guingamp 6, Rodez 4,Guingamp 6, Rodez 5,Guingamp 6, Rodez 6  ->  används inte (lagmarknad)
+  Guingamp To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Correct Score 1st Half | units=Regular | kategori=Team Props | deltagare=Guingamp 0, Rodez 0,Guingamp 0, Rodez 1,Guingamp 0, Rodez 2,Guingamp 0, Rodez 3,Guingamp 1, Rodez 0,Guingamp 1, Rodez 1,Guingamp 1, Rodez 2,Guingamp 1, Rodez 3,Guingamp 2, Rodez 0,Guingamp 2, Rodez 1,Guingamp 2, Rodez 2,Guingamp 2, Rodez 3,Guingamp 3, Rodez 0,Guingamp 3, Rodez 1,Guingamp 3, Rodez 2,Guingamp 3, Rodez 3  ->  används inte (lagmarknad)
+  Rodez Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
+  3-Way Handicap Guingamp -2 | units=Regular | kategori=Team Props | deltagare=Guingamp (-2),Draw - (Guingamp -2),Rodez (+2)  ->  används inte (lagmarknad)
+  Guingamp To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Rodez Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  Both Teams To Score and Moneyline | units=Regular | kategori=Team Props | deltagare=Yes & Guingamp,Yes & Draw,Yes & Rodez,No & Guingamp,No & Draw,No & Rodez  ->  används inte (lagmarknad)
+  Guingamp Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
+  Guingamp To Win To Nil | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Rodez To Win To Nil | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+Sides mindre ligor: 80 Kambi-matcher inom 12 h, 169 Pinnacle-matcher, 75 med Pinnacle, 75 matchade: Algeria / Ligue 1, Austria / Second League, Chile / Primera B, Chile / Primera Chile, Colombia / Liga Dimayor, Costa Rica / Primera Division Costa Rica, England / League One, England / National League, France / Division 1 (W), Italy / Serie C Girone A, Italy / Serie C Girone C, Japan / J1-League, Ja
+  Sides rättad: FC Botoşani – SC FC Voluntari SA handikapp -0.25 -> förlorad (3–3)
+Sides/totals: 115 matcher med Kambi + Pinnacle, 2482 linjer, 0 nya spel, 1 nya skuggspel, Smarkets-priser i 86 av 95; bästa edge +4.9% (Chelsea 1X2: 2), +4.6% (Nestos Chrisoupolis över 1.5), +4.3% (Lazio 1X2: 2)
+Hörnmodell (test): 7861 matcher i underlaget (17 ligor), 30 matcher med modell, 4164 Kambi-linjer, 0 nya testspel; bästa edge +42.7% (Barnsley Barnsley hörnor under 4.5 @ 2.60), +41.1% (Bayern Munich Bayern Munich hörnor över 10.5 @ 3.60), +26.4% (Como Como hörnor över 9.5 @ 4.20)
 Fotboll extra bolag: 0 nya hämtningar, 1000 odds i bruk, krediter kvar 258, dagsbudget 22 (andel 40%), förbrukat idag 4
-Tid: hämtning 801 s
-Marginal över alla matcher: uppmätt marginal: shots_on_target stege k=1.14 (154 spelare; marginal vid 3,00 ≈ 17%)
+Tid: hämtning 775 s
+Marginal över alla matcher: uppmätt marginal: shots_on_target stege k=1.14 (153 spelare; marginal vid 3,00 ≈ 17%)
   Bayern Munich – 1. FC Köln: modell – hittar inte matchen hos ESPN
   Cercle Brugge – Westerlo: modell bel.1, 28 spelare
   Troyes – Le Havre: modell fra.1, 30 spelare
@@ -89,30 +90,30 @@ Marginal över alla matcher: uppmätt marginal: shots_on_target stege k=1.14 (15
   Manchester City – Fulham: modell eng.1, 26 spelare
   Norwich City – Cardiff City: modell eng.2, 29 spelare
   Millwall – Queens Park Rangers: modell eng.2, 27 spelare
-  Southampton – Derby County: modell eng.2, 30 spelare
   Alaves – Deportivo A Coruña: modell esp.1, 30 spelare
   Como – Cagliari: modell ita.1, 28 spelare
   Lazio – Lecce: modell ita.1, 27 spelare
   AIK – Degerfors IF: modell swe.1, 30 spelare
   Mjällby AIF – Malmö FF: modell swe.1, 30 spelare
   Eintracht Frankfurt – TSG Hoffenheim: modell ger.1, 28 spelare
+  1. FC Union Berlin – RB Leipzig: modell ger.1, 28 spelare
   Bayer Leverkusen – SC Paderborn 07: modell ger.1, 26 spelare
   Elversberg – SC Freiburg: modell ger.1, 26 spelare
   Borussia Mönchengladbach – Borussia Dortmund: modell ger.1, 31 spelare
   Aston Villa – Sunderland: modell eng.1, 28 spelare
   Chelsea – Leeds United: modell eng.1, 31 spelare
   Bournemouth – Nottingham Forest: modell eng.1, 25 spelare
-Modellens nivåavvikelse mot marknaden (log-odds, dras bort): assist -0.60, goal -0.17, shots -0.52, shots_on_target -0.41
+Modellens nivåavvikelse mot marknaden (log-odds, dras bort): assist -0.52, goal -0.15, shots -0.55, shots_on_target -0.41
   AGF Aarhus – Lyngby: saknar matchlinjer från Pinnacle
-  Bayern Munich – 1. FC Köln: väntade mål Pinnacle 4.83 mot Kambi 4.67 (kvot 1.034); uppmätt marginal: goal k=1.53, assist k=1.51, shots_on_target stege k=1.05 (14 spelare; marginal vid 3,00 ≈ 6%)
-Exempel uppmätt marginal: goal k=1.53, assist k=1.51, shots_on_target stege k=1.05 (14 spelare; marginal vid 3,00 ≈ 6%)
+  Bayern Munich – 1. FC Köln: väntade mål Pinnacle 4.82 mot Kambi 4.72 (kvot 1.021); uppmätt marginal: goal k=1.54, assist k=1.52, shots_on_target stege k=1.14 (6 spelare; marginal vid 3,00 ≈ 17%)
+Exempel uppmätt marginal: goal k=1.54, assist k=1.52, shots_on_target stege k=1.14 (6 spelare; marginal vid 3,00 ≈ 17%)
   FC Andorra – Leganés: saknar matchlinjer från Pinnacle
   Cercle Brugge – Westerlo: väntade mål Pinnacle 3.23 mot Kambi 3.20 (kvot 1.009); uppmätt marginal: goal k=1.64, assist k=1.53
   Troyes – Le Havre: väntade mål Pinnacle 2.68 mot Kambi 2.75 (kvot 0.977); uppmätt marginal: goal k=1.37, assist k=1.29, shots_on_target stege k=1.20 (28 spelare; marginal vid 3,00 ≈ 25%)
-  Athletic Bilbao – Espanyol: väntade mål Pinnacle 3.05 mot Kambi 2.90 (kvot 1.050); uppmätt marginal: goal k=1.53, assist k=1.56
+  Athletic Bilbao – Espanyol: väntade mål Pinnacle 3.05 mot Kambi 3.11 (kvot 0.982); uppmätt marginal: goal k=1.59, assist k=1.59, shots_on_target stege k=1.08 (7 spelare; marginal vid 3,00 ≈ 9%)
   Club Atlético Vélez Sarsfield – Belgrano: saknar matchlinjer från Pinnacle
   Puebla FC – Atlético San Luis: väntade mål Pinnacle 3.02 mot Kambi 2.94 (kvot 1.025); uppmätt marginal: goal k=1.43, assist k=1.32
-  Club Tijuana – Atlante: väntade mål Pinnacle 2.84 mot Kambi 2.93 (kvot 0.972); uppmätt marginal: goal k=1.47, assist k=1.31
+  Club Tijuana – Atlante: väntade mål Pinnacle 2.85 mot Kambi 2.93 (kvot 0.973); uppmätt marginal: goal k=1.47, assist k=1.31
   Auckland FC – Melbourne Victory: saknar matchlinjer från Pinnacle
   Central Coast Mariners – Perth Glory: saknar matchlinjer från Pinnacle
   Brisbane Roar – Sydney FC: saknar matchlinjer från Pinnacle
@@ -120,41 +121,41 @@ Exempel uppmätt marginal: goal k=1.53, assist k=1.51, shots_on_target stege k=1
   1. FC Nürnberg – Eintracht Braunschweig: väntade mål Pinnacle 3.38 mot Kambi 3.46 (kvot 0.977); uppmätt marginal: goal k=1.58
   VfL Wolfsburg – Holstein Kiel: väntade mål Pinnacle 3.56 mot Kambi 3.42 (kvot 1.041); uppmätt marginal: goal k=1.45
   Hannover 96 – Greuther Fürth: väntade mål Pinnacle 3.18 mot Kambi 3.38 (kvot 0.941); uppmätt marginal: goal k=1.48
-  Manchester City – Fulham: väntade mål Pinnacle 3.36 mot Kambi 3.36 (kvot 0.998); uppmätt marginal: goal k=1.41, assist k=1.48
+  Manchester City – Fulham: väntade mål Pinnacle 3.35 mot Kambi 3.36 (kvot 0.997); uppmätt marginal: goal k=1.41, assist k=1.48
   Norwich City – Cardiff City: väntade mål Pinnacle 3.72 mot Kambi 3.69 (kvot 1.008); uppmätt marginal: goal k=1.49, assist k=1.33
   Millwall – Queens Park Rangers: väntade mål Pinnacle 2.86 mot Kambi 2.85 (kvot 1.002); uppmätt marginal: goal k=1.56, assist k=1.38
-  Southampton – Derby County: väntade mål Pinnacle 3.29 mot Kambi 3.22 (kvot 1.022); uppmätt marginal: goal k=1.45, assist k=1.27
+  Southampton – Derby County: saknar matchlinjer från Pinnacle
   Amed Sportif Faaliyetler – Çaykur Rizespor: saknar matchlinjer från Pinnacle
   Galatasaray – Samsunspor: saknar matchlinjer från Pinnacle
   Sabadell FC – Granada: saknar matchlinjer från Pinnacle
   Alaves – Deportivo A Coruña: väntade mål Pinnacle 2.42 mot Kambi 2.31 (kvot 1.046); uppmätt marginal: goal k=1.49, assist k=1.53
   Como – Cagliari: väntade mål Pinnacle 3.22 mot Kambi 3.16 (kvot 1.019); uppmätt marginal: goal k=1.47, assist k=1.48
-  Lazio – Lecce: väntade mål Pinnacle 3.09 mot Kambi 3.16 (kvot 0.978); uppmätt marginal: goal k=1.47, assist k=1.45, shots_on_target stege k=1.08 (28 spelare; marginal vid 3,00 ≈ 9%)
+  Lazio – Lecce: väntade mål Pinnacle 3.09 mot Kambi 3.16 (kvot 0.981); uppmätt marginal: goal k=1.47, assist k=1.45, shots_on_target stege k=1.08 (28 spelare; marginal vid 3,00 ≈ 9%)
   AIK – Degerfors IF: väntade mål Pinnacle 3.17 mot Kambi 3.15 (kvot 1.005); uppmätt marginal: goal k=1.57
   Mjällby AIF – Malmö FF: väntade mål Pinnacle 2.76 mot Kambi 2.75 (kvot 1.005); uppmätt marginal: goal k=1.52
   Eintracht Frankfurt – TSG Hoffenheim: väntade mål Pinnacle 3.76 mot Kambi 3.63 (kvot 1.036); uppmätt marginal: goal k=1.50, assist k=1.38, shots_on_target stege k=1.18 (21 spelare; marginal vid 3,00 ≈ 22%)
-  1. FC Union Berlin – RB Leipzig: saknar matchlinjer från Pinnacle
+  1. FC Union Berlin – RB Leipzig: väntade mål Pinnacle 3.45 mot Kambi 3.39 (kvot 1.017); uppmätt marginal: goal k=1.63, assist k=1.51, shots_on_target stege k=1.04 (14 spelare; marginal vid 3,00 ≈ 4%)
   Bayer Leverkusen – SC Paderborn 07: väntade mål Pinnacle 3.69 mot Kambi 3.75 (kvot 0.984); uppmätt marginal: goal k=1.65, assist k=1.57
   Elversberg – SC Freiburg: väntade mål Pinnacle 3.19 mot Kambi 3.13 (kvot 1.018); uppmätt marginal: goal k=1.70, assist k=1.59, shots_on_target stege k=1.22 (7 spelare; marginal vid 3,00 ≈ 27%)
   Borussia Mönchengladbach – Borussia Dortmund: väntade mål Pinnacle 3.35 mot Kambi 3.33 (kvot 1.005); uppmätt marginal: goal k=1.48, assist k=1.41, shots_on_target stege k=1.16 (7 spelare; marginal vid 3,00 ≈ 19%)
   Aston Villa – Sunderland: väntade mål Pinnacle 2.81 mot Kambi 2.92 (kvot 0.962); uppmätt marginal: goal k=1.33, assist k=1.49
   Chelsea – Leeds United: väntade mål Pinnacle 2.75 mot Kambi 2.83 (kvot 0.971); uppmätt marginal: goal k=1.41, assist k=1.50, shots_on_target stege k=1.20 (8 spelare; marginal vid 3,00 ≈ 25%)
   Bournemouth – Nottingham Forest: väntade mål Pinnacle 2.69 mot Kambi 2.75 (kvot 0.978); uppmätt marginal: goal k=1.35, assist k=1.40, shots_on_target stege k=1.25 (12 spelare; marginal vid 3,00 ≈ 32%)
-Tid: modell och utvärdering 235 s
+Tid: modell och utvärdering 238 s
 Bolag med spelarodds: atg, betmgm, expekt, leovegas, oa_fanduel, oa_onexbet, oa_williamhill, paf, svenskaspel, unibet
-Spelarodds per marknad: assist 3954, goal 16823, shots 6467, shots_on_target 7484
-Kambi-marknader: assist='to give an assist (settled using opta data)':3954; goal='1st goalscorer':5825; goal='to score':6762; goal='to score at least 2 goals':3529; goal='to score at least 3 goals':616; goal='to score at least 4 goals':63; goal='to score at least 5 goals':28; shots="player's shots (settled using opta data)":6153; shots_on_target="player's shots on target (settled using opta data)":6798
+Spelarodds per marknad: assist 3968, goal 16872, shots 6474, shots_on_target 7512
+Kambi-marknader: assist='to give an assist (settled using opta data)':3968; goal='1st goalscorer':5839; goal='to score':6776; goal='to score at least 2 goals':3550; goal='to score at least 3 goals':616; goal='to score at least 4 goals':63; goal='to score at least 5 goals':28; shots="player's shots (settled using opta data)":6160; shots_on_target="player's shots on target (settled using opta data)":6826
 Pinnacle har inga spelarprops här – använder linjejustering mot Pinnacles matchlinjer.
 CLV-signal: 0 ben släppta (Pinnacle rör sig åt vårt håll)
-Startelvor: 0 spelbara ben klara, 4 väntar på startelvan, 0 stoppade (inte i startelvan)
+Startelvor: 0 spelbara ben klara, 1 väntar på startelvan, 0 stoppade (inte i startelvan)
 Spelregler: stoppade {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0} (modelltest {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0})
-Spelarmodell: 0 av 796 ben har modell, 4 nya matcher hämtade från ESPN
-Bästa edge marknad shots_on_target: +3.4%, +2.9%, +2.6% (av 682 ben)
-Bästa edge modelltest shots_on_target: +2.9%, +2.6%, +2.3% (av 597 ben)
+Spelarmodell: 0 av 824 ben har modell, 0 nya matcher hämtade från ESPN
+Bästa edge marknad shots_on_target: +2.5%, +2.1%, +1.7% (av 706 ben)
+Bästa edge modelltest shots_on_target: +2.1%, +1.7%, +1.4% (av 620 ben)
 0 spelbara ben.
 Bokförda nya spel: 0
-Skuggspel: 3 nya bokförda (stoppade av reglerna, minst 2 % edge)
+Skuggspel: 0 nya bokförda (stoppade av reglerna, minst 2 % edge)
 Modelltest: 0 spelbara enligt modellen, 0 nya testspel bokförda
 Domare: 79 kommande matcher med utsedd domare (UEFA + football-data)
-Fouls (test): 379 ben med modell, 3 klarar kraven, 0 nya bokförda, bästa edge +91.4%, +49.1%, +21.7%, 4 nya ESPN-matcher, domare känd i 4 matcher
+Fouls (test): 379 ben med modell, 3 klarar kraven, 0 nya bokförda, bästa edge +96.1%, +49.1%, +21.7%, 0 nya ESPN-matcher, domare känd i 4 matcher
 Notiser skickade: 0
