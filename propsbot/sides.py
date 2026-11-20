@@ -401,7 +401,7 @@ def settle(lg: Ledger, scores: dict) -> list[str]:
     return log
 
 
-def espn_scores(bets: list[dict], client, now: float, goal=None) -> dict:
+def espn_scores(bets: list[dict], client, now: float, goal=None, apif=None) -> dict:
     from .results import EspnResults
     from .sources.fotmob import FotmobResults
     from .sources.livescore import LivescoreResults
@@ -418,11 +418,13 @@ def espn_scores(bets: list[dict], client, now: float, goal=None) -> dict:
         sc = espn.final_score(h, a, ko) or fotmob.final_score(h, a, ko) or ls.final_score(h, a, ko)
         if sc is None and goal is not None:   # goal-api sist (egen nyckel, begränsat antal anrop)
             sc = goal.final_score(h, a, ko, now)
+        if sc is None and apif is not None:   # API-Football sist (bred ligakatalog, hårt anropstak)
+            sc = apif.final_score(h, a, ko, now)
         if sc:
             out[b["match_id"]] = sc
         elif now > ko + VOID_AFTER_H * 3600:   # uppskjuten/inställd/avbruten och inte spelad i tid: void
             why = None
-            for src in (espn, fotmob, ls):
+            for src in ([apif] if apif is not None else []) + [espn, fotmob, ls]:   # API-Football har uttrycklig status
                 try:
                     why = src.void_reason(h, a, ko)
                 except Exception:  # noqa: BLE001 – en källa som fallerar får inte stoppa rättningen
@@ -625,12 +627,19 @@ def run(root: Path, data: list, settings: dict, diag, notify: bool = True) -> di
         client = JsonClient(root / ".cache_odds", ttl_s=900)
         from .sources.goal_api import GoalApiResults
         goal = GoalApiResults(root / "goal_api_lage.json")
-        scores = espn_scores(spel.bets + skugga.bets, client, now, goal=goal if goal.enabled else None)
+        from .sources.api_football import ApiFootballResults
+        apif = ApiFootballResults(root / "api_football_lage.json")
+        scores = espn_scores(spel.bets + skugga.bets, client, now, goal=goal if goal.enabled else None,
+                             apif=apif if apif.enabled else None)
         scores.update(manual_scores())   # manuell rättning går före källorna
         if goal.enabled:
             goal.save(now)
             if goal.error:
                 diag.log(f"Sides rättning: goal-api {goal.error}")
+        if apif.enabled:
+            apif.save(now)
+            diag.log(f"Sides rättning: API-Football {apif._calls_today()} anrop i dag"
+                     + (f", {apif.error}" if apif.error else ""))
         for lg in (spel, skugga):
             for line in settle(lg, scores):
                 diag.lines.append("  " + line)

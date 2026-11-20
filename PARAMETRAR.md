@@ -60,7 +60,7 @@ Genereras från de värden boten använder (`python -m propsbot parametrar`).
 | Sides/totals: Pinnacles insatsgräns | minst 500; under 2000 krävs +1 % edge | Gränsen visar hur skarp Pinnacles linje är. Låg gräns (ofta lägre divisioner) = svagare referens -> högre krav. |
 | Sides/totals: mindre ligor | på – alla Kambi-ligor (ej esport) inom 12 h före avspark, max 150 matcher | Lägre divisioner och mindre ligor har oftare felsatta linjer. Bara huvudmarknaderna hämtas (snabbt). Rättas mot ESPN:s samlade resultattavla. |
 | Sides/totals: övrigt | max oddsfall 3 %, sharp money mot oss 2 pe, ett spel per match, inom 24 h före avspark, insats 1–10u efter styrkan (max 10u) | Samma spärrar som övriga sporter. Rättas mot ESPN:s slutresultat. |
-| Sides/totals: rättning | ESPN, FotMob, LiveScore, goal-api; void efter 48 h vid uppskjuten/inställd/avbruten match | Ser en källa att matchen är uppskjuten, inställd eller avbruten och den inte spelats inom 48 h från avspark blir spelet struket (void, insatsen tillbaka). Matcher som ingen källa täcker rättas för hand i rattning_manuell.json (repot). |
+| Sides/totals: rättning | ESPN, FotMob, LiveScore, goal-api, API-Football (av: ingen nyckel); void efter 48 h vid uppskjuten/inställd/avbruten match | Ser en källa att matchen är uppskjuten, inställd eller avbruten och den inte spelats inom 48 h från avspark blir spelet struket (void, insatsen tillbaka). Matcher som ingen källa täcker rättas för hand i rattning_manuell.json (repot). |
 
 ## NBA
 
