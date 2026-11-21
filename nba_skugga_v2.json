@@ -80752,7 +80752,7 @@
 },
 "bolag_stang_ts": 1795228864.8724823,
 "skarp_verifierad": false,
-"skarp_status": null,
+"skarp_status": "borttagen",
 "clv_skarp_pp": 0.4950495049504955,
 "clv_pin_pp": null,
 "clv_dk_pp": 1.3836842531438798
@@ -80909,7 +80909,7 @@
 },
 "bolag_stang_ts": 1795228864.8724823,
 "skarp_verifierad": false,
-"skarp_status": null,
+"skarp_status": "borttagen",
 "clv_skarp_pp": 1.487213573677315,
 "clv_pin_pp": null,
 "clv_dk_pp": 1.4872135736773096
@@ -82457,7 +82457,7 @@
 },
 "bolag_stang_ts": 1795228864.8724823,
 "skarp_verifierad": false,
-"skarp_status": null,
+"skarp_status": "borttagen",
 "clv_skarp_pp": 0.4807967221712728,
 "clv_pin_pp": -0.114793173700245,
 "clv_dk_pp": -0.42344290671786355,
@@ -82594,8 +82594,8 @@
 "stangning_ts": 1795198667.666243,
 "modellversion": "2026-11-15-betyg",
 "prognos_ts": 1795188296.8796213,
-"skarp_stang_p": 0.6127079410546937,
-"skarp_stang_ts": 1795198667.423659,
+"skarp_stang_p": 0.6476257769433083,
+"skarp_stang_ts": 1795199835.589434,
 "skarp_kalla": "skanning",
 "pin_stang_p": 0.6127079410546937,
 "bolag_bokning": {
@@ -82641,11 +82641,15 @@
 },
 "bolag_stang_ts": 1795198667.727652,
 "skarp_verifierad": false,
-"skarp_status": null,
-"clv_skarp_pp": 4.1279369626122335,
+"skarp_status": "flyttad linje",
+"clv_skarp_pp": 7.619720551473685,
 "clv_pin_pp": 4.1279369626122335,
 "clv_dk_pp": 11.055803810718977,
-"dk_stang_p": 0.6819866095357612
+"dk_stang_p": 0.6819866095357612,
+"skarp_stang_p_egen_linje": 0.6127079410546937,
+"skarp_stang_ts_egen_linje": 1795198667.423659,
+"skarp_flyttad_fran": 7.5,
+"skarp_flytt_for_oss": true
 },
 {
 "key": "nba1028744841|luka doncic|points|34.5|unibet",
@@ -82681,8 +82685,8 @@
 "stangning_ts": 1795191716.1429033,
 "modellversion": "2026-11-15-betyg",
 "prognos_ts": 1795188296.879633,
-"skarp_stang_p": 0.5580393546564494,
-"skarp_stang_ts": 1795191715.9729314,
+"skarp_stang_p": 0.5507264464752915,
+"skarp_stang_ts": 1795227567.8292325,
 "skarp_kalla": "skanning",
 "pin_stang_p": 0.5507264464752923,
 "dk_stang_p": 0.5599815272602033,
@@ -82733,11 +82737,15 @@
 "dk_p": 0.5599815272602033
 },
 "bolag_stang_ts": 1795191716.193221,
-"skarp_verifierad": false,
-"skarp_status": null,
-"clv_skarp_pp": 2.6124461039428115,
+"skarp_verifierad": true,
+"skarp_status": "flyttad linje",
+"clv_skarp_pp": 1.8811552858270186,
 "clv_pin_pp": 1.8811552858271074,
-"clv_dk_pp": 2.806663364318207
+"clv_dk_pp": 2.806663364318207,
+"skarp_stang_p_egen_linje": 0.5580393546564494,
+"skarp_stang_ts_egen_linje": 1795191715.9729314,
+"skarp_flyttad_fran": 35.5,
+"skarp_flytt_for_oss": true
 },
 {
 "key": "nba1028744834|darryn peterson|threes|2.5|unibet",
@@ -85985,5 +85993,97 @@
 "clv_skarp_pp": 2.2362233607510107,
 "clv_pin_pp": null,
 "clv_dk_pp": 2.2362233607510107
+},
+{
+"key": "nba1028744841|malik monk|pa|15.5|unibet|under",
+"id": 1649,
+"bokford": 1795230075.48079,
+"match_id": "nba1028744841",
+"match": "Los Angeles Lakers – Sacramento Kings",
+"hemma": "Los Angeles Lakers",
+"borta": "Sacramento Kings",
+"liga": "NBA",
+"avspark": 1795230360.0,
+"spelare": "Malik Monk",
+"spelare_id": "malik monk",
+"marknad": "pa",
+"linje": 15.5,
+"sida": "under",
+"bolag": "unibet",
+"odds": 1.81,
+"sannolikhet": 0.5889490309731877,
+"ratt_odds": 1.6979398002363393,
+"edge": 0.0659977460614698,
+"spela_fran": 1.74,
+"insats_pct": 0.02,
+"stangning": 1.81,
+"status": "öppen",
+"stopp": "kombo med bara 1 referens – kräver minst 2 (Pinnacle-kombinationen räcker inte ensam)",
+"clv_signal": false,
+"forv_clv_pp": 6.201685313679173,
+"p_modell": null,
+"p_marknad": 0.5889490309731877,
+"utfall": null,
+"resultat_enheter": null,
+"stangning_ts": 1795230075.4808471,
+"modellversion": "2026-11-15-betyg",
+"prognos_ts": 1795230075.48079,
+"skarp_stang_p": 0.5889490309731877,
+"skarp_stang_ts": 1795230075.3625996,
+"skarp_kalla": "skanning",
+"pin_stang_p": 0.5889490309731877,
+"dk_stang_p": 0.6512189326054083,
+"bolag_bokning": {
+"ts": 1795230075.51949,
+"odds": {
+"unibet": {
+"over": 1.92,
+"under": 1.81
+},
+"pinnacle": {
+"over": 2.433,
+"under": 1.698
+},
+"draftkings (13.5)": {
+"over": 1.88,
+"under": 1.85
+}
+},
+"pin_flyttad": false,
+"pin_komb": true,
+"pin_linje": null,
+"dk_linje": 13.5,
+"pin_p": 0.5889490309731877,
+"dk_p": 0.6512189326054083
+},
+"bolag_stangning": {
+"ts": 1795230075.51949,
+"odds": {
+"unibet": {
+"over": 1.92,
+"under": 1.81
+},
+"pinnacle": {
+"over": 2.433,
+"under": 1.698
+},
+"draftkings (13.5)": {
+"over": 1.88,
+"under": 1.85
+}
+},
+"pin_flyttad": false,
+"pin_komb": true,
+"pin_linje": null,
+"dk_linje": 13.5,
+"pin_p": 0.5889490309731877,
+"dk_p": 0.6512189326054083
+},
+"bolag_stang_ts": 1795230075.51949,
+"skarp_verifierad": true,
+"skarp_status": null,
+"clv_skarp_pp": 3.6462843127883837,
+"clv_pin_pp": 3.6462843127883837,
+"clv_dk_pp": 9.87327447601044
 }
 ]
