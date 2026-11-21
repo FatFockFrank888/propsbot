@@ -1472,11 +1472,11 @@
 14.9,
 15.0
 ],
-"status": "öppen",
+"status": "förlorad",
 "stopp": "hörnmodell (odds+lag): väntat 4.7–5.4 (SC0)",
 "metod": "odds+lag",
-"utfall": null,
-"resultat_enheter": null,
+"utfall": "1–8",
+"resultat_enheter": -0.01,
 "stangning_ts": 1795282001.5366416
 },
 {
@@ -1797,7 +1797,7 @@
 "metod": "odds+lag",
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795292050.080231
+"stangning_ts": 1795293064.3231447
 },
 {
 "key": "k1028231051|corners_away|4.5|under|unibet",
@@ -1837,7 +1837,7 @@
 "metod": "odds+lag",
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795292050.080231
+"stangning_ts": 1795293064.3231447
 },
 {
 "key": "k1028328512|corners_home|3.5|under|unibet",
@@ -1877,7 +1877,7 @@
 "metod": "lag",
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795292050.080231
+"stangning_ts": 1795293064.3231447
 },
 {
 "key": "k1028328542|corners|8.5|under|unibet",
@@ -1917,7 +1917,7 @@
 "metod": "lag",
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795292050.080231
+"stangning_ts": 1795293064.3231447
 },
 {
 "key": "k1027911675|corners_home|7.5|over|unibet",
@@ -2037,7 +2037,7 @@
 "metod": "odds+lag",
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795292050.080231
+"stangning_ts": 1795293064.3231447
 },
 {
 "key": "k1027973922|corners_home|7.5|over|unibet",
@@ -2117,7 +2117,7 @@
 "metod": "odds+lag",
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795292050.080231
+"stangning_ts": 1795293064.3231447
 },
 {
 "key": "k1027911679|corners|7.5|under|unibet",
@@ -2157,7 +2157,7 @@
 "metod": "odds+lag",
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795292050.080231
+"stangning_ts": 1795293064.3231447
 },
 {
 "key": "k1027973927|corners_home|7.5|over|unibet",
@@ -2197,7 +2197,7 @@
 "metod": "odds+lag",
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795292050.080231
+"stangning_ts": 1795293064.3231447
 },
 {
 "key": "k1028417574|corners_home|7.5|over|unibet",
@@ -2237,6 +2237,46 @@
 "metod": "odds+lag",
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795292050.080231
+"stangning_ts": 1795293064.3231447
+},
+{
+"key": "k1028328520|corners_away|3.5|over|unibet",
+"id": 57,
+"bokford": 1795293064.3231447,
+"match_id": "k1028328520",
+"match": "Trabzonspor – Eyüpspor",
+"hemma": "Trabzonspor",
+"borta": "Eyüpspor",
+"liga": "Football / Turkey / Süper Lig",
+"fd_liga": "T1",
+"avspark": 1795363200.0,
+"spelare": "Eyüpspor",
+"spelare_id": "hörnor",
+"marknad": "corners_away",
+"linje": 3.5,
+"sida": "over",
+"spel_text": "Eyüpspor hörnor över 3.5",
+"bolag": "unibet",
+"odds": 3.0,
+"sannolikhet": 0.4164517893856452,
+"ratt_odds": 2.401238331753148,
+"edge": 0.2493553681569356,
+"spela_fran": 2.53,
+"insats_pct": 0.01,
+"stangning": 3.0,
+"p_modell": 0.4164517893856452,
+"p_marknad": 0.3055555555555556,
+"vantat_hemma": 5.77,
+"vantat_borta": 3.33,
+"underlag_matcher": [
+13.9,
+13.9
+],
+"status": "öppen",
+"stopp": "hörnmodell (lag): väntat 5.8–3.3 (T1)",
+"metod": "lag",
+"utfall": null,
+"resultat_enheter": null,
+"stangning_ts": 1795293064.3231447
 }
 ]
