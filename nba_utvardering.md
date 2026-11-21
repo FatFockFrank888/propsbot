@@ -1,28 +1,28 @@
-# NBA – utvärdering på framåtriktad data (2026-11-21T05:49:31+00:00)
+# NBA – utvärdering på framåtriktad data (2026-11-21T06:11:46+00:00)
 
 Bara bokförda prognoser (gjorda före matchen). Unika prestationer = spelare × match × marknad.
 
 | Bokföring | Rader | Prestationer | Matcher | Dagar | Avgjorda | ROI flat | ROI modell | Max DD (u) | CLV pe skarp (95 %) | CLV pe skarp verifierad | Verifierad täckning | Slog skarp stängning | CLV pe mot Unibets stängning | Brier modell / marknad (n) |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | live | 38 | 38 | 32 | 15 | 37 | +1.7 % | +3.6 % | 5.2 | 3.24 (+2.50…+4.13) | 3.24 | 0.95 | +86.8 % | 2.77 | – |
-| spel | 463 | 463 | 140 | 20 | 435 | +5.2 % | +2.7 % | 14.5 | 2.26 (+1.85…+2.73) | 2.11 | 0.82 | +77.3 % | 2.61 | – |
-| skugga | 1409 | 1409 | 153 | 20 | 1323 | +3.2 % | +3.8 % | 39.8 | 0.81 (+0.58…+1.05) | 0.69 | 0.83 | +65.8 % | 1.75 | – |
+| spel | 463 | 463 | 140 | 20 | 436 | +5.0 % | +2.4 % | 14.5 | 2.26 (+1.85…+2.73) | 2.11 | 0.82 | +77.3 % | 2.61 | – |
+| skugga | 1409 | 1409 | 153 | 20 | 1325 | +3.1 % | +3.8 % | 39.8 | 0.81 (+0.58…+1.05) | 0.69 | 0.83 | +65.8 % | 1.75 | – |
 | modelltest | 1149 | 1149 | 149 | 20 | 1090 | +4.8 % | +4.7 % | 34.4 | -0.03 (-0.37…+0.39) | -0.12 | 0.81 | +46.0 % | 1.76 | 0.2723 / 0.2437 (592) |
 
 ## Marknadsstatus för LIVE (marknadsbaserade spel mot skarp stängning)
 
 | Marknad | Status | Spel | CLV pe skarp (95 %) | Slog | ROI flat |
 |---|---|---|---|---|---|
-| assists | **ok** | 306 | 1.05 (+0.36…+1.50) | +70.4 % | +4.2 % |
+| assists | **ok** | 306 | 1.05 (+0.36…+1.50) | +70.4 % | +3.8 % |
 | blocks | **ok** | 22 | 3.91 (+2.59…+4.73) | +95.5 % | +13.5 % |
 | pa | **osäker** | 32 | 0.61 (-1.71…+0.46) | +59.4 % | -7.3 % |
 | points | **ok** | 700 | 1.20 (+0.70…+1.43) | +66.8 % | +1.8 % |
-| pr | **ok** | 70 | 1.34 (+0.02…+2.48) | +71.4 % | +8.7 % |
+| pr | **ok** | 70 | 1.34 (+0.02…+2.48) | +71.4 % | +9.7 % |
 | pra | **ok** | 34 | 0.93 (+0.02…+2.81) | +64.7 % | -16.4 % |
 | ra | **osäker** | 90 | 0.38 (-1.15…+0.60) | +60.7 % | +10.7 % |
 | rebounds | **ok** | 391 | 1.01 (+0.61…+1.39) | +70.6 % | -1.4 % |
 | steals | **ok** | 36 | 4.48 (+3.15…+8.32) | +91.7 % | +48.2 % |
-| threes | **ok** | 229 | 1.38 (+0.65…+1.95) | +68.8 % | +9.7 % |
+| threes | **ok** | 229 | 1.38 (+0.65…+1.95) | +68.8 % | +9.2 % |
 
 ## Skarp stängning per status
 
@@ -34,12 +34,12 @@ Verifierad = referensens notering högst 60 min före start. Flyttad linje = vå
 | live | borttagen | 2 | 3.27 | -7.0 % |
 | live | flyttad linje (för oss) | 2 | 7.04 | -14.0 % |
 | live | verifierad | 16 | 2.48 | +12.9 % |
-| spel | ? | 98 | 2.80 | +3.2 % |
+| spel | ? | 98 | 2.80 | +2.1 % |
 | spel | borttagen | 57 | 3.07 | -14.5 % |
 | spel | flyttad linje (för oss) | 42 | 4.43 | +6.4 % |
 | spel | flyttad linje (mot oss) | 10 | -4.45 | +4.0 % |
 | spel | verifierad | 234 | 1.74 | +8.4 % |
-| skugga | ? | 352 | 0.24 | +5.6 % |
+| skugga | ? | 352 | 0.24 | +5.4 % |
 | skugga | borttagen | 169 | 1.02 | -4.6 % |
 | skugga | flyttad linje (för oss) | 194 | 4.75 | +19.7 % |
 | skugga | flyttad linje (mot oss) | 47 | -4.68 | -16.9 % |
