@@ -24081,7 +24081,7 @@
 "edge": 0.0800000000000003,
 "spela_fran": 1.7,
 "insats_pct": 0.02,
-"stangning": 1.8,
+"stangning": 1.75,
 "status": "öppen",
 "stopp": "",
 "clv_signal": false,
@@ -24090,13 +24090,13 @@
 "p_marknad": 0.6000000000000001,
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795266038.5924015,
+"stangning_ts": 1795267254.6086543,
 "modellversion": "2026-11-15-betyg",
 "prognos_ts": 1795263447.2011595,
-"skarp_stang_p": 0.6000000000000001,
-"skarp_stang_ts": 1795266038.4771333,
+"skarp_stang_p": 0.595,
+"skarp_stang_ts": 1795267254.4813344,
 "skarp_kalla": "skanning",
-"dk_stang_p": 0.5498408142261508,
+"dk_stang_p": 0.5572164623642035,
 "bolag_bokning": {
 "ts": 1795263447.3282447,
 "odds": {
@@ -24116,28 +24116,109 @@
 "dk_p": 0.5498408142261508
 },
 "bolag_stangning": {
-"ts": 1795266038.6975117,
+"ts": 1795267254.7108636,
 "odds": {
 "unibet": {
-"over": 1.93,
-"under": 1.8
+"over": 2.0,
+"under": 1.75
 },
 "draftkings (12.5)": {
-"over": 1.8,
-"under": 1.95
+"over": 1.82,
+"under": 1.92
 }
 },
 "pin_flyttad": false,
 "pin_komb": false,
 "pin_linje": null,
 "dk_linje": 12.5,
-"dk_p": 0.5498408142261508
+"dk_p": 0.5572164623642035
 },
-"bolag_stang_ts": 1795266038.6975117,
+"bolag_stang_ts": 1795267254.7108636,
 "skarp_verifierad": false,
 "skarp_status": null,
-"clv_skarp_pp": 4.444444444444451,
+"clv_skarp_pp": 3.9444444444444393,
 "clv_pin_pp": null,
-"clv_dk_pp": -0.5714741329404749
+"clv_dk_pp": 0.1660906808647944
+},
+{
+"key": "nba1028754422|jaylen wells|assists|1.5|unibet|under",
+"id": 487,
+"bokford": 1795267254.608624,
+"match_id": "nba1028754422",
+"match": "Minnesota Timberwolves – Memphis Grizzlies",
+"hemma": "Minnesota Timberwolves",
+"borta": "Memphis Grizzlies",
+"liga": "NBA",
+"avspark": 1795309200.0,
+"spelare": "Jaylen Wells",
+"spelare_id": "jaylen wells",
+"marknad": "assists",
+"linje": 1.5,
+"sida": "under",
+"bolag": "unibet",
+"odds": 2.16,
+"sannolikhet": 0.523757114534465,
+"ratt_odds": 1.9092819405209178,
+"edge": 0.1313153673944445,
+"spela_fran": 1.95,
+"insats_pct": 0.02,
+"stangning": 2.16,
+"status": "öppen",
+"stopp": "sharp money med oss: referensen +6.2 enheter",
+"clv_signal": false,
+"forv_clv_pp": 9.18005486436898,
+"p_modell": null,
+"p_marknad": 0.523757114534465,
+"utfall": null,
+"resultat_enheter": null,
+"stangning_ts": 1795267254.6086543,
+"modellversion": "2026-11-15-betyg",
+"prognos_ts": 1795267254.608624,
+"skarp_stang_p": 0.523757114534465,
+"skarp_stang_ts": 1795267254.4813344,
+"skarp_kalla": "skanning",
+"dk_stang_p": 0.523757114534465,
+"bolag_bokning": {
+"ts": 1795267254.7108636,
+"odds": {
+"unibet": {
+"over": 1.64,
+"under": 2.16
+},
+"draftkings": {
+"over": 1.95,
+"under": 1.79
+}
+},
+"pin_flyttad": false,
+"pin_komb": false,
+"pin_linje": null,
+"dk_linje": null,
+"dk_p": 0.523757114534465
+},
+"bolag_stangning": {
+"ts": 1795267254.7108636,
+"odds": {
+"unibet": {
+"over": 1.64,
+"under": 2.16
+},
+"draftkings": {
+"over": 1.95,
+"under": 1.79
+}
+},
+"pin_flyttad": false,
+"pin_komb": false,
+"pin_linje": null,
+"dk_linje": null,
+"dk_p": 0.523757114534465
+},
+"bolag_stang_ts": 1795267254.7108636,
+"skarp_verifierad": false,
+"skarp_status": null,
+"clv_skarp_pp": 6.079415157150214,
+"clv_pin_pp": null,
+"clv_dk_pp": 6.079415157150214
 }
 ]
