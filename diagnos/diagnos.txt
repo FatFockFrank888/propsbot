@@ -1,4 +1,4 @@
-Skanning 2026-11-21 02:43
+Skanning 2026-11-21 03:03
 Kambi unibet (ubse): OK, 105 matcher i valda ligor
 Kambi paf (paf): OK
 Kambi atg (atg): OK
@@ -7,76 +7,75 @@ Kambi svenskaspel (svenskaspel): OK
 Kambi expekt (expektse): OK
 Kambi betmgm (betmgmse): OK
 Pinnacle: OK, 26 ligor
-Pinnacle: 117 matcher, matchlinjer för 42 av 60 Kambi-matcher, 0 spelarodds som används
+  HamKam – Fredrikstad: Pinnacle FEL HTTP 403 för https://guest.api.arcadia.pinnacle.com/0.1/matchups/1640294321/related
+Pinnacle: 118 matcher, matchlinjer för 40 av 60 Kambi-matcher, 0 spelarodds som används
 Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
-  Double Chance 1st Half | units=Regular | kategori=Team Props | deltagare=FC Juarez Or Atlas,Draw Or Atlas,Draw Or FC Juarez  ->  används inte (lagmarknad)
-  Moneyline and Total Goals | units=Regular | kategori=Team Props | deltagare=FC Juarez & Over 2.5,FC Juarez & Under 2.5,Draw & Over 2.5,Draw & Under 2.5,Atlas & Over 2.5,Atlas & Under 2.5  ->  används inte (lagmarknad)
-  Double Chance | units=Regular | kategori=Team Props | deltagare=FC Juarez Or Atlas,Draw Or Atlas,Draw Or FC Juarez  ->  används inte (lagmarknad)
-  3-Way Handicap FC Juarez -1 | units=Regular | kategori=Team Props | deltagare=FC Juarez (-1),Draw - (FC Juarez -1),Atlas (+1)  ->  används inte (lagmarknad)
-  Winning Margin | units=Regular | kategori=Team Props | deltagare=FC Juarez By 1,FC Juarez By 2,FC Juarez By 3,FC Juarez By 4+,Atlas By 1,Atlas By 2,Atlas By 3,Atlas By 4+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
+  3-Way Handicap Nurnberg -1 | units=Regular | kategori=Team Props | deltagare=Nurnberg (-1),Draw - (Nurnberg -1),Eintracht Braunschweig (+1)  ->  används inte (lagmarknad)
+  Winning Margin | units=Regular | kategori=Team Props | deltagare=Nurnberg By 1,Nurnberg By 2,Nurnberg By 3,Nurnberg By 4+,Eintracht Braunschweig By 1,Eintracht Braunschweig By 2,Eintracht Braunschweig By 3,Eintracht Braunschweig By 4+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
   Either Team To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
   Exact Total Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5,6+  ->  används inte (lagmarknad)
-  FC Juarez Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  Nurnberg Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  3-Way Handicap Nurnberg -3 | units=Regular | kategori=Team Props | deltagare=Nurnberg (-3),Draw - (Nurnberg -3),Eintracht Braunschweig (+3)  ->  används inte (lagmarknad)
   Total Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
-  Draw No Bet | units=Regular | kategori=Team Props | deltagare=FC Juarez,Atlas  ->  används inte (lagmarknad)
-  Atlas To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Correct Score | units=Regular | kategori=Team Props | deltagare=FC Juarez 0, Atlas 0,FC Juarez 0, Atlas 1,FC Juarez 0, Atlas 2,FC Juarez 0, Atlas 3,FC Juarez 0, Atlas 4,FC Juarez 0, Atlas 5,FC Juarez 0, Atlas 6,FC Juarez 1, Atlas 0,FC Juarez 1, Atlas 1,FC Juarez 1, Atlas 2,FC Juarez 1, Atlas 3,FC Juarez 1, Atlas 4,FC Juarez 1, Atlas 5,FC Juarez 1, Atlas 6,FC Juarez 2, Atlas 0,FC Juarez 2, Atlas 1,FC Juarez 2, Atlas 2,FC Juarez 2, Atlas 3,FC Juarez 2, Atlas 4,FC Juarez 2, Atlas 5,FC Juarez 2, Atlas 6,FC Juarez 3, Atlas 0,FC Juarez 3, Atlas 1,FC Juarez 3, Atlas 2,FC Juarez 3, Atlas 3,FC Juarez 3, Atlas 4,FC Juarez 3, Atlas 5,FC Juarez 3, Atlas 6,FC Juarez 4, Atlas 0,FC Juarez 4, Atlas 1,FC Juarez 4, Atlas 2,FC Juarez 4, Atlas 3,FC Juarez 4, Atlas 4,FC Juarez 4, Atlas 5,FC Juarez 4, Atlas 6,FC Juarez 5, Atlas 0,FC Juarez 5, Atlas 1,FC Juarez 5, Atlas 2,FC Juarez 5, Atlas 3,FC Juarez 5, Atlas 4,FC Juarez 5, Atlas 5,FC Juarez 5, Atlas 6,FC Juarez 6, Atlas 0,FC Juarez 6, Atlas 1,FC Juarez 6, Atlas 2,FC Juarez 6, Atlas 3,FC Juarez 6, Atlas 4,FC Juarez 6, Atlas 5,FC Juarez 6, Atlas 6  ->  används inte (lagmarknad)
-  FC Juarez To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Correct Score 1st Half | units=Regular | kategori=Team Props | deltagare=FC Juarez 0, Atlas 0,FC Juarez 0, Atlas 1,FC Juarez 0, Atlas 2,FC Juarez 0, Atlas 3,FC Juarez 1, Atlas 0,FC Juarez 1, Atlas 1,FC Juarez 1, Atlas 2,FC Juarez 1, Atlas 3,FC Juarez 2, Atlas 0,FC Juarez 2, Atlas 1,FC Juarez 2, Atlas 2,FC Juarez 2, Atlas 3,FC Juarez 3, Atlas 0,FC Juarez 3, Atlas 1,FC Juarez 3, Atlas 2,FC Juarez 3, Atlas 3  ->  används inte (lagmarknad)
-  3-Way Handicap FC Juarez +2 | units=Regular | kategori=Team Props | deltagare=FC Juarez (+2),Draw - (FC Juarez +2),Atlas (-2)  ->  används inte (lagmarknad)
-  Atlas Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
-  FC Juarez To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Atlas Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  Draw No Bet | units=Regular | kategori=Team Props | deltagare=Nurnberg,Eintracht Braunschweig  ->  används inte (lagmarknad)
+  Eintracht Braunschweig To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Correct Score | units=Regular | kategori=Team Props | deltagare=Nurnberg 0, Eintracht Braunschweig 0,Nurnberg 0, Eintracht Braunschweig 1,Nurnberg 0, Eintracht Braunschweig 2,Nurnberg 0, Eintracht Braunschweig 3,Nurnberg 0, Eintracht Braunschweig 4,Nurnberg 0, Eintracht Braunschweig 5,Nurnberg 0, Eintracht Braunschweig 6,Nurnberg 1, Eintracht Braunschweig 0,Nurnberg 1, Eintracht Braunschweig 1,Nurnberg 1, Eintracht Braunschweig 2,Nurnberg 1, Eintracht Braunschweig 3,Nurnberg 1, Eintracht Braunschweig 4,Nurnberg 1, Eintracht Braunschweig 5,Nurnberg 1, Eintracht Braunschweig 6,Nurnberg 2, Eintracht Braunschweig 0,Nurnberg 2, Eintracht Braunschweig 1,Nurnberg 2, Eintracht Braunschweig 2,Nurnberg 2, Eintracht Braunschweig 3,Nurnberg 2, Eintracht Braunschweig 4,Nurnberg 2, Eintracht Braunschweig 5,Nurnberg 2, Eintracht Braunschweig 6,Nurnberg 3, Eintracht Braunschweig 0,Nurnberg 3, Eintracht Braunschweig 1,Nurnberg 3, Eintracht Braunschweig 2,Nurnberg 3, Eintracht Braunschweig 3,Nurnberg 3, Eintracht Braunschweig 4,Nurnberg 3, Eintracht Braunschweig 5,Nurnberg 3, Eintracht Braunschweig 6,Nurnberg 4, Eintracht Braunschweig 0,Nurnberg 4, Eintracht Braunschweig 1,Nurnberg 4, Eintracht Braunschweig 2,Nurnberg 4, Eintracht Braunschweig 3,Nurnberg 4, Eintracht Braunschweig 4,Nurnberg 4, Eintracht Braunschweig 5,Nurnberg 4, Eintracht Braunschweig 6,Nurnberg 5, Eintracht Braunschweig 0,Nurnberg 5, Eintracht Braunschweig 1,Nurnberg 5, Eintracht Braunschweig 2,Nurnberg 5, Eintracht Braunschweig 3,Nurnberg 5, Eintracht Braunschweig 4,Nurnberg 5, Eintracht Braunschweig 5,Nurnberg 5, Eintracht Braunschweig 6,Nurnberg 6, Eintracht Braunschweig 0,Nurnberg 6, Eintracht Braunschweig 1,Nurnberg 6, Eintracht Braunschweig 2,Nurnberg 6, Eintracht Braunschweig 3,Nurnberg 6, Eintracht Braunschweig 4,Nurnberg 6, Eintracht Braunschweig 5,Nurnberg 6, Eintracht Braunschweig 6  ->  används inte (lagmarknad)
+  Nurnberg To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Correct Score 1st Half | units=Regular | kategori=Team Props | deltagare=Nurnberg 0, Eintracht Braunschweig 0,Nurnberg 0, Eintracht Braunschweig 1,Nurnberg 0, Eintracht Braunschweig 2,Nurnberg 0, Eintracht Braunschweig 3,Nurnberg 1, Eintracht Braunschweig 0,Nurnberg 1, Eintracht Braunschweig 1,Nurnberg 1, Eintracht Braunschweig 2,Nurnberg 1, Eintracht Braunschweig 3,Nurnberg 2, Eintracht Braunschweig 0,Nurnberg 2, Eintracht Braunschweig 1,Nurnberg 2, Eintracht Braunschweig 2,Nurnberg 2, Eintracht Braunschweig 3,Nurnberg 3, Eintracht Braunschweig 0,Nurnberg 3, Eintracht Braunschweig 1,Nurnberg 3, Eintracht Braunschweig 2,Nurnberg 3, Eintracht Braunschweig 3  ->  används inte (lagmarknad)
+  3-Way Handicap Nurnberg +2 | units=Regular | kategori=Team Props | deltagare=Nurnberg (+2),Draw - (Nurnberg +2),Eintracht Braunschweig (-2)  ->  används inte (lagmarknad)
+  Eintracht Braunschweig Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
+  3-Way Handicap Nurnberg -2 | units=Regular | kategori=Team Props | deltagare=Nurnberg (-2),Draw - (Nurnberg -2),Eintracht Braunschweig (+2)  ->  används inte (lagmarknad)
+  Nurnberg To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Eintracht Braunschweig Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
   Both Teams To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  FC Juarez Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
-  Atlas Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
+  Nurnberg Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
+  Eintracht Braunschweig Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
   Total Goals Range 1st Half | units=Regular | kategori=Team Props | deltagare=0 - 1,2 - 3,4+  ->  används inte (lagmarknad)
-  Draw No Bet 1st Half | units=Regular | kategori=Team Props | deltagare=FC Juarez,Atlas  ->  används inte (lagmarknad)
+  Draw No Bet 1st Half | units=Regular | kategori=Team Props | deltagare=Nurnberg,Eintracht Braunschweig  ->  används inte (lagmarknad)
   Total Goals Odd/Even 1st Half | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
-  3-Way Handicap FC Juarez +1 | units=Regular | kategori=Team Props | deltagare=FC Juarez (+1),Draw - (FC Juarez +1),Atlas (-1)  ->  används inte (lagmarknad)
+  3-Way Handicap Nurnberg +1 | units=Regular | kategori=Team Props | deltagare=Nurnberg (+1),Draw - (Nurnberg +1),Eintracht Braunschweig (-1)  ->  används inte (lagmarknad)
+  3-Way Handicap Nurnberg -4 | units=Regular | kategori=Team Props | deltagare=Nurnberg (-4),Draw - (Nurnberg -4),Eintracht Braunschweig (+4)  ->  används inte (lagmarknad)
   Both Teams To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
   Total Goals Range | units=Regular | kategori=Team Props | deltagare=0 - 1,2 - 3,4 - 6,7+  ->  används inte (lagmarknad)
   Either Team To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
   Exact Total Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
-  First Team To Score 1st Half | units=1st Goal | kategori=Team Props | deltagare=FC Juarez,Atlas,Neither  ->  används inte (lagmarknad)
-  First Team To Score | units=1st Goal | kategori=Team Props | deltagare=FC Juarez,Atlas,Neither  ->  används inte (lagmarknad)
-  FC Juarez Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
-  Atlas To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Winning Margin 1st Half | units=Regular | kategori=Team Props | deltagare=FC Juarez By 1,FC Juarez By 2+,Atlas By 1,Atlas By 2+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
-  Both Teams To Score and Moneyline | units=Regular | kategori=Team Props | deltagare=Yes & FC Juarez,Yes & Draw,Yes & Atlas,No & FC Juarez,No & Draw,No & Atlas  ->  används inte (lagmarknad)
-  Odd/Even and Total Goals | units=Regular | kategori=Team Props | deltagare=Odd & Over 2.5,Odd & Under 2.5,Even & Over 2.5,Even & Under 2.5  ->  används inte (lagmarknad)
-  FC Juarez To Win To Nil | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Atlas To Win To Nil | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  FC Juarez To Win To Nil 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Atlas To Win To Nil 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Both Teams To Score and Total Goals | units=Regular | kategori=Team Props | deltagare=Yes & Over 2.5,Yes & Under 2.5,No & Over 2.5,No & Under 2.5  ->  används inte (lagmarknad)
-  Double Chance 1st Half | units=Regular | kategori=Team Props | deltagare=Club Tijuana Or Atlante,Draw Or Atlante,Draw Or Club Tijuana  ->  används inte (lagmarknad)
-  Moneyline and Total Goals | units=Regular | kategori=Team Props | deltagare=Club Tijuana & Over 2.5,Club Tijuana & Under 2.5,Draw & Over 2.5,Draw & Under 2.5,Atlante & Over 2.5,Atlante & Under 2.5  ->  används inte (lagmarknad)
-  Double Chance | units=Regular | kategori=Team Props | deltagare=Club Tijuana Or Atlante,Draw Or Atlante,Draw Or Club Tijuana  ->  används inte (lagmarknad)
-  3-Way Handicap Club Tijuana -1 | units=Regular | kategori=Team Props | deltagare=Club Tijuana (-1),Draw - (Club Tijuana -1),Atlante (+1)  ->  används inte (lagmarknad)
-  Winning Margin | units=Regular | kategori=Team Props | deltagare=Club Tijuana By 1,Club Tijuana By 2,Club Tijuana By 3,Club Tijuana By 4+,Atlante By 1,Atlante By 2,Atlante By 3,Atlante By 4+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
-  Club Tijuana Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
-  Draw No Bet | units=Regular | kategori=Team Props | deltagare=Club Tijuana,Atlante  ->  används inte (lagmarknad)
-  Atlante To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Correct Score | units=Regular | kategori=Team Props | deltagare=Club Tijuana 0, Atlante 0,Club Tijuana 0, Atlante 1,Club Tijuana 0, Atlante 2,Club Tijuana 0, Atlante 3,Club Tijuana 0, Atlante 4,Club Tijuana 0, Atlante 5,Club Tijuana 0, Atlante 6,Club Tijuana 1, Atlante 0,Club Tijuana 1, Atlante 1,Club Tijuana 1, Atlante 2,Club Tijuana 1, Atlante 3,Club Tijuana 1, Atlante 4,Club Tijuana 1, Atlante 5,Club Tijuana 1, Atlante 6,Club Tijuana 2, Atlante 0,Club Tijuana 2, Atlante 1,Club Tijuana 2, Atlante 2,Club Tijuana 2, Atlante 3,Club Tijuana 2, Atlante 4,Club Tijuana 2, Atlante 5,Club Tijuana 2, Atlante 6,Club Tijuana 3, Atlante 0,Club Tijuana 3, Atlante 1,Club Tijuana 3, Atlante 2,Club Tijuana 3, Atlante 3,Club Tijuana 3, Atlante 4,Club Tijuana 3, Atlante 5,Club Tijuana 3, Atlante 6,Club Tijuana 4, Atlante 0,Club Tijuana 4, Atlante 1,Club Tijuana 4, Atlante 2,Club Tijuana 4, Atlante 3,Club Tijuana 4, Atlante 4,Club Tijuana 4, Atlante 5,Club Tijuana 4, Atlante 6,Club Tijuana 5, Atlante 0,Club Tijuana 5, Atlante 1,Club Tijuana 5, Atlante 2,Club Tijuana 5, Atlante 3,Club Tijuana 5, Atlante 4,Club Tijuana 5, Atlante 5,Club Tijuana 5, Atlante 6,Club Tijuana 6, Atlante 0,Club Tijuana 6, Atlante 1,Club Tijuana 6, Atlante 2,Club Tijuana 6, Atlante 3,Club Tijuana 6, Atlante 4,Club Tijuana 6, Atlante 5,Club Tijuana 6, Atlante 6  ->  används inte (lagmarknad)
-  Club Tijuana To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Correct Score 1st Half | units=Regular | kategori=Team Props | deltagare=Club Tijuana 0, Atlante 0,Club Tijuana 0, Atlante 1,Club Tijuana 0, Atlante 2,Club Tijuana 0, Atlante 3,Club Tijuana 1, Atlante 0,Club Tijuana 1, Atlante 1,Club Tijuana 1, Atlante 2,Club Tijuana 1, Atlante 3,Club Tijuana 2, Atlante 0,Club Tijuana 2, Atlante 1,Club Tijuana 2, Atlante 2,Club Tijuana 2, Atlante 3,Club Tijuana 3, Atlante 0,Club Tijuana 3, Atlante 1,Club Tijuana 3, Atlante 2,Club Tijuana 3, Atlante 3  ->  används inte (lagmarknad)
-  Atlante Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
-  3-Way Handicap Club Tijuana -2 | units=Regular | kategori=Team Props | deltagare=Club Tijuana (-2),Draw - (Club Tijuana -2),Atlante (+2)  ->  används inte (lagmarknad)
-  Club Tijuana To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Atlante Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
-  Club Tijuana Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
-  Atlante Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
-  Draw No Bet 1st Half | units=Regular | kategori=Team Props | deltagare=Club Tijuana,Atlante  ->  används inte (lagmarknad)
-  First Team To Score 1st Half | units=1st Goal | kategori=Team Props | deltagare=Club Tijuana,Atlante,Neither  ->  används inte (lagmarknad)
-Sides mindre ligor: 191 Kambi-matcher inom 12 h, 595 Pinnacle-matcher, 150 med Pinnacle, 150 matchade: Algeria / Ligue 2, Andorra / Primera Division, Armenia / Premier League, Austria / Second League, Azerbaijan / Premier League, Belgium / Lotto Super League (W), Bosnia & Herzegovina / Premijer Liga, Bulgaria / PFL 2, Croatia / 1. HNL League, Czech Republic / First League, Czech Republic / National F
-Sides/totals: 192 matcher med Kambi + Pinnacle, 2753 linjer, 0 nya spel, 1 nya skuggspel, Smarkets-priser i 78 av 100; bästa edge +26.1% (Al Julan 1X2: X), +12.0% (ZKS Kluczevia Stargard 1X2: 2), +10.3% (RAAL La Louviere (W) 1X2: 1)
+  First Team To Score 1st Half | units=1st Goal | kategori=Team Props | deltagare=Nurnberg,Eintracht Braunschweig,Neither  ->  används inte (lagmarknad)
+  First Team To Score | units=1st Goal | kategori=Team Props | deltagare=Nurnberg,Eintracht Braunschweig,Neither  ->  används inte (lagmarknad)
+  Nurnberg Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
+  Eintracht Braunschweig To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Winning Margin 1st Half | units=Regular | kategori=Team Props | deltagare=Nurnberg By 1,Nurnberg By 2+,Eintracht Braunschweig By 1,Eintracht Braunschweig By 2+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
+  3-Way Handicap Wolfsburg -1 | units=Regular | kategori=Team Props | deltagare=Wolfsburg (-1),Draw - (Wolfsburg -1),Holstein Kiel (+1)  ->  används inte (lagmarknad)
+  Winning Margin | units=Regular | kategori=Team Props | deltagare=Wolfsburg By 1,Wolfsburg By 2,Wolfsburg By 3,Wolfsburg By 4+,Holstein Kiel By 1,Holstein Kiel By 2,Holstein Kiel By 3,Holstein Kiel By 4+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
+  Wolfsburg Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  3-Way Handicap Wolfsburg -3 | units=Regular | kategori=Team Props | deltagare=Wolfsburg (-3),Draw - (Wolfsburg -3),Holstein Kiel (+3)  ->  används inte (lagmarknad)
+  Draw No Bet | units=Regular | kategori=Team Props | deltagare=Wolfsburg,Holstein Kiel  ->  används inte (lagmarknad)
+  Holstein Kiel To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Correct Score | units=Regular | kategori=Team Props | deltagare=Wolfsburg 0, Holstein Kiel 0,Wolfsburg 0, Holstein Kiel 1,Wolfsburg 0, Holstein Kiel 2,Wolfsburg 0, Holstein Kiel 3,Wolfsburg 0, Holstein Kiel 4,Wolfsburg 0, Holstein Kiel 5,Wolfsburg 0, Holstein Kiel 6,Wolfsburg 1, Holstein Kiel 0,Wolfsburg 1, Holstein Kiel 1,Wolfsburg 1, Holstein Kiel 2,Wolfsburg 1, Holstein Kiel 3,Wolfsburg 1, Holstein Kiel 4,Wolfsburg 1, Holstein Kiel 5,Wolfsburg 1, Holstein Kiel 6,Wolfsburg 2, Holstein Kiel 0,Wolfsburg 2, Holstein Kiel 1,Wolfsburg 2, Holstein Kiel 2,Wolfsburg 2, Holstein Kiel 3,Wolfsburg 2, Holstein Kiel 4,Wolfsburg 2, Holstein Kiel 5,Wolfsburg 2, Holstein Kiel 6,Wolfsburg 3, Holstein Kiel 0,Wolfsburg 3, Holstein Kiel 1,Wolfsburg 3, Holstein Kiel 2,Wolfsburg 3, Holstein Kiel 3,Wolfsburg 3, Holstein Kiel 4,Wolfsburg 3, Holstein Kiel 5,Wolfsburg 3, Holstein Kiel 6,Wolfsburg 4, Holstein Kiel 0,Wolfsburg 4, Holstein Kiel 1,Wolfsburg 4, Holstein Kiel 2,Wolfsburg 4, Holstein Kiel 3,Wolfsburg 4, Holstein Kiel 4,Wolfsburg 4, Holstein Kiel 5,Wolfsburg 4, Holstein Kiel 6,Wolfsburg 5, Holstein Kiel 0,Wolfsburg 5, Holstein Kiel 1,Wolfsburg 5, Holstein Kiel 2,Wolfsburg 5, Holstein Kiel 3,Wolfsburg 5, Holstein Kiel 4,Wolfsburg 5, Holstein Kiel 5,Wolfsburg 5, Holstein Kiel 6,Wolfsburg 6, Holstein Kiel 0,Wolfsburg 6, Holstein Kiel 1,Wolfsburg 6, Holstein Kiel 2,Wolfsburg 6, Holstein Kiel 3,Wolfsburg 6, Holstein Kiel 4,Wolfsburg 6, Holstein Kiel 5,Wolfsburg 6, Holstein Kiel 6  ->  används inte (lagmarknad)
+  Wolfsburg To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Correct Score 1st Half | units=Regular | kategori=Team Props | deltagare=Wolfsburg 0, Holstein Kiel 0,Wolfsburg 0, Holstein Kiel 1,Wolfsburg 0, Holstein Kiel 2,Wolfsburg 0, Holstein Kiel 3,Wolfsburg 1, Holstein Kiel 0,Wolfsburg 1, Holstein Kiel 1,Wolfsburg 1, Holstein Kiel 2,Wolfsburg 1, Holstein Kiel 3,Wolfsburg 2, Holstein Kiel 0,Wolfsburg 2, Holstein Kiel 1,Wolfsburg 2, Holstein Kiel 2,Wolfsburg 2, Holstein Kiel 3,Wolfsburg 3, Holstein Kiel 0,Wolfsburg 3, Holstein Kiel 1,Wolfsburg 3, Holstein Kiel 2,Wolfsburg 3, Holstein Kiel 3  ->  används inte (lagmarknad)
+  3-Way Handicap Wolfsburg +2 | units=Regular | kategori=Team Props | deltagare=Wolfsburg (+2),Draw - (Wolfsburg +2),Holstein Kiel (-2)  ->  används inte (lagmarknad)
+  Holstein Kiel Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
+  3-Way Handicap Wolfsburg -2 | units=Regular | kategori=Team Props | deltagare=Wolfsburg (-2),Draw - (Wolfsburg -2),Holstein Kiel (+2)  ->  används inte (lagmarknad)
+  Wolfsburg To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Holstein Kiel Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  Wolfsburg Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
+  Holstein Kiel Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
+  Draw No Bet 1st Half | units=Regular | kategori=Team Props | deltagare=Wolfsburg,Holstein Kiel  ->  används inte (lagmarknad)
+  3-Way Handicap Wolfsburg +1 | units=Regular | kategori=Team Props | deltagare=Wolfsburg (+1),Draw - (Wolfsburg +1),Holstein Kiel (-1)  ->  används inte (lagmarknad)
+  3-Way Handicap Wolfsburg -4 | units=Regular | kategori=Team Props | deltagare=Wolfsburg (-4),Draw - (Wolfsburg -4),Holstein Kiel (+4)  ->  används inte (lagmarknad)
+  First Team To Score 1st Half | units=1st Goal | kategori=Team Props | deltagare=Wolfsburg,Holstein Kiel,Neither  ->  används inte (lagmarknad)
+  First Team To Score | units=1st Goal | kategori=Team Props | deltagare=Wolfsburg,Holstein Kiel,Neither  ->  används inte (lagmarknad)
+  Wolfsburg Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
+  Holstein Kiel To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Winning Margin 1st Half | units=Regular | kategori=Team Props | deltagare=Wolfsburg By 1,Wolfsburg By 2+,Holstein Kiel By 1,Holstein Kiel By 2+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
+  3-Way Handicap Hannover 96 -1 | units=Regular | kategori=Team Props | deltagare=Hannover 96 (-1),Draw - (Hannover 96 -1),Greuther Furth (+1)  ->  används inte (lagmarknad)
+  Winning Margin | units=Regular | kategori=Team Props | deltagare=Hannover 96 By 1,Hannover 96 By 2,Hannover 96 By 3,Hannover 96 By 4+,Greuther Furth By 1,Greuther Furth By 2,Greuther Furth By 3,Greuther Furth By 4+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
+Sides mindre ligor: 265 Kambi-matcher inom 12 h, 610 Pinnacle-matcher, 150 med Pinnacle, 150 matchade: Algeria / Ligue 2, Andorra / Primera Division, Armenia / Premier League, Austria / Second League, Azerbaijan / Premier League, Belgium / Lotto Super League (W), Bosnia & Herzegovina / Premijer Liga, Bulgaria / PFL 2, Croatia / 1. HNL League, Czech Republic / First League, Czech Republic / National F
+Sides/totals: 190 matcher med Kambi + Pinnacle, 2699 linjer, 0 nya spel, 0 nya skuggspel, Smarkets-priser i 79 av 100; bästa edge +26.1% (Al Julan 1X2: X), +12.0% (ZKS Kluczevia Stargard 1X2: 2), +10.3% (RAAL La Louviere (W) 1X2: 1)
 Hörnmodell (test): 7861 matcher i underlaget (17 ligor), 28 matcher med modell, 4366 Kambi-linjer, 0 nya testspel; bästa edge +63.7% (NEC Nijmegen PSV Eindhoven hörnor under 3.5 @ 3.75), +29.2% (Kocaelispor Kocaelispor hörnor över 4.5 @ 2.55), +25.0% (Reading Reading hörnor över 7.5 @ 2.38)
-Fotboll extra bolag: 0 nya hämtningar, 142 odds i bruk, krediter kvar 229, dagsbudget 22 (andel 40%), förbrukat idag 0
-Tid: hämtning 868 s
+Fotboll extra bolag: 0 nya hämtningar, 37 odds i bruk, krediter kvar 229, dagsbudget 22 (andel 40%), förbrukat idag 0
+Tid: hämtning 843 s
 Marginal över alla matcher: uppmätt marginal: shots_on_target stege k=1.18 (102 spelare; marginal vid 3,00 ≈ 22%)
-  FC Juárez – Club Atlas: modell – hittar inte matchen hos ESPN
-  Club Tijuana – Atlante: modell – hittar inte matchen hos ESPN
   1. FC Nürnberg – Eintracht Braunschweig: modell ger.2, 28 spelare
   VfL Wolfsburg – Holstein Kiel: modell ger.2, 26 spelare
   Hannover 96 – Greuther Fürth: modell ger.2, 29 spelare
@@ -108,14 +107,13 @@ Marginal över alla matcher: uppmätt marginal: shots_on_target stege k=1.18 (10
   Sporting de Charleroi – Sint-Truiden: modell bel.1, 28 spelare
   Rayo Vallecano – Valencia: modell esp.1, 28 spelare
 Modellens nivåavvikelse mot marknaden (log-odds, dras bort): assist -0.53, goal -0.21, shots -0.62, shots_on_target -0.38
-  FC Juárez – Club Atlas: väntade mål Pinnacle 2.98 mot Kambi 2.89 (kvot 1.032); uppmätt marginal: goal k=1.13
-Exempel uppmätt marginal: goal k=1.13
-  Club Tijuana – Atlante: väntade mål Pinnacle 2.90 mot Kambi 2.93 (kvot 0.992); uppmätt marginal: goal k=1.26, assist k=1.22
+  Club Tijuana – Atlante: saknar matchlinjer från Pinnacle
   Auckland FC – Melbourne Victory: saknar matchlinjer från Pinnacle
   Central Coast Mariners – Perth Glory: saknar matchlinjer från Pinnacle
   Brisbane Roar – Sydney FC: saknar matchlinjer från Pinnacle
   Gençlerbirliği SK – Gaziantep B.B.: saknar matchlinjer från Pinnacle
   1. FC Nürnberg – Eintracht Braunschweig: väntade mål Pinnacle 3.37 mot Kambi 3.46 (kvot 0.974); uppmätt marginal: goal k=1.58
+Exempel uppmätt marginal: goal k=1.58
   VfL Wolfsburg – Holstein Kiel: väntade mål Pinnacle 3.56 mot Kambi 3.42 (kvot 1.042); uppmätt marginal: goal k=1.45
   Hannover 96 – Greuther Fürth: väntade mål Pinnacle 3.18 mot Kambi 3.38 (kvot 0.941); uppmätt marginal: goal k=1.48
   Manchester City – Fulham: väntade mål Pinnacle 3.52 mot Kambi 3.34 (kvot 1.056); uppmätt marginal: goal k=1.37, assist k=1.45
@@ -127,7 +125,7 @@ Exempel uppmätt marginal: goal k=1.13
   Sabadell FC – Granada: saknar matchlinjer från Pinnacle
   Alaves – Deportivo A Coruña: väntade mål Pinnacle 2.41 mot Kambi 2.36 (kvot 1.022); uppmätt marginal: goal k=1.50, assist k=1.55
   Como – Cagliari: väntade mål Pinnacle 3.22 mot Kambi 3.17 (kvot 1.016); uppmätt marginal: goal k=1.48, assist k=1.48
-  Lazio – Lecce: väntade mål Pinnacle 3.08 mot Kambi 3.14 (kvot 0.980); uppmätt marginal: goal k=1.47, assist k=1.44, shots_on_target stege k=1.18 (14 spelare; marginal vid 3,00 ≈ 22%)
+  Lazio – Lecce: väntade mål Pinnacle 3.06 mot Kambi 3.14 (kvot 0.975); uppmätt marginal: goal k=1.47, assist k=1.45, shots_on_target stege k=1.18 (14 spelare; marginal vid 3,00 ≈ 22%)
   AIK – Degerfors IF: väntade mål Pinnacle 3.17 mot Kambi 3.15 (kvot 1.006); uppmätt marginal: goal k=1.57
   Mjällby AIF – Malmö FF: väntade mål Pinnacle 2.78 mot Kambi 2.75 (kvot 1.009); uppmätt marginal: goal k=1.52
   Eintracht Frankfurt – TSG Hoffenheim: väntade mål Pinnacle 3.76 mot Kambi 3.63 (kvot 1.036); uppmätt marginal: goal k=1.50, assist k=1.38, shots_on_target stege k=1.18 (21 spelare; marginal vid 3,00 ≈ 22%)
@@ -153,16 +151,16 @@ Exempel uppmätt marginal: goal k=1.13
   Rayo Vallecano – Valencia: väntade mål Pinnacle 2.57 mot Kambi 2.51 (kvot 1.025); uppmätt marginal: goal k=1.43, assist k=1.44
   NEC Nijmegen – PSV Eindhoven: saknar matchlinjer från Pinnacle
   Kocaelispor – Fenerbahçe: saknar matchlinjer från Pinnacle
-Tid: modell och utvärdering 167 s
+Tid: modell och utvärdering 161 s
 Bolag med spelarodds: atg, betmgm, expekt, leovegas, oa_onexbet, paf, svenskaspel, unibet
-Spelarodds per marknad: assist 4661, goal 20642, shots 6642, shots_on_target 8514
-Kambi-marknader: assist='to give an assist (settled using opta data)':4661; goal='1st goalscorer':7028; goal='to score':8197; goal='to score at least 2 goals':4536; goal='to score at least 3 goals':790; goal='to score at least 4 goals':70; goal='to score at least 5 goals':21; shots="player's shots (settled using opta data)":6642; shots_on_target="player's shots on target (settled using opta data)":8372
+Spelarodds per marknad: assist 4563, goal 20229, shots 6642, shots_on_target 8227
+Kambi-marknader: assist='to give an assist (settled using opta data)':4563; goal='1st goalscorer':6874; goal='to score':8043; goal='to score at least 2 goals':4445; goal='to score at least 3 goals':776; goal='to score at least 4 goals':70; goal='to score at least 5 goals':21; shots="player's shots (settled using opta data)":6642; shots_on_target="player's shots on target (settled using opta data)":8190
 Pinnacle har inga spelarprops här – använder linjejustering mot Pinnacles matchlinjer.
 CLV-signal: 0 ben släppta (Pinnacle rör sig åt vårt håll)
 Startelvor: 0 spelbara ben klara, 0 väntar på startelvan, 0 stoppade (inte i startelvan)
 Spelregler: stoppade {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0} (modelltest {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0})
-Spelarmodell: 0 av 1010 ben har modell, 0 nya matcher hämtade från ESPN
-Bästa edge marknad shots_on_target: +4.1%, +0.9%, +0.7% (av 880 ben)
+Spelarmodell: 0 av 964 ben har modell, 0 nya matcher hämtade från ESPN
+Bästa edge marknad shots_on_target: +4.1%, +0.9%, +0.7% (av 837 ben)
 Bästa edge modelltest shots_on_target: +2.6%, +1.7%, +0.9% (av 837 ben)
 0 spelbara ben.
 Bokförda nya spel: 0
