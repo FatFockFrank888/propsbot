@@ -401,7 +401,7 @@ def settle(lg: Ledger, scores: dict) -> list[str]:
     return log
 
 
-def espn_scores(bets: list[dict], client, now: float, goal=None, apif=None) -> dict:
+def espn_scores(bets: list[dict], client, now: float, goal=None, apif=None, ss=None) -> dict:
     from .results import EspnResults
     from .sources.fotmob import FotmobResults
     from .sources.livescore import LivescoreResults
@@ -418,6 +418,8 @@ def espn_scores(bets: list[dict], client, now: float, goal=None, apif=None) -> d
         sc = espn.final_score(h, a, ko) or fotmob.final_score(h, a, ko) or ls.final_score(h, a, ko)
         if sc is None and goal is not None:   # goal-api sist (egen nyckel, begränsat antal anrop)
             sc = goal.final_score(h, a, ko, now)
+        if sc is None and ss is not None:     # SportScore: mindre och udda ligor (Asien, lägre divisioner)
+            sc = ss.final_score(h, a, ko, now)
         if sc is None and apif is not None:   # API-Football sist (bred ligakatalog, hårt anropstak)
             sc = apif.final_score(h, a, ko, now)
         if sc:
@@ -425,7 +427,7 @@ def espn_scores(bets: list[dict], client, now: float, goal=None, apif=None) -> d
         elif now > ko + VOID_AFTER_H * 3600:   # uppskjuten/inställd/avbruten och inte spelad i tid: void
             why = None
             # API-Football och goal-api har uttrycklig status; därefter ESPN, FotMob, LiveScore
-            for src in [x for x in (apif, goal) if x is not None] + [espn, fotmob, ls]:
+            for src in [x for x in (apif, goal, ss) if x is not None] + [espn, fotmob, ls]:
                 try:
                     why = src.void_reason(h, a, ko)
                 except Exception:  # noqa: BLE001 – en källa som fallerar får inte stoppa rättningen
@@ -630,13 +632,18 @@ def run(root: Path, data: list, settings: dict, diag, notify: bool = True) -> di
         goal = GoalApiResults(root / "goal_api_lage.json")
         from .sources.api_football import ApiFootballResults
         apif = ApiFootballResults(root / "api_football_lage.json")
+        from .sources.sportscore import SportScoreResults
+        ssr = SportScoreResults(root / "sportscore_lage.json")
         scores = espn_scores(spel.bets + skugga.bets, client, now, goal=goal if goal.enabled else None,
-                             apif=apif if apif.enabled else None)
+                             apif=apif if apif.enabled else None, ss=ssr if ssr.enabled else None)
         scores.update(manual_scores())   # manuell rättning går före källorna
         if goal.enabled:
             goal.save(now)
             if goal.error:
                 diag.log(f"Sides rättning: goal-api {goal.error}")
+        if ssr.enabled:
+            ssr.save(now)
+            diag.log(f"Sides rättning: SportScore {ssr.calls_today()} anrop i dag" + (f", {ssr.error}" if ssr.error else ""))
         if apif.enabled:
             apif.save(now)
             diag.log(f"Sides rättning: API-Football {apif._calls_today()} anrop i dag"

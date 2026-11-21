@@ -304,6 +304,9 @@ function buildOverview_(ss) {
   let row = banner_(sh, "Propsbot",
     '="Uppdaterad " & IFERROR(TEXT(INDEX(\'' + RAW.sammanfattning + '\'!L:L, 2), "d mmm hh:mm") & " (UTC)", "–") & "   ·   ' +
     TIER_NOTE + '"');
+  // Villkor för SportScores gratis-API (resultat för mindre ligor): länken ska synas.
+  sh.getRange(2, 14).setFormula('=HYPERLINK("https://sportscore.com/", "Powered by SportScore")')
+    .setFontColor("#cbd5e1").setFontSize(9).setHorizontalAlignment("right");
 
   row = heading_(sh, row, "Det vi spelar – A + B Tier", "Alla sporter. Gröna siffror = vinst, röda = förlust.");
   row = kpiCards_(sh, row, "Alla");
