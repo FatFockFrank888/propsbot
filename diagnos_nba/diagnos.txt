@@ -1,13 +1,13 @@
-NBA-skanning 2026-11-21 19:41
+NBA-skanning 2026-11-21 20:00
 Kambi NBA: 5 matcher, bolag: atg, betmgm, expekt, leovegas, paf, svenskaspel, unibet
-NBA tid: Kambi-props 19 s
+NBA tid: Kambi-props 34 s
 Pinnacle NBA: 5 matcher, 296 spelarodds (7 s)
-Kalshi: 174 likvida linjer av 1377 öppna marknader
-Kalshi: 92 linjer kopplade till matcher
+Kalshi: 190 likvida linjer av 1363 öppna marknader
+Kalshi: 98 linjer kopplade till matcher
 DK/FD: 0 nya hämtningar, 0 odds i bruk, krediter kvar 221, dagsbudget 22 (andel 60%), förbrukat idag 13
-SportsGameOdds NBA: vilar efter kvotfel till 21/11 19:59 UTC
-DraftKings via ESPN: 5 matcher, 580 spelarodds (referens)
-Stängningsarkiv (Pinnacle/DK): 438 tvåsidiga linjer noterade, 0 rader arkiverade
+SportsGameOdds NBA: HTTP 429 – kvoten slut (gratisnivån 2 500 objekt/30 dagar); vilar ett dygn
+DraftKings via ESPN: 5 matcher, 590 spelarodds (referens)
+Stängningsarkiv (Pinnacle/DK): 443 tvåsidiga linjer noterade, 0 rader arkiverade
 NBA namnexempel New York Knicks: Kambi ['damian lillard', 'deni avdija', 'donovan clingan', 'jalen brunson', 'josh hart', 'jrue holiday'] | Pinnacle ['damian lillard', 'deni avdija', 'donovan clingan', 'jalen brunson', 'josh hart', 'jrue holiday']
 NBA Pinnacle-exempel: ['Damian Lillard Total Threes Made', 'Damian Lillard Total Assists', 'Damian Lillard Total Points', 'Damian Lillard Total Pts & Rebs & Asts', 'Damian Lillard Total Rebounds', 'Deni Avdija Total Threes Made', 'Deni Avdija Total Assists', 'Deni Avdija Total Points']
 NBA linjer: 117 med samma linje hos Pinnacle, 27 flyttade från närliggande linje, 102 kombolinjer (PRA/PR/RA/PA) räknade ur Pinnacles poäng/returer/assist
@@ -15,15 +15,15 @@ NBA-odds (unibet/pinnacle) per marknad: pinnacle:assists 58, pinnacle:points 124
 NBA faktormodell (skugga): 112 spelare, Pinnacle-total för 5 av 5 matcher, ligatempo 100.1
 NBA spelarbetyg (skugga): 114 spelare, 0 nya boxscores
 NBA-modell: 5 matcher hos ESPN, 112 spelare, 0 nya boxscores, 83 skadade (out/doubtful)
-NBA-modell nivåavvikelse (dras bort): assists +0.08, pa +0.03, points +0.29, pr +0.15, pra +0.05, ra +0.04, rebounds +0.23, threes +0.04
-NBA faktormodell nivåavvikelse: assists -0.25, pa -0.62, points -0.23, pr -0.43, pra -0.62, ra -0.41, rebounds -0.13, threes -0.26
+NBA-modell nivåavvikelse (dras bort): assists +0.08, pa +0.04, points +0.29, pr +0.16, pra +0.06, ra +0.03, rebounds +0.23, threes +0.04
+NBA faktormodell nivåavvikelse: assists -0.26, pa -0.62, points -0.23, pr -0.43, pra -0.60, ra -0.41, rebounds -0.13, threes -0.26
 NBA minutmodell (skugga): medel cv² 0.096, spread från Pinnacle för 5 av 5 matcher; stackning: _alla b_m -0.02 b_k 1.20 (n 593), assists b_m +0.06 b_k 1.20 (n 94), blocks b_m +0.01 b_k 1.20 (n 5), pa b_m -0.03 b_k 1.06 (n 25), points b_m +0.02 b_k 1.20 (n 164), pr b_m -0.08 b_k 1.01 (n 61), pra b_m -0.06 b_k 1.07 (n 44), ra b_m +0.01 b_k 1.20 (n 39), rebounds b_m -0.04 b_k 1.10 (n 102), steals b_m -0.05 b_k 1.18 (n 9), threes b_m -0.05 b_k 1.16 (n 50)
-NBA-modelltest: 0 spelbara enligt den kalibrerade modellen av 566 ben med modell (1736 rader i kalibreringsloggen)
-NBA analyssida: 566 ben med analys
-NBA CLV-signal: 1 ben släppta
+NBA-modelltest: 0 spelbara enligt den kalibrerade modellen av 568 ben med modell (1736 rader i kalibreringsloggen)
+NBA analyssida: 568 ben med analys
+NBA CLV-signal: 3 ben släppta
 NBA lagnyheter: 105 spelare på skadelistan, 0 ben stoppade, 1 markerade (questionable)
-NBA spelregler: stoppade {'edge': 5, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0} (modelltest {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0})
-NBA: 0 spelbara ben av 620
+NBA spelregler: stoppade {'edge': 4, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0} (modelltest {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0})
+NBA: 0 spelbara ben av 622
 NBA LIVE: 0 spel uppfyller live-kraven, 0 nya bokförda live
 NBA skarp stängning: 20 spel uppdaterade
 NBA: hittar inte Ty Jerome i boxscore (Memphis Grizzlies – Golden State Warriors) – väntar
