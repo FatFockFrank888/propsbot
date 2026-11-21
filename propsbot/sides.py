@@ -353,6 +353,7 @@ def result_units(mk: str, ln: float, side: str, hg: int, ag: int, odds: float, s
     return res
 
 
+GIVE_UP_DAYS = 30   # 21/11: var 14 – SportScore hittade JFL-resultat som då redan var för gamla
 VOID_AFTER_H = 48   # uppskjuten/inställd/avbruten och inte spelad inom 48 h från avspark = void (vanlig spelbolagsregel)
 MANUAL_FILE = Path(__file__).resolve().parent.parent / "rattning_manuell.json"
 
@@ -410,7 +411,7 @@ def espn_scores(bets: list[dict], client, now: float, goal=None, apif=None, ss=N
     for b in bets:
         if b["status"] != "öppen" or not b.get("avspark") or now < b["avspark"] + 2.5 * 3600 or b["match_id"] in tried:
             continue
-        if now > b["avspark"] + 14 * 86400:   # två veckor utan resultat: ge upp (spelet ligger kvar som öppet)
+        if now > b["avspark"] + GIVE_UP_DAYS * 86400:   # så länge utan resultat: ge upp (spelet ligger kvar som öppet)
             continue
         tried.add(b["match_id"])
         # ESPN först; FotMob och LiveScore som reserver (lägre divisioner som ESPN saknar)
