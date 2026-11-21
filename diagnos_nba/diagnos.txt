@@ -1,8 +1,8 @@
-NBA-skanning 2026-11-21 04:25
-Kambi NBA: 5 matcher, bolag: atg, betmgm, expekt, leovegas, paf, svenskaspel, unibet
-NBA tid: Kambi-props 14 s
+NBA-skanning 2026-11-21 04:45
+Kambi NBA: 6 matcher, bolag: atg, betmgm, expekt, leovegas, paf, svenskaspel, unibet
+NBA tid: Kambi-props 16 s
 Pinnacle NBA: 4 matcher, 0 spelarodds (5 s)
-Kalshi: 212 likvida linjer av 771 öppna marknader
+Kalshi: 131 likvida linjer av 735 öppna marknader
 Kalshi: 0 linjer kopplade till matcher
 DK/FD: 0 nya hämtningar, 0 odds i bruk, krediter kvar 229, dagsbudget 22 (andel 60%), förbrukat idag 13
 SportsGameOdds NBA: vilar efter kvotfel till 21/11 19:59 UTC
@@ -11,12 +11,12 @@ Stängningsarkiv (Pinnacle/DK): 0 tvåsidiga linjer noterade, 0 rader arkiverade
 NBA namnexempel Philadelphia 76ers: Kambi ['anfernee simons', 'brayden burries', 'jaime jaquez jr', 'joel embiid', 'kasparas jakucionis', 'kentavious caldwell pope'] | Pinnacle []
 NBA linjer: 0 med samma linje hos Pinnacle, 0 flyttade från närliggande linje, 0 kombolinjer (PRA/PR/RA/PA) räknade ur Pinnacles poäng/returer/assist
 NBA-odds (unibet/pinnacle) per marknad: unibet:assists 60, unibet:pa 60, unibet:points 76, unibet:pr 72, unibet:pra 60, unibet:ra 60, unibet:rebounds 72, unibet:threes 66
-NBA faktormodell (skugga): 107 spelare, Pinnacle-total för 4 av 5 matcher, ligatempo 100.5
-NBA spelarbetyg (skugga): 109 spelare, 0 nya boxscores
-NBA-modell: 5 matcher hos ESPN, 107 spelare, 0 nya boxscores, 94 skadade (out/doubtful)
+NBA faktormodell (skugga): 133 spelare, Pinnacle-total för 4 av 6 matcher, ligatempo 100.2
+NBA spelarbetyg (skugga): 135 spelare, 0 nya boxscores
+NBA-modell: 6 matcher hos ESPN, 133 spelare, 2 nya boxscores, 94 skadade (out/doubtful)
 NBA-modell nivåavvikelse (dras bort): 
 NBA faktormodell nivåavvikelse: –
-NBA minutmodell (skugga): medel cv² 0.084, spread från Pinnacle för 4 av 5 matcher; stackning: _alla b_m -0.02 b_k 1.20 (n 592), assists b_m +0.06 b_k 1.20 (n 94), blocks b_m +0.01 b_k 1.20 (n 5), pa b_m -0.02 b_k 1.04 (n 24), points b_m +0.02 b_k 1.20 (n 164), pr b_m -0.08 b_k 1.01 (n 61), pra b_m -0.06 b_k 1.07 (n 44), ra b_m +0.01 b_k 1.20 (n 39), rebounds b_m -0.04 b_k 1.10 (n 102), steals b_m -0.05 b_k 1.18 (n 9), threes b_m -0.05 b_k 1.16 (n 50)
+NBA minutmodell (skugga): medel cv² 0.091, spread från Pinnacle för 4 av 6 matcher; stackning: _alla b_m -0.02 b_k 1.20 (n 592), assists b_m +0.06 b_k 1.20 (n 94), blocks b_m +0.01 b_k 1.20 (n 5), pa b_m -0.02 b_k 1.04 (n 24), points b_m +0.02 b_k 1.20 (n 164), pr b_m -0.08 b_k 1.01 (n 61), pra b_m -0.06 b_k 1.07 (n 44), ra b_m +0.01 b_k 1.20 (n 39), rebounds b_m -0.04 b_k 1.10 (n 102), steals b_m -0.05 b_k 1.18 (n 9), threes b_m -0.05 b_k 1.16 (n 50)
 NBA-modelltest: 0 spelbara enligt den kalibrerade modellen av 0 ben med modell (1160 rader i kalibreringsloggen)
 NBA analyssida: 0 ben med analys
 NBA CLV-signal: 0 ben släppta
@@ -25,10 +25,35 @@ NBA spelregler: stoppade {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'f
 NBA: 0 spelbara ben av 0
 NBA LIVE: 0 spel uppfyller live-kraven, 0 nya bokförda live
 NBA skarp stängning: 0 spel uppdaterade
+NBA rättad: Yves Missi rebounds över 7.5 -> vunnen (7)
+NBA rättad: Isaac Okoro threes över 1.5 -> förlorad (1)
+NBA rättad: Saddiq Bey rebounds över 4.5 -> vunnen (6)
+NBA rättad: Trey Murphy III rebounds över 3.5 -> vunnen (4)
+NBA rättad: Nic Claxton points över 11.5 -> vunnen (11)
+NBA rättad: Tre Jones rebounds över 2.5 -> förlorad (1)
 NBA: hittar inte Ty Jerome i boxscore (Memphis Grizzlies – Golden State Warriors) – väntar
 NBA: hittar inte Zach Edey i boxscore (Memphis Grizzlies – Golden State Warriors) – väntar
 NBA: hittar inte Myles Turner i boxscore (Milwaukee Bucks – Portland Trail Blazers) – väntar
-NBA kalibrering: 12 nya rättade ben; _alla M2 (n 535, test 161, vinst +0.0163, modellvikt -0.28)
+NBA rättad: Jared McCain rebounds över 3.5 -> vunnen (3)
+NBA rättad: Yves Missi pr över 14.5 -> vunnen (11)
+NBA rättad: Isaiah Hartenstein points över 8.5 -> förlorad (5)
+NBA rättad: Aday Mara blocks över 1.5 -> vunnen (2)
+NBA rättad: Trae Young points över 17.5 -> förlorad (16)
+NBA rättad: Herbert Jones points över 7.5 -> vunnen (14)
+NBA rättad: Jeremiah Fears points över 16.5 -> förlorad (22)
+NBA rättad: Nic Claxton pa över 11.5 -> vunnen (12)
+NBA rättad: Jaylin Williams ra över 6.5 -> förlorad (2)
+NBA rättad: Norman Powell points över 21.5 -> förlorad (16)
+NBA rättad: AJ Dybantsa points över 17.5 -> vunnen (20)
+NBA: hittar inte Jalen Smith i boxscore (Chicago Bulls – Washington Wizards) – väntar
+NBA rättad: Tre Jones pa över 16.5 -> förlorad (19)
+NBA rättad: Josh Giddey assists över 9.5 -> förlorad (7)
+NBA rättad: Isaac Okoro pra över 14.5 -> vunnen (17)
+NBA rättad: Trey Murphy III assists över 2.5 -> vunnen (1)
+NBA rättad: Saddiq Bey pr över 19.5 -> vunnen (27)
+NBA rättad: Matas Buzelis ra över 8.5 -> vunnen (6)
+NBA rättad: Saddiq Bey rebounds över 4.5 -> vunnen (6)
+NBA kalibrering: 283 nya rättade ben; _alla M0 (n 818, test 246, vinst +0.0000)
 NBA LIVE-status per marknad (skarp CLV, marknadsspel): assists ok, blocks ok, pa osäker, points ok, pr ok, pra ok, ra osäker, rebounds ok, steals ok, threes ok
 NBA modellstatus per marknad (modelltest, styr inte): assists shadow, blocks insufficient_data, pa insufficient_data, points shadow, pr degraded, pra shadow, ra shadow, rebounds degraded, steals insufficient_data, threes shadow
 NBA sides/totals: 4 matcher med Kambi + Pinnacle, 78 linjer, 0 nya spel, 0 nya skuggspel, 0 över stoppade (utklassning); bästa edge +2.7% (totala poäng under 228.5), +1.2% (Milwaukee Bucks +13.5), +0.7% (Milwaukee Bucks +14.5)
