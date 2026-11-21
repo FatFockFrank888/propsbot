@@ -4,6 +4,10 @@ GET https://api.goal-api.com/v1/results?from=YYYY-MM-DD&to=YYYY-MM-DD&limit=500&
 med "Authorization: Bearer <nyckel>" ger alla avgjorda matcher en dag (cirka 1 400, 1 000+ ligor),
 med ställningen efter ordinarie tid (homeTeamFtScore/awayTeamFtScore) skild från förlängning och straffar.
 
+Matchstatus (21/11): GET /v1/fixtures?from=…&to=…&status=POSTPONED (och CANCELLED, ABANDONED, SUSPENDED,
+AWARDED), limit ≤ 100, ger uppskjutna/inställda/avbrutna matcher -> void_reason(). Hämtas bara för spel som
+saknar resultat 48 h efter avspark, och sparas per dag på samma sätt som resultaten.
+
 Används sist, bara för spel som ESPN, FotMob och LiveScore saknar. Boten körs ~140 gånger per dygn utan
 bestående HTTP-cache, så färdiga dagar sparas i läget (goal_api_lage.json) och hämtas en gång; en dag som
 kan få fler resultat hämtas om högst var 6:e timme, och anropen per dygn har ett tak (DAILY_CAP).
@@ -19,6 +23,9 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 URL = "https://api.goal-api.com/v1/results"
+FIXTURES_URL = "https://api.goal-api.com/v1/fixtures"
+VOID_STATUS = {"POSTPONED": "uppskjuten", "CANCELLED": "inställd", "ABANDONED": "avbruten", "SUSPENDED": "avbruten",
+               "AWARDED": "inställd"}
 DAILY_CAP = 300          # av 1 000 – resten lämnas åt framtida användning
 REFRESH_S = 6 * 3600     # en dag som inte är färdig hämtas om högst så här ofta
 DONE_AFTER_S = 2 * 86400  # en dag äldre än så räknas som färdig (sparas för gott)
@@ -35,6 +42,7 @@ class GoalApiResults:
             self.st = {}
         self.st.setdefault("dagar", {})       # dag -> {"ts": hämtad, "m": [[hemma, borta, avspark, h, b], …]}
         self.st.setdefault("anrop", {})       # UTC-datum -> antal anrop
+        self.st.setdefault("status_dagar", {})  # dag -> {"ts", "klar", "m": [[hemma, borta, avspark|None, status], …]}
         self.error = ""
 
     @property
@@ -44,13 +52,13 @@ class GoalApiResults:
     def _calls_today(self) -> int:
         return self.st["anrop"].get(time.strftime("%Y-%m-%d", time.gmtime()), 0)
 
-    def _get(self, day: str, offset: int) -> dict | None:
+    def _get(self, day: str, offset: int, url: str | None = None) -> dict | None:
         if self._calls_today() >= DAILY_CAP:
             self.error = f"dagstak {DAILY_CAP} anrop nått"
             return None
         today = time.strftime("%Y-%m-%d", time.gmtime())
         self.st["anrop"][today] = self._calls_today() + 1
-        url = f"{URL}?from={day}&to={day}&limit=500&offset={offset}"
+        url = url or f"{URL}?from={day}&to={day}&limit=500&offset={offset}"
         req = urllib.request.Request(url, headers={"Authorization": f"Bearer {self.key}", "Accept": "application/json",
                                                    "User-Agent": "propsbot"})
         try:
@@ -100,9 +108,73 @@ class GoalApiResults:
                     return gh, ga
         return None
 
+    @staticmethod
+    def _row(m: dict) -> list | None:
+        """Lagnamn + avspark ur en match i fixtures-svaret (fältnamnen skiljer mellan endpoints)."""
+        def team(side):
+            v = m.get(f"{side}Team")
+            return v.get("name") if isinstance(v, dict) else (m.get(f"{side}TeamName") or v)
+        h, a = team("home"), team("away")
+        if not h or not a:
+            return None
+        ko = None
+        for k in ("kickoffUtc", "kickoff", "startTime", "utcDate", "date", "matchDate"):
+            v = m.get(k)
+            if isinstance(v, (int, float)):
+                ko = float(v) / (1000 if v > 1e11 else 1)
+                break
+            if isinstance(v, str) and len(v) >= 16:
+                try:
+                    ko = datetime.fromisoformat(v.replace("Z", "+00:00")).timestamp()
+                    break
+                except ValueError:
+                    continue
+        return [str(h), str(a), ko, str(m.get("matchStatus") or "").upper()]
+
+    def _status_day(self, day: str, now: float) -> list:
+        cached = self.st["status_dagar"].get(day)
+        if cached and (cached.get("klar") or now - cached["ts"] < REFRESH_S):
+            return cached["m"]
+        if self.st.get("status_fel"):   # endpointen svarade inte som väntat – försök inte varje körning
+            return cached["m"] if cached else []
+        rows = []
+        for status in VOID_STATUS:
+            offset = 0
+            while True:
+                d = self._get(day, offset, f"{FIXTURES_URL}?from={day}&to={day}&status={status}&limit=100&offset={offset}")
+                if d is None:
+                    if self.error in ("HTTP 400", "HTTP 404", "HTTP 422"):   # endpointen/parametern finns inte
+                        self.st["status_fel"] = f"{day}: {self.error}"
+                    return cached["m"] if cached else rows
+                for m in d.get("data", []) or []:
+                    r = self._row(m)
+                    if r and r[3] in VOID_STATUS:
+                        rows.append(r)
+                if not (d.get("pagination") or {}).get("hasMore") or offset > 1000:
+                    break
+                offset += 100
+        day_ts = datetime.strptime(day, "%Y-%m-%d").replace(tzinfo=timezone.utc).timestamp()
+        self.st["status_dagar"][day] = {"ts": now, "klar": now - day_ts > DONE_AFTER_S, "m": rows}
+        return rows
+
+    def void_reason(self, home: str, away: str, start: float, now: float | None = None) -> str | None:
+        """"uppskjuten" / "inställd" / "avbruten" om goal-api har matchen med den statusen, annars None."""
+        if not self.enabled:
+            return None
+        from ..results import espn_match
+        now = now or time.time()
+        for day in dict.fromkeys(datetime.fromtimestamp(t, timezone.utc).strftime("%Y-%m-%d") for t in (start, start + 3 * 3600)):
+            for h, a, ko, st in self._status_day(day, now):
+                # utan avsparkstid i svaret: samma dag + lagnamn (status och datum är redan filtrerade)
+                if espn_match(home, away, start, h, a, ko if ko is not None else start):
+                    return VOID_STATUS.get(st)
+        return None
+
     def save(self, now: float | None = None) -> None:
         now = now or time.time()
         self.st["dagar"] = {d: v for d, v in self.st["dagar"].items()
                             if now - datetime.strptime(d, "%Y-%m-%d").replace(tzinfo=timezone.utc).timestamp() < 16 * 86400}
+        self.st["status_dagar"] = {d: v for d, v in self.st["status_dagar"].items()
+                                   if now - datetime.strptime(d, "%Y-%m-%d").replace(tzinfo=timezone.utc).timestamp() < 16 * 86400}
         self.st["anrop"] = dict(sorted(self.st["anrop"].items())[-10:])
         self.path.write_text(json.dumps(self.st, ensure_ascii=False), encoding="utf-8")

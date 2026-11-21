@@ -332,3 +332,38 @@ def test_live_paused_routes_to_shadow(tmp_path, monkeypatch):
     assert not (tmp_path / "bokforing_v3.json").exists() or \
         json.loads((tmp_path / "bokforing_v3.json").read_text(encoding="utf-8")) == []
     assert all("SPELA" not in m.get("title", "") for m in sent)
+
+
+def test_goal_api_void_status(tmp_path):
+    """goal-api /fixtures?status=POSTPONED … ger void-orsak; färdiga dagar sparas, 400 stänger av försöken."""
+    import io
+    import json as _json
+    import urllib.error
+    from urllib.parse import parse_qs, urlparse
+    from propsbot.sources.goal_api import GoalApiResults
+    ko = 1795376700.0   # 2026-11-17 19:45 UTC
+    calls = []
+
+    def opener(req, timeout=0):
+        calls.append(req.full_url)
+        q = parse_qs(urlparse(req.full_url).query)
+        data = []
+        if q.get("status") == ["POSTPONED"]:
+            data = [{"homeTeam": {"name": "South Shields"}, "awayTeam": {"name": "Harborough Town"},
+                     "matchStatus": "POSTPONED"}]   # utan avsparkstid: lagnamn + dag räcker
+        return io.BytesIO(_json.dumps({"success": True, "data": data, "pagination": {"hasMore": False}}).encode())
+
+    g = GoalApiResults(tmp_path / "g.json", api_key="k", opener=opener)
+    now = ko + 3 * 86400
+    assert g.void_reason("South Shields FC", "Harborough Town FC", ko, now) == "uppskjuten"
+    assert g.void_reason("Curzon Ashton", "Quorn FC", ko, now) is None
+    n = len(calls)
+    assert n == 5 and all("/fixtures?" in u for u in calls)          # en gång per status, samma dag
+    g.save(now)
+    g2 = GoalApiResults(tmp_path / "g.json", api_key="k", opener=opener)
+    assert g2.void_reason("South Shields FC", "Harborough Town FC", ko, now) == "uppskjuten" and len(calls) == n
+
+    def bad(req, timeout=0):
+        raise urllib.error.HTTPError(req.full_url, 400, "bad", {}, None)
+    g3 = GoalApiResults(tmp_path / "g3.json", api_key="k", opener=bad)
+    assert g3.void_reason("A", "B", ko, now) is None and g3.st.get("status_fel")

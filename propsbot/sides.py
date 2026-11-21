@@ -424,7 +424,8 @@ def espn_scores(bets: list[dict], client, now: float, goal=None, apif=None) -> d
             out[b["match_id"]] = sc
         elif now > ko + VOID_AFTER_H * 3600:   # uppskjuten/inställd/avbruten och inte spelad i tid: void
             why = None
-            for src in ([apif] if apif is not None else []) + [espn, fotmob, ls]:   # API-Football har uttrycklig status
+            # API-Football och goal-api har uttrycklig status; därefter ESPN, FotMob, LiveScore
+            for src in [x for x in (apif, goal) if x is not None] + [espn, fotmob, ls]:
                 try:
                     why = src.void_reason(h, a, ko)
                 except Exception:  # noqa: BLE001 – en källa som fallerar får inte stoppa rättningen
