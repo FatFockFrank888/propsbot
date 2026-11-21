@@ -36,7 +36,7 @@ ATTRIBUTION = '<a href="https://sportscore.com/" rel="dofollow">Powered by Sport
 DAILY_CAP = 300
 REFRESH_S = 6 * 3600
 DONE_AFTER_S = 2 * 86400
-KEEP_DAYS = 16
+KEEP_DAYS = 35
 VOID = {"DELAYED": "uppskjuten", "POSTPONED": "uppskjuten", "CANCELLED": "inställd", "CANCELED": "inställd",
         "ABANDONED": "avbruten", "INTERRUPTED": "avbruten", "SUSPENDED": "avbruten", "AWARDED": "inställd"}
 _AFFIX = {"fc", "afc", "sc", "cf", "ac", "fk", "sk", "cd", "sa", "ud", "club", "the", "w", "women"}
