@@ -24081,7 +24081,7 @@
 "edge": 0.0800000000000003,
 "spela_fran": 1.7,
 "insats_pct": 0.02,
-"stangning": 1.82,
+"stangning": 1.81,
 "status": "öppen",
 "stopp": "",
 "clv_signal": false,
@@ -24090,11 +24090,11 @@
 "p_marknad": 0.6000000000000001,
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795272452.0647886,
+"stangning_ts": 1795273686.9983613,
 "modellversion": "2026-11-15-betyg",
 "prognos_ts": 1795263447.2011595,
-"skarp_stang_p": 0.5800000000000001,
-"skarp_stang_ts": 1795272451.964048,
+"skarp_stang_p": 0.5447189952022975,
+"skarp_stang_ts": 1795273686.9056644,
 "skarp_kalla": "skanning",
 "dk_stang_p": 0.5346763990706637,
 "bolag_bokning": {
@@ -24116,24 +24116,30 @@
 "dk_p": 0.5498408142261508
 },
 "bolag_stangning": {
-"ts": 1795272452.1617384,
+"ts": 1795273687.088947,
 "odds": {
 "unibet": {
 "over": 1.92,
-"under": 1.82
+"under": 1.81
+},
+"pinnacle": {
+"over": 2.125,
+"under": 1.889
 }
 },
-"pin_flyttad": false,
+"pin_flyttad": true,
 "pin_komb": false,
 "pin_linje": null,
-"dk_linje": null
+"dk_linje": null,
+"pin_p": 0.5294384906231089
 },
-"bolag_stang_ts": 1795272452.1617384,
+"bolag_stang_ts": 1795273687.088947,
 "skarp_verifierad": false,
 "skarp_status": null,
-"clv_skarp_pp": 2.444444444444449,
-"clv_pin_pp": null,
-"clv_dk_pp": -2.0879156484891914
+"clv_skarp_pp": -1.0836560353258085,
+"clv_pin_pp": -2.61170649324467,
+"clv_dk_pp": -2.0879156484891914,
+"pin_stang_p": 0.5294384906231089
 },
 {
 "key": "nba1028754422|jaylen wells|assists|1.5|unibet|under",
@@ -24157,7 +24163,7 @@
 "edge": 0.1313153673944445,
 "spela_fran": 1.95,
 "insats_pct": 0.02,
-"stangning": 1.9,
+"stangning": 1.89,
 "status": "öppen",
 "stopp": "sharp money med oss: referensen +6.2 enheter",
 "clv_signal": false,
@@ -24166,13 +24172,13 @@
 "p_marknad": 0.523757114534465,
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795272452.0647886,
+"stangning_ts": 1795273686.9983613,
 "modellversion": "2026-11-15-betyg",
 "prognos_ts": 1795267254.608624,
-"skarp_stang_p": 0.5193800457018327,
-"skarp_stang_ts": 1795272451.964048,
+"skarp_stang_p": 0.5142149106056373,
+"skarp_stang_ts": 1795273686.9056644,
 "skarp_kalla": "skanning",
-"dk_stang_p": 0.523757114534465,
+"dk_stang_p": 0.5134297510556798,
 "bolag_bokning": {
 "ts": 1795267254.7108636,
 "odds": {
@@ -24192,29 +24198,29 @@
 "dk_p": 0.523757114534465
 },
 "bolag_stangning": {
-"ts": 1795272452.1617384,
+"ts": 1795273687.088947,
 "odds": {
 "unibet": {
-"over": 1.83,
-"under": 1.9
+"over": 1.84,
+"under": 1.89
 },
 "draftkings": {
-"over": 1.95,
-"under": 1.79
+"over": 1.91,
+"under": 1.82
 }
 },
 "pin_flyttad": false,
 "pin_komb": false,
 "pin_linje": null,
 "dk_linje": null,
-"dk_p": 0.523757114534465
+"dk_p": 0.5134297510556798
 },
-"bolag_stang_ts": 1795272452.1617384,
+"bolag_stang_ts": 1795273687.088947,
 "skarp_verifierad": false,
 "skarp_status": null,
-"clv_skarp_pp": 5.64170827388698,
+"clv_skarp_pp": 5.125194764267437,
 "clv_pin_pp": null,
-"clv_dk_pp": 6.079415157150214
+"clv_dk_pp": 5.046678809271688
 },
 {
 "key": "nba1028754410|keaton wagler|assists|2.5|unibet|under",
@@ -24247,11 +24253,11 @@
 "p_marknad": 0.5472721798983984,
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795272452.0647886,
+"stangning_ts": 1795273686.9983613,
 "modellversion": "2026-11-15-betyg",
 "prognos_ts": 1795271202.8287847,
 "skarp_stang_p": 0.5472721798983984,
-"skarp_stang_ts": 1795272451.964048,
+"skarp_stang_ts": 1795273686.9056644,
 "skarp_kalla": "skanning",
 "dk_stang_p": 0.5472721798983984,
 "bolag_bokning": {
@@ -24273,7 +24279,7 @@
 "dk_p": 0.5472721798983984
 },
 "bolag_stangning": {
-"ts": 1795272452.1617384,
+"ts": 1795273687.088947,
 "odds": {
 "unibet": {
 "over": 1.79,
@@ -24290,7 +24296,7 @@
 "dk_linje": null,
 "dk_p": 0.5472721798983984
 },
-"bolag_stang_ts": 1795272452.1617384,
+"bolag_stang_ts": 1795273687.088947,
 "skarp_verifierad": false,
 "skarp_status": null,
 "clv_skarp_pp": 3.180826237262513,
