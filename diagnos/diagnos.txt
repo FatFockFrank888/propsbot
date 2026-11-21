@@ -1,4 +1,4 @@
-Skanning 2026-11-21 20:36
+Skanning 2026-11-21 20:53
 Kambi unibet (ubse): OK, 86 matcher i valda ligor
 Kambi paf (paf): OK
 Kambi atg (atg): OK
@@ -7,7 +7,8 @@ Kambi svenskaspel (svenskaspel): OK
 Kambi expekt (expektse): OK
 Kambi betmgm (betmgmse): OK
 Pinnacle: OK, 26 ligor
-Pinnacle: 69 matcher, matchlinjer för 42 av 60 Kambi-matcher, 0 spelarodds som används
+  FC Zürich – St. Gallen: Pinnacle FEL HTTP 403 för https://guest.api.arcadia.pinnacle.com/0.1/matchups/1640278094/related
+Pinnacle: 69 matcher, matchlinjer för 41 av 60 Kambi-matcher, 0 spelarodds som används
 Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
   Double Chance 1st Half | units=Regular | kategori=Team Props | deltagare=FC Dallas Or Portland Timbers,Draw Or Portland Timbers,Draw Or FC Dallas  ->  används inte (lagmarknad)
   Moneyline and Total Goals | units=Regular | kategori=Team Props | deltagare=FC Dallas & Over 3.5,FC Dallas & Under 3.5,Draw & Over 3.5,Draw & Under 3.5,Portland Timbers & Over 3.5,Portland Timbers & Under 3.5  ->  används inte (lagmarknad)
@@ -71,13 +72,11 @@ Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
   Correct Score 1st Half | units=Regular | kategori=Team Props | deltagare=Pachuca 0, Deportivo Toluca 0,Pachuca 0, Deportivo Toluca 1,Pachuca 0, Deportivo Toluca 2,Pachuca 0, Deportivo Toluca 3,Pachuca 1, Deportivo Toluca 0,Pachuca 1, Deportivo Toluca 1,Pachuca 1, Deportivo Toluca 2,Pachuca 1, Deportivo Toluca 3,Pachuca 2, Deportivo Toluca 0,Pachuca 2, Deportivo Toluca 1,Pachuca 2, Deportivo Toluca 2,Pachuca 2, Deportivo Toluca 3,Pachuca 3, Deportivo Toluca 0,Pachuca 3, Deportivo Toluca 1,Pachuca 3, Deportivo Toluca 2,Pachuca 3, Deportivo Toluca 3  ->  används inte (lagmarknad)
 Sides mindre ligor: 54 Kambi-matcher inom 12 h, 112 Pinnacle-matcher, 41 med Pinnacle, 41 matchade: Argentina / Primera Nacional, Bolivia / Liga Profesional Bolivia, Chile / Primera B, Chile / Primera Chile, Chile / Segunda División, Colombia / Liga Dimayor, Copa Sudamericana, Costa Rica / Primera Division Costa Rica, Ecuador / Liga Pro, El Salvador / Primera Divisíon, Guatemala / Liga Nacional Gu
 Sides rättning: SportScore 107 anrop i dag
-  Sides rättad: Świt Nowy Dwór Mazowiecki – MKS Polonia Lidzbark Warminski 1X2: 1 -> vunnen (4–2)
-  Sides rättad: Arsenal de Sarandí – Club Comunicaciones (ARG) under 2.5 -> förlorad (3–2)
-  Sides rättad: Sporting Lisbon – UD da Serra under 5.5 -> vunnen (4–0)
-Sides/totals: 83 matcher med Kambi + Pinnacle, 1914 linjer, 1 nya spel, 1 nya skuggspel, Smarkets-priser i 64 av 69; bästa edge +9.9% (FC Twente 1X2: 2), +7.3% (Carabobo FC 1X2: 2), +5.5% (Minebea Mitsumi FC 1X2: 1)
-Hörnmodell (test): 7861 matcher i underlaget (17 ligor), 15 matcher med modell, 2610 Kambi-linjer, 0 nya testspel; bästa edge +34.0% (Trabzonspor Trabzonspor hörnor under 5.5 @ 2.63), +29.1% (Paris FC Paris FC hörnor över 8.5 @ 4.20), +24.8% (Kasımpaşa Kasımpaşa hörnor under 3.5 @ 2.85)
+Sides/totals: 82 matcher med Kambi + Pinnacle, 1891 linjer, 1 nya spel, 1 nya skuggspel, Smarkets-priser i 64 av 68; bästa edge +8.9% (FC Twente 1X2: 2), +5.5% (Minebea Mitsumi FC 1X2: 1), +5.1% (Isidro Metapán 1X2: X)
+  hörnor Sides rättad: Empoli – Pisa Pisa hörnor över 4.5 -> vunnen (5–11)
+Hörnmodell (test): 7861 matcher i underlaget (17 ligor), 15 matcher med modell, 2610 Kambi-linjer, 0 nya testspel; bästa edge +34.0% (Trabzonspor Trabzonspor hörnor under 5.5 @ 2.63), +29.1% (Paris FC Paris FC hörnor över 8.5 @ 4.20), +25.0% (FC Barcelona FC Barcelona hörnor över 10.5 @ 4.10)
 Fotboll extra bolag: 0 nya hämtningar, 0 odds i bruk, krediter kvar 221, dagsbudget 22 (andel 40%), förbrukat idag 8
-Tid: hämtning 606 s
+Tid: hämtning 582 s
 Marginal över alla matcher: uppmätt marginal: shots stege k=1.04 (7 spelare; marginal vid 3,00 ≈ 4%), shots_on_target stege k=1.14 (140 spelare; marginal vid 3,00 ≈ 17%)
   FC Dallas – Portland Timbers: modell usa.1, 32 spelare
   CF Pachuca – Deportivo Toluca FC: modell – hittar inte matchen hos ESPN
@@ -110,11 +109,11 @@ Marginal över alla matcher: uppmätt marginal: shots stege k=1.04 (7 spelare; m
   Racing Santander – Real Sociedad: modell esp.1, 31 spelare
   IF Brommapojkarna – Halmstads BK: modell swe.1, 28 spelare
   Go Ahead Eagles – Fortuna Sittard: modell ned.1, 28 spelare
-Modellens nivåavvikelse mot marknaden (log-odds, dras bort): assist -0.52, goal -0.19, shots -0.62, shots_on_target -0.51
-  FC Dallas – Portland Timbers: väntade mål Pinnacle 3.38 mot Kambi 3.46 (kvot 0.978); uppmätt marginal: goal k=1.26, assist k=1.14
-Exempel uppmätt marginal: goal k=1.26, assist k=1.14
+Modellens nivåavvikelse mot marknaden (log-odds, dras bort): assist -0.53, goal -0.20, shots -0.62, shots_on_target -0.51
+  FC Dallas – Portland Timbers: väntade mål Pinnacle 3.38 mot Kambi 3.44 (kvot 0.983); uppmätt marginal: goal k=1.25, assist k=1.13
+Exempel uppmätt marginal: goal k=1.25, assist k=1.13
   CF Pachuca – Deportivo Toluca FC: väntade mål Pinnacle 3.39 mot Kambi 3.22 (kvot 1.053); uppmätt marginal: goal k=1.43, assist k=1.27
-  Santos Laguna – Club León: väntade mål Pinnacle 3.04 mot Kambi 3.13 (kvot 0.971); uppmätt marginal: goal k=1.45, assist k=1.31
+  Santos Laguna – Club León: väntade mål Pinnacle 3.04 mot Kambi 3.13 (kvot 0.971); uppmätt marginal: goal k=1.46, assist k=1.31
   Inter Miami CF – Columbus Crew: väntade mål Pinnacle 3.55 mot Kambi 3.72 (kvot 0.955); uppmätt marginal: goal k=1.42, assist k=1.30
   Chapecoense-SC – Cruzeiro-MG: väntade mål Pinnacle 3.11 mot Kambi 3.14 (kvot 0.991); uppmätt marginal: goal k=1.13, shots stege k=1.04 (7 spelare; marginal vid 3,00 ≈ 4%), shots_on_target stege k=1.48 (7 spelare; marginal vid 3,00 ≈ 69%)
   Pumas UNAM – CF Monterrey: väntade mål Pinnacle 2.77 mot Kambi 2.83 (kvot 0.979); uppmätt marginal: goal k=1.34, assist k=1.19
@@ -135,7 +134,7 @@ Exempel uppmätt marginal: goal k=1.26, assist k=1.14
   Córdoba CF – Real Oviedo: saknar matchlinjer från Pinnacle
   BK Häcken – IF Elfsborg: väntade mål Pinnacle 3.14 mot Kambi 3.07 (kvot 1.020); uppmätt marginal: goal k=1.58
   IK Sirius FK – Djurgårdens IF: väntade mål Pinnacle 2.96 mot Kambi 3.10 (kvot 0.956); uppmätt marginal: goal k=1.63
-  FC Barcelona – Villarreal: väntade mål Pinnacle 4.54 mot Kambi 4.39 (kvot 1.033); uppmätt marginal: goal k=1.54, assist k=1.46
+  FC Barcelona – Villarreal: väntade mål Pinnacle 4.54 mot Kambi 4.34 (kvot 1.047); uppmätt marginal: goal k=1.52, assist k=1.44
   Sparta Rotterdam – AZ Alkmaar: väntade mål Pinnacle 3.42 mot Kambi 3.27 (kvot 1.045); uppmätt marginal: goal k=1.50, assist k=1.45
   Ajax – ADO Den Haag: väntade mål Pinnacle 4.06 mot Kambi 4.12 (kvot 0.987); uppmätt marginal: goal k=1.65, assist k=1.52
   Hull City – Brighton: väntade mål Pinnacle 2.91 mot Kambi 2.99 (kvot 0.973); uppmätt marginal: goal k=1.34, assist k=1.44
@@ -150,17 +149,17 @@ Exempel uppmätt marginal: goal k=1.26, assist k=1.14
   IF Brommapojkarna – Halmstads BK: väntade mål Pinnacle 2.99 mot Kambi 2.98 (kvot 1.004); uppmätt marginal: goal k=1.45
   Go Ahead Eagles – Fortuna Sittard: väntade mål Pinnacle 3.31 mot Kambi 3.18 (kvot 1.042); uppmätt marginal: goal k=1.61, assist k=1.49, shots_on_target stege k=1.14 (7 spelare; marginal vid 3,00 ≈ 17%)
   Trabzonspor – Eyüpspor: saknar matchlinjer från Pinnacle
-Tid: modell och utvärdering 226 s
+Tid: modell och utvärdering 146 s
 Bolag med spelarodds: atg, betmgm, expekt, leovegas, paf, svenskaspel, unibet
-Spelarodds per marknad: assist 3639, goal 17820, shots 5636, shots_on_target 6703
-Kambi-marknader: assist='to give an assist (settled using opta data)':3639; goal='1st goalscorer':6657; goal='to score':7048; goal='to score at least 2 goals':3457; goal='to score at least 3 goals':553; goal='to score at least 4 goals':84; goal='to score at least 5 goals':21; shots="player's shots (settled using opta data)":5636; shots_on_target="player's shots on target (settled using opta data)":6703
+Spelarodds per marknad: assist 3639, goal 17841, shots 5636, shots_on_target 6710
+Kambi-marknader: assist='to give an assist (settled using opta data)':3639; goal='1st goalscorer':6657; goal='to score':7048; goal='to score at least 2 goals':3471; goal='to score at least 3 goals':560; goal='to score at least 4 goals':84; goal='to score at least 5 goals':21; shots="player's shots (settled using opta data)":5636; shots_on_target="player's shots on target (settled using opta data)":6710
 Pinnacle har inga spelarprops här – använder linjejustering mot Pinnacles matchlinjer.
 CLV-signal: 0 ben släppta (Pinnacle rör sig åt vårt håll)
 Startelvor: 0 spelbara ben klara, 0 väntar på startelvan, 0 stoppade (inte i startelvan)
 Spelregler: stoppade {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0} (modelltest {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0})
-Spelarmodell: 0 av 932 ben har modell, 0 nya matcher hämtade från ESPN
-Bästa edge marknad shots_on_target: -1.9%, -1.9%, -2.2% (av 807 ben)
-Bästa edge modelltest shots_on_target: -1.0%, -1.5%, -1.6% (av 595 ben)
+Spelarmodell: 0 av 933 ben har modell, 0 nya matcher hämtade från ESPN
+Bästa edge marknad shots_on_target: -1.9%, -1.9%, -2.2% (av 808 ben)
+Bästa edge modelltest shots_on_target: -1.0%, -1.5%, -1.6% (av 596 ben)
 0 spelbara ben.
 Bokförda nya spel: 0
 Skuggspel: 0 nya bokförda (stoppade av reglerna, minst 2 % edge)
