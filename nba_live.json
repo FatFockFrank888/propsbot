@@ -5085,7 +5085,7 @@
 "edge": 0.08029167745639798,
 "spela_fran": 1.97,
 "insats_pct": 0.008,
-"stangning": 2.08,
+"stangning": 1.89,
 "status": "öppen",
 "stopp": "sharp money med oss: referensen +2.2 enheter",
 "clv_signal": false,
@@ -5095,23 +5095,23 @@
 "utfall": null,
 "resultat_enheter": null,
 "modell_edge": 0.08029167745639798,
-"stangning_ts": 1795214324.2528815,
+"stangning_ts": 1795228864.855538,
 "analys": {
-"p_stack": 0.5261,
-"p_modell_min": 0.4819,
+"p_stack": 0.487,
+"p_modell_min": 0.4763,
 "minuter": 32.6,
 "minuter_sd": 3.5,
-"p_faktorer": 0.5481,
-"p_faktorer_ra": 0.646,
-"vantat_faktorer": 9.49,
-"p_betyg": 0.5455,
-"p_betyg_ra": 0.6351,
-"vantat_betyg": 9.47,
+"p_faktorer": 0.5191,
+"p_faktorer_ra": 0.6386,
+"vantat_faktorer": 9.71,
+"p_betyg": 0.5172,
+"p_betyg_ra": 0.6305,
+"vantat_betyg": 9.52,
 "minuter_faktorer": 27.3,
 "f_anv": 1.0,
 "f_miljo": 1.0,
-"f_tempo": 0.998,
-"f_pos": 1.003,
+"f_tempo": 1.001,
+"f_pos": 1.024,
 "f_mot": 0.98,
 "f_minuter_bas": 30.8,
 "f_b2b": false,
@@ -5119,7 +5119,7 @@
 "f_minutbegransning": false,
 "f_tillbaka": false,
 "f_miljo_kalla": "pinnacle",
-"f_lag_poang": 122.0,
+"f_lag_poang": 121.5,
 "f_mot_n": 1,
 "traff_l5": 0.2,
 "traff_l5_n": 5,
@@ -5131,18 +5131,18 @@
 "traff_mot_n": 1,
 "traff_hemmaborta": 0.429,
 "traff_hemmaborta_n": 7,
-"p_kalib": 0.5194,
-"p_blend": 0.5144,
+"p_kalib": 0.4844,
+"p_blend": 0.4901,
 "kalib_modell": "M0",
-"p_modell": 0.4969,
-"p_marknad": 0.5194,
-"p_slutlig": 0.5144,
-"vantat": 11.61,
+"p_modell": 0.5106,
+"p_marknad": 0.4844,
+"p_slutlig": 0.4901,
+"vantat": 11.67,
 "nb_r": 10,
 "modell_vikt": 0.22,
 "dq": 0.73,
 "matcher": 11,
-"nivajustering": 0.17,
+"nivajustering": 0.24,
 "logg": [
 {
 "ts": 1795057200.0,
@@ -5228,8 +5228,8 @@
 "hemma": true,
 "minuter_sd_faktorer": 3.5,
 "ref": {
-"pin_p": 0.5156476601480882,
-"dk_p": 0.5280497154439798,
+"pin_p": 0.48435233985191184,
+"dk_p": null,
 "pin_linje": null,
 "dk_linje": null,
 "pin_flyttad": false,
@@ -5238,57 +5238,52 @@
 "odds_bolag": [
 {
 "bolag": "atg",
-"over": 1.68,
-"under": 2.08
+"over": 1.84,
+"under": 1.89
 },
 {
 "bolag": "betmgm",
-"over": 1.68,
-"under": 2.08
+"over": 1.84,
+"under": 1.89
 },
 {
 "bolag": "expekt",
-"over": 1.68,
-"under": 2.08
+"over": 1.84,
+"under": 1.89
 },
 {
 "bolag": "leovegas",
-"over": 1.68,
-"under": 2.08
+"over": 1.84,
+"under": 1.89
 },
 {
 "bolag": "paf",
-"over": 1.68,
-"under": 2.08
+"over": 1.84,
+"under": 1.89
 },
 {
 "bolag": "pinnacle",
-"over": 1.926,
-"under": 1.82
+"over": 1.82,
+"under": 1.926
 },
 {
 "bolag": "svenskaspel",
-"over": 1.68,
-"under": 2.08
+"over": 1.84,
+"under": 1.89
 },
 {
 "bolag": "unibet",
-"over": 1.68,
-"under": 2.08
-},
-{
-"bolag": "us_draftkings",
-"over": 1.97,
-"under": 1.78
+"over": 1.84,
+"under": 1.89
 }
 ]
 },
-"prognos": 11.605161562175303,
-"analys_ts": 1795214324.256112,
+"prognos": 11.668274803836846,
+"analys_ts": 1795228864.856354,
 "modellversion": "2026-11-15-betyg",
 "prognos_ts": 1795213202.5147405,
-"skarp_stang_p": 0.5193709987771143,
-"skarp_stang_ts": 1795214323.9773307,
+"skarp_stang_p": 0.48435233985191184,
+"skarp_stang_ts": 1795228864.6270175,
 "skarp_kalla": "skanning",
 "pin_stang_p": 0.48435233985191184,
 "dk_stang_p": 0.5280497154439798,
@@ -5316,8 +5311,12 @@
 "dk_p": 0.5280497154439798
 },
 "bolag_stangning": {
-"ts": 1795227568.0319169,
+"ts": 1795228864.8724823,
 "odds": {
+"unibet": {
+"over": 1.84,
+"under": 1.89
+},
 "pinnacle": {
 "over": 1.82,
 "under": 1.926
@@ -5329,10 +5328,10 @@
 "dk_linje": null,
 "pin_p": 0.48435233985191184
 },
-"bolag_stang_ts": 1795227568.0319169,
-"skarp_verifierad": false,
+"bolag_stang_ts": 1795228864.8724823,
+"skarp_verifierad": true,
 "skarp_status": null,
-"clv_skarp_pp": 3.860176800788362,
+"clv_skarp_pp": 0.3583109082681113,
 "clv_pin_pp": 0.3583109082681113,
 "clv_dk_pp": 4.72804846747491,
 "nyhet_lag_status": "lag:austin reaves",
