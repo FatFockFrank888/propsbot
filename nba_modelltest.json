@@ -57337,14 +57337,14 @@
 "spela_fran": 2.13,
 "insats_pct": 0.01822957386560362,
 "stangning": 1.98,
-"status": "öppen",
+"status": "struken",
 "stopp": "modell 66% (väntat 2.1), marknad 43%, vikt 0.20, dq 0.67; skadelista: day-to-day (ESPN) – kolla före start",
 "clv_signal": false,
 "forv_clv_pp": null,
 "p_modell": 0.660939507658259,
 "p_marknad": 0.43308809300887485,
 "utfall": null,
-"resultat_enheter": null,
+"resultat_enheter": 0.0,
 "p_stack": 0.4245,
 "p_modell_min": 0.6569,
 "minuter": 16.4,
@@ -57422,7 +57422,8 @@
 "skarp_status": "borttagen",
 "clv_skarp_pp": 2.7383004351162032,
 "clv_pin_pp": null,
-"clv_dk_pp": 2.7383004351162032
+"clv_dk_pp": 2.7383004351162032,
+"struken_orsak": "spelaren hittades inte i ESPN:s boxscore inom 48 h"
 },
 {
 "key": "nba1028754034|pelle larsson|pra|16.5|unibet",
@@ -70925,11 +70926,11 @@
 "dk_p": 0.4895585237386368
 },
 "bolag_stangning": {
-"ts": 1795222610.9628606,
+"ts": 1795223857.7339969,
 "odds": {
 "unibet": {
-"over": 2.1,
-"under": 1.67
+"over": 2.08,
+"under": 1.68
 }
 },
 "pin_flyttad": false,
@@ -70937,7 +70938,7 @@
 "pin_linje": null,
 "dk_linje": null
 },
-"bolag_stang_ts": 1795222610.9628606,
+"bolag_stang_ts": 1795223857.7339969,
 "skarp_verifierad": false,
 "skarp_status": null,
 "clv_skarp_pp": 1.487213573677315,
