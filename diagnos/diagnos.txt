@@ -1,5 +1,5 @@
-Skanning 2026-11-21 18:49
-Kambi unibet (ubse): OK, 96 matcher i valda ligor
+Skanning 2026-11-21 19:07
+Kambi unibet (ubse): OK, 98 matcher i valda ligor
 Kambi paf (paf): OK
 Kambi atg (atg): OK
 Kambi leovegas (leose): OK
@@ -7,77 +7,79 @@ Kambi svenskaspel (svenskaspel): OK
 Kambi expekt (expektse): OK
 Kambi betmgm (betmgmse): OK
 Pinnacle: OK, 26 ligor
-  BK Häcken – IF Elfsborg: Pinnacle FEL HTTP 403 för https://guest.api.arcadia.pinnacle.com/0.1/matchups/1640272542/related
-Pinnacle: 86 matcher, matchlinjer för 45 av 60 Kambi-matcher, 0 spelarodds som används
+  FC Zürich – St. Gallen: Pinnacle FEL HTTP 403 för https://guest.api.arcadia.pinnacle.com/0.1/matchups/1640278094/related
+Pinnacle: 84 matcher, matchlinjer för 44 av 60 Kambi-matcher, 0 spelarodds som används
 Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
-  Double Chance 1st Half | units=Regular | kategori=Team Props | deltagare=Reims Or Saint-Etienne,Draw Or Saint-Etienne,Draw Or Reims  ->  används inte (lagmarknad)
-  Moneyline and Total Goals | units=Regular | kategori=Team Props | deltagare=Reims & Over 2.5,Reims & Under 2.5,Draw & Over 2.5,Draw & Under 2.5,Saint-Etienne & Over 2.5,Saint-Etienne & Under 2.5  ->  används inte (lagmarknad)
-  Double Chance | units=Regular | kategori=Team Props | deltagare=Reims Or Saint-Etienne,Draw Or Saint-Etienne,Draw Or Reims  ->  används inte (lagmarknad)
-  3-Way Handicap Reims -1 | units=Regular | kategori=Team Props | deltagare=Reims (-1),Draw - (Reims -1),Saint-Etienne (+1)  ->  används inte (lagmarknad)
-  Winning Margin | units=Regular | kategori=Team Props | deltagare=Reims By 1,Reims By 2,Reims By 3,Reims By 4+,Saint-Etienne By 1,Saint-Etienne By 2,Saint-Etienne By 3,Saint-Etienne By 4+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
-  Either Team To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Exact Total Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5,6+  ->  används inte (lagmarknad)
-  Reims Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
-  Total Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
-  Draw No Bet | units=Regular | kategori=Team Props | deltagare=Reims,Saint-Etienne  ->  används inte (lagmarknad)
-  Odd/Even and Total Goals | units=Regular | kategori=Team Props | deltagare=Odd & Over 2.5,Odd & Under 2.5,Even & Over 2.5,Even & Under 2.5  ->  används inte (lagmarknad)
-  Saint-Etienne To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Correct Score | units=Regular | kategori=Team Props | deltagare=Reims 0, Saint-Etienne 0,Reims 0, Saint-Etienne 1,Reims 0, Saint-Etienne 2,Reims 0, Saint-Etienne 3,Reims 0, Saint-Etienne 4,Reims 0, Saint-Etienne 5,Reims 0, Saint-Etienne 6,Reims 1, Saint-Etienne 0,Reims 1, Saint-Etienne 1,Reims 1, Saint-Etienne 2,Reims 1, Saint-Etienne 3,Reims 1, Saint-Etienne 4,Reims 1, Saint-Etienne 5,Reims 1, Saint-Etienne 6,Reims 2, Saint-Etienne 0,Reims 2, Saint-Etienne 1,Reims 2, Saint-Etienne 2,Reims 2, Saint-Etienne 3,Reims 2, Saint-Etienne 4,Reims 2, Saint-Etienne 5,Reims 2, Saint-Etienne 6,Reims 3, Saint-Etienne 0,Reims 3, Saint-Etienne 1,Reims 3, Saint-Etienne 2,Reims 3, Saint-Etienne 3,Reims 3, Saint-Etienne 4,Reims 3, Saint-Etienne 5,Reims 3, Saint-Etienne 6,Reims 4, Saint-Etienne 0,Reims 4, Saint-Etienne 1,Reims 4, Saint-Etienne 2,Reims 4, Saint-Etienne 3,Reims 4, Saint-Etienne 4,Reims 4, Saint-Etienne 5,Reims 4, Saint-Etienne 6,Reims 5, Saint-Etienne 0,Reims 5, Saint-Etienne 1,Reims 5, Saint-Etienne 2,Reims 5, Saint-Etienne 3,Reims 5, Saint-Etienne 4,Reims 5, Saint-Etienne 5,Reims 5, Saint-Etienne 6,Reims 6, Saint-Etienne 0,Reims 6, Saint-Etienne 1,Reims 6, Saint-Etienne 2,Reims 6, Saint-Etienne 3,Reims 6, Saint-Etienne 4,Reims 6, Saint-Etienne 5,Reims 6, Saint-Etienne 6  ->  används inte (lagmarknad)
-  Reims To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Correct Score 1st Half | units=Regular | kategori=Team Props | deltagare=Reims 0, Saint-Etienne 0,Reims 0, Saint-Etienne 1,Reims 0, Saint-Etienne 2,Reims 0, Saint-Etienne 3,Reims 1, Saint-Etienne 0,Reims 1, Saint-Etienne 1,Reims 1, Saint-Etienne 2,Reims 1, Saint-Etienne 3,Reims 2, Saint-Etienne 0,Reims 2, Saint-Etienne 1,Reims 2, Saint-Etienne 2,Reims 2, Saint-Etienne 3,Reims 3, Saint-Etienne 0,Reims 3, Saint-Etienne 1,Reims 3, Saint-Etienne 2,Reims 3, Saint-Etienne 3  ->  används inte (lagmarknad)
-  3-Way Handicap Reims +2 | units=Regular | kategori=Team Props | deltagare=Reims (+2),Draw - (Reims +2),Saint-Etienne (-2)  ->  används inte (lagmarknad)
-  Saint-Etienne Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
-  Reims To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Saint-Etienne Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
-  Both Teams To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Reims Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
-  Saint-Etienne Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
-  Total Goals Range 1st Half | units=Regular | kategori=Team Props | deltagare=0 - 1,2 - 3,4+  ->  används inte (lagmarknad)
-  Draw No Bet 1st Half | units=Regular | kategori=Team Props | deltagare=Reims,Saint-Etienne  ->  används inte (lagmarknad)
-  Total Goals Odd/Even 1st Half | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
-  3-Way Handicap Reims +1 | units=Regular | kategori=Team Props | deltagare=Reims (+1),Draw - (Reims +1),Saint-Etienne (-1)  ->  används inte (lagmarknad)
-  Both Teams To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Double Chance 1st Half | units=Regular | kategori=Team Props | deltagare=Palmeiras Or Flamengo,Draw Or Flamengo,Draw Or Palmeiras  ->  används inte (lagmarknad)
+  Moneyline and Total Goals | units=Regular | kategori=Team Props | deltagare=Palmeiras & Over 2.5,Palmeiras & Under 2.5,Draw & Over 2.5,Draw & Under 2.5,Flamengo & Over 2.5,Flamengo & Under 2.5  ->  används inte (lagmarknad)
+  Double Chance | units=Regular | kategori=Team Props | deltagare=Palmeiras Or Flamengo,Draw Or Flamengo,Draw Or Palmeiras  ->  används inte (lagmarknad)
   Total Goals Range | units=Regular | kategori=Team Props | deltagare=0 - 1,2 - 3,4 - 6,7+  ->  används inte (lagmarknad)
+  Draw No Bet | units=Regular | kategori=Team Props | deltagare=Palmeiras,Flamengo  ->  används inte (lagmarknad)
+  Total Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  Flamengo Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
+  Draw No Bet 1st Half | units=Regular | kategori=Team Props | deltagare=Palmeiras,Flamengo  ->  används inte (lagmarknad)
+  Correct Score | units=Regular | kategori=Team Props | deltagare=Palmeiras 0, Flamengo 0,Palmeiras 0, Flamengo 1,Palmeiras 0, Flamengo 2,Palmeiras 0, Flamengo 3,Palmeiras 0, Flamengo 4,Palmeiras 0, Flamengo 5,Palmeiras 0, Flamengo 6,Palmeiras 1, Flamengo 0,Palmeiras 1, Flamengo 1,Palmeiras 1, Flamengo 2,Palmeiras 1, Flamengo 3,Palmeiras 1, Flamengo 4,Palmeiras 1, Flamengo 5,Palmeiras 1, Flamengo 6,Palmeiras 2, Flamengo 0,Palmeiras 2, Flamengo 1,Palmeiras 2, Flamengo 2,Palmeiras 2, Flamengo 3,Palmeiras 2, Flamengo 4,Palmeiras 2, Flamengo 5,Palmeiras 2, Flamengo 6,Palmeiras 3, Flamengo 0,Palmeiras 3, Flamengo 1,Palmeiras 3, Flamengo 2,Palmeiras 3, Flamengo 3,Palmeiras 3, Flamengo 4,Palmeiras 3, Flamengo 5,Palmeiras 3, Flamengo 6,Palmeiras 4, Flamengo 0,Palmeiras 4, Flamengo 1,Palmeiras 4, Flamengo 2,Palmeiras 4, Flamengo 3,Palmeiras 4, Flamengo 4,Palmeiras 4, Flamengo 5,Palmeiras 4, Flamengo 6,Palmeiras 5, Flamengo 0,Palmeiras 5, Flamengo 1,Palmeiras 5, Flamengo 2,Palmeiras 5, Flamengo 3,Palmeiras 5, Flamengo 4,Palmeiras 5, Flamengo 5,Palmeiras 5, Flamengo 6,Palmeiras 6, Flamengo 0,Palmeiras 6, Flamengo 1,Palmeiras 6, Flamengo 2,Palmeiras 6, Flamengo 3,Palmeiras 6, Flamengo 4,Palmeiras 6, Flamengo 5,Palmeiras 6, Flamengo 6  ->  används inte (lagmarknad)
+  Flamengo Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  Winning Margin 1st Half | units=Regular | kategori=Team Props | deltagare=Palmeiras By 1,Palmeiras By 2+,Flamengo By 1,Flamengo By 2+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
+  First Team To Score 1st Half | units=1st Goal | kategori=Team Props | deltagare=Palmeiras,Flamengo,Neither  ->  används inte (lagmarknad)
   Either Team To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Flamengo To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Palmeiras Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
   Exact Total Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
-  First Team To Score 1st Half | units=1st Goal | kategori=Team Props | deltagare=Reims,Saint-Etienne,Neither  ->  används inte (lagmarknad)
-  First Team To Score | units=1st Goal | kategori=Team Props | deltagare=Reims,Saint-Etienne,Neither  ->  används inte (lagmarknad)
-  Reims Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
-  Saint-Etienne To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Winning Margin 1st Half | units=Regular | kategori=Team Props | deltagare=Reims By 1,Reims By 2+,Saint-Etienne By 1,Saint-Etienne By 2+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
-  Both Teams To Score and Moneyline | units=Regular | kategori=Team Props | deltagare=Yes & Reims,Yes & Draw,Yes & Saint-Etienne,No & Reims,No & Draw,No & Saint-Etienne  ->  används inte (lagmarknad)
-  Reims To Win To Nil | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Saint-Etienne To Win To Nil | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Saint-Etienne To Win To Nil 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Reims To Win To Nil 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Exact Total Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5,6+  ->  används inte (lagmarknad)
+  Both Teams To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  First Team To Score | units=1st Goal | kategori=Team Props | deltagare=Palmeiras,Flamengo,Neither  ->  används inte (lagmarknad)
+  Both Teams To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Total Goals Range 1st Half | units=Regular | kategori=Team Props | deltagare=0 - 1,2 - 3,4+  ->  används inte (lagmarknad)
+  3-Way Handicap Palmeiras -1 | units=Regular | kategori=Team Props | deltagare=Palmeiras (-1),Draw - (Palmeiras -1),Flamengo (+1)  ->  används inte (lagmarknad)
+  Palmeiras Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  Palmeiras To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Winning Margin | units=Regular | kategori=Team Props | deltagare=Palmeiras By 1,Palmeiras By 2,Palmeiras By 3,Palmeiras By 4+,Flamengo By 1,Flamengo By 2,Flamengo By 3,Flamengo By 4+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
+  Total Goals Odd/Even 1st Half | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  Correct Score 1st Half | units=Regular | kategori=Team Props | deltagare=Palmeiras 0, Flamengo 0,Palmeiras 0, Flamengo 1,Palmeiras 0, Flamengo 2,Palmeiras 0, Flamengo 3,Palmeiras 1, Flamengo 0,Palmeiras 1, Flamengo 1,Palmeiras 1, Flamengo 2,Palmeiras 1, Flamengo 3,Palmeiras 2, Flamengo 0,Palmeiras 2, Flamengo 1,Palmeiras 2, Flamengo 2,Palmeiras 2, Flamengo 3,Palmeiras 3, Flamengo 0,Palmeiras 3, Flamengo 1,Palmeiras 3, Flamengo 2,Palmeiras 3, Flamengo 3  ->  används inte (lagmarknad)
+  Flamengo To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Either Team To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Palmeiras Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
+  3-Way Handicap Palmeiras +1 | units=Regular | kategori=Team Props | deltagare=Palmeiras (+1),Draw - (Palmeiras +1),Flamengo (-1)  ->  används inte (lagmarknad)
+  Palmeiras To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Flamengo Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
+  Both Teams To Score and Moneyline | units=Regular | kategori=Team Props | deltagare=Yes & Palmeiras,Yes & Draw,Yes & Flamengo,No & Palmeiras,No & Draw,No & Flamengo  ->  används inte (lagmarknad)
+  Odd/Even and Total Goals | units=Regular | kategori=Team Props | deltagare=Odd & Over 2.5,Odd & Under 2.5,Even & Over 2.5,Even & Under 2.5  ->  används inte (lagmarknad)
+  Palmeiras To Win To Nil | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Flamengo To Win To Nil | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Palmeiras To Win To Nil 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Flamengo To Win To Nil 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
   Both Teams To Score and Total Goals | units=Regular | kategori=Team Props | deltagare=Yes & Over 2.5,Yes & Under 2.5,No & Over 2.5,No & Under 2.5  ->  används inte (lagmarknad)
-  Double Chance 1st Half | units=Regular | kategori=Team Props | deltagare=New England Revolution Or Philadelphia Union,Draw Or Philadelphia Union,Draw Or New England Revolution  ->  används inte (lagmarknad)
-  Moneyline and Total Goals | units=Regular | kategori=Team Props | deltagare=New England Revolution & Over 3.5,New England Revolution & Under 3.5,Draw & Over 3.5,Draw & Under 3.5,Philadelphia Union & Over 3.5,Philadelphia Union & Under 3.5  ->  används inte (lagmarknad)
-  Double Chance | units=Regular | kategori=Team Props | deltagare=New England Revolution Or Philadelphia Union,Draw Or Philadelphia Union,Draw Or New England Revolution  ->  används inte (lagmarknad)
-  3-Way Handicap New England Revolution -1 | units=Regular | kategori=Team Props | deltagare=New England Revolution (-1),Draw - (New England Revolution -1),Philadelphia Union (+1)  ->  används inte (lagmarknad)
-  Winning Margin | units=Regular | kategori=Team Props | deltagare=New England Revolution By 1,New England Revolution By 2,New England Revolution By 3,New England Revolution By 4+,Philadelphia Union By 1,Philadelphia Union By 2,Philadelphia Union By 3,Philadelphia Union By 4+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
-  New England Revolution Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
-  Draw No Bet | units=Regular | kategori=Team Props | deltagare=New England Revolution,Philadelphia Union  ->  används inte (lagmarknad)
-  Odd/Even and Total Goals | units=Regular | kategori=Team Props | deltagare=Odd & Over 3.5,Odd & Under 3.5,Even & Over 3.5,Even & Under 3.5  ->  används inte (lagmarknad)
-  Philadelphia Union To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Correct Score | units=Regular | kategori=Team Props | deltagare=New England Revolution 0, Philadelphia Union 0,New England Revolution 0, Philadelphia Union 1,New England Revolution 0, Philadelphia Union 2,New England Revolution 0, Philadelphia Union 3,New England Revolution 0, Philadelphia Union 4,New England Revolution 0, Philadelphia Union 5,New England Revolution 0, Philadelphia Union 6,New England Revolution 1, Philadelphia Union 0,New England Revolution 1, Philadelphia Union 1,New England Revolution 1, Philadelphia Union 2,New England Revolution 1, Philadelphia Union 3,New England Revolution 1, Philadelphia Union 4,New England Revolution 1, Philadelphia Union 5,New England Revolution 1, Philadelphia Union 6,New England Revolution 2, Philadelphia Union 0,New England Revolution 2, Philadelphia Union 1,New England Revolution 2, Philadelphia Union 2,New England Revolution 2, Philadelphia Union 3,New England Revolution 2, Philadelphia Union 4,New England Revolution 2, Philadelphia Union 5,New England Revolution 2, Philadelphia Union 6,New England Revolution 3, Philadelphia Union 0,New England Revolution 3, Philadelphia Union 1,New England Revolution 3, Philadelphia Union 2,New England Revolution 3, Philadelphia Union 3,New England Revolution 3, Philadelphia Union 4,New England Revolution 3, Philadelphia Union 5,New England Revolution 3, Philadelphia Union 6,New England Revolution 4, Philadelphia Union 0,New England Revolution 4, Philadelphia Union 1,New England Revolution 4, Philadelphia Union 2,New England Revolution 4, Philadelphia Union 3,New England Revolution 4, Philadelphia Union 4,New England Revolution 4, Philadelphia Union 5,New England Revolution 4, Philadelphia Union 6,New England Revolution 5, Philadelphia Union 0,New England Revolution 5, Philadelphia Union 1,New England Revolution 5, Philadelphia Union 2,New England Revolution 5, Philadelphia Union 3,New England Revolution 5, Philadelphia Union 4,New England Revolution 5, Philadelphia Union 5,New England Revolution 5, Philadelphia Union 6,New England Revolution 6, Philadelphia Union 0,New England Revolution 6, Philadelphia Union 1,New England Revolution 6, Philadelphia Union 2,New England Revolution 6, Philadelphia Union 3,New England Revolution 6, Philadelphia Union 4,New England Revolution 6, Philadelphia Union 5,New England Revolution 6, Philadelphia Union 6  ->  används inte (lagmarknad)
-  New England Revolution To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Correct Score 1st Half | units=Regular | kategori=Team Props | deltagare=New England Revolution 0, Philadelphia Union 0,New England Revolution 0, Philadelphia Union 1,New England Revolution 0, Philadelphia Union 2,New England Revolution 0, Philadelphia Union 3,New England Revolution 1, Philadelphia Union 0,New England Revolution 1, Philadelphia Union 1,New England Revolution 1, Philadelphia Union 2,New England Revolution 1, Philadelphia Union 3,New England Revolution 2, Philadelphia Union 0,New England Revolution 2, Philadelphia Union 1,New England Revolution 2, Philadelphia Union 2,New England Revolution 2, Philadelphia Union 3,New England Revolution 3, Philadelphia Union 0,New England Revolution 3, Philadelphia Union 1,New England Revolution 3, Philadelphia Union 2,New England Revolution 3, Philadelphia Union 3  ->  används inte (lagmarknad)
-  3-Way Handicap New England Revolution +2 | units=Regular | kategori=Team Props | deltagare=New England Revolution (+2),Draw - (New England Revolution +2),Philadelphia Union (-2)  ->  används inte (lagmarknad)
-  Philadelphia Union Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
-  New England Revolution To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Philadelphia Union Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
-  New England Revolution Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
-  Philadelphia Union Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
-  Draw No Bet 1st Half | units=Regular | kategori=Team Props | deltagare=New England Revolution,Philadelphia Union  ->  används inte (lagmarknad)
-Sides mindre ligor: 62 Kambi-matcher inom 12 h, 165 Pinnacle-matcher, 50 med Pinnacle, 50 matchade: Andorra / Primera Division, Argentina / Primera Nacional, Belgium / Challenger Pro League, Bolivia / Liga Profesional Bolivia, Chile / Primera B, Chile / Primera Chile, Chile / Segunda División, Colombia / Liga Dimayor, Copa Sudamericana, Costa Rica / Primera Division Costa Rica, Ecuador / Liga Pro,
+  Draw No Bet | units=Regular | kategori=Team Props | deltagare=St. Pauli,Bochum  ->  används inte (lagmarknad)
+  Bochum Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
+  Draw No Bet 1st Half | units=Regular | kategori=Team Props | deltagare=St. Pauli,Bochum  ->  används inte (lagmarknad)
+  Correct Score | units=Regular | kategori=Team Props | deltagare=St. Pauli 0, Bochum 0,St. Pauli 0, Bochum 1,St. Pauli 0, Bochum 2,St. Pauli 0, Bochum 3,St. Pauli 0, Bochum 4,St. Pauli 0, Bochum 5,St. Pauli 0, Bochum 6,St. Pauli 1, Bochum 0,St. Pauli 1, Bochum 1,St. Pauli 1, Bochum 2,St. Pauli 1, Bochum 3,St. Pauli 1, Bochum 4,St. Pauli 1, Bochum 5,St. Pauli 1, Bochum 6,St. Pauli 2, Bochum 0,St. Pauli 2, Bochum 1,St. Pauli 2, Bochum 2,St. Pauli 2, Bochum 3,St. Pauli 2, Bochum 4,St. Pauli 2, Bochum 5,St. Pauli 2, Bochum 6,St. Pauli 3, Bochum 0,St. Pauli 3, Bochum 1,St. Pauli 3, Bochum 2,St. Pauli 3, Bochum 3,St. Pauli 3, Bochum 4,St. Pauli 3, Bochum 5,St. Pauli 3, Bochum 6,St. Pauli 4, Bochum 0,St. Pauli 4, Bochum 1,St. Pauli 4, Bochum 2,St. Pauli 4, Bochum 3,St. Pauli 4, Bochum 4,St. Pauli 4, Bochum 5,St. Pauli 4, Bochum 6,St. Pauli 5, Bochum 0,St. Pauli 5, Bochum 1,St. Pauli 5, Bochum 2,St. Pauli 5, Bochum 3,St. Pauli 5, Bochum 4,St. Pauli 5, Bochum 5,St. Pauli 5, Bochum 6,St. Pauli 6, Bochum 0,St. Pauli 6, Bochum 1,St. Pauli 6, Bochum 2,St. Pauli 6, Bochum 3,St. Pauli 6, Bochum 4,St. Pauli 6, Bochum 5,St. Pauli 6, Bochum 6  ->  används inte (lagmarknad)
+  Bochum Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  Winning Margin 1st Half | units=Regular | kategori=Team Props | deltagare=St. Pauli By 1,St. Pauli By 2+,Bochum By 1,Bochum By 2+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
+  First Team To Score 1st Half | units=1st Goal | kategori=Team Props | deltagare=St. Pauli,Bochum,Neither  ->  används inte (lagmarknad)
+  Bochum To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  St. Pauli Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
+  First Team To Score | units=1st Goal | kategori=Team Props | deltagare=St. Pauli,Bochum,Neither  ->  används inte (lagmarknad)
+  3-Way Handicap St. Pauli +2 | units=Regular | kategori=Team Props | deltagare=St. Pauli (+2),Draw - (St. Pauli +2),Bochum (-2)  ->  används inte (lagmarknad)
+  3-Way Handicap St. Pauli -1 | units=Regular | kategori=Team Props | deltagare=St. Pauli (-1),Draw - (St. Pauli -1),Bochum (+1)  ->  används inte (lagmarknad)
+  St. Pauli Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  St. Pauli To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  3-Way Handicap St. Pauli -3 | units=Regular | kategori=Team Props | deltagare=St. Pauli (-3),Draw - (St. Pauli -3),Bochum (+3)  ->  används inte (lagmarknad)
+  Winning Margin | units=Regular | kategori=Team Props | deltagare=St. Pauli By 1,St. Pauli By 2,St. Pauli By 3,St. Pauli By 4+,Bochum By 1,Bochum By 2,Bochum By 3,Bochum By 4+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
+  Correct Score 1st Half | units=Regular | kategori=Team Props | deltagare=St. Pauli 0, Bochum 0,St. Pauli 0, Bochum 1,St. Pauli 0, Bochum 2,St. Pauli 0, Bochum 3,St. Pauli 1, Bochum 0,St. Pauli 1, Bochum 1,St. Pauli 1, Bochum 2,St. Pauli 1, Bochum 3,St. Pauli 2, Bochum 0,St. Pauli 2, Bochum 1,St. Pauli 2, Bochum 2,St. Pauli 2, Bochum 3,St. Pauli 3, Bochum 0,St. Pauli 3, Bochum 1,St. Pauli 3, Bochum 2,St. Pauli 3, Bochum 3  ->  används inte (lagmarknad)
+  Bochum To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  3-Way Handicap St. Pauli -2 | units=Regular | kategori=Team Props | deltagare=St. Pauli (-2),Draw - (St. Pauli -2),Bochum (+2)  ->  används inte (lagmarknad)
+  St. Pauli Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
+Sides mindre ligor: 59 Kambi-matcher inom 12 h, 143 Pinnacle-matcher, 47 med Pinnacle, 47 matchade: Andorra / Primera Division, Argentina / Primera Nacional, Bolivia / Liga Profesional Bolivia, Chile / Primera B, Chile / Primera Chile, Chile / Segunda División, Colombia / Liga Dimayor, Copa Sudamericana, Costa Rica / Primera Division Costa Rica, Ecuador / Liga Pro, El Salvador / Primera Divisíon, 
 Sides rättning: SportScore 96 anrop i dag
-Sides/totals: 95 matcher med Kambi + Pinnacle, 2331 linjer, 0 nya spel, 0 nya skuggspel, Smarkets-priser i 74 av 79; bästa edge +15.4% (Alianza Lima 1X2: 2), +14.0% (Isidro Metapán 1X2: X), +10.0% (FC Twente 1X2: 2)
-Hörnmodell (test): 7861 matcher i underlaget (17 ligor), 21 matcher med modell, 3724 Kambi-linjer, 0 nya testspel; bästa edge +24.8% (Kasımpaşa Kasımpaşa hörnor under 3.5 @ 2.85), +22.2% (CD Tenerife hörnor under 7.5 @ 3.00), +22.0% (FC Barcelona FC Barcelona hörnor över 10.5 @ 4.00)
+  Sides rättad: GAIS – Västerås SK FK 1X2: 2 -> förlorad (3–1)
+  Sides rättad: GAIS – Västerås SK FK handikapp +1 -> förlorad (3–1)
+  Sides rättad: Zagłębie Lubin – Górnik Zabrze 1X2: 2 -> förlorad (2–0)
+Sides/totals: 91 matcher med Kambi + Pinnacle, 2285 linjer, 0 nya spel, 1 nya skuggspel, Smarkets-priser i 70 av 74; bästa edge +14.3% (Alianza Lima 1X2: 2), +14.0% (Isidro Metapán 1X2: X), +11.5% (Palmeiras-SP 1X2: 1)
+Hörnmodell (test): 7861 matcher i underlaget (17 ligor), 22 matcher med modell, 3944 Kambi-linjer, 1 nya testspel; bästa edge +29.1% (Paris FC Paris FC hörnor över 8.5 @ 4.20), +24.8% (Kasımpaşa Kasımpaşa hörnor under 3.5 @ 2.85), +22.2% (CD Tenerife hörnor under 7.5 @ 3.00)
 Fotboll extra bolag: 0 nya hämtningar, 0 odds i bruk, krediter kvar 221, dagsbudget 22 (andel 40%), förbrukat idag 8
-Tid: hämtning 679 s
-Marginal över alla matcher: uppmätt marginal: shots stege k=1.15 (14 spelare; marginal vid 3,00 ≈ 18%), shots_on_target stege k=1.14 (238 spelare; marginal vid 3,00 ≈ 17%)
-  New England Revolution – Philadelphia Union: modell usa.1, 28 spelare
+Tid: hämtning 613 s
+Marginal över alla matcher: uppmätt marginal: shots stege k=1.20 (21 spelare; marginal vid 3,00 ≈ 25%), shots_on_target stege k=1.12 (244 spelare; marginal vid 3,00 ≈ 14%)
   Palmeiras-SP – Flamengo-RJ: modell bra.1, 30 spelare
   FC St. Pauli – VfL Bochum: modell ger.2, 26 spelare
   Napoli – Torino: modell ita.1, 31 spelare
@@ -107,6 +109,7 @@ Marginal över alla matcher: uppmätt marginal: shots stege k=1.15 (14 spelare; 
   SK Beveren – KAA Gent: modell bel.1, 29 spelare
   AC Horsens – Silkeborg IF: modell den.1, 29 spelare
   Viborg FF – Randers FC: modell den.1, 27 spelare
+  BK Häcken – IF Elfsborg: modell swe.1, 27 spelare
   IK Sirius FK – Djurgårdens IF: modell swe.1, 28 spelare
   FC Barcelona – Villarreal: modell esp.1, 31 spelare
   Sparta Rotterdam – AZ Alkmaar: modell ned.1, 28 spelare
@@ -114,30 +117,31 @@ Marginal över alla matcher: uppmätt marginal: shots stege k=1.15 (14 spelare; 
   Hull City – Brighton: modell – hittar inte matchen hos ESPN
   Bologna – Udinese: modell ita.1, 28 spelare
   Sassuolo – Genoa: modell ita.1, 32 spelare
-Modellens nivåavvikelse mot marknaden (log-odds, dras bort): assist -0.45, goal -0.14, shots -0.69, shots_on_target -0.40
-  New England Revolution – Philadelphia Union: väntade mål Pinnacle 3.23 mot Kambi 3.09 (kvot 1.046); uppmätt marginal: goal k=1.25, assist k=1.11
-Exempel uppmätt marginal: goal k=1.25, assist k=1.11
-  Palmeiras-SP – Flamengo-RJ: väntade mål Pinnacle 2.74 mot Kambi 2.73 (kvot 1.001); uppmätt marginal: goal k=1.21, assist k=1.27, shots_on_target stege k=1.12 (21 spelare; marginal vid 3,00 ≈ 14%)
-  FC St. Pauli – VfL Bochum: väntade mål Pinnacle 2.85 mot Kambi 3.00 (kvot 0.952); uppmätt marginal: goal k=1.55
-  Napoli – Torino: väntade mål Pinnacle 2.89 mot Kambi 2.94 (kvot 0.982); uppmätt marginal: goal k=1.56, assist k=1.54, shots_on_target stege k=1.26 (14 spelare; marginal vid 3,00 ≈ 33%)
-  Zulte Waregem – Royal Antwerp FC: väntade mål Pinnacle 2.72 mot Kambi 2.81 (kvot 0.971); uppmätt marginal: goal k=1.13
-  KV Mechelen – Club Brugge: väntade mål Pinnacle 3.63 mot Kambi 3.45 (kvot 1.052); uppmätt marginal: goal k=1.49, assist k=1.25
-  Strasbourg – Brest: väntade mål Pinnacle 2.71 mot Kambi 2.84 (kvot 0.955); uppmätt marginal: goal k=1.45, assist k=1.39, shots_on_target stege k=1.17 (28 spelare; marginal vid 3,00 ≈ 21%)
-  AS Monaco – Auxerre: väntade mål Pinnacle 3.08 mot Kambi 3.13 (kvot 0.986); uppmätt marginal: goal k=1.43, assist k=1.40, shots_on_target stege k=1.13 (14 spelare; marginal vid 3,00 ≈ 15%)
-  Lens – Toulouse: väntade mål Pinnacle 2.79 mot Kambi 2.74 (kvot 1.018); uppmätt marginal: goal k=1.58, assist k=1.49, shots_on_target stege k=1.18 (7 spelare; marginal vid 3,00 ≈ 22%)
-  Lille – Lyon: väntade mål Pinnacle 2.39 mot Kambi 2.44 (kvot 0.981); uppmätt marginal: goal k=1.21, assist k=1.19, shots_on_target stege k=1.20 (7 spelare; marginal vid 3,00 ≈ 25%)
-  SC Telstar – PEC Zwolle: väntade mål Pinnacle 3.15 mot Kambi 3.18 (kvot 0.991); uppmätt marginal: goal k=1.51, assist k=1.41, shots_on_target stege k=1.08 (14 spelare; marginal vid 3,00 ≈ 9%)
+  Paris FC – Angers: modell fra.1, 28 spelare
+Modellens nivåavvikelse mot marknaden (log-odds, dras bort): assist -0.59, goal -0.20, shots -0.70, shots_on_target -0.42
+  New England Revolution – Philadelphia Union: saknar matchlinjer från Pinnacle
+  Palmeiras-SP – Flamengo-RJ: väntade mål Pinnacle 2.75 mot Kambi 2.73 (kvot 1.005); uppmätt marginal: goal k=1.21, assist k=1.27, shots_on_target stege k=1.12 (20 spelare; marginal vid 3,00 ≈ 14%)
+Exempel uppmätt marginal: goal k=1.21, assist k=1.27, shots_on_target stege k=1.12 (20 spelare; marginal vid 3,00 ≈ 14%)
+  FC St. Pauli – VfL Bochum: väntade mål Pinnacle 2.85 mot Kambi 3.00 (kvot 0.949); uppmätt marginal: goal k=1.17
+  Napoli – Torino: väntade mål Pinnacle 2.85 mot Kambi 2.74 (kvot 1.041); uppmätt marginal: goal k=1.19, assist k=1.21, shots stege k=1.20 (7 spelare; marginal vid 3,00 ≈ 25%), shots_on_target stege k=1.11 (14 spelare; marginal vid 3,00 ≈ 13%)
+  Zulte Waregem – Royal Antwerp FC: väntade mål Pinnacle 2.69 mot Kambi 2.72 (kvot 0.992); uppmätt marginal: goal k=1.12
+  KV Mechelen – Club Brugge: väntade mål Pinnacle 3.64 mot Kambi 3.48 (kvot 1.047); uppmätt marginal: goal k=1.17
+  Strasbourg – Brest: väntade mål Pinnacle 2.77 mot Kambi 2.83 (kvot 0.978); uppmätt marginal: goal k=1.23, assist k=1.18, shots_on_target stege k=1.08 (21 spelare; marginal vid 3,00 ≈ 9%)
+  AS Monaco – Auxerre: väntade mål Pinnacle 3.01 mot Kambi 3.16 (kvot 0.953); uppmätt marginal: goal k=1.22, assist k=1.24, shots_on_target stege k=1.11 (14 spelare; marginal vid 3,00 ≈ 13%)
+  Lens – Toulouse: väntade mål Pinnacle 2.79 mot Kambi 2.77 (kvot 1.005); uppmätt marginal: goal k=1.24, assist k=1.20, shots_on_target stege k=1.24 (7 spelare; marginal vid 3,00 ≈ 30%)
+  Lille – Lyon: väntade mål Pinnacle 2.40 mot Kambi 2.44 (kvot 0.983); uppmätt marginal: goal k=1.21, assist k=1.18, shots_on_target stege k=1.30 (7 spelare; marginal vid 3,00 ≈ 39%)
+  SC Telstar – PEC Zwolle: väntade mål Pinnacle 3.15 mot Kambi 3.18 (kvot 0.990); uppmätt marginal: goal k=1.40, assist k=1.31, shots_on_target stege k=1.08 (21 spelare; marginal vid 3,00 ≈ 9%)
   FC Groningen – SC Heerenveen: väntade mål Pinnacle 3.51 mot Kambi 3.53 (kvot 0.993); uppmätt marginal: goal k=1.51, assist k=1.42, shots_on_target stege k=1.09 (28 spelare; marginal vid 3,00 ≈ 10%)
   Argentinos Jrs – Independiente: saknar matchlinjer från Pinnacle
   CD Tenerife – Mallorca: saknar matchlinjer från Pinnacle
-  Real Madrid – Celta Vigo: väntade mål Pinnacle 3.68 mot Kambi 3.69 (kvot 0.999); uppmätt marginal: goal k=1.54, assist k=1.56
-  Bahia-BA – Coritiba-PR: väntade mål Pinnacle 3.15 mot Kambi 3.07 (kvot 1.028); uppmätt marginal: goal k=1.40, assist k=1.32, shots stege k=1.26 (7 spelare; marginal vid 3,00 ≈ 33%), shots_on_target stege k=1.06 (14 spelare; marginal vid 3,00 ≈ 7%)
+  Real Madrid – Celta Vigo: väntade mål Pinnacle 3.68 mot Kambi 3.70 (kvot 0.996); uppmätt marginal: goal k=1.24, assist k=1.23
+  Bahia-BA – Coritiba-PR: väntade mål Pinnacle 3.13 mot Kambi 3.07 (kvot 1.021); uppmätt marginal: goal k=1.41, assist k=1.33, shots stege k=1.26 (7 spelare; marginal vid 3,00 ≈ 33%), shots_on_target stege k=1.06 (14 spelare; marginal vid 3,00 ≈ 7%)
   FC Dallas – Portland Timbers: väntade mål Pinnacle 3.33 mot Kambi 3.46 (kvot 0.963); uppmätt marginal: goal k=1.51, assist k=1.39
   CF Pachuca – Deportivo Toluca FC: väntade mål Pinnacle 3.39 mot Kambi 3.22 (kvot 1.054); uppmätt marginal: goal k=1.43, assist k=1.27
   Santos Laguna – Club León: väntade mål Pinnacle 3.04 mot Kambi 3.13 (kvot 0.971); uppmätt marginal: goal k=1.45, assist k=1.31
-  Inter Miami CF – Columbus Crew: väntade mål Pinnacle 3.58 mot Kambi 3.72 (kvot 0.961); uppmätt marginal: goal k=1.42, assist k=1.30
-  Chapecoense-SC – Cruzeiro-MG: väntade mål Pinnacle 3.12 mot Kambi 3.14 (kvot 0.996); uppmätt marginal: goal k=1.13, shots stege k=1.04 (7 spelare; marginal vid 3,00 ≈ 4%), shots_on_target stege k=1.48 (7 spelare; marginal vid 3,00 ≈ 69%)
-  Pumas UNAM – CF Monterrey: väntade mål Pinnacle 2.82 mot Kambi 3.04 (kvot 0.925); uppmätt marginal: goal k=1.37, assist k=1.22
+  Inter Miami CF – Columbus Crew: väntade mål Pinnacle 3.52 mot Kambi 3.72 (kvot 0.947); uppmätt marginal: goal k=1.43, assist k=1.31
+  Chapecoense-SC – Cruzeiro-MG: väntade mål Pinnacle 3.12 mot Kambi 3.14 (kvot 0.993); uppmätt marginal: goal k=1.13, shots stege k=1.04 (7 spelare; marginal vid 3,00 ≈ 4%), shots_on_target stege k=1.48 (7 spelare; marginal vid 3,00 ≈ 69%)
+  Pumas UNAM – CF Monterrey: väntade mål Pinnacle 2.76 mot Kambi 2.83 (kvot 0.973); uppmätt marginal: goal k=1.34, assist k=1.20
   Wellington Phoenix – Macarthur FC: saknar matchlinjer från Pinnacle
   Tigres UANL – Club América: väntade mål Pinnacle 2.98 mot Kambi 3.00 (kvot 0.994); uppmätt marginal: goal k=1.52, assist k=1.31
   Erzurumspor – Göztepe: saknar matchlinjer från Pinnacle
@@ -153,29 +157,30 @@ Exempel uppmätt marginal: goal k=1.25, assist k=1.11
   Kasımpaşa – Alanyaspor: saknar matchlinjer från Pinnacle
   Konyaspor – Beşiktaş: saknar matchlinjer från Pinnacle
   Córdoba CF – Real Oviedo: saknar matchlinjer från Pinnacle
-  BK Häcken – IF Elfsborg: saknar matchlinjer från Pinnacle
+  BK Häcken – IF Elfsborg: väntade mål Pinnacle 3.14 mot Kambi 3.07 (kvot 1.020); uppmätt marginal: goal k=1.58
   IK Sirius FK – Djurgårdens IF: väntade mål Pinnacle 2.96 mot Kambi 3.10 (kvot 0.956); uppmätt marginal: goal k=1.63
   FC Barcelona – Villarreal: väntade mål Pinnacle 4.54 mot Kambi 4.39 (kvot 1.033); uppmätt marginal: goal k=1.54, assist k=1.46
   Sparta Rotterdam – AZ Alkmaar: väntade mål Pinnacle 3.42 mot Kambi 3.27 (kvot 1.045); uppmätt marginal: goal k=1.50, assist k=1.45
   Ajax – ADO Den Haag: väntade mål Pinnacle 4.11 mot Kambi 4.12 (kvot 0.999); uppmätt marginal: goal k=1.64, assist k=1.51
-  Hull City – Brighton: väntade mål Pinnacle 2.92 mot Kambi 2.99 (kvot 0.976); uppmätt marginal: goal k=1.34, assist k=1.44
+  Hull City – Brighton: väntade mål Pinnacle 2.92 mot Kambi 2.99 (kvot 0.975); uppmätt marginal: goal k=1.34, assist k=1.44
   Bologna – Udinese: väntade mål Pinnacle 2.70 mot Kambi 2.72 (kvot 0.994); uppmätt marginal: goal k=1.45, assist k=1.47, shots_on_target stege k=1.07 (28 spelare; marginal vid 3,00 ≈ 8%)
-  Sassuolo – Genoa: väntade mål Pinnacle 2.62 mot Kambi 2.63 (kvot 0.993); uppmätt marginal: goal k=1.57, assist k=1.55, shots_on_target stege k=1.20 (21 spelare; marginal vid 3,00 ≈ 25%)
-Tid: modell och utvärdering 207 s
+  Sassuolo – Genoa: väntade mål Pinnacle 2.61 mot Kambi 2.63 (kvot 0.990); uppmätt marginal: goal k=1.57, assist k=1.55, shots_on_target stege k=1.20 (21 spelare; marginal vid 3,00 ≈ 25%)
+  Paris FC – Angers: väntade mål Pinnacle 3.17 mot Kambi 3.14 (kvot 1.010); uppmätt marginal: goal k=1.41, assist k=1.37, shots_on_target stege k=1.16 (7 spelare; marginal vid 3,00 ≈ 19%)
+Tid: modell och utvärdering 224 s
 Bolag med spelarodds: atg, betmgm, expekt, leovegas, paf, svenskaspel, unibet
-Spelarodds per marknad: assist 4659, goal 20329, shots 7860, shots_on_target 8716
-Kambi-marknader: assist='to give an assist (settled using opta data)':4659; goal='1st goalscorer':7405; goal='to score':8328; goal='to score at least 2 goals':3889; goal='to score at least 3 goals':588; goal='to score at least 4 goals':84; goal='to score at least 5 goals':28; goal='to score at least 6 goals':7; shots="player's shots (settled using opta data)":7860; shots_on_target="player's shots on target (settled using opta data)":8716
+Spelarodds per marknad: assist 4414, goal 19020, shots 7958, shots_on_target 8442
+Kambi-marknader: assist='to give an assist (settled using opta data)':4414; goal='1st goalscorer':6922; goal='to score':7872; goal='to score at least 2 goals':3540; goal='to score at least 3 goals':560; goal='to score at least 4 goals':91; goal='to score at least 5 goals':28; goal='to score at least 6 goals':7; shots="player's shots (settled using opta data)":7958; shots_on_target="player's shots on target (settled using opta data)":8442
 Pinnacle har inga spelarprops här – använder linjejustering mot Pinnacles matchlinjer.
 CLV-signal: 0 ben släppta (Pinnacle rör sig åt vårt håll)
 Startelvor: 0 spelbara ben klara, 0 väntar på startelvan, 0 stoppade (inte i startelvan)
 Spelregler: stoppade {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0} (modelltest {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0})
-Spelarmodell: 0 av 1202 ben har modell, 0 nya matcher hämtade från ESPN
-Bästa edge marknad shots_on_target: -2.2%, -2.8%, -3.2% (av 1038 ben)
-Bästa edge modelltest shots_on_target: -2.0%, -2.0%, -2.1% (av 855 ben)
+Spelarmodell: 0 av 1134 ben har modell, 1 nya matcher hämtade från ESPN
+Bästa edge marknad shots_on_target: -1.4%, -1.9%, -2.2% (av 973 ben)
+Bästa edge modelltest shots_on_target: -1.0%, -1.3%, -2.3% (av 790 ben)
 0 spelbara ben.
 Bokförda nya spel: 0
 Skuggspel: 0 nya bokförda (stoppade av reglerna, minst 2 % edge)
 Modelltest: 0 spelbara enligt modellen, 0 nya testspel bokförda
 Domare: 79 kommande matcher med utsedd domare (UEFA + football-data)
-Fouls (test): 342 ben med modell, 1 klarar kraven, 0 nya bokförda, bästa edge +30.7%, +9.9%, -0.0%, 0 nya ESPN-matcher, domare känd i 2 matcher
+Fouls (test): 320 ben med modell, 1 klarar kraven, 0 nya bokförda, bästa edge +30.7%, +9.9%, -0.8%, 0 nya ESPN-matcher, domare känd i 2 matcher
 Notiser skickade: 0
