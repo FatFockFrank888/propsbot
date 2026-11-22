@@ -1,4 +1,4 @@
-Skanning 2026-11-22 23:38
+Skanning 2026-11-22 23:48
 Kambi unibet (ubse): OK, 26 matcher i valda ligor
 Kambi paf (paf): OK
 Kambi atg (atg): OK
@@ -69,13 +69,14 @@ Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
   3-Way Handicap Vancouver Whitecaps -2 | units=Regular | kategori=Team Props | deltagare=Vancouver Whitecaps (-2),Draw - (Vancouver Whitecaps -2),Real Salt Lake (+2)  ->  används inte (lagmarknad)
   Moneyline and Total Goals | units=Regular | kategori=Team Props | deltagare=Vancouver Whitecaps & Over 3.5,Vancouver Whitecaps & Under 3.5,Draw & Over 3.5,Draw & Under 3.5,Real Salt Lake & Over 3.5,Real Salt Lake & Under 3.5  ->  används inte (lagmarknad)
   Real Salt Lake To Win To Nil | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-Sides mindre ligor: 8 Kambi-matcher inom 12 h, 19 Pinnacle-matcher, 7 med Pinnacle, 7 matchade: Argentina / Primera Nacional, Guatemala / Liga Nacional Guatemala, Honduras / Liga Nacional Honduras, Nicaragua / Primera Division Nicaragua, Peru / Segunda Division, Puerto Rico / LPR Pro, Ukraine / Premier League
+Sides mindre ligor: 8 Kambi-matcher inom 12 h, 20 Pinnacle-matcher, 7 med Pinnacle, 7 matchade: Argentina / Primera Nacional, Guatemala / Liga Nacional Guatemala, Honduras / Liga Nacional Honduras, Nicaragua / Primera Division Nicaragua, Peru / Segunda Division, Puerto Rico / LPR Pro, Ukraine / Premier League
 Sides rättning: goal-api dagstak 300 anrop nått
 Sides rättning: SportScore 100 anrop i dag
-Sides/totals: 20 matcher med Kambi + Pinnacle, 509 linjer, 0 nya spel, 0 nya skuggspel, Smarkets-priser i 14 av 16; bästa edge +3.3% (Örgryte IS 1X2: 2), +2.9% (Sochaux 1X2: X), +2.8% (Botafogo-RJ 1X2: 2)
+  Sides rättad: The Strongest – Blooming 1X2: 2 -> förlorad (4–0)
+Sides/totals: 20 matcher med Kambi + Pinnacle, 509 linjer, 0 nya spel, 0 nya skuggspel, Smarkets-priser i 14 av 16; bästa edge +3.3% (Örgryte IS 1X2: 2), +3.0% (Botafogo-RJ 1X2: 2), +2.9% (Sochaux 1X2: X)
 Hörnmodell (test): 7861 matcher i underlaget (17 ligor), 6 matcher med modell, 1020 Kambi-linjer, 0 nya testspel; bästa edge +56.7% (AD Ceuta FC Almeria hörnor under 3.5 @ 2.70), +16.7% (Brentford hörnor under 7.5 @ 3.95), +4.9% (Monza hörnhandikapp +0.5 @ 1.61)
 Fotboll extra bolag: 0 nya hämtningar, 0 odds i bruk, krediter kvar 200, dagsbudget 22 (andel 40%), förbrukat idag 8
-Tid: hämtning 372 s
+Tid: hämtning 382 s
 Marginal över alla matcher: uppmätt marginal: shots_on_target stege k=1.12 (55 spelare; marginal vid 3,00 ≈ 14%)
   Querétaro FC – Club Necaxa: modell – hittar inte matchen hos ESPN
   Vancouver Whitecaps – Real Salt Lake: modell – hittar inte matchen hos ESPN
@@ -91,7 +92,7 @@ Modellens nivåavvikelse mot marknaden (log-odds, dras bort): shots -0.63, shots
   Instituto – Huracán: saknar matchlinjer från Pinnacle
   Querétaro FC – Club Necaxa: väntade mål Pinnacle 3.19 mot Kambi 3.11 (kvot 1.026); uppmätt marginal: goal k=1.41, assist k=1.25
 Exempel uppmätt marginal: goal k=1.41, assist k=1.25
-  Vancouver Whitecaps – Real Salt Lake: väntade mål Pinnacle 3.64 mot Kambi 3.52 (kvot 1.033); uppmätt marginal: goal k=1.47, assist k=1.29
+  Vancouver Whitecaps – Real Salt Lake: väntade mål Pinnacle 3.58 mot Kambi 3.52 (kvot 1.017); uppmätt marginal: goal k=1.49, assist k=1.30
   İstanbul Başakşehir – Çorum Belediyespor: saknar matchlinjer från Pinnacle
   Brøndby IF – FC Midtjylland: väntade mål Pinnacle 3.20 mot Kambi 3.20 (kvot 1.001); uppmätt marginal: goal k=1.83, assist k=1.70
   Örgryte IS – Kalmar FF: väntade mål Pinnacle 2.83 mot Kambi 2.77 (kvot 1.021); uppmätt marginal: goal k=1.59
@@ -103,7 +104,7 @@ Exempel uppmätt marginal: goal k=1.41, assist k=1.25
   Levante – Elche: väntade mål Pinnacle 3.01 mot Kambi 2.89 (kvot 1.041); uppmätt marginal: goal k=1.65, assist k=1.63
   Internacional-RS – Vitória-BA: väntade mål Pinnacle 2.78 mot Kambi 2.67 (kvot 1.038); uppmätt marginal: goal k=1.55, assist k=1.36, shots_on_target stege k=1.30 (7 spelare; marginal vid 3,00 ≈ 39%)
   Botafogo-RJ – São Paulo-SP: väntade mål Pinnacle 2.65 mot Kambi 2.64 (kvot 1.004); uppmätt marginal: goal k=1.57, assist k=1.45, shots_on_target stege k=1.06 (14 spelare; marginal vid 3,00 ≈ 7%)
-Tid: modell och utvärdering 41 s
+Tid: modell och utvärdering 53 s
 Bolag med spelarodds: atg, betmgm, expekt, leovegas, paf, svenskaspel, unibet
 Spelarodds per marknad: assist 1547, goal 7198, shots 2231, shots_on_target 2611
 Kambi-marknader: assist='to give an assist (settled using opta data)':1547; goal='1st goalscorer':2731; goal='to score':2920; goal='to score at least 2 goals':1400; goal='to score at least 3 goals':133; goal='to score at least 4 goals':14; shots="player's shots (settled using opta data)":2231; shots_on_target="player's shots on target (settled using opta data)":2611
