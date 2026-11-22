@@ -2264,9 +2264,9 @@
 "p_marknad": 0.7163092012507176,
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795313317.8111546,
-"skarp_stang_p": 0.7150181331315735,
-"skarp_stang_ts": 1795313317.6738582,
+"stangning_ts": 1795314380.3673456,
+"skarp_stang_p": 0.7192272929330872,
+"skarp_stang_ts": 1795314380.2116387,
 "skarp_kalla": "skanning",
 "bolag_bokning": {
 "ts": 1795310382.483657,
@@ -2281,7 +2281,7 @@
 "dk_linje": null
 },
 "bolag_stangning": {
-"ts": 1795313317.8119557,
+"ts": 1795314380.3682027,
 "odds": {
 "unibet": {
 "over": 1.34
@@ -2292,10 +2292,76 @@
 "pin_linje": null,
 "dk_linje": null
 },
-"bolag_stang_ts": 1795313317.8119557,
+"bolag_stang_ts": 1795314380.3682027,
 "skarp_verifierad": false,
 "skarp_status": null,
-"clv_skarp_pp": 1.5717433830874095,
+"clv_skarp_pp": 1.9926593632387801,
+"clv_pin_pp": null,
+"clv_dk_pp": null
+},
+{
+"key": "k1028072756|cody gakpo|shots_on_target|0.5|atg",
+"id": 51,
+"bokford": 1795314380.3673215,
+"match_id": "k1028072756",
+"match": "Liverpool – Manchester United",
+"hemma": "Liverpool",
+"borta": "Manchester United",
+"liga": "Football / England / Premier League",
+"avspark": 1795365000.0,
+"spelare": "Cody Gakpo",
+"spelare_id": "cody gakpo",
+"marknad": "shots_on_target",
+"linje": 0.5,
+"sida": "over",
+"bolag": "atg",
+"odds": 1.47,
+"sannolikhet": 0.6958581519791595,
+"ratt_odds": 1.4370744916270657,
+"edge": 0.02291148340936444,
+"spela_fran": 1.47,
+"insats_pct": 0.012186959260300206,
+"stangning": 1.47,
+"status": "öppen",
+"stopp": "försiktig marginal (k ≥ 1.20) ger edge -0.1% – skuggspel; linjejusterat: väntade mål Pinnacle 3.30 mot Kambi 3.32 (kvot 0.994); uppmätt marginal: goal k=1.39, assist k=1.46, shots_on_target stege k=1.18 (6 spelare; marginal vid 3,00 ≈ 22%)",
+"clv_signal": false,
+"forv_clv_pp": 1.7825775158677337,
+"p_modell": null,
+"p_marknad": 0.6971647548281529,
+"utfall": null,
+"resultat_enheter": null,
+"stangning_ts": 1795314380.3673456,
+"skarp_stang_p": 0.6958581519791595,
+"skarp_stang_ts": 1795314380.2116387,
+"skarp_kalla": "skanning",
+"bolag_bokning": {
+"ts": 1795314380.3682027,
+"odds": {
+"unibet": {
+"over": 1.38
+}
+},
+"pin_flyttad": false,
+"pin_komb": false,
+"pin_linje": null,
+"dk_linje": null
+},
+"bolag_stangning": {
+"ts": 1795314380.3682027,
+"odds": {
+"unibet": {
+"over": 1.38
+}
+},
+"pin_flyttad": false,
+"pin_komb": false,
+"pin_linje": null,
+"dk_linje": null
+},
+"bolag_stang_ts": 1795314380.3682027,
+"skarp_verifierad": false,
+"skarp_status": null,
+"clv_skarp_pp": 1.5586043135622063,
 "clv_pin_pp": null,
 "clv_dk_pp": null
 }
