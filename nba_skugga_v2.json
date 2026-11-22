@@ -89257,11 +89257,11 @@
 "p_marknad": 0.5,
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795329334.7355466,
+"stangning_ts": 1795330509.7263825,
 "modellversion": "2026-11-15-betyg",
 "prognos_ts": 1795315511.0457513,
 "skarp_stang_p": 0.48305242076343885,
-"skarp_stang_ts": 1795329334.5442464,
+"skarp_stang_ts": 1795330509.571812,
 "skarp_kalla": "skanning",
 "dk_stang_p": 0.49111365251806627,
 "bolag_bokning": {
@@ -89283,7 +89283,7 @@
 "dk_p": 0.5
 },
 "bolag_stangning": {
-"ts": 1795329334.79712,
+"ts": 1795330509.7776954,
 "odds": {
 "unibet": {
 "over": 2.1,
@@ -89300,7 +89300,7 @@
 "dk_linje": null,
 "dk_p": 0.49111365251806627
 },
-"bolag_stang_ts": 1795329334.79712,
+"bolag_stang_ts": 1795330509.7776954,
 "skarp_verifierad": false,
 "skarp_status": null,
 "clv_skarp_pp": 0.6861944572962686,
@@ -89398,5 +89398,97 @@
 "clv_skarp_pp": 2.0785073213845373,
 "clv_pin_pp": 2.6042472815293927,
 "clv_dk_pp": 0.2808987521904338
+},
+{
+"key": "nba1028754400|onyeka okongwu|threes|2.5|unibet|under",
+"id": 1689,
+"bokford": 1795330509.7263105,
+"match_id": "nba1028754400",
+"match": "Atlanta Hawks – Detroit Pistons",
+"hemma": "Atlanta Hawks",
+"borta": "Detroit Pistons",
+"liga": "NBA",
+"avspark": 1795379400.0,
+"spelare": "Onyeka Okongwu",
+"spelare_id": "onyeka okongwu",
+"marknad": "threes",
+"linje": 2.5,
+"sida": "under",
+"bolag": "unibet",
+"odds": 1.49,
+"sannolikhet": 0.7343000197196536,
+"ratt_odds": 1.361841172742699,
+"edge": 0.09410702938228388,
+"spela_fran": 1.4,
+"insats_pct": 0.02,
+"stangning": 1.49,
+"status": "öppen",
+"stopp": "Pinnacles linje flyttad – skuggspel tills flytten är verifierad",
+"clv_signal": false,
+"forv_clv_pp": 12.491175763068895,
+"p_modell": null,
+"p_marknad": 0.7343000197196536,
+"utfall": null,
+"resultat_enheter": null,
+"stangning_ts": 1795330509.7263825,
+"modellversion": "2026-11-15-betyg",
+"prognos_ts": 1795330509.7263105,
+"skarp_stang_p": 0.7343000197196536,
+"skarp_stang_ts": 1795330509.571812,
+"skarp_kalla": "skanning",
+"pin_stang_p": 0.7343000197196536,
+"dk_stang_p": 0.6829136707245077,
+"bolag_bokning": {
+"ts": 1795330509.7776954,
+"odds": {
+"unibet": {
+"under": 1.49,
+"over": 2.5
+},
+"pinnacle": {
+"over": 3.764,
+"under": 1.362
+},
+"draftkings (1.5)": {
+"over": 1.69,
+"under": 2.09
+}
+},
+"pin_flyttad": true,
+"pin_komb": false,
+"pin_linje": null,
+"dk_linje": 1.5,
+"pin_p": 0.7343000197196536,
+"dk_p": 0.6829136707245077
+},
+"bolag_stangning": {
+"ts": 1795330509.7776954,
+"odds": {
+"unibet": {
+"under": 1.49,
+"over": 2.5
+},
+"pinnacle": {
+"over": 3.764,
+"under": 1.362
+},
+"draftkings (1.5)": {
+"over": 1.69,
+"under": 2.09
+}
+},
+"pin_flyttad": true,
+"pin_komb": false,
+"pin_linje": null,
+"dk_linje": 1.5,
+"pin_p": 0.7343000197196536,
+"dk_p": 0.6829136707245077
+},
+"bolag_stang_ts": 1795330509.7776954,
+"skarp_verifierad": false,
+"skarp_status": null,
+"clv_skarp_pp": 6.315908012233818,
+"clv_pin_pp": 6.315908012233818,
+"clv_dk_pp": 1.1772731127192237
 }
 ]
