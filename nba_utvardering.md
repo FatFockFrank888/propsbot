@@ -1,4 +1,4 @@
-# NBA – utvärdering på framåtriktad data (2026-11-22T23:08:52+00:00)
+# NBA – utvärdering på framåtriktad data (2026-11-22T23:17:18+00:00)
 
 Bara bokförda prognoser (gjorda före matchen). Unika prestationer = spelare × match × marknad.
 
@@ -19,10 +19,10 @@ Bara bokförda prognoser (gjorda före matchen). Unika prestationer = spelare ×
 | points | **ok** | 731 | 1.26 (+0.77…+1.54) | +67.3 % | +0.7 % |
 | pr | **ok** | 73 | 1.21 (+0.07…+2.35) | +69.9 % | +10.2 % |
 | pra | **ok** | 35 | 0.97 (+0.14…+2.71) | +65.7 % | -16.4 % |
-| ra | **osäker** | 104 | 0.50 (-0.95…+0.75) | +60.8 % | +3.3 % |
-| rebounds | **ok** | 403 | 0.95 (+0.51…+1.35) | +69.9 % | -1.8 % |
-| steals | **ok** | 39 | 4.46 (+3.17…+8.00) | +92.3 % | +39.3 % |
-| threes | **ok** | 232 | 1.40 (+0.62…+1.95) | +68.7 % | +8.8 % |
+| ra | **osäker** | 104 | 0.52 (-0.89…+0.78) | +61.2 % | +3.3 % |
+| rebounds | **ok** | 403 | 0.95 (+0.51…+1.34) | +69.9 % | -1.8 % |
+| steals | **ok** | 39 | 4.46 (+3.23…+7.78) | +92.3 % | +39.3 % |
+| threes | **ok** | 232 | 1.40 (+0.65…+1.94) | +68.7 % | +8.8 % |
 
 ## Skarp stängning per status
 
@@ -39,7 +39,7 @@ Verifierad = referensens notering högst 60 min före start. Flyttad linje = vå
 | spel | flyttad linje (för oss) | 43 | 4.28 | +6.4 % |
 | spel | flyttad linje (mot oss) | 10 | -4.45 | +4.0 % |
 | spel | verifierad | 234 | 1.74 | +8.4 % |
-| skugga | ? | 391 | 0.32 | +2.0 % |
+| skugga | ? | 392 | 0.32 | +2.0 % |
 | skugga | borttagen | 178 | 1.06 | -4.9 % |
 | skugga | flyttad linje (för oss) | 199 | 4.74 | +17.7 % |
 | skugga | flyttad linje (mot oss) | 48 | -4.66 | -16.9 % |
