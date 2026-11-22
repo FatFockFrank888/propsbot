@@ -24722,11 +24722,11 @@
 "p_marknad": 0.4792269249605666,
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795310427.3159542,
+"stangning_ts": 1795311365.666834,
 "modellversion": "2026-11-15-betyg",
 "prognos_ts": 1795304210.0791972,
 "skarp_stang_p": 0.4468449974961132,
-"skarp_stang_ts": 1795310427.2061336,
+"skarp_stang_ts": 1795311365.5809026,
 "skarp_kalla": "skanning",
 "dk_stang_p": 0.45875064886392053,
 "bolag_bokning": {
@@ -24748,11 +24748,11 @@
 "dk_p": 0.4792269249605666
 },
 "bolag_stangning": {
-"ts": 1795310427.4318285,
+"ts": 1795311365.7433498,
 "odds": {
 "unibet": {
 "over": 2.15,
-"under": 1.64
+"under": 1.65
 },
 "draftkings": {
 "over": 2.02,
@@ -24765,7 +24765,7 @@
 "dk_linje": null,
 "dk_p": 0.45875064886392053
 },
-"bolag_stang_ts": 1795310427.4318285,
+"bolag_stang_ts": 1795311365.7433498,
 "skarp_verifierad": false,
 "skarp_status": null,
 "clv_skarp_pp": 0.24005530516688078,
@@ -24852,5 +24852,75 @@
 "clv_skarp_pp": 3.3533936929721175,
 "clv_pin_pp": null,
 "clv_dk_pp": 3.3533936929721175
+},
+{
+"key": "nba1028754403|keegan murray|blocks|0.5|unibet|under",
+"id": 496,
+"bokford": 1795311365.666807,
+"match_id": "nba1028754403",
+"match": "Sacramento Kings – Boston Celtics",
+"hemma": "Sacramento Kings",
+"borta": "Boston Celtics",
+"liga": "NBA",
+"avspark": 1795316400.0,
+"spelare": "Keegan Murray",
+"spelare_id": "keegan murray",
+"marknad": "blocks",
+"linje": 0.5,
+"sida": "under",
+"bolag": "unibet",
+"odds": 2.55,
+"sannolikhet": 0.42500000000000004,
+"ratt_odds": 2.352941176470588,
+"edge": 0.08374999999999999,
+"spela_fran": 2.4,
+"insats_pct": 0.013508064516129032,
+"stangning": 2.55,
+"status": "öppen",
+"stopp": "",
+"clv_signal": false,
+"forv_clv_pp": 3.2843137254901955,
+"p_modell": null,
+"p_marknad": 0.42500000000000004,
+"utfall": null,
+"resultat_enheter": null,
+"stangning_ts": 1795311365.666834,
+"modellversion": "2026-11-15-betyg",
+"prognos_ts": 1795311365.666807,
+"skarp_stang_p": 0.42500000000000004,
+"skarp_stang_ts": 1795311365.5809026,
+"skarp_kalla": "skanning",
+"bolag_bokning": {
+"ts": 1795311365.7433498,
+"odds": {
+"unibet": {
+"over": 1.47,
+"under": 2.55
+}
+},
+"pin_flyttad": false,
+"pin_komb": false,
+"pin_linje": null,
+"dk_linje": null
+},
+"bolag_stangning": {
+"ts": 1795311365.7433498,
+"odds": {
+"unibet": {
+"over": 1.47,
+"under": 2.55
+}
+},
+"pin_flyttad": false,
+"pin_komb": false,
+"pin_linje": null,
+"dk_linje": null
+},
+"bolag_stang_ts": 1795311365.7433498,
+"skarp_verifierad": false,
+"skarp_status": null,
+"clv_skarp_pp": 3.2843137254901955,
+"clv_pin_pp": null,
+"clv_dk_pp": null
 }
 ]
