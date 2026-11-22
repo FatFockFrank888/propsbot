@@ -24722,13 +24722,13 @@
 "p_marknad": 0.4792269249605666,
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795308183.0970452,
+"stangning_ts": 1795309365.259605,
 "modellversion": "2026-11-15-betyg",
 "prognos_ts": 1795304210.0791972,
-"skarp_stang_p": 0.44246066163436903,
-"skarp_stang_ts": 1795308183.0098186,
+"skarp_stang_p": 0.4587506488639206,
+"skarp_stang_ts": 1795309365.134202,
 "skarp_kalla": "skanning",
-"dk_stang_p": 0.44246066163436903,
+"dk_stang_p": 0.45875064886392053,
 "bolag_bokning": {
 "ts": 1795304210.1895688,
 "odds": {
@@ -24748,28 +24748,109 @@
 "dk_p": 0.4792269249605666
 },
 "bolag_stangning": {
-"ts": 1795308183.1879966,
+"ts": 1795309365.3999352,
 "odds": {
 "unibet": {
 "over": 2.15,
 "under": 1.65
 },
 "draftkings": {
-"over": 2.08,
-"under": 1.69
+"over": 2.02,
+"under": 1.74
 }
 },
 "pin_flyttad": false,
 "pin_komb": false,
 "pin_linje": null,
 "dk_linje": null,
-"dk_p": 0.44246066163436903
+"dk_p": 0.45875064886392053
 },
-"bolag_stang_ts": 1795308183.1879966,
+"bolag_stang_ts": 1795309365.3999352,
 "skarp_verifierad": false,
 "skarp_status": null,
-"clv_skarp_pp": -0.19837828100753852,
+"clv_skarp_pp": 1.4306204419476165,
 "clv_pin_pp": null,
-"clv_dk_pp": -0.19837828100753852
+"clv_dk_pp": 1.430620441947611
+},
+{
+"key": "nba1028754420|devin vassell|assists|2.5|unibet",
+"id": 495,
+"bokford": 1795309365.2595687,
+"match_id": "nba1028754420",
+"match": "San Antonio Spurs – New Orleans Pelicans",
+"hemma": "San Antonio Spurs",
+"borta": "New Orleans Pelicans",
+"liga": "NBA",
+"avspark": 1795309560.0,
+"spelare": "Devin Vassell",
+"spelare_id": "devin vassell",
+"marknad": "assists",
+"linje": 2.5,
+"sida": "over",
+"bolag": "unibet",
+"odds": 1.85,
+"sannolikhet": 0.5740744774702616,
+"ratt_odds": 1.7419342598309506,
+"edge": 0.06203778331998411,
+"spela_fran": 1.78,
+"insats_pct": 0.008250414276383584,
+"stangning": 1.85,
+"status": "öppen",
+"stopp": "",
+"clv_signal": false,
+"forv_clv_pp": 3.1489401041541685,
+"p_modell": null,
+"p_marknad": 0.5740744774702616,
+"utfall": null,
+"resultat_enheter": null,
+"stangning_ts": 1795309365.259605,
+"modellversion": "2026-11-15-betyg",
+"prognos_ts": 1795309365.2595687,
+"skarp_stang_p": 0.5740744774702616,
+"skarp_stang_ts": 1795309365.134202,
+"skarp_kalla": "skanning",
+"dk_stang_p": 0.5740744774702616,
+"bolag_bokning": {
+"ts": 1795309365.3999352,
+"odds": {
+"unibet": {
+"over": 1.85,
+"under": 1.88
+},
+"draftkings": {
+"over": 1.65,
+"under": 2.16
+}
+},
+"pin_flyttad": false,
+"pin_komb": false,
+"pin_linje": null,
+"dk_linje": null,
+"dk_p": 0.5740744774702616
+},
+"bolag_stangning": {
+"ts": 1795309365.3999352,
+"odds": {
+"unibet": {
+"over": 1.85,
+"under": 1.88
+},
+"draftkings": {
+"over": 1.65,
+"under": 2.16
+}
+},
+"pin_flyttad": false,
+"pin_komb": false,
+"pin_linje": null,
+"dk_linje": null,
+"dk_p": 0.5740744774702616
+},
+"bolag_stang_ts": 1795309365.3999352,
+"skarp_verifierad": true,
+"skarp_status": null,
+"clv_skarp_pp": 3.3533936929721175,
+"clv_pin_pp": null,
+"clv_dk_pp": 3.3533936929721175
 }
 ]
