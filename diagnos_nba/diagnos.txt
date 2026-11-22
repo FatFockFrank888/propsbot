@@ -1,13 +1,13 @@
-NBA-skanning 2026-11-22 06:14
+NBA-skanning 2026-11-22 06:34
 Kambi NBA: 7 matcher, bolag: atg, betmgm, expekt, leovegas, paf, svenskaspel, unibet
-NBA tid: Kambi-props 21 s
+NBA tid: Kambi-props 17 s
 Pinnacle NBA: 6 matcher, 180 spelarodds (8 s)
-Kalshi: 2 likvida linjer av 208 öppna marknader
-Kalshi: 2 linjer kopplade till matcher
-DK/FD: 0 nya hämtningar, 0 odds i bruk, krediter kvar 207, dagsbudget 22 (andel 60%), förbrukat idag 10
+Kalshi: 3 likvida linjer av 231 öppna marknader
+Kalshi: 3 linjer kopplade till matcher
+DK/FD: 0 nya hämtningar, 0 odds i bruk, krediter kvar 206, dagsbudget 22 (andel 60%), förbrukat idag 10
 SportsGameOdds NBA: vilar efter kvotfel till 22/11 20:01 UTC
-DraftKings via ESPN: 1 matcher, 122 spelarodds (referens)
-Stängningsarkiv (Pinnacle/DK): 151 tvåsidiga linjer noterade, 0 rader arkiverade
+DraftKings via ESPN: 3 matcher, 142 spelarodds (referens)
+Stängningsarkiv (Pinnacle/DK): 161 tvåsidiga linjer noterade, 0 rader arkiverade
 NBA namnexempel Atlanta Hawks: Kambi ['aaron wiggins', 'ausar thompson', 'cade cunningham', 'daniss jenkins', 'dyson daniels', 'isaiah joe'] | Pinnacle ['aaron wiggins', 'ausar thompson', 'cade cunningham', 'daniss jenkins', 'dyson daniels', 'isaiah joe']
 NBA Pinnacle-exempel: ['Aaron Wiggins Total Threes Made', 'Aaron Wiggins Total Points', 'Ausar Thompson Total Assists', 'Ausar Thompson Total Points', 'Ausar Thompson Total Rebounds', 'Cade Cunningham Total Threes Made', 'Cade Cunningham Total Assists', 'Cade Cunningham Total Points']
 NBA linjer: 27 med samma linje hos Pinnacle, 7 flyttade från närliggande linje, 23 kombolinjer (PRA/PR/RA/PA) räknade ur Pinnacles poäng/returer/assist
@@ -18,21 +18,27 @@ NBA-modell: 7 matcher hos ESPN, 157 spelare, 0 nya boxscores, 92 skadade (out/do
 NBA-modell nivåavvikelse (dras bort): 
 NBA faktormodell nivåavvikelse: –
 NBA minutmodell (skugga): medel cv² 0.108, spread från Pinnacle för 6 av 7 matcher; stackning: _alla b_m -0.02 b_k 1.20 (n 593), assists b_m +0.06 b_k 1.20 (n 94), blocks b_m +0.01 b_k 1.20 (n 5), pa b_m -0.03 b_k 1.06 (n 25), points b_m +0.02 b_k 1.20 (n 164), pr b_m -0.08 b_k 1.01 (n 61), pra b_m -0.06 b_k 1.07 (n 44), ra b_m +0.01 b_k 1.20 (n 39), rebounds b_m -0.04 b_k 1.10 (n 102), steals b_m -0.05 b_k 1.18 (n 9), threes b_m -0.05 b_k 1.16 (n 50)
-NBA-modelltest: 0 spelbara enligt den kalibrerade modellen av 120 ben med modell (2028 rader i kalibreringsloggen)
-NBA analyssida: 120 ben med analys
+NBA-modelltest: 0 spelbara enligt den kalibrerade modellen av 118 ben med modell (2028 rader i kalibreringsloggen)
+NBA analyssida: 118 ben med analys
 NBA CLV-signal: 0 ben släppta
-NBA lagnyheter: 111 spelare på skadelistan, 0 ben stoppade, 0 markerade (questionable)
+NBA lagnyheter: 110 spelare på skadelistan, 0 ben stoppade, 0 markerade (questionable)
 NBA spelregler: stoppade {'edge': 4, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0} (modelltest {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0})
-NBA: 0 spelbara ben av 150
+NBA: 0 spelbara ben av 148
 NBA LIVE: 0 spel uppfyller live-kraven, 0 nya bokförda live
 NBA skarp stängning: 1 spel uppdaterade
 NBA: hittar inte Karl-Anthony Towns i boxscore (New York Knicks – Portland Trail Blazers) – väntar
+NBA rättad: Baylor Scheierman rebounds över 5.5 -> förlorad (3)
+NBA rättad: Keegan Murray blocks över 0.5 -> vunnen (0)
 NBA: hittar inte Jalen Smith i boxscore (Chicago Bulls – Washington Wizards) – väntar
 NBA: hittar inte Karl-Anthony Towns i boxscore (New York Knicks – Portland Trail Blazers) – väntar
-NBA kalibrering: 0 nya rättade ben; _alla M0 (n 1767, test 531, vinst +0.0000)
+NBA rättad: Paul George points över 21.5 -> förlorad (19)
+NBA rättad: Darius Acuff Jr. ra över 9.5 -> förlorad (14)
+NBA rättad: Neemias Queta assists över 2.5 -> förlorad (1)
+NBA rättad: Baylor Scheierman ra över 8.5 -> förlorad (4)
+NBA rättad: Jordan Walsh pr över 11.5 -> vunnen (5)
+NBA rättad: Domantas Sabonis rebounds över 11.5 -> vunnen (17)
+NBA kalibrering: 124 nya rättade ben; _alla M0 (n 1883, test 565, vinst +0.0000), pr M0 (n 322, test 97, vinst +0.0000)
 NBA LIVE-status per marknad (skarp CLV, marknadsspel): assists ok, blocks ok, pa osäker, points ok, pr ok, pra ok, ra osäker, rebounds ok, steals ok, threes ok
 NBA modellstatus per marknad (modelltest, styr inte): assists shadow, blocks insufficient_data, pa insufficient_data, points shadow, pr degraded, pra shadow, ra shadow, rebounds degraded, steals insufficient_data, threes shadow
-  NBA sides rättad: Sacramento Kings – Boston Celtics Boston Celtics -11.5 -> förlorad (97–96)
-  NBA sides rättad: Sacramento Kings – Boston Celtics totala poäng över 218.5 -> förlorad (97–96)
-NBA sides/totals: 6 matcher med Kambi + Pinnacle, 50 linjer, 0 nya spel, 0 nya skuggspel, 0 över stoppade (utklassning); bästa edge -0.0% (totala poäng under 227.5), -0.2% (totala poäng under 228.5), -0.2% (totala poäng under 226.5)
+NBA sides/totals: 6 matcher med Kambi + Pinnacle, 50 linjer, 0 nya spel, 0 nya skuggspel, 0 över stoppade (utklassning); bästa edge -0.3% (totala poäng under 238.5), -0.4% (totala poäng över 223.5), -1.1% (totala poäng över 224.5)
 NBA sides: Kambis marknader moneyline - including overtime -> ml; point spread - including overtime -> spread; total points - including overtime -> game_total
