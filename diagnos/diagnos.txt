@@ -1,4 +1,4 @@
-Skanning 2026-11-22 23:10
+Skanning 2026-11-22 23:18
 Kambi unibet (ubse): OK, 27 matcher i valda ligor
 Kambi paf (paf): OK
 Kambi atg (atg): OK
@@ -69,13 +69,14 @@ Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
   Correct Score 1st Half | units=Regular | kategori=Team Props | deltagare=Queretaro 0, Necaxa 0,Queretaro 0, Necaxa 1,Queretaro 0, Necaxa 2,Queretaro 0, Necaxa 3,Queretaro 1, Necaxa 0,Queretaro 1, Necaxa 1,Queretaro 1, Necaxa 2,Queretaro 1, Necaxa 3,Queretaro 2, Necaxa 0,Queretaro 2, Necaxa 1,Queretaro 2, Necaxa 2,Queretaro 2, Necaxa 3,Queretaro 3, Necaxa 0,Queretaro 3, Necaxa 1,Queretaro 3, Necaxa 2,Queretaro 3, Necaxa 3  ->  används inte (lagmarknad)
   Necaxa To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
   3-Way Handicap Queretaro -2 | units=Regular | kategori=Team Props | deltagare=Queretaro (-2),Draw - (Queretaro -2),Necaxa (+2)  ->  används inte (lagmarknad)
-Sides mindre ligor: 11 Kambi-matcher inom 12 h, 23 Pinnacle-matcher, 9 med Pinnacle, 9 matchade: Argentina / Primera Nacional, Chile / Primera Chile, Guatemala / Liga Nacional Guatemala, Honduras / Liga Nacional Honduras, Nicaragua / Primera Division Nicaragua, Panama / Liga LPF, Peru / Segunda Division, Puerto Rico / LPR Pro, Ukraine / Premier League
+Sides mindre ligor: 9 Kambi-matcher inom 12 h, 21 Pinnacle-matcher, 8 med Pinnacle, 8 matchade: Argentina / Primera Nacional, Chile / Primera Chile, Guatemala / Liga Nacional Guatemala, Honduras / Liga Nacional Honduras, Nicaragua / Primera Division Nicaragua, Peru / Segunda Division, Puerto Rico / LPR Pro, Ukraine / Premier League
 Sides rättning: goal-api dagstak 300 anrop nått
 Sides rättning: SportScore 90 anrop i dag
-Sides/totals: 23 matcher med Kambi + Pinnacle, 580 linjer, 0 nya spel, 0 nya skuggspel, Smarkets-priser i 17 av 19; bästa edge +5.8% (Pas Pyrgos 1X2: 1), +3.3% (Örgryte IS 1X2: 2), +3.0% (Carlos A. Mannucci 1X2: 1)
+  Sides rättad: Torreense – Benfica 1X2: 2 -> vunnen (1–3)
+Sides/totals: 22 matcher med Kambi + Pinnacle, 573 linjer, 0 nya spel, 0 nya skuggspel, Smarkets-priser i 16 av 18; bästa edge +3.3% (Örgryte IS 1X2: 2), +3.0% (Carlos A. Mannucci 1X2: 1), +2.9% (Sochaux 1X2: X)
 Hörnmodell (test): 7861 matcher i underlaget (17 ligor), 6 matcher med modell, 1020 Kambi-linjer, 0 nya testspel; bästa edge +56.7% (AD Ceuta FC Almeria hörnor under 3.5 @ 2.70), +16.7% (Brentford hörnor under 7.5 @ 3.95), +4.9% (Monza hörnhandikapp +0.5 @ 1.61)
 Fotboll extra bolag: 0 nya hämtningar, 0 odds i bruk, krediter kvar 200, dagsbudget 22 (andel 40%), förbrukat idag 8
-Tid: hämtning 309 s
+Tid: hämtning 350 s
 Marginal över alla matcher: uppmätt marginal: shots_on_target stege k=1.12 (55 spelare; marginal vid 3,00 ≈ 14%)
   Chicago Fire – Charlotte FC: modell usa.1, 29 spelare
   Querétaro FC – Club Necaxa: modell – hittar inte matchen hos ESPN
@@ -89,11 +90,11 @@ Marginal över alla matcher: uppmätt marginal: shots_on_target stege k=1.12 (55
   Internacional-RS – Vitória-BA: modell bra.1, 29 spelare
   Botafogo-RJ – São Paulo-SP: modell bra.1, 27 spelare
 Modellens nivåavvikelse mot marknaden (log-odds, dras bort): goal -0.09, shots -0.63, shots_on_target -0.49
-  Chicago Fire – Charlotte FC: väntade mål Pinnacle 3.62 mot Kambi 3.61 (kvot 1.003); uppmätt marginal: goal k=1.23, assist k=1.16
+  Chicago Fire – Charlotte FC: väntade mål Pinnacle 3.63 mot Kambi 3.61 (kvot 1.005); uppmätt marginal: goal k=1.23, assist k=1.16
 Exempel uppmätt marginal: goal k=1.23, assist k=1.16
   Instituto – Huracán: saknar matchlinjer från Pinnacle
   Querétaro FC – Club Necaxa: väntade mål Pinnacle 3.19 mot Kambi 3.11 (kvot 1.026); uppmätt marginal: goal k=1.41, assist k=1.25
-  Vancouver Whitecaps – Real Salt Lake: väntade mål Pinnacle 3.64 mot Kambi 3.52 (kvot 1.033); uppmätt marginal: goal k=1.46, assist k=1.29
+  Vancouver Whitecaps – Real Salt Lake: väntade mål Pinnacle 3.64 mot Kambi 3.52 (kvot 1.033); uppmätt marginal: goal k=1.47, assist k=1.29
   İstanbul Başakşehir – Çorum Belediyespor: saknar matchlinjer från Pinnacle
   Brøndby IF – FC Midtjylland: väntade mål Pinnacle 3.21 mot Kambi 3.20 (kvot 1.003); uppmätt marginal: goal k=1.82, assist k=1.70
   Örgryte IS – Kalmar FF: väntade mål Pinnacle 2.83 mot Kambi 2.77 (kvot 1.021); uppmätt marginal: goal k=1.59
@@ -104,11 +105,11 @@ Exempel uppmätt marginal: goal k=1.23, assist k=1.16
   Gimnasia de La Plata – Newell's Old Boys: saknar matchlinjer från Pinnacle
   Levante – Elche: väntade mål Pinnacle 3.01 mot Kambi 2.89 (kvot 1.041); uppmätt marginal: goal k=1.65, assist k=1.63
   Internacional-RS – Vitória-BA: väntade mål Pinnacle 2.78 mot Kambi 2.67 (kvot 1.038); uppmätt marginal: goal k=1.55, assist k=1.36, shots_on_target stege k=1.30 (7 spelare; marginal vid 3,00 ≈ 39%)
-  Botafogo-RJ – São Paulo-SP: väntade mål Pinnacle 2.65 mot Kambi 2.64 (kvot 1.003); uppmätt marginal: goal k=1.57, assist k=1.45, shots_on_target stege k=1.06 (14 spelare; marginal vid 3,00 ≈ 7%)
-Tid: modell och utvärdering 44 s
+  Botafogo-RJ – São Paulo-SP: väntade mål Pinnacle 2.65 mot Kambi 2.64 (kvot 1.004); uppmätt marginal: goal k=1.57, assist k=1.45, shots_on_target stege k=1.06 (14 spelare; marginal vid 3,00 ≈ 7%)
+Tid: modell och utvärdering 54 s
 Bolag med spelarodds: atg, betmgm, expekt, leovegas, paf, svenskaspel, unibet
-Spelarodds per marknad: assist 1638, goal 7485, shots 2231, shots_on_target 2800
-Kambi-marknader: assist='to give an assist (settled using opta data)':1638; goal='1st goalscorer':2857; goal='to score':3046; goal='to score at least 2 goals':1421; goal='to score at least 3 goals':147; goal='to score at least 4 goals':14; shots="player's shots (settled using opta data)":2231; shots_on_target="player's shots on target (settled using opta data)":2800
+Spelarodds per marknad: assist 1638, goal 7499, shots 2231, shots_on_target 2800
+Kambi-marknader: assist='to give an assist (settled using opta data)':1638; goal='1st goalscorer':2857; goal='to score':3046; goal='to score at least 2 goals':1442; goal='to score at least 3 goals':140; goal='to score at least 4 goals':14; shots="player's shots (settled using opta data)":2231; shots_on_target="player's shots on target (settled using opta data)":2800
 Pinnacle har inga spelarprops här – använder linjejustering mot Pinnacles matchlinjer.
 CLV-signal: 0 ben släppta (Pinnacle rör sig åt vårt håll)
 Startelvor: 0 spelbara ben klara, 0 väntar på startelvan, 0 stoppade (inte i startelvan)
