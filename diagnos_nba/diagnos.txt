@@ -1,36 +1,37 @@
-NBA-skanning 2026-11-22 14:42
+NBA-skanning 2026-11-22 14:59
 Kambi NBA: 7 matcher, bolag: atg, betmgm, expekt, leovegas, paf, svenskaspel, unibet
-NBA tid: Kambi-props 18 s
+NBA tid: Kambi-props 26 s
 Pinnacle NBA: 7 matcher, 460 spelarodds (9 s)
-Kalshi: 17 likvida linjer av 1512 öppna marknader
-Kalshi: 17 linjer kopplade till matcher
+Kalshi: 18 likvida linjer av 1512 öppna marknader
+Kalshi: 18 linjer kopplade till matcher
 DK/FD: 0 nya hämtningar, 0 odds i bruk, krediter kvar 203, dagsbudget 22 (andel 60%), förbrukat idag 10
 SportsGameOdds NBA: vilar efter kvotfel till 22/11 20:01 UTC
-DraftKings via ESPN: 7 matcher, 696 spelarodds (referens)
-Stängningsarkiv (Pinnacle/DK): 578 tvåsidiga linjer noterade, 0 rader arkiverade
+DraftKings via ESPN: 7 matcher, 598 spelarodds (referens)
+Stängningsarkiv (Pinnacle/DK): 529 tvåsidiga linjer noterade, 0 rader arkiverade
 NBA namnexempel Atlanta Hawks: Kambi ['aaron wiggins', 'ausar thompson', 'cade cunningham', 'daniss jenkins', 'dyson daniels', 'isaiah joe'] | Pinnacle ['aaron wiggins', 'ausar thompson', 'cade cunningham', 'daniss jenkins', 'dyson daniels', 'isaiah joe']
-NBA Pinnacle-exempel: ['Aaron Wiggins Total Threes Made', 'Aaron Wiggins Total Points', 'Ausar Thompson Total Assists', 'Ausar Thompson Total Points', 'Ausar Thompson Total Rebounds', 'Cade Cunningham Total Threes Made', 'Cade Cunningham Total Assists', 'Cade Cunningham Total Points']
-NBA linjer: 193 med samma linje hos Pinnacle, 37 flyttade från närliggande linje, 167 kombolinjer (PRA/PR/RA/PA) räknade ur Pinnacles poäng/returer/assist
-NBA-odds (unibet/pinnacle) per marknad: pinnacle:assists 96, pinnacle:points 198, pinnacle:rebounds 120, pinnacle:threes 120, unibet:assists 126, unibet:blocks 22, unibet:pa 126, unibet:points 164, unibet:pr 154, unibet:pra 122, unibet:ra 122, unibet:rebounds 154, unibet:steals 26, unibet:threes 132
+NBA Pinnacle-exempel: ['Winning Margin Range 1st Half', 'Atlanta Hawks Points Odd/Even', 'Total Points Odd/Even', 'Winning Margin Range', 'Detroit Pistons Points Odd/Even', 'Moneyline and Total Points', 'Aaron Wiggins Total Threes Made', 'Aaron Wiggins Total Points']
+NBA linjer: 191 med samma linje hos Pinnacle, 39 flyttade från närliggande linje, 167 kombolinjer (PRA/PR/RA/PA) räknade ur Pinnacles poäng/returer/assist
+NBA-odds (unibet/pinnacle) per marknad: pinnacle:assists 96, pinnacle:points 202, pinnacle:rebounds 120, pinnacle:threes 120, unibet:assists 126, unibet:blocks 38, unibet:pa 126, unibet:points 164, unibet:pr 154, unibet:pra 122, unibet:ra 122, unibet:rebounds 154, unibet:steals 46, unibet:threes 132
 NBA faktormodell (skugga): 157 spelare, Pinnacle-total för 7 av 7 matcher, ligatempo 100.4
 NBA spelarbetyg (skugga): 156 spelare, 0 nya boxscores
 NBA-modell: 7 matcher hos ESPN, 157 spelare, 0 nya boxscores, 92 skadade (out/doubtful)
-NBA-modell nivåavvikelse (dras bort): assists -0.05, pa -0.12, points +0.00, pr -0.00, pra -0.12, ra +0.02, rebounds +0.18, threes -0.02
-NBA faktormodell nivåavvikelse: assists -0.32, pa -0.46, points -0.35, pr -0.38, pra -0.49, ra -0.34, rebounds -0.14, threes -0.22
+NBA-modell nivåavvikelse (dras bort): assists -0.05, pa -0.11, points -0.00, pr -0.03, pra -0.10, ra +0.02, rebounds +0.18, threes -0.02
+NBA faktormodell nivåavvikelse: assists -0.31, pa -0.46, points -0.32, pr -0.40, pra -0.48, ra -0.34, rebounds -0.14, threes -0.21
 NBA minutmodell (skugga): medel cv² 0.108, spread från Pinnacle för 7 av 7 matcher; stackning: _alla b_m -0.02 b_k 1.20 (n 593), assists b_m +0.06 b_k 1.20 (n 94), blocks b_m +0.01 b_k 1.20 (n 5), pa b_m -0.03 b_k 1.06 (n 25), points b_m +0.02 b_k 1.20 (n 164), pr b_m -0.08 b_k 1.01 (n 61), pra b_m -0.06 b_k 1.07 (n 44), ra b_m +0.01 b_k 1.20 (n 39), rebounds b_m -0.04 b_k 1.10 (n 102), steals b_m -0.05 b_k 1.18 (n 9), threes b_m -0.05 b_k 1.16 (n 50)
-NBA-modelltest: 0 spelbara enligt den kalibrerade modellen av 814 ben med modell (2477 rader i kalibreringsloggen)
-NBA analyssida: 814 ben med analys
+NBA-modelltest: 0 spelbara enligt den kalibrerade modellen av 796 ben med modell (2495 rader i kalibreringsloggen)
+NBA analyssida: 796 ben med analys
 NBA CLV-signal: 1 ben släppta
-NBA lagnyheter: 110 spelare på skadelistan, 0 ben stoppade, 0 markerade (questionable)
-NBA spelregler: stoppade {'edge': 9, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0} (modelltest {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0})
-NBA: 0 spelbara ben av 928
+NBA lagnyheter: 110 spelare på skadelistan, 0 ben stoppade, 1 markerade (questionable)
+NBA spelregler: stoppade {'edge': 8, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0} (modelltest {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0})
+NBA: 1 spelbara ben av 914
+NBA SPEL: Miami Heat – Oklahoma City Thunder | Pelle Larsson assists under 3.5 | unibet 1.78 | p 60.2% | edge 7.2%
 NBA LIVE: 0 spel uppfyller live-kraven, 0 nya bokförda live
-NBA skarp stängning: 9 spel uppdaterade
+NBA skarp stängning: 13 spel uppdaterade
 NBA: hittar inte Karl-Anthony Towns i boxscore (New York Knicks – Portland Trail Blazers) – väntar
 NBA: hittar inte Jalen Smith i boxscore (Chicago Bulls – Washington Wizards) – väntar
 NBA: hittar inte Karl-Anthony Towns i boxscore (New York Knicks – Portland Trail Blazers) – väntar
 NBA kalibrering: 0 nya rättade ben; _alla M0 (n 1885, test 566, vinst +0.0000), pr M0 (n 322, test 97, vinst +0.0000)
 NBA LIVE-status per marknad (skarp CLV, marknadsspel): assists ok, blocks ok, pa osäker, points ok, pr ok, pra ok, ra osäker, rebounds ok, steals ok, threes ok
 NBA modellstatus per marknad (modelltest, styr inte): assists shadow, blocks insufficient_data, pa insufficient_data, points shadow, pr degraded, pra shadow, ra shadow, rebounds degraded, steals insufficient_data, threes shadow
-NBA sides/totals: 7 matcher med Kambi + Pinnacle, 158 linjer, 0 nya spel, 0 nya skuggspel, 0 över stoppade (utklassning); bästa edge +1.9% (totala poäng över 212.5), +1.6% (New York Knicks -6.5), +1.6% (New York Knicks vinner (inkl. förlängning))
+NBA sides/totals: 7 matcher med Kambi + Pinnacle, 158 linjer, 0 nya spel, 0 nya skuggspel, 0 över stoppade (utklassning); bästa edge +0.8% (totala poäng under 227.5), +0.7% (Miami Heat -1.5), +0.5% (totala poäng under 226.5)
 NBA sides: Kambis marknader moneyline - including overtime -> ml; point spread - including overtime -> spread; total points - including overtime -> game_total
