@@ -2392,11 +2392,11 @@
 15.6,
 8.7
 ],
-"status": "öppen",
+"status": "vunnen",
 "stopp": "hörnmodell (odds+lag): väntat 5.4–3.9 (SP1)",
 "metod": "odds+lag",
-"utfall": null,
-"resultat_enheter": null,
+"utfall": "4–1",
+"resultat_enheter": 0.022000000000000002,
 "stangning_ts": 1795368345.8898962
 },
 {
@@ -2472,11 +2472,11 @@
 10.4,
 17.1
 ],
-"status": "öppen",
+"status": "vunnen",
 "stopp": "hörnmodell (lag): väntat 5.5–3.3 (SP2)",
 "metod": "lag",
-"utfall": null,
-"resultat_enheter": null,
+"utfall": "2–1",
+"resultat_enheter": 0.013199999999999998,
 "stangning_ts": 1795368345.8898962
 },
 {
@@ -2637,6 +2637,46 @@
 "metod": "lag",
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795377516.0305421
+"stangning_ts": 1795378186.4840095
+},
+{
+"key": "k1028072784|corners|7.5|under|unibet",
+"id": 67,
+"bokford": 1795378186.4840095,
+"match_id": "k1028072784",
+"match": "Brentford – Everton",
+"hemma": "Brentford",
+"borta": "Everton",
+"liga": "Football / England / Premier League",
+"fd_liga": "E0",
+"avspark": 1795464000.0,
+"spelare": "Hörnor",
+"spelare_id": "hörnor",
+"marknad": "corners",
+"linje": 7.5,
+"sida": "under",
+"spel_text": "hörnor under 7.5",
+"bolag": "unibet",
+"odds": 3.95,
+"sannolikhet": 0.29538650059050237,
+"ratt_odds": 3.3853950603731593,
+"edge": 0.16677667733248436,
+"spela_fran": 3.56,
+"insats_pct": 0.01,
+"stangning": 3.95,
+"p_modell": 0.29538650059050237,
+"p_marknad": 0.23151750972762644,
+"vantat_hemma": 4.94,
+"vantat_borta": 4.63,
+"underlag_matcher": [
+14.0,
+14.0
+],
+"status": "öppen",
+"stopp": "hörnmodell (odds+lag): väntat 4.9–4.6 (E0)",
+"metod": "odds+lag",
+"utfall": null,
+"resultat_enheter": null,
+"stangning_ts": 1795378186.4840095
 }
 ]
