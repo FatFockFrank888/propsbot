@@ -87814,7 +87814,7 @@
 "edge": 0.09152824776133373,
 "spela_fran": 1.8,
 "insats_pct": 0.02,
-"stangning": 1.86,
+"stangning": 1.88,
 "status": "öppen",
 "stopp": "kombo med bara 1 referens – kräver minst 2 (Pinnacle-kombinationen räcker inte ensam)",
 "clv_signal": false,
@@ -87823,11 +87823,11 @@
 "p_marknad": 0.568504295709028,
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795314436.1910152,
+"stangning_ts": 1795315511.0458083,
 "modellversion": "2026-11-15-betyg",
 "prognos_ts": 1795284696.0499706,
-"skarp_stang_p": 0.5417663684043743,
-"skarp_stang_ts": 1795314436.0583189,
+"skarp_stang_p": 0.5351398837302989,
+"skarp_stang_ts": 1795315510.9104574,
 "skarp_kalla": "skanning",
 "pin_stang_p": 0.5596671483424499,
 "bolag_bokning": {
@@ -87849,15 +87849,15 @@
 "pin_p": 0.5685042957090282
 },
 "bolag_stangning": {
-"ts": 1795314436.238283,
+"ts": 1795315511.0901484,
 "odds": {
 "unibet": {
-"over": 1.87,
-"under": 1.86
+"over": 1.85,
+"under": 1.88
 },
 "draftkings": {
-"over": 1.95,
-"under": 1.79
+"over": 1.9,
+"under": 1.83
 },
 "pinnacle": {
 "over": 2.271,
@@ -87869,15 +87869,15 @@
 "pin_linje": null,
 "dk_linje": null,
 "pin_p": 0.5596671483424499,
-"dk_p": 0.523757114534465
+"dk_p": 0.5104414762613633
 },
-"bolag_stang_ts": 1795314436.238283,
+"bolag_stang_ts": 1795315511.0901484,
 "skarp_verifierad": true,
 "skarp_status": null,
-"clv_skarp_pp": 2.093303507104094,
+"clv_skarp_pp": 1.430655039696549,
 "clv_pin_pp": 3.8833815009116535,
-"clv_dk_pp": 0.2923781201131681,
-"dk_stang_p": 0.523757114534465
+"clv_dk_pp": -1.03918570719701,
+"dk_stang_p": 0.5104414762613633
 },
 {
 "key": "nba1028754420|victor wembanyama|ra|15.5|unibet|under",
@@ -88242,7 +88242,7 @@
 "edge": 0.05039765118706718,
 "spela_fran": 2.32,
 "insats_pct": 0.009130009273019438,
-"stangning": 2.25,
+"stangning": 2.23,
 "status": "öppen",
 "stopp": "edge 5.0% < 6% (gemensamt krav)",
 "clv_signal": false,
@@ -88251,11 +88251,11 @@
 "p_marknad": 0.44134355091893585,
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795314436.1910152,
+"stangning_ts": 1795315511.0458083,
 "modellversion": "2026-11-15-betyg",
 "prognos_ts": 1795296144.0486312,
 "skarp_stang_p": 0.43415305263844567,
-"skarp_stang_ts": 1795314436.0583189,
+"skarp_stang_ts": 1795315510.9104574,
 "skarp_kalla": "skanning",
 "dk_stang_p": 0.44739147518683864,
 "bolag_bokning": {
@@ -88277,11 +88277,11 @@
 "dk_p": 0.4413435509189358
 },
 "bolag_stangning": {
-"ts": 1795314436.238283,
+"ts": 1795315511.0901484,
 "odds": {
 "unibet": {
-"over": 2.25,
-"under": 1.58
+"over": 2.23,
+"under": 1.61
 },
 "draftkings": {
 "over": 2.07,
@@ -88294,7 +88294,7 @@
 "dk_linje": null,
 "dk_p": 0.44739147518683864
 },
-"bolag_stang_ts": 1795314436.238283,
+"bolag_stang_ts": 1795315511.0901484,
 "skarp_verifierad": true,
 "skarp_status": null,
 "clv_skarp_pp": 1.3984985411554907,
@@ -88684,20 +88684,19 @@
 "dk_p": 0.4672475751236386
 },
 "bolag_stangning": {
-"ts": 1795314436.238283,
+"ts": 1795315511.0901484,
 "odds": {
-"draftkings": {
-"over": 2.04,
-"under": 1.72
+"unibet": {
+"over": 2.3,
+"under": 1.56
 }
 },
 "pin_flyttad": false,
 "pin_komb": false,
 "pin_linje": null,
-"dk_linje": null,
-"dk_p": 0.45272782010160156
+"dk_linje": null
 },
-"bolag_stang_ts": 1795314436.238283,
+"bolag_stang_ts": 1795315511.0901484,
 "skarp_verifierad": false,
 "skarp_status": null,
 "clv_skarp_pp": -0.40551517219311606,
@@ -89141,5 +89140,259 @@
 "clv_skarp_pp": 2.3546322728503934,
 "clv_pin_pp": null,
 "clv_dk_pp": 2.8168401085534702
+},
+{
+"key": "nba1028754403|jordan walsh|pr|11.5|unibet|under",
+"id": 1686,
+"bokford": 1795315511.0457206,
+"match_id": "nba1028754403",
+"match": "Sacramento Kings – Boston Celtics",
+"hemma": "Sacramento Kings",
+"borta": "Boston Celtics",
+"liga": "NBA",
+"avspark": 1795316400.0,
+"spelare": "Jordan Walsh",
+"spelare_id": "jordan walsh",
+"marknad": "pr",
+"linje": 11.5,
+"sida": "under",
+"bolag": "unibet",
+"odds": 1.68,
+"sannolikhet": 0.6316411908567292,
+"ratt_odds": 1.58317730774278,
+"edge": 0.061157200639305076,
+"spela_fran": 1.62,
+"insats_pct": 0.02,
+"stangning": 1.68,
+"status": "öppen",
+"stopp": "kombo med bara 1 referens – kräver minst 2 (Pinnacle-kombinationen räcker inte ensam)",
+"clv_signal": false,
+"forv_clv_pp": 11.863250310926437,
+"p_modell": null,
+"p_marknad": 0.6316411908567292,
+"utfall": null,
+"resultat_enheter": null,
+"stangning_ts": 1795315511.0458083,
+"modellversion": "2026-11-15-betyg",
+"prognos_ts": 1795315511.0457206,
+"skarp_stang_p": 0.6316411908567292,
+"skarp_stang_ts": 1795315510.9104574,
+"skarp_kalla": "skanning",
+"pin_stang_p": 0.6316411908567292,
+"bolag_bokning": {
+"ts": 1795315511.0901484,
+"odds": {
+"unibet": {
+"over": 2.07,
+"under": 1.68
+},
+"pinnacle": {
+"over": 2.715,
+"under": 1.583
+}
+},
+"pin_flyttad": false,
+"pin_komb": true,
+"pin_linje": null,
+"dk_linje": null,
+"pin_p": 0.6316411908567292
+},
+"bolag_stangning": {
+"ts": 1795315511.0901484,
+"odds": {
+"unibet": {
+"over": 2.07,
+"under": 1.68
+},
+"pinnacle": {
+"over": 2.715,
+"under": 1.583
+}
+},
+"pin_flyttad": false,
+"pin_komb": true,
+"pin_linje": null,
+"dk_linje": null,
+"pin_p": 0.6316411908567292
+},
+"bolag_stang_ts": 1795315511.0901484,
+"skarp_verifierad": true,
+"skarp_status": null,
+"clv_skarp_pp": 3.6403095618633974,
+"clv_pin_pp": 3.6403095618633974,
+"clv_dk_pp": null
+},
+{
+"key": "nba1028754400|aaron wiggins|rebounds|3.5|unibet",
+"id": 1687,
+"bokford": 1795315511.0457513,
+"match_id": "nba1028754400",
+"match": "Atlanta Hawks – Detroit Pistons",
+"hemma": "Atlanta Hawks",
+"borta": "Detroit Pistons",
+"liga": "NBA",
+"avspark": 1795379400.0,
+"spelare": "Aaron Wiggins",
+"spelare_id": "aaron wiggins",
+"marknad": "rebounds",
+"linje": 3.5,
+"sida": "over",
+"bolag": "unibet",
+"odds": 2.1,
+"sannolikhet": 0.5,
+"ratt_odds": 2.0,
+"edge": 0.050000000000000044,
+"spela_fran": 2.04,
+"insats_pct": 0.011363636363636373,
+"stangning": 2.1,
+"status": "öppen",
+"stopp": "edge 5.0% < 6% (gemensamt krav)",
+"clv_signal": false,
+"forv_clv_pp": 2.90302619402055,
+"p_modell": null,
+"p_marknad": 0.5,
+"utfall": null,
+"resultat_enheter": null,
+"stangning_ts": 1795315511.0458083,
+"modellversion": "2026-11-15-betyg",
+"prognos_ts": 1795315511.0457513,
+"skarp_stang_p": 0.5,
+"skarp_stang_ts": 1795315510.9104574,
+"skarp_kalla": "skanning",
+"dk_stang_p": 0.5,
+"bolag_bokning": {
+"ts": 1795315511.0901484,
+"odds": {
+"unibet": {
+"over": 2.1,
+"under": 1.67
+},
+"draftkings": {
+"over": 1.86,
+"under": 1.86
+}
+},
+"pin_flyttad": false,
+"pin_komb": false,
+"pin_linje": null,
+"dk_linje": null,
+"dk_p": 0.5
+},
+"bolag_stangning": {
+"ts": 1795315511.0901484,
+"odds": {
+"unibet": {
+"over": 2.1,
+"under": 1.67
+},
+"draftkings": {
+"over": 1.86,
+"under": 1.86
+}
+},
+"pin_flyttad": false,
+"pin_komb": false,
+"pin_linje": null,
+"dk_linje": null,
+"dk_p": 0.5
+},
+"bolag_stang_ts": 1795315511.0901484,
+"skarp_verifierad": false,
+"skarp_status": null,
+"clv_skarp_pp": 2.3809523809523836,
+"clv_pin_pp": null,
+"clv_dk_pp": 2.3809523809523836
+},
+{
+"key": "nba1028754403|domantas sabonis|rebounds|11.5|unibet",
+"id": 1688,
+"bokford": 1795315511.045761,
+"match_id": "nba1028754403",
+"match": "Sacramento Kings – Boston Celtics",
+"hemma": "Sacramento Kings",
+"borta": "Boston Celtics",
+"liga": "NBA",
+"avspark": 1795316400.0,
+"spelare": "Domantas Sabonis",
+"spelare_id": "domantas sabonis",
+"marknad": "rebounds",
+"linje": 11.5,
+"sida": "over",
+"bolag": "unibet",
+"odds": 2.08,
+"sannolikhet": 0.5015543039830761,
+"ratt_odds": 1.9938020510611407,
+"edge": 0.04323295228479829,
+"spela_fran": 2.04,
+"insats_pct": 0.010007627843703307,
+"stangning": 2.08,
+"status": "öppen",
+"stopp": "edge 4.3% < 6% (gemensamt krav)",
+"clv_signal": false,
+"forv_clv_pp": 3.0765986603990436,
+"p_modell": null,
+"p_marknad": 0.5015543039830761,
+"utfall": null,
+"resultat_enheter": null,
+"stangning_ts": 1795315511.0458083,
+"modellversion": "2026-11-15-betyg",
+"prognos_ts": 1795315511.045761,
+"skarp_stang_p": 0.5015543039830761,
+"skarp_stang_ts": 1795315510.9104574,
+"skarp_kalla": "skanning",
+"pin_stang_p": 0.5068117035845247,
+"dk_stang_p": 0.48357821829113506,
+"bolag_bokning": {
+"ts": 1795315511.0901484,
+"odds": {
+"unibet": {
+"over": 2.08,
+"under": 1.68
+},
+"pinnacle": {
+"over": 1.847,
+"under": 1.893
+},
+"draftkings": {
+"over": 1.92,
+"under": 1.81
+}
+},
+"pin_flyttad": false,
+"pin_komb": false,
+"pin_linje": null,
+"dk_linje": null,
+"pin_p": 0.5068117035845247,
+"dk_p": 0.48357821829113506
+},
+"bolag_stangning": {
+"ts": 1795315511.0901484,
+"odds": {
+"unibet": {
+"over": 2.08,
+"under": 1.68
+},
+"pinnacle": {
+"over": 1.847,
+"under": 1.893
+},
+"draftkings": {
+"over": 1.92,
+"under": 1.81
+}
+},
+"pin_flyttad": false,
+"pin_komb": false,
+"pin_linje": null,
+"dk_linje": null,
+"pin_p": 0.5068117035845247,
+"dk_p": 0.48357821829113506
+},
+"bolag_stang_ts": 1795315511.0901484,
+"skarp_verifierad": true,
+"skarp_status": null,
+"clv_skarp_pp": 2.0785073213845373,
+"clv_pin_pp": 2.6042472815293927,
+"clv_dk_pp": 0.2808987521904338
 }
 ]
