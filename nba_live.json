@@ -7733,16 +7733,16 @@
 "utfall": null,
 "resultat_enheter": null,
 "modell_edge": 0.10941835481596285,
-"stangning_ts": 1795475629.4426525,
+"stangning_ts": 1795476431.4516418,
 "analys": {
-"p_stack": 0.5606,
+"p_stack": 0.5593,
 "p_modell_min": 0.5842,
 "minuter": 29.6,
 "minuter_sd": 4.7,
-"p_faktorer": 0.6072,
-"p_faktorer_ra": 0.7489,
+"p_faktorer": 0.6066,
+"p_faktorer_ra": 0.7498,
 "vantat_faktorer": 8.91,
-"p_betyg": 0.5952,
+"p_betyg": 0.5944,
 "p_betyg_ra": 0.7079,
 "vantat_betyg": 9.53,
 "minuter_faktorer": 25.9,
@@ -7769,12 +7769,12 @@
 "traff_mot_n": 2,
 "traff_hemmaborta": 0.636,
 "traff_hemmaborta_n": 11,
-"p_kalib": 0.5567,
-"p_blend": 0.5778,
+"p_kalib": 0.5556,
+"p_blend": 0.5772,
 "kalib_modell": "M0",
-"p_modell": 0.6425,
-"p_marknad": 0.5567,
-"p_slutlig": 0.5778,
+"p_modell": 0.6432,
+"p_marknad": 0.5556,
+"p_slutlig": 0.5772,
 "vantat": 10.99,
 "nb_r": 10,
 "modell_vikt": 0.24,
@@ -7873,7 +7873,7 @@
 "minuter_sd_faktorer": 4.7,
 "ref": {
 "pin_p": 0.5607286858772698,
-"dk_p": 0.5340205044207678,
+"dk_p": 0.5250764182545093,
 "pin_linje": null,
 "dk_linje": null,
 "pin_flyttad": false,
@@ -7897,8 +7897,8 @@
 },
 {
 "bolag": "kalshi",
-"over": 2.198,
-"under": 1.835
+"over": 2.151,
+"under": 1.869
 },
 {
 "bolag": "leovegas",
@@ -7937,8 +7937,8 @@
 },
 {
 "bolag": "us_draftkings",
-"over": 1.99,
-"under": 1.76
+"over": 1.96,
+"under": 1.79
 },
 {
 "bolag": "us_fanduel",
@@ -7948,14 +7948,14 @@
 ]
 },
 "prognos": 10.990867707764362,
-"analys_ts": 1795475629.4457316,
+"analys_ts": 1795476431.454747,
 "modellversion": "2026-11-15-betyg",
 "prognos_ts": 1795454068.9909182,
-"skarp_stang_p": 0.5567396713246473,
-"skarp_stang_ts": 1795475629.111305,
+"skarp_stang_p": 0.5556116664040524,
+"skarp_stang_ts": 1795476431.167727,
 "skarp_kalla": "skanning",
 "pin_stang_p": 0.5607286858772698,
-"dk_stang_p": 0.5340205044207678,
+"dk_stang_p": 0.5250764182545093,
 "bolag_bokning": {
 "ts": 1795454069.0073833,
 "odds": {
@@ -7980,7 +7980,7 @@
 "dk_p": 0.5514627627080393
 },
 "bolag_stangning": {
-"ts": 1795475629.4597013,
+"ts": 1795476431.8491163,
 "odds": {
 "unibet": {
 "over": 2.0,
@@ -7991,8 +7991,8 @@
 "under": 1.685
 },
 "draftkings": {
-"over": 1.99,
-"under": 1.76
+"over": 1.96,
+"under": 1.79
 }
 },
 "pin_flyttad": false,
@@ -8000,13 +8000,316 @@
 "pin_linje": null,
 "dk_linje": null,
 "pin_p": 0.5607286858772698,
-"dk_p": 0.5340205044207678
+"dk_p": 0.5250764182545093
 },
-"bolag_stang_ts": 1795475629.4597013,
+"bolag_stang_ts": 1795476431.8491163,
 "skarp_verifierad": true,
 "skarp_status": null,
-"clv_skarp_pp": 3.042388185096312,
+"clv_skarp_pp": 2.929587693036817,
 "clv_pin_pp": 3.441289640358558,
-"clv_dk_pp": 0.770471494708358
+"clv_dk_pp": -0.1239371219174834
+},
+{
+"key": "nba1028754362|jalen smith|pr|22.5|unibet",
+"id": 45,
+"bokford": 1795476431.4516225,
+"match_id": "nba1028754362",
+"match": "Chicago Bulls – Cleveland Cavaliers",
+"hemma": "Chicago Bulls",
+"borta": "Cleveland Cavaliers",
+"liga": "NBA",
+"avspark": 1795482000.0,
+"spelare": "Jalen Smith",
+"spelare_id": "jalen smith",
+"marknad": "pr",
+"linje": 22.5,
+"sida": "over",
+"bolag": "unibet",
+"odds": 2.23,
+"sannolikhet": 0.49077484875680066,
+"ratt_odds": 2.037594229885936,
+"edge": 0.09442791272766549,
+"spela_fran": 2.08,
+"insats_pct": 0.008,
+"stangning": 2.23,
+"status": "öppen",
+"stopp": "skadelista: day-to-day (ESPN) – kolla före start",
+"clv_signal": false,
+"forv_clv_pp": 4.468768205052065,
+"p_modell": null,
+"p_marknad": 0.49077484875680066,
+"utfall": null,
+"resultat_enheter": null,
+"modell_edge": 0.06617631958609937,
+"stangning_ts": 1795476431.4516418,
+"analys": {
+"p_stack": 0.4889,
+"p_modell_min": 0.4875,
+"minuter": 27.7,
+"minuter_sd": 7.1,
+"p_faktorer": 0.4802,
+"p_faktorer_ra": 0.4381,
+"vantat_faktorer": 20.56,
+"p_betyg": 0.4773,
+"p_betyg_ra": 0.4239,
+"vantat_betyg": 21.74,
+"minuter_faktorer": 24.9,
+"f_anv": 1.013,
+"f_miljo": 1.031,
+"f_tempo": 1.002,
+"f_pos": 0.972,
+"f_mot": 1.014,
+"f_minuter_bas": 27.3,
+"f_b2b": true,
+"f_tre_pa_fyra": true,
+"f_minutbegransning": false,
+"f_tillbaka": false,
+"f_miljo_kalla": "pinnacle",
+"f_lag_poang": 116.5,
+"f_mot_n": 4,
+"traff_l5": 0.8,
+"traff_l5_n": 5,
+"traff_l10": 0.6,
+"traff_l10_n": 10,
+"traff_sasong": 0.571,
+"traff_sasong_n": 14,
+"traff_mot": 0.5,
+"traff_mot_n": 4,
+"traff_hemmaborta": 0.833,
+"traff_hemmaborta_n": 6,
+"p_kalib": 0.4781,
+"p_blend": 0.4834,
+"kalib_modell": "M1",
+"p_modell": 0.4539,
+"p_marknad": 0.4908,
+"p_slutlig": 0.4834,
+"vantat": 23.44,
+"nb_r": 15,
+"modell_vikt": 0.2,
+"dq": 0.67,
+"matcher": 10,
+"nivajustering": 0.24,
+"logg": [
+{
+"ts": 1795392000.0,
+"mot": "DEN",
+"hemma": true,
+"min": 34.0,
+"v": 30.0
+},
+{
+"ts": 1795048200.0,
+"mot": "BKN",
+"hemma": false,
+"min": 21.0,
+"v": 20.0
+},
+{
+"ts": 1794873600.0,
+"mot": "CLE",
+"hemma": false,
+"min": 28.0,
+"v": 28.0
+},
+{
+"ts": 1794618000.0,
+"mot": "ATL",
+"hemma": true,
+"min": 32.0,
+"v": 27.0
+},
+{
+"ts": 1794445200.0,
+"mot": "SA",
+"hemma": true,
+"min": 30.0,
+"v": 27.0
+},
+{
+"ts": 1794169800.0,
+"mot": "PHI",
+"hemma": true,
+"min": 30.0,
+"v": 25.0
+},
+{
+"ts": 1793838600.0,
+"mot": "NY",
+"hemma": false,
+"min": 7.0,
+"v": 5.0
+},
+{
+"ts": 1793665800.0,
+"mot": "PHI",
+"hemma": false,
+"min": 28.0,
+"v": 20.0
+},
+{
+"ts": 1793403000.0,
+"mot": "BOS",
+"hemma": false,
+"min": 27.0,
+"v": 17.0
+},
+{
+"ts": 1793232000.0,
+"mot": "NY",
+"hemma": true,
+"min": 30.0,
+"v": 28.0
+}
+],
+"franvaro": [
+{
+"namn": "Norman Powell",
+"status": "out",
+"min": 30.2,
+"redan_borta": false
+},
+{
+"namn": "Caleb Wilson",
+"status": "out",
+"min": 27.5,
+"redan_borta": true
+},
+{
+"namn": "Jalen Smith",
+"status": "day-to-day",
+"min": 27.3,
+"redan_borta": false
+},
+{
+"namn": "Nic Claxton",
+"status": "day-to-day",
+"min": 21.5,
+"redan_borta": false
+}
+],
+"lag": "Chicago Bulls",
+"mot": "CLE",
+"hemma": true,
+"minuter_sd_faktorer": 7.1,
+"ref": {
+"pin_p": 0.4845136190096892,
+"dk_p": 0.4970389740562749,
+"pin_linje": null,
+"dk_linje": null,
+"pin_flyttad": false,
+"pin_komb": true
+},
+"odds_bolag": [
+{
+"bolag": "atg",
+"over": 2.23,
+"under": 1.6
+},
+{
+"bolag": "betmgm",
+"over": 2.23,
+"under": 1.6
+},
+{
+"bolag": "expekt",
+"over": 2.23,
+"under": 1.6
+},
+{
+"bolag": "leovegas",
+"over": 2.23,
+"under": 1.6
+},
+{
+"bolag": "paf",
+"over": 2.23,
+"under": 1.6
+},
+{
+"bolag": "pinnacle_komb",
+"over": 2.064,
+"under": 1.94
+},
+{
+"bolag": "svenskaspel",
+"over": 2.23,
+"under": 1.6
+},
+{
+"bolag": "unibet",
+"over": 2.23,
+"under": 1.6
+},
+{
+"bolag": "us_draftkings",
+"over": 1.88,
+"under": 1.86
+}
+]
+},
+"prognos": 23.43887406686609,
+"analys_ts": 1795476431.454747,
+"nyhet_status": "day-to-day",
+"nyhet": "Jalen Smith: day-to-day enligt ESPN:s skadelista",
+"nyhet_ts": "2026-11-23T23:27:11+00:00",
+"modellversion": "2026-11-15-betyg",
+"prognos_ts": 1795476431.4516225,
+"skarp_stang_p": 0.49077484875680066,
+"skarp_stang_ts": 1795476431.167727,
+"skarp_kalla": "skanning",
+"pin_stang_p": 0.4845136190096892,
+"dk_stang_p": 0.4970389740562749,
+"bolag_bokning": {
+"ts": 1795476431.8491163,
+"odds": {
+"unibet": {
+"over": 2.23,
+"under": 1.6
+},
+"draftkings": {
+"over": 1.88,
+"under": 1.86
+},
+"pinnacle": {
+"over": 2.064,
+"under": 1.94
+}
+},
+"pin_flyttad": false,
+"pin_komb": true,
+"pin_linje": null,
+"dk_linje": null,
+"pin_p": 0.4845136190096892,
+"dk_p": 0.4970389740562749
+},
+"bolag_stangning": {
+"ts": 1795476431.8491163,
+"odds": {
+"unibet": {
+"over": 2.23,
+"under": 1.6
+},
+"draftkings": {
+"over": 1.88,
+"under": 1.86
+},
+"pinnacle": {
+"over": 2.064,
+"under": 1.94
+}
+},
+"pin_flyttad": false,
+"pin_komb": true,
+"pin_linje": null,
+"dk_linje": null,
+"pin_p": 0.4845136190096892,
+"dk_p": 0.4970389740562749
+},
+"bolag_stang_ts": 1795476431.8491163,
+"skarp_verifierad": false,
+"skarp_status": null,
+"clv_skarp_pp": 4.234435548325805,
+"clv_pin_pp": 3.608312573614658,
+"clv_dk_pp": 4.860848078273228
 }
 ]
