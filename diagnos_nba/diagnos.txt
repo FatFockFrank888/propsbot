@@ -1,37 +1,38 @@
-NBA-skanning 2026-11-23 00:13
+NBA-skanning 2026-11-23 00:23
 Kambi NBA: 3 matcher, bolag: atg, betmgm, expekt, leovegas, paf, svenskaspel, unibet
-NBA tid: Kambi-props 11 s
-Pinnacle NBA: 2 matcher, 132 spelarodds (3 s)
-Kalshi: 274 likvida linjer av 1501 öppna marknader
-Kalshi: 71 linjer kopplade till matcher
+NBA tid: Kambi-props 16 s
+Pinnacle NBA: 2 matcher, 132 spelarodds (8 s)
+Kalshi: 233 likvida linjer av 1501 öppna marknader
+Kalshi: 81 linjer kopplade till matcher
 DK/FD: 0 nya hämtningar, 570 odds i bruk, krediter kvar 192, dagsbudget 22 (andel 60%), förbrukat idag 4
 SportsGameOdds NBA: vilar efter kvotfel till 23/11 20:01 UTC
-DraftKings via ESPN: 2 matcher, 236 spelarodds (referens)
-Stängningsarkiv (Pinnacle/DK): 234 tvåsidiga linjer noterade, 0 rader arkiverade
+DraftKings via ESPN: 2 matcher, 238 spelarodds (referens)
+Stängningsarkiv (Pinnacle/DK): 235 tvåsidiga linjer noterade, 0 rader arkiverade
 NBA namnexempel New York Knicks: Kambi ['aaron nesmith', 'andrew nembhard', 'ivica zubac', 'jalen brunson', 'josh hart', 'karl anthony towns'] | Pinnacle ['aaron nesmith', 'andrew nembhard', 'ivica zubac', 'jalen brunson', 'josh hart', 'karl anthony towns']
 NBA Pinnacle-exempel: ['Aaron Nesmith Total Threes Made', 'Aaron Nesmith Total Points', 'Andrew Nembhard Total Threes Made', 'Andrew Nembhard Total Assists', 'Andrew Nembhard Total Points', 'Ivica Zubac Total Points', 'Ivica Zubac Total Rebounds', 'Kelly Oubre Jr. Total Points']
-NBA linjer: 43 med samma linje hos Pinnacle, 21 flyttade från närliggande linje, 46 kombolinjer (PRA/PR/RA/PA) räknade ur Pinnacles poäng/returer/assist
-NBA-odds (unibet/pinnacle) per marknad: pinnacle:assists 40, pinnacle:points 62, pinnacle:rebounds 36, pinnacle:threes 36, unibet:assists 34, unibet:blocks 22, unibet:pa 34, unibet:points 52, unibet:pr 52, unibet:pra 34, unibet:ra 34, unibet:rebounds 52, unibet:steals 32, unibet:threes 40
+NBA linjer: 43 med samma linje hos Pinnacle, 23 flyttade från närliggande linje, 46 kombolinjer (PRA/PR/RA/PA) räknade ur Pinnacles poäng/returer/assist
+NBA-odds (unibet/pinnacle) per marknad: pinnacle:assists 36, pinnacle:points 68, pinnacle:rebounds 38, pinnacle:threes 36, unibet:assists 34, unibet:blocks 22, unibet:pa 34, unibet:points 54, unibet:pr 52, unibet:pra 34, unibet:ra 34, unibet:rebounds 52, unibet:steals 32, unibet:threes 42
 NBA faktormodell (skugga): 68 spelare, Pinnacle-total för 2 av 3 matcher, ligatempo 99.0
 NBA spelarbetyg (skugga): 67 spelare, 0 nya boxscores
 NBA-modell: 3 matcher hos ESPN, 68 spelare, 0 nya boxscores, 90 skadade (out/doubtful)
-NBA-modell nivåavvikelse (dras bort): pr -0.02
-NBA faktormodell nivåavvikelse: pr -0.32
+NBA-modell nivåavvikelse (dras bort): pr -0.04, threes -0.07
+NBA faktormodell nivåavvikelse: pr -0.34, threes -0.22
 NBA minutmodell (skugga): medel cv² 0.109, spread från Pinnacle för 2 av 3 matcher; stackning: _alla b_m -0.02 b_k 1.20 (n 593), assists b_m +0.06 b_k 1.20 (n 94), blocks b_m +0.01 b_k 1.20 (n 5), pa b_m -0.03 b_k 1.06 (n 25), points b_m +0.02 b_k 1.20 (n 164), pr b_m -0.08 b_k 1.01 (n 61), pra b_m -0.06 b_k 1.07 (n 44), ra b_m +0.01 b_k 1.20 (n 39), rebounds b_m -0.04 b_k 1.10 (n 102), steals b_m -0.05 b_k 1.18 (n 9), threes b_m -0.05 b_k 1.16 (n 50)
 NBA-modelltest: 0 spelbara enligt den kalibrerade modellen av 256 ben med modell (2761 rader i kalibreringsloggen)
 NBA analyssida: 256 ben med analys
-NBA CLV-signal: 0 ben släppta
+NBA CLV-signal: 1 ben släppta
 NBA lagnyheter: 102 spelare på skadelistan, 0 ben stoppade, 0 markerade (questionable)
-NBA spelregler: stoppade {'edge': 1, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0} (modelltest {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0})
-NBA: 0 spelbara ben av 298
-LAGNYHET NBA: Lagkamrat ute: Miles McBride (out). Modellen nu: Josh Hart väntat 11.0 (35 min), över 12.5 34%, edge vid 2.05: -30% (vid bokning modell +7%) (förut: okänd)
+NBA lagnyheter: 1 under-spel väntar (lagkamrat nyss ute, referensen kan släpa)
+NBA spelregler: stoppade {'edge': 3, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0} (modelltest {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0})
+NBA: 0 spelbara ben av 302
+LAGNYHET NBA: Josh Hart inte längre på skadelistan (ESPN) (förut: lag:miles mcbride)
 NBA LIVE: 0 spel uppfyller live-kraven, 0 nya bokförda live
-NBA skarp stängning: 8 spel uppdaterade
+NBA skarp stängning: 9 spel uppdaterade
 NBA: hittar inte Karl-Anthony Towns i boxscore (New York Knicks – Portland Trail Blazers) – väntar
 NBA: hittar inte Jalen Smith i boxscore (Chicago Bulls – Washington Wizards) – väntar
 NBA: hittar inte Karl-Anthony Towns i boxscore (New York Knicks – Portland Trail Blazers) – väntar
 NBA kalibrering: 0 nya rättade ben; _alla M0 (n 2005, test 602, vinst +0.0000), pr M0 (n 342, test 103, vinst +0.0000)
 NBA LIVE-status per marknad (skarp CLV, marknadsspel): assists ok, blocks ok, pa osäker, points ok, pr ok, pra ok, ra osäker, rebounds ok, steals ok, threes ok
 NBA modellstatus per marknad (modelltest, styr inte): assists shadow, blocks insufficient_data, pa insufficient_data, points shadow, pr degraded, pra shadow, ra shadow, rebounds degraded, steals insufficient_data, threes shadow
-NBA sides/totals: 2 matcher med Kambi + Pinnacle, 48 linjer, 0 nya spel, 0 nya skuggspel, 0 över stoppade (utklassning); bästa edge +1.1% (New York Knicks vinner (inkl. förlängning)), +1.0% (Boston Celtics vinner (inkl. förlängning)), -0.7% (Boston Celtics -5.5)
+NBA sides/totals: 2 matcher med Kambi + Pinnacle, 50 linjer, 0 nya spel, 0 nya skuggspel, 0 över stoppade (utklassning); bästa edge +2.4% (totala poäng över 212.5), +2.1% (totala poäng över 213.5), +1.4% (totala poäng över 214.5)
 NBA sides: Kambis marknader moneyline - including overtime -> ml; point spread - including overtime -> spread; total points - including overtime -> game_total

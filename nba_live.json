@@ -7141,7 +7141,7 @@
 "edge": 0.07107402867895285,
 "spela_fran": 1.96,
 "insats_pct": 0.004,
-"stangning": 2.02,
+"stangning": 2.06,
 "status": "öppen",
 "stopp": "",
 "clv_signal": false,
@@ -7151,23 +7151,23 @@
 "utfall": null,
 "resultat_enheter": null,
 "modell_edge": 0.07107402867895285,
-"stangning_ts": 1795391781.9053307,
+"stangning_ts": 1795393465.638158,
 "analys": {
-"p_stack": 0.4437,
-"p_modell_min": 0.2605,
-"minuter": 32.3,
+"p_stack": 0.4197,
+"p_modell_min": 0.3183,
+"minuter": 34.1,
 "minuter_sd": 4.8,
-"p_faktorer": 0.4169,
-"p_faktorer_ra": 0.277,
-"vantat_faktorer": 10.12,
-"p_betyg": 0.4186,
-"p_betyg_ra": 0.2848,
-"vantat_betyg": 10.35,
-"minuter_faktorer": 29.9,
-"f_anv": 1.001,
-"f_miljo": 1.012,
-"f_tempo": 1.009,
-"f_pos": 0.972,
+"p_faktorer": 0.4078,
+"p_faktorer_ra": 0.3143,
+"vantat_faktorer": 10.99,
+"p_betyg": 0.4129,
+"p_betyg_ra": 0.3398,
+"vantat_betyg": 11.02,
+"minuter_faktorer": 32.6,
+"f_anv": 1.0,
+"f_miljo": 1.013,
+"f_tempo": 1.013,
+"f_pos": 0.964,
 "f_mot": 1.08,
 "f_minuter_bas": 29.2,
 "f_b2b": true,
@@ -7175,7 +7175,7 @@
 "f_minutbegransning": false,
 "f_tillbaka": false,
 "f_miljo_kalla": "pinnacle",
-"f_lag_poang": 110.2,
+"f_lag_poang": 111.5,
 "f_mot_n": 3,
 "traff_l5": 0.2,
 "traff_l5_n": 5,
@@ -7187,18 +7187,18 @@
 "traff_mot_n": 3,
 "traff_hemmaborta": 0.333,
 "traff_hemmaborta_n": 6,
-"p_kalib": 0.4505,
-"p_blend": 0.4166,
+"p_kalib": 0.4296,
+"p_blend": 0.413,
 "kalib_modell": "M0",
-"p_modell": 0.2759,
-"p_marknad": 0.4505,
-"p_slutlig": 0.4166,
-"vantat": 10.33,
+"p_modell": 0.3405,
+"p_marknad": 0.4296,
+"p_slutlig": 0.413,
+"vantat": 11.03,
 "nb_r": 12,
 "modell_vikt": 0.18,
 "dq": 0.6,
 "matcher": 9,
-"nivajustering": 0.04,
+"nivajustering": 0.0,
 "logg": [
 {
 "ts": 1795307400.0,
@@ -7285,6 +7285,12 @@
 "redan_borta": false
 },
 {
+"namn": "Miles McBride",
+"status": "out",
+"min": 15.8,
+"redan_borta": false
+},
+{
 "namn": "Jordan Clarkson",
 "status": "out",
 "min": 10.5,
@@ -7296,8 +7302,8 @@
 "hemma": true,
 "minuter_sd_faktorer": 4.8,
 "ref": {
-"pin_p": 0.4262816563791105,
-"dk_p": 0.4749235817454907,
+"pin_p": 0.3980182115562516,
+"dk_p": 0.46174432039008984,
 "pin_linje": null,
 "dk_linje": null,
 "pin_flyttad": false,
@@ -7306,59 +7312,59 @@
 "odds_bolag": [
 {
 "bolag": "atg",
-"over": 2.02,
-"under": 1.72
+"over": 2.06,
+"under": 1.7
 },
 {
 "bolag": "betmgm",
-"over": 2.02,
-"under": 1.72
+"over": 2.06,
+"under": 1.7
 },
 {
 "bolag": "expekt",
-"over": 2.02,
-"under": 1.72
+"over": 2.06,
+"under": 1.7
 },
 {
 "bolag": "leovegas",
-"over": 2.02,
-"under": 1.72
+"over": 2.06,
+"under": 1.7
 },
 {
 "bolag": "paf",
-"over": 2.02,
-"under": 1.72
+"over": 2.06,
+"under": 1.7
 },
 {
 "bolag": "pinnacle_komb",
-"over": 2.346,
-"under": 1.743
+"over": 2.512,
+"under": 1.661
 },
 {
 "bolag": "svenskaspel",
-"over": 2.02,
-"under": 1.72
+"over": 2.06,
+"under": 1.7
 },
 {
 "bolag": "unibet",
-"over": 2.02,
-"under": 1.72
+"over": 2.06,
+"under": 1.7
 },
 {
 "bolag": "us_draftkings",
-"over": 1.96,
-"under": 1.79
+"over": 2.01,
+"under": 1.75
 }
 ]
 },
-"prognos": 10.331438054250212,
-"analys_ts": 1795391781.9064689,
+"prognos": 11.033982883253671,
+"analys_ts": 1795393465.638654,
 "modellversion": "2026-11-15-betyg",
 "prognos_ts": 1795373704.5663445,
-"skarp_stang_p": 0.4504843055482462,
-"skarp_stang_ts": 1795391781.6941068,
+"skarp_stang_p": 0.4295895674453152,
+"skarp_stang_ts": 1795393465.4380312,
 "skarp_kalla": "skanning",
-"pin_stang_p": 0.4382471532039667,
+"pin_stang_p": 0.3980182115562516,
 "dk_stang_p": 0.46174432039008984,
 "bolag_bokning": {
 "ts": 1795373704.5856702,
@@ -7384,35 +7390,40 @@
 "dk_p": 0.5442545510285164
 },
 "bolag_stangning": {
-"ts": 1795392873.1913815,
+"ts": 1795393466.1085985,
 "odds": {
+"unibet": {
+"over": 2.06,
+"under": 1.7
+},
 "draftkings": {
 "over": 2.01,
 "under": 1.75
 },
-"pinnacle (11.5)": {
-"over": 1.928,
-"under": 2.078
+"pinnacle": {
+"over": 2.512,
+"under": 1.661
 }
 },
 "pin_flyttad": false,
-"pin_komb": false,
-"pin_linje": 11.5,
+"pin_komb": true,
+"pin_linje": null,
 "dk_linje": null,
-"pin_p": 0.4382471532039667,
+"pin_p": 0.3980182115562516,
 "dk_p": 0.46174432039008984
 },
-"bolag_stang_ts": 1795392873.1913815,
-"skarp_verifierad": false,
+"bolag_stang_ts": 1795393466.1085985,
+"skarp_verifierad": true,
 "skarp_status": null,
-"clv_skarp_pp": -3.7320572500534333,
-"clv_pin_pp": -4.955772484481385,
+"clv_skarp_pp": -5.821531060346535,
+"clv_pin_pp": -8.978666649252892,
 "clv_dk_pp": -2.60605576586907,
 "nyhet_lag_status": "lag:miles mcbride",
 "nyhet_lag": "Lagkamrat ute: Miles McBride (out). Modellen nu: Josh Hart väntat 11.0 (35 min), över 12.5 34%, edge vid 2.05: -30% (vid bokning modell +7%)",
 "nyhet_lag_ts": "2026-11-23T00:14:32+00:00",
-"nyhet": "Lagkamrat ute: Miles McBride (out). Modellen nu: Josh Hart väntat 11.0 (35 min), över 12.5 34%, edge vid 2.05: -30% (vid bokning modell +7%)",
-"nyhet_status": "lag:miles mcbride"
+"nyhet": "Josh Hart inte längre på skadelistan (ESPN)",
+"nyhet_status": "ok",
+"nyhet_ts": "2026-11-23T00:24:25+00:00"
 },
 {
 "key": "nba1028754384|keyonte george|assists|7.5|unibet|under",
