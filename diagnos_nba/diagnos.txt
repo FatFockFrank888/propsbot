@@ -1,28 +1,28 @@
-NBA-skanning 2026-11-23 11:25
+NBA-skanning 2026-11-23 11:37
 Kambi NBA: 10 matcher, bolag: atg, betmgm, expekt, leovegas, paf, svenskaspel, unibet
-NBA tid: Kambi-props 60 s
+NBA tid: Kambi-props 26 s
 Pinnacle NBA: 10 matcher, 0 spelarodds (13 s)
-Kalshi: 17 likvida linjer av 2253 öppna marknader
+Kalshi: 17 likvida linjer av 2282 öppna marknader
 Kalshi: 17 linjer kopplade till matcher
 DK/FD: 0 nya hämtningar, 0 odds i bruk, krediter kvar 192, dagsbudget 22 (andel 60%), förbrukat idag 4
 SportsGameOdds NBA: vilar efter kvotfel till 23/11 20:01 UTC
-DraftKings via ESPN: 10 matcher, 884 spelarodds (referens)
-Stängningsarkiv (Pinnacle/DK): 442 tvåsidiga linjer noterade, 0 rader arkiverade
+DraftKings via ESPN: 10 matcher, 878 spelarodds (referens)
+Stängningsarkiv (Pinnacle/DK): 439 tvåsidiga linjer noterade, 0 rader arkiverade
 NBA namnexempel Philadelphia 76ers: Kambi ['anfernee simons', 'damian lillard', 'deni avdija', 'donovan clingan', 'jaylen brown', 'joel embiid'] | Pinnacle []
 NBA linjer: 0 med samma linje hos Pinnacle, 0 flyttade från närliggande linje, 0 kombolinjer (PRA/PR/RA/PA) räknade ur Pinnacles poäng/returer/assist
-NBA-odds (unibet/pinnacle) per marknad: unibet:assists 144, unibet:pa 144, unibet:points 180, unibet:pr 178, unibet:pra 144, unibet:ra 144, unibet:rebounds 178, unibet:threes 146
+NBA-odds (unibet/pinnacle) per marknad: unibet:assists 166, unibet:pa 166, unibet:points 202, unibet:pr 200, unibet:pra 166, unibet:ra 166, unibet:rebounds 200, unibet:threes 166
 NBA faktormodell (skugga): 219 spelare, Pinnacle-total för 10 av 10 matcher, ligatempo 100.3
 NBA spelarbetyg (skugga): 220 spelare, 0 nya boxscores
 NBA-modell: 10 matcher hos ESPN, 219 spelare, 0 nya boxscores, 92 skadade (out/doubtful)
-NBA-modell nivåavvikelse (dras bort): pa +0.17, points +0.22, pra +0.04, rebounds +0.12, threes +0.23
-NBA faktormodell nivåavvikelse: pa -0.25, points -0.23, pra -0.42, rebounds -0.21, threes -0.00
+NBA-modell nivåavvikelse (dras bort): assists +0.03, pa +0.26, points +0.33, pr +0.25, pra +0.19, ra +0.04, rebounds +0.20, threes +0.33
+NBA faktormodell nivåavvikelse: assists -0.34, pa -0.29, points -0.19, pr -0.34, pra -0.44, ra -0.45, rebounds -0.22, threes +0.06
 NBA minutmodell (skugga): medel cv² 0.104, spread från Pinnacle för 10 av 10 matcher; stackning: _alla b_m -0.02 b_k 1.20 (n 593), assists b_m +0.06 b_k 1.20 (n 94), blocks b_m +0.01 b_k 1.20 (n 5), pa b_m -0.03 b_k 1.06 (n 25), points b_m +0.02 b_k 1.20 (n 164), pr b_m -0.08 b_k 1.01 (n 61), pra b_m -0.06 b_k 1.07 (n 44), ra b_m +0.01 b_k 1.20 (n 39), rebounds b_m -0.04 b_k 1.10 (n 102), steals b_m -0.05 b_k 1.18 (n 9), threes b_m -0.05 b_k 1.16 (n 50)
-NBA-modelltest: 0 spelbara enligt den kalibrerade modellen av 374 ben med modell (3291 rader i kalibreringsloggen)
-NBA analyssida: 374 ben med analys
+NBA-modelltest: 0 spelbara enligt den kalibrerade modellen av 478 ben med modell (3343 rader i kalibreringsloggen)
+NBA analyssida: 478 ben med analys
 NBA CLV-signal: 1 ben släppta
 NBA lagnyheter: 104 spelare på skadelistan, 1 ben stoppade, 0 markerade (questionable)
-NBA spelregler: stoppade {'edge': 1, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0} (modelltest {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0})
-NBA: 0 spelbara ben av 410
+NBA spelregler: stoppade {'edge': 2, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0} (modelltest {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0})
+NBA: 0 spelbara ben av 522
 NBA LIVE: 0 spel uppfyller live-kraven, 0 nya bokförda live
 NBA skarp stängning: 7 spel uppdaterade
 NBA: hittar inte Karl-Anthony Towns i boxscore (New York Knicks – Portland Trail Blazers) – väntar
@@ -31,5 +31,5 @@ NBA: hittar inte Shai Gilgeous-Alexander i boxscore (Miami Heat – Oklahoma Cit
 NBA kalibrering: 0 nya rättade ben; _alla M0 (n 2661, test 799, vinst +0.0000), pa M0 (n 357, test 108, vinst +0.0000), points M0 (n 358, test 108, vinst +0.0000), pr M1 (n 463, test 139, vinst +0.0026), pra M1 (n 381, test 115, vinst +0.0060), rebounds M0 (n 302, test 91, vinst +0.0000)
 NBA LIVE-status per marknad (skarp CLV, marknadsspel): assists ok, blocks ok, pa osäker, points ok, pr osäker, pra ok, ra osäker, rebounds ok, steals ok, threes ok
 NBA modellstatus per marknad (modelltest, styr inte): assists shadow, blocks insufficient_data, pa insufficient_data, points shadow, pr degraded, pra shadow, ra shadow, rebounds degraded, steals insufficient_data, threes shadow
-NBA sides/totals: 10 matcher med Kambi + Pinnacle, 186 linjer, 0 nya spel, 0 nya skuggspel, 0 över stoppade (utklassning); bästa edge +0.4% (Portland Trail Blazers +5.5), +0.3% (Portland Trail Blazers +6.5), +0.2% (Indiana Pacers +7.5)
+NBA sides/totals: 10 matcher med Kambi + Pinnacle, 202 linjer, 0 nya spel, 0 nya skuggspel, 0 över stoppade (utklassning); bästa edge +1.0% (Portland Trail Blazers +5.5), +0.9% (Portland Trail Blazers +6.5), +0.3% (totala poäng över 226.5)
 NBA sides: Kambis marknader moneyline - including overtime -> ml; point spread - including overtime -> spread; total points - including overtime -> game_total
