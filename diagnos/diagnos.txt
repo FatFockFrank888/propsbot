@@ -1,4 +1,4 @@
-Skanning 2026-11-23 08:23
+Skanning 2026-11-23 08:33
 Kambi unibet (ubse): OK, 26 matcher i valda ligor
 Kambi paf (paf): OK
 Kambi atg (atg): OK
@@ -72,10 +72,10 @@ Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
 Sides mindre ligor: 33 Kambi-matcher inom 12 h, 124 Pinnacle-matcher, 27 med Pinnacle, 27 matchade: Algeria / Ligue 1, Bulgaria / PFL 1, Croatia / 1. HNL League, Cyprus / 1st Division, Egypt / Premier League, England / National League South, France / Ligue 3, Hungary / NB 2, Italy / Serie C Girone A, Italy / Serie C Girone B, Myanmar / National League, Netherlands / Eerste Divisie, Oman / Professi
 Sides rättning: goal-api dagstak 300 anrop nått
 Sides rättning: SportScore 31 anrop i dag
-Sides/totals: 40 matcher med Kambi + Pinnacle, 754 linjer, 0 nya spel, 0 nya skuggspel, Smarkets-priser i 26 av 27; bästa edge +10.0% (Santos-SP 1X2: 2), +5.0% (Diósgyőri VTK 1X2: 1), +3.8% (JS Kabylie 1X2: X)
+Sides/totals: 40 matcher med Kambi + Pinnacle, 754 linjer, 0 nya spel, 0 nya skuggspel, Smarkets-priser i 26 av 27; bästa edge +10.0% (Santos-SP 1X2: 2), +7.2% (Chinland FC över 3.5), +6.8% (Örgryte IS 1X2: 1)
 Hörnmodell (test): 7861 matcher i underlaget (17 ligor), 6 matcher med modell, 1020 Kambi-linjer, 0 nya testspel; bästa edge +56.7% (AD Ceuta FC Almeria hörnor under 3.5 @ 2.70), +16.0% (Monza Monza hörnor under 3.5 @ 2.70), +14.1% (Brentford hörnor under 7.5 @ 3.85)
 Fotboll extra bolag: 0 nya hämtningar, 0 odds i bruk, krediter kvar 192, dagsbudget 22 (andel 40%), förbrukat idag 4
-Tid: hämtning 361 s
+Tid: hämtning 353 s
 Marginal över alla matcher: uppmätt marginal: shots_on_target stege k=1.10 (69 spelare; marginal vid 3,00 ≈ 12%)
   Brøndby IF – FC Midtjylland: modell den.1, 30 spelare
   Örgryte IS – Kalmar FF: modell swe.1, 29 spelare
@@ -91,8 +91,8 @@ Modellens nivåavvikelse mot marknaden (log-odds, dras bort): shots -0.64, shots
   İstanbul Başakşehir – Çorum Belediyespor: saknar matchlinjer från Pinnacle
   Brøndby IF – FC Midtjylland: väntade mål Pinnacle 3.19 mot Kambi 3.20 (kvot 0.997); uppmätt marginal: goal k=1.83, assist k=1.70
 Exempel uppmätt marginal: goal k=1.83, assist k=1.70
-  Örgryte IS – Kalmar FF: väntade mål Pinnacle 2.88 mot Kambi 2.79 (kvot 1.029); uppmätt marginal: goal k=1.58
-  Hammarby IF – IFK Göteborg: väntade mål Pinnacle 3.60 mot Kambi 3.44 (kvot 1.045); uppmätt marginal: goal k=1.57
+  Örgryte IS – Kalmar FF: väntade mål Pinnacle 2.85 mot Kambi 2.79 (kvot 1.021); uppmätt marginal: goal k=1.59
+  Hammarby IF – IFK Göteborg: väntade mål Pinnacle 3.62 mot Kambi 3.44 (kvot 1.050); uppmätt marginal: goal k=1.56
   AD Ceuta FC – Almeria: saknar matchlinjer från Pinnacle
   Monza – Fiorentina: väntade mål Pinnacle 3.15 mot Kambi 3.16 (kvot 0.999); uppmätt marginal: goal k=1.47, assist k=1.51, shots_on_target stege k=1.09 (28 spelare; marginal vid 3,00 ≈ 10%)
   Brentford – Everton: väntade mål Pinnacle 2.76 mot Kambi 2.79 (kvot 0.990); uppmätt marginal: goal k=1.38, assist k=1.51, shots_on_target stege k=1.14 (6 spelare; marginal vid 3,00 ≈ 17%)
@@ -101,8 +101,8 @@ Exempel uppmätt marginal: goal k=1.83, assist k=1.70
   Internacional-RS – Vitória-BA: väntade mål Pinnacle 2.66 mot Kambi 2.67 (kvot 0.996); uppmätt marginal: goal k=1.58, assist k=1.39, shots_on_target stege k=1.34 (7 spelare; marginal vid 3,00 ≈ 45%)
   Botafogo-RJ – São Paulo-SP: väntade mål Pinnacle 2.65 mot Kambi 2.62 (kvot 1.012); uppmätt marginal: goal k=1.57, assist k=1.45, shots_on_target stege k=1.04 (14 spelare; marginal vid 3,00 ≈ 4%)
   Santos-SP – Grêmio-RS: väntade mål Pinnacle 3.16 mot Kambi 3.01 (kvot 1.047); uppmätt marginal: goal k=1.31, assist k=1.23, shots_on_target stege k=1.36 (14 spelare; marginal vid 3,00 ≈ 49%)
-  St. Louis City SC – Los Angeles FC: väntade mål Pinnacle 3.01 mot Kambi 3.06 (kvot 0.986); uppmätt marginal: goal k=1.49, assist k=1.33
-Tid: modell och utvärdering 87 s
+  St. Louis City SC – Los Angeles FC: väntade mål Pinnacle 3.02 mot Kambi 3.06 (kvot 0.990); uppmätt marginal: goal k=1.48, assist k=1.32
+Tid: modell och utvärdering 74 s
 Bolag med spelarodds: atg, betmgm, expekt, leovegas, paf, svenskaspel, unibet
 Spelarodds per marknad: assist 1491, goal 6736, shots 2639, shots_on_target 2464
 Kambi-marknader: assist='to give an assist (settled using opta data)':1491; goal='1st goalscorer':2584; goal='to score':2773; goal='to score at least 2 goals':1239; goal='to score at least 3 goals':126; goal='to score at least 4 goals':14; shots="player's shots (settled using opta data)":2639; shots_on_target="player's shots on target (settled using opta data)":2464
