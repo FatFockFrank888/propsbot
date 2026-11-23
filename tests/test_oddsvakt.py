@@ -95,9 +95,12 @@ def test_required_odds_uses_fresh_sharp_p():
     assert ov.required_odds(dict(SIDE_BET, pin_stang_p=0.55), S) == 2.15
     # krav_edge från spelet (agent A) används före tier_b_min_edge
     assert ov.required_odds(dict(SIDE_BET, krav_edge=0.03, spela_fran=None), S) == 2.11
-    # props: skarp_stang_p bara om nyare än bokningen
-    assert ov.required_odds(dict(NBA_BET, skarp_stang_p=0.5, skarp_stang_ts=NOW), S) == 2.10
-    assert ov.required_odds(dict(NBA_BET, skarp_stang_p=0.5, skarp_stang_ts=NOW - 3600), S) == 1.88
+    # props: skarp_stang_p bara om nyare än bokningen, och bara som förändring sedan bevakningen började (p0)
+    nb = dict(NBA_BET, skarp_stang_p=0.5, skarp_stang_ts=NOW, sannolikhet=0.56)
+    assert ov.required_odds(nb, S) == 1.88                    # ingen p0: bara spela från
+    assert ov.required_odds(nb, S, p0=0.5) == 1.88            # oförändrad skarp: spela från
+    assert ov.required_odds(nb, S, p0=0.55) == 2.06           # skarp föll 5 pe: 1,05/0,51 -> kravet höjs
+    assert ov.required_odds(dict(nb, skarp_stang_ts=NOW - 3600), S, p0=0.55) == 1.88   # gammal skarp: ignoreras
 
 
 # ------------------------------------------------------------------ lägen
@@ -291,3 +294,19 @@ def test_mina_ignores_watch_messages():
     msgs = [{"id": "1", "time": 1, "message": json.dumps({"v": 1, "typ": "bevaka", "ident": "x", "min_odds": 2.0})},
             {"id": "2", "time": 2, "message": json.dumps({"v": 1, "typ": "sluta_bevaka", "ident": "x"})}]
     assert mina.apply_messages(book, msgs, {}, NOW) == 0 and book.bets == {}
+
+
+def test_prop_with_sharp_below_model_p_no_false_gone(tmp_path):
+    # props: modellens sannolikhet (0,56) över den skarpa (0,48). Oddset ligger kvar -> ingen GONE vid start.
+    nb = dict(NBA_BET, sannolikhet=0.56, skarp_stang_p=0.48, skarp_stang_ts=NOW)
+    setup(tmp_path, [nb])
+    v, sent, calls, run = vakt(tmp_path, [nba_raw(1.97)] * 4)
+    run()
+    assert sent == [] and v.bas_p[nb["ident"]] == 0.48
+    # den skarpa faller 6 pe efter starten -> kravet 1,05/0,50 = 2,10 > 1,97 -> GONE
+    nb2 = dict(nb, skarp_stang_p=0.42)
+    setup(tmp_path, [nb2])
+    v.reload()
+    v.step(NOW + 200)
+    v.step(NOW + 230)
+    assert len(sent) == 1 and sent[0][0].startswith("ODDS ALERT ❌")

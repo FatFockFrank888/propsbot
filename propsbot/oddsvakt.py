@@ -26,7 +26,8 @@ Vad som bevakas
 Lägsta odds (nivåspel): max(spela_fran, min_odds(p_nu, krav_edge)).
   krav_edge från spelet (tiers.py), annars tier_b_min_edge. p_nu = den rättvisa sannolikhet som
   skanningen räknar om var tionde minut fram till start (inte "sannolikhet", som låses vid bokningen):
-    props   skarp_stang_p (referensen boten räknar edge mot: Pinnacle/DK/konsensus), om nyare än bokningen
+    props   skarp_stang_p (referensen boten räknar edge mot: Pinnacle/DK/konsensus), om nyare än bokningen –
+            används som FÖRÄNDRING sedan bevakningen började (p_eff = sannolikhet + p_nu − p0), se required_odds
     sides   Pinnacles pris utan marginal (pin_stang_p), snittet med Smarkets (smk_stang_p) när båda finns –
             samma facit som sides.py
   Försiktigt: max() med spela_fran gör att lägsta oddset aldrig sänks under notisens nivå när
@@ -112,13 +113,24 @@ def p_now(b: dict) -> float | None:
     return None
 
 
-def required_odds(b: dict, settings: dict) -> float | None:
-    """Lägsta odds för ett nivåspel: max(spela_fran, min_odds(p_nu, krav_edge))."""
+def required_odds(b: dict, settings: dict, p0: float | None = None) -> float | None:
+    """Lägsta odds för ett nivåspel: max(spela_fran, min_odds(p_eff, krav_edge)).
+
+    sides: p_eff = p_nu (Pinnacle/Smarkets utan marginal – samma skala som spelets sannolikhet).
+    props: spelets sannolikhet är modellens/blandningens, inte den skarpa referensens, så nivåerna kan inte
+      blandas (då skulle många spel se ut att vara under gränsen direkt vid notisen). I stället flyttas
+      sannolikheten lika mycket som den skarpa referensen rört sig sedan bevakningen började:
+      p_eff = sannolikhet + (p_nu − p0), där p0 = första skarpa sannolikheten vakten såg. Utan p0: bara spela_fran."""
     krav = b.get("krav_edge")
     if krav is None:
         krav = settings.get("tier_b_min_edge", 0.05)
     cand = [x for x in (b.get("spela_fran"),) if isinstance(x, (int, float)) and x > 1]
     p = p_now(b)
+    if p and b.get("spelare_id") not in SIDE_IDS:
+        s = b.get("sannolikhet")
+        p = (s + (p - p0)) if (p0 and isinstance(s, (int, float)) and 0 < s < 1) else None
+        if p is not None and not 0 < p < 1:
+            p = None
     if p:
         cand.append(min_odds(p, krav))
     return max(cand) if cand else None
@@ -233,6 +245,7 @@ class Vakt:
         self.st: dict = d.get("vakter", {})           # ident -> läge
         self.egna: dict = d.get("egna", {})           # ident -> bevakningsmeddelandet
         self.msg_ts: dict = d.get("meddelande_ts", {})  # ident -> senaste ts för bevaka/sluta_bevaka
+        self.bas_p: dict = d.get("bas_p", {})        # ident -> skarp sannolikhet vid bevakningens start (props)
         self.seen: list = d.get("sedda", [])
         self._seen = set(self.seen)
         self.tagna_msg: dict = d.get("tagna", {})     # ident -> True/False från "tog"/"angra" (efter mina_spel.json)
@@ -321,7 +334,10 @@ class Vakt:
         for ident, b in self.tiers.items():
             if (b.get("tier") in ("A", "B") and b.get("notis") and b.get("status", "öppen") == "öppen"
                     and (b.get("avspark") or 0) > now and not self.taken(ident)):
-                mn = required_odds(b, self.s)
+                pn = p_now(b)
+                if pn and ident not in self.bas_p:
+                    self.bas_p[ident] = pn                # skarp sannolikhet när bevakningen började (props)
+                mn = required_odds(b, self.s, p0=self.bas_p.get(ident))
                 if mn:
                     out[ident] = {"typ": "tier", "b": b, "bolag": b.get("bolag"), "min": mn, "spela_fran": b.get("spela_fran")}
         for ident, e in list(self.egna.items()):
@@ -456,7 +472,7 @@ class Vakt:
         from .ledger import rensa_nan
         (self.root / STATE_FILE).write_text(json.dumps(rensa_nan({
             "uppdaterad_ts": now, "vakter": self.st, "egna": self.egna, "meddelande_ts": self.msg_ts,
-            "tagna": dict(list(self.tagna_msg.items())[-500:]), "sedda": self.seen[-2000:]}), ensure_ascii=False), encoding="utf-8")
+            "tagna": dict(list(self.tagna_msg.items())[-500:]), "bas_p": dict(list(self.bas_p.items())[-500:]), "sedda": self.seen[-2000:]}), ensure_ascii=False), encoding="utf-8")
         pub = {}
         for ident, w in self.cur.items():
             x = self.st.get(ident) or {}
