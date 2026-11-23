@@ -524,7 +524,7 @@ const spel = (m, l, side) => {
   return `${(MK[m] || m).toLowerCase()} ${side === "under" ? "under" : "över"} ${l}`;
 };
 
-let D = {}, PARAMS = null, TIERD = null, TIER = [], MINAD = null, cur = "alla", tab = "nu", ALL = [], sortKey = "edge", sortDir = -1;
+let D = {}, PARAMS = null, TIERD = null, TIER = [], MINAD = null, VAKTD = null, cur = "alla", tab = "nu", ALL = [], sortKey = "edge", sortDir = -1;
 const sel = () => cur === "alla" ? Object.keys(SPORTS) : [cur];
 
 // CLV-texter: skarp stängning = Pinnacle/DK-referensens rättvisa sannolikhet för vår sida vid start
@@ -582,7 +582,7 @@ const rows = () => ALL.filter(r => sel().includes(r.sport));
 function buildTiers() {
   TIER = ((TIERD && TIERD.bets) || []).map(b => ({...norm(b, b.sport, "Tier"), tier: b.tier, u: b.units,
     res: b.resultat_u, spelad: !!b.spelad, why: b.inte_hogre || [], uppFran: b.uppgraderad_fran, kalla: b.kalla,
-    ident: b.ident, raw: b}));
+    ident: b.ident, raw: b, rum: b.rum, kravEdge: b.krav_edge}));
 }
 const tierRows = () => TIER.filter(r => sel().includes(r.sport));
 const tierChip = t => `<span class="tier t${t}">${t}</span>`;
@@ -676,10 +676,10 @@ function betCard(r, o = {}) {
     ${o.chips ? `<div class="foot">${o.chips}</div>` : ""}
   </div>`;
 }
-function cushionBar(oddsNow, from) {
+function cushionBar(oddsNow, from, lab = "spela från") {
   if (!oddsNow || !from) return "";
   const c = oddsNow / from - 1, f = Math.max(0, Math.min(1, c / 0.08));
-  return `<div><div class="cmp"><span>Odds nu <b>${nf(oddsNow)}</b> · spela från <b>${sf(from)}</b></span>
+  return `<div><div class="cmp"><span>Odds nu <b>${nf(oddsNow)}</b> · ${lab} <b>${sf(from)}</b></span>
     <span class="${c < 0 ? "loss" : c < 0.01 ? "" : "pos"}">${c < 0 ? "under gränsen" : "kudde " + pct(c)}</span></div>
     <div class="track ${c < 0.01 ? "warn" : ""}"><i style="width:${c < 0 ? 100 : Math.max(4, f * 100).toFixed(0)}%"></i></div></div>`;
 }
@@ -742,7 +742,7 @@ function tierSel(id, curv, set, opts) {
 const TIER_OPTS = [["AB", "A + B (spelas)"], ["A", "A"], ["B", "B"], ["C", "C"], ["ABC", "Alla"]];
 function tierCard(r, extra = {}) {
   const fresh = r.status === "öppen" && r.bokford && Date.now() / 1000 - r.bokford < 3600;
-  const chips = [fresh ? `<span class="chip l" title="bokat ${fmtTs(r.bokford)}">NY</span>` : "", takeBtn(r), tierChip(r.tier) + `<span class="why"> ${UTXT[r.u] || ""}</span>`,
+  const chips = [fresh ? `<span class="chip l" title="bokat ${fmtTs(r.bokford)}">NY</span>` : "", takeBtn(r), vaktBtn(r.raw), r.status === "öppen" && r.avspark > Date.now() / 1000 ? rumChip(r) : "", tierChip(r.tier) + `<span class="why"> ${UTXT[r.u] || ""}</span>`,
     r.tier === "A" ? (r.notis ? `<span class="chip l">notis</span>` : "") : "",
     r.tier === "C" ? `<span class="chip">bara bokföring</span>` : "",
     r.uppFran ? `<span class="chip i">upp från ${r.uppFran}</span>` : "",
@@ -770,7 +770,7 @@ function renderNu() {
   document.getElementById("pgLed").classList.toggle("off", !going.length);
   const playable = all.filter(r => r.status === "öppen" && r.avspark > now && r.spelad).length;
   const ct = document.getElementById("ctNu"); ct.textContent = playable; ct.classList.toggle("hidden", !playable);
-  document.getElementById("nuCards").innerHTML = open.map(r => tierCard(r, {cmp: cushionBar(r.stangning || r.odds, r.spela_fran)})).join("")
+  document.getElementById("nuCards").innerHTML = open.map(r => tierCard(r, {cmp: vaktBar(r.ident) || cushionBar(r.stangning || r.odds, r.spela_fran)})).join("")
     || `<div class="emptybox"><b>Inga ${nuTier === "ABC" ? "" : nuTier.split("").join("/") + "-"}spel inför start just nu</b>A Tier ger notis så fort något klarar alla krav. Sidan uppdateras själv varannan minut.</div>`;
   document.getElementById("pgCards").innerHTML = going.map(r => tierCard(r, {badge: tierChip(r.tier) + ` <span class="chip i">pågår</span>`,
     stats: [["Odds", nf(r.odds), r.bolag], ["Edge", pct(r.edge), "vid bokning", "pos"], ["Insats", r.u + "u", r.spelad ? "spelad" : "ej spelad"],
@@ -864,6 +864,86 @@ async function sendMina(msg) {
     await new Promise(ok => setTimeout(ok, 1500));
   }
   return false;
+}
+// ---- Odds Alert (oddsvakt): boten bevakar oddset för A/B-spel själv; egna bevakningar skickas som
+// {typ: "bevaka" | "sluta_bevaka"} till samma -mina-kanal. Status per spel läses ur oddsvakt.json (kan saknas).
+// Rum = hur mycket oddset kan falla innan spelet inte längre klarar kravet (odds / spela från − 1)
+const rumChip = r => r.rum == null || isNaN(r.rum) ? "" : `<span class="chip ${r.rum < 0.01 ? "w" : "g"}" title="oddset kan falla så här mycket innan det går under spela från${r.kravEdge != null ? " (kräver edge " + pct(r.kravEdge) + ")" : ""}">Rum ${pctS(r.rum)}${r.rum < 0.01 ? " ⚠️" : ""}</span>`;
+function vaktOf(ident) {
+  if (!ident || !VAKTD || typeof VAKTD !== "object") return null;
+  const m = [VAKTD.bevakningar, VAKTD.spel, VAKTD].find(x => x && typeof x === "object" && !Array.isArray(x) && x[ident] && typeof x[ident] === "object");
+  const v = m ? m[ident] : null;
+  return v ? {...v, min: v.min_odds ?? v.spela_fran ?? null} : null;
+}
+const vaktLocal = () => LS.get("pb_vakt", {});
+// Egen bevakning aktiv: ett lokalt klick som är nyare än botens senaste status gäller, annars oddsvakt.json (egen: true)
+function egenVakt(ident) {
+  const l = vaktLocal()[ident], v = vaktOf(ident);
+  if (l && (!v || !v.ts || l.ts > v.ts)) return l.typ === "bevaka" ? l : null;
+  return v && v.egen ? {typ: "bevaka", min_odds: v.min} : null;
+}
+const VSTAT = {over: ["✅", "över gränsen", "g"], under: ["❌", "under gränsen", "b"], borta: ["⛔", "borta från bolaget", ""]};
+function vaktBar(ident) {
+  const v = vaktOf(ident);
+  if (!v) return "";
+  // en egen gräns som boten inte hunnit ta in än: räkna status mot den nya gränsen
+  const eg = egenVakt(ident), min = eg?.min_odds ?? v.min;
+  const status = v.status !== "borta" && eg?.min_odds && v.odds_nu ? (v.odds_nu >= eg.min_odds - 1e-9 ? "over" : "under") : v.status;
+  const st = VSTAT[status] || ["", String(status || "okänd"), ""];
+  return `<div class="cmp"><span>🔔 <b>Odds Alert</b> ${eg ? "· egen gräns" : "· bevakas automatiskt"}</span>
+      <span class="${st[2] === "g" ? "pos" : st[2] === "b" ? "loss" : ""}">${st[0]} ${st[1]}${v.ts ? ` · ${fmtTs(v.ts)}` : ""}</span></div>`
+    + (status !== "borta" ? cushionBar(v.odds_nu, min, eg ? "min odds" : "spela från") : "");
+}
+// Chip på kommande spel som går att bevaka (behöver ident, källa och bolag).
+function vaktBtn(b) {
+  if (!b || !b.ident || !b.kalla_fil || !b.kalla_key || !b.bolag || b.status !== "öppen" || !(b.avspark > Date.now() / 1000)) return "";
+  const on = egenVakt(b.ident), auto = !on && vaktOf(b.ident);
+  return (auto ? `<span class="chip i" title="Odds Alert bevakar A/B-spel automatiskt">🔔 bevakas</span>` : "")
+    + `<button class="take ${on ? "on" : ""}" data-id="${esc(b.ident)}" onclick="event.stopPropagation();openVakt(this.dataset.id)">${on ? "🔕 Sluta bevaka" : "🔔 Bevaka odds"}</button>`;
+}
+const vaktBet = ident => { const r = TIER.find(x => x.ident === ident); return r ? r.raw : minaAll().find(b => b.ident === ident); };
+function openVakt(ident) {
+  const b = vaktBet(ident);
+  if (!b) return;
+  const on = egenVakt(ident), v = vaktOf(ident), min = on?.min_odds ?? v?.min ?? b.spela_fran ?? b.odds;
+  document.getElementById("anBody").innerHTML = `<button class="x" onclick="closeAn()">✕</button>
+    <h2>${on ? "🔕 Sluta bevaka" : "🔔 Bevaka odds"}</h2>
+    <div class="sub">${esc(b.spelare_id === "match" || b.spelare_id === "hörnor" ? b.match : b.spelare + " · " + b.match)}<br>
+      <b>${esc(b.spel_text || spel(b.marknad, b.linje, b.sida))}</b> · ${tierChip(b.tier || "C")} · ${nf(b.odds)} hos ${esc(b.bolag || "")}${b.spela_fran ? ` · spela från ${sf(b.spela_fran)}` : ""}</div>
+    <div class="form">
+      ${myTopic() ? "" : `<label>Din ursprungliga propsbot-kanal i ntfy (den du haft från början – INTE tier-ab eller live). Sparas bara i den här webbläsaren
+        <input id="tkTopic" placeholder="propsbot-…" autocomplete="off"></label>`}
+      ${on ? `<div class="note">Boten bevakar oddset hos ${esc(b.bolag || "")} och säger till om det går under <b>${sf(on.min_odds)}</b>.</div>`
+        : `<label>Säg till om oddset går under (1,01–50)<input id="vkOdds" inputmode="decimal" autocomplete="off" value="${min ? nf(min) : ""}"></label>`}
+      <div class="row"><button class="btn take on" data-id="${esc(ident)}" onclick="saveVakt(this.dataset.id, ${on ? "false" : "true"})">${on ? "🔕 Sluta bevaka" : "🔔 Bevaka"}</button></div>
+      <div class="why" id="tkMsg"></div>
+    </div>`;
+  document.getElementById("an").classList.remove("hidden"); document.body.style.overflow = "hidden";
+}
+// "2,15" eller "2.15" -> 2.15; null om ogiltigt (högst två decimaler, 1,01–50)
+function parseOdds(s) {
+  const t = String(s || "").trim().replace(",", ".");
+  if (!/^\d+(\.\d{1,2})?$/.test(t)) return null;
+  const x = Math.round(parseFloat(t) * 100) / 100;
+  return x >= 1.01 && x <= 50 ? x : null;
+}
+async function saveVakt(ident, bevaka) {
+  const msgEl = document.getElementById("tkMsg"), tp = document.getElementById("tkTopic");
+  if (tp) { if (!cleanTopic(tp.value)) { msgEl.textContent = "Fyll i din ntfy-kanal först."; return; } LS.set("pb_topic", cleanTopic(tp.value)); }
+  const b = vaktBet(ident) || {}, ts = Date.now() / 1000;
+  let msg;
+  if (bevaka) {
+    const min = parseOdds(document.getElementById("vkOdds").value);
+    if (min == null) { msgEl.textContent = "Ange ett odds mellan 1,01 och 50 (högst två decimaler)."; return; }
+    msg = {v: 1, typ: "bevaka", ident, sport: b.sport, kalla_fil: b.kalla_fil, kalla_key: b.kalla_key, bolag: b.bolag, min_odds: min, ts};
+  } else msg = {v: 1, typ: "sluta_bevaka", ident, ts};
+  const l = vaktLocal();
+  for (const [k, x] of Object.entries(l)) if (x.ts < ts - 3 * 86400) delete l[k];   // städa gamla
+  l[ident] = {typ: msg.typ, min_odds: msg.min_odds, ts}; LS.set("pb_vakt", l);
+  const ok = await sendMina(msg);
+  msgEl.textContent = ok ? (bevaka ? "Bevakas ✓ – boten tar in gränsen vid nästa körning." : "Bevakningen stoppas ✓")
+    : "Sparat här, men kunde inte skicka till boten – försök igen.";
+  setTimeout(() => { closeAn(); render(); }, ok ? 700 : 2500);
 }
 function changeTopic() {
   const t = prompt("Din ursprungliga propsbot-kanal i ntfy (den du haft från början – inte tier-ab eller live):", myTopic());
@@ -1069,12 +1149,17 @@ function minaCard(b) {
       ${v != null && line ? `<div class="track ${under ? "warn" : ""}"><i style="width:${(f * 100).toFixed(0)}%"></i></div>` : ""}
       ${L.evs.length ? `<div class="evs">${L.evs.map(x => `<div>${x}</div>`).join("")}</div>` : ""}</div>`;
   }
+  // Odds Alert: min odds och kudde inför start (oddsvakt.json eller egen gräns)
+  if (b.status === "öppen" && !(b.avspark <= now)) {
+    const vb = vaktBar(b.ident), eg = egenVakt(b.ident);
+    bar += vb || (eg && eg.min_odds ? `<div class="cmp"><span>🔔 Bevakas · min odds <b>${sf(eg.min_odds)}</b></span><span>väntar på boten</span></div>` : "");
+  }
   return betCard(r, {badge: tierChip(b.tier || "C") + " " + (b.status !== "öppen" ? resultBadge(r) : status),
     stats: [["Ditt odds", nf(b.odds), b.bolag || "", ""], ["Insats", nf(b.units, 1).replace(/,0$/, "") + "u", nf(b.units, 1).replace(/,0$/, "") + " % av kassan"],
             ["Resultat", b.resultat_u == null ? "–" : sgn(b.resultat_u) + "u", b.status, cls(b.resultat_u)],
             ["CLV", b.clv_pp == null ? "–" : sgn(b.clv_pp) + " pe", "på ditt odds", cls(b.clv_pp)]],
     cmp: bar, chips: [b.synkad ? "" : `<span class="chip w" title="boten tar in spelet vid nästa körning">väntar på boten</span>`,
-      `<button class="take on" data-id="${esc(b.ident)}" onclick="openTake(this.dataset.id)">Ändra</button>`, `<span class="chip">${SPORTS[b.sport]?.icon || ""} ${SPORTS[b.sport]?.name || ""}</span>`].join("")});
+      `<button class="take on" data-id="${esc(b.ident)}" onclick="openTake(this.dataset.id)">Ändra</button>`, vaktBtn(b), `<span class="chip">${SPORTS[b.sport]?.icon || ""} ${SPORTS[b.sport]?.name || ""}</span>`].join("")});
 }
 // Kompakt rad per öppet spel: tid/klocka · spelare ÖVER/UNDER linje · siffra mot linjen · status. Tryck = hela kortet.
 const MEXP = new Set();
@@ -1650,6 +1735,7 @@ async function load() {
   try { PARAMS = await (await fetch("parametrar.json?t=" + Date.now(), {cache: "no-store"})).json(); } catch (e) { PARAMS = null; }
   try { TIERD = await (await fetch("tiers.json?t=" + Date.now(), {cache: "no-store"})).json(); } catch (e) { TIERD = null; }
   try { MINAD = await (await fetch("mina_spel.json?t=" + Date.now(), {cache: "no-store"})).json(); } catch (e) { MINAD = null; }
+  try { const r = await fetch("oddsvakt.json?t=" + Date.now(), {cache: "no-store"}); VAKTD = r.ok ? await r.json() : null; } catch (e) { VAKTD = null; }
   buildAll(); buildTiers();
   // Notisens knapp "Öppna" (#ta=<spel>): öppna "Jag tog spelet" för just det spelet direkt.
   if (TAKE_ID) { const id = TAKE_ID; TAKE_ID = null; tab = "nu"; setTimeout(() => openTake(id), 300); }
