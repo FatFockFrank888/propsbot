@@ -2637,7 +2637,7 @@
 "metod": "lag",
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795446158.535209
+"stangning_ts": 1795447007.5859337
 },
 {
 "key": "k1028072784|corners|7.5|under|unibet",
@@ -2677,7 +2677,7 @@
 "metod": "odds+lag",
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795446158.535209
+"stangning_ts": 1795447007.5859337
 },
 {
 "key": "k1027911528|corners_home|3.5|under|unibet",
@@ -2717,6 +2717,46 @@
 "metod": "odds+lag",
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795446158.535209
+"stangning_ts": 1795447007.5859337
+},
+{
+"key": "k1029250981|corners_away|4.5|over|unibet",
+"id": 69,
+"bokford": 1795447007.5859337,
+"match_id": "k1029250981",
+"match": "Sochaux – Dunkerque",
+"hemma": "Sochaux",
+"borta": "Dunkerque",
+"liga": "Football / France / Ligue 2",
+"fd_liga": "F2",
+"avspark": 1795463100.0,
+"spelare": "Dunkerque",
+"spelare_id": "hörnor",
+"marknad": "corners_away",
+"linje": 4.5,
+"sida": "over",
+"spel_text": "Dunkerque hörnor över 4.5",
+"bolag": "unibet",
+"odds": 2.08,
+"sannolikhet": 0.5079187441060414,
+"ratt_odds": 1.9688188545985688,
+"edge": 0.05647098774056625,
+"spela_fran": 2.07,
+"insats_pct": 0.01,
+"stangning": 2.08,
+"p_modell": 0.5079187441060414,
+"p_marknad": 0.43169398907103823,
+"vantat_hemma": 4.9,
+"vantat_borta": 4.81,
+"underlag_matcher": [
+8.4,
+13.9
+],
+"status": "öppen",
+"stopp": "hörnmodell (odds+lag): väntat 4.9–4.8 (F2)",
+"metod": "odds+lag",
+"utfall": null,
+"resultat_enheter": null,
+"stangning_ts": 1795447007.5859337
 }
 ]
