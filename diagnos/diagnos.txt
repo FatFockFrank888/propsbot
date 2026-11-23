@@ -1,4 +1,4 @@
-Skanning 2026-11-23 22:37
+Skanning 2026-11-23 22:50
 Kambi unibet (ubse): OK, 35 matcher i valda ligor
 Kambi paf (paf): OK
 Kambi atg (atg): OK
@@ -72,13 +72,10 @@ Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
 Sides mindre ligor: 7 Kambi-matcher inom 12 h, 22 Pinnacle-matcher, 4 med Pinnacle, 4 matchade: Colombia / Torneo Dimayor, Costa Rica / Primera Division Costa Rica, India / I-League, Paraguay / Primera Paraguay
 Sides rättning: goal-api dagstak 300 anrop nått
 Sides rättning: SportScore 80 anrop i dag
-  Sides rättad: Levante – Elche över 3 -> förlorad (1–1)
-  Sides rättad: Brentford – Everton 1X2: X -> förlorad (4–0)
-Sides/totals: 29 matcher med Kambi + Pinnacle, 1015 linjer, 0 nya spel, 0 nya skuggspel, Smarkets-priser i 26 av 26; bästa edge +4.9% (Botafogo-RJ 1X2: X), +4.1% (Arsenal 1X2: 2), +3.7% (Manchester City 1X2: 2)
-  hörnor Sides rättad: Levante – Elche hörnor under 6.5 -> vunnen (5–1)
+Sides/totals: 29 matcher med Kambi + Pinnacle, 1015 linjer, 1 nya spel, 1 nya skuggspel, Smarkets-priser i 26 av 26; bästa edge +7.0% (Chapecoense-SC 1X2: X), +6.1% (Botafogo-RJ 1X2: X), +3.7% (Manchester City 1X2: 2)
 Hörnmodell (test): 7861 matcher i underlaget (17 ligor), 8 matcher med modell, 810 Kambi-linjer, 0 nya testspel; bästa edge +9.5% (Benevento Benevento hörnor över 6.5 @ 2.14), +5.9% (Cesena Ascoli hörnor över 4.5 @ 1.78), +4.2% (Vicenza Vicenza hörnor under 5.5 @ 1.62)
 Fotboll extra bolag: 0 nya hämtningar, 179 odds i bruk, krediter kvar 179, dagsbudget 22 (andel 40%), förbrukat idag 8
-Tid: hämtning 401 s
+Tid: hämtning 390 s
 Marginal över alla matcher: uppmätt marginal: shots stege k=1.12 (9 spelare; marginal vid 3,00 ≈ 14%), shots_on_target stege k=1.14 (67 spelare; marginal vid 3,00 ≈ 17%)
   Botafogo-RJ – São Paulo-SP: modell bra.1, 27 spelare
   Santos-SP – Grêmio-RS: modell – hittar inte matchen hos ESPN
@@ -122,7 +119,7 @@ Exempel uppmätt marginal: goal k=1.29, assist k=1.13, shots stege k=1.12 (7 spe
   Slovan Bratislava – Real Betis: väntade mål Pinnacle 3.60 mot Kambi 3.68 (kvot 0.980); uppmätt marginal: goal k=1.61, assist k=1.67
   Real Madrid – PSV Eindhoven: saknar matchlinjer från Pinnacle
   Chapecoense-SC – Palmeiras-SP: väntade mål Pinnacle 2.92 mot Kambi 2.97 (kvot 0.986); uppmätt marginal: goal k=1.41, assist k=1.27, shots_on_target stege k=1.13 (14 spelare; marginal vid 3,00 ≈ 15%)
-Tid: modell och utvärdering 138 s
+Tid: modell och utvärdering 149 s
 Bolag med spelarodds: atg, betmgm, expekt, leovegas, oa_fanduel, oa_onexbet, paf, svenskaspel, unibet
 Spelarodds per marknad: assist 3173, goal 11803, shots 5065, shots_on_target 5808
 Kambi-marknader: assist='to give an assist (settled using opta data)':3173; goal='1st goalscorer':4237; goal='to score':4237; goal='to score at least 2 goals':2719; goal='to score at least 3 goals':484; goal='to score at least 4 goals':98; goal='to score at least 5 goals':21; goal='to score at least 6 goals':7; shots="player's shots (settled using opta data)":5065; shots_on_target="player's shots on target (settled using opta data)":5629
