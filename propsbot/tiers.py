@@ -22,10 +22,17 @@ varje A- och B-spel räknas som spelat (användaren väljer själv vad som tas).
 Ett spel klassas när det först syns och låses (värden som ändras fram till start, t.ex. Pinnacles pris,
 ändrar inte nivån i efterhand). En senare rad på samma spelare och match får uppgradera nivån före start.
 Resultat och CLV hämtas från källbokföringen vid varje körning.
+
+Spela från (23/11): källornas "spela från" räknades med för lågt edgekrav (props 2–4 %, sides 3 %), så notisen
+visade ett odds under det som verkligen krävdes. Varje nivåspel får nu krav_edge = den edge spelet faktiskt
+måste klara för sin nivå (se krav_edge()), spela_fran = min_odds(sannolikhet, krav_edge) och rum =
+odds / spela_fran − 1 (hur långt oddset kan falla innan spelet inte längre håller). Källans värde sparas som
+spela_fran_kalla. Nivån och bokföringen påverkas inte – bara det visade lägsta oddset.
 """
 from __future__ import annotations
 
 import json
+import math
 import time
 from pathlib import Path
 
@@ -70,10 +77,85 @@ LIVE_KEYS = {"live_min_edge": {"points": 0.05, "threes": 0.05, "assists": 0.05, 
              "live_odds_window": [1.60, 3.50], "nba_pinnacle_markets": ["points", "rebounds", "assists", "threes"]}
 
 
+# Källornas edgekrav (för krav_edge). Standardvärdena är källmodulernas egna (clv_signal.final_rules, sides.evaluate).
+KRAV_KEYS = {"min_edge_all": 0.05, "extra_edge_without_sharp": 0.03,
+             "sides_min_edge": 0.03, "nba_sides_min_edge": 0.03, "sides_alt_extra_edge": 0.01,
+             "sides_single_ref_extra_edge": 0.01, "sides_low_limit": 2000, "sides_low_limit_extra_edge": 0.01}
+
+
 def cfg(settings: dict) -> dict:
     c = {k: settings.get(k, v) for k, v in DEFAULTS.items()}
     c["_live"] = {k: settings.get(k, v) for k, v in LIVE_KEYS.items()}   # för "varför inte A" (NBA LIVE-kraven)
+    c["_krav"] = {k: settings.get(k, v) for k, v in KRAV_KEYS.items()}   # för krav_edge / spela från
     return c
+
+
+def min_odds(p: float, krav_edge: float) -> float:
+    """Lägsta odds som klarar krav_edge vid sannolikheten p: (1 + krav_edge) / p, avrundat UPPÅT till två
+    decimaler (aldrig under den verkliga tröskeln)."""
+    return math.ceil((1.0 + krav_edge) / p * 100 - 1e-9) / 100
+
+
+def _source_krav(b: dict, sport: str, c: dict) -> float:
+    """Edgekravet i källan för att spelet ska klara ALLA regler (det som A bygger på).
+
+    props (fotboll och NBA): gemensamma kravet min_edge_all (clv_signal.final_rules) och beslutsreglernas krav per
+      marknad (DecisionConfig: mål/assist 4 %, övriga 2 %; + extra_edge_without_sharp när Pinnacle/tvåsidig källa
+      saknas – syns i stoppet "högre edgekrav", och påslaget gäller bara marknaderna i min_edge_by_market).
+      NBA: dessutom LIVE-kravet per marknad (live_min_edge), som A kräver även för regelspel.
+    sides (fotboll och NBA): sides_min_edge (NBA: nba_sides_min_edge) + alternativ linje + en enda referens
+      (hörnor, Smarkets) + låg Pinnacle-gräns (pin_grans < sides_low_limit), som i sides.evaluate."""
+    from .config import DecisionConfig
+    from .sides import SINGLE_REF
+    k = c.get("_krav") or KRAV_KEYS
+    mk = b.get("marknad")
+    if b.get("spelare_id") in ("match", "hörnor"):
+        need = k["nba_sides_min_edge"] if sport == "nba" else k["sides_min_edge"]
+        single = sport != "nba" and mk in SINGLE_REF
+        if b.get("alternativ_linje"):
+            need += k["sides_alt_extra_edge"]
+        if single:
+            need += k["sides_single_ref_extra_edge"]
+        elif b.get("pin_grans") is not None and b["pin_grans"] < k["sides_low_limit"]:
+            need += k["sides_low_limit_extra_edge"]
+        return need
+    dc = DecisionConfig()
+    dec = dc.min_edge_by_market.get(mk, dc.min_edge)
+    if mk in dc.min_edge_by_market and "högre edgekrav" in _stopp(b):
+        dec += k["extra_edge_without_sharp"]
+    need = max(k["min_edge_all"], dec)
+    if sport == "nba":
+        live = ((c.get("_live") or LIVE_KEYS).get("live_min_edge") or {}).get(mk)
+        if live is not None:
+            need = max(need, live)
+    return need
+
+
+def krav_edge(b: dict, tier: str, src: str, sport: str, c: dict) -> float:
+    """Den edge spelet faktiskt måste klara för sin nivå.
+    C: tier_c_min_edge. B: tier_b_min_edge (B kräver inte källans regler – ett skuggspel kan vara B).
+    A: max(tier_b_min_edge, källans krav för att klara alla regler, se _source_krav)."""
+    if tier == "C":
+        return c["tier_c_min_edge"]
+    need = c["tier_b_min_edge"]
+    if tier == "A":
+        need = max(need, _source_krav(b, sport, c))
+    return round(need, 6)
+
+
+def annotate(tb: dict, src_b: dict | None, c: dict) -> None:
+    """Sätter krav_edge, spela_fran (rättat), spela_fran_kalla och rum på ett nivåspel.
+    Äldre spel utan krav_edge räknas om här (källans fält läses från källbokföringen när den finns)."""
+    if tb.get("krav_edge") is None:
+        b = dict(tb, **{k: v for k, v in (src_b or {}).items()
+                        if k in ("marknad", "stopp", "spelare_id", "alternativ_linje", "pin_grans")})
+        if "spela_fran_kalla" not in tb:
+            tb["spela_fran_kalla"] = tb.get("spela_fran")
+        tb["krav_edge"] = krav_edge(b, tb["tier"], tb.get("kalla", ""), tb.get("sport", ""), c)
+    p, o = tb.get("sannolikhet"), tb.get("odds")
+    if p and p > 0:
+        tb["spela_fran"] = min_odds(p, tb["krav_edge"])
+        tb["rum"] = o / tb["spela_fran"] - 1 if o else None
 
 
 def live_reasons(b: dict, c: dict) -> list[str]:
@@ -191,7 +273,8 @@ SYNC = ("status", "utfall", "stangning", "stangning_ts", "skarp_stang_p", "skarp
         "nyhet", "nyhet_status", "nyhet_ts", "dubblett", "struken_orsak")
 COPY = ("match_id", "match", "hemma", "borta", "liga", "avspark", "spelare", "spelare_id", "marknad", "linje", "sida",
         "spel_text", "bolag", "odds", "sannolikhet", "ratt_odds", "edge", "spela_fran", "stopp", "forv_clv_pp",
-        "p_modell", "p_marknad", "pin_p", "smk_p", "modell_edge", "analys", "prognos", "bolag_bokning", "bolag_stangning")
+        "p_modell", "p_marknad", "pin_p", "smk_p", "modell_edge", "analys", "prognos", "bolag_bokning", "bolag_stangning",
+        "pin_grans", "alternativ_linje")
 
 
 class TierBook:
@@ -290,6 +373,7 @@ def update(root: Path, settings: dict, now: float | None = None, sports: tuple =
         if b.get("notis"):        # källan har redan skickat notis (gamla LIVE-notisen) – ingen dubblett
             tb["notis"] = True
         tb["spelad"] = tier in ("A", "B")
+        annotate(tb, b, c)
         if old is not None:
             book.bets[book.bets.index(old)] = tb
             n_up += 1
@@ -303,6 +387,7 @@ def update(root: Path, settings: dict, now: float | None = None, sports: tuple =
              and (tb.get("avspark") or 0) > now and now - (tb.get("bokford") or 0) <= c["tier_notify_max_age_s"]]
     for tb in book.bets:   # resultat och CLV från källan
         sb = src_by.get((tb["kalla_fil"], tb["kalla_key"]))
+        annotate(tb, sb, c)   # spela från / rum (äldre spel utan krav_edge räknas om)
         if sb is None:
             continue
         if tb.get("status") == "öppen" and tb["tier"] != "A":   # "varför inte högre" räknas om (bara visning, nivån är låst)
@@ -334,6 +419,17 @@ MK = {"points": "poäng", "rebounds": "returer", "assists": "assist", "threes": 
       "shots_on_target": "skott på mål", "shots": "skott", "goal": "mål", "assist": "assist"}
 
 
+def spela_fran_text(b: dict) -> str:
+    """"(spela från 1.98, rum +3,5 %)" – med ⚠️ snävt när rummet är under 1 % (skynda att spela)."""
+    sf, rum = b.get("spela_fran"), b.get("rum")
+    if sf is None:
+        return ""
+    if rum is None:
+        return f"(spela från {sf:.2f})"
+    rum_txt = f"{rum * 100:+.1f}".replace(".", ",")
+    return f"(spela från {sf:.2f}, rum {rum_txt} %)" + (" ⚠️ snävt" if rum < 0.01 else "")
+
+
 def notify_a(root: Path, bets: list[dict], settings: dict, log=print) -> int:
     """En notis per nytt spel i de nivåer som ger notis (tier_notify, standard A och B).
     Egen kanal tier_ntfy_topic (18/11: propsbot-tier-ab-…); saknas den används den vanliga ntfy_topic."""
@@ -351,7 +447,7 @@ def notify_a(root: Path, bets: list[dict], settings: dict, log=print) -> int:
         title = f"{b['tier']} TIER {'NBA' if b['sport'] == 'nba' else 'FOTBOLL'}: {who} {txt}"
         ko = datetime.fromtimestamp(b["avspark"], timezone.utc).strftime("%Y-%m-%d %H:%M")
         msg = (f"{b['match']} · {b.get('liga') or ''} ({ko} UTC){up}\n"
-               f"{b['bolag']}: {b['odds']:.2f}  (spela från {b['spela_fran']:.2f})\n"
+               f"{b['bolag']}: {b['odds']:.2f}  {spela_fran_text(b)}\n"
                f"Edge {b['edge']:.1%}\nInsats: {units_text(b['units'])} ({b['units'] * b['unit_pct']:.0%} av kassan)")
         from urllib.parse import quote
         click = settings.get("site_url", "https://fatfockfrank888.github.io/propsbot/") + "#ta=" + quote(b["ident"], safe="")
