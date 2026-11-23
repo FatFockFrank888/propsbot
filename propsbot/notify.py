@@ -18,8 +18,20 @@ TG_ROUTE: dict = {}
 TG_ONLY = False
 
 
+def oddsvakt_topic(settings: dict) -> str | None:
+    """Kanal för Odds Alert (oddsvakt.py): oddsvakt_ntfy_topic, annars en egen kanal <nivåkanal>-oddsvakt när
+    telegram_chats.oddsvakt finns (egen Telegram-chatt "Odds Alert"), annars nivåkanalen (samma chatt som A/B-notiserna)."""
+    if settings.get("oddsvakt_ntfy_topic"):
+        return settings["oddsvakt_ntfy_topic"]
+    base = settings.get("tier_ntfy_topic") or settings.get("ntfy_topic")
+    if base and (settings.get("telegram_chats") or {}).get("oddsvakt"):
+        return f"{base}-oddsvakt"
+    return base
+
+
 def configure(settings: dict) -> None:
-    """Läser telegram_chats = {"main": id, "tier": id, "live": id} och kopplar rollerna till ntfy-kanalerna."""
+    """Läser telegram_chats = {"main": id, "tier": id, "live": id, "oddsvakt": id} och kopplar rollerna till
+    ntfy-kanalerna. Saknas oddsvakt går Odds Alert till nivåchatten (tier)."""
     global TG_ONLY
     chats = settings.get("telegram_chats") or {}
     TG_ROUTE.clear()
@@ -28,6 +40,10 @@ def configure(settings: dict) -> None:
         cid = chats.get(role) or chats.get("main")
         if t and cid and t not in TG_ROUTE:
             TG_ROUTE[t] = cid
+    t = oddsvakt_topic(settings)
+    cid = chats.get("oddsvakt") or chats.get("tier") or chats.get("main")
+    if t and cid and t not in TG_ROUTE:
+        TG_ROUTE[t] = cid
     TG_ONLY = bool(settings.get("telegram_only", False))
 
 

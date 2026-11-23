@@ -15,6 +15,7 @@ Genereras från de värden boten använder (`python -m propsbot parametrar`).
 | Livenotiser (Mina spel) | propsbot-live-28c022 | Plingarna under match för dina spel (mål, straff, rött kort, returer, poäng, vunnet/förlorat) i en egen kanal (live_ntfy_topic), så att den kan ha ett eget ljud i ntfy-appen. |
 | Insats (A/B) | flat 1–3u, 1u = 1 % av kassan | 1u standard. 2u high: edge ≥ 9 %. 3u maxbet: edge 12 %–20 % med Pinnacle som referens och sharp money med oss (högre edge är oftast fel i linjen). Ingen Kelly. |
 | Tak (A/B) | inga | Inga dags- eller matchbudgetar (18/11): du väljer själv vilka spel du tar. Alla A- och B-spel räknas som spelade. |
+| Odds Alert (oddsvakt) | på, läsning var 30 s, 2 läsningar i rad, högst en notis per spel och 10 min | Bevakar Kambi-oddset för A/B-spelen som fått notis (och dina egna bevakningar från webbsidan) fram till start. ✅ BACK UP när oddset är tillbaka på lägsta oddset, ❌ GONE när det fallit under eller spelet är borta. Lägsta odds = max(spela från, odds som ger kravet på edge mot den senaste skarpa sannolikheten). Spel du tagit bevakas inte. Egen Telegram-chatt telegram_chats.oddsvakt (saknas: går till nivåchatten). |
 | Spelbara bolag | svenskaspel, betmgm, expekt, atg, unibet | Bara Kambi-bolag. Paf och LeoVegas läses bara för att mäta marginalen. |
 | Minsta edge (alla spel) | 6 % | edge = sannolikhet × odds − 1. Gäller alla marknader och sporter. |
 | Oddsram | 1,40–6,00 | Inga spel utanför. |

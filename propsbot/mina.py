@@ -7,6 +7,9 @@ telefon prenumererar på (alltså ingen notis för klicket). Boten läser kanale
 Meddelandet (JSON): {"v": 1, "typ": "tog" | "angra", "ident": <tiers-identitet>, "kalla_fil", "kalla_key",
 "sport", "odds", "units", "bolag", "ts"}. Samma ident igen = ändring (senaste vinner), "angra" tar bort.
 
+Samma kanal bär webbsidans oddsbevakningar ("typ": "bevaka" | "sluta_bevaka", se oddsvakt.py); de hoppas
+över här. SENASTE = meddelandena från körningens läsning (oddsvaktens startflagga i skanningen).
+
 Rättning: status och utfall följer botens egen rättning (tiers.json / källbokföringen), men resultatet räknas
 på DITT odds och DINA units (asiatiska linjer: samma andel vunnet/förlorat som källan).
 CLV på ditt odds: (skarp stängning − 1/ditt odds) × 100.
@@ -39,6 +42,7 @@ def topic_of(settings: dict) -> str | None:
 
 # ------------------------------------------------------------------ inläsning av klick
 POLL_ERR: list = []
+SENASTE: list = []
 
 
 def poll(topic: str, since: str = "24h") -> list[dict]:
@@ -103,7 +107,7 @@ def apply_messages(book: Book, msgs: list[dict], tiers_by_ident: dict, now: floa
             if book.bets.pop(ident, None) is not None:
                 n += 1
             continue
-        if x.get("typ") != "tog":
+        if x.get("typ") != "tog":   # t.ex. "bevaka"/"sluta_bevaka": Odds Alert (oddsvakt.py) läser dem själv
             continue
         base = dict(tiers_by_ident.get(ident) or {})
         base.pop("analys", None)
@@ -338,6 +342,7 @@ def run(root: Path, settings: dict, log=print, now: float | None = None) -> dict
     except (FileNotFoundError, json.JSONDecodeError):
         tiers = {}
     msgs = poll(topic) if topic else []
+    SENASTE[:] = msgs
     n_new = apply_messages(book, msgs, tiers, now)
     n_set = settle(book, root, now)
     for b in book.bets.values():   # ESPN-matchen (för livescore på sidan och bevakningen)

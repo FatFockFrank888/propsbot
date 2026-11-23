@@ -2,6 +2,7 @@
   python -m propsbot skanna            – en skanning med öppna källor (Kambi + Pinnacle)
   python -m propsbot bevaka            – skanna om och om igen, mobilnotis vid nya spel
   python -m propsbot skanna-oddsapi    – skanning enbart via The Odds API (kostar krediter)
+  python -m propsbot oddsvakt          – Odds Alert: bevaka oddset för A/B-spelen (oddsvakt.yml)
   python -m propsbot bolag             – visa vilka bolag/marknader nyckeln ger
   python -m propsbot demo examples/match.json   – kör simulatorn på exempelmatchen
 """
@@ -140,6 +141,13 @@ def cmd_free(args) -> None:
     except Exception as e:  # noqa: BLE001 – får aldrig stoppa körningen
         print(f"Tiers: fel {type(e).__name__}: {e}")
         traceback.print_exc()
+    try:   # Odds Alert: flagga för bevaka.yml att starta oddsvakten (oddsvakt.yml)
+        from .mina import SENASTE
+        from .oddsvakt import write_start_flag
+        from .scan import load_settings as _ls_o
+        write_start_flag(_state_root(), _ls_o(Path(args.settings)), msgs=SENASTE)
+    except Exception as e:  # noqa: BLE001
+        print(f"Oddsvakt: fel {type(e).__name__}: {e}")
     try:
         from .site import build_site
         build_site(_state_root(), Path(args.settings))
@@ -207,6 +215,12 @@ def cmd_live(args) -> None:
     from .livewatch import main as live_main
     from .scan import load_settings
     live_main(_state_root(), load_settings(Path(args.settings)))
+
+
+def cmd_oddsvakt(args) -> None:
+    from .oddsvakt import main as vakt_main
+    from .scan import load_settings
+    vakt_main(_state_root(), load_settings(Path(args.settings)))
 
 
 def run_nba(root: Path, settings_path: Path) -> None:
@@ -324,6 +338,10 @@ def main() -> None:
     lv = sub.add_parser("live", help="livebevakning av dina spel (notiser under match)")
     lv.add_argument("--settings", default=str(ROOT / "settings.json"))
     lv.set_defaults(func=cmd_live)
+
+    ov = sub.add_parser("oddsvakt", help="Odds Alert: bevaka oddset för A/B-spelen var 30:e sekund")
+    ov.add_argument("--settings", default=str(ROOT / "settings.json"))
+    ov.set_defaults(func=cmd_oddsvakt)
 
     pa = sub.add_parser("parametrar", help="skriv alla parametrar per sport till PARAMETRAR.md")
     pa.add_argument("--settings", default=str(ROOT / "settings.json"))

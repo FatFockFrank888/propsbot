@@ -29,7 +29,9 @@ def all_params(settings_path: Path) -> dict:
     llo, lhi = s.get("live_odds_window", [1.60, 3.00])
 
     from .tiers import cfg as _tcfg
+    from .oddsvakt import cfg as _ocfg
     t = _tcfg(s)
+    ov = _ocfg(s)
     tiers = [
         ("A/B/C Tier", "på" if t["tiers_on"] else "av",
          "Ersätter Official Bets (18/11). Varje bokfört spel (LIVE, regelspel, skuggspel; props och sides; fotboll och NBA) hamnar "
@@ -52,6 +54,13 @@ def all_params(settings_path: Path) -> dict:
          f"1u standard. 2u high: edge ≥ {_pct(t['tier_2u_edge'])}. 3u maxbet: edge {_pct(t['tier_3u_edge'])}–{_pct(t['tier_3u_max_edge'])} "
          "med Pinnacle som referens och sharp money med oss (högre edge är oftast fel i linjen). Ingen Kelly."),
         ("Tak (A/B)", "inga", "Inga dags- eller matchbudgetar (18/11): du väljer själv vilka spel du tar. Alla A- och B-spel räknas som spelade."),
+        ("Odds Alert (oddsvakt)", ("på" if ov["oddsvakt_on"] else "av") + f", läsning var {ov['oddsvakt_poll_s']} s, "
+         f"{ov['oddsvakt_bekrafta']} läsningar i rad, högst en notis per spel och {ov['oddsvakt_cooldown_s'] // 60} min",
+         "Bevakar Kambi-oddset för A/B-spelen som fått notis (och dina egna bevakningar från webbsidan) fram till start. "
+         "✅ BACK UP när oddset är tillbaka på lägsta oddset, ❌ GONE när det fallit under eller spelet är borta. "
+         "Lägsta odds = max(spela från, odds som ger kravet på edge mot den senaste skarpa sannolikheten). "
+         "Spel du tagit bevakas inte. Egen Telegram-chatt telegram_chats.oddsvakt "
+         + ("(satt)." if (s.get("telegram_chats") or {}).get("oddsvakt") else "(saknas: går till nivåchatten).")),
     ]
     shared = tiers + [
         ("Spelbara bolag", ", ".join(s["playable_books"]), "Bara Kambi-bolag. Paf och LeoVegas läses bara för att mäta marginalen."),

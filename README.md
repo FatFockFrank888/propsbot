@@ -140,6 +140,25 @@ python3 -m pytest -q
 - **Asiatiska linjer:** hela linjer och kvartslinjer finns med (push = insatsen tillbaka, kvartslinje = halv vinst/förlust).
 - **Startelvor (`propsbot/lineups.py`):** både sides och fotbollsprops blir spelbara först när ESPN visar båda startelvorna, eller inom 55 min före avspark. För props måste spelaren dessutom starta. Tidigare edges bokförs som skugga.
 
+## Odds Alert (oddsvakt, från 23/11)
+
+Oddset hinner ofta falla innan du öppnar bolaget (17 % av A/B-notiserna ligger under lägsta oddset redan vid nästa skanning, 41 % inom en timme), och var femte kommer tillbaka senare – ofta bara i några minuter. `propsbot/oddsvakt.py` (`python -m propsbot oddsvakt`, arbetsflödet `oddsvakt.yml`) läser därför Kambi-oddset var 30:e sekund för alla A/B-spel som fått notis, fram till start:
+
+- **ODDS ALERT ✅** – oddset är tillbaka på/över lägsta oddset: ta det nu (hög prioritet).
+- **ODDS ALERT ❌** – oddset har fallit under lägsta oddset, eller spelet är borta hos bolaget: spela inte.
+- Lägsta odds = max(spela från, oddset som ger edgekravet mot den senaste skarpa sannolikheten från skanningen).
+- Två läsningar i rad krävs för ett nytt läge och högst en notis per spel och 10 min. Spel du tagit ("Jag tog spelet") bevakas inte.
+- Egna bevakningar från webbsidan (eget lägsta odds) skickas till samma ntfy-kanal som "Jag tog spelet" och bevakas likadant.
+- Startas av bevaka-odds när det finns något att bevaka; sparar sina egna filer (`oddsvakt_lage.json`, prisloggen `oddsvakt_logg.jsonl`, `site/oddsvakt.json`) i datagrenen var tionde minut.
+
+**Egen Telegram-chatt "Odds Alert":**
+1. Skapa en grupp (eller kanal) i Telegram som heter **Odds Alert**.
+2. Lägg till samma bot som för de andra chattarna (för en kanal: som administratör).
+3. Skriv något i gruppen och öppna `https://api.telegram.org/bot<TOKEN>/getUpdates` – chat-id står under `"chat": {"id": -100…}` (gruppers id är negativa).
+4. Lägg in id:t i `settings.json` under `telegram_chats.oddsvakt` (i stället för `null`) och pusha.
+
+Saknas `telegram_chats.oddsvakt` går Odds Alert till nivåchatten (A/B-notiserna) – rubrikerna börjar ändå med ODDS ALERT. Inställningar: `oddsvakt_on`, `oddsvakt_poll_s` (30), `oddsvakt_cooldown_s` (600), `oddsvakt_bekrafta` (2).
+
 
 ## NBA: utvärdering och modellversion (2026-11-11)
 
