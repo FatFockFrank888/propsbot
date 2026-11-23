@@ -18,6 +18,8 @@ det klarar – **C** edge ≥ 4 % och statistiken talar för (bara bokföring), 
 oddset faller inte, odds 1,60–6,00; spelas), **A** B + alla parametrar (odds 1,60–3,50; spelas). Notis för nya spel i A och B.
 Flat 1–3u, 1u = 1 % av kassan (1u standard, 2u high, 3u maxbet). Nivåerna rättas var för sig i fliken *Tier-resultat*
 så att vi ser om kraven är för strikta. Bokföring i `tiers.json`, webbens data i `site/tiers.json`. Gränserna: `tier_*` i `settings.json`.
+Notisens *spela från* (23/11) räknas med edgekravet för spelets nivå (`krav_edge`: B 5 %, A dessutom källans krav,
+t.ex. 6 % för props) – inte källans lägre krav – och visar *rum* (hur långt oddset kan falla), med ⚠️ snävt under 1 %.
 
 **NBA sides & totals (18/11, `propsbot/nba_sides.py`):** moneyline, spread och totala poäng (inkl. förlängning) hos
 Kambi mot Pinnacle utan marginal, med samma regler som fotbollens sides. Över på totalen stoppas vid hög
