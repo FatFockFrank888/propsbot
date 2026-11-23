@@ -26078,11 +26078,11 @@
 "p_marknad": 0.5549999999999999,
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795438298.138845,
+"stangning_ts": 1795439140.834291,
 "modellversion": "2026-11-15-betyg",
 "prognos_ts": 1795434672.4910178,
 "skarp_stang_p": 0.565,
-"skarp_stang_ts": 1795438298.0193691,
+"skarp_stang_ts": 1795439140.7179716,
 "skarp_kalla": "skanning",
 "bolag_bokning": {
 "ts": 1795434672.602645,
@@ -26098,7 +26098,7 @@
 "dk_linje": null
 },
 "bolag_stangning": {
-"ts": 1795438298.2556322,
+"ts": 1795439140.9468968,
 "odds": {
 "unibet": {
 "over": 1.95,
@@ -26110,10 +26110,80 @@
 "pin_linje": null,
 "dk_linje": null
 },
-"bolag_stang_ts": 1795438298.2556322,
+"bolag_stang_ts": 1795439140.9468968,
 "skarp_verifierad": false,
 "skarp_status": null,
 "clv_skarp_pp": 4.143979057591618,
+"clv_pin_pp": null,
+"clv_dk_pp": null
+},
+{
+"key": "nba1028754358|jordan goodwin|threes|1.5|unibet",
+"id": 511,
+"bokford": 1795439140.8342502,
+"match_id": "nba1028754358",
+"match": "New Orleans Pelicans – Phoenix Suns",
+"hemma": "New Orleans Pelicans",
+"borta": "Phoenix Suns",
+"liga": "NBA",
+"avspark": 1795482000.0,
+"spelare": "Jordan Goodwin",
+"spelare_id": "jordan goodwin",
+"marknad": "threes",
+"linje": 1.5,
+"sida": "over",
+"bolag": "unibet",
+"odds": 2.33,
+"sannolikhet": 0.45499999999999996,
+"ratt_odds": 2.197802197802198,
+"edge": 0.060149999999999926,
+"spela_fran": 2.25,
+"insats_pct": 0.011306390977443594,
+"stangning": 2.33,
+"status": "öppen",
+"stopp": "sharp money med oss: referensen +4.0 enheter",
+"clv_signal": false,
+"forv_clv_pp": 4.581545064377673,
+"p_modell": null,
+"p_marknad": 0.45499999999999996,
+"utfall": null,
+"resultat_enheter": null,
+"stangning_ts": 1795439140.834291,
+"modellversion": "2026-11-15-betyg",
+"prognos_ts": 1795439140.8342502,
+"skarp_stang_p": 0.45499999999999996,
+"skarp_stang_ts": 1795439140.7179716,
+"skarp_kalla": "skanning",
+"bolag_bokning": {
+"ts": 1795439140.9468968,
+"odds": {
+"unibet": {
+"over": 2.33,
+"under": 1.55
+}
+},
+"pin_flyttad": false,
+"pin_komb": false,
+"pin_linje": null,
+"dk_linje": null
+},
+"bolag_stangning": {
+"ts": 1795439140.9468968,
+"odds": {
+"unibet": {
+"over": 2.33,
+"under": 1.55
+}
+},
+"pin_flyttad": false,
+"pin_komb": false,
+"pin_linje": null,
+"dk_linje": null
+},
+"bolag_stang_ts": 1795439140.9468968,
+"skarp_verifierad": false,
+"skarp_status": null,
+"clv_skarp_pp": 2.581545064377677,
 "clv_pin_pp": null,
 "clv_dk_pp": null
 }
