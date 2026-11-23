@@ -1,4 +1,4 @@
-Skanning 2026-11-23 09:14
+Skanning 2026-11-23 09:24
 Kambi unibet (ubse): OK, 26 matcher i valda ligor
 Kambi paf (paf): OK
 Kambi atg (atg): OK
@@ -69,13 +69,13 @@ Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
   Midtjylland Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
   Odd/Even and Total Goals | units=Regular | kategori=Team Props | deltagare=Odd & Over 3.5,Odd & Under 3.5,Even & Over 3.5,Even & Under 3.5  ->  används inte (lagmarknad)
   Brondby To Win To Nil | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-Sides mindre ligor: 36 Kambi-matcher inom 12 h, 125 Pinnacle-matcher, 29 med Pinnacle, 29 matchade: Algeria / Ligue 1, Bulgaria / PFL 1, Chile / Segunda División, Croatia / 1. HNL League, Cyprus / 1st Division, Egypt / Premier League, England / National League South, France / Ligue 3, Hungary / NB 2, Italy / Serie C Girone A, Italy / Serie C Girone B, Myanmar / National League, Netherlands / Eerst
+Sides mindre ligor: 36 Kambi-matcher inom 12 h, 126 Pinnacle-matcher, 29 med Pinnacle, 29 matchade: Algeria / Ligue 1, Bulgaria / PFL 1, Chile / Segunda División, Croatia / 1. HNL League, Cyprus / 1st Division, Egypt / Premier League, England / National League South, France / Ligue 3, Hungary / NB 2, Italy / Serie C Girone A, Italy / Serie C Girone B, Myanmar / National League, Netherlands / Eerst
 Sides rättning: goal-api dagstak 300 anrop nått
 Sides rättning: SportScore 31 anrop i dag
-Sides/totals: 42 matcher med Kambi + Pinnacle, 796 linjer, 0 nya spel, 0 nya skuggspel, Smarkets-priser i 26 av 28; bästa edge +10.0% (Santos-SP 1X2: 2), +3.5% (Santos-SP över 3), +3.4% (Steaua Bucharest 1X2: 2)
-Hörnmodell (test): 7861 matcher i underlaget (17 ligor), 6 matcher med modell, 1010 Kambi-linjer, 0 nya testspel; bästa edge +56.7% (AD Ceuta FC Almeria hörnor under 3.5 @ 2.70), +16.0% (Monza Monza hörnor under 3.5 @ 2.70), +14.1% (Brentford hörnor under 7.5 @ 3.85)
+Sides/totals: 42 matcher med Kambi + Pinnacle, 792 linjer, 0 nya spel, 0 nya skuggspel, Smarkets-priser i 26 av 28; bästa edge +10.0% (Santos-SP 1X2: 2), +3.5% (Santos-SP över 3), +3.4% (Steaua Bucharest 1X2: 2)
+Hörnmodell (test): 7861 matcher i underlaget (17 ligor), 6 matcher med modell, 1010 Kambi-linjer, 0 nya testspel; bästa edge +56.7% (AD Ceuta FC Almeria hörnor under 3.5 @ 2.70), +15.5% (Monza Monza hörnor under 3.5 @ 2.70), +14.1% (Brentford hörnor under 7.5 @ 3.85)
 Fotboll extra bolag: 0 nya hämtningar, 0 odds i bruk, krediter kvar 192, dagsbudget 22 (andel 40%), förbrukat idag 4
-Tid: hämtning 370 s
+Tid: hämtning 351 s
 Marginal över alla matcher: uppmätt marginal: shots_on_target stege k=1.10 (69 spelare; marginal vid 3,00 ≈ 12%)
   Brøndby IF – FC Midtjylland: modell den.1, 30 spelare
   Örgryte IS – Kalmar FF: modell swe.1, 29 spelare
@@ -102,7 +102,7 @@ Exempel uppmätt marginal: goal k=1.83, assist k=1.70
   Botafogo-RJ – São Paulo-SP: väntade mål Pinnacle 2.65 mot Kambi 2.62 (kvot 1.012); uppmätt marginal: goal k=1.57, assist k=1.45, shots_on_target stege k=1.04 (14 spelare; marginal vid 3,00 ≈ 4%)
   Santos-SP – Grêmio-RS: väntade mål Pinnacle 3.16 mot Kambi 3.01 (kvot 1.047); uppmätt marginal: goal k=1.31, assist k=1.23, shots_on_target stege k=1.36 (14 spelare; marginal vid 3,00 ≈ 49%)
   St. Louis City SC – Los Angeles FC: väntade mål Pinnacle 3.02 mot Kambi 3.06 (kvot 0.990); uppmätt marginal: goal k=1.48, assist k=1.32
-Tid: modell och utvärdering 75 s
+Tid: modell och utvärdering 68 s
 Bolag med spelarodds: atg, betmgm, expekt, leovegas, paf, svenskaspel, unibet
 Spelarodds per marknad: assist 1491, goal 6729, shots 2646, shots_on_target 2464
 Kambi-marknader: assist='to give an assist (settled using opta data)':1491; goal='1st goalscorer':2584; goal='to score':2773; goal='to score at least 2 goals':1239; goal='to score at least 3 goals':119; goal='to score at least 4 goals':14; shots="player's shots (settled using opta data)":2646; shots_on_target="player's shots on target (settled using opta data)":2464
