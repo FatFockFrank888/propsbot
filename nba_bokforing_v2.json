@@ -26098,30 +26098,32 @@
 "dk_linje": null
 },
 "bolag_stangning": {
-"ts": 1795452199.8991609,
+"ts": 1795452807.160886,
 "odds": {
-"unibet": {
-"over": 1.95,
-"under": 1.79
-},
 "pinnacle": {
 "over": 2.1,
 "under": 1.685
+},
+"draftkings": {
+"over": 2.03,
+"under": 1.73
 }
 },
 "pin_flyttad": false,
 "pin_komb": false,
 "pin_linje": null,
 "dk_linje": null,
-"pin_p": 0.5607286858772698
+"pin_p": 0.5607286858772698,
+"dk_p": 0.5442545510285164
 },
-"bolag_stang_ts": 1795452199.8991609,
+"bolag_stang_ts": 1795452807.160886,
 "skarp_verifierad": false,
 "skarp_status": null,
 "clv_skarp_pp": 3.845084528880094,
 "clv_pin_pp": 3.7168476453185995,
-"clv_dk_pp": null,
-"pin_stang_p": 0.5607286858772698
+"clv_dk_pp": 2.069434160443262,
+"pin_stang_p": 0.5607286858772698,
+"dk_stang_p": 0.5442545510285164
 },
 {
 "key": "nba1028754358|jordan goodwin|threes|1.5|unibet",
@@ -26154,11 +26156,11 @@
 "p_marknad": 0.45499999999999996,
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795452199.7749221,
+"stangning_ts": 1795452807.049202,
 "modellversion": "2026-11-15-betyg",
 "prognos_ts": 1795439140.8342502,
 "skarp_stang_p": 0.465,
-"skarp_stang_ts": 1795452199.583851,
+"skarp_stang_ts": 1795452806.8791964,
 "skarp_kalla": "skanning",
 "bolag_bokning": {
 "ts": 1795439140.9468968,
@@ -26174,7 +26176,7 @@
 "dk_linje": null
 },
 "bolag_stangning": {
-"ts": 1795452199.8991609,
+"ts": 1795452807.160886,
 "odds": {
 "unibet": {
 "over": 2.08,
@@ -26186,11 +26188,92 @@
 "pin_linje": null,
 "dk_linje": null
 },
-"bolag_stang_ts": 1795452199.8991609,
+"bolag_stang_ts": 1795452807.160886,
 "skarp_verifierad": false,
 "skarp_status": null,
 "clv_skarp_pp": 3.581545064377684,
 "clv_pin_pp": null,
+"clv_dk_pp": null
+},
+{
+"key": "nba1028754375|ty jerome|points|22.5|unibet",
+"id": 512,
+"bokford": 1795452807.0491638,
+"match_id": "nba1028754375",
+"match": "Charlotte Hornets – Memphis Grizzlies",
+"hemma": "Charlotte Hornets",
+"borta": "Memphis Grizzlies",
+"liga": "NBA",
+"avspark": 1795478400.0,
+"spelare": "Ty Jerome",
+"spelare_id": "ty jerome",
+"marknad": "points",
+"linje": 22.5,
+"sida": "over",
+"bolag": "unibet",
+"odds": 2.0,
+"sannolikhet": 0.5312017793204828,
+"ratt_odds": 1.8825238147342187,
+"edge": 0.062403558640965695,
+"spela_fran": 1.93,
+"insats_pct": 0.010359150157324203,
+"stangning": 2.0,
+"status": "öppen",
+"stopp": "",
+"clv_signal": false,
+"forv_clv_pp": 3.1712805392586754,
+"p_modell": null,
+"p_marknad": 0.5312017793204828,
+"utfall": null,
+"resultat_enheter": null,
+"stangning_ts": 1795452807.049202,
+"modellversion": "2026-11-15-betyg",
+"prognos_ts": 1795452807.0491638,
+"skarp_stang_p": 0.5312017793204828,
+"skarp_stang_ts": 1795452806.8791964,
+"skarp_kalla": "skanning",
+"pin_stang_p": 0.5312017793204828,
+"bolag_bokning": {
+"ts": 1795452807.160886,
+"odds": {
+"unibet": {
+"over": 2.0,
+"under": 1.75
+},
+"pinnacle": {
+"over": 1.769,
+"under": 1.98
+}
+},
+"pin_flyttad": false,
+"pin_komb": false,
+"pin_linje": null,
+"dk_linje": null,
+"pin_p": 0.5312017793204828
+},
+"bolag_stangning": {
+"ts": 1795452807.160886,
+"odds": {
+"unibet": {
+"over": 2.0,
+"under": 1.75
+},
+"pinnacle": {
+"over": 1.769,
+"under": 1.98
+}
+},
+"pin_flyttad": false,
+"pin_komb": false,
+"pin_linje": null,
+"dk_linje": null,
+"pin_p": 0.5312017793204828
+},
+"bolag_stang_ts": 1795452807.160886,
+"skarp_verifierad": false,
+"skarp_status": null,
+"clv_skarp_pp": 3.1201779320482848,
+"clv_pin_pp": 3.1201779320482848,
 "clv_dk_pp": null
 }
 ]
