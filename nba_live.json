@@ -6846,14 +6846,14 @@
 "spela_fran": 1.96,
 "insats_pct": 0.008,
 "stangning": 1.9,
-"status": "öppen",
+"status": "förlorad",
 "stopp": "",
 "clv_signal": false,
 "forv_clv_pp": 4.307966392600726,
 "p_modell": null,
 "p_marknad": 0.5223318203273228,
-"utfall": null,
-"resultat_enheter": null,
+"utfall": 6,
+"resultat_enheter": -0.008,
 "modell_edge": 0.08645018628083156,
 "stangning_ts": 1795345540.560196,
 "analys": {
@@ -7358,7 +7358,7 @@
 "skarp_stang_p": 0.4504843055482462,
 "skarp_stang_ts": 1795391781.6941068,
 "skarp_kalla": "skanning",
-"pin_stang_p": 0.4262816563791105,
+"pin_stang_p": 0.4382471532039667,
 "dk_stang_p": 0.4749235817454907,
 "bolag_bokning": {
 "ts": 1795373704.5856702,
@@ -7384,33 +7384,29 @@
 "dk_p": 0.5442545510285164
 },
 "bolag_stangning": {
-"ts": 1795391781.9190335,
+"ts": 1795392355.7346716,
 "odds": {
-"unibet": {
-"over": 2.02,
-"under": 1.72
-},
 "draftkings": {
 "over": 1.96,
 "under": 1.79
 },
-"pinnacle": {
-"over": 2.346,
-"under": 1.743
+"pinnacle (11.5)": {
+"over": 1.928,
+"under": 2.078
 }
 },
 "pin_flyttad": false,
-"pin_komb": true,
-"pin_linje": null,
+"pin_komb": false,
+"pin_linje": 11.5,
 "dk_linje": null,
-"pin_p": 0.4262816563791105,
+"pin_p": 0.4382471532039667,
 "dk_p": 0.4749235817454907
 },
-"bolag_stang_ts": 1795391781.9190335,
+"bolag_stang_ts": 1795392355.7346716,
 "skarp_verifierad": false,
 "skarp_status": null,
 "clv_skarp_pp": -3.7320572500534333,
-"clv_pin_pp": -6.152322166967005,
+"clv_pin_pp": -4.955772484481385,
 "clv_dk_pp": -1.2881296303289824
 },
 {
