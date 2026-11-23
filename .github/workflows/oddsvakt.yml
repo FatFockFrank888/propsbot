@@ -1,0 +1,45 @@
+name: oddsvakt
+
+# Odds Alert: läser Kambi-oddset för A/B-spelen som fått notis (och dina egna bevakningar) var 30:e sekund
+# och skickar ✅ BACK UP / ❌ GONE när oddset passerar lägsta oddset (propsbot/oddsvakt.py).
+# Startas av bevaka-odds när det finns något att bevaka (state/oddsvakt_start.txt). Kör högst ~5 h 40 min,
+# avslutas tidigare när inget finns att bevaka. Läser om läget och sparar SINA EGNA filer
+# (oddsvakt_lage.json, oddsvakt_logg.jsonl, site/oddsvakt.json) i datagrenen var tionde minut och vid slut.
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: oddsvakt
+  cancel-in-progress: false
+
+jobs:
+  oddsvakt:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - run: pip install -r requirements.txt
+
+      - name: Hämta sparat läge
+        run: |
+          git config user.name "propsbot"
+          git config user.email "propsbot@users.noreply.github.com"
+          git fetch --depth 1 origin data:data
+          git worktree add state data
+
+      - name: Bevaka oddsen
+        env:
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          PROPSBOT_STATE_DIR: state
+          PROPSBOT_ODDSVAKT_GIT: "1"     # spara egna filer i datagrenen (commit + rebase + push)
+        run: python -m propsbot oddsvakt

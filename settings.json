@@ -306,10 +306,15 @@
   ],
   "tier_ntfy_topic": "propsbot-tier-ab-8f44db",
   "live_ntfy_topic": "propsbot-live-28c022",
+  "oddsvakt_on": true,
+  "oddsvakt_poll_s": 30,
+  "oddsvakt_cooldown_s": 600,
+  "oddsvakt_bekrafta": 2,
   "telegram_chats": {
     "main": -5486711903,
     "tier": -5518636888,
-    "live": -5267802310
+    "live": -5267802310,
+    "oddsvakt": null
   },
   "telegram_only": true
 }
