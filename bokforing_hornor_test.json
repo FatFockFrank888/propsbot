@@ -2637,7 +2637,7 @@
 "metod": "lag",
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795396603.1976538
+"stangning_ts": 1795397178.36375
 },
 {
 "key": "k1028072784|corners|7.5|under|unibet",
@@ -2677,6 +2677,46 @@
 "metod": "odds+lag",
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795396603.1976538
+"stangning_ts": 1795397178.36375
+},
+{
+"key": "k1027911528|corners_home|3.5|under|unibet",
+"id": 68,
+"bokford": 1795397178.36375,
+"match_id": "k1027911528",
+"match": "Monza – Fiorentina",
+"hemma": "Monza",
+"borta": "Fiorentina",
+"liga": "Football / Italy / Serie A",
+"fd_liga": "I1",
+"avspark": 1795463100.0,
+"spelare": "Monza",
+"spelare_id": "hörnor",
+"marknad": "corners_home",
+"linje": 3.5,
+"sida": "under",
+"spel_text": "Monza hörnor under 3.5",
+"bolag": "unibet",
+"odds": 2.65,
+"sannolikhet": 0.43100351900245565,
+"ratt_odds": 2.3201666712941673,
+"edge": 0.14215932535650744,
+"spela_fran": 2.44,
+"insats_pct": 0.01,
+"stangning": 2.65,
+"p_modell": 0.43100351900245565,
+"p_marknad": 0.3472906403940887,
+"vantat_hemma": 4.2,
+"vantat_borta": 5.09,
+"underlag_matcher": [
+8.3,
+15.0
+],
+"status": "öppen",
+"stopp": "hörnmodell (odds+lag): väntat 4.2–5.1 (I1)",
+"metod": "odds+lag",
+"utfall": null,
+"resultat_enheter": null,
+"stangning_ts": 1795397178.36375
 }
 ]
