@@ -2623,7 +2623,7 @@
 "edge": 0.14559086467688975,
 "spela_fran": 1.29,
 "insats_pct": 0.01,
-"stangning": 1.38,
+"stangning": 1.4,
 "p_modell": 0.8182791890549213,
 "p_marknad": 0.6499999999999999,
 "vantat_hemma": 6.37,
@@ -2637,7 +2637,7 @@
 "metod": "lag",
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795460437.2543583
+"stangning_ts": 1795461065.3433592
 },
 {
 "key": "k1028072784|corners|7.5|under|unibet",
@@ -2663,7 +2663,7 @@
 "edge": 0.16677667733248436,
 "spela_fran": 3.56,
 "insats_pct": 0.01,
-"stangning": 3.95,
+"stangning": 3.9,
 "p_modell": 0.29538650059050237,
 "p_marknad": 0.23151750972762644,
 "vantat_hemma": 4.94,
@@ -2677,7 +2677,7 @@
 "metod": "odds+lag",
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795460437.2543583
+"stangning_ts": 1795461065.3433592
 },
 {
 "key": "k1027911528|corners_home|3.5|under|unibet",
@@ -2703,7 +2703,7 @@
 "edge": 0.14215932535650744,
 "spela_fran": 2.44,
 "insats_pct": 0.01,
-"stangning": 2.6,
+"stangning": 2.63,
 "p_modell": 0.43100351900245565,
 "p_marknad": 0.3472906403940887,
 "vantat_hemma": 4.2,
@@ -2717,7 +2717,7 @@
 "metod": "odds+lag",
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795460437.2543583
+"stangning_ts": 1795461065.3433592
 },
 {
 "key": "k1029250981|corners_away|4.5|over|unibet",
@@ -2757,6 +2757,86 @@
 "metod": "odds+lag",
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795460437.2543583
+"stangning_ts": 1795461065.3433592
+},
+{
+"key": "k1028488335|corners_away|4.5|over|unibet",
+"id": 70,
+"bokford": 1795461065.3433592,
+"match_id": "k1028488335",
+"match": "Cesena – Ascoli",
+"hemma": "Cesena",
+"borta": "Ascoli",
+"liga": "Football / Italy / Serie B",
+"fd_liga": "I2",
+"avspark": 1795546800.0,
+"spelare": "Ascoli",
+"spelare_id": "hörnor",
+"marknad": "corners_away",
+"linje": 4.5,
+"sida": "over",
+"spel_text": "Ascoli hörnor över 4.5",
+"bolag": "unibet",
+"odds": 1.78,
+"sannolikhet": 0.5944849150072559,
+"ratt_odds": 1.6821284691265794,
+"edge": 0.05818314871291541,
+"spela_fran": 1.77,
+"insats_pct": 0.01,
+"stangning": 1.78,
+"p_modell": 0.5944849150072559,
+"p_marknad": 0.5041782729805014,
+"vantat_hemma": 4.62,
+"vantat_borta": 5.45,
+"underlag_matcher": [
+14.6,
+8.2
+],
+"status": "öppen",
+"stopp": "hörnmodell (odds+lag): väntat 4.6–5.5 (I2)",
+"metod": "odds+lag",
+"utfall": null,
+"resultat_enheter": null,
+"stangning_ts": 1795461065.3433592
+},
+{
+"key": "k1028488329|corners_home|6.5|over|unibet",
+"id": 71,
+"bokford": 1795461065.3433592,
+"match_id": "k1028488329",
+"match": "Benevento – Empoli",
+"hemma": "Benevento",
+"borta": "Empoli",
+"liga": "Football / Italy / Serie B",
+"fd_liga": "I2",
+"avspark": 1795546800.0,
+"spelare": "Benevento",
+"spelare_id": "hörnor",
+"marknad": "corners_home",
+"linje": 6.5,
+"sida": "over",
+"spel_text": "Benevento hörnor över 6.5",
+"bolag": "unibet",
+"odds": 2.14,
+"sannolikhet": 0.5124225982029699,
+"ratt_odds": 1.9515142452868588,
+"edge": 0.09658436015435568,
+"spela_fran": 2.05,
+"insats_pct": 0.01,
+"stangning": 2.14,
+"p_modell": 0.5124225982029699,
+"p_marknad": 0.42005420054200543,
+"vantat_hemma": 6.95,
+"vantat_borta": 3.54,
+"underlag_matcher": [
+8.2,
+14.6
+],
+"status": "öppen",
+"stopp": "hörnmodell (odds+lag): väntat 7.0–3.5 (I2)",
+"metod": "odds+lag",
+"utfall": null,
+"resultat_enheter": null,
+"stangning_ts": 1795461065.3433592
 }
 ]
