@@ -1,4 +1,4 @@
-Skanning 2026-11-23 09:41
+Skanning 2026-11-23 09:55
 Kambi unibet (ubse): OK, 26 matcher i valda ligor
 Kambi paf (paf): OK
 Kambi atg (atg): OK
@@ -6,8 +6,9 @@ Kambi leovegas (leose): OK
 Kambi svenskaspel (svenskaspel): OK
 Kambi expekt (expektse): OK
 Kambi betmgm (betmgmse): OK
-Pinnacle: OK, 25 ligor
-Pinnacle: 40 matcher, matchlinjer för 13 av 26 Kambi-matcher, 0 spelarodds som används
+Pinnacle: OK, 26 ligor
+  Brøndby IF – FC Midtjylland: Pinnacle FEL HTTP 403 för https://guest.api.arcadia.pinnacle.com/0.1/matchups/1640278117/related
+Pinnacle: 40 matcher, matchlinjer för 12 av 26 Kambi-matcher, 0 spelarodds som används
 Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
   Double Chance 1st Half | units=Regular | kategori=Team Props | deltagare=Asteras Tripolis Or Aris Thessaloniki,Draw Or Aris Thessaloniki,Draw Or Asteras Tripolis  ->  används inte (lagmarknad)
   Moneyline and Total Goals | units=Regular | kategori=Team Props | deltagare=Asteras Tripolis & Over 2.5,Asteras Tripolis & Under 2.5,Draw & Over 2.5,Draw & Under 2.5,Aris Thessaloniki & Over 2.5,Aris Thessaloniki & Under 2.5  ->  används inte (lagmarknad)
@@ -49,35 +50,34 @@ Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
   Asteras Tripolis To Win To Nil | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
   Aris Thessaloniki To Win To Nil 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
   Both Teams To Score and Total Goals | units=Regular | kategori=Team Props | deltagare=Yes & Over 2.5,Yes & Under 2.5,No & Over 2.5,No & Under 2.5  ->  används inte (lagmarknad)
-  Double Chance 1st Half | units=Regular | kategori=Team Props | deltagare=Brondby Or Midtjylland,Draw Or Midtjylland,Draw Or Brondby  ->  används inte (lagmarknad)
-  Moneyline and Total Goals | units=Regular | kategori=Team Props | deltagare=Brondby & Over 3.5,Brondby & Under 3.5,Draw & Over 3.5,Draw & Under 3.5,Midtjylland & Over 3.5,Midtjylland & Under 3.5  ->  används inte (lagmarknad)
-  Double Chance | units=Regular | kategori=Team Props | deltagare=Brondby Or Midtjylland,Draw Or Midtjylland,Draw Or Brondby  ->  används inte (lagmarknad)
-  3-Way Handicap Brondby -1 | units=Regular | kategori=Team Props | deltagare=Brondby (-1),Draw - (Brondby -1),Midtjylland (+1)  ->  används inte (lagmarknad)
-  Winning Margin | units=Regular | kategori=Team Props | deltagare=Brondby By 1,Brondby By 2,Brondby By 3,Brondby By 4+,Midtjylland By 1,Midtjylland By 2,Midtjylland By 3,Midtjylland By 4+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
-  Brondby Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
-  Draw No Bet | units=Regular | kategori=Team Props | deltagare=Brondby,Midtjylland  ->  används inte (lagmarknad)
-  Midtjylland To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Correct Score | units=Regular | kategori=Team Props | deltagare=Brondby 0, Midtjylland 0,Brondby 0, Midtjylland 1,Brondby 0, Midtjylland 2,Brondby 0, Midtjylland 3,Brondby 0, Midtjylland 4,Brondby 0, Midtjylland 5,Brondby 0, Midtjylland 6,Brondby 1, Midtjylland 0,Brondby 1, Midtjylland 1,Brondby 1, Midtjylland 2,Brondby 1, Midtjylland 3,Brondby 1, Midtjylland 4,Brondby 1, Midtjylland 5,Brondby 1, Midtjylland 6,Brondby 2, Midtjylland 0,Brondby 2, Midtjylland 1,Brondby 2, Midtjylland 2,Brondby 2, Midtjylland 3,Brondby 2, Midtjylland 4,Brondby 2, Midtjylland 5,Brondby 2, Midtjylland 6,Brondby 3, Midtjylland 0,Brondby 3, Midtjylland 1,Brondby 3, Midtjylland 2,Brondby 3, Midtjylland 3,Brondby 3, Midtjylland 4,Brondby 3, Midtjylland 5,Brondby 3, Midtjylland 6,Brondby 4, Midtjylland 0,Brondby 4, Midtjylland 1,Brondby 4, Midtjylland 2,Brondby 4, Midtjylland 3,Brondby 4, Midtjylland 4,Brondby 4, Midtjylland 5,Brondby 4, Midtjylland 6,Brondby 5, Midtjylland 0,Brondby 5, Midtjylland 1,Brondby 5, Midtjylland 2,Brondby 5, Midtjylland 3,Brondby 5, Midtjylland 4,Brondby 5, Midtjylland 5,Brondby 5, Midtjylland 6,Brondby 6, Midtjylland 0,Brondby 6, Midtjylland 1,Brondby 6, Midtjylland 2,Brondby 6, Midtjylland 3,Brondby 6, Midtjylland 4,Brondby 6, Midtjylland 5,Brondby 6, Midtjylland 6  ->  används inte (lagmarknad)
-  Brondby To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Correct Score 1st Half | units=Regular | kategori=Team Props | deltagare=Brondby 0, Midtjylland 0,Brondby 0, Midtjylland 1,Brondby 0, Midtjylland 2,Brondby 0, Midtjylland 3,Brondby 1, Midtjylland 0,Brondby 1, Midtjylland 1,Brondby 1, Midtjylland 2,Brondby 1, Midtjylland 3,Brondby 2, Midtjylland 0,Brondby 2, Midtjylland 1,Brondby 2, Midtjylland 2,Brondby 2, Midtjylland 3,Brondby 3, Midtjylland 0,Brondby 3, Midtjylland 1,Brondby 3, Midtjylland 2,Brondby 3, Midtjylland 3  ->  används inte (lagmarknad)
-  Midtjylland Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
-  3-Way Handicap Brondby -2 | units=Regular | kategori=Team Props | deltagare=Brondby (-2),Draw - (Brondby -2),Midtjylland (+2)  ->  används inte (lagmarknad)
-  Brondby To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Midtjylland Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
-  Brondby Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
-  Both Teams To Score and Moneyline | units=Regular | kategori=Team Props | deltagare=Yes & Brondby,Yes & Draw,Yes & Midtjylland,No & Brondby,No & Draw,No & Midtjylland  ->  används inte (lagmarknad)
-  Midtjylland Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
-  Odd/Even and Total Goals | units=Regular | kategori=Team Props | deltagare=Odd & Over 3.5,Odd & Under 3.5,Even & Over 3.5,Even & Under 3.5  ->  används inte (lagmarknad)
-  Brondby To Win To Nil | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Double Chance 1st Half | units=Regular | kategori=Team Props | deltagare=Orgryte Or Kalmar,Draw Or Kalmar,Draw Or Orgryte  ->  används inte (lagmarknad)
+  Moneyline and Total Goals | units=Regular | kategori=Team Props | deltagare=Orgryte & Over 2.5,Orgryte & Under 2.5,Draw & Over 2.5,Draw & Under 2.5,Kalmar & Over 2.5,Kalmar & Under 2.5  ->  används inte (lagmarknad)
+  Double Chance | units=Regular | kategori=Team Props | deltagare=Orgryte Or Kalmar,Draw Or Kalmar,Draw Or Orgryte  ->  används inte (lagmarknad)
+  Draw No Bet | units=Regular | kategori=Team Props | deltagare=Orgryte,Kalmar  ->  används inte (lagmarknad)
+  Kalmar Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
+  Draw No Bet 1st Half | units=Regular | kategori=Team Props | deltagare=Orgryte,Kalmar  ->  används inte (lagmarknad)
+  Correct Score | units=Regular | kategori=Team Props | deltagare=Orgryte 0, Kalmar 0,Orgryte 0, Kalmar 1,Orgryte 0, Kalmar 2,Orgryte 0, Kalmar 3,Orgryte 0, Kalmar 4,Orgryte 0, Kalmar 5,Orgryte 0, Kalmar 6,Orgryte 1, Kalmar 0,Orgryte 1, Kalmar 1,Orgryte 1, Kalmar 2,Orgryte 1, Kalmar 3,Orgryte 1, Kalmar 4,Orgryte 1, Kalmar 5,Orgryte 1, Kalmar 6,Orgryte 2, Kalmar 0,Orgryte 2, Kalmar 1,Orgryte 2, Kalmar 2,Orgryte 2, Kalmar 3,Orgryte 2, Kalmar 4,Orgryte 2, Kalmar 5,Orgryte 2, Kalmar 6,Orgryte 3, Kalmar 0,Orgryte 3, Kalmar 1,Orgryte 3, Kalmar 2,Orgryte 3, Kalmar 3,Orgryte 3, Kalmar 4,Orgryte 3, Kalmar 5,Orgryte 3, Kalmar 6,Orgryte 4, Kalmar 0,Orgryte 4, Kalmar 1,Orgryte 4, Kalmar 2,Orgryte 4, Kalmar 3,Orgryte 4, Kalmar 4,Orgryte 4, Kalmar 5,Orgryte 4, Kalmar 6,Orgryte 5, Kalmar 0,Orgryte 5, Kalmar 1,Orgryte 5, Kalmar 2,Orgryte 5, Kalmar 3,Orgryte 5, Kalmar 4,Orgryte 5, Kalmar 5,Orgryte 5, Kalmar 6,Orgryte 6, Kalmar 0,Orgryte 6, Kalmar 1,Orgryte 6, Kalmar 2,Orgryte 6, Kalmar 3,Orgryte 6, Kalmar 4,Orgryte 6, Kalmar 5,Orgryte 6, Kalmar 6  ->  används inte (lagmarknad)
+  Kalmar Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  Winning Margin 1st Half | units=Regular | kategori=Team Props | deltagare=Orgryte By 1,Orgryte By 2+,Kalmar By 1,Kalmar By 2+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
+  First Team To Score 1st Half | units=1st Goal | kategori=Team Props | deltagare=Orgryte,Kalmar,Neither  ->  används inte (lagmarknad)
+  Kalmar To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Orgryte Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
+  First Team To Score | units=1st Goal | kategori=Team Props | deltagare=Orgryte,Kalmar,Neither  ->  används inte (lagmarknad)
+  3-Way Handicap Orgryte +2 | units=Regular | kategori=Team Props | deltagare=Orgryte (+2),Draw - (Orgryte +2),Kalmar (-2)  ->  används inte (lagmarknad)
+  3-Way Handicap Orgryte -1 | units=Regular | kategori=Team Props | deltagare=Orgryte (-1),Draw - (Orgryte -1),Kalmar (+1)  ->  används inte (lagmarknad)
+  Orgryte Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  Orgryte To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Winning Margin | units=Regular | kategori=Team Props | deltagare=Orgryte By 1,Orgryte By 2,Orgryte By 3,Orgryte By 4+,Kalmar By 1,Kalmar By 2,Kalmar By 3,Kalmar By 4+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
+  Correct Score 1st Half | units=Regular | kategori=Team Props | deltagare=Orgryte 0, Kalmar 0,Orgryte 0, Kalmar 1,Orgryte 0, Kalmar 2,Orgryte 0, Kalmar 3,Orgryte 1, Kalmar 0,Orgryte 1, Kalmar 1,Orgryte 1, Kalmar 2,Orgryte 1, Kalmar 3,Orgryte 2, Kalmar 0,Orgryte 2, Kalmar 1,Orgryte 2, Kalmar 2,Orgryte 2, Kalmar 3,Orgryte 3, Kalmar 0,Orgryte 3, Kalmar 1,Orgryte 3, Kalmar 2,Orgryte 3, Kalmar 3  ->  används inte (lagmarknad)
+  Kalmar To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
 Sides mindre ligor: 35 Kambi-matcher inom 12 h, 126 Pinnacle-matcher, 28 med Pinnacle, 28 matchade: Algeria / Ligue 1, Bulgaria / PFL 1, Chile / Segunda División, Croatia / 1. HNL League, Cyprus / 1st Division, Egypt / Premier League, England / National League South, France / Ligue 3, Hungary / NB 2, Italy / Serie C Girone A, Italy / Serie C Girone B, Netherlands / Eerste Divisie, Oman / Professio
 Sides rättning: goal-api dagstak 300 anrop nått
 Sides rättning: SportScore 31 anrop i dag
-Sides/totals: 41 matcher med Kambi + Pinnacle, 790 linjer, 0 nya spel, 0 nya skuggspel, Smarkets-priser i 26 av 28; bästa edge +9.9% (Santos-SP 1X2: 2), +3.5% (Santos-SP över 3.5), +3.5% (Santos-SP över 3)
-Hörnmodell (test): 7861 matcher i underlaget (17 ligor), 6 matcher med modell, 1010 Kambi-linjer, 0 nya testspel; bästa edge +56.7% (AD Ceuta FC Almeria hörnor under 3.5 @ 2.70), +15.5% (Monza Monza hörnor under 3.5 @ 2.70), +14.1% (Brentford hörnor under 7.5 @ 3.85)
+Sides/totals: 40 matcher med Kambi + Pinnacle, 759 linjer, 0 nya spel, 0 nya skuggspel, Smarkets-priser i 25 av 27; bästa edge +9.9% (Santos-SP 1X2: 2), +3.5% (Santos-SP över 3.5), +3.5% (Santos-SP över 3)
+Hörnmodell (test): 7861 matcher i underlaget (17 ligor), 6 matcher med modell, 1010 Kambi-linjer, 0 nya testspel; bästa edge +48.0% (AD Ceuta FC Almeria hörnor under 3.5 @ 2.55), +15.5% (Monza Monza hörnor under 3.5 @ 2.70), +14.1% (Brentford hörnor under 7.5 @ 3.85)
 Fotboll extra bolag: 0 nya hämtningar, 0 odds i bruk, krediter kvar 192, dagsbudget 22 (andel 40%), förbrukat idag 4
-Tid: hämtning 372 s
+Tid: hämtning 375 s
 Marginal över alla matcher: uppmätt marginal: shots_on_target stege k=1.10 (69 spelare; marginal vid 3,00 ≈ 12%)
-  Brøndby IF – FC Midtjylland: modell den.1, 30 spelare
   Örgryte IS – Kalmar FF: modell swe.1, 29 spelare
   Hammarby IF – IFK Göteborg: modell swe.1, 25 spelare
   Monza – Fiorentina: modell ita.1, 28 spelare
@@ -87,12 +87,12 @@ Marginal över alla matcher: uppmätt marginal: shots_on_target stege k=1.10 (69
   Botafogo-RJ – São Paulo-SP: modell bra.1, 27 spelare
   Santos-SP – Grêmio-RS: modell – hittar inte matchen hos ESPN
   St. Louis City SC – Los Angeles FC: modell – hittar inte matchen hos ESPN
-Modellens nivåavvikelse mot marknaden (log-odds, dras bort): shots -0.64, shots_on_target -0.51
+Modellens nivåavvikelse mot marknaden (log-odds, dras bort): shots -0.64, shots_on_target -0.48
   İstanbul Başakşehir – Çorum Belediyespor: saknar matchlinjer från Pinnacle
-  Brøndby IF – FC Midtjylland: väntade mål Pinnacle 3.21 mot Kambi 3.20 (kvot 1.002); uppmätt marginal: goal k=1.82, assist k=1.70
-Exempel uppmätt marginal: goal k=1.82, assist k=1.70
+  Brøndby IF – FC Midtjylland: saknar matchlinjer från Pinnacle
   Örgryte IS – Kalmar FF: väntade mål Pinnacle 2.87 mot Kambi 2.78 (kvot 1.032); uppmätt marginal: goal k=1.58
-  Hammarby IF – IFK Göteborg: väntade mål Pinnacle 3.61 mot Kambi 3.59 (kvot 1.005); uppmätt marginal: goal k=1.60
+Exempel uppmätt marginal: goal k=1.58
+  Hammarby IF – IFK Göteborg: väntade mål Pinnacle 3.65 mot Kambi 3.59 (kvot 1.016); uppmätt marginal: goal k=1.59
   AD Ceuta FC – Almeria: saknar matchlinjer från Pinnacle
   Monza – Fiorentina: väntade mål Pinnacle 3.15 mot Kambi 3.16 (kvot 0.999); uppmätt marginal: goal k=1.47, assist k=1.51, shots_on_target stege k=1.09 (28 spelare; marginal vid 3,00 ≈ 10%)
   Brentford – Everton: väntade mål Pinnacle 2.76 mot Kambi 2.79 (kvot 0.991); uppmätt marginal: goal k=1.38, assist k=1.51, shots_on_target stege k=1.14 (6 spelare; marginal vid 3,00 ≈ 17%)
@@ -102,7 +102,7 @@ Exempel uppmätt marginal: goal k=1.82, assist k=1.70
   Botafogo-RJ – São Paulo-SP: väntade mål Pinnacle 2.65 mot Kambi 2.62 (kvot 1.012); uppmätt marginal: goal k=1.57, assist k=1.45, shots_on_target stege k=1.04 (14 spelare; marginal vid 3,00 ≈ 4%)
   Santos-SP – Grêmio-RS: väntade mål Pinnacle 3.16 mot Kambi 3.01 (kvot 1.047); uppmätt marginal: goal k=1.31, assist k=1.23, shots_on_target stege k=1.36 (14 spelare; marginal vid 3,00 ≈ 49%)
   St. Louis City SC – Los Angeles FC: väntade mål Pinnacle 3.02 mot Kambi 3.06 (kvot 0.990); uppmätt marginal: goal k=1.48, assist k=1.32
-Tid: modell och utvärdering 87 s
+Tid: modell och utvärdering 82 s
 Bolag med spelarodds: atg, betmgm, expekt, leovegas, paf, svenskaspel, unibet
 Spelarodds per marknad: assist 1491, goal 6729, shots 2646, shots_on_target 2464
 Kambi-marknader: assist='to give an assist (settled using opta data)':1491; goal='1st goalscorer':2584; goal='to score':2773; goal='to score at least 2 goals':1239; goal='to score at least 3 goals':119; goal='to score at least 4 goals':14; shots="player's shots (settled using opta data)":2646; shots_on_target="player's shots on target (settled using opta data)":2464
@@ -110,9 +110,9 @@ Pinnacle har inga spelarprops här – använder linjejustering mot Pinnacles ma
 CLV-signal: 0 ben släppta (Pinnacle rör sig åt vårt håll)
 Startelvor: 0 spelbara ben klara, 1 väntar på startelvan, 0 stoppade (inte i startelvan)
 Spelregler: stoppade {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0} (modelltest {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0})
-Spelarmodell: 0 av 335 ben har modell, 0 nya matcher hämtade från ESPN
-Bästa edge marknad shots_on_target: +2.9%, +0.3%, -2.8% (av 293 ben)
-Bästa edge modelltest shots_on_target: +3.7%, -1.7%, -2.5% (av 239 ben)
+Spelarmodell: 0 av 298 ben har modell, 0 nya matcher hämtade från ESPN
+Bästa edge marknad shots_on_target: +2.9%, +0.3%, -2.8% (av 256 ben)
+Bästa edge modelltest shots_on_target: +3.6%, -1.8%, -2.6% (av 202 ben)
 0 spelbara ben.
 Bokförda nya spel: 0
 Skuggspel: 0 nya bokförda (stoppade av reglerna, minst 2 % edge)
