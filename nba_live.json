@@ -7141,7 +7141,7 @@
 "edge": 0.07107402867895285,
 "spela_fran": 1.96,
 "insats_pct": 0.004,
-"stangning": 2.06,
+"stangning": 2.08,
 "status": "öppen",
 "stopp": "",
 "clv_signal": false,
@@ -7151,23 +7151,23 @@
 "utfall": null,
 "resultat_enheter": null,
 "modell_edge": 0.07107402867895285,
-"stangning_ts": 1795393465.638158,
+"stangning_ts": 1795394019.1098197,
 "analys": {
-"p_stack": 0.4197,
-"p_modell_min": 0.3183,
+"p_stack": 0.3821,
+"p_modell_min": 0.3125,
 "minuter": 34.1,
 "minuter_sd": 4.8,
-"p_faktorer": 0.4078,
-"p_faktorer_ra": 0.3143,
-"vantat_faktorer": 10.99,
-"p_betyg": 0.4129,
-"p_betyg_ra": 0.3398,
-"vantat_betyg": 11.02,
+"p_faktorer": 0.3839,
+"p_faktorer_ra": 0.3221,
+"vantat_faktorer": 11.08,
+"p_betyg": 0.3862,
+"p_betyg_ra": 0.3344,
+"vantat_betyg": 10.96,
 "minuter_faktorer": 32.6,
 "f_anv": 1.0,
-"f_miljo": 1.013,
-"f_tempo": 1.013,
-"f_pos": 0.964,
+"f_miljo": 1.009,
+"f_tempo": 1.012,
+"f_pos": 0.976,
 "f_mot": 1.08,
 "f_minuter_bas": 29.2,
 "f_b2b": true,
@@ -7187,13 +7187,13 @@
 "traff_mot_n": 3,
 "traff_hemmaborta": 0.333,
 "traff_hemmaborta_n": 6,
-"p_kalib": 0.4296,
-"p_blend": 0.413,
+"p_kalib": 0.398,
+"p_blend": 0.3864,
 "kalib_modell": "M0",
-"p_modell": 0.3405,
-"p_marknad": 0.4296,
-"p_slutlig": 0.413,
-"vantat": 11.03,
+"p_modell": 0.3351,
+"p_marknad": 0.398,
+"p_slutlig": 0.3864,
+"vantat": 10.97,
 "nb_r": 12,
 "modell_vikt": 0.18,
 "dq": 0.6,
@@ -7279,12 +7279,6 @@
 "redan_borta": false
 },
 {
-"namn": "Karl-Anthony Towns",
-"status": "day-to-day",
-"min": 33.8,
-"redan_borta": false
-},
-{
 "namn": "Miles McBride",
 "status": "out",
 "min": 15.8,
@@ -7303,37 +7297,37 @@
 "minuter_sd_faktorer": 4.8,
 "ref": {
 "pin_p": 0.3980182115562516,
-"dk_p": 0.46174432039008984,
+"dk_p": 0.3987483719573759,
 "pin_linje": null,
-"dk_linje": null,
+"dk_linje": 11.5,
 "pin_flyttad": false,
 "pin_komb": true
 },
 "odds_bolag": [
 {
 "bolag": "atg",
-"over": 2.06,
-"under": 1.7
+"over": 2.08,
+"under": 1.68
 },
 {
 "bolag": "betmgm",
-"over": 2.06,
-"under": 1.7
+"over": 2.08,
+"under": 1.68
 },
 {
 "bolag": "expekt",
-"over": 2.06,
-"under": 1.7
+"over": 2.08,
+"under": 1.68
 },
 {
 "bolag": "leovegas",
-"over": 2.06,
-"under": 1.7
+"over": 2.08,
+"under": 1.68
 },
 {
 "bolag": "paf",
-"over": 2.06,
-"under": 1.7
+"over": 2.08,
+"under": 1.68
 },
 {
 "bolag": "pinnacle_komb",
@@ -7342,30 +7336,25 @@
 },
 {
 "bolag": "svenskaspel",
-"over": 2.06,
-"under": 1.7
+"over": 2.08,
+"under": 1.68
 },
 {
 "bolag": "unibet",
-"over": 2.06,
-"under": 1.7
-},
-{
-"bolag": "us_draftkings",
-"over": 2.01,
-"under": 1.75
+"over": 2.08,
+"under": 1.68
 }
 ]
 },
-"prognos": 11.033982883253671,
-"analys_ts": 1795393465.638654,
+"prognos": 10.967731115871901,
+"analys_ts": 1795394019.110464,
 "modellversion": "2026-11-15-betyg",
 "prognos_ts": 1795373704.5663445,
-"skarp_stang_p": 0.4295895674453152,
-"skarp_stang_ts": 1795393465.4380312,
+"skarp_stang_p": 0.39801821155625167,
+"skarp_stang_ts": 1795394018.872066,
 "skarp_kalla": "skanning",
 "pin_stang_p": 0.3980182115562516,
-"dk_stang_p": 0.46174432039008984,
+"dk_stang_p": 0.3987483719573759,
 "bolag_bokning": {
 "ts": 1795373704.5856702,
 "odds": {
@@ -7390,34 +7379,34 @@
 "dk_p": 0.5442545510285164
 },
 "bolag_stangning": {
-"ts": 1795393466.1085985,
+"ts": 1795394019.125082,
 "odds": {
 "unibet": {
-"over": 2.06,
-"under": 1.7
-},
-"draftkings": {
-"over": 2.01,
-"under": 1.75
+"over": 2.08,
+"under": 1.68
 },
 "pinnacle": {
 "over": 2.512,
 "under": 1.661
+},
+"draftkings (11.5)": {
+"over": 1.94,
+"under": 1.8
 }
 },
 "pin_flyttad": false,
 "pin_komb": true,
 "pin_linje": null,
-"dk_linje": null,
+"dk_linje": 11.5,
 "pin_p": 0.3980182115562516,
-"dk_p": 0.46174432039008984
+"dk_p": 0.3987483719573759
 },
-"bolag_stang_ts": 1795393466.1085985,
+"bolag_stang_ts": 1795394019.125082,
 "skarp_verifierad": true,
 "skarp_status": null,
-"clv_skarp_pp": -5.821531060346535,
+"clv_skarp_pp": -8.978666649252887,
 "clv_pin_pp": -8.978666649252892,
-"clv_dk_pp": -2.60605576586907,
+"clv_dk_pp": -8.905650609140464,
 "nyhet_lag_status": "lag:miles mcbride",
 "nyhet_lag": "Lagkamrat ute: Miles McBride (out). Modellen nu: Josh Hart väntat 11.0 (35 min), över 12.5 34%, edge vid 2.05: -30% (vid bokning modell +7%)",
 "nyhet_lag_ts": "2026-11-23T00:14:32+00:00",
