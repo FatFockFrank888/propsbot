@@ -2453,7 +2453,7 @@
 "edge": 0.021782371592051097,
 "spela_fran": 1.42,
 "insats_pct": 0.012965697376220893,
-"stangning": 1.4,
+"stangning": 1.38,
 "status": "öppen",
 "stopp": "försiktig marginal (k ≥ 1.20) ger edge 0.8% – skuggspel; linjejusterat: väntade mål Pinnacle 2.78 mot Kambi 2.84 (kvot 0.977); uppmätt marginal: goal k=1.37, assist k=1.52, shots_on_target stege k=1.10 (6 spelare; marginal vid 3,00 ≈ 12%)",
 "clv_signal": false,
@@ -2462,9 +2462,9 @@
 "p_marknad": 0.7245154410688815,
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795440033.6113527,
-"skarp_stang_p": 0.7413641586235955,
-"skarp_stang_ts": 1795440033.1691875,
+"stangning_ts": 1795441011.4490306,
+"skarp_stang_p": 0.7548772144251418,
+"skarp_stang_ts": 1795441011.3367426,
 "skarp_kalla": "skanning",
 "bolag_bokning": {
 "ts": 1795378268.4772787,
@@ -2479,10 +2479,10 @@
 "dk_linje": null
 },
 "bolag_stangning": {
-"ts": 1795440033.611753,
+"ts": 1795441011.4493537,
 "odds": {
 "unibet": {
-"over": 1.32
+"over": 1.3
 }
 },
 "pin_flyttad": false,
@@ -2490,10 +2490,76 @@
 "pin_linje": null,
 "dk_linje": null
 },
-"bolag_stang_ts": 1795440033.611753,
+"bolag_stang_ts": 1795441011.4493537,
 "skarp_verifierad": false,
 "skarp_status": null,
-"clv_skarp_pp": 3.7138806510919387,
+"clv_skarp_pp": 5.065186231246566,
+"clv_pin_pp": null,
+"clv_dk_pp": null
+},
+{
+"key": "k1028072784|kevin schade|shots_on_target|0.5|atg",
+"id": 54,
+"bokford": 1795441011.4490082,
+"match_id": "k1028072784",
+"match": "Brentford – Everton",
+"hemma": "Brentford",
+"borta": "Everton",
+"liga": "Football / England / Premier League",
+"avspark": 1795464000.0,
+"spelare": "Kevin Schade",
+"spelare_id": "kevin schade",
+"marknad": "shots_on_target",
+"linje": 0.5,
+"sida": "over",
+"bolag": "atg",
+"odds": 1.62,
+"sannolikhet": 0.6296386068922518,
+"ratt_odds": 1.5882126493732094,
+"edge": 0.02001454316544793,
+"spela_fran": 1.62,
+"insats_pct": 0.00807038030864838,
+"stangning": 1.62,
+"status": "öppen",
+"stopp": "försiktig marginal (k ≥ 1.20) ger edge -3.5% – skuggspel; linjejusterat: väntade mål Pinnacle 2.77 mot Kambi 2.77 (kvot 0.998); uppmätt marginal: goal k=1.34, assist k=1.48, shots_on_target stege k=1.14 (6 spelare; marginal vid 3,00 ≈ 17%)",
+"clv_signal": false,
+"forv_clv_pp": 2.2775926747266304,
+"p_modell": null,
+"p_marknad": 0.6300178128851966,
+"utfall": null,
+"resultat_enheter": null,
+"stangning_ts": 1795441011.4490306,
+"skarp_stang_p": 0.6296386068922518,
+"skarp_stang_ts": 1795441011.3367426,
+"skarp_kalla": "skanning",
+"bolag_bokning": {
+"ts": 1795441011.4493537,
+"odds": {
+"unibet": {
+"over": 1.54
+}
+},
+"pin_flyttad": false,
+"pin_komb": false,
+"pin_linje": null,
+"dk_linje": null
+},
+"bolag_stangning": {
+"ts": 1795441011.4493537,
+"odds": {
+"unibet": {
+"over": 1.54
+}
+},
+"pin_flyttad": false,
+"pin_komb": false,
+"pin_linje": null,
+"dk_linje": null
+},
+"bolag_stang_ts": 1795441011.4493537,
+"skarp_verifierad": false,
+"skarp_status": null,
+"clv_skarp_pp": 1.2354656274967901,
 "clv_pin_pp": null,
 "clv_dk_pp": null
 }
