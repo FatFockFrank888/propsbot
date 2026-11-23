@@ -7723,7 +7723,7 @@
 "edge": 0.10941835481596285,
 "spela_fran": 1.75,
 "insats_pct": 0.012,
-"stangning": 1.75,
+"stangning": 1.84,
 "status": "öppen",
 "stopp": "",
 "clv_signal": false,
@@ -7733,16 +7733,16 @@
 "utfall": null,
 "resultat_enheter": null,
 "modell_edge": 0.10941835481596285,
-"stangning_ts": 1795476431.4516418,
+"stangning_ts": 1795477199.9878716,
 "analys": {
-"p_stack": 0.5593,
+"p_stack": 0.5569,
 "p_modell_min": 0.5842,
 "minuter": 29.6,
 "minuter_sd": 4.7,
-"p_faktorer": 0.6066,
-"p_faktorer_ra": 0.7498,
+"p_faktorer": 0.6055,
+"p_faktorer_ra": 0.7512,
 "vantat_faktorer": 8.91,
-"p_betyg": 0.5944,
+"p_betyg": 0.5929,
 "p_betyg_ra": 0.7079,
 "vantat_betyg": 9.53,
 "minuter_faktorer": 25.9,
@@ -7769,18 +7769,18 @@
 "traff_mot_n": 2,
 "traff_hemmaborta": 0.636,
 "traff_hemmaborta_n": 11,
-"p_kalib": 0.5556,
-"p_blend": 0.5772,
+"p_kalib": 0.5536,
+"p_blend": 0.5763,
 "kalib_modell": "M0",
-"p_modell": 0.6432,
-"p_marknad": 0.5556,
-"p_slutlig": 0.5772,
+"p_modell": 0.6459,
+"p_marknad": 0.5536,
+"p_slutlig": 0.5763,
 "vantat": 10.99,
 "nb_r": 10,
 "modell_vikt": 0.24,
 "dq": 0.8,
 "matcher": 12,
-"nivajustering": 0.24,
+"nivajustering": 0.26,
 "logg": [
 {
 "ts": 1795307400.0,
@@ -7872,7 +7872,7 @@
 "hemma": false,
 "minuter_sd_faktorer": 4.7,
 "ref": {
-"pin_p": 0.5607286858772698,
+"pin_p": 0.5586564490810642,
 "dk_p": 0.5250764182545093,
 "pin_linje": null,
 "dk_linje": null,
@@ -7882,48 +7882,48 @@
 "odds_bolag": [
 {
 "bolag": "atg",
-"over": 2.0,
-"under": 1.75
+"over": 1.89,
+"under": 1.84
 },
 {
 "bolag": "betmgm",
-"over": 2.0,
-"under": 1.75
+"over": 1.89,
+"under": 1.84
 },
 {
 "bolag": "expekt",
-"over": 2.0,
-"under": 1.75
+"over": 1.89,
+"under": 1.84
 },
 {
 "bolag": "kalshi",
-"over": 2.151,
-"under": 1.869
+"over": 2.105,
+"under": 1.905
 },
 {
 "bolag": "leovegas",
-"over": 2.0,
-"under": 1.75
+"over": 1.89,
+"under": 1.84
 },
 {
 "bolag": "paf",
-"over": 2.0,
-"under": 1.75
+"over": 1.89,
+"under": 1.84
 },
 {
 "bolag": "pinnacle",
-"over": 2.1,
-"under": 1.685
+"over": 2.09,
+"under": 1.69
 },
 {
 "bolag": "svenskaspel",
-"over": 2.0,
-"under": 1.75
+"over": 1.89,
+"under": 1.84
 },
 {
 "bolag": "unibet",
-"over": 2.0,
-"under": 1.75
+"over": 1.89,
+"under": 1.84
 },
 {
 "bolag": "us_betmgm",
@@ -7948,13 +7948,13 @@
 ]
 },
 "prognos": 10.990867707764362,
-"analys_ts": 1795476431.454747,
+"analys_ts": 1795477199.9915152,
 "modellversion": "2026-11-15-betyg",
 "prognos_ts": 1795454068.9909182,
-"skarp_stang_p": 0.5556116664040524,
-"skarp_stang_ts": 1795476431.167727,
+"skarp_stang_p": 0.5535626564699196,
+"skarp_stang_ts": 1795477199.6883273,
 "skarp_kalla": "skanning",
-"pin_stang_p": 0.5607286858772698,
+"pin_stang_p": 0.5586564490810642,
 "dk_stang_p": 0.5250764182545093,
 "bolag_bokning": {
 "ts": 1795454069.0073833,
@@ -7980,15 +7980,15 @@
 "dk_p": 0.5514627627080393
 },
 "bolag_stangning": {
-"ts": 1795476431.8491163,
+"ts": 1795477200.2992482,
 "odds": {
 "unibet": {
-"over": 2.0,
-"under": 1.75
+"over": 1.89,
+"under": 1.84
 },
 "pinnacle": {
-"over": 2.1,
-"under": 1.685
+"under": 1.69,
+"over": 2.09
 },
 "draftkings": {
 "over": 1.96,
@@ -7999,14 +7999,14 @@
 "pin_komb": false,
 "pin_linje": null,
 "dk_linje": null,
-"pin_p": 0.5607286858772698,
+"pin_p": 0.5586564490810642,
 "dk_p": 0.5250764182545093
 },
-"bolag_stang_ts": 1795476431.8491163,
+"bolag_stang_ts": 1795477200.2992482,
 "skarp_verifierad": true,
 "skarp_status": null,
-"clv_skarp_pp": 2.929587693036817,
-"clv_pin_pp": 3.441289640358558,
+"clv_skarp_pp": 2.7246866996235464,
+"clv_pin_pp": 3.2340659607379973,
 "clv_dk_pp": -0.1239371219174834
 },
 {
@@ -8249,9 +8249,9 @@
 },
 "prognos": 23.43887406686609,
 "analys_ts": 1795476431.454747,
-"nyhet_status": "day-to-day",
-"nyhet": "Jalen Smith: day-to-day enligt ESPN:s skadelista",
-"nyhet_ts": "2026-11-23T23:27:11+00:00",
+"nyhet_status": "ok",
+"nyhet": "Jalen Smith inte längre på skadelistan (ESPN)",
+"nyhet_ts": "2026-11-23T23:39:59+00:00",
 "modellversion": "2026-11-15-betyg",
 "prognos_ts": 1795476431.4516225,
 "skarp_stang_p": 0.49077484875680066,
