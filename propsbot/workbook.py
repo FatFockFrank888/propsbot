@@ -8,7 +8,7 @@ Flikar:
   Per typ, Per sport, Per CLV-signal, Per vecka – sammanställningar med COUNTIFS/SUMIFS
   Förklaring        – kolumner, units och CLV
 
-1u = 0,2 % av bankrullen. CLV = stängningens implicita sannolikhet minus vår (procentenheter).
+1u = 1 % av kassan (samma som A/B/C Tier). CLV = stängningens implicita sannolikhet minus vår (procentenheter).
 """
 from __future__ import annotations
 
@@ -22,7 +22,7 @@ from openpyxl.styles import Alignment, Border, Font, PatternFill, Side
 from openpyxl.utils import get_column_letter
 from openpyxl.worksheet.table import Table, TableStyleInfo
 
-UNIT = 0.002
+UNIT = 0.01          # 1u = 1 % av kassan, samma enhet som A/B/C Tier (var 0,2 % före 24/11)
 FONT = "Arial"
 MK = {"shots": "Skott", "shots_on_target": "Skott på mål", "goal": "Mål", "assist": "Assist",
       "points": "Poäng", "rebounds": "Returer", "assists": "Assist (NBA)", "threes": "Trepoängare",
@@ -305,7 +305,7 @@ def build(root: Path, path: Path) -> int:
     o = wb.create_sheet("Översikt", 0)
     o["A1"] = "propsbot – bokföring"
     o["A1"].font = Font(name=FONT, size=16, bold=True)
-    o["A2"] = f"Uppdaterad {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M')} UTC · 1u = 0,2 % av bankrullen"
+    o["A2"] = f"Uppdaterad {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M')} UTC · 1u = 1 % av kassan"
     o["A2"].font = Font(name=FONT, size=9, color="6B7280")
     kpis = [
         ("Bokförda spel", f"=COUNTA({R('Status')})", "0"),
@@ -330,7 +330,7 @@ def build(root: Path, path: Path) -> int:
     o.column_dimensions["A"].width = 34
     o.column_dimensions["B"].width = 16
     o["A18"] = ("A/B/C Tier = nivåerna (egna flikar, 1u = 1 % av kassan). A och B spelas (notis), C är bara bokföring. "
-                "Spel/Skugga/Modelltest i 'Alla spel' = källbokföringen (1u = 0,2 %). Inga spel under pågående match.")
+                "Spel/Skugga/Modelltest i 'Alla spel' = källbokföringen (1u = 1 %, omräknat 24/11 från 0,2 %). Inga spel under pågående match.")
     o["A19"] = "Filtrera i fliken 'Alla spel' (pilarna i rubrikraden). Övriga flikar sammanställer per grupp."
     for c in ("A18", "A19"):
         o[c].font = Font(name=FONT, size=9, italic=True, color="6B7280")
@@ -344,7 +344,7 @@ def build(root: Path, path: Path) -> int:
         ("Stängning", "Senaste pris hos samma bolag före avspark (visas efter avspark)."),
         ("CLV (pe)", "Stängningens implicita sannolikhet minus vår, i procentenheter. Positivt = vi fick bättre pris än stängningen."),
         ("Sannolikhet / Edge", "Bottens rättvisa sannolikhet (Pinnacle-baserad) och edge = sannolikhet × odds − 1."),
-        ("Insats (u)", "Units 1–10. 1u = 0,2 % av bankrullen, 10u = taket 2 %. ¼ Kelly efter EV."),
+        ("Insats (u)", "Units, 1u = 1 % av kassan (källböckerna omräknades 24/11 från 0,2 %, så gamla 5,0u visas som 1,0u). ¼ Kelly, tak 2u."),
         ("Resultat (u)", "Vunnen: (odds − 1) × insats. Förlorad: −insats. Struken: 0."),
         ("CLV-signal", "ja = släppt från 1 % edge eftersom Pinnacle rört sig åt vårt håll."),
         ("Krav", "Snitt-CLV ≥ 1,0 pe över många spel visar att boten slår marknaden. ROI stabiliseras först efter flera hundra spel."),

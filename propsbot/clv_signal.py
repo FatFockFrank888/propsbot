@@ -143,7 +143,7 @@ def final_rules(rows, settings: dict, hist: "History | None" = None, sport: str 
     3b. sharp money: inget spel om den skarpa referensen rört sig mer än sharp_against_pp mot oss
     4. (avstängt som standard) fotboll i skuggläge: bara spel med skarp spelarreferens och odds inom football_odds_window
     """
-    min_edge = settings.get("min_edge_all", 0.05)
+    min_edge = settings.get("min_edge_all", 0.06)
     max_drop = settings.get("max_odds_drop", 0.03)
     n = {"edge": 0, "spelare": 0, "oddsfall": 0, "sharp": 0, "fotboll": 0}
     for r in rows:
@@ -151,7 +151,7 @@ def final_rules(rows, settings: dict, hist: "History | None" = None, sport: str 
         if not d.playable:
             continue
         c = d.cand
-        lo, hi = settings.get("odds_window_all", [1.60, 6.0])
+        lo, hi = settings.get("odds_window_all", [1.40, 6.0])
         if not (lo <= c.best.odds <= hi):
             _block(d, f"odds {c.best.odds:.2f} utanför {lo:.2f}–{hi:.2f}")
             n["edge"] += 1

@@ -4,7 +4,7 @@ Pinnacles pris utan marginal är facit (skarpaste marknaden). Edge = p_pinnacle 
 Samma regler som övriga boten, anpassade för en stor och effektiv marknad:
   * edge >= sides_min_edge (3 %): mot Pinnacles huvudlinje är 3 % en verklig edge – 5 % händer
     nästan bara när en linje är gammal. 1–3 % bokförs som skugga för att mäta nivån.
-  * edge <= sides_max_edge (10 %): större = gammal linje, fel match eller nyhet (laguppställning).
+  * edge <= sides_max_edge (15 %): större = gammal linje, fel match eller nyhet (laguppställning).
   * Pinnacles insatsgräns >= sides_min_pin_limit: låg gräns = svag liga, linjen inte skarp.
   * alternativa Pinnacle-linjer (högre marginal) kräver +1 % extra edge.
   * oddsram, max oddsfall 3 %, sharp money mot oss 2 pe (efter 30 min) – som övriga sporter.
@@ -238,7 +238,7 @@ def evaluate(evd: dict, kambi_by_book: dict, pin: dict, s: dict, hist: History, 
         if edge < need:
             reasons.append(f"edge {edge:.1%} < {need:.0%}" + (" (alternativ linje)" if alt else "")
                            + (f" (Pinnacles gräns {lim:.0f})" if low else ""))
-        if edge > s.get("sides_max_edge", 0.10):
+        if edge > s.get("sides_max_edge", 0.15):
             reasons.append(f"edge {edge:.1%} orimlig (> {s.get('sides_max_edge', 0.10):.0%}) – gammal linje eller nyhet")
         if not (lo <= odds <= hi):
             reasons.append(f"odds {odds:.2f} utanför {lo:.2f}–{hi:.2f}")

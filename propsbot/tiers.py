@@ -73,12 +73,13 @@ CLV_BAD = ("oddset har fallit", "för svag referens", "håller inte med", "Pinna
 DK_MARKETS_OK = ("steals", "blocks", "pr", "pra", "ra", "pa")
 
 
-LIVE_KEYS = {"live_min_edge": {"points": 0.05, "threes": 0.05, "assists": 0.05, "rebounds": 0.05}, "live_max_edge": 0.15,
+LIVE_KEYS = {"live_min_edge": {m: 0.07 for m in ("points", "threes", "assists", "rebounds", "steals", "blocks",
+                                                  "pr", "pra", "ra", "pa")}, "live_max_edge": 0.20,
              "live_odds_window": [1.60, 3.50], "nba_pinnacle_markets": ["points", "rebounds", "assists", "threes"]}
 
 
 # Källornas edgekrav (för krav_edge). Standardvärdena är källmodulernas egna (clv_signal.final_rules, sides.evaluate).
-KRAV_KEYS = {"min_edge_all": 0.05, "extra_edge_without_sharp": 0.03,
+KRAV_KEYS = {"min_edge_all": 0.06, "extra_edge_without_sharp": 0.03,
              "sides_min_edge": 0.03, "nba_sides_min_edge": 0.03, "sides_alt_extra_edge": 0.01,
              "sides_single_ref_extra_edge": 0.01, "sides_low_limit": 2000, "sides_low_limit_extra_edge": 0.01}
 

@@ -2,7 +2,8 @@
 
 **En körning, två sporter.** `python -m propsbot skanna` kör fotboll (skott på mål, fouls, hörnor, sides/totals)
 och NBA (poäng, returer, assist, trepoängare …) efter varandra. Ett fel i en sport stoppar aldrig den andra.
-NHL togs bort 12/11 (förlorade mot Kambi: med bara Bovada+Pinnacle som referens låg sannolikheterna 6–8 pe för högt). GitHub Actions kör den var tionde minut dygnet runt.
+NHL togs bort 12/11 (förlorade mot Kambi: med bara Bovada+Pinnacle som referens låg sannolikheterna 6–8 pe för högt).
+**NHL återinförs bara som skugga när alla fyra krav är uppfyllda:** (1) minst två oberoende skarpa spelarpropskällor, Pinnacle eller DK tvåsidigt, (2) verifierad stängning (ingen kurs äldre än 10–15 min före start), (3) modell med målvakt, PP-tid och startande målvakt, kalibrerad mot marknaden som NBA (`nba_kalibrering`), (4) minst 150 testben med t ≥ 2 mot marknaden innan notis eller tier. GitHub Actions kör den var tionde minut dygnet runt.
 
 | Var | Vad |
 |---|---|

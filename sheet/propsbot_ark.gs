@@ -327,7 +327,7 @@ function buildOverview_(ss) {
 
   row = heading_(sh, row, "Alla bokföringar (data)",
     "A/B/C Tier = nivåerna · Live = gamla LIVE-spelen · Spel = klarar reglerna · Skugga = stoppat av en regel · " +
-    "Modelltest = egna modellen · testmarknader (fouls, hörnor). Övriga typer än Tier: 1u = 0,2 % av kassan.");
+    "Modelltest = egna modellen · testmarknader (fouls, hörnor). Alla typer: 1u = 1 % av kassan.");
   table_(sh, row, q_(RAW.sammanfattning, "A:K", "select A,B,C,D,E,F,G,H,I,J,K"), 11, 40,
     {2: F.int, 3: F.int, 4: F.int, 5: F.pct, 6: '0.0"u"', 7: F.u, 8: F.spct, 9: F.clv, 10: F.int},
     {results: [7, 8, 9], tiers: [1]});
@@ -395,7 +395,7 @@ function buildSport_(ss, s) {
     {tiers: [0], results: [9, 12], status: [11]});
 
   row = heading_(sh, row, "Alla bokföringar per typ (data)",
-    "Övriga typer än Tier: 1u = 0,2 % av kassan. Live = gamla LIVE-spelen · Spel = klarar reglerna · Skugga = stoppat av en regel.");
+    "Alla typer: 1u = 1 % av kassan. Live = gamla LIVE-spelen · Spel = klarar reglerna · Skugga = stoppat av en regel.");
   row = table_(sh, row, q_(RAW.sammanfattning, "A:K", "select B,C,D,E,F,G,H,I,J,K where A='" + s.name + "' limit 16"),
     10, 16, {1: F.int, 2: F.int, 3: F.int, 4: F.pct, 5: '0.0"u"', 6: F.u, 7: F.spct, 8: F.clv, 9: F.int},
     {results: [6, 7, 8], tiers: [0]});

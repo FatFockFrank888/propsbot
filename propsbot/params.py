@@ -24,9 +24,9 @@ def all_params(settings_path: Path) -> dict:
     from .scan import load_settings
     s = load_settings(settings_path)
     dc = DecisionConfig()
-    lo, hi = s.get("odds_window_all", [1.60, 6.0])
+    lo, hi = s.get("odds_window_all", [1.40, 6.0])
     live_th = s.get("live_min_edge", {})
-    llo, lhi = s.get("live_odds_window", [1.60, 3.00])
+    llo, lhi = s.get("live_odds_window", [1.60, 3.50])
 
     from .tiers import cfg as _tcfg
     from .oddsvakt import cfg as _ocfg
@@ -41,7 +41,7 @@ def all_params(settings_path: Path) -> dict:
          f"och inget sharp money mot oss. Edge över {_pct(t['tier_max_edge'])} räknas inte. Bara bokföring: visar om kraven för B/A är för skarpa."),
         ("B Tier", f"C + edge {_pct(t['tier_b_min_edge'])}–{_pct(t['tier_b_max_edge'])}, odds {_odds(*t['tier_b_odds'])}",
          "Fokus på CLV: Pinnacle (eller DraftKings där Pinnacle saknar marknaden) som referens, oddset har inte fallit, ingen annan skarp "
-         "källa säger emot, Pinnacles gräns räcker, förväntad CLV ≥ 0 där den finns. Spelas, ingen notis."),
+         "källa säger emot, Pinnacles gräns räcker, förväntad CLV ≥ 0 där den finns. Spelas, notis."),
         ("A Tier", f"B + alla parametrar, odds {_odds(*t['tier_a_odds'])}",
          "NBA: klarar LIVE-kraven (se NBA nedan). Fotboll: klarar alla regler (regelspel). Spelas."),
         ("Notiser för nya spel", " och ".join(t["tier_notify"]) + " Tier" + (f" · kanal {s['tier_ntfy_topic']}" if s.get("tier_ntfy_topic") else ""),
@@ -64,7 +64,7 @@ def all_params(settings_path: Path) -> dict:
     ]
     shared = tiers + [
         ("Spelbara bolag", ", ".join(s["playable_books"]), "Bara Kambi-bolag. Paf och LeoVegas läses bara för att mäta marginalen."),
-        ("Minsta edge (alla spel)", _pct(s.get("min_edge_all", 0.05)), "edge = sannolikhet × odds − 1. Gäller alla marknader och sporter."),
+        ("Minsta edge (alla spel)", _pct(s.get("min_edge_all", 0.06)), "edge = sannolikhet × odds − 1. Gäller alla marknader och sporter."),
         ("Oddsram", _odds(lo, hi), "Inga spel utanför."),
         ("Max oddsfall", _pct(s.get("max_odds_drop", 0.03)), "Inget spel om bästa oddset fallit mer än så från det högsta vi sett (för sent)."),
         ("Sharp money mot oss", f"{s.get('sharp_against_pp', 2.0):g} procentenheter",
@@ -108,7 +108,7 @@ def all_params(settings_path: Path) -> dict:
         ("Marknader som spelas", ", ".join(s.get("football_markets", ["shots_on_target"])),
          "Övriga marknader används bara för att mäta Kambis marginal."),
         ("Edgekrav per marknad (före gemensamt krav)", ", ".join(f"{k} {_pct(v)}" for k, v in dc.min_edge_by_market.items()),
-         "Gemensamma kravet 5 % gäller ovanpå."),
+         f"Gemensamma kravet {_pct(s.get('min_edge_all', 0.06))} gäller ovanpå."),
         ("Utan Pinnacle/tvåsidig källa", f"+{_pct(s.get('extra_edge_without_sharp', 0.03))} edge, minst {s.get('min_groups_without_sharp', 3)} källor", ""),
         ("Försiktig skottmarginal", f"k ≥ {s.get('min_power_k_shots', 1.2):g}", "Edgen måste hålla även med en försiktig marginal, annars skuggspel."),
         ("Kambi mot Pinnacle (målförväntan)", f"max {_pct(s.get('max_line_ratio_dev', 0.10))} skillnad", "Annars hoppas matchen över (olika regler, gamla linjer)."),
@@ -146,7 +146,7 @@ def all_params(settings_path: Path) -> dict:
         ("Sides/totals: edgekrav", f"{_pct(s.get('sides_min_edge', 0.03))} (alternativ Pinnacle-linje +{_pct(s.get('sides_alt_extra_edge', 0.01))})",
          "Lägre än 5 % eftersom referensen är Pinnacles huvudlinje (skarpast i världen): mot den är 3 % en verklig edge. "
          f"{_pct(s.get('sides_shadow_min_edge', 0.01))}–{_pct(s.get('sides_min_edge', 0.03))} bokförs som Sides-skugga för att mäta nivån."),
-        ("Sides/totals: högsta edge", _pct(s.get("sides_max_edge", 0.10)),
+        ("Sides/totals: högsta edge", _pct(s.get("sides_max_edge", 0.15)),
          "Större edge mot Pinnacle = nästan alltid gammal linje, nyhet (uppställning/skada) eller fel match. Bokförs som skugga."),
         ("Sides/totals: oddsram", _odds(so_lo, so_hi), "Bredare än props uppåt så att oavgjort och små skrällar kommer med."),
         ("Sides/totals: Pinnacles insatsgräns", f"minst {s.get('sides_min_pin_limit', 500)}; under {s.get('sides_low_limit', 2000)} "
@@ -168,7 +168,7 @@ def all_params(settings_path: Path) -> dict:
         ("Status", "LIVE (notiser)" if s.get("live_on", True) and s.get("nba_enabled", True) else "av", ""),
         ("LIVE: edgekrav per marknad", ", ".join(f"{k} {_pct(v)}" for k, v in live_th.items()),
          "Marknader som saknas här (steals, blocks, PRA …) spelas inte live."),
-        ("LIVE: högsta edge", _pct(s.get("live_max_edge", 0.15)), "Större edge slog inte stängningen i datan (oftast fel i linje/modell)."),
+        ("LIVE: högsta edge", _pct(s.get("live_max_edge", 0.20)), "Större edge slog inte stängningen i datan (oftast fel i linje/modell)."),
         ("LIVE: modellen", f"får inte säga emot (modellens edge ≥ {_pct(s.get('live_model_min_edge', 0.05))} om den har en rad); "
                            f"krävs för {', '.join(s.get('live_model_required_markets', ['points']))}",
          "12/11, 1 378 spel: assist/returer/trepoängare utan modellrad slog stängningen med +2,8 pe (t 11,6); "
