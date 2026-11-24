@@ -671,11 +671,13 @@ def nba_scan(root: Path, settings_path: Path) -> dict:
         from .ledger import bet_key as _bk
         by_k = {_bk(r): r for r in rows if getattr(r, "analys", None) is not None}
         t_an = time.time()
-        for b in live.bets:
-            r = by_k.get(b["key"])
-            if r is not None and b.get("status") == "öppen" and (b.get("avspark") or 0) > t_an:
-                b["analys"], b["prognos"] = r.analys, getattr(r, "expected", None)
-                b["analys_ts"] = t_an
+        # 24/11: även Spel- och Skuggboken (matar A/B/C Tier-korten), så att korten får matchlogg/form-staplar.
+        for book in (live, ledger, shadow):
+            for b in book.bets:
+                r = by_k.get(b["key"])
+                if r is not None and b.get("status") == "öppen" and (b.get("avspark") or 0) > t_an:
+                    b["analys"], b["prognos"] = r.analys, getattr(r, "expected", None)
+                    b["analys_ts"] = t_an
     except Exception as e:  # noqa: BLE001 – webbtillägg, får aldrig stoppa skanningen
         diag.log(f"NBA analys på LIVE-spel: fel {type(e).__name__}: {e}")
     recheck(live, nba_status_fn(injuries), settings, "NBA", True, diag.log)
