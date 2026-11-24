@@ -125,3 +125,12 @@ def motiv_text(b: dict) -> tuple[str, str, str]:
     if m["forv_clv_pp"] is not None:
         parts.append(f"förväntad CLV {m['forv_clv_pp']:+.1f} pe".replace(".", ","))
     return sv(m["fair_odds"]), "; ".join(parts), "; ".join(m["risk"])
+
+
+def unibet_url(match_id, bolag: str = "unibet") -> str | None:
+    """Länk till matchen hos Unibet (Kambi-event-id: 'k1029147328'). Bara för Unibet; annars None."""
+    import re
+    m = re.fullmatch(r"k(\d{6,})", str(match_id or ""))
+    if not m or str(bolag or "").lower() != "unibet":
+        return None
+    return f"https://www.unibet.se/betting/sports/event/{m.group(1)}"

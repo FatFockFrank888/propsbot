@@ -614,7 +614,10 @@ def notify_new(playable: list[ScanRow], settings: dict, root: Path, live: bool =
             spel=f"{MARKET_LABEL.get(c.market, c.market)} {'under' if c.best.side == 'under' else 'över'} {c.line}",
             ko_text=kickoff_from_utc_text(r.kickoff), units_txt=f"{str(u_new).replace('.', ',')}u (1u = 1 % av kassan)")
         title = ("LIVE · " if live else "") + title
-        if send(settings["ntfy_topic"], title, msg, tags="basketball" if nba else "soccer"):
+        from .msg import unibet_url
+        _ub = unibet_url(c.match_id, c.best.book)
+        if send(settings["ntfy_topic"], title, msg, tags="basketball" if nba else "soccer",
+                link=("Hos Unibet", _ub) if _ub else None):
             seen.mark(key, c.best.odds)
             guard.mark(sport, c.match_id, c.player_name, key)
             sent += 1
