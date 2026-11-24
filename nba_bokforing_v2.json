@@ -26666,11 +26666,11 @@
 "p_marknad": 0.5787915592346939,
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795487586.67911,
+"stangning_ts": 1795488291.991632,
 "modellversion": "2026-11-15-betyg",
 "prognos_ts": 1795466969.640752,
-"skarp_stang_p": 0.5232941918767664,
-"skarp_stang_ts": 1795487586.5861654,
+"skarp_stang_p": 0.5240508594133115,
+"skarp_stang_ts": 1795488291.8901258,
 "skarp_kalla": "skanning",
 "pin_stang_p": 0.5081258017886445,
 "dk_stang_p": 0.5669119069911251,
@@ -26698,7 +26698,7 @@
 "dk_p": 0.4498760101949072
 },
 "bolag_stangning": {
-"ts": 1795487586.7592316,
+"ts": 1795488292.1040843,
 "odds": {
 "unibet": {
 "over": 1.67,
@@ -26720,10 +26720,10 @@
 "pin_p": 0.5081258017886445,
 "dk_p": 0.5669119069911251
 },
-"bolag_stang_ts": 1795487586.7592316,
+"bolag_stang_ts": 1795488292.1040843,
 "skarp_verifierad": true,
 "skarp_status": null,
-"clv_skarp_pp": 4.252496110753567,
+"clv_skarp_pp": 4.32816286440808,
 "clv_pin_pp": 2.73565710194138,
 "clv_dk_pp": 8.614267622189441
 },
@@ -26749,7 +26749,7 @@
 "edge": 0.1729999999999996,
 "spela_fran": 2.22,
 "insats_pct": 0.02,
-"stangning": 2.5,
+"stangning": 2.48,
 "status": "öppen",
 "stopp": "sharp money med oss: referensen +5.5 enheter",
 "clv_signal": false,
@@ -26758,11 +26758,11 @@
 "p_marknad": 0.45999999999999985,
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795487586.67911,
+"stangning_ts": 1795488291.991632,
 "modellversion": "2026-11-15-betyg",
 "prognos_ts": 1795470336.692713,
 "skarp_stang_p": 0.44499999999999995,
-"skarp_stang_ts": 1795487586.5861654,
+"skarp_stang_ts": 1795488291.8901258,
 "skarp_kalla": "skanning",
 "bolag_bokning": {
 "ts": 1795470336.8385448,
@@ -26778,11 +26778,11 @@
 "dk_linje": null
 },
 "bolag_stangning": {
-"ts": 1795487586.7592316,
+"ts": 1795488292.1040843,
 "odds": {
 "unibet": {
-"over": 1.48,
-"under": 2.5
+"over": 1.49,
+"under": 2.48
 }
 },
 "pin_flyttad": false,
@@ -26790,7 +26790,7 @@
 "pin_linje": null,
 "dk_linje": null
 },
-"bolag_stang_ts": 1795487586.7592316,
+"bolag_stang_ts": 1795488292.1040843,
 "skarp_verifierad": true,
 "skarp_status": null,
 "clv_skarp_pp": 5.284313725490186,
@@ -27190,5 +27190,75 @@
 "clv_skarp_pp": 3.14340382080035,
 "clv_pin_pp": null,
 "clv_dk_pp": 3.14340382080035
+},
+{
+"key": "nba1028754509|jake laravia|rebounds|3.5|unibet|under",
+"id": 524,
+"bokford": 1795488291.9915998,
+"match_id": "nba1028754509",
+"match": "Los Angeles Lakers – Utah Jazz",
+"hemma": "Los Angeles Lakers",
+"borta": "Utah Jazz",
+"liga": "NBA",
+"avspark": 1795489200.0,
+"spelare": "Jake LaRavia",
+"spelare_id": "jake laravia",
+"marknad": "rebounds",
+"linje": 3.5,
+"sida": "under",
+"bolag": "unibet",
+"odds": 2.1,
+"sannolikhet": 0.5250000000000001,
+"ratt_odds": 1.9047619047619042,
+"edge": 0.10250000000000026,
+"spela_fran": 1.95,
+"insats_pct": 0.015385147340518811,
+"stangning": 2.1,
+"status": "öppen",
+"stopp": "sharp money med oss: referensen +7.2 enheter",
+"clv_signal": false,
+"forv_clv_pp": 8.494561375872323,
+"p_modell": null,
+"p_marknad": 0.5250000000000001,
+"utfall": null,
+"resultat_enheter": null,
+"stangning_ts": 1795488291.991632,
+"modellversion": "2026-11-15-betyg",
+"prognos_ts": 1795488291.9915998,
+"skarp_stang_p": 0.5250000000000001,
+"skarp_stang_ts": 1795488291.8901258,
+"skarp_kalla": "skanning",
+"bolag_bokning": {
+"ts": 1795488292.1040843,
+"odds": {
+"unibet": {
+"over": 1.68,
+"under": 2.1
+}
+},
+"pin_flyttad": false,
+"pin_komb": false,
+"pin_linje": null,
+"dk_linje": null
+},
+"bolag_stangning": {
+"ts": 1795488292.1040843,
+"odds": {
+"unibet": {
+"over": 1.68,
+"under": 2.1
+}
+},
+"pin_flyttad": false,
+"pin_komb": false,
+"pin_linje": null,
+"dk_linje": null
+},
+"bolag_stang_ts": 1795488292.1040843,
+"skarp_verifierad": true,
+"skarp_status": null,
+"clv_skarp_pp": 4.880952380952397,
+"clv_pin_pp": null,
+"clv_dk_pp": null
 }
 ]
