@@ -445,11 +445,10 @@ def notify_a(root: Path, bets: list[dict], settings: dict, log=print) -> int:
                                      f"{'under' if b.get('sida') == 'under' else 'över'} {b['linje']:g}")
         who = b["spelare"] if b.get("spelare_id") not in ("match", "hörnor") else b["match"]
         up = f" (uppgraderad från {b['uppgraderad_fran']})" if b.get("uppgraderad_fran") else ""
-        title = f"{b['tier']} TIER {'NBA' if b['sport'] == 'nba' else 'FOTBOLL'}: {who} {txt}"
-        ko = datetime.fromtimestamp(b["avspark"], timezone.utc).strftime("%Y-%m-%d %H:%M")
-        msg = (f"{b['match']} · {b.get('liga') or ''} ({ko} UTC){up}\n"
-               f"{b['bolag']}: {b['odds']:.2f}  {spela_fran_text(b)}\n"
-               f"Edge {b['edge']:.1%}\nInsats: {units_text(b['units'])} ({b['units'] * b['unit_pct']:.0%} av kassan)")
+        from .msg import format_bet, kickoff_sv
+        title, msg = format_bet(b, tier=b["tier"], sport=b["sport"], who=who, spel=txt, liga=b.get("liga") or "",
+                                ko_text=kickoff_sv(b["avspark"]), units_txt=units_text(b["units"]),
+                                unit_pct=b["unit_pct"], upg=up.strip())
         from urllib.parse import quote
         click = settings.get("site_url", "https://fatfockfrank888.github.io/propsbot/") + "#ta=" + quote(b["ident"], safe="")
         if send(topic, title, msg, priority=5 if b["units"] >= 3 else 4 if b["tier"] == "A" else 3, click=click,

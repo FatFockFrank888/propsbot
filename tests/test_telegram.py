@@ -24,3 +24,37 @@ def test_routing_and_fallback(monkeypatch):
     nt.configure({"ntfy_topic": "main-t"})                                    # ingen Telegram: bara ntfy
     sent.clear()
     assert nt.send("main-t", "a", "b") and not sent
+
+
+def test_format_bet_readable_swedish_time():
+    from propsbot.msg import format_bet, kickoff_sv
+    from datetime import datetime, timezone
+    ts = datetime(2026, 11, 25, 0, 0, tzinfo=timezone.utc).timestamp()
+    assert kickoff_sv(ts) == "ons 25/11 01:00 (svensk tid)"
+    b = {"match": "A – B", "bolag": "unibet", "odds": 2.02, "spela_fran": 1.95, "edge": 0.0642, "sannolikhet": 0.5268,
+         "rum": 0.005, "forv_clv_pp": 1.2, "units": 1, "unit_pct": 0.01}
+    title, msg = format_bet(b, tier="B", sport="nba", who="K. Huerter", spel="poäng över 11,5",
+                            ko_text=kickoff_sv(ts), units_txt="1u – standard", unit_pct=0.01)
+    assert title.startswith("B-TIER · NBA")
+    assert "@ 2,02 (spela från 1,95, rum +0,5 %)" in msg and "rättvist odds 1,90" in msg
+    assert "Insats: 1u – standard (1 % av kassan)" in msg and "snävt rum" in msg and "UTC" not in msg
+
+
+def test_telegram_retries(monkeypatch):
+    import urllib.error
+    monkeypatch.setenv("TELEGRAM_TOKEN", "x")
+    monkeypatch.setattr(nt.time, "sleep", lambda s: None)
+    calls = []
+
+    class R:
+        def __enter__(self): return self
+        def __exit__(self, *a): return False
+        def read(self): return b'{"ok": true}'
+
+    def fake(*a, **k):
+        calls.append(1)
+        if len(calls) < 3:
+            raise urllib.error.URLError("x")
+        return R()
+    monkeypatch.setattr(nt.urllib.request, "urlopen", fake)
+    assert nt.send_telegram(1, "t", "m") is True and len(calls) == 3

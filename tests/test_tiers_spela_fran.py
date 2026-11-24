@@ -79,7 +79,7 @@ def test_props_record_and_push(tmp_path):
     assert b["tier"] == "A" and b["krav_edge"] == 0.06
     assert b["spela_fran_kalla"] == 2.20 and b["spela_fran"] == pytest.approx(2.28)
     assert b["rum"] == pytest.approx(2.30 / 2.28 - 1)
-    assert "Unibet: 2.30  (spela från 2.28, rum +0,9 %) ⚠️ snävt" in sent[0][2]
+    assert "@ 2,30 (spela från 2,28, rum +0,9 %)" in sent[0][2] and "snävt rum" in sent[0][2]
 
 
 def test_football_sides_record(tmp_path):
@@ -87,7 +87,7 @@ def test_football_sides_record(tmp_path):
     bets, sent = _run(tmp_path, {"sides_spel.json": [b]}, dict(S, sides_min_edge=0.02))
     r = bets["k1"]
     assert r["tier"] == "A" and r["krav_edge"] == 0.05 and r["spela_fran"] == 2.10   # 2 % + 1 % + 1 % < 5 %
-    assert "rum +0,0 %) ⚠️ snävt" in sent[0][2]
+    assert "rum +0,0 %)" in sent[0][2] and "snävt rum" in sent[0][2]
 
 
 def test_nba_sides_record(tmp_path):
@@ -96,7 +96,7 @@ def test_nba_sides_record(tmp_path):
     r = bets["k1"]
     assert r["tier"] == "A" and r["sport"] == "nba" and r["krav_edge"] == 0.05
     assert r["spela_fran"] == 2.10 and r["rum"] == pytest.approx(2.20 / 2.10 - 1)
-    assert "(spela från 2.10, rum +4,8 %)" in sent[0][2] and "snävt" not in sent[0][2]
+    assert "(spela från 2,10, rum +4,8 %)" in sent[0][2] and "snävt" not in sent[0][2]
 
 
 def test_old_record_without_krav(tmp_path):
