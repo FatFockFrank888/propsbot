@@ -58,3 +58,14 @@ def test_telegram_retries(monkeypatch):
         return R()
     monkeypatch.setattr(nt.urllib.request, "urlopen", fake)
     assert nt.send_telegram(1, "t", "m") is True and len(calls) == 3
+
+
+def test_motiv_text_and_csv_columns():
+    from propsbot.msg import build_motiv, motiv_text
+    from propsbot.workbook import CSV_HEAD
+    b = {"sannolikhet": 0.55, "odds": 2.0, "edge": 0.10, "pin_p": 0.54, "prognos": 5.1, "linje": 4.5, "pin_grans": 400,
+         "forv_clv_pp": 1.0}
+    fair, why, risk = motiv_text(b)
+    assert fair == "1,82" and "edge 10,0 %" in why and "Pinnacle 54,0 %" in why and "prognos 5,1 mot linje 4,5" in why
+    assert "låg Pinnacle-gräns" in risk and build_motiv(b)["fair_odds"] == 1.818
+    assert CSV_HEAD[-3:] == ["Fair odds", "Motivering", "Risk"]

@@ -20,6 +20,8 @@ from openpyxl import Workbook
 from openpyxl.formatting.rule import CellIsRule
 from openpyxl.styles import Alignment, Border, Font, PatternFill, Side
 from openpyxl.utils import get_column_letter
+
+from .msg import motiv_text
 from openpyxl.worksheet.table import Table, TableStyleInfo
 
 UNIT = 0.01          # 1u = 1 % av kassan, samma enhet som A/B/C Tier (var 0,2 % före 24/11)
@@ -116,14 +118,15 @@ def _tier_rows(root: Path) -> list[list]:
                     _dt(b.get("avspark")), b.get("match"), spelare, MK.get(b.get("marknad"), b.get("marknad")),
                     SIDA.get(b.get("sida"), "Över"), b.get("linje"), b.get("bolag"), b.get("odds"),
                     b.get("stangning") if done else None, None, b.get("sannolikhet"), b.get("edge"),
-                    b.get("units") or 0, "nej", b.get("status"), b.get("utfall"), b.get("resultat_u")])
+                    b.get("units") or 0, "nej", b.get("status"), b.get("utfall"), b.get("resultat_u"),
+                    motiv_text(b)])
     out.sort(key=lambda r: r[0] or datetime.min, reverse=True)
     return out
 
 
 def build(root: Path, path: Path) -> int:
     rows = _rows(root)
-    tier_rows = _tier_rows(root)
+    tier_rows = [r[:20] for r in _tier_rows(root)]      # motiveringen (index 20) går bara till CSV
     wb = Workbook()
     base = Font(name=FONT, size=10)
     bold = Font(name=FONT, size=10, bold=True)
@@ -366,7 +369,8 @@ def build(root: Path, path: Path) -> int:
 
 # ------------------------------------------------------------------ CSV för Google Sheets
 CSV_HEAD = ["Bokförd", "Sport", "Typ", "Avspark", "Match", "Spelare", "Marknad", "Sida", "Linje", "Bolag",
-            "Odds", "Stängning", "CLV (%)", "Sannolikhet", "Edge", "Insats (u)", "Status", "Utfall", "Resultat (u)"]
+            "Odds", "Stängning", "CLV (%)", "Sannolikhet", "Edge", "Insats (u)", "Status", "Utfall", "Resultat (u)",
+            "Fair odds", "Motivering", "Risk"]     # T–V: nya 24/11, sist så att arkets kolumnreferenser A–S består
 
 
 def _csv_row(r: list) -> list:
@@ -384,6 +388,7 @@ def _csv_row(r: list) -> list:
         res = None
     if len(r) > 19 and r[19] is not None:
         res = r[19]
+    extra = list(r[20]) if len(r) > 20 and r[20] else ["", "", ""]
     f = lambda d: d.strftime("%Y-%m-%d %H:%M") if d else ""
     def n(x, k=4):
         if x is None or x == "":
@@ -394,7 +399,7 @@ def _csv_row(r: list) -> list:
             return x          # t.ex. sides-resultat "0–1"
     return [f(r[0]), r[1], r[2], f(r[3]), r[4], r[5], r[6], r[7], n(r[8], 1), r[9], n(odds, 2), n(close, 2),
             n(clv * 100 if clv is not None else None, 2), n(r[13]), n(r[14]), n(units, 1), status or "", n(r[18], 1),
-            n(res, 2)]
+            n(res, 2), *extra]
 
 
 def write_csv_exports(root: Path, out_dir: Path) -> int:

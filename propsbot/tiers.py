@@ -467,8 +467,9 @@ def run(root: Path, settings: dict, notify: bool = True, log=print) -> dict:
     site = root / "site"
     site.mkdir(parents=True, exist_ok=True)
     from .ledger import rensa_nan
+    from .msg import build_motiv
     pub = [{k: v for k, v in b.items() if k != "analys"} | ({"analys": b["analys"]} if b.get("status") == "öppen" else {})
-           for b in res["book"].bets]
+           | {"motiv": build_motiv(b)} for b in res["book"].bets]
     (site / "tiers.json").write_text(json.dumps(rensa_nan({"uppdaterad_ts": time.time(), "regler": cfg(settings),
                                                            "bets": pub}), ensure_ascii=False, allow_nan=False),
                                      encoding="utf-8")

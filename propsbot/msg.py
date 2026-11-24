@@ -77,6 +77,12 @@ def format_bet(b: dict, *, tier: str, sport: str, who: str, spel: str, liga: str
     if ins:
         lines.append(f"Insats: {ins}")
     why = []
+    m = build_motiv(b)
+    refs = [f"{n} {pct(v)}" for n, v in (("Pinnacle", m["pin_p"]), ("Smarkets", m["smk_p"])) if v]
+    if m["prognos"] is not None and m["linje"] is not None:
+        refs.append(f"prognos {sv(m['prognos'], 1)} mot linje {sv(m['linje'], 1)}")
+    if refs:
+        lines.append("Underlag: " + ", ".join(refs))
     if b.get("clv_signal") or "CLV-signal" in (b.get("stopp") or ""):
         why.append("Pinnacle har rört sig åt vårt håll")
     if "sharp money med oss" in (b.get("stopp") or ""):
@@ -87,3 +93,35 @@ def format_bet(b: dict, *, tier: str, sport: str, who: str, spel: str, liga: str
     if r:
         lines.append("⚠️ Risk: " + "; ".join(r))
     return title, "\n".join(lines)
+
+
+def build_motiv(b: dict) -> dict:
+    """Strukturerad, verifierbar motivering ur spelets egna fält (24/11). Maskinläsbar och visningsvänlig."""
+    p, o = b.get("sannolikhet"), b.get("odds")
+    m = {"p": p, "fair_odds": round(1 / p, 3) if p else None, "odds": o, "implicit_p": round(1 / o, 4) if o else None,
+         "edge": b.get("edge"), "forv_clv_pp": b.get("forv_clv_pp"), "spela_fran": b.get("spela_fran"), "rum": b.get("rum"),
+         "pin_p": b.get("pin_p"), "smk_p": b.get("smk_p"), "p_modell": b.get("p_modell"), "p_marknad": b.get("p_marknad"),
+         "prognos": b.get("prognos"), "linje": b.get("linje"), "pin_grans": b.get("pin_grans"), "risk": risks(b)}
+    if b.get("pin_grans") is not None and b["pin_grans"] < 1000:
+        m["risk"] = (m["risk"] + [f"låg Pinnacle-gräns ({b['pin_grans']:.0f}) – svag referens"])[:4]
+    if b.get("status") in ("struken", "push"):
+        m["risk"] = m["risk"] + [f"spelet {b['status']}"]
+    return m
+
+
+def motiv_text(b: dict) -> tuple[str, str, str]:
+    """(fair odds, motivering, risk) som korta texter för CSV/Sheet."""
+    m = build_motiv(b)
+    if not m["p"] or not m["odds"]:
+        return "", "", "; ".join(m["risk"])
+    parts = [f"sannolikhet {pct(m['p'])} mot oddsets {pct(m['implicit_p'])} → edge {pct(b['edge'])}"
+             if b.get("edge") is not None else f"sannolikhet {pct(m['p'])}"]
+    refs = [f"{n} {pct(v)}" for n, v in (("Pinnacle", m["pin_p"]), ("Smarkets", m["smk_p"]), ("modell", m["p_modell"]),
+                                          ("marknad", m["p_marknad"])) if v]
+    if refs:
+        parts.append("källor: " + ", ".join(refs))
+    if m["prognos"] is not None and m["linje"] is not None:
+        parts.append(f"prognos {sv(m['prognos'], 1)} mot linje {sv(m['linje'], 1)}")
+    if m["forv_clv_pp"] is not None:
+        parts.append(f"förväntad CLV {m['forv_clv_pp']:+.1f} pe".replace(".", ","))
+    return sv(m["fair_odds"]), "; ".join(parts), "; ".join(m["risk"])
