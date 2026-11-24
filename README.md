@@ -17,7 +17,7 @@ NHL togs bort 12/11 (förlorade mot Kambi: med bara Bovada+Pinnacle som referens
 **A/B/C Tier (18/11, `propsbot/tiers.py`):** ersätter Official Bets. Varje bokfört spel hamnar i den högsta nivå
 det klarar – **C** edge ≥ 4 % och statistiken talar för (bara bokföring), **B** C + CLV-fokus (Pinnacle/DK som referens,
 oddset faller inte, odds 1,60–6,00; spelas), **A** B + alla parametrar (odds 1,60–3,50; spelas). Notis för nya spel i A och B.
-Flat 1–3u, 1u = 1 % av kassan (1u standard, 2u high, 3u maxbet). Nivåerna rättas var för sig i fliken *Tier-resultat*
+Flat 1–3u, 1u = 1 % av kassan (1u standard, 2u high, 3u maxbet). **3u är avstängt sedan 24/11** (`tier_3u_edge` = 1,0): spelen i edgebandet 12–20 % slog inte stängningen (NBA-skugga CLV −1,2 pe) och 3u gav ROI −39 % på 10 avgjorda. Slås på igen genom att sätta `tier_3u_edge` till 0,12 när fler spel visar att bandet håller. Nivåerna rättas var för sig i fliken *Tier-resultat*
 så att vi ser om kraven är för strikta. Bokföring i `tiers.json`, webbens data i `site/tiers.json`. Gränserna: `tier_*` i `settings.json`.
 Notisens *spela från* (23/11) räknas med edgekravet för spelets nivå (`krav_edge`: B 5 %, A dessutom källans krav,
 t.ex. 6 % för props) – inte källans lägre krav – och visar *rum* (hur långt oddset kan falla), med ⚠️ snävt under 1 %.
