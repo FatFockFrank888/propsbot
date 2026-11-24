@@ -1,12 +1,12 @@
-# NBA – utvärdering på framåtriktad data (2026-11-24T18:41:05+00:00)
+# NBA – utvärdering på framåtriktad data (2026-11-24T18:55:29+00:00)
 
 Bara bokförda prognoser (gjorda före matchen). Unika prestationer = spelare × match × marknad.
 
 | Bokföring | Rader | Prestationer | Matcher | Dagar | Avgjorda | ROI flat | ROI modell | Max DD (u) | CLV pe skarp (95 %) | CLV pe skarp verifierad | Verifierad täckning | Slog skarp stängning | CLV pe mot Unibets stängning | Brier modell / marknad (n) |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | live | 46 | 46 | 39 | 18 | 46 | -1.1 % | +0.1 % | 5.2 | 3.12 (+2.39…+3.92) | 3.07 | 0.91 | +87.0 % | 2.38 | – |
-| spel | 507 | 507 | 162 | 24 | 482 | +5.4 % | +3.6 % | 14.5 | 2.25 (+1.88…+2.67) | 2.14 | 0.83 | +77.6 % | 2.51 | – |
-| skugga | 1560 | 1560 | 178 | 24 | 1481 | +2.1 % | +2.2 % | 39.8 | 0.82 (+0.62…+1.05) | 0.69 | 0.83 | +66.1 % | 1.71 | – |
+| spel | 508 | 508 | 163 | 24 | 482 | +5.4 % | +3.6 % | 14.5 | 2.25 (+1.88…+2.67) | 2.14 | 0.83 | +77.6 % | 2.51 | – |
+| skugga | 1561 | 1561 | 178 | 24 | 1481 | +2.1 % | +2.2 % | 39.8 | 0.82 (+0.62…+1.05) | 0.69 | 0.83 | +66.1 % | 1.71 | – |
 | modelltest | 1151 | 1151 | 150 | 21 | 1093 | +4.7 % | +4.6 % | 34.4 | -0.03 (-0.36…+0.41) | -0.12 | 0.81 | +45.9 % | 1.76 | 0.2724 / 0.2437 (595) |
 
 ## Marknadsstatus för LIVE (marknadsbaserade spel mot skarp stängning)
@@ -16,8 +16,8 @@ Bara bokförda prognoser (gjorda före matchen). Unika prestationer = spelare ×
 | assists | **ok** | 337 | 1.11 (+0.49…+1.47) | +71.5 % | +3.7 % |
 | blocks | **ok** | 23 | 3.97 (+2.70…+4.81) | +95.7 % | +22.9 % |
 | pa | **osäker** | 43 | 0.77 (-1.62…+1.07) | +61.9 % | +0.4 % |
-| points | **ok** | 763 | 1.20 (+0.70…+1.43) | +67.4 % | -0.4 % |
-| pr | **ok** | 89 | 1.33 (+0.30…+2.27) | +71.3 % | +2.3 % |
+| points | **ok** | 764 | 1.20 (+0.70…+1.43) | +67.4 % | -0.4 % |
+| pr | **ok** | 90 | 1.33 (+0.30…+2.27) | +71.3 % | +2.3 % |
 | pra | **ok** | 40 | 0.91 (+0.07…+2.45) | +65.8 % | -15.1 % |
 | ra | **osäker** | 116 | 0.43 (-1.10…+0.86) | +61.1 % | +12.4 % |
 | rebounds | **ok** | 422 | 0.97 (+0.58…+1.33) | +70.1 % | -2.0 % |
