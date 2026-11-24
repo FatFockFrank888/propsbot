@@ -451,8 +451,11 @@ def notify_a(root: Path, bets: list[dict], settings: dict, log=print) -> int:
                                 unit_pct=b["unit_pct"], upg=up.strip())
         from urllib.parse import quote
         click = settings.get("site_url", "https://fatfockfrank888.github.io/propsbot/") + "#ta=" + quote(b["ident"], safe="")
+        from .msg import unibet_url
+        _ub = unibet_url(b.get("match_id"), b.get("bolag"))
         if send(topic, title, msg, priority=5 if b["units"] >= 3 else 4 if b["tier"] == "A" else 3, click=click,
-                tags="basketball" if b["sport"] == "nba" else "soccer"):
+                tags="basketball" if b["sport"] == "nba" else "soccer",
+                link=("Hos Unibet", _ub) if _ub else None):
             b["notis"] = True
             sent += 1
     log(f"Tiers: {sent} notiser skickade")

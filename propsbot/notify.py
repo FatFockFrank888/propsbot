@@ -49,7 +49,8 @@ def configure(settings: dict) -> None:
     TG_ONLY = bool(settings.get("telegram_only", False))
 
 
-def send_telegram(chat_id, title: str, message: str, priority: int = 4, click: str | None = None) -> bool:
+def send_telegram(chat_id, title: str, message: str, priority: int = 4, click: str | None = None,
+                  link: tuple | None = None) -> bool:
     import html
     import os
     token = os.environ.get("TELEGRAM_TOKEN")
@@ -60,8 +61,9 @@ def send_telegram(chat_id, title: str, message: str, priority: int = 4, click: s
         return False
     body = {"chat_id": chat_id, "text": f"<b>{html.escape(title)}</b>\n{html.escape(message)}", "parse_mode": "HTML",
             "disable_web_page_preview": True, "disable_notification": priority <= 2}
-    if click:
-        body["reply_markup"] = {"inline_keyboard": [[{"text": "Öppna", "url": click}]]}
+    btns = ([{"text": "Öppna", "url": click}] if click else []) + ([{"text": link[0], "url": link[1]}] if link else [])
+    if btns:
+        body["reply_markup"] = {"inline_keyboard": [btns]}
     req = urllib.request.Request(f"{TG}/bot{token}/sendMessage", data=json.dumps(body).encode("utf-8"), method="POST",
                                  headers={"Content-Type": "application/json"})
     ok = False
@@ -96,16 +98,18 @@ def new_topic() -> str:
     return "propsbot-" + secrets.token_hex(6)
 
 
-def send(topic: str, title: str, message: str, priority: int = 4, tags: str = "soccer", click: str | None = None) -> bool:
+def send(topic: str, title: str, message: str, priority: int = 4, tags: str = "soccer", click: str | None = None,
+         link: tuple | None = None) -> bool:
     if not topic:
         return False
     tg = TG_ROUTE.get(topic)
-    tg_ok = send_telegram(tg, title, message, priority, click) if tg else False
+    tg_ok = (send_telegram(tg, title, message, priority, click, **({"link": link} if link else {})) if tg else False)
     if TG_ONLY and tg:
         return tg_ok
     # ntfy tar emot JSON på rot-URL:en; då fungerar å, ä, ö även i rubriken.
     body = json.dumps({"topic": topic, "title": title, "message": message,
-                       "priority": priority, "tags": tags.split(","), **({"click": click} if click else {})}).encode("utf-8")
+                       "priority": priority, "tags": tags.split(","), **({"click": click} if click else {}),
+                       **({"actions": [{"action": "view", "label": link[0], "url": link[1]}]} if link else {})}).encode("utf-8")
     req = urllib.request.Request(NTFY, data=body, method="POST",
                                  headers={"Content-Type": "application/json"})
     try:
