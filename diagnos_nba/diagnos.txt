@@ -1,28 +1,28 @@
-NBA-skanning 2026-11-24 22:17
+NBA-skanning 2026-11-24 22:40
 Kambi NBA: 7 matcher, bolag: atg, betmgm, expekt, leovegas, paf, svenskaspel, unibet
-NBA tid: Kambi-props 22 s
+NBA tid: Kambi-props 18 s
 Pinnacle NBA: 3 matcher, 222 spelarodds (4 s)
-Kalshi: 96 likvida linjer av 774 öppna marknader
-Kalshi: 94 linjer kopplade till matcher
+Kalshi: 119 likvida linjer av 774 öppna marknader
+Kalshi: 117 linjer kopplade till matcher
 DK/FD: 0 nya hämtningar, 660 odds i bruk, krediter kvar 158, dagsbudget 22 (andel 60%), förbrukat idag 13
 SportsGameOdds NBA: vilar efter kvotfel till 25/11 20:14 UTC
-DraftKings via ESPN: 3 matcher, 208 spelarodds (referens)
-Stängningsarkiv (Pinnacle/DK): 284 tvåsidiga linjer noterade, 0 rader arkiverade
+DraftKings via ESPN: 3 matcher, 204 spelarodds (referens)
+Stängningsarkiv (Pinnacle/DK): 282 tvåsidiga linjer noterade, 0 rader arkiverade
 NBA namnexempel Orlando Magic: Kambi ['anthony black', 'ausar thompson', 'cade cunningham', 'daniss jenkins', 'desmond bane', 'franz wagner'] | Pinnacle ['anthony black', 'ausar thompson', 'cade cunningham', 'daniss jenkins', 'desmond bane', 'franz wagner']
 NBA Pinnacle-exempel: ['Winning Margin Range 1st Half', 'Orlando Magic Points Odd/Even', 'Total Points Odd/Even', 'Winning Margin Range', 'Detroit Pistons Points Odd/Even', 'Moneyline and Total Points', 'Anthony Black Total Threes Made', 'Anthony Black Total Assists']
 NBA linjer: 91 med samma linje hos Pinnacle, 20 flyttade från närliggande linje, 86 kombolinjer (PRA/PR/RA/PA) räknade ur Pinnacles poäng/returer/assist
-NBA-odds (unibet/pinnacle) per marknad: pinnacle:assists 42, pinnacle:points 94, pinnacle:rebounds 72, pinnacle:threes 54, unibet:assists 62, unibet:blocks 56, unibet:pa 62, unibet:points 78, unibet:pr 76, unibet:pra 62, unibet:ra 62, unibet:rebounds 76, unibet:steals 74, unibet:threes 68
+NBA-odds (unibet/pinnacle) per marknad: pinnacle:assists 42, pinnacle:points 94, pinnacle:rebounds 72, pinnacle:threes 54, unibet:assists 78, unibet:blocks 56, unibet:pa 78, unibet:points 96, unibet:pr 92, unibet:pra 78, unibet:ra 78, unibet:rebounds 92, unibet:steals 74, unibet:threes 82
 NBA faktormodell (skugga): 160 spelare, Pinnacle-total för 3 av 7 matcher, ligatempo 99.6
 NBA spelarbetyg (skugga): 157 spelare, 0 nya boxscores
 NBA-modell: 7 matcher hos ESPN, 160 spelare, 0 nya boxscores, 76 skadade (out/doubtful)
-NBA-modell nivåavvikelse (dras bort): assists -0.03, points +0.28, pr +0.07, pra -0.06, ra +0.04, rebounds +0.07, threes +0.03
-NBA faktormodell nivåavvikelse: assists -0.42, points -0.14, pr -0.35, pra -0.60, ra -0.37, rebounds -0.19, threes -0.20
+NBA-modell nivåavvikelse (dras bort): assists -0.02, points +0.29, pr +0.08, pra -0.03, ra +0.05, rebounds +0.06, threes +0.03
+NBA faktormodell nivåavvikelse: assists -0.38, points -0.13, pr -0.34, pra -0.56, ra -0.33, rebounds -0.19, threes -0.19
 NBA minutmodell (skugga): medel cv² 0.095, spread från Pinnacle för 3 av 7 matcher; stackning: _alla b_m -0.02 b_k 1.20 (n 595), assists b_m +0.06 b_k 1.20 (n 94), blocks b_m +0.01 b_k 1.20 (n 5), pa b_m -0.03 b_k 1.06 (n 25), points b_m +0.02 b_k 1.20 (n 166), pr b_m -0.08 b_k 1.01 (n 61), pra b_m -0.06 b_k 1.07 (n 44), ra b_m +0.01 b_k 1.20 (n 39), rebounds b_m -0.04 b_k 1.10 (n 102), steals b_m -0.05 b_k 1.19 (n 9), threes b_m -0.05 b_k 1.16 (n 50)
-NBA-modelltest: 0 spelbara enligt den kalibrerade modellen av 394 ben med modell (4373 rader i kalibreringsloggen)
+NBA-modelltest: 0 spelbara enligt den kalibrerade modellen av 394 ben med modell (4374 rader i kalibreringsloggen)
 NBA analyssida: 394 ben med analys
 NBA CLV-signal: 0 ben släppta
 NBA lagnyheter: 95 spelare på skadelistan, 0 ben stoppade, 0 markerade (questionable)
-NBA spelregler: stoppade {'edge': 4, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0} (modelltest {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0})
+NBA spelregler: stoppade {'edge': 4, 'spelare': 0, 'oddsfall': 1, 'sharp': 0, 'fotboll': 0} (modelltest {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0})
 NBA: 1 spelbara ben av 434
 NBA SPEL: Denver Nuggets – Dallas Mavericks | Daniel Gafford rebounds under 7.5 | unibet 1.68 | p 63.2% | edge 6.1%
 NBA LIVE: 0 spel uppfyller live-kraven, 0 nya bokförda live
@@ -32,5 +32,5 @@ NBA: hittar inte De'Aaron Fox i boxscore (Sacramento Kings – San Antonio Spurs
 NBA kalibrering: 0 nya rättade ben; _alla M0 (n 3890, test 1167, vinst +0.0000), assists M0 (n 343, test 103, vinst +0.0000), pa M0 (n 527, test 159, vinst +0.0000), points M0 (n 534, test 161, vinst +0.0000), pr M0 (n 673, test 202, vinst +0.0000), pra M0 (n 557, test 168, vinst +0.0000), ra M0 (n 403, test 121, vinst +0.0000), rebounds M0 (n 445, test 134, vinst +0.0000), threes M0 (n 349, test 105, vinst +0.0000)
 NBA LIVE-status per marknad (skarp CLV, marknadsspel): assists ok, blocks ok, pa osäker, points ok, pr ok, pra ok, ra osäker, rebounds ok, steals ok, threes ok
 NBA modellstatus per marknad (modelltest, styr inte): assists shadow, blocks insufficient_data, pa insufficient_data, points shadow, pr degraded, pra degraded, ra shadow, rebounds degraded, steals insufficient_data, threes shadow
-NBA sides/totals: 3 matcher med Kambi + Pinnacle, 66 linjer, 0 nya spel, 0 nya skuggspel, 0 över stoppade (utklassning); bästa edge +0.0% (Denver Nuggets -6.5), -0.1% (Denver Nuggets -7.5), -0.6% (Denver Nuggets -8.5)
+NBA sides/totals: 3 matcher med Kambi + Pinnacle, 66 linjer, 0 nya spel, 0 nya skuggspel, 0 över stoppade (utklassning); bästa edge -0.5% (Denver Nuggets -7.5), -0.5% (totala poäng under 236.5), -0.6% (Denver Nuggets -6.5)
 NBA sides: Kambis marknader moneyline - including overtime -> ml; point spread - including overtime -> spread; total points - including overtime -> game_total
