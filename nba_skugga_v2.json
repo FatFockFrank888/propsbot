@@ -98281,7 +98281,7 @@
 "edge": 0.0501091751534819,
 "spela_fran": 1.86,
 "insats_pct": 0.013766256910297196,
-"stangning": 1.75,
+"stangning": 1.79,
 "status": "öppen",
 "stopp": "skadelista: day-to-day (ESPN) – kolla före start; edge 5.0% < 6% (gemensamt krav)",
 "clv_signal": false,
@@ -98290,14 +98290,14 @@
 "p_marknad": 0.5497953796615088,
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795509282.0944138,
+"stangning_ts": 1795524352.7906075,
 "modellversion": "2026-11-15-betyg",
 "prognos_ts": 1795502262.0653539,
-"skarp_stang_p": 0.5327419940803108,
-"skarp_stang_ts": 1795509281.9233053,
+"skarp_stang_p": 0.5389618361029862,
+"skarp_stang_ts": 1795524352.5898368,
 "skarp_kalla": "skanning",
 "pin_stang_p": 0.5389618361029862,
-"dk_stang_p": 0.5408629674417824,
+"dk_stang_p": 0.5422517367521141,
 "bolag_bokning": {
 "ts": 1795502262.1156847,
 "odds": {
@@ -98322,14 +98322,18 @@
 "dk_p": 0.5218071246326551
 },
 "bolag_stangning": {
-"ts": 1795523281.2093625,
+"ts": 1795524352.8532631,
 "odds": {
+"unibet": {
+"over": 1.79,
+"under": 1.94
+},
 "pinnacle": {
 "over": 1.746,
 "under": 2.01
 },
 "draftkings (25.5)": {
-"over": 1.91,
+"over": 1.9,
 "under": 1.86
 }
 },
@@ -98338,14 +98342,14 @@
 "pin_linje": null,
 "dk_linje": 25.5,
 "pin_p": 0.5389618361029862,
-"dk_p": 0.5408629674417824
+"dk_p": 0.5422517367521141
 },
-"bolag_stang_ts": 1795523281.2093625,
+"bolag_stang_ts": 1795524352.8532631,
 "skarp_verifierad": false,
 "skarp_status": null,
-"clv_skarp_pp": 0.9181784656226988,
+"clv_skarp_pp": 1.5401626678902436,
 "clv_pin_pp": 1.5401626678902436,
-"clv_dk_pp": 1.730275801769865
+"clv_dk_pp": 1.8691527328030366
 },
 {
 "key": "nba1029087589|kevin huerter|ra|6.5|unibet|under",
@@ -98384,7 +98388,7 @@
 "skarp_stang_p": 0.5771609197700307,
 "skarp_stang_ts": 1795523280.9774024,
 "skarp_kalla": "skanning",
-"dk_stang_p": 0.5771609197700307,
+"dk_stang_p": 0.5513456687127553,
 "bolag_bokning": {
 "ts": 1795521083.686389,
 "odds": {
@@ -98404,28 +98408,190 @@
 "dk_p": 0.5771609197700307
 },
 "bolag_stangning": {
-"ts": 1795523281.2093625,
+"ts": 1795524352.8532631,
 "odds": {
 "unibet": {
 "over": 1.88,
 "under": 1.85
 },
-"draftkings": {
-"over": 2.17,
-"under": 1.64
+"draftkings (5.5)": {
+"over": 1.64,
+"under": 2.18
+}
+},
+"pin_flyttad": false,
+"pin_komb": false,
+"pin_linje": null,
+"dk_linje": 5.5,
+"dk_p": 0.5513456687127553
+},
+"bolag_stang_ts": 1795524352.8532631,
+"skarp_verifierad": false,
+"skarp_status": null,
+"clv_skarp_pp": 3.9526511167880196,
+"clv_pin_pp": null,
+"clv_dk_pp": 1.371126011060475
+},
+{
+"key": "nba1029087589|paul reed|points|8.5|unibet",
+"id": 1793,
+"bokford": 1795524352.7905085,
+"match_id": "nba1029087589",
+"match": "Orlando Magic – Detroit Pistons",
+"hemma": "Orlando Magic",
+"borta": "Detroit Pistons",
+"liga": "NBA",
+"avspark": 1795564800.0,
+"spelare": "Paul Reed",
+"spelare_id": "paul reed",
+"marknad": "points",
+"linje": 8.5,
+"sida": "over",
+"bolag": "unibet",
+"odds": 1.75,
+"sannolikhet": 0.616069389947523,
+"ratt_odds": 1.6231937770600489,
+"edge": 0.07812143240816538,
+"spela_fran": 1.66,
+"insats_pct": 0.02,
+"stangning": 1.75,
+"status": "öppen",
+"stopp": "Pinnacles linje flyttad – skuggspel tills flytten är verifierad",
+"clv_signal": false,
+"forv_clv_pp": 4.464081851895163,
+"p_modell": null,
+"p_marknad": 0.616069389947523,
+"utfall": null,
+"resultat_enheter": null,
+"stangning_ts": 1795524352.7906075,
+"modellversion": "2026-11-15-betyg",
+"prognos_ts": 1795524352.7905085,
+"skarp_stang_p": 0.616069389947523,
+"skarp_stang_ts": 1795524352.5898368,
+"skarp_kalla": "skanning",
+"pin_stang_p": 0.616069389947523,
+"bolag_bokning": {
+"ts": 1795524352.8532631,
+"odds": {
+"unibet": {
+"over": 1.75,
+"under": 1.98
+},
+"pinnacle": {
+"over": 1.623,
+"under": 2.605
+}
+},
+"pin_flyttad": true,
+"pin_komb": false,
+"pin_linje": null,
+"dk_linje": null,
+"pin_p": 0.616069389947523
+},
+"bolag_stangning": {
+"ts": 1795524352.8532631,
+"odds": {
+"unibet": {
+"over": 1.75,
+"under": 1.98
+},
+"pinnacle": {
+"over": 1.623,
+"under": 2.605
+}
+},
+"pin_flyttad": true,
+"pin_komb": false,
+"pin_linje": null,
+"dk_linje": null,
+"pin_p": 0.616069389947523
+},
+"bolag_stang_ts": 1795524352.8532631,
+"skarp_verifierad": false,
+"skarp_status": null,
+"clv_skarp_pp": 4.464081851895163,
+"clv_pin_pp": 4.464081851895163,
+"clv_dk_pp": null
+},
+{
+"key": "nba1029087589|anthony black|assists|4.5|unibet|under",
+"id": 1794,
+"bokford": 1795524352.7905414,
+"match_id": "nba1029087589",
+"match": "Orlando Magic – Detroit Pistons",
+"hemma": "Orlando Magic",
+"borta": "Detroit Pistons",
+"liga": "NBA",
+"avspark": 1795564800.0,
+"spelare": "Anthony Black",
+"spelare_id": "anthony black",
+"marknad": "assists",
+"linje": 4.5,
+"sida": "under",
+"bolag": "unibet",
+"odds": 2.08,
+"sannolikhet": 0.5,
+"ratt_odds": 2.0,
+"edge": 0.040000000000000036,
+"spela_fran": 2.04,
+"insats_pct": 0.009259259259259267,
+"stangning": 2.08,
+"status": "öppen",
+"stopp": "edge 4.0% < 6% (gemensamt krav)",
+"clv_signal": false,
+"forv_clv_pp": 3.4831658891010697,
+"p_modell": null,
+"p_marknad": 0.5,
+"utfall": null,
+"resultat_enheter": null,
+"stangning_ts": 1795524352.7906075,
+"modellversion": "2026-11-15-betyg",
+"prognos_ts": 1795524352.7905414,
+"skarp_stang_p": 0.5,
+"skarp_stang_ts": 1795524352.5898368,
+"skarp_kalla": "skanning",
+"pin_stang_p": 0.5,
+"bolag_bokning": {
+"ts": 1795524352.8532631,
+"odds": {
+"unibet": {
+"over": 1.68,
+"under": 2.08
+},
+"pinnacle": {
+"over": 1.87,
+"under": 1.87
 }
 },
 "pin_flyttad": false,
 "pin_komb": false,
 "pin_linje": null,
 "dk_linje": null,
-"dk_p": 0.5771609197700307
+"pin_p": 0.5
 },
-"bolag_stang_ts": 1795523281.2093625,
+"bolag_stangning": {
+"ts": 1795524352.8532631,
+"odds": {
+"unibet": {
+"over": 1.68,
+"under": 2.08
+},
+"pinnacle": {
+"over": 1.87,
+"under": 1.87
+}
+},
+"pin_flyttad": false,
+"pin_komb": false,
+"pin_linje": null,
+"dk_linje": null,
+"pin_p": 0.5
+},
+"bolag_stang_ts": 1795524352.8532631,
 "skarp_verifierad": false,
 "skarp_status": null,
-"clv_skarp_pp": 3.9526511167880196,
-"clv_pin_pp": null,
-"clv_dk_pp": 3.9526511167880196
+"clv_skarp_pp": 1.9230769230769273,
+"clv_pin_pp": 1.9230769230769273,
+"clv_dk_pp": null
 }
 ]
