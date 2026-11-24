@@ -1,11 +1,11 @@
-# NBA – utvärdering på framåtriktad data (2026-11-24T03:09:33+00:00)
+# NBA – utvärdering på framåtriktad data (2026-11-24T03:22:30+00:00)
 
 Bara bokförda prognoser (gjorda före matchen). Unika prestationer = spelare × match × marknad.
 
 | Bokföring | Rader | Prestationer | Matcher | Dagar | Avgjorda | ROI flat | ROI modell | Max DD (u) | CLV pe skarp (95 %) | CLV pe skarp verifierad | Verifierad täckning | Slog skarp stängning | CLV pe mot Unibets stängning | Brier modell / marknad (n) |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| live | 46 | 46 | 39 | 18 | 43 | +5.8 % | +6.8 % | 5.2 | 3.08 (+2.34…+3.90) | 3.03 | 0.91 | +86.7 % | 2.46 | – |
-| spel | 504 | 504 | 161 | 23 | 465 | +4.5 % | +2.7 % | 14.5 | 2.24 (+1.87…+2.67) | 2.13 | 0.82 | +77.5 % | 2.53 | – |
+| live | 46 | 46 | 39 | 18 | 43 | +5.8 % | +6.8 % | 5.2 | 3.12 (+2.39…+3.92) | 3.07 | 0.91 | +87.0 % | 2.38 | – |
+| spel | 504 | 504 | 161 | 23 | 465 | +4.5 % | +2.7 % | 14.5 | 2.25 (+1.88…+2.67) | 2.14 | 0.83 | +77.6 % | 2.51 | – |
 | skugga | 1550 | 1550 | 175 | 23 | 1413 | +2.3 % | +2.4 % | 39.8 | 0.82 (+0.62…+1.05) | 0.69 | 0.83 | +66.1 % | 1.71 | – |
 | modelltest | 1151 | 1151 | 150 | 21 | 1091 | +4.7 % | +4.6 % | 34.4 | -0.03 (-0.36…+0.41) | -0.12 | 0.81 | +45.9 % | 1.76 | 0.2724 / 0.2437 (593) |
 
@@ -20,7 +20,7 @@ Bara bokförda prognoser (gjorda före matchen). Unika prestationer = spelare ×
 | pr | **ok** | 87 | 1.33 (+0.26…+2.27) | +71.3 % | +11.2 % |
 | pra | **ok** | 38 | 0.91 (+0.06…+2.43) | +65.8 % | -15.5 % |
 | ra | **osäker** | 114 | 0.43 (-1.04…+0.86) | +61.1 % | +9.5 % |
-| rebounds | **ok** | 422 | 0.95 (+0.55…+1.30) | +69.9 % | -1.1 % |
+| rebounds | **ok** | 422 | 0.97 (+0.59…+1.32) | +70.1 % | -1.1 % |
 | steals | **ok** | 42 | 4.50 (+3.30…+7.68) | +92.9 % | +39.3 % |
 | threes | **ok** | 238 | 1.36 (+0.62…+1.86) | +68.7 % | +8.5 % |
 
@@ -30,11 +30,11 @@ Verifierad = referensens notering högst 60 min före start. Flyttad linje = vå
 
 | Bokföring | Status | n | CLV pe skarp | ROI flat |
 |---|---|---|---|---|
-| live | ? | 23 | 3.05 | +8.3 % |
+| live | ? | 24 | 3.12 | +8.3 % |
 | live | borttagen | 4 | 3.62 | -38.0 % |
 | live | flyttad linje (för oss) | 2 | 7.04 | -14.0 % |
 | live | verifierad | 16 | 2.48 | +12.9 % |
-| spel | ? | 132 | 2.69 | +2.6 % |
+| spel | ? | 134 | 2.71 | +2.6 % |
 | spel | borttagen | 61 | 2.88 | -18.5 % |
 | spel | flyttad linje (för oss) | 43 | 4.28 | +6.4 % |
 | spel | flyttad linje (mot oss) | 10 | -4.45 | +4.0 % |
@@ -82,7 +82,7 @@ p för validering (max av Brier- och CLV-p) – Benjamini–Hochberg q = 0.1 öv
 
 | Odds | Avgjorda | ROI flat | CLV pe |
 |---|---|---|---|
-| 1.60–2.00 | 19 | +27.0 % | 3.66 |
+| 1.60–2.00 | 19 | +27.0 % | 3.71 |
 | 2.00–2.50 | 21 | -10.2 % | 2.45 |
 | 2.50–3.00 | 3 | -16.7 % | 3.81 |
 
