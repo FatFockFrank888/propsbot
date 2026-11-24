@@ -1,4 +1,4 @@
-Skanning 2026-11-24 23:05
+Skanning 2026-11-24 23:17
 Kambi unibet (ubse): OK, 23 matcher i valda ligor
 Kambi paf (paf): OK
 Kambi atg (atg): OK
@@ -7,6 +7,7 @@ Kambi svenskaspel (svenskaspel): OK
 Kambi expekt (expektse): OK
 Kambi betmgm (betmgmse): OK
 Pinnacle: OK, 24 ligor
+Pinnacle: 1 ligor svarade inte och hoppas över: Belgium - Pro League (HTTP 403 för https://guest.api.arcadia.pinnacle.com/0.1/leagues/1817/matchups)
 Pinnacle: 21 matcher, matchlinjer för 15 av 23 Kambi-matcher, 0 spelarodds som används
 Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
   Double Chance 1st Half | units=Regular | kategori=Team Props | deltagare=San Jose Earthquakes Or Houston Dynamo,Draw Or Houston Dynamo,Draw Or San Jose Earthquakes  ->  används inte (lagmarknad)
@@ -69,13 +70,13 @@ Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
   3-Way Handicap Slavia Prague -2 | units=Regular | kategori=Team Props | deltagare=Slavia Prague (-2),Draw - (Slavia Prague -2),Villarreal (+2)  ->  används inte (lagmarknad)
   Slavia Prague To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
   Villarreal Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
-Sides mindre ligor: 34 Kambi-matcher inom 12 h, 57 Pinnacle-matcher, 31 med Pinnacle, 31 matchade: Colombia / Liga Dimayor, India / I-League, Japan / J1-League, Japan / J2-League, Japan / J3-League, Poland / Puchar Polski, Venezuela / Copa Venezuela
+Sides mindre ligor: 34 Kambi-matcher inom 12 h, 61 Pinnacle-matcher, 31 med Pinnacle, 31 matchade: Colombia / Liga Dimayor, India / I-League, Japan / J1-League, Japan / J2-League, Japan / J3-League, Poland / Puchar Polski, Venezuela / Copa Venezuela
 Sides rättning: goal-api dagstak 300 anrop nått
 Sides rättning: SportScore 32 anrop i dag
-Sides/totals: 46 matcher med Kambi + Pinnacle, 955 linjer, 0 nya spel, 0 nya skuggspel, Smarkets-priser i 39 av 42; bästa edge +3.3% (Sporting Lisbon 1X2: 2), +2.9% (Mito Hollyhock under 2.5), +2.9% (Mantova 1X2: 2)
+Sides/totals: 46 matcher med Kambi + Pinnacle, 951 linjer, 0 nya spel, 0 nya skuggspel, Smarkets-priser i 37 av 41; bästa edge +4.2% (Millonarios FC 1X2: 2), +3.3% (Sporting Lisbon 1X2: 2), +2.9% (Mantova 1X2: 2)
 Hörnmodell (test): 8012 matcher i underlaget (17 ligor), 6 matcher med modell, 610 Kambi-linjer, 0 nya testspel; bästa edge +16.6% (Mantova Mantova hörnor över 5.5 @ 2.18), +14.5% (Bolton hörnhandikapp +0.5 @ 1.90), +7.0% (Pisa Pisa hörnor över 4.5 @ 1.78)
 Fotboll extra bolag: 0 nya hämtningar, 0 odds i bruk, krediter kvar 158, dagsbudget 22 (andel 40%), förbrukat idag 8
-Tid: hämtning 394 s
+Tid: hämtning 446 s
 Marginal över alla matcher: uppmätt marginal: shots_on_target stege k=1.20 (52 spelare; marginal vid 3,00 ≈ 25%)
   San Jose Earthquakes – Houston Dynamo: modell – hittar inte matchen hos ESPN
   Slavia Prague – Villarreal: modell uefa.champions, 21 spelare
@@ -105,7 +106,7 @@ Exempel uppmätt marginal: goal k=1.47, assist k=1.29
   Atlético Madrid – Viking Stavanger: saknar matchlinjer från Pinnacle
   Stoke City – Millwall: väntade mål Pinnacle 2.54 mot Kambi 2.66 (kvot 0.952); uppmätt marginal: goal k=1.49, assist k=1.33
   Atlético Mineiro-MG – Corinthians-SP: väntade mål Pinnacle 2.55 mot Kambi 2.55 (kvot 1.001); uppmätt marginal: goal k=1.58, assist k=1.46, shots_on_target stege k=1.20 (13 spelare; marginal vid 3,00 ≈ 25%)
-Tid: modell och utvärdering 91 s
+Tid: modell och utvärdering 112 s
 Bolag med spelarodds: atg, betmgm, expekt, leovegas, paf, svenskaspel, unibet
 Spelarodds per marknad: assist 2499, goal 8526, shots 4341, shots_on_target 4291
 Kambi-marknader: assist='to give an assist (settled using opta data)':2499; goal='1st goalscorer':2989; goal='to score':2989; goal='to score at least 2 goals':1995; goal='to score at least 3 goals':420; goal='to score at least 4 goals':112; goal='to score at least 5 goals':14; goal='to score at least 6 goals':7; shots="player's shots (settled using opta data)":4341; shots_on_target="player's shots on target (settled using opta data)":4291
