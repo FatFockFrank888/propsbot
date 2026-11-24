@@ -1,4 +1,4 @@
-Skanning 2026-11-24 21:07
+Skanning 2026-11-24 21:20
 Kambi unibet (ubse): OK, 21 matcher i valda ligor
 Kambi paf (paf): OK
 Kambi atg (atg): OK
@@ -72,10 +72,10 @@ Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
 Sides mindre ligor: 8 Kambi-matcher inom 12 h, 42 Pinnacle-matcher, 6 med Pinnacle, 6 matchade: Chile / Copa Chile, Colombia / Liga Dimayor, Japan / J3-League, Venezuela / Copa Venezuela
 Sides rättning: goal-api dagstak 300 anrop nått
 Sides rättning: SportScore 28 anrop i dag
-Sides/totals: 20 matcher med Kambi + Pinnacle, 583 linjer, 0 nya spel, 0 nya skuggspel, Smarkets-priser i 18 av 18; bästa edge +3.3% (Sporting Lisbon 1X2: 2), +3.3% (Mantova 1X2: 2), +2.8% (Slavia Prague 1X2: 1)
+Sides/totals: 20 matcher med Kambi + Pinnacle, 585 linjer, 0 nya spel, 0 nya skuggspel, Smarkets-priser i 18 av 18; bästa edge +3.3% (Sporting Lisbon 1X2: 2), +3.3% (Mantova 1X2: 2), +2.9% (Slavia Prague 1X2: 1)
 Hörnmodell (test): 8012 matcher i underlaget (17 ligor), 6 matcher med modell, 610 Kambi-linjer, 0 nya testspel; bästa edge +16.6% (Mantova Mantova hörnor över 5.5 @ 2.18), +14.5% (Bolton hörnhandikapp +0.5 @ 1.90), +7.0% (Pisa Pisa hörnor över 4.5 @ 1.78)
 Fotboll extra bolag: 0 nya hämtningar, 0 odds i bruk, krediter kvar 158, dagsbudget 22 (andel 40%), förbrukat idag 8
-Tid: hämtning 281 s
+Tid: hämtning 316 s
 Marginal över alla matcher: uppmätt marginal: shots_on_target stege k=1.16 (43 spelare; marginal vid 3,00 ≈ 19%)
   San Jose Earthquakes – Houston Dynamo: modell – hittar inte matchen hos ESPN
   Slavia Prague – Villarreal: modell uefa.champions, 21 spelare
@@ -92,18 +92,18 @@ Modellens nivåavvikelse mot marknaden (log-odds, dras bort): goal -0.12, shots 
 Exempel uppmätt marginal: goal k=1.46, assist k=1.29
   Slavia Prague – Villarreal: väntade mål Pinnacle 3.33 mot Kambi 3.16 (kvot 1.052); uppmätt marginal: goal k=1.45, assist k=1.53, shots_on_target stege k=1.20 (12 spelare; marginal vid 3,00 ≈ 25%)
   Sabah FK – FC Barcelona: väntade mål Pinnacle 4.95 mot Kambi 5.07 (kvot 0.977); uppmätt marginal: goal k=1.53, assist k=1.49
-  Burnley – Birmingham: väntade mål Pinnacle 2.81 mot Kambi 2.92 (kvot 0.960); uppmätt marginal: goal k=1.60, assist k=1.40
+  Burnley – Birmingham: väntade mål Pinnacle 2.81 mot Kambi 2.92 (kvot 0.962); uppmätt marginal: goal k=1.60, assist k=1.40
   Watford – Blackburn Rovers: väntade mål Pinnacle 2.65 mot Kambi 2.70 (kvot 0.984); uppmätt marginal: goal k=1.57, assist k=1.37
   Bolton – West Bromwich: saknar matchlinjer från Pinnacle
   PSG – Roma: saknar matchlinjer från Pinnacle
   Lille – Bayern Munich: väntade mål Pinnacle 3.07 mot Kambi 3.14 (kvot 0.977); uppmätt marginal: goal k=1.30, assist k=1.41, shots_on_target stege k=1.10 (5 spelare; marginal vid 3,00 ≈ 12%)
-  Club Brugge – Liverpool: väntade mål Pinnacle 3.99 mot Kambi 3.81 (kvot 1.045); uppmätt marginal: goal k=1.37, assist k=1.49
+  Club Brugge – Liverpool: väntade mål Pinnacle 3.98 mot Kambi 3.81 (kvot 1.042); uppmätt marginal: goal k=1.37, assist k=1.49
   Inter – VfB Stuttgart: saknar matchlinjer från Pinnacle
   Shakhtar Donetsk – Fenerbahçe: väntade mål Pinnacle 2.85 mot Kambi 2.93 (kvot 0.975); uppmätt marginal: goal k=1.42, assist k=1.52, shots_on_target stege k=1.18 (8 spelare; marginal vid 3,00 ≈ 22%)
   Sporting Lisbon – Manchester United: väntade mål Pinnacle 3.28 mot Kambi 3.15 (kvot 1.039); uppmätt marginal: goal k=1.41, assist k=1.56
   Atlético Madrid – Viking Stavanger: saknar matchlinjer från Pinnacle
   Stoke City – Millwall: väntade mål Pinnacle 2.54 mot Kambi 2.66 (kvot 0.952); uppmätt marginal: goal k=1.49, assist k=1.33
-Tid: modell och utvärdering 125 s
+Tid: modell och utvärdering 123 s
 Bolag med spelarodds: atg, betmgm, expekt, leovegas, paf, svenskaspel, unibet
 Spelarodds per marknad: assist 2331, goal 7973, shots 3789, shots_on_target 3962
 Kambi-marknader: assist='to give an assist (settled using opta data)':2331; goal='1st goalscorer':2758; goal='to score':2758; goal='to score at least 2 goals':1918; goal='to score at least 3 goals':406; goal='to score at least 4 goals':112; goal='to score at least 5 goals':14; goal='to score at least 6 goals':7; shots="player's shots (settled using opta data)":3789; shots_on_target="player's shots on target (settled using opta data)":3962
