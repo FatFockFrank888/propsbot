@@ -603,13 +603,17 @@ def notify_new(playable: list[ScanRow], settings: dict, root: Path, live: bool =
         from .clv_signal import units
         from .strength import stake_text
         clv = getattr(r, "clv_pp", None)
-        msg = (f"{r.match} ({r.kickoff} UTC)\n"
-               f"{c.best.book}: {c.best.odds:.2f}  (spela från {d.play_from:.2f})\n"
-               f"Sannolikhet {c.p:.1%}, edge {c.edge:.1%}"
-               + (f", förväntad CLV {clv:+.1f}" if clv is not None else "")
-               + f"\nInsats: {stake_text(units(getattr(r, 'live_stake', None) or d.stake))}"
-               + ("\n(CLV-signal)" if any("CLV-signal" in x for x in d.reasons) else "")
-               + ("\nSharp money med oss ⬆" if any(x.startswith("sharp money med") for x in d.reasons) else ""))
+        from .msg import format_bet, kickoff_from_utc_text
+        u_old = units(getattr(r, 'live_stake', None) or d.stake)       # gammal skala 1–10 (0,2 %/u)
+        u_new = round(u_old * 0.2, 1)                                  # → 1u = 1 % av kassan
+        title, msg = format_bet(
+            {"match": r.match, "bolag": c.best.book, "odds": c.best.odds, "spela_fran": d.play_from, "edge": c.edge,
+             "sannolikhet": c.p, "forv_clv_pp": clv, "clv_signal": any("CLV-signal" in x for x in d.reasons),
+             "stopp": "sharp money med oss" if any(x.startswith("sharp money med") for x in d.reasons) else ""},
+            tier="", sport="nba" if nba else "fotboll", who=c.player_name,
+            spel=f"{MARKET_LABEL.get(c.market, c.market)} {'under' if c.best.side == 'under' else 'över'} {c.line}",
+            ko_text=kickoff_from_utc_text(r.kickoff), units_txt=f"{str(u_new).replace('.', ',')}u (1u = 1 % av kassan)")
+        title = ("LIVE · " if live else "") + title
         if send(settings["ntfy_topic"], title, msg, tags="basketball" if nba else "soccer"):
             seen.mark(key, c.best.odds)
             guard.mark(sport, c.match_id, c.player_name, key)

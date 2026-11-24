@@ -28,6 +28,9 @@ def devig_proportional(odds: Sequence[float]) -> list[float]:
     return [x / s for x in imp]
 
 
+PIN_ONE_SIDED = 1.04   # antagen marginal på ensidigt Pinnacle-pris: en konstant för scan, CLV och marknad (24/11, var 1,03/1,04)
+
+
 def devig_power(odds: Sequence[float]) -> list[float]:
     """p_i = (1/o_i)^k med k så att summan = 1. Tar hänsyn till favorit/outsider."""
     imp = np.array([1 / o for o in odds])
@@ -203,7 +206,7 @@ def prop_market_prob(market: str, cfg: MarketConfig,
     if pinnacle_over and pinnacle_under:
         p_pin = devig_power((pinnacle_over, pinnacle_under))[0]
     elif pinnacle_over:
-        p_pin = 1.0 / (pinnacle_over * 1.04)  # Pinnacle ensidigt: liten marginal
+        p_pin = 1.0 / (pinnacle_over * PIN_ONE_SIDED)
     p_k = fair_prob_one_sided(market, kambi_master_over, cfg) if kambi_master_over else None
 
     if p_pin is not None and p_k is not None:

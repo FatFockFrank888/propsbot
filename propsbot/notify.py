@@ -7,6 +7,8 @@ from __future__ import annotations
 
 import json
 import secrets
+import time
+import urllib.error
 import urllib.request
 from pathlib import Path
 
@@ -62,11 +64,29 @@ def send_telegram(chat_id, title: str, message: str, priority: int = 4, click: s
         body["reply_markup"] = {"inline_keyboard": [[{"text": "Öppna", "url": click}]]}
     req = urllib.request.Request(f"{TG}/bot{token}/sendMessage", data=json.dumps(body).encode("utf-8"), method="POST",
                                  headers={"Content-Type": "application/json"})
-    try:
-        with urllib.request.urlopen(req, timeout=15) as r:
-            ok = json.loads(r.read().decode("utf-8")).get("ok", False)
-    except Exception as e:  # notiser får aldrig stoppa skanningen
-        print(f"  (kunde inte skicka Telegram: {type(e).__name__})")
+    ok = False
+    for attempt in range(3):                       # 24/11: upp till 3 försök, respekterar Telegrams 429 retry_after
+        try:
+            with urllib.request.urlopen(req, timeout=15) as r:
+                ok = json.loads(r.read().decode("utf-8")).get("ok", False)
+            break
+        except urllib.error.HTTPError as e:
+            wait = 2 ** attempt
+            if e.code == 429:
+                try:
+                    wait = min(30, int(json.loads(e.read().decode("utf-8")).get("parameters", {}).get("retry_after", wait)))
+                except Exception:
+                    pass
+            elif e.code < 500:
+                print(f"  (Telegram avvisade: HTTP {e.code})")
+                return False
+            if attempt < 2:
+                time.sleep(wait)
+        except Exception as e:  # notiser får aldrig stoppa skanningen
+            print(f"  (kunde inte skicka Telegram: {type(e).__name__})")
+            if attempt < 2:
+                time.sleep(2 ** attempt)
+    if not ok:
         return False
     print(f"  telegram: {'ok' if ok else 'FEL'} – {title}", flush=True)
     return ok

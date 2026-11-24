@@ -22,7 +22,7 @@ from statistics import median
 from .config import Config
 from .decision import Candidate, apply_portfolio_limits, evaluate
 from .kambi import group_books_by_provider
-from .market import devig_power, fair_prob_one_sided, inv_logit, logit
+from .market import PIN_ONE_SIDED, devig_power, fair_prob_one_sided, inv_logit, logit
 from .models import OddsQuote
 from .pipeline import MARKET_LABEL, Row
 from .sources.the_odds_api import (MATCH_MARKETS, OddsApiError, TheOddsApi, parse_match_lines,
@@ -96,7 +96,7 @@ DEFAULT_SETTINGS = {
     # Gemensamma spelregler (2/11, efter 210 spel): minst 5 % edge överallt, ett spel per
     # spelare och match, inget spel om oddset fallit > 3 %, inget spel när sharp money
     # (Pinnacle/konsensus) har rört sig mot oss. Fotbollen spelas på samma regler.
-    "min_edge_all": 0.05,
+    "min_edge_all": 0.06,
     "odds_window_all": [1.40, 6.0],     # inga spel under 1,40 eller över 6,00 (alla sporter)
     "max_odds_drop": 0.03,
     "sharp_against_pp": 2.0,
@@ -114,7 +114,7 @@ DEFAULT_SETTINGS = {
     "sides_live": False,
     "sides_markets": ["1x2", "total", "ah", "corners", "cah", "corners_home", "corners_away"],
     "sides_min_edge": 0.03,
-    "sides_max_edge": 0.1,
+    "sides_max_edge": 0.15,
     "sides_alt_extra_edge": 0.01,
     "sides_odds_window": [1.4, 6.0],
     "sides_min_pin_limit": 500,
@@ -128,10 +128,11 @@ DEFAULT_SETTINGS = {
     "live_on": True,
     # 4/11 (ca 400 avgjorda NBA-spel): modellens stöd är det som skiljer – edge 5–15 % + modell ≥ 5 %
     # gav ROI +20 % och CLV +2,7 pe; edge över 15 % slog inte stängningen.
-    "live_min_edge": {"points": 0.05, "threes": 0.05, "assists": 0.05, "rebounds": 0.05},
+    "live_min_edge": {m: 0.07 for m in ("points", "threes", "assists", "rebounds", "steals", "blocks",
+                                        "pr", "pra", "ra", "pa")},   # = settings.json (24/11)
     "live_model_min_edge": 0.05,
     "live_model_required_markets": ["points"],   # övriga live-marknader spelas även utan modellrad (12/11)
-    "live_max_edge": 0.15,
+    "live_max_edge": 0.20,
     "football_live_max_units": 10,  # samma tak som NBA LIVE
     "football_kelly_scale": 0.5,
     "sides_lineup_gate": False,     # sides väntar inte på startelvor (Pinnacle prisar redan in dem)
@@ -141,7 +142,7 @@ DEFAULT_SETTINGS = {
     # fotboll utan historik: halva Kelly-insatsen tills CLV visats (storleken följer ändå styrkan)
     "live_min_groups": 2,
     "live_require_sharp": True,
-    "live_odds_window": [1.60, 3.00],   # 12/11: odds 1,40–1,60 gav −62 % (12 NBA-spel); samma golv som jämförelsesajten
+    "live_odds_window": [1.60, 3.50],  # 12/11: odds 1,40–1,60 gav −62 % (12 NBA-spel); samma golv som jämförelsesajten
     "live_block_degraded": True,    # NBA: marknader med status degraded (nba_eval) ger inga LIVE-spel
     "live_max_units": 10,         # 14/11: insats 1–10u efter styrkan (strength.py); 10u = 2 % av bankrullen
     "live_max_per_match": None,   # 18/11: inga tak – användaren väljer själv vilka spel som tas
@@ -223,7 +224,7 @@ def group_fair_prob(qs: list[OddsQuote], market: str, is_sharp: bool, cfg: Confi
         return None
     o = median(overs)
     if is_sharp:
-        return 1.0 / (o * 1.03), True
+        return 1.0 / (o * PIN_ONE_SIDED), True
     return fair_prob_one_sided(market, o, cfg.market), False
 
 

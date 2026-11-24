@@ -72,7 +72,7 @@ def write_site(site: Path, rows: list[ScanRow], ledger: Ledger, settings: dict,
         "live_enabled": settings.get("live_enabled", True),
         "uppdaterad": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "uppdaterad_ts": time.time(),
-        "regler": {"min_odds": 1.40, "max_odds": 6.0, "kelly": 0.25, "unit": 0.002},
+        "regler": {"min_odds": 1.40, "max_odds": 6.0, "kelly": 0.25, "unit": 0.01},
         "radar": radar_rows(rows, settings, live_keys=live_keys),
         # Med live: fliken Bokföring = de riktiga (live) spelen; övriga spel är data (spel_data).
         # Fotboll LIVE (football_live): regelspelen är de spelade spelen (notis) och visas som Live.

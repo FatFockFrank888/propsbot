@@ -32,7 +32,7 @@ from __future__ import annotations
 import time
 from collections import defaultdict
 
-from .market import devig_power
+from .market import PIN_ONE_SIDED, devig_power
 
 DK_BOOKS = ("us_draftkings", "oa_us_draftkings")
 
@@ -92,7 +92,7 @@ def book_probs(quotes) -> dict[tuple, dict]:
             if "over" in s and "under" in s:
                 d[name] = devig_power((s["over"], s["under"]))[0]
             elif name == "pinnacle" and "over" in s:
-                d[name] = 1.0 / (s["over"] * 1.03)
+                d[name] = 1.0 / (s["over"] * PIN_ONE_SIDED)
         d["_raw"] = {name: {sd: round(o, 3) for sd, o in s.items()} for name, s in books.items()}
         if k in moved:
             d["_pin_flyttad"] = True

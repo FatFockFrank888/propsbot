@@ -56,7 +56,7 @@ def test_run_upgrade_settle_no_caps(tmp_path):
     bets = {b["kalla_key"]: b for b in res["book"].bets}
     assert "s1" not in bets and bets["l1"]["tier"] == "A" and bets["l1"]["uppgraderad_fran"] == "C"
     assert len(sent) == 7 and bets["l1"]["notis"]                     # A + 6 B (notis för A och B sedan 18/11)
-    assert sum("A TIER" in x[1] for x in sent) == 1 and sum("B TIER" in x[1] for x in sent) == 6
+    assert sum("A-TIER" in x[1] for x in sent) == 1 and sum("B-TIER" in x[1] for x in sent) == 6
     b_played = [b for b in res["book"].bets if b["tier"] == "B" and b["spelad"]]
     assert len(b_played) == 6 and not any(b.get("tak") for b in res["book"].bets)
     # rättning från källan

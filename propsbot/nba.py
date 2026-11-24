@@ -685,7 +685,7 @@ def nba_scan(root: Path, settings_path: Path) -> dict:
     diag.log(f"NBA LIVE: {len(live_rows)} spel uppfyller live-kraven, {len(new_live)} nya bokförda live")
     for b in new_live:
         diag.log(f"NBA LIVE SPEL: {b['match']} | {b['spelare']} {b['marknad']} {b['sida']} {b['linje']} | "
-                 f"{b['bolag']} {b['odds']:.2f} | edge {b['edge']:.1%} | {round(b['insats_pct'] / 0.002)}u")
+                 f"{b['bolag']} {b['odds']:.2f} | edge {b['edge']:.1%} | {round(b['insats_pct'] / 0.01, 1)}u")
     # Versionsmärkning: varje ny prognos får modellversion och prognostid (gamla rader ändras inte).
     t_now = time.time()
     for lg in (ledger, shadow, test, live):
