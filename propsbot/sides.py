@@ -684,7 +684,7 @@ def _notify(root: Path, bets: list[dict], s: dict) -> int:
         ko = datetime.fromtimestamp(b["avspark"], timezone.utc).strftime("%Y-%m-%d %H:%M")
         msg = (f"{b['liga']} ({ko} UTC)\n{b['bolag']}: {b['odds']:.2f}  (spela från {b['spela_fran']:.2f})\n"
                f"Pinnacle utan marginal {b['sannolikhet']:.1%}, edge {b['edge']:.1%}\n"
-               f"Insats: {stake_text(round(b['insats_pct'] / 0.002))}")
+               f"Insats: {str(round(b['insats_pct'] / 0.01, 1)).replace('.', ',')}u (1u = 1 % av kassan)")
         if send(s["ntfy_topic"], title, msg, tags="soccer"):
             guard.mark("fotboll", b["match_id"], "sides", b["key"])
             b["notis"] = True
