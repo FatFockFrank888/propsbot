@@ -1,4 +1,4 @@
-# NBA – utvärdering på framåtriktad data (2026-11-24T01:27:27+00:00)
+# NBA – utvärdering på framåtriktad data (2026-11-24T01:38:30+00:00)
 
 Bara bokförda prognoser (gjorda före matchen). Unika prestationer = spelare × match × marknad.
 
@@ -16,11 +16,11 @@ Bara bokförda prognoser (gjorda före matchen). Unika prestationer = spelare ×
 | assists | **ok** | 335 | 1.10 (+0.49…+1.51) | +71.3 % | +4.0 % |
 | blocks | **ok** | 23 | 3.97 (+2.70…+4.81) | +95.7 % | +22.9 % |
 | pa | **osäker** | 42 | 0.77 (-1.64…+1.14) | +61.9 % | +2.4 % |
-| points | **ok** | 758 | 1.25 (+0.74…+1.46) | +67.6 % | -0.5 % |
-| pr | **ok** | 84 | 1.25 (+0.07…+2.24) | +70.4 % | +11.2 % |
-| pra | **osäker** | 38 | 0.81 (-0.22…+2.40) | +64.9 % | -15.5 % |
+| points | **ok** | 758 | 1.24 (+0.73…+1.45) | +67.5 % | -0.5 % |
+| pr | **ok** | 84 | 1.23 (+0.08…+2.18) | +69.9 % | +11.2 % |
+| pra | **ok** | 38 | 0.91 (+0.06…+2.43) | +65.8 % | -15.5 % |
 | ra | **osäker** | 114 | 0.38 (-1.06…+0.72) | +60.7 % | +9.5 % |
-| rebounds | **ok** | 418 | 0.95 (+0.55…+1.30) | +69.8 % | -1.1 % |
+| rebounds | **ok** | 418 | 0.95 (+0.55…+1.31) | +69.9 % | -1.1 % |
 | steals | **ok** | 42 | 4.48 (+3.27…+7.79) | +92.7 % | +39.3 % |
 | threes | **ok** | 238 | 1.36 (+0.62…+1.86) | +68.7 % | +8.5 % |
 
@@ -39,7 +39,7 @@ Verifierad = referensens notering högst 60 min före start. Flyttad linje = vå
 | spel | flyttad linje (för oss) | 43 | 4.28 | +6.4 % |
 | spel | flyttad linje (mot oss) | 10 | -4.45 | +4.0 % |
 | spel | verifierad | 234 | 1.74 | +8.4 % |
-| skugga | ? | 443 | 0.31 | +2.7 % |
+| skugga | ? | 448 | 0.31 | +2.7 % |
 | skugga | borttagen | 188 | 1.12 | -4.5 % |
 | skugga | flyttad linje (för oss) | 202 | 4.72 | +17.7 % |
 | skugga | flyttad linje (mot oss) | 48 | -4.66 | -14.6 % |
