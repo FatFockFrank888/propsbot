@@ -1,4 +1,4 @@
-Skanning 2026-11-24 00:32
+Skanning 2026-11-24 00:44
 Kambi unibet (ubse): OK, 33 matcher i valda ligor
 Kambi paf (paf): OK
 Kambi atg (atg): OK
@@ -7,7 +7,6 @@ Kambi svenskaspel (svenskaspel): OK
 Kambi expekt (expektse): OK
 Kambi betmgm (betmgmse): OK
 Pinnacle: OK, 24 ligor
-Pinnacle: 1 ligor svarade inte och hoppas över: Austria - Bundesliga (HTTP 403 för https://guest.api.arcadia.pinnacle.com/0.1/leagues/1792/matchups)
 Pinnacle: 28 matcher, matchlinjer för 23 av 33 Kambi-matcher, 0 spelarodds som används
 Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
   Double Chance 1st Half | units=Regular | kategori=Team Props | deltagare=St Louis City SC Or Los Angeles FC,Draw Or Los Angeles FC,Draw Or St Louis City SC  ->  används inte (lagmarknad)
@@ -70,12 +69,12 @@ Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
   LASK Linz To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
   Bodo Glimt Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
   LASK Linz Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
-Sides mindre ligor: 7 Kambi-matcher inom 12 h, 31 Pinnacle-matcher, 5 med Pinnacle, 5 matchade: Costa Rica / Primera Division Costa Rica, India / I-League, Saudi Arabia / Division 1
+Sides mindre ligor: 7 Kambi-matcher inom 12 h, 32 Pinnacle-matcher, 5 med Pinnacle, 5 matchade: Costa Rica / Primera Division Costa Rica, India / I-League, Saudi Arabia / Division 1
 Sides rättning: SportScore 8 anrop i dag
-Sides/totals: 28 matcher med Kambi + Pinnacle, 924 linjer, 0 nya spel, 0 nya skuggspel, Smarkets-priser i 22 av 22; bästa edge +8.4% (Chapecoense-SC 1X2: X), +3.7% (Manchester City 1X2: 2), +3.6% (St. Louis City SC 1X2: X)
+Sides/totals: 28 matcher med Kambi + Pinnacle, 924 linjer, 0 nya spel, 0 nya skuggspel, Smarkets-priser i 22 av 22; bästa edge +8.5% (Chapecoense-SC 1X2: X), +3.7% (Manchester City 1X2: 2), +3.5% (Arsenal 1X2: 2)
 Hörnmodell (test): 8012 matcher i underlaget (17 ligor), 8 matcher med modell, 810 Kambi-linjer, 0 nya testspel; bästa edge +17.4% (Benevento Benevento hörnor över 6.5 @ 2.14), +6.4% (Vicenza Vicenza hörnor under 5.5 @ 1.62), +6.3% (Cesena Ascoli hörnor över 4.5 @ 1.78)
 Fotboll extra bolag: 0 nya hämtningar, 179 odds i bruk, krediter kvar 172, dagsbudget 22 (andel 40%), förbrukat idag 0
-Tid: hämtning 374 s
+Tid: hämtning 357 s
 Marginal över alla matcher: uppmätt marginal: shots_on_target stege k=1.15 (48 spelare; marginal vid 3,00 ≈ 18%)
   St. Louis City SC – Los Angeles FC: modell – hittar inte matchen hos ESPN
   Bodø/Glimt – LASK: modell uefa.champions, 22 spelare
@@ -115,7 +114,7 @@ Exempel uppmätt marginal: goal k=1.30, assist k=1.17
   Slovan Bratislava – Real Betis: väntade mål Pinnacle 3.60 mot Kambi 3.68 (kvot 0.980); uppmätt marginal: goal k=1.61, assist k=1.67
   Real Madrid – PSV Eindhoven: saknar matchlinjer från Pinnacle
   Chapecoense-SC – Palmeiras-SP: väntade mål Pinnacle 2.88 mot Kambi 2.95 (kvot 0.976); uppmätt marginal: goal k=1.41, assist k=1.25, shots_on_target stege k=1.06 (14 spelare; marginal vid 3,00 ≈ 7%)
-Tid: modell och utvärdering 92 s
+Tid: modell och utvärdering 166 s
 Bolag med spelarodds: atg, betmgm, expekt, leovegas, oa_fanduel, oa_onexbet, paf, svenskaspel, unibet
 Spelarodds per marknad: assist 2935, goal 10942, shots 4283, shots_on_target 5339
 Kambi-marknader: assist='to give an assist (settled using opta data)':2935; goal='1st goalscorer':3866; goal='to score':3866; goal='to score at least 2 goals':2628; goal='to score at least 3 goals':456; goal='to score at least 4 goals':98; goal='to score at least 5 goals':21; goal='to score at least 6 goals':7; shots="player's shots (settled using opta data)":4283; shots_on_target="player's shots on target (settled using opta data)":5160
