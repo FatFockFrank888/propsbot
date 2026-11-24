@@ -254,6 +254,13 @@
   .chip.b { color:var(--bad); background:rgba(240,97,109,.1); } .chip.i { color:var(--info); background:rgba(90,169,255,.1); }
   .chip.l { color:#111; background:var(--accent); font-weight:700; }
   .tier { display:inline-grid; place-items:center; min-width:26px; height:22px; padding:0 7px; border-radius:var(--r-pill); font:800 12px/1 var(--f-disp); letter-spacing:.02em; }
+  .f10 { display:flex; flex-direction:column; gap:4px; }
+  .f10h { font-size:12px; color:var(--dim); } .f10h b { color:var(--text); }
+  .f10bars { display:flex; align-items:flex-end; gap:3px; height:54px; border-bottom:1px solid var(--line2); }
+  .f10b { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; font-size:10px; color:var(--dim); }
+  .f10b i { display:block; width:100%; border-radius:3px 3px 0 0; opacity:.85; }
+  .f10b i.g { background:var(--good); } .f10b i.b { background:var(--line2); }
+  .f10x { font-size:10px; color:var(--mute); }
   .whynot { font-size:12px; color:var(--dim); background:var(--panel2); border-radius:8px; padding:6px 9px; }
   .whynot b { color:var(--text); }
   .ml { display:grid; gap:6px; } .ml .row { display:grid; grid-template-columns:62px 1fr auto auto; gap:10px; align-items:center;
@@ -931,6 +938,28 @@ function tierSel(id, curv, set, opts) {
   document.querySelectorAll(`#${id} button`).forEach(x => x.onclick = () => set(x.dataset.k));
 }
 const TIER_OPTS = [["AB", "A + B (spelas)"], ["A", "A"], ["B", "B"], ["C", "C"], ["ABC", "Alla"]];
+// Form på kortet (NBA, ur analys.logg): staplar för de 10 senaste matcherna mot linjen + en "Varför"-mening.
+// Gröna staplar klarade linjen. Äldst → senast. Saknas matchlogg (t.ex. fotboll) visas ingenting.
+function formStrip(r) {
+  let a = r.analys || r.raw?.analys || {};
+  const line = r.linje ?? r.raw?.linje;
+  if (!Array.isArray(a.logg)) {   // tier-spelet bär ingen analys: hämta matchloggen från NBA-radarn (samma spelare, marknad, linje)
+    const key = x => nkey(String(x ?? "")), mk = r.mkKey ?? r.raw?.marknad;
+    const hit = (D.nba?.radar || []).find(x => x.analys?.logg && key(x.spelare) === key(r.spelare) && x.marknad === mk && x.linje === line);
+    if (hit) a = hit.analys;
+  }
+  const rows = Array.isArray(a.logg) ? a.logg.filter(x => nOk(x.v)).slice(0, 10) : [];
+  if (rows.length < 3 || !nOk(line)) return "";
+  const under = (r.sidaKey ?? r.raw?.sida) === "under", ok = x => under ? x.v < line : x.v > line;
+  const seq = [...rows].reverse(), n = rows.length, hit = rows.filter(ok).length, mx = Math.max(...seq.map(x => x.v), line, 1);
+  const bars = seq.map(x => `<div class="f10b"><span>${nf(x.v, 0)}</span><i class="${ok(x) ? "g" : "b"}" style="height:${Math.max(3, Math.round(x.v / mx * 34))}px"></i></div>`).join("");
+  const mins = rows.filter(x => nOk(x.min)), avgMin = mins.length ? mins.reduce((s, x) => s + x.min, 0) / mins.length : null;
+  const m = motivOf(r), why = [`${under ? "under" : "över"} ${nf(line, 1)} klarat ${hit} av ${n} senaste`];
+  if (avgMin != null) why.push(`spelar ${nf(avgMin, 0)} min i snitt`);
+  if (nOk(m.prognos)) why.push(`prognos ${nf(m.prognos, 1)} mot linje ${nf(line, 1)}`);
+  return `<div class="f10"><div class="f10h"><b>${hit} av ${n}</b> senaste klarade linjen</div><div class="f10bars">${bars}</div>
+    <div class="f10x">äldst → senast · grön stapel = klarade linjen ${nf(line, 1)}</div><div class="whynot"><b>Varför:</b> ${esc(why.join(" · "))}.</div></div>`;
+}
 function tierCard(r, extra = {}) {
   const fresh = r.status === "öppen" && r.bokford && Date.now() / 1000 - r.bokford < 3600;
   const chips = [fresh ? `<span class="chip l" title="bokat ${fmtTs(r.bokford)}">NY</span>` : "", takeBtn(r), vaktBtn(r.raw), r.status === "öppen" && r.avspark > Date.now() / 1000 ? rumChip(r) : "", tierChip(r.tier) + `<span class="why"> ${UTXT[r.u] || ""}</span>`,
@@ -943,7 +972,7 @@ function tierCard(r, extra = {}) {
   return betCard(r, {badge: extra.badge || tierChip(r.tier), dim: r.tier === "C", title: r.why.join(" · "),
     stats: extra.stats || [["Odds", nf(r.odds), r.bolag], ["Edge", pct(r.edge), "vid bokning", r.edge > 0 ? "pos" : ""],
       ["Insats", r.u + "u", nf(r.u, 0) + " % av kassan", r.u >= 3 ? "pos" : ""], ["Spela från", sf(r.spela_fran), ""]],
-    cmp: (extra.cmp || "") + whyNot, chips, mot: motivDet(r, extra.ctx || "nu")});
+    cmp: (extra.cmp || "") + formStrip(r) + whyNot, chips, mot: motivDet(r, extra.ctx || "nu")});
 }
 function renderNu() {
   const now = Date.now() / 1000;
