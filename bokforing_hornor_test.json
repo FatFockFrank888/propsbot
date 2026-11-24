@@ -112,11 +112,11 @@
 13.0,
 13.0
 ],
-"status": "öppen",
+"status": "förlorad",
 "stopp": "hörnmodell (odds+lag): väntat 9.9–2.9 (D1)",
 "metod": "odds+lag",
-"utfall": null,
-"resultat_enheter": null,
+"utfall": "5–0",
+"resultat_enheter": -0.01,
 "stangning_ts": 1795201965.979929
 },
 {
@@ -2552,11 +2552,11 @@
 15.1,
 15.1
 ],
-"status": "öppen",
+"status": "förlorad",
 "stopp": "hörnmodell (lag): väntat 3.6–5.5 (I1)",
 "metod": "lag",
-"utfall": null,
-"resultat_enheter": null,
+"utfall": "5–6",
+"resultat_enheter": -0.01,
 "stangning_ts": 1795376190.6844192
 },
 {
@@ -2797,7 +2797,7 @@
 "metod": "odds+lag",
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795479342.2295575
+"stangning_ts": 1795480048.225392
 },
 {
 "key": "k1028488329|corners_home|6.5|over|unibet",
@@ -2837,7 +2837,7 @@
 "metod": "odds+lag",
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795479342.2295575
+"stangning_ts": 1795480048.225392
 },
 {
 "key": "k1028209204|corners|6.5|under|expekt",
@@ -2878,5 +2878,45 @@
 "utfall": "5–1",
 "resultat_enheter": 0.034,
 "stangning_ts": 1795464521.4854035
+},
+{
+"key": "k1028488287|corners_home|5.5|under|unibet",
+"id": 73,
+"bokford": 1795480048.225392,
+"match_id": "k1028488287",
+"match": "Vicenza – Carrarese",
+"hemma": "Vicenza",
+"borta": "Carrarese",
+"liga": "Football / Italy / Serie B",
+"fd_liga": "I2",
+"avspark": 1795546800.0,
+"spelare": "Vicenza",
+"spelare_id": "hörnor",
+"marknad": "corners_home",
+"linje": 5.5,
+"sida": "under",
+"spel_text": "Vicenza hörnor under 5.5",
+"bolag": "unibet",
+"odds": 1.62,
+"sannolikhet": 0.6569142920331794,
+"ratt_odds": 1.5222686005277108,
+"edge": 0.06420115309375074,
+"spela_fran": 1.6,
+"insats_pct": 0.01,
+"stangning": 1.62,
+"p_modell": 0.6569142920331794,
+"p_marknad": 0.5524861878453038,
+"vantat_hemma": 4.74,
+"vantat_borta": 5.09,
+"underlag_matcher": [
+9.2,
+15.6
+],
+"status": "öppen",
+"stopp": "hörnmodell (odds+lag): väntat 4.7–5.1 (I2)",
+"metod": "odds+lag",
+"utfall": null,
+"resultat_enheter": null,
+"stangning_ts": 1795480048.225392
 }
 ]
