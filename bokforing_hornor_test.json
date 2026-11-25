@@ -3223,7 +3223,7 @@
 "edge": 0.06791572156186976,
 "spela_fran": 1.76,
 "insats_pct": 0.01,
-"stangning": 1.78,
+"stangning": 1.76,
 "p_modell": 0.5999526525628481,
 "p_marknad": 0.5041782729805014,
 "vantat_hemma": 5.49,
@@ -3237,7 +3237,7 @@
 "metod": "odds+lag",
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795610771.6037579
+"stangning_ts": 1795611424.7056408
 },
 {
 "key": "k1028488293|corners_home|5.5|over|unibet",
@@ -3277,7 +3277,7 @@
 "metod": "odds+lag",
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795610771.6037579
+"stangning_ts": 1795611424.7056408
 },
 {
 "key": "k1028142909|cah|0.5|home|unibet",
@@ -3317,6 +3317,46 @@
 "metod": "lag",
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795610771.6037579
+"stangning_ts": 1795611424.7056408
+},
+{
+"key": "k1028488332|corners|8.5|under|unibet",
+"id": 84,
+"bokford": 1795611424.7056408,
+"match_id": "k1028488332",
+"match": "Cremonese – Avellino",
+"hemma": "Cremonese",
+"borta": "Avellino",
+"liga": "Football / Italy / Serie B",
+"fd_liga": "I2",
+"avspark": 1795629600.0,
+"spelare": "Hörnor",
+"spelare_id": "hörnor",
+"marknad": "corners",
+"linje": 8.5,
+"sida": "under",
+"spel_text": "hörnor under 8.5",
+"bolag": "unibet",
+"odds": 2.0,
+"sannolikhet": 0.5278821864468042,
+"ratt_odds": 1.8943620862280643,
+"edge": 0.05576437289360836,
+"spela_fran": 1.99,
+"insats_pct": 0.01,
+"stangning": 2.0,
+"p_modell": 0.5278821864468042,
+"p_marknad": 0.4475138121546961,
+"vantat_hemma": 4.66,
+"vantat_borta": 3.88,
+"underlag_matcher": [
+9.1,
+15.5
+],
+"status": "öppen",
+"stopp": "hörnmodell (lag): väntat 4.7–3.9 (I2)",
+"metod": "lag",
+"utfall": null,
+"resultat_enheter": null,
+"stangning_ts": 1795611424.7056408
 }
 ]
