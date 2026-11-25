@@ -1,4 +1,4 @@
-Skanning 2026-11-25 10:08
+Skanning 2026-11-25 10:20
 Kambi unibet (ubse): OK, 31 matcher i valda ligor
 Kambi paf (paf): OK
 Kambi atg (atg): OK
@@ -7,7 +7,8 @@ Kambi svenskaspel (svenskaspel): OK
 Kambi expekt (expektse): OK
 Kambi betmgm (betmgmse): OK
 Pinnacle: OK, 24 ligor
-Pinnacle: 56 matcher, matchlinjer för 16 av 31 Kambi-matcher, 0 spelarodds som används
+  Padova – Sampdoria: Pinnacle FEL HTTP 403 för https://guest.api.arcadia.pinnacle.com/0.1/matchups/1640630179/related
+Pinnacle: 56 matcher, matchlinjer för 15 av 31 Kambi-matcher, 0 spelarodds som används
 Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
   Double Chance 1st Half | units=Regular | kategori=Team Props | deltagare=Slavia Prague Or Villarreal,Draw Or Villarreal,Draw Or Slavia Prague  ->  används inte (lagmarknad)
   Moneyline and Total Goals | units=Regular | kategori=Team Props | deltagare=Slavia Prague & Over 2.5,Slavia Prague & Under 2.5,Draw & Over 2.5,Draw & Under 2.5,Villarreal & Over 2.5,Villarreal & Under 2.5  ->  används inte (lagmarknad)
@@ -69,13 +70,13 @@ Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
   Sabah FK Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
   Barcelona Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
   Draw No Bet 1st Half | units=Regular | kategori=Team Props | deltagare=Sabah FK,Barcelona  ->  används inte (lagmarknad)
-Sides mindre ligor: 34 Kambi-matcher inom 12 h, 182 Pinnacle-matcher, 28 med Pinnacle, 28 matchade: Brazil / Pernambucano, Egypt / Premier League, England / National League, India / I-League, Italy / Coppa Italia Serie D, Italy / Serie C Girone B, Italy / Serie C Girone C, Japan / J1-League, Nicaragua / Primera Division Nicaragua, Poland / III Liga, Poland / Puchar Polski, Saudi Arabia / Division 
+Sides mindre ligor: 34 Kambi-matcher inom 12 h, 186 Pinnacle-matcher, 28 med Pinnacle, 28 matchade: Brazil / Pernambucano, Egypt / Premier League, England / National League, India / I-League, Italy / Coppa Italia Serie D, Italy / Serie C Girone B, Italy / Serie C Girone C, Japan / J1-League, Nicaragua / Primera Division Nicaragua, Poland / III Liga, Poland / Puchar Polski, Saudi Arabia / Division 
 Sides rättning: goal-api dagstak 300 anrop nått
 Sides rättning: SportScore 9 anrop i dag
-Sides/totals: 44 matcher med Kambi + Pinnacle, 808 linjer, 1 nya spel, 0 nya skuggspel, Smarkets-priser i 24 av 26; bästa edge +8.8% (Atlético Mineiro-MG 1X2: 2), +3.5% (Stoke City 1X2: 1), +3.2% (Sporting Lisbon 1X2: 2)
-Hörnmodell (test): 8012 matcher i underlaget (17 ligor), 6 matcher med modell, 610 Kambi-linjer, 0 nya testspel; bästa edge +17.6% (Mantova Mantova hörnor över 5.5 @ 2.25), +14.5% (Bolton hörnhandikapp +0.5 @ 1.90), +12.0% (Pisa Pisa hörnor över 5.5 @ 2.35)
+Sides/totals: 43 matcher med Kambi + Pinnacle, 793 linjer, 0 nya spel, 1 nya skuggspel, Smarkets-priser i 23 av 25; bästa edge +8.5% (Atlético Mineiro-MG 1X2: 2), +3.5% (Stoke City 1X2: 1), +3.2% (Sporting Lisbon 1X2: 2)
+Hörnmodell (test): 8012 matcher i underlaget (17 ligor), 6 matcher med modell, 610 Kambi-linjer, 0 nya testspel; bästa edge +17.6% (Mantova Mantova hörnor över 5.5 @ 2.25), +14.5% (Bolton hörnhandikapp +0.5 @ 1.90), +13.8% (Pisa Pisa hörnor över 5.5 @ 2.35)
 Fotboll extra bolag: 0 nya hämtningar, 0 odds i bruk, krediter kvar 143, dagsbudget 23 (andel 40%), förbrukat idag 2
-Tid: hämtning 363 s
+Tid: hämtning 443 s
 Marginal över alla matcher: uppmätt marginal: shots_on_target stege k=1.16 (63 spelare; marginal vid 3,00 ≈ 19%)
   Slavia Prague – Villarreal: modell uefa.champions, 21 spelare
   Sabah FK – FC Barcelona: modell uefa.champions, 23 spelare
@@ -108,7 +109,7 @@ Exempel uppmätt marginal: goal k=1.50, assist k=1.58, shots_on_target stege k=1
   Boca Juniors – Independiente Rivadavia: saknar matchlinjer från Pinnacle
   Deportivo Toluca FC – Club Atlas: väntade mål Pinnacle 3.28 mot Kambi 3.35 (kvot 0.979); uppmätt marginal: goal k=1.59, assist k=1.39
   CF Monterrey – Club América: väntade mål Pinnacle 2.66 mot Kambi 2.79 (kvot 0.954); uppmätt marginal: goal k=1.48, assist k=1.25
-Tid: modell och utvärdering 142 s
+Tid: modell och utvärdering 169 s
 Bolag med spelarodds: atg, betmgm, expekt, leovegas, paf, svenskaspel, unibet
 Spelarodds per marknad: assist 2737, goal 9751, shots 4337, shots_on_target 4850
 Kambi-marknader: assist='to give an assist (settled using opta data)':2737; goal='1st goalscorer':3486; goal='to score':3486; goal='to score at least 2 goals':2184; goal='to score at least 3 goals':441; goal='to score at least 4 goals':133; goal='to score at least 5 goals':14; goal='to score at least 6 goals':7; shots="player's shots (settled using opta data)":4337; shots_on_target="player's shots on target (settled using opta data)":4850
@@ -122,6 +123,8 @@ Bästa edge modelltest shots_on_target: -7.4%, -7.7%, -7.9% (av 355 ben)
 0 spelbara ben.
 Bokförda nya spel: 0
 Skuggspel: 0 nya bokförda (stoppade av reglerna, minst 2 % edge)
+Spelarprops-test startelvor: 0 spelbara ben klara, 0 väntar på startelvan, 0 stoppade (inte i startelvan)
+Spelarprops-test: 408 ben med hybridmodell, 0 med minst 2% edge, 0 nya bokförda, 0 totalt
 Modelltest: 0 spelbara enligt modellen, 0 nya testspel bokförda
 Domare: 78 kommande matcher med utsedd domare (UEFA + football-data)
 Fouls (test): 208 ben med modell, 0 klarar kraven, 0 nya bokförda, bästa edge +4.8%, +3.7%, -1.1%, 0 nya ESPN-matcher, domare känd i 10 matcher
