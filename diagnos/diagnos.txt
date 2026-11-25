@@ -1,4 +1,4 @@
-Skanning 2026-11-25 13:11
+Skanning 2026-11-25 13:20
 Kambi unibet (ubse): OK, 30 matcher i valda ligor
 Kambi paf (paf): OK
 Kambi atg (atg): OK
@@ -25,14 +25,14 @@ Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
   Millwall To Win To Nil | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
   Draw No Bet | units=Regular | kategori=Team Props | deltagare=Atletico Mineiro,Corinthians  ->  används inte (lagmarknad)
   Draw No Bet 1st Half | units=Regular | kategori=Team Props | deltagare=Monterrey,Club America  ->  används inte (lagmarknad)
-Sides mindre ligor: 26 Kambi-matcher inom 12 h, 134 Pinnacle-matcher, 1 med Pinnacle, 1 matchade: Egypt / Premier League
+Sides mindre ligor: 26 Kambi-matcher inom 12 h, 133 Pinnacle-matcher, 1 med Pinnacle, 1 matchade: Egypt / Premier League
 Sides rättning: goal-api dagstak 300 anrop nått
 Sides rättning: SportScore 10 anrop i dag
 Sides/totals: 1 matcher med Kambi + Pinnacle, 9 linjer, 0 nya spel, 0 nya skuggspel, Smarkets-priser i 1 av 1; bästa edge -2.6% (ENPPI Club 1X2: X), -3.5% (ENPPI Club över 1.5), -5.7% (ENPPI Club under 3.5)
 Hörnmodell (test): 8012 matcher i underlaget (17 ligor), 6 matcher med modell, 610 Kambi-linjer, 0 nya testspel; bästa edge +14.5% (Bolton hörnhandikapp +0.5 @ 1.90), +14.2% (Pisa Pisa hörnor över 5.5 @ 2.32), +9.8% (Burnley hörnor under 8.5 @ 2.33)
 Fotboll extra bolag: 0 nya hämtningar, 335 odds i bruk, krediter kvar 141, dagsbudget 23 (andel 40%), förbrukat idag 4
-PropLine: 10 anrop denna körning (46/1000 idag), 4386 priser i bruk
-Tid: hämtning 279 s
+PropLine: 0 anrop denna körning (46/1000 idag), 4386 priser i bruk
+Tid: hämtning 278 s
 Marginal över alla matcher: uppmätt marginal: shots_on_target stege k=1.20 (59 spelare; marginal vid 3,00 ≈ 25%)
 Modellens nivåavvikelse mot marknaden (log-odds, dras bort): 
   Slavia Prague – Villarreal: saknar matchlinjer från Pinnacle
@@ -52,7 +52,7 @@ Modellens nivåavvikelse mot marknaden (log-odds, dras bort):
   Boca Juniors – Independiente Rivadavia: saknar matchlinjer från Pinnacle
   Deportivo Toluca FC – Club Atlas: saknar matchlinjer från Pinnacle
   CF Monterrey – Club América: saknar matchlinjer från Pinnacle
-Tid: modell och utvärdering 44 s
+Tid: modell och utvärdering 39 s
 Bolag med spelarodds: atg, betmgm, expekt, leovegas, oa_fanduel, oa_onexbet, paf, pl_bovada, pl_draftkings, pl_eplay24, pl_fanduel, pl_hardrock, pl_thescorebet, pl_williamhill_it, svenskaspel, unibet
 Spelarodds per marknad: assist 2709, goal 9688, shots 4324, shots_on_target 9550
 Kambi-marknader: assist='to give an assist (settled using opta data)':2709; goal='1st goalscorer':3465; goal='to score':3465; goal='to score at least 2 goals':2163; goal='to score at least 3 goals':448; goal='to score at least 4 goals':126; goal='to score at least 5 goals':14; goal='to score at least 6 goals':7; shots="player's shots (settled using opta data)":4324; shots_on_target="player's shots on target (settled using opta data)":4829
@@ -65,7 +65,8 @@ Spelarmodell: 0 av 0 ben har modell, 0 nya matcher hämtade från ESPN
 Bokförda nya spel: 0
 Skuggspel: 0 nya bokförda (stoppade av reglerna, minst 2 % edge)
 Spelarprops-test startelvor: 0 spelbara ben klara, 0 väntar på startelvan, 0 stoppade (inte i startelvan)
-Spelarprops-test: 0 ben med hybridmodell, 0 med minst 2% edge, 0 nya bokförda, 0 totalt
+Spelarprops-konsensus: ingen konsensus (för få oberoende röster) för 0 ben
+Spelarprops-test: 0 ben med hybridmodell, 0 med minst 2% edge (modell), 0 nya bokförda, 0 totalt
 Modelltest: 0 spelbara enligt modellen, 0 nya testspel bokförda
 Domare: 78 kommande matcher med utsedd domare (UEFA + football-data)
 Fouls (test): 208 ben med modell, 0 klarar kraven, 0 nya bokförda, bästa edge +4.6%, +3.4%, -1.2%, 0 nya ESPN-matcher, domare känd i 10 matcher
