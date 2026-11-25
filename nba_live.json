@@ -8913,21 +8913,21 @@
 "utfall": null,
 "resultat_enheter": null,
 "modell_edge": 0.08037516678180201,
-"stangning_ts": 1795647322.586886,
+"stangning_ts": 1795648278.6200168,
 "analys": {
-"p_stack": 0.4554,
+"p_stack": 0.4336,
 "p_modell_min": 0.529,
 "minuter": 32.7,
 "minuter_sd": 4.1,
-"p_faktorer": 0.4679,
-"p_faktorer_ra": 0.5022,
-"vantat_faktorer": 24.81,
-"p_betyg": 0.4928,
+"p_faktorer": 0.4488,
+"p_faktorer_ra": 0.4881,
+"vantat_faktorer": 24.89,
+"p_betyg": 0.4769,
 "p_betyg_ra": 0.6044,
 "vantat_betyg": 24.08,
 "minuter_faktorer": 30.1,
 "f_anv": 1.0,
-"f_miljo": 0.987,
+"f_miljo": 0.991,
 "f_tempo": 1.0,
 "f_pos": 1.014,
 "f_mot": 1.036,
@@ -8937,7 +8937,7 @@
 "f_minutbegransning": false,
 "f_tillbaka": false,
 "f_miljo_kalla": "pinnacle",
-"f_lag_poang": 109.8,
+"f_lag_poang": 110.2,
 "f_mot_n": 1,
 "traff_l5": 0.2,
 "traff_l5_n": 5,
@@ -8949,18 +8949,18 @@
 "traff_mot_n": 1,
 "traff_hemmaborta": 0.375,
 "traff_hemmaborta_n": 8,
-"p_kalib": 0.4571,
-"p_blend": 0.4801,
+"p_kalib": 0.4365,
+"p_blend": 0.4635,
 "kalib_modell": "M0",
-"p_modell": 0.5531,
-"p_marknad": 0.4571,
-"p_slutlig": 0.4801,
+"p_modell": 0.5497,
+"p_marknad": 0.4365,
+"p_slutlig": 0.4635,
 "vantat": 25.89,
 "nb_r": 15,
 "modell_vikt": 0.24,
 "dq": 0.8,
 "matcher": 12,
-"nivajustering": 0.15,
+"nivajustering": 0.13,
 "logg": [
 {
 "ts": 1795483800.0,
@@ -9040,9 +9040,9 @@
 "minuter_sd_faktorer": 4.1,
 "ref": {
 "pin_p": 0.43648482501794095,
-"dk_p": 0.47788994504436033,
+"dk_p": 0.47530074174176473,
 "pin_linje": null,
-"dk_linje": null,
+"dk_linje": 26.5,
 "pin_flyttad": false,
 "pin_komb": true
 },
@@ -9086,23 +9086,18 @@
 "bolag": "unibet",
 "over": 1.78,
 "under": 1.95
-},
-{
-"bolag": "us_draftkings",
-"over": 1.8,
-"under": 1.95
 }
 ]
 },
 "prognos": 25.88715195906792,
-"analys_ts": 1795647322.5894227,
+"analys_ts": 1795648278.621917,
 "modellversion": "2026-11-15-betyg",
 "prognos_ts": 1795627397.520816,
-"skarp_stang_p": 0.4571133168051663,
-"skarp_stang_ts": 1795647322.2858183,
+"skarp_stang_p": 0.43648482501794084,
+"skarp_stang_ts": 1795648278.3933592,
 "skarp_kalla": "skanning",
 "pin_stang_p": 0.43648482501794095,
-"dk_stang_p": 0.47788994504436033,
+"dk_stang_p": 0.47530074174176473,
 "bolag_bokning": {
 "ts": 1795627397.5297227,
 "odds": {
@@ -9127,34 +9122,34 @@
 "dk_p": 0.5134297510556798
 },
 "bolag_stangning": {
-"ts": 1795647322.6078317,
+"ts": 1795648278.636319,
 "odds": {
 "unibet": {
 "over": 1.78,
 "under": 1.95
 },
-"draftkings": {
-"over": 1.8,
-"under": 1.95
-},
 "pinnacle": {
 "over": 1.775,
 "under": 2.291
+},
+"draftkings (26.5)": {
+"over": 1.95,
+"under": 1.8
 }
 },
 "pin_flyttad": false,
 "pin_komb": true,
 "pin_linje": null,
-"dk_linje": null,
+"dk_linje": 26.5,
 "pin_p": 0.43648482501794095,
-"dk_p": 0.47788994504436033
+"dk_p": 0.47530074174176473
 },
-"bolag_stang_ts": 1795647322.6078317,
+"bolag_stang_ts": 1795648278.636319,
 "skarp_verifierad": false,
 "skarp_status": null,
-"clv_skarp_pp": -1.907715938530985,
+"clv_skarp_pp": -3.970565117253533,
 "clv_pin_pp": -3.9705651172535217,
-"clv_dk_pp": 0.16994688538841674
+"clv_dk_pp": -0.08897344487114323
 },
 {
 "key": "nba1028744806|josh hart|threes|1.5|unibet",
@@ -9188,21 +9183,21 @@
 "utfall": null,
 "resultat_enheter": null,
 "modell_edge": 0.07652257417748043,
-"stangning_ts": 1795647322.586886,
+"stangning_ts": 1795648278.6200168,
 "analys": {
-"p_stack": 0.4052,
+"p_stack": 0.4065,
 "p_modell_min": 0.3264,
 "minuter": 33.3,
 "minuter_sd": 5.6,
 "p_faktorer": 0.3942,
-"p_faktorer_ra": 0.359,
-"vantat_faktorer": 1.2,
-"p_betyg": 0.4116,
+"p_faktorer_ra": 0.3537,
+"vantat_faktorer": 1.18,
+"p_betyg": 0.4126,
 "p_betyg_ra": 0.456,
 "vantat_betyg": 1.6,
 "minuter_faktorer": 30.9,
 "f_anv": 1.019,
-"f_miljo": 1.033,
+"f_miljo": 1.016,
 "f_tempo": 1.0,
 "f_pos": 0.985,
 "f_mot": 1.08,
@@ -9224,18 +9219,18 @@
 "traff_mot_n": 3,
 "traff_hemmaborta": 0.571,
 "traff_hemmaborta_n": 7,
-"p_kalib": 0.4021,
-"p_blend": 0.3833,
+"p_kalib": 0.4033,
+"p_blend": 0.3848,
 "kalib_modell": "M0",
-"p_modell": 0.3027,
-"p_marknad": 0.4021,
-"p_slutlig": 0.3833,
+"p_modell": 0.3054,
+"p_marknad": 0.4033,
+"p_slutlig": 0.3848,
 "vantat": 1.18,
 "nb_r": 8,
 "modell_vikt": 0.18,
 "dq": 0.6,
 "matcher": 9,
-"nivajustering": 0.11,
+"nivajustering": 0.1,
 "logg": [
 {
 "ts": 1795395600.0,
@@ -9316,12 +9311,6 @@
 "redan_borta": false
 },
 {
-"namn": "Jalen Brunson",
-"status": "day-to-day",
-"min": 34.3,
-"redan_borta": false
-},
-{
 "namn": "Karl-Anthony Towns",
 "status": "day-to-day",
 "min": 33.3,
@@ -9352,7 +9341,7 @@
 "minuter_sd_faktorer": 5.6,
 "ref": {
 "pin_p": 0.3945420560424376,
-"dk_p": 0.4146524591659108,
+"dk_p": 0.4228390802299693,
 "pin_linje": null,
 "dk_linje": null,
 "pin_flyttad": false,
@@ -9406,23 +9395,23 @@
 },
 {
 "bolag": "us_draftkings",
-"over": 2.21,
-"under": 1.62
+"over": 2.17,
+"under": 1.64
 }
 ]
 },
 "prognos": 1.1831049834376948,
-"analys_ts": 1795647322.5894227,
+"analys_ts": 1795648278.621917,
 "nyhet_status": "day-to-day",
 "nyhet": "Josh Hart: day-to-day enligt ESPN:s skadelista",
 "nyhet_ts": "2026-11-25T18:15:02+00:00",
 "modellversion": "2026-11-15-betyg",
 "prognos_ts": 1795630502.2363522,
-"skarp_stang_p": 0.40207217496487674,
-"skarp_stang_ts": 1795647322.2858183,
+"skarp_stang_p": 0.40328572287269965,
+"skarp_stang_ts": 1795648278.3933592,
 "skarp_kalla": "skanning",
 "pin_stang_p": 0.3945420560424376,
-"dk_stang_p": 0.4146524591659108,
+"dk_stang_p": 0.4228390802299693,
 "bolag_bokning": {
 "ts": 1795630502.7031837,
 "odds": {
@@ -9447,7 +9436,7 @@
 "dk_p": 0.45272782010160156
 },
 "bolag_stangning": {
-"ts": 1795647322.6078317,
+"ts": 1795648278.636319,
 "odds": {
 "unibet": {
 "under": 1.63,
@@ -9458,8 +9447,8 @@
 "under": 1.571
 },
 "draftkings": {
-"over": 2.21,
-"under": 1.62
+"over": 2.17,
+"under": 1.64
 }
 },
 "pin_flyttad": false,
@@ -9467,14 +9456,14 @@
 "pin_linje": null,
 "dk_linje": null,
 "pin_p": 0.3945420560424376,
-"dk_p": 0.4146524591659108
+"dk_p": 0.4228390802299693
 },
-"bolag_stang_ts": 1795647322.6078317,
+"bolag_stang_ts": 1795648278.636319,
 "skarp_verifierad": false,
 "skarp_status": null,
-"clv_skarp_pp": 0.20721749648767163,
+"clv_skarp_pp": 0.32857228726996257,
 "clv_pin_pp": -0.5457943957562439,
-"clv_dk_pp": 1.4652459165910792
+"clv_dk_pp": 2.2839080229969277
 },
 {
 "key": "nba1028744803|fred vanvleet|assists|5.5|unibet|under",
@@ -9722,7 +9711,7 @@
 "dk_p": 0.5719288352902587
 },
 "bolag_stangning": {
-"ts": 1795647322.6078317,
+"ts": 1795648278.636319,
 "odds": {
 "pinnacle": {
 "over": 2.48,
@@ -9735,7 +9724,7 @@
 "dk_linje": null,
 "pin_p": 0.6365014949541483
 },
-"bolag_stang_ts": 1795647322.6078317,
+"bolag_stang_ts": 1795648278.636319,
 "skarp_verifierad": false,
 "skarp_status": null,
 "clv_skarp_pp": 4.9760832051759625,
