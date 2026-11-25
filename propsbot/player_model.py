@@ -25,6 +25,9 @@ from .sources.props_text import name_key, same_match, same_person
 
 MARKETS = ("shots", "shots_on_target", "goal", "assist")
 ELASTICITY = {"goal": 1.0, "assist": 1.0, "shots_on_target": 0.6, "shots": 0.5}
+# 25/11: experiment, bara loggning. Värden ur brorsens modellkarta (anpassade mot ~58 000 spelarmatcher mot matchodds):
+# lagets nivå slår på mål/assist 0,5, skott på mål 0,35, skott 0,2. Styr ingen spelbeslut – se alt_elasticitet.py.
+ELASTICITY_ALT = {"goal": 0.5, "assist": 0.5, "shots_on_target": 0.35, "shots": 0.2}
 NB_SHAPE = {"shots": 6.0, "shots_on_target": 10.0}   # överspridning (lägre = mer spridning)
 
 
@@ -47,6 +50,7 @@ class PlayerRates:
     starts: int
     n_matches: int
     rate: dict[str, float] = field(default_factory=dict)   # per framträdande
+    mu_alt: dict[str, float] = field(default_factory=dict)  # väntat antal med ELASTICITY_ALT (loggas, styr inget)
 
 
 @dataclass
@@ -222,6 +226,7 @@ def model_probs(tm: TeamModel, exp_goals: float, min_apps: float = 2.0
             continue
         for m in MARKETS:
             out[(k, m)] = (pr.rate[m] * ratio ** ELASTICITY[m], pr)
+            pr.mu_alt[m] = pr.rate[m] * ratio ** ELASTICITY_ALT[m]
     return out
 
 
