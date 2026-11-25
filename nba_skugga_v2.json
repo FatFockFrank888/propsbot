@@ -102263,16 +102263,16 @@
 "p_marknad": 0.5544933253399935,
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795597341.2541406,
+"stangning_ts": 1795598119.2777421,
 "analys": {
-"p_stack": 0.542,
+"p_stack": 0.5527,
 "p_modell_min": 0.3893,
 "minuter": 35.3,
 "minuter_sd": 4.1,
-"p_faktorer": 0.5182,
-"p_faktorer_ra": 0.4453,
+"p_faktorer": 0.5288,
+"p_faktorer_ra": 0.4602,
 "vantat_faktorer": 5.29,
-"p_betyg": 0.4829,
+"p_betyg": 0.5202,
 "p_betyg_ra": 0.3082,
 "vantat_betyg": 7.5,
 "minuter_faktorer": 30.1,
@@ -102299,18 +102299,18 @@
 "traff_mot_n": 1,
 "traff_hemmaborta": 0.714,
 "traff_hemmaborta_n": 7,
-"p_kalib": 0.5412,
-"p_blend": 0.5078,
+"p_kalib": 0.5503,
+"p_blend": 0.5122,
 "kalib_modell": "M0",
-"p_modell": 0.403,
-"p_marknad": 0.5412,
-"p_slutlig": 0.5078,
+"p_modell": 0.3928,
+"p_marknad": 0.5503,
+"p_slutlig": 0.5122,
 "vantat": 6.58,
 "nb_r": 12,
 "modell_vikt": 0.24,
 "dq": 0.8,
 "matcher": 12,
-"nivajustering": -0.01,
+"nivajustering": -0.06,
 "logg": [
 {
 "ts": 1795480200.0,
@@ -102409,7 +102409,7 @@
 "minuter_sd_faktorer": 4.1,
 "ref": {
 "pin_p": null,
-"dk_p": 0.5412493511360794,
+"dk_p": 0.5503031551650388,
 "pin_linje": null,
 "dk_linje": null,
 "pin_flyttad": false,
@@ -102453,19 +102453,19 @@
 },
 {
 "bolag": "us_draftkings",
-"over": 2.02,
-"under": 1.74
+"over": 2.05,
+"under": 1.71
 }
 ]
 },
 "prognos": 6.576672032445492,
-"analys_ts": 1795597341.2893522,
+"analys_ts": 1795598119.3065126,
 "modellversion": "2026-11-15-betyg",
 "prognos_ts": 1795578977.2331514,
-"skarp_stang_p": 0.5412493511360794,
-"skarp_stang_ts": 1795597341.097205,
+"skarp_stang_p": 0.5503031551650388,
+"skarp_stang_ts": 1795598119.1544387,
 "skarp_kalla": "skanning",
-"dk_stang_p": 0.5412493511360794,
+"dk_stang_p": 0.5503031551650388,
 "bolag_bokning": {
 "ts": 1795578977.2918122,
 "odds": {
@@ -102485,29 +102485,29 @@
 "dk_p": 0.5544933253399935
 },
 "bolag_stangning": {
-"ts": 1795597341.295979,
+"ts": 1795598119.3119318,
 "odds": {
 "unibet": {
 "over": 2.02,
 "under": 1.72
 },
 "draftkings": {
-"over": 2.02,
-"under": 1.74
+"over": 2.05,
+"under": 1.71
 }
 },
 "pin_flyttad": false,
 "pin_komb": false,
 "pin_linje": null,
 "dk_linje": null,
-"dk_p": 0.5412493511360794
+"dk_p": 0.5503031551650388
 },
-"bolag_stang_ts": 1795597341.295979,
+"bolag_stang_ts": 1795598119.3119318,
 "skarp_verifierad": false,
 "skarp_status": null,
-"clv_skarp_pp": 0.9334457519058148,
+"clv_skarp_pp": 1.8388261548017537,
 "clv_pin_pp": null,
-"clv_dk_pp": 0.9334457519058148
+"clv_dk_pp": 1.8388261548017537
 },
 {
 "key": "nba1028744806|sam merrill|points|7.5|unibet",
@@ -102540,7 +102540,7 @@
 "p_marknad": 0.5756668685483803,
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795597341.2541406,
+"stangning_ts": 1795598119.2777421,
 "analys": {
 "ref": {
 "pin_p": 0.5756668685483792,
@@ -102594,11 +102594,11 @@
 ]
 },
 "prognos": null,
-"analys_ts": 1795597341.2893522,
+"analys_ts": 1795598119.3065126,
 "modellversion": "2026-11-15-betyg",
 "prognos_ts": 1795584126.389298,
 "skarp_stang_p": 0.5756668685483792,
-"skarp_stang_ts": 1795597341.097205,
+"skarp_stang_ts": 1795598119.1544387,
 "skarp_kalla": "skanning",
 "pin_stang_p": 0.5756668685483792,
 "bolag_bokning": {
@@ -102620,7 +102620,7 @@
 "pin_p": 0.5756668685483803
 },
 "bolag_stangning": {
-"ts": 1795597341.295979,
+"ts": 1795598119.3119318,
 "odds": {
 "unibet": {
 "over": 1.86,
@@ -102642,7 +102642,7 @@
 "pin_p": 0.5756668685483792,
 "dk_p": 0.5876157340673456
 },
-"bolag_stang_ts": 1795597341.295979,
+"bolag_stang_ts": 1795598119.3119318,
 "skarp_verifierad": false,
 "skarp_status": null,
 "clv_skarp_pp": 3.512632800783877,
@@ -102681,14 +102681,14 @@
 "p_marknad": 0.5258369986689866,
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795597341.2541406,
+"stangning_ts": 1795598119.2777421,
 "analys": {
-"p_stack": 0.4966,
+"p_stack": 0.4976,
 "p_modell_min": 0.3495,
 "minuter": 33.6,
 "minuter_sd": 6.8,
-"p_faktorer": 0.4885,
-"p_faktorer_ra": 0.4266,
+"p_faktorer": 0.4951,
+"p_faktorer_ra": 0.4537,
 "vantat_faktorer": 8.75,
 "p_betyg": 0.5181,
 "p_betyg_ra": 0.5492,
@@ -102718,17 +102718,17 @@
 "traff_hemmaborta": 0.667,
 "traff_hemmaborta_n": 9,
 "p_kalib": 0.5083,
-"p_blend": 0.4731,
+"p_blend": 0.4772,
 "kalib_modell": "M0",
-"p_modell": 0.3652,
+"p_modell": 0.3811,
 "p_marknad": 0.5083,
-"p_slutlig": 0.4731,
+"p_slutlig": 0.4772,
 "vantat": 10.51,
 "nb_r": 10,
 "modell_vikt": 0.24,
 "dq": 0.8,
 "matcher": 12,
-"nivajustering": -0.01,
+"nivajustering": 0.06,
 "logg": [
 {
 "ts": 1795482000.0,
@@ -102882,11 +102882,11 @@
 ]
 },
 "prognos": 10.505173380620391,
-"analys_ts": 1795597341.2893522,
+"analys_ts": 1795598119.3065126,
 "modellversion": "2026-11-15-betyg",
 "prognos_ts": 1795591283.972635,
 "skarp_stang_p": 0.5082614531970049,
-"skarp_stang_ts": 1795597341.097205,
+"skarp_stang_ts": 1795598119.1544387,
 "skarp_kalla": "skanning",
 "pin_stang_p": 0.5258369986689866,
 "bolag_bokning": {
@@ -102908,7 +102908,7 @@
 "pin_p": 0.5258369986689866
 },
 "bolag_stangning": {
-"ts": 1795597341.295979,
+"ts": 1795598119.3119318,
 "odds": {
 "unibet": {
 "over": 1.73,
@@ -102930,7 +102930,7 @@
 "pin_p": 0.5258369986689866,
 "dk_p": 0.4672475751236387
 },
-"bolag_stang_ts": 1795597341.295979,
+"bolag_stang_ts": 1795598119.3119318,
 "skarp_verifierad": false,
 "skarp_status": null,
 "clv_skarp_pp": 0.8261453197004887,
@@ -103245,14 +103245,14 @@
 "p_marknad": 0.5833050614240491,
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795597341.2541406,
+"stangning_ts": 1795598119.2777421,
 "analys": {
 "p_stack": 0.5948,
 "p_modell_min": 0.5197,
 "minuter": 36.2,
 "minuter_sd": 4.6,
-"p_faktorer": 0.5781,
-"p_faktorer_ra": 0.5595,
+"p_faktorer": 0.5782,
+"p_faktorer_ra": 0.5598,
 "vantat_faktorer": 3.95,
 "p_betyg": 0.5481,
 "p_betyg_ra": 0.4217,
@@ -103282,17 +103282,17 @@
 "traff_hemmaborta": 0.75,
 "traff_hemmaborta_n": 8,
 "p_kalib": 0.5833,
-"p_blend": 0.5717,
+"p_blend": 0.5719,
 "kalib_modell": "M0",
-"p_modell": 0.53,
+"p_modell": 0.5311,
 "p_marknad": 0.5833,
-"p_slutlig": 0.5717,
+"p_slutlig": 0.5719,
 "vantat": 4.65,
 "nb_r": 10,
 "modell_vikt": 0.22,
 "dq": 0.73,
 "matcher": 11,
-"nivajustering": 0.01,
+"nivajustering": 0.02,
 "logg": [
 {
 "ts": 1795482000.0,
@@ -103429,11 +103429,11 @@
 ]
 },
 "prognos": 4.651399218639316,
-"analys_ts": 1795597341.2893522,
+"analys_ts": 1795598119.3065126,
 "modellversion": "2026-11-15-betyg",
 "prognos_ts": 1795591283.972659,
 "skarp_stang_p": 0.5833050614240491,
-"skarp_stang_ts": 1795597341.097205,
+"skarp_stang_ts": 1795598119.1544387,
 "skarp_kalla": "skanning",
 "pin_stang_p": 0.583305061424049,
 "bolag_bokning": {
@@ -103455,7 +103455,7 @@
 "pin_p": 0.583305061424049
 },
 "bolag_stangning": {
-"ts": 1795597341.295979,
+"ts": 1795598119.3119318,
 "odds": {
 "unibet": {
 "over": 1.94,
@@ -103472,7 +103472,7 @@
 "dk_linje": null,
 "pin_p": 0.583305061424049
 },
-"bolag_stang_ts": 1795597341.295979,
+"bolag_stang_ts": 1795598119.3119318,
 "skarp_verifierad": false,
 "skarp_status": null,
 "clv_skarp_pp": 2.4645843546954205,
@@ -103510,7 +103510,7 @@
 "p_marknad": 0.5205885067926251,
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795597341.2541406,
+"stangning_ts": 1795598119.2777421,
 "analys": {
 "p_stack": 0.5304,
 "p_modell_min": 0.6837,
@@ -103549,7 +103549,7 @@
 "p_kalib": 0.5251,
 "p_blend": 0.5541,
 "kalib_modell": "M0",
-"p_modell": 0.6425,
+"p_modell": 0.6426,
 "p_marknad": 0.5251,
 "p_slutlig": 0.5541,
 "vantat": 3.72,
@@ -103728,11 +103728,11 @@
 ]
 },
 "prognos": 3.715735622152774,
-"analys_ts": 1795597341.2893522,
+"analys_ts": 1795598119.3065126,
 "modellversion": "2026-11-15-betyg",
 "prognos_ts": 1795591283.9726624,
 "skarp_stang_p": 0.5251264292560198,
-"skarp_stang_ts": 1795597341.097205,
+"skarp_stang_ts": 1795598119.1544387,
 "skarp_kalla": "skanning",
 "pin_stang_p": 0.5233606241842896,
 "dk_stang_p": 0.5134297510556799,
@@ -103760,7 +103760,7 @@
 "dk_p": 0.5134297510556799
 },
 "bolag_stangning": {
-"ts": 1795597341.295979,
+"ts": 1795598119.3119318,
 "odds": {
 "unibet": {
 "under": 1.83,
@@ -103782,7 +103782,7 @@
 "pin_p": 0.5233606241842896,
 "dk_p": 0.5134297510556799
 },
-"bolag_stang_ts": 1795597341.295979,
+"bolag_stang_ts": 1795598119.3119318,
 "skarp_verifierad": false,
 "skarp_status": null,
 "clv_skarp_pp": 2.512642925601982,
@@ -103820,14 +103820,14 @@
 "p_marknad": 0.5962133139916117,
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795597341.2541406,
+"stangning_ts": 1795598119.2777421,
 "analys": {
-"p_stack": 0.6036,
+"p_stack": 0.6032,
 "p_modell_min": 0.4461,
 "minuter": 26.6,
 "minuter_sd": 4.6,
-"p_faktorer": 0.5676,
-"p_faktorer_ra": 0.475,
+"p_faktorer": 0.5701,
+"p_faktorer_ra": 0.4855,
 "vantat_faktorer": 18.54,
 "p_betyg": 0.5809,
 "p_betyg_ra": 0.5314,
@@ -103857,17 +103857,17 @@
 "traff_hemmaborta": 0.667,
 "traff_hemmaborta_n": 9,
 "p_kalib": 0.5962,
-"p_blend": 0.5699,
+"p_blend": 0.5714,
 "kalib_modell": "M0",
-"p_modell": 0.4847,
+"p_modell": 0.4909,
 "p_marknad": 0.5962,
-"p_slutlig": 0.5699,
+"p_slutlig": 0.5714,
 "vantat": 20.89,
 "nb_r": 15,
 "modell_vikt": 0.24,
 "dq": 0.8,
 "matcher": 12,
-"nivajustering": 0.11,
+"nivajustering": 0.14,
 "logg": [
 {
 "ts": 1795480200.0,
@@ -103947,9 +103947,9 @@
 "minuter_sd_faktorer": 4.6,
 "ref": {
 "pin_p": 0.5962133139916117,
-"dk_p": null,
+"dk_p": 0.569221478240765,
 "pin_linje": null,
-"dk_linje": null,
+"dk_linje": 18.5,
 "pin_flyttad": false,
 "pin_komb": true
 },
@@ -103997,11 +103997,11 @@
 ]
 },
 "prognos": 20.88525196206391,
-"analys_ts": 1795597341.2893522,
+"analys_ts": 1795598119.3065126,
 "modellversion": "2026-11-15-betyg",
 "prognos_ts": 1795593242.0575752,
 "skarp_stang_p": 0.5962133139916117,
-"skarp_stang_ts": 1795597341.097205,
+"skarp_stang_ts": 1795598119.1544387,
 "skarp_kalla": "skanning",
 "pin_stang_p": 0.5962133139916117,
 "bolag_bokning": {
@@ -104023,7 +104023,7 @@
 "pin_p": 0.5962133139916117
 },
 "bolag_stangning": {
-"ts": 1795597341.295979,
+"ts": 1795598119.3119318,
 "odds": {
 "unibet": {
 "over": 1.98,
@@ -104032,20 +104032,26 @@
 "pinnacle": {
 "over": 2.477,
 "under": 1.677
+},
+"draftkings (18.5)": {
+"over": 1.9,
+"under": 1.84
 }
 },
 "pin_flyttad": false,
 "pin_komb": true,
 "pin_linje": null,
-"dk_linje": null,
-"pin_p": 0.5962133139916117
+"dk_linje": 18.5,
+"pin_p": 0.5962133139916117,
+"dk_p": 0.569221478240765
 },
-"bolag_stang_ts": 1795597341.295979,
+"bolag_stang_ts": 1795598119.3119318,
 "skarp_verifierad": false,
 "skarp_status": null,
 "clv_skarp_pp": 2.803149580979347,
 "clv_pin_pp": 2.803149580979347,
-"clv_dk_pp": null
+"clv_dk_pp": 0.10396600589467342,
+"dk_stang_p": 0.569221478240765
 },
 {
 "key": "nba1028744796|kel el ware|points|7.5|unibet",
@@ -104078,11 +104084,11 @@
 "p_marknad": 0.6094244862931005,
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795597341.2541406,
+"stangning_ts": 1795598119.2777421,
 "analys": {
 "ref": {
 "pin_p": 0.6094244862931005,
-"dk_p": 0.5347891747660106,
+"dk_p": 0.5377304650336324,
 "pin_linje": null,
 "dk_linje": null,
 "pin_flyttad": true,
@@ -104131,20 +104137,20 @@
 },
 {
 "bolag": "us_draftkings",
-"over": 1.77,
-"under": 2.01
+"over": 1.76,
+"under": 2.02
 }
 ]
 },
 "prognos": null,
-"analys_ts": 1795597341.2893522,
+"analys_ts": 1795598119.3065126,
 "modellversion": "2026-11-15-betyg",
 "prognos_ts": 1795596563.1879404,
-"skarp_stang_p": 0.5874030923263235,
-"skarp_stang_ts": 1795597341.097205,
+"skarp_stang_p": 0.5882627737031952,
+"skarp_stang_ts": 1795598119.1544387,
 "skarp_kalla": "skanning",
 "pin_stang_p": 0.6094244862931005,
-"dk_stang_p": 0.5347891747660106,
+"dk_stang_p": 0.5377304650336324,
 "bolag_bokning": {
 "ts": 1795596563.2430239,
 "odds": {
@@ -104169,15 +104175,15 @@
 "dk_p": 0.5736408278806535
 },
 "bolag_stangning": {
-"ts": 1795597341.295979,
+"ts": 1795598119.3119318,
 "odds": {
 "unibet": {
 "over": 1.75,
 "under": 2.0
 },
 "draftkings": {
-"over": 1.77,
-"under": 2.01
+"over": 1.76,
+"under": 2.02
 },
 "pinnacle": {
 "over": 1.641,
@@ -104189,13 +104195,13 @@
 "pin_linje": null,
 "dk_linje": null,
 "pin_p": 0.6094244862931005,
-"dk_p": 0.5347891747660106
+"dk_p": 0.5377304650336324
 },
-"bolag_stang_ts": 1795597341.295979,
+"bolag_stang_ts": 1795598119.3119318,
 "skarp_verifierad": false,
 "skarp_status": null,
-"clv_skarp_pp": 1.5974520897752087,
+"clv_skarp_pp": 1.6834202274623844,
 "clv_pin_pp": 3.7995914864529134,
-"clv_dk_pp": -3.6639396662560775
+"clv_dk_pp": -3.3698106394938976
 }
 ]
