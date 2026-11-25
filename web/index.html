@@ -445,6 +445,7 @@
       <button class="sp on" data-s="alla">Alla</button>
       <button class="sp" data-s="fotboll">⚽ Fotboll</button>
       <button class="sp" data-s="nba">🏀 NBA</button>
+      <button class="sp" data-s="spelarprops">🧪 Spelarprops</button>
     </div>
   </div>
   <!-- ======================================================= SPELA NU -->
@@ -466,6 +467,18 @@
       Varje spel hamnar i den högsta nivå det klarar, ett spel per spelare och match.
       <b>Insats flat 1–3u</b> (1u = 1 % av kassan): 1u standard, 2u high, 3u maxbet. Inga tak – du väljer själv vad du tar.
       Spela till lägst spela från-oddset.</div>
+  </section>
+
+  <!-- ======================================================= SPELARPROPS (testspår) -->
+  <section id="spelarprops" class="hidden">
+    <div class="note" style="margin-top:0"><b>🧪 Testspår.</b> Hybridmodellen på bekräftade startare. Inga notiser, ingen riktig insats – ingår inte i A/B/C Tier eller Alla.</div>
+    <div id="spSum" class="cards"></div>
+    <div class="fbar"><input class="grow" type="search" id="spQ" placeholder="Sök spelare, lag eller match…" oninput="renderSp()">
+      <div class="chipsel" id="spHade"></div>
+      <select id="spStatus" onchange="spStatus=this.value;renderSp()" title="Status"><option value="">Status: alla</option><option value="öppen">Öppna</option><option value="vunnen">Vunna</option><option value="förlorad">Förlorade</option><option value="struken">Strukna</option></select>
+      <select id="spSort" onchange="spSort=this.value;renderSp()" title="Sortera"><option value="avspark">Sortera: tid (senast först)</option><option value="edge">Edge (högst först)</option><option value="clv">CLV (högst först)</option></select>
+      <span class="cnt" id="spCnt"></span></div>
+    <div class="cards" id="spCards"></div>
   </section>
 
   <!-- ======================================================= LIVE -->
@@ -2081,16 +2094,71 @@ const HERO = {
   res: ["Resultat", "Slår vi stängningsoddset (CLV) är edgen verklig – det syns långt före resultatet."],
   bok: ["Bokföring & analys", "Varje bokfört spel. Standard är de riktiga spelen (Live); välj Alla typer för all data."],
   param: ["Parametrar", "Alla regler och inställningar, hämtade från de värden boten använder just nu."]};
+// --------------------------------------------------------------- Spelarprops (testspår, separat från Alla/Tier)
+let SPD = null, spHade = "ALLA", spStatus = "", spSort = "avspark";
+const spRows = () => ((SPD && SPD.bets) || []).map(b => {
+  const r = {...norm(b, "fotboll", "Spelarprops"), ident: "sp|" + (b.id || b.ident || b.match + "|" + b.spelare + "|" + b.marknad + "|" + b.linje),
+    hade: b.hade_blivit || "–", why: b.varfor_inte_hogre || [], status: b.status};
+  r.clv = b.stangning && b.odds ? (1 / b.stangning - 1 / b.odds) * 100 : null;   // mot Unibets stängning, procentenheter
+  r.res = null; return r;
+});
+const hadeChip = h => `<span class="tier ${h === "A" ? "tA" : h === "B" ? "tB" : "tC"}" title="Nivån spelet hade fått enligt våra tier-regler">${esc(h)}</span>`;
+function spSummary(rs) {
+  const done = rs.filter(r => r.status === "vunnen" || r.status === "förlorad"), n = done.length, w = done.filter(r => r.status === "vunnen").length;
+  const avg = a => a.length ? a.reduce((s, x) => s + x, 0) / a.length : null;
+  const exp = avg(done.map(r => r.p).filter(nOk)), roi = n ? avg(done.map(r => r.status === "vunnen" ? r.odds - 1 : -1)) : null;
+  const clv = avg(rs.filter(r => r.status !== "struken").map(r => r.clv).filter(nOk));
+  const all3 = done.filter(r => ["p_raw_cur", "p_raw_alt", "p_raw_hyb"].every(k => nOk(r.raw[k])));
+  const br = k => all3.length ? avg(all3.map(r => (r.raw[k] - (r.status === "vunnen" ? 1 : 0)) ** 2)) : null;
+  const B = [["Nuvarande", br("p_raw_cur")], ["Brorsens", br("p_raw_alt")], ["Hybrid", br("p_raw_hyb")]], bmin = Math.min(...B.map(x => x[1]).filter(nOk));
+  const few = n < 150;
+  const tile = (k, v, x, c) => `<div><div class="k">${k}</div><div class="v ${c || ""}">${v}</div>${x ? `<div class="x">${x}</div>` : ""}</div>`;
+  return `<div class="bc" style="grid-column:1/-1"><div class="stats">
+    ${tile("Spel", rs.length, `${rs.filter(r => r.status === "öppen").length} öppna · ${rs.filter(r => r.status === "struken").length} strukna`)}
+    ${tile("Avgjorda", n, `${w} vunna · ${n - w} förlorade`)}
+    ${tile("Träff", n ? pct(w / n) : "–", exp != null ? "väntat " + pct(exp) : "")}
+    ${tile("ROI flat 1u", roi == null ? "–" : sgn(roi * 100) + " %", "vinst = odds − 1", cls(roi))}
+    ${tile("Snitt CLV", clv == null ? "–" : sgn(clv) + " pe", "mot Unibets stängning", cls(clv))}</div>
+    <div class="cmp" style="margin-top:8px"><span>Brier (lägre = bättre, ${all3.length} avgjorda med alla tre p):</span>
+      ${B.map(([k, v]) => `<span class="${nOk(v) && v === bmin ? "pos" : ""}"><b>${k}</b> ${nOk(v) ? nf(v, 4) : "–"}</span>`).join("")}</div>
+    ${few ? `<div class="whynot"><b>⚠ För få spel – dra inga slutsatser.</b> ${n} av minst 150 avgjorda.</div>` : ""}</div>`;
+}
+function spCard(r) {
+  const b = r.raw, pv = [["Nuv.", b.p_raw_cur], ["Brors.", b.p_raw_alt], ["Hybrid", b.p_raw_hyb]];
+  const cmp = `<div class="cmp"><span>Sannolikhet</span>${pv.map(([k, v]) => `<span><b>${k}</b> ${nOk(v) ? pct(v) : "–"}</span>`).join("")}</div>`
+    + (r.why.length ? `<div class="whynot"><b>Varför inte högre:</b> ${esc(r.why.join(" · "))}</div>` : "");
+  const chips = [statusBadge(r.status), edgeBadge(r.edge), r.status !== "öppen" && r.status !== "struken" && r.clv != null ? clvBadge(r.clv) : "",
+    r.bokford ? `<span class="chip" title="bokförd">bokförd ${fmtTs(r.bokford)}</span>` : ""].filter(Boolean).join("");
+  const resU = b.resultat_enheter == null ? "–" : sgn(b.resultat_enheter / U) + "u";
+  return betCard(r, {badge: `<span class="chip i">Hade blivit</span>${hadeChip(r.hade)}`, dim: r.hade === "–" || r.status === "struken", title: r.why.join(" · "),
+    stats: [["Odds", nf(r.odds), r.bolag], ["Edge", pct(r.edge), "vid bokning", r.edge > 0 ? "pos" : ""], ["Sannolikhet", pct(r.p), "hybrid"],
+      ["Resultat", resU, r.stangning ? "stängn. " + nf(r.stangning) : "", r.status === "vunnen" ? "pos" : r.status === "förlorad" ? "loss" : ""]],
+    cmp, chips, mot: motivDet(r, "sp")});
+}
+function renderSp() {
+  const all = spRows(), q = nkey(document.getElementById("spQ")?.value || "");
+  tierSel("spHade", spHade, k => { spHade = k; renderSp(); }, [["ALLA", "Alla"], ["A", "Hade blivit A"], ["B", "B"], ["C", "C"], ["–", "–"]]);
+  document.getElementById("spStatus").value = spStatus; document.getElementById("spSort").value = spSort;
+  const rs = all.filter(r => (spHade === "ALLA" || r.hade === spHade) && (!spStatus || r.status === spStatus) && (!q || nkey(`${r.spelare} ${r.match} ${r.spel}`).includes(q)))
+    .sort(spSort === "edge" ? SORTS.edge : spSort === "clv" ? SORTS.clv : (a, b) => (b.avspark || 0) - (a.avspark || 0));
+  document.getElementById("spCnt").textContent = `${rs.length} av ${all.length} spel`;
+  document.getElementById("spSum").innerHTML = all.length ? spSummary(all) : "";
+  document.getElementById("spCards").innerHTML = rs.map(spCard).join("") || (all.length ? `<div class="emptybox"><b>Inga spel matchar filtret</b></div>`
+    : `<div class="emptybox"><b>Inga testspel än</b>De bokförs när modellen hittar edge ≥ 2 % på bekräftade startare.</div>`);
+}
 function render() {
   AN.length = 0;
   document.querySelectorAll(".sp").forEach(b => b.classList.toggle("on", b.dataset.s === cur));
-  const sp = cur === "alla" ? "Fotboll & NBA" : SPORTS[cur].name;
+  const SPV = cur === "spelarprops";
+  document.getElementById("tabs").classList.toggle("hidden", SPV);
+  const sp = SPV ? "🧪 Spelarprops" : cur === "alla" ? "Fotboll & NBA" : SPORTS[cur].name;
   document.getElementById("heroEye").textContent = `${sp} · ${new Date().toLocaleDateString("sv-SE", {...tz, weekday: "long", day: "numeric", month: "long"})}`;
-  document.getElementById("heroTitle").textContent = HERO[tab][0];
-  document.getElementById("heroLead").textContent = HERO[tab][1];
+  document.getElementById("heroTitle").textContent = SPV ? "Spelarprops (test)" : HERO[tab][0];
+  document.getElementById("heroLead").textContent = SPV ? "Testspår: vad hybridmodellen hade spelat på bekräftade startare, och vilken nivå spelet hade fått. Ingen insats, inga notiser." : HERO[tab][1];
   document.querySelectorAll(".tab[data-t]").forEach(b => b.classList.toggle("on", b.dataset.t === tab));
-  ["nu", "live", "avg", "mina", "minbok", "topp", "radar", "res", "bok", "param"].forEach(id => document.getElementById(id).classList.toggle("hidden", id !== tab));
-  ({nu: renderNu, live: renderLive, avg: renderAvg, mina: renderMina, minbok: renderMinbok, topp: renderTopp, radar: renderRadar, res: renderRes, bok: renderBok, param: renderParam})[tab]();
+  ["nu", "live", "avg", "mina", "minbok", "topp", "radar", "res", "bok", "param"].forEach(id => document.getElementById(id).classList.toggle("hidden", SPV || id !== tab));
+  document.getElementById("spelarprops").classList.toggle("hidden", !SPV);
+  if (SPV) renderSp(); else ({nu: renderNu, live: renderLive, avg: renderAvg, mina: renderMina, minbok: renderMinbok, topp: renderTopp, radar: renderRadar, res: renderRes, bok: renderBok, param: renderParam})[tab]();
   history.replaceState(null, "", `#${cur}${tab === "nu" ? "" : "/" + tab}`);
 }
 async function load() {
@@ -2101,6 +2169,7 @@ async function load() {
   try { PARAMS = await (await fetch("parametrar.json?t=" + Date.now(), {cache: "no-store"})).json(); } catch (e) { PARAMS = null; }
   try { TIERD = await (await fetch("tiers.json?t=" + Date.now(), {cache: "no-store"})).json(); } catch (e) { TIERD = null; }
   try { MINAD = await (await fetch("mina_spel.json?t=" + Date.now(), {cache: "no-store"})).json(); } catch (e) { MINAD = null; }
+  try { const r = await fetch("spelarprops.json?t=" + Date.now(), {cache: "no-store"}); SPD = r.ok ? await r.json() : null; } catch (e) { SPD = null; }
   try { const r = await fetch("oddsvakt.json?t=" + Date.now(), {cache: "no-store"}); VAKTD = r.ok ? await r.json() : null; } catch (e) { VAKTD = null; }
   buildAll(); buildTiers();
   { const tm = new Map(TIER.map(t => [t.ident, t.tier])); ALL.forEach(r => { r.tier = tm.get(r.pk) || "-"; }); }
@@ -2137,7 +2206,7 @@ let TAKE_ID = null;
            setTimeout(() => toast("✅ <b>Kopplad till boten</b> – spelen du tar synkas nu mellan dina enheter.", "won"), 800);
            for (const [id, x] of Object.entries(pending())) sendMina({...x, bet: undefined}); } }
 { const [s, t] = location.hash.slice(1).split("/");
-  if (SPORTS[s] || s === "alla") cur = s;
+  if (SPORTS[s] || s === "alla" || s === "spelarprops") cur = s;
   if (["nu", "live", "avg", "mina", "minbok", "topp", "radar", "res", "bok", "param"].includes(t)) tab = t;
   if (location.hash === "#bokforing") tab = "bok"; }
 load(); setInterval(load, 120000);
