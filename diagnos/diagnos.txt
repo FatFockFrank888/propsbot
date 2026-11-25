@@ -1,5 +1,5 @@
-Skanning 2026-11-25 19:44
-Kambi unibet (ubse): OK, 34 matcher i valda ligor
+Skanning 2026-11-25 19:57
+Kambi unibet (ubse): OK, 32 matcher i valda ligor
 Kambi paf (paf): OK
 Kambi atg (atg): OK
 Kambi leovegas (leose): OK
@@ -7,17 +7,56 @@ Kambi svenskaspel (svenskaspel): OK
 Kambi expekt (expektse): OK
 Kambi betmgm (betmgmse): OK
 Pinnacle: OK, 24 ligor
-Pinnacle: 50 matcher, matchlinjer för 24 av 34 Kambi-matcher, 0 spelarodds som används
+Pinnacle: 50 matcher, matchlinjer för 24 av 32 Kambi-matcher, 0 spelarodds som används
 Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
+  Double Chance 1st Half | units=Regular | kategori=Team Props | deltagare=Shakhtar Donetsk Or Fenerbahce,Draw Or Fenerbahce,Draw Or Shakhtar Donetsk  ->  används inte (lagmarknad)
+  Moneyline and Total Goals | units=Regular | kategori=Team Props | deltagare=Shakhtar Donetsk & Over 3.5,Shakhtar Donetsk & Under 3.5,Draw & Over 3.5,Draw & Under 3.5,Fenerbahce & Over 3.5,Fenerbahce & Under 3.5  ->  används inte (lagmarknad)
+  Double Chance | units=Regular | kategori=Team Props | deltagare=Shakhtar Donetsk Or Fenerbahce,Draw Or Fenerbahce,Draw Or Shakhtar Donetsk  ->  används inte (lagmarknad)
+  3-Way Handicap Shakhtar Donetsk -1 | units=Regular | kategori=Team Props | deltagare=Shakhtar Donetsk (-1),Draw - (Shakhtar Donetsk -1),Fenerbahce (+1)  ->  används inte (lagmarknad)
+  Winning Margin | units=Regular | kategori=Team Props | deltagare=Shakhtar Donetsk By 1,Shakhtar Donetsk By 2,Shakhtar Donetsk By 3,Shakhtar Donetsk By 4+,Fenerbahce By 1,Fenerbahce By 2,Fenerbahce By 3,Fenerbahce By 4+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
+  Either Team To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Exact Total Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5,6+  ->  används inte (lagmarknad)
+  Shakhtar Donetsk Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  Total Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  Draw No Bet | units=Regular | kategori=Team Props | deltagare=Shakhtar Donetsk,Fenerbahce  ->  används inte (lagmarknad)
+  Fenerbahce To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Correct Score | units=Regular | kategori=Team Props | deltagare=Shakhtar Donetsk 0, Fenerbahce 0,Shakhtar Donetsk 0, Fenerbahce 1,Shakhtar Donetsk 0, Fenerbahce 2,Shakhtar Donetsk 0, Fenerbahce 3,Shakhtar Donetsk 0, Fenerbahce 4,Shakhtar Donetsk 0, Fenerbahce 5,Shakhtar Donetsk 0, Fenerbahce 6,Shakhtar Donetsk 1, Fenerbahce 0,Shakhtar Donetsk 1, Fenerbahce 1,Shakhtar Donetsk 1, Fenerbahce 2,Shakhtar Donetsk 1, Fenerbahce 3,Shakhtar Donetsk 1, Fenerbahce 4,Shakhtar Donetsk 1, Fenerbahce 5,Shakhtar Donetsk 1, Fenerbahce 6,Shakhtar Donetsk 2, Fenerbahce 0,Shakhtar Donetsk 2, Fenerbahce 1,Shakhtar Donetsk 2, Fenerbahce 2,Shakhtar Donetsk 2, Fenerbahce 3,Shakhtar Donetsk 2, Fenerbahce 4,Shakhtar Donetsk 2, Fenerbahce 5,Shakhtar Donetsk 2, Fenerbahce 6,Shakhtar Donetsk 3, Fenerbahce 0,Shakhtar Donetsk 3, Fenerbahce 1,Shakhtar Donetsk 3, Fenerbahce 2,Shakhtar Donetsk 3, Fenerbahce 3,Shakhtar Donetsk 3, Fenerbahce 4,Shakhtar Donetsk 3, Fenerbahce 5,Shakhtar Donetsk 3, Fenerbahce 6,Shakhtar Donetsk 4, Fenerbahce 0,Shakhtar Donetsk 4, Fenerbahce 1,Shakhtar Donetsk 4, Fenerbahce 2,Shakhtar Donetsk 4, Fenerbahce 3,Shakhtar Donetsk 4, Fenerbahce 4,Shakhtar Donetsk 4, Fenerbahce 5,Shakhtar Donetsk 4, Fenerbahce 6,Shakhtar Donetsk 5, Fenerbahce 0,Shakhtar Donetsk 5, Fenerbahce 1,Shakhtar Donetsk 5, Fenerbahce 2,Shakhtar Donetsk 5, Fenerbahce 3,Shakhtar Donetsk 5, Fenerbahce 4,Shakhtar Donetsk 5, Fenerbahce 5,Shakhtar Donetsk 5, Fenerbahce 6,Shakhtar Donetsk 6, Fenerbahce 0,Shakhtar Donetsk 6, Fenerbahce 1,Shakhtar Donetsk 6, Fenerbahce 2,Shakhtar Donetsk 6, Fenerbahce 3,Shakhtar Donetsk 6, Fenerbahce 4,Shakhtar Donetsk 6, Fenerbahce 5,Shakhtar Donetsk 6, Fenerbahce 6  ->  används inte (lagmarknad)
+  Shakhtar Donetsk To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Correct Score 1st Half | units=Regular | kategori=Team Props | deltagare=Shakhtar Donetsk 0, Fenerbahce 0,Shakhtar Donetsk 0, Fenerbahce 1,Shakhtar Donetsk 0, Fenerbahce 2,Shakhtar Donetsk 0, Fenerbahce 3,Shakhtar Donetsk 1, Fenerbahce 0,Shakhtar Donetsk 1, Fenerbahce 1,Shakhtar Donetsk 1, Fenerbahce 2,Shakhtar Donetsk 1, Fenerbahce 3,Shakhtar Donetsk 2, Fenerbahce 0,Shakhtar Donetsk 2, Fenerbahce 1,Shakhtar Donetsk 2, Fenerbahce 2,Shakhtar Donetsk 2, Fenerbahce 3,Shakhtar Donetsk 3, Fenerbahce 0,Shakhtar Donetsk 3, Fenerbahce 1,Shakhtar Donetsk 3, Fenerbahce 2,Shakhtar Donetsk 3, Fenerbahce 3  ->  används inte (lagmarknad)
+  3-Way Handicap Shakhtar Donetsk +2 | units=Regular | kategori=Team Props | deltagare=Shakhtar Donetsk (+2),Draw - (Shakhtar Donetsk +2),Fenerbahce (-2)  ->  används inte (lagmarknad)
+  Fenerbahce Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
+  Odd/Even and Total Goals | units=Regular | kategori=Team Props | deltagare=Odd & Over 2.5,Odd & Under 2.5,Even & Over 2.5,Even & Under 2.5  ->  används inte (lagmarknad)
+  Shakhtar Donetsk To Win To Nil | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  3-Way Handicap Shakhtar Donetsk -2 | units=Regular | kategori=Team Props | deltagare=Shakhtar Donetsk (-2),Draw - (Shakhtar Donetsk -2),Fenerbahce (+2)  ->  används inte (lagmarknad)
+  Fenerbahce To Win To Nil | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Shakhtar Donetsk To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Fenerbahce Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  Both Teams To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Shakhtar Donetsk Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
+  Fenerbahce Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
+  Total Goals Range 1st Half | units=Regular | kategori=Team Props | deltagare=0 - 1,2 - 3,4+  ->  används inte (lagmarknad)
+  Draw No Bet 1st Half | units=Regular | kategori=Team Props | deltagare=Shakhtar Donetsk,Fenerbahce  ->  används inte (lagmarknad)
+  Total Goals Odd/Even 1st Half | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
+  3-Way Handicap Shakhtar Donetsk +1 | units=Regular | kategori=Team Props | deltagare=Shakhtar Donetsk (+1),Draw - (Shakhtar Donetsk +1),Fenerbahce (-1)  ->  används inte (lagmarknad)
+  Both Teams To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Total Goals Range | units=Regular | kategori=Team Props | deltagare=0 - 1,2 - 3,4 - 6,7+  ->  används inte (lagmarknad)
+  Either Team To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Exact Total Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
+  First Team To Score 1st Half | units=1st Goal | kategori=Team Props | deltagare=Shakhtar Donetsk,Fenerbahce,Neither  ->  används inte (lagmarknad)
+  First Team To Score | units=1st Goal | kategori=Team Props | deltagare=Shakhtar Donetsk,Fenerbahce,Neither  ->  används inte (lagmarknad)
+  Shakhtar Donetsk Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
+  Fenerbahce To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Winning Margin 1st Half | units=Regular | kategori=Team Props | deltagare=Shakhtar Donetsk By 1,Shakhtar Donetsk By 2+,Fenerbahce By 1,Fenerbahce By 2+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
+  Both Teams To Score and Moneyline | units=Regular | kategori=Team Props | deltagare=Yes & Shakhtar Donetsk,Yes & Draw,Yes & Fenerbahce,No & Shakhtar Donetsk,No & Draw,No & Fenerbahce  ->  används inte (lagmarknad)
+  Fenerbahce To Win To Nil 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Shakhtar Donetsk To Win To Nil 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
+  Both Teams To Score and Total Goals | units=Regular | kategori=Team Props | deltagare=Yes & Over 2.5,Yes & Under 2.5,No & Over 2.5,No & Under 2.5  ->  används inte (lagmarknad)
   Double Chance 1st Half | units=Regular | kategori=Team Props | deltagare=Lille Or Bayern Munich,Draw Or Bayern Munich,Draw Or Lille  ->  används inte (lagmarknad)
   Moneyline and Total Goals | units=Regular | kategori=Team Props | deltagare=Lille & Over 3.5,Lille & Under 3.5,Draw & Over 3.5,Draw & Under 3.5,Bayern Munich & Over 3.5,Bayern Munich & Under 3.5  ->  används inte (lagmarknad)
   Double Chance | units=Regular | kategori=Team Props | deltagare=Lille Or Bayern Munich,Draw Or Bayern Munich,Draw Or Lille  ->  används inte (lagmarknad)
   3-Way Handicap Lille -1 | units=Regular | kategori=Team Props | deltagare=Lille (-1),Draw - (Lille -1),Bayern Munich (+1)  ->  används inte (lagmarknad)
   Winning Margin | units=Regular | kategori=Team Props | deltagare=Lille By 1,Lille By 2,Lille By 3,Lille By 4+,Bayern Munich By 1,Bayern Munich By 2,Bayern Munich By 3,Bayern Munich By 4+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
-  Either Team To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Exact Total Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5,6+  ->  används inte (lagmarknad)
   Lille Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
-  Total Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
   Draw No Bet | units=Regular | kategori=Team Props | deltagare=Lille,Bayern Munich  ->  används inte (lagmarknad)
   3-Way Handicap Lille +3 | units=Regular | kategori=Team Props | deltagare=Lille (+3),Draw - (Lille +3),Bayern Munich (-3)  ->  används inte (lagmarknad)
   Bayern Munich To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
@@ -30,57 +69,18 @@ Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
   Bayern Munich Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
   Lille To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
   Bayern Munich Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
-  Both Teams To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Lille Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
-  Bayern Munich Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
-  Total Goals Range 1st Half | units=Regular | kategori=Team Props | deltagare=0 - 1,2 - 3,4+  ->  används inte (lagmarknad)
-  Draw No Bet 1st Half | units=Regular | kategori=Team Props | deltagare=Lille,Bayern Munich  ->  används inte (lagmarknad)
-  Total Goals Odd/Even 1st Half | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
-  3-Way Handicap Lille +1 | units=Regular | kategori=Team Props | deltagare=Lille (+1),Draw - (Lille +1),Bayern Munich (-1)  ->  används inte (lagmarknad)
-  Both Teams To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Total Goals Range | units=Regular | kategori=Team Props | deltagare=0 - 1,2 - 3,4 - 6,7+  ->  används inte (lagmarknad)
-  Either Team To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Exact Total Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
-  First Team To Score 1st Half | units=1st Goal | kategori=Team Props | deltagare=Lille,Bayern Munich,Neither  ->  används inte (lagmarknad)
-  First Team To Score | units=1st Goal | kategori=Team Props | deltagare=Lille,Bayern Munich,Neither  ->  används inte (lagmarknad)
-  Lille Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
-  Bayern Munich To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Winning Margin 1st Half | units=Regular | kategori=Team Props | deltagare=Lille By 1,Lille By 2+,Bayern Munich By 1,Bayern Munich By 2+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
-  Both Teams To Score and Moneyline | units=Regular | kategori=Team Props | deltagare=Yes & Lille,Yes & Draw,Yes & Bayern Munich,No & Lille,No & Draw,No & Bayern Munich  ->  används inte (lagmarknad)
-  Bayern Munich To Win To Nil | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Bayern Munich To Win To Nil 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Lille To Win To Nil 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Both Teams To Score and Total Goals | units=Regular | kategori=Team Props | deltagare=Yes & Over 3.5,Yes & Under 3.5,No & Over 3.5,No & Under 3.5  ->  används inte (lagmarknad)
-  Double Chance 1st Half | units=Regular | kategori=Team Props | deltagare=Club Brugge Or Liverpool,Draw Or Liverpool,Draw Or Club Brugge  ->  används inte (lagmarknad)
-  Moneyline and Total Goals | units=Regular | kategori=Team Props | deltagare=Club Brugge & Over 3.5,Club Brugge & Under 3.5,Draw & Over 3.5,Draw & Under 3.5,Liverpool & Over 3.5,Liverpool & Under 3.5  ->  används inte (lagmarknad)
-  Double Chance | units=Regular | kategori=Team Props | deltagare=Club Brugge Or Liverpool,Draw Or Liverpool,Draw Or Club Brugge  ->  används inte (lagmarknad)
-  3-Way Handicap Club Brugge -1 | units=Regular | kategori=Team Props | deltagare=Club Brugge (-1),Draw - (Club Brugge -1),Liverpool (+1)  ->  används inte (lagmarknad)
-  Winning Margin | units=Regular | kategori=Team Props | deltagare=Club Brugge By 1,Club Brugge By 2,Club Brugge By 3,Club Brugge By 4+,Liverpool By 1,Liverpool By 2,Liverpool By 3,Liverpool By 4+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
-  Club Brugge Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
-  Draw No Bet | units=Regular | kategori=Team Props | deltagare=Club Brugge,Liverpool  ->  används inte (lagmarknad)
-  3-Way Handicap Club Brugge +3 | units=Regular | kategori=Team Props | deltagare=Club Brugge (+3),Draw - (Club Brugge +3),Liverpool (-3)  ->  används inte (lagmarknad)
-  Liverpool To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Correct Score | units=Regular | kategori=Team Props | deltagare=Club Brugge 0, Liverpool 0,Club Brugge 0, Liverpool 1,Club Brugge 0, Liverpool 2,Club Brugge 0, Liverpool 3,Club Brugge 0, Liverpool 4,Club Brugge 0, Liverpool 5,Club Brugge 0, Liverpool 6,Club Brugge 1, Liverpool 0,Club Brugge 1, Liverpool 1,Club Brugge 1, Liverpool 2,Club Brugge 1, Liverpool 3,Club Brugge 1, Liverpool 4,Club Brugge 1, Liverpool 5,Club Brugge 1, Liverpool 6,Club Brugge 2, Liverpool 0,Club Brugge 2, Liverpool 1,Club Brugge 2, Liverpool 2,Club Brugge 2, Liverpool 3,Club Brugge 2, Liverpool 4,Club Brugge 2, Liverpool 5,Club Brugge 2, Liverpool 6,Club Brugge 3, Liverpool 0,Club Brugge 3, Liverpool 1,Club Brugge 3, Liverpool 2,Club Brugge 3, Liverpool 3,Club Brugge 3, Liverpool 4,Club Brugge 3, Liverpool 5,Club Brugge 3, Liverpool 6,Club Brugge 4, Liverpool 0,Club Brugge 4, Liverpool 1,Club Brugge 4, Liverpool 2,Club Brugge 4, Liverpool 3,Club Brugge 4, Liverpool 4,Club Brugge 4, Liverpool 5,Club Brugge 4, Liverpool 6,Club Brugge 5, Liverpool 0,Club Brugge 5, Liverpool 1,Club Brugge 5, Liverpool 2,Club Brugge 5, Liverpool 3,Club Brugge 5, Liverpool 4,Club Brugge 5, Liverpool 5,Club Brugge 5, Liverpool 6,Club Brugge 6, Liverpool 0,Club Brugge 6, Liverpool 1,Club Brugge 6, Liverpool 2,Club Brugge 6, Liverpool 3,Club Brugge 6, Liverpool 4,Club Brugge 6, Liverpool 5,Club Brugge 6, Liverpool 6  ->  används inte (lagmarknad)
-  Club Brugge To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Correct Score 1st Half | units=Regular | kategori=Team Props | deltagare=Club Brugge 0, Liverpool 0,Club Brugge 0, Liverpool 1,Club Brugge 0, Liverpool 2,Club Brugge 0, Liverpool 3,Club Brugge 1, Liverpool 0,Club Brugge 1, Liverpool 1,Club Brugge 1, Liverpool 2,Club Brugge 1, Liverpool 3,Club Brugge 2, Liverpool 0,Club Brugge 2, Liverpool 1,Club Brugge 2, Liverpool 2,Club Brugge 2, Liverpool 3,Club Brugge 3, Liverpool 0,Club Brugge 3, Liverpool 1,Club Brugge 3, Liverpool 2,Club Brugge 3, Liverpool 3  ->  används inte (lagmarknad)
-  3-Way Handicap Club Brugge +2 | units=Regular | kategori=Team Props | deltagare=Club Brugge (+2),Draw - (Club Brugge +2),Liverpool (-2)  ->  används inte (lagmarknad)
-  Liverpool Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
-  Club Brugge To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Liverpool Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
-  Club Brugge Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
-  Liverpool Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
-Sides mindre ligor: 13 Kambi-matcher inom 12 h, 40 Pinnacle-matcher, 12 med Pinnacle, 12 matchade: Bolivia / Copa Bolivia, Chinese Taipei / Taiwan Football Premier League, Colombia / Liga Dimayor, Ecuador / Liga Pro, El Salvador / Primera Divisíon, Guatemala / Liga Nacional Guatemala, Nicaragua / Primera Division Nicaragua, Venezuela / Copa Venezuela
+Sides mindre ligor: 13 Kambi-matcher inom 12 h, 29 Pinnacle-matcher, 12 med Pinnacle, 12 matchade: Bolivia / Copa Bolivia, Chinese Taipei / Taiwan Football Premier League, Colombia / Liga Dimayor, Ecuador / Liga Pro, El Salvador / Primera Divisíon, Guatemala / Liga Nacional Guatemala, Nicaragua / Primera Division Nicaragua, Venezuela / Copa Venezuela
 Sides rättning: goal-api dagstak 300 anrop nått
 Sides rättning: SportScore 22 anrop i dag
-Sides/totals: 36 matcher med Kambi + Pinnacle, 1188 linjer, 1 nya spel, 0 nya skuggspel, Smarkets-priser i 28 av 29; bästa edge +18.0% (Managua FC 1X2: 2), +12.1% (Ajax 1X2: 2), +4.7% (FK Baumit Jablonec 1X2: 1)
+Sides/totals: 36 matcher med Kambi + Pinnacle, 1120 linjer, 0 nya spel, 1 nya skuggspel, Smarkets-priser i 25 av 25; bästa edge +18.0% (Managua FC 1X2: 2), +11.8% (Ajax 1X2: 2), +5.0% (Atlético Mineiro-MG 1X2: 2)
 Hörnmodell (test): 8012 matcher i underlaget (17 ligor), 0 matcher med modell, 0 Kambi-linjer, 0 nya testspel; bästa edge 
 Fotboll extra bolag: 0 nya hämtningar, 531 odds i bruk, krediter kvar 136, dagsbudget 23 (andel 40%), förbrukat idag 9
-PropLine: 0 anrop denna körning (125/1000 idag), 3380 priser i bruk
-Tid: hämtning 444 s
-Marginal över alla matcher: uppmätt marginal: shots stege k=1.10 (6 spelare; marginal vid 3,00 ≈ 12%), shots_on_target stege k=1.16 (76 spelare; marginal vid 3,00 ≈ 19%)
+PropLine: 5 anrop denna körning (130/1000 idag), 1116 priser i bruk
+Tid: hämtning 445 s
+Marginal över alla matcher: uppmätt marginal: shots stege k=1.14 (9 spelare; marginal vid 3,00 ≈ 17%), shots_on_target stege k=1.16 (74 spelare; marginal vid 3,00 ≈ 19%)
+  Shakhtar Donetsk – Fenerbahçe: modell uefa.champions, 22 spelare
   Lille – Bayern Munich: modell uefa.champions, 21 spelare
   Club Brugge – Liverpool: modell uefa.champions, 22 spelare
-  Shakhtar Donetsk – Fenerbahçe: modell uefa.champions, 22 spelare
   Sporting Lisbon – Manchester United: modell uefa.champions, 17 spelare
   Stoke City – Millwall: modell eng.2, 26 spelare
   Atlético Mineiro-MG – Corinthians-SP: modell bra.1, 29 spelare
@@ -102,30 +102,27 @@ Marginal över alla matcher: uppmätt marginal: shots stege k=1.10 (6 spelare; m
   Celta Vigo – Bournemouth: modell uefa.europa, 21 spelare
   Marseille – Levski Sofia: modell uefa.europa, 22 spelare
   Union Saint-Gilloise – Lech Poznań: modell uefa.europa, 23 spelare
-Modellens nivåavvikelse mot marknaden (log-odds, dras bort): assist -0.70, goal -0.38, shots -0.67, shots_on_target -0.43
-  Burnley – Birmingham: saknar matchlinjer från Pinnacle
-  Watford – Blackburn Rovers: saknar matchlinjer från Pinnacle
-  Bolton – West Bromwich: saknar matchlinjer från Pinnacle
+Modellens nivåavvikelse mot marknaden (log-odds, dras bort): assist -0.70, goal -0.32, shots -0.67, shots_on_target -0.43
   PSG – Roma: saknar matchlinjer från Pinnacle
-  Lille – Bayern Munich: väntade mål Pinnacle 2.96 mot Kambi 2.91 (kvot 1.016); uppmätt marginal: goal k=1.08, assist k=1.22
-Exempel uppmätt marginal: goal k=1.08, assist k=1.22
-  Club Brugge – Liverpool: väntade mål Pinnacle 3.86 mot Kambi 3.83 (kvot 1.007); uppmätt marginal: goal k=1.21, assist k=1.28, shots_on_target stege k=1.22 (7 spelare; marginal vid 3,00 ≈ 27%)
-  Inter – VfB Stuttgart: saknar matchlinjer från Pinnacle
-  Shakhtar Donetsk – Fenerbahçe: väntade mål Pinnacle 2.77 mot Kambi 2.88 (kvot 0.961); uppmätt marginal: goal k=1.24, assist k=1.30, shots_on_target stege k=1.12 (5 spelare; marginal vid 3,00 ≈ 14%)
-  Sporting Lisbon – Manchester United: väntade mål Pinnacle 3.34 mot Kambi 3.28 (kvot 1.020); uppmätt marginal: goal k=1.19, assist k=1.27, shots_on_target stege k=1.16 (7 spelare; marginal vid 3,00 ≈ 19%)
+  Shakhtar Donetsk – Fenerbahçe: väntade mål Pinnacle 2.77 mot Kambi 2.89 (kvot 0.958); uppmätt marginal: goal k=1.24, assist k=1.30, shots_on_target stege k=1.16 (5 spelare; marginal vid 3,00 ≈ 19%)
+Exempel uppmätt marginal: goal k=1.24, assist k=1.30, shots_on_target stege k=1.16 (5 spelare; marginal vid 3,00 ≈ 19%)
   Atlético Madrid – Viking Stavanger: saknar matchlinjer från Pinnacle
-  Stoke City – Millwall: väntade mål Pinnacle 2.50 mot Kambi 2.67 (kvot 0.935); uppmätt marginal: goal k=1.34
-  Atlético Mineiro-MG – Corinthians-SP: väntade mål Pinnacle 2.50 mot Kambi 2.55 (kvot 0.981); uppmätt marginal: goal k=1.59, assist k=1.47, shots_on_target stege k=1.21 (12 spelare; marginal vid 3,00 ≈ 26%)
+  Lille – Bayern Munich: väntade mål Pinnacle 2.90 mot Kambi 2.91 (kvot 0.996); uppmätt marginal: goal k=1.09, assist k=1.23, shots_on_target stege k=1.06 (5 spelare; marginal vid 3,00 ≈ 7%)
+  Club Brugge – Liverpool: väntade mål Pinnacle 3.88 mot Kambi 3.93 (kvot 0.988); uppmätt marginal: goal k=1.22, assist k=1.28, shots_on_target stege k=1.16 (7 spelare; marginal vid 3,00 ≈ 19%)
+  Inter – VfB Stuttgart: saknar matchlinjer från Pinnacle
+  Sporting Lisbon – Manchester United: väntade mål Pinnacle 3.34 mot Kambi 3.28 (kvot 1.020); uppmätt marginal: goal k=1.19, assist k=1.27, shots_on_target stege k=1.24 (5 spelare; marginal vid 3,00 ≈ 30%)
+  Stoke City – Millwall: väntade mål Pinnacle 2.51 mot Kambi 2.67 (kvot 0.939); uppmätt marginal: goal k=1.33
+  Atlético Mineiro-MG – Corinthians-SP: väntade mål Pinnacle 2.53 mot Kambi 2.55 (kvot 0.994); uppmätt marginal: goal k=1.58, assist k=1.46, shots_on_target stege k=1.21 (12 spelare; marginal vid 3,00 ≈ 26%)
   Boca Juniors – Independiente Rivadavia: saknar matchlinjer från Pinnacle
   Deportivo Toluca FC – Club Atlas: väntade mål Pinnacle 3.24 mot Kambi 3.36 (kvot 0.965); uppmätt marginal: goal k=1.59, assist k=1.39
-  CF Monterrey – Club América: väntade mål Pinnacle 2.63 mot Kambi 2.79 (kvot 0.940); uppmätt marginal: goal k=1.49, assist k=1.26
+  CF Monterrey – Club América: väntade mål Pinnacle 2.63 mot Kambi 2.81 (kvot 0.936); uppmätt marginal: goal k=1.48, assist k=1.23
   Kairat Almaty – Mjällby AIF: väntade mål Pinnacle 2.66 mot Kambi 2.74 (kvot 0.968); uppmätt marginal: goal k=1.37, assist k=1.19
-  Beşiktaş – Hapoel Beer Sheva: väntade mål Pinnacle 3.66 mot Kambi 3.73 (kvot 0.981); uppmätt marginal: goal k=1.68, assist k=1.59, shots_on_target stege k=1.02 (6 spelare; marginal vid 3,00 ≈ 2%)
+  Beşiktaş – Hapoel Beer Sheva: väntade mål Pinnacle 3.65 mot Kambi 3.73 (kvot 0.978); uppmätt marginal: goal k=1.68, assist k=1.59, shots_on_target stege k=1.02 (6 spelare; marginal vid 3,00 ≈ 2%)
   Red Bull Salzburg – Ararat-Armenia FC: väntade mål Pinnacle 3.86 mot Kambi 3.76 (kvot 1.027); uppmätt marginal: goal k=1.28, assist k=1.26
   Viktoria Plzeň – Benfica: väntade mål Pinnacle 3.47 mot Kambi 3.43 (kvot 1.013); uppmätt marginal: goal k=1.58, assist k=1.50, shots_on_target stege k=1.02 (6 spelare; marginal vid 3,00 ≈ 2%)
   Pafos FC – FC Midtjylland: väntade mål Pinnacle 3.12 mot Kambi 3.22 (kvot 0.971); uppmätt marginal: goal k=1.56, assist k=1.41
   FK Kauno Zalgiris – Riga FC: väntade mål Pinnacle 2.64 mot Kambi 2.72 (kvot 0.968); uppmätt marginal: goal k=1.49
-  FK Baumit Jablonec – Lugano: väntade mål Pinnacle 2.86 mot Kambi 2.97 (kvot 0.963); uppmätt marginal: goal k=1.43, assist k=1.28
+  FK Baumit Jablonec – Lugano: väntade mål Pinnacle 2.84 mot Kambi 2.97 (kvot 0.955); uppmätt marginal: goal k=1.44, assist k=1.28
   FK Egnatia – Lincoln Red IMPS FC: saknar matchlinjer från Pinnacle
   Brann – AGF Aarhus: saknar matchlinjer från Pinnacle
   Ajax – Thun: väntade mål Pinnacle 4.20 mot Kambi 4.14 (kvot 1.014); uppmätt marginal: goal k=1.62, assist k=1.40
@@ -136,25 +133,25 @@ Exempel uppmätt marginal: goal k=1.08, assist k=1.22
   Dinamo Zagreb – Bayer Leverkusen: väntade mål Pinnacle 3.36 mot Kambi 3.39 (kvot 0.991); uppmätt marginal: goal k=1.58, assist k=1.51
   Celta Vigo – Bournemouth: väntade mål Pinnacle 2.68 mot Kambi 2.67 (kvot 1.006); uppmätt marginal: goal k=1.69, assist k=1.49
   Marseille – Levski Sofia: väntade mål Pinnacle 3.13 mot Kambi 3.05 (kvot 1.026); uppmätt marginal: goal k=1.60, assist k=1.44, shots_on_target stege k=1.02 (6 spelare; marginal vid 3,00 ≈ 2%)
-  Union Saint-Gilloise – Lech Poznań: väntade mål Pinnacle 3.41 mot Kambi 3.43 (kvot 0.996); uppmätt marginal: goal k=1.49, assist k=1.41
-Tid: modell och utvärdering 190 s
-Bolag med spelarodds: atg, betmgm, expekt, leovegas, oa_fanduel, oa_onexbet, paf, pl_bovada, pl_draftkings, pl_eplay24, pl_fanduel, pl_hardrock, pl_novig, pl_thescorebet, pl_williamhill_it, svenskaspel, unibet
-Spelarodds per marknad: assist 3990, goal 15836, shots 6595, shots_on_target 11851
-Kambi-marknader: assist='to give an assist (settled using opta data)':3990; goal='1st goalscorer':5937; goal='to score':5937; goal='to score at least 2 goals':3199; goal='to score at least 3 goals':616; goal='to score at least 4 goals':119; goal='to score at least 5 goals':28; shots="player's shots (settled using opta data)":6595; shots_on_target="player's shots on target (settled using opta data)":7940
+  Union Saint-Gilloise – Lech Poznań: väntade mål Pinnacle 3.42 mot Kambi 3.43 (kvot 0.999); uppmätt marginal: goal k=1.49, assist k=1.41
+Tid: modell och utvärdering 185 s
+Bolag med spelarodds: atg, betmgm, expekt, leovegas, oa_fanduel, oa_onexbet, paf, pl_bovada, pl_draftkings, pl_fanduel, pl_hardrock, pl_novig, svenskaspel, unibet
+Spelarodds per marknad: assist 3766, goal 14863, shots 6596, shots_on_target 9013
+Kambi-marknader: assist='to give an assist (settled using opta data)':3766; goal='1st goalscorer':5524; goal='to score':5524; goal='to score at least 2 goals':3059; goal='to score at least 3 goals':602; goal='to score at least 4 goals':126; goal='to score at least 5 goals':28; shots="player's shots (settled using opta data)":6596; shots_on_target="player's shots on target (settled using opta data)":7366
 Pinnacle har inga spelarprops här – använder linjejustering mot Pinnacles matchlinjer.
-CLV-signal: 1 ben släppta (Pinnacle rör sig åt vårt håll)
-Startelvor: 1 spelbara ben klara, 0 väntar på startelvan, 0 stoppade (inte i startelvan)
-Spelregler: stoppade {'edge': 1, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0} (modelltest {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0})
-Spelarmodell: 0 av 849 ben har modell, 0 nya matcher hämtade från ESPN
-Bästa edge marknad shots_on_target: +1.8%, +0.4%, +0.1% (av 742 ben)
-Bästa edge modelltest shots_on_target: +0.4%, +0.3%, +0.1% (av 600 ben)
+CLV-signal: 0 ben släppta (Pinnacle rör sig åt vårt håll)
+Startelvor: 0 spelbara ben klara, 0 väntar på startelvan, 0 stoppade (inte i startelvan)
+Spelregler: stoppade {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0} (modelltest {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0})
+Spelarmodell: 0 av 846 ben har modell, 0 nya matcher hämtade från ESPN
+Bästa edge marknad shots_on_target: +1.1%, +0.8%, -0.8% (av 737 ben)
+Bästa edge modelltest shots_on_target: +1.1%, -0.5%, -0.5% (av 600 ben)
 0 spelbara ben.
 Bokförda nya spel: 0
 Skuggspel: 0 nya bokförda (stoppade av reglerna, minst 2 % edge)
-Spelarprops-test startelvor: 40 spelbara ben klara, 0 väntar på startelvan, 0 stoppade (inte i startelvan)
-Spelarprops-konsensus: finns för 158 av 692 ben, snitt edge mot konsensus -7.5%, 40 med minst 2%
-Spelarprops-test: 692 ben med hybridmodell, 4 med minst 2% edge (modell), 1 nya bokförda, 55 totalt
+Spelarprops-test startelvor: 26 spelbara ben klara, 0 väntar på startelvan, 0 stoppade (inte i startelvan)
+Spelarprops-konsensus: finns för 139 av 693 ben, snitt edge mot konsensus -9.5%, 26 med minst 2%
+Spelarprops-test: 693 ben med hybridmodell, 3 med minst 2% edge (modell), 1 nya bokförda, 56 totalt
 Modelltest: 0 spelbara enligt modellen, 0 nya testspel bokförda
 Domare: 78 kommande matcher med utsedd domare (UEFA + football-data)
-Fouls (test): 109 ben med modell, 1 klarar kraven, 0 nya bokförda, bästa edge +21.1%, +15.3%, +2.9%, 0 nya ESPN-matcher, domare känd i 23 matcher
+Fouls (test): 112 ben med modell, 0 klarar kraven, 0 nya bokförda, bästa edge +24.0%, +15.3%, +3.7%, 0 nya ESPN-matcher, domare känd i 20 matcher
 Notiser skickade: 0
