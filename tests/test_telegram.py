@@ -74,6 +74,7 @@ def test_motiv_text_and_csv_columns():
 def test_unibet_link_and_buttons(monkeypatch):
     from propsbot.msg import unibet_url
     assert unibet_url("k1029147328", "unibet") == "https://www.unibet.se/betting/sports/event/1029147328"
+    assert unibet_url("nba1028754099", "unibet") == "https://www.unibet.se/betting/sports/event/1028754099"
     assert unibet_url("k1029147328", "svenskaspel") is None and unibet_url("401234", "unibet") is None
     import urllib.request
     sent = {}

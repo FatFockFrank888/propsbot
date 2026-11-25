@@ -1093,7 +1093,7 @@ function minaAll() {
 const isTaken = id => minaAll().some(b => b.ident === id);
 // Länk direkt till matchen hos Unibet (Kambi-event-id i match_id, "k1029147328"). Bara för öppna spel före start.
 const unibetBtn = r => {
-  const id = /^k(\d{6,})$/.exec(String(r.raw?.match_id ?? r.match_id ?? ""))?.[1];
+  const id = /^(?:k|nba)(\d{6,})$/.exec(String(r.raw?.match_id ?? r.match_id ?? ""))?.[1];
   if (!id || String(r.bolag || r.raw?.bolag || "unibet").toLowerCase() !== "unibet" || r.status !== "öppen" || !(r.avspark > Date.now() / 1000)) return "";
   return `<a class="take" href="https://www.unibet.se/betting/sports/event/${id}" target="_blank" rel="noopener" onclick="event.stopPropagation()" title="Öppna matchen hos Unibet – spela från ${sf(r.spela_fran)}">Hos Unibet ↗</a>`;
 };
