@@ -128,9 +128,9 @@ def motiv_text(b: dict) -> tuple[str, str, str]:
 
 
 def unibet_url(match_id, bolag: str = "unibet") -> str | None:
-    """Länk till matchen hos Unibet (Kambi-event-id: 'k1029147328'). Bara för Unibet; annars None."""
+    """Länk till matchen hos Unibet (Kambi-event-id: 'k1029147328' fotboll, 'nba1028754099' NBA). Bara för Unibet; annars None."""
     import re
-    m = re.fullmatch(r"k(\d{6,})", str(match_id or ""))
+    m = re.fullmatch(r"(?:k|nba)(\d{6,})", str(match_id or ""))
     if not m or str(bolag or "").lower() != "unibet":
         return None
     return f"https://www.unibet.se/betting/sports/event/{m.group(1)}"
