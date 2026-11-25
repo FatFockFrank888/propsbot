@@ -432,8 +432,10 @@ class Vakt:
             return bool(self._send(title, msg, prio, click))
         from .notify import oddsvakt_topic, send
         topic = oddsvakt_topic(self.s)
+        from .msg import unibet_url
+        ub = unibet_url(w["b"].get("match_id"), w["b"].get("bolag"))
         ok = bool(topic) and send(topic, title, msg, priority=prio, tags="chart_with_upwards_trend" if kind == "up" else "x",
-                                  click=click)
+                                  click=click, link=("Hos Unibet", ub) if ub else None)
         if not ok:
             self.log("Oddsvakt: notisen gick inte fram")
         return ok

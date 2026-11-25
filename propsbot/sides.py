@@ -685,7 +685,9 @@ def _notify(root: Path, bets: list[dict], s: dict) -> int:
         msg = (f"{b['liga']} ({ko} UTC)\n{b['bolag']}: {b['odds']:.2f}  (spela från {b['spela_fran']:.2f})\n"
                f"Pinnacle utan marginal {b['sannolikhet']:.1%}, edge {b['edge']:.1%}\n"
                f"Insats: {str(round(b['insats_pct'] / 0.01, 1)).replace('.', ',')}u (1u = 1 % av kassan)")
-        if send(s["ntfy_topic"], title, msg, tags="soccer"):
+        from .msg import unibet_url
+        ub = unibet_url(b.get("match_id"), b.get("bolag"))
+        if send(s["ntfy_topic"], title, msg, tags="soccer", link=("Hos Unibet", ub) if ub else None):
             guard.mark("fotboll", b["match_id"], "sides", b["key"])
             b["notis"] = True
             sent += 1

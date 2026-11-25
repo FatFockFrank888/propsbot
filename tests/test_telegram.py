@@ -91,3 +91,18 @@ def test_unibet_link_and_buttons(monkeypatch):
     monkeypatch.setattr(nt.urllib.request, "urlopen", fake)
     assert nt.send_telegram(1, "t", "m", click="https://x/y", link=("Hos Unibet", "https://u/1")) is True
     assert [b["text"] for b in sent["body"]["reply_markup"]["inline_keyboard"][0]] == ["Öppna", "Hos Unibet"]
+
+
+def test_link_is_added_to_message_text(monkeypatch):
+    seen = {}
+    monkeypatch.setattr(nt, "send_telegram", lambda cid, t, m, p=4, click=None, link=None: seen.update(tg=m) or True)
+    monkeypatch.setitem(nt.TG_ROUTE, "tt", 1)
+
+    class R:
+        def __enter__(self): return self
+        def __exit__(self, *a): return False
+        def read(self): return b'{"id": "1", "time": 0}'
+    monkeypatch.setattr(nt.urllib.request, "urlopen", lambda req, timeout=0: seen.update(ntfy=json.loads(req.data.decode())["message"]) or R())
+    assert nt.send("tt", "t", "Match A", link=("Hos Unibet", "https://www.unibet.se/betting/sports/event/1")) is True
+    for k in ("tg", "ntfy"):
+        assert seen[k].endswith("Hos Unibet: https://www.unibet.se/betting/sports/event/1")
