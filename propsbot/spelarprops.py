@@ -25,9 +25,40 @@ def record_hyb(root: Path, hyb_rows: list, cur_rows: list, evd_by_id: dict, data
     lo, hi = settings.get("odds_window_all", [1.40, 6.0])
     cap = settings.get("max_plausible_edge", 0.25)
     rows = [r for r in hyb_rows if r.row.decision.cand.market in allowed]
+    cons_n = cons_hit = 0
+    cons_edges: list[float] = []
+    try:   # konsensus av oberoende bolag (PropLine): loggas på varje ben och är en egen bokföringsarm
+        from .consensus import consensus_p
+        qs_by_match = {evd["id"]: qs for evd, qs, _nm in data}
+    except Exception as e:  # noqa: BLE001
+        diag.log(f"Spelarprops-konsensus: FEL {type(e).__name__}: {str(e)[:120]}")
+        consensus_p, qs_by_match = None, {}
     for r in rows:
         d, c = r.row.decision, r.row.decision.cand
-        d.playable = bool(MIN_EDGE <= c.edge <= cap and lo <= c.best.odds <= hi)
+        in_window = lo <= c.best.odds <= hi
+        model_ok = bool(MIN_EDGE <= c.edge <= cap and in_window)
+        cons_ok = False
+        if consensus_p:
+            try:
+                cons = consensus_p(qs_by_match.get(c.match_id, []), c.player_id, c.market, c.line,
+                                   settings.get("propline_one_sided_margin", 0.07),
+                                   settings.get("propline_min_voices", 2))
+            except Exception:  # noqa: BLE001
+                cons = None
+            if cons:
+                e_c = cons["p"] * c.best.odds - 1
+                cons_n += 1
+                cons_edges.append(e_c)
+                cons_ok = bool(MIN_EDGE <= e_c <= cap and in_window)
+                cons_hit += cons_ok
+                ex = dict(getattr(r, "extra", None) or {})
+                ex.update(p_cons=cons["p"], n_cons=cons["n"], vox=",".join(cons["voices"]),
+                          cons_spread=cons["spread"], edge_cons=round(e_c, 4))
+                r.extra = ex
+        arm = "båda" if model_ok and cons_ok else "modell" if model_ok else "konsensus" if cons_ok else ""
+        if arm:
+            r.extra = dict(getattr(r, "extra", None) or {}, arm=arm)
+        d.playable = bool(arm)
         d.show = True
     try:   # bara bekräftade startande spelare (annars skulle bänkade spelare dra ner träffen)
         from .free_scan import apply_lineups
@@ -36,22 +67,11 @@ def record_hyb(root: Path, hyb_rows: list, cur_rows: list, evd_by_id: dict, data
         diag.log(f"Spelarprops-test startelvor: FEL {type(e).__name__}: {e}")
         for r in rows:
             r.row.decision.playable = False
-    try:   # konsensus av oberoende bolag (PropLine) som extra referens, loggas bredvid modellen
-        from .consensus import consensus_p
-        qs_by_match = {}
-        for evd, qs, _nm in data:
-            qs_by_match[evd["id"]] = qs
-        for r in rows:
-            c = r.row.decision.cand
-            cons = consensus_p(qs_by_match.get(c.match_id, []), c.player_id, c.market, c.line,
-                               settings.get("propline_one_sided_margin", 0.07), settings.get("propline_min_voices", 2))
-            if cons:
-                ex = dict(getattr(r, "extra", None) or {})
-                ex.update(p_cons=cons["p"], n_cons=cons["n"], vox=",".join(cons["voices"]), cons_spread=cons["spread"],
-                          edge_cons=round(cons["p"] * c.best.odds - 1, 4))
-                r.extra = ex
-    except Exception as e:  # noqa: BLE001
-        diag.log(f"Spelarprops-konsensus: FEL {type(e).__name__}: {str(e)[:120]}")
+    if cons_n:
+        diag.log(f"Spelarprops-konsensus: finns för {cons_n} av {len(rows)} ben, snitt edge mot konsensus "
+                 f"{sum(cons_edges) / cons_n:+.1%}, {cons_hit} med minst {MIN_EDGE:.0%}")
+    else:
+        diag.log(f"Spelarprops-konsensus: ingen konsensus (för få oberoende röster) för {len(rows)} ben")
     led = Ledger(root / LEDGER)
     new = led.record(rows, evd_by_id, predicate=lambda r: r.row.decision.playable)
     led.update_closing(rows, time.time())
@@ -63,7 +83,7 @@ def record_hyb(root: Path, hyb_rows: list, cur_rows: list, evd_by_id: dict, data
         skarp(led)
     led.save()
     n_edge = sum(1 for r in rows if r.row.decision.cand.edge >= MIN_EDGE)
-    diag.log(f"Spelarprops-test: {len(rows)} ben med hybridmodell, {n_edge} med minst {MIN_EDGE:.0%} edge, "
+    diag.log(f"Spelarprops-test: {len(rows)} ben med hybridmodell, {n_edge} med minst {MIN_EDGE:.0%} edge (modell), "
              f"{len(new)} nya bokförda, {len(led.bets)} totalt")
     try:
         export(root, settings)
@@ -95,7 +115,7 @@ def annotate(b: dict, c: dict) -> dict:
 CSV_COLS = ["Bokförd", "Avspark", "Match", "Spelare", "Marknad", "Linje", "Bolag", "Odds", "Stängning", "CLV (%)",
             "Edge", "Sannolikhet", "Fair odds", "Hade blivit", "Varför inte högre", "p nuvarande", "p brorsens",
             "p hybrid", "Status", "Utfall", "Resultat (u)", "p konsensus", "Röster", "Edge mot konsensus",
-            "Hade blivit (konsensus)"]
+            "Hade blivit (konsensus)", "Arm"]
 
 
 def export(root: Path, settings: dict) -> int:
@@ -129,5 +149,5 @@ def export(root: Path, settings: dict) -> int:
                         "; ".join(b["varfor_inte_hogre"]), n(b.get("p_raw_cur")), n(b.get("p_raw_alt")),
                         n(b.get("p_raw_hyb")), b.get("status"), b.get("utfall"),
                         n(None if res is None or not u else res / 0.01, 2), n(b.get("p_cons")),
-                        b.get("vox", ""), n(b.get("edge_cons")), b.get("hade_blivit_konsensus", "")])
+                        b.get("vox", ""), n(b.get("edge_cons")), b.get("hade_blivit_konsensus", ""), b.get("arm", "")])
     return len(ann)

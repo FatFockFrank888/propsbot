@@ -32,3 +32,32 @@ def test_export_writes_json_and_csv(tmp_path):
     assert d["bets"][0]["hade_blivit"] in ("C", "–")
     rows = (tmp_path / "site" / "csv" / "spelarprops.csv").read_text(encoding="utf-8").splitlines()
     assert rows[0].startswith("Bokförd,Avspark") and len(rows) == 2 and "0.55" in rows[1]
+
+
+def test_record_hyb_books_consensus_arm(tmp_path):
+    from types import SimpleNamespace as NS
+    from propsbot.models import OddsQuote
+    from propsbot.sources.propline import parse
+    from propsbot.sources import propline as pl
+    ev = {"bookmakers": [
+        {"key": k, "markets": [{"key": "player_shots_on_target", "outcomes": [
+            {"description": "Cole Palmer", "name": "1+ Shots on Target", "price": pr, "point": None}]}]}
+        for k, pr in (("draftkings", -200), ("fanduel", -190))]}
+    q, _ = parse(ev, "m1", 1.0)
+    pid = q[0].player_id
+    best = NS(odds=1.8, book="unibet", side="over")
+    cand = NS(match_id="m1", player_id=pid, market="shots_on_target", line=0.5, best=best, edge=-0.03, p=0.54,
+              player_name="Cole Palmer")
+    dec = NS(cand=cand, playable=False, show=False, reasons=[], stake=0.0, play_from=1.9)
+    row = NS(row=NS(decision=dec, p_model=0.5, p_market=0.5), extra=None, match="A – B", kickoff="2026-11-25 20:00")
+
+    class D:
+        lines = []
+        def log(self, m): self.lines.append(m)
+    d = D()
+    import propsbot.free_scan as fs
+    fs.apply_lineups = lambda *a, **k: "ok"          # ingen nätverksanrop i testet
+    n = sp.record_hyb(tmp_path, [row], [], {"m1": {"id": "m1", "commence_time": 9e9, "home_team": "A", "away_team": "B"}},
+                      [({"id": "m1"}, q, {})], {"football_markets": ["shots_on_target"]}, d)
+    assert row.extra["arm"] == "konsensus" and row.extra["edge_cons"] > 0.02
+    assert any("Spelarprops-konsensus" in x for x in d.lines)
