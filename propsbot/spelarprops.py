@@ -36,6 +36,22 @@ def record_hyb(root: Path, hyb_rows: list, cur_rows: list, evd_by_id: dict, data
         diag.log(f"Spelarprops-test startelvor: FEL {type(e).__name__}: {e}")
         for r in rows:
             r.row.decision.playable = False
+    try:   # konsensus av oberoende bolag (PropLine) som extra referens, loggas bredvid modellen
+        from .consensus import consensus_p
+        qs_by_match = {}
+        for evd, qs, _nm in data:
+            qs_by_match[evd["id"]] = qs
+        for r in rows:
+            c = r.row.decision.cand
+            cons = consensus_p(qs_by_match.get(c.match_id, []), c.player_id, c.market, c.line,
+                               settings.get("propline_one_sided_margin", 0.07), settings.get("propline_min_voices", 2))
+            if cons:
+                ex = dict(getattr(r, "extra", None) or {})
+                ex.update(p_cons=cons["p"], n_cons=cons["n"], vox=",".join(cons["voices"]), cons_spread=cons["spread"],
+                          edge_cons=round(cons["p"] * c.best.odds - 1, 4))
+                r.extra = ex
+    except Exception as e:  # noqa: BLE001
+        diag.log(f"Spelarprops-konsensus: FEL {type(e).__name__}: {str(e)[:120]}")
     led = Ledger(root / LEDGER)
     new = led.record(rows, evd_by_id, predicate=lambda r: r.row.decision.playable)
     led.update_closing(rows, time.time())
@@ -66,6 +82,11 @@ def annotate(b: dict, c: dict) -> dict:
     if tier:
         out.update(tier=tier, kalla="skugga", sport="fotboll")
         tiers.annotate(out, b, c)
+    if b.get("p_cons") and (b.get("n_cons") or 0) >= 2:   # vilken nivå hade spelet fått med konsensusen som skarp referens?
+        bc = dict(b, sannolikhet=b["p_cons"], edge=b["p_cons"] * (b.get("odds") or 0) - 1, pin_p=b["p_cons"], forv_clv_pp=None)
+        t2, why2 = tiers.classify(bc, "spel", "fotboll", c)
+        out["hade_blivit_konsensus"] = t2 or "–"
+        out["varfor_konsensus"] = why2
     from .msg import build_motiv
     out["motiv"] = build_motiv(out)
     return out
@@ -73,7 +94,8 @@ def annotate(b: dict, c: dict) -> dict:
 
 CSV_COLS = ["Bokförd", "Avspark", "Match", "Spelare", "Marknad", "Linje", "Bolag", "Odds", "Stängning", "CLV (%)",
             "Edge", "Sannolikhet", "Fair odds", "Hade blivit", "Varför inte högre", "p nuvarande", "p brorsens",
-            "p hybrid", "Status", "Utfall", "Resultat (u)"]
+            "p hybrid", "Status", "Utfall", "Resultat (u)", "p konsensus", "Röster", "Edge mot konsensus",
+            "Hade blivit (konsensus)"]
 
 
 def export(root: Path, settings: dict) -> int:
@@ -106,5 +128,6 @@ def export(root: Path, settings: dict) -> int:
                         n(b.get("edge")), n(b.get("sannolikhet")), n(b["motiv"].get("fair_odds"), 2), b["hade_blivit"],
                         "; ".join(b["varfor_inte_hogre"]), n(b.get("p_raw_cur")), n(b.get("p_raw_alt")),
                         n(b.get("p_raw_hyb")), b.get("status"), b.get("utfall"),
-                        n(None if res is None or not u else res / 0.01, 2)])
+                        n(None if res is None or not u else res / 0.01, 2), n(b.get("p_cons")),
+                        b.get("vox", ""), n(b.get("edge_cons")), b.get("hade_blivit_konsensus", "")])
     return len(ann)
