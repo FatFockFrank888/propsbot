@@ -100693,8 +100693,8 @@
 "analys_ts": 1795556522.2512155,
 "modellversion": "2026-11-15-betyg",
 "prognos_ts": 1795546526.755945,
-"skarp_stang_p": 0.634115351027718,
-"skarp_stang_ts": 1795556521.9839566,
+"skarp_stang_p": 0.6585413668445487,
+"skarp_stang_ts": 1795575077.1379604,
 "skarp_kalla": "skanning",
 "pin_stang_p": 0.634115351027718,
 "bolag_bokning": {
@@ -100739,12 +100739,16 @@
 "dk_p": 0.6547706079482958
 },
 "bolag_stang_ts": 1795556522.2622561,
-"skarp_verifierad": false,
-"skarp_status": null,
-"clv_skarp_pp": 5.272000219050865,
+"skarp_verifierad": true,
+"skarp_status": "flyttad linje",
+"clv_skarp_pp": 7.714601800733933,
 "clv_pin_pp": 5.272000219050865,
 "clv_dk_pp": 7.337525911108644,
-"dk_stang_p": 0.6547706079482958
+"dk_stang_p": 0.6547706079482958,
+"skarp_stang_p_egen_linje": 0.634115351027718,
+"skarp_stang_ts_egen_linje": 1795556521.9839566,
+"skarp_flyttad_fran": 11.5,
+"skarp_flytt_for_oss": true
 },
 {
 "key": "nba1028744847|aaron gordon|pr|20.5|unibet|under",
@@ -101010,7 +101014,7 @@
 },
 "bolag_stang_ts": 1795565737.6571374,
 "skarp_verifierad": false,
-"skarp_status": null,
+"skarp_status": "borttagen",
 "clv_skarp_pp": 0.6278789504875149,
 "clv_pin_pp": 0.6278789504875149,
 "clv_dk_pp": 1.5065404104042779

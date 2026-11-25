@@ -28331,8 +28331,8 @@
 "analys_ts": 1795565737.645185,
 "modellversion": "2026-11-15-betyg",
 "prognos_ts": 1795546526.7075896,
-"skarp_stang_p": 0.5609488751981487,
-"skarp_stang_ts": 1795565737.409127,
+"skarp_stang_p": 0.7084359670301993,
+"skarp_stang_ts": 1795573684.3349192,
 "skarp_kalla": "skanning",
 "pin_stang_p": 0.6238004351868319,
 "bolag_bokning": {
@@ -28373,12 +28373,16 @@
 "dk_p": 0.5922986926820005
 },
 "bolag_stang_ts": 1795572209.1350536,
-"skarp_verifierad": false,
-"skarp_status": null,
-"clv_skarp_pp": 3.463308572446455,
+"skarp_verifierad": true,
+"skarp_status": "flyttad linje",
+"clv_skarp_pp": 18.21201775565151,
 "clv_pin_pp": 9.748464571314774,
 "clv_dk_pp": 6.598290320831635,
-"dk_stang_p": 0.5922986926820005
+"dk_stang_p": 0.5922986926820005,
+"skarp_stang_p_egen_linje": 0.5609488751981487,
+"skarp_stang_ts_egen_linje": 1795565737.409127,
+"skarp_flyttad_fran": 6.5,
+"skarp_flytt_for_oss": true
 },
 {
 "key": "nba1028744844|jayson tatum|points|26.5|unibet|under",
@@ -28928,7 +28932,7 @@
 },
 "bolag_stang_ts": 1795575077.3500226,
 "skarp_verifierad": false,
-"skarp_status": null,
+"skarp_status": "borttagen",
 "clv_skarp_pp": 4.046605704418427,
 "clv_pin_pp": 7.197560801004633,
 "clv_dk_pp": 0.24482224781386952
