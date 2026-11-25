@@ -1,5 +1,5 @@
-Skanning 2026-11-25 01:28
-Kambi unibet (ubse): OK, 26 matcher i valda ligor
+Skanning 2026-11-25 01:40
+Kambi unibet (ubse): OK, 27 matcher i valda ligor
 Kambi paf (paf): OK
 Kambi atg (atg): OK
 Kambi leovegas (leose): OK
@@ -7,7 +7,7 @@ Kambi svenskaspel (svenskaspel): OK
 Kambi expekt (expektse): OK
 Kambi betmgm (betmgmse): OK
 Pinnacle: OK, 24 ligor
-Pinnacle: 21 matcher, matchlinjer för 16 av 26 Kambi-matcher, 0 spelarodds som används
+Pinnacle: 21 matcher, matchlinjer för 16 av 27 Kambi-matcher, 0 spelarodds som används
 Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
   Double Chance 1st Half | units=Regular | kategori=Team Props | deltagare=San Jose Earthquakes Or Houston Dynamo,Draw Or Houston Dynamo,Draw Or San Jose Earthquakes  ->  används inte (lagmarknad)
   Moneyline and Total Goals | units=Regular | kategori=Team Props | deltagare=San Jose Earthquakes & Over 2.5,San Jose Earthquakes & Under 2.5,Draw & Over 2.5,Draw & Under 2.5,Houston Dynamo & Over 2.5,Houston Dynamo & Under 2.5  ->  används inte (lagmarknad)
@@ -69,13 +69,13 @@ Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
   3-Way Handicap Slavia Prague -2 | units=Regular | kategori=Team Props | deltagare=Slavia Prague (-2),Draw - (Slavia Prague -2),Villarreal (+2)  ->  används inte (lagmarknad)
   Slavia Prague To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
   Villarreal Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
-Sides mindre ligor: 39 Kambi-matcher inom 12 h, 91 Pinnacle-matcher, 34 med Pinnacle, 34 matchade: India / I-League, Italy / Serie C Girone C, Japan / J1-League, Japan / J2-League, Japan / J3-League, Poland / III Liga, Poland / Puchar Polski, Saudi Arabia / Division 1, Thailand / Thai League 2, Uganda / Premier League
+Sides mindre ligor: 39 Kambi-matcher inom 12 h, 92 Pinnacle-matcher, 34 med Pinnacle, 34 matchade: India / I-League, Italy / Serie C Girone C, Japan / J1-League, Japan / J2-League, Japan / J3-League, Poland / III Liga, Poland / Puchar Polski, Saudi Arabia / Division 1, Thailand / Thai League 2, Uganda / Premier League
 Sides rättning: SportScore 0 anrop i dag
-Sides/totals: 50 matcher med Kambi + Pinnacle, 975 linjer, 0 nya spel, 2 nya skuggspel, Smarkets-priser i 38 av 41; bästa edge +4.4% (Lille 1X2: 1), +4.2% (SSA Jagiellonia Bialystok II 1X2: 2), +3.3% (Sporting Lisbon 1X2: 2)
+Sides/totals: 50 matcher med Kambi + Pinnacle, 975 linjer, 0 nya spel, 1 nya skuggspel, Smarkets-priser i 39 av 42; bästa edge +11.1% (SSA Jagiellonia Bialystok II 1X2: 2), +4.8% (Lille 1X2: 1), +3.3% (Sporting Lisbon 1X2: 2)
 Hörnmodell (test): 8012 matcher i underlaget (17 ligor), 6 matcher med modell, 610 Kambi-linjer, 0 nya testspel; bästa edge +16.6% (Mantova Mantova hörnor över 5.5 @ 2.18), +14.5% (Bolton hörnhandikapp +0.5 @ 1.90), +7.0% (Pisa Pisa hörnor över 4.5 @ 1.78)
 Fotboll extra bolag: 0 nya hämtningar, 539 odds i bruk, krediter kvar 143, dagsbudget 23 (andel 40%), förbrukat idag 2
-Tid: hämtning 407 s
-Marginal över alla matcher: uppmätt marginal: shots_on_target stege k=1.16 (63 spelare; marginal vid 3,00 ≈ 19%)
+Tid: hämtning 432 s
+Marginal över alla matcher: uppmätt marginal: shots_on_target stege k=1.16 (62 spelare; marginal vid 3,00 ≈ 19%)
   San Jose Earthquakes – Houston Dynamo: modell – hittar inte matchen hos ESPN
   Slavia Prague – Villarreal: modell uefa.champions, 21 spelare
   Sabah FK – FC Barcelona: modell uefa.champions, 23 spelare
@@ -88,7 +88,7 @@ Marginal över alla matcher: uppmätt marginal: shots_on_target stege k=1.16 (63
   Stoke City – Millwall: modell eng.2, 26 spelare
   Atlético Mineiro-MG – Corinthians-SP: modell bra.1, 29 spelare
   Deportivo Toluca FC – Club Atlas: modell – hittar inte matchen hos ESPN
-Modellens nivåavvikelse mot marknaden (log-odds, dras bort): goal -0.12, shots -0.67, shots_on_target -0.38
+Modellens nivåavvikelse mot marknaden (log-odds, dras bort): goal -0.12, shots -0.67, shots_on_target -0.37
   San Jose Earthquakes – Houston Dynamo: väntade mål Pinnacle 2.92 mot Kambi 2.94 (kvot 0.992); uppmätt marginal: goal k=1.48, assist k=1.30
 Exempel uppmätt marginal: goal k=1.48, assist k=1.30
   Slavia Prague – Villarreal: väntade mål Pinnacle 3.38 mot Kambi 3.25 (kvot 1.039); uppmätt marginal: goal k=1.45, assist k=1.53, shots_on_target stege k=1.20 (12 spelare; marginal vid 3,00 ≈ 25%)
@@ -107,7 +107,7 @@ Exempel uppmätt marginal: goal k=1.48, assist k=1.30
   Atlético Mineiro-MG – Corinthians-SP: väntade mål Pinnacle 2.55 mot Kambi 2.55 (kvot 1.001); uppmätt marginal: goal k=1.58, assist k=1.46, shots_on_target stege k=1.20 (13 spelare; marginal vid 3,00 ≈ 25%)
   Boca Juniors – Independiente Rivadavia: saknar matchlinjer från Pinnacle
   Deportivo Toluca FC – Club Atlas: väntade mål Pinnacle 3.30 mot Kambi 3.35 (kvot 0.986); uppmätt marginal: goal k=1.58, assist k=1.39
-Tid: modell och utvärdering 113 s
+Tid: modell och utvärdering 91 s
 Bolag med spelarodds: atg, betmgm, expekt, leovegas, oa_fanduel, oa_onexbet, paf, svenskaspel, unibet
 Spelarodds per marknad: assist 2758, goal 9716, shots 4658, shots_on_target 5057
 Kambi-marknader: assist='to give an assist (settled using opta data)':2758; goal='1st goalscorer':3465; goal='to score':3465; goal='to score at least 2 goals':2198; goal='to score at least 3 goals':448; goal='to score at least 4 goals':119; goal='to score at least 5 goals':14; goal='to score at least 6 goals':7; shots="player's shots (settled using opta data)":4318; shots_on_target="player's shots on target (settled using opta data)":4858
