@@ -318,7 +318,7 @@ function buildOverview_(ss) {
     "label B 'Nivå', G 'Insats (u)', L 'Senaste 7 d'"), 11, 4, nkFormats_(), {results: [6, 7, 8, 10], tiers: [0]});
 
   row = heading_(sh, row, "Per sport och nivå");
-  row = table_(sh, row, q_(RAW.tier_nyckeltal, "A:L", "select A,B,C,D,E,F,G,H,I,J,K,L where A<>'Alla' " +
+  row = table_(sh, row, q_(RAW.tier_nyckeltal, "A:L", "select A,B,C,D,E,F,G,H,I,J,K,L where A is not null and A<>'Alla' limit 8 " +
     "label B 'Nivå', G 'Insats (u)', L 'Senaste 7 d'"), 12, 8,
     {2: F.int, 3: F.int, 4: F.int, 5: F.pct, 6: '0.0"u"', 7: F.u, 8: F.spct, 9: F.clv, 10: F.int, 11: F.u},
     {results: [7, 8, 9, 11], tiers: [1]});
