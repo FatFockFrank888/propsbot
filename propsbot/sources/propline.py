@@ -86,7 +86,7 @@ def _get(path: str, key: str):
 
 
 def add_propline(root: Path, data: list, settings: dict, diag) -> int:
-    key = os.environ.get("PROPLINE_API_KEY")
+    key = (os.environ.get("PROPLINE_API_KEY") or "").strip()   # hemligheter kan ha radbrytning sist
     if not key or not settings.get("propline_enabled", True):
         diag.log("PropLine: av (ingen PROPLINE_API_KEY)") if not key else None
         return 0

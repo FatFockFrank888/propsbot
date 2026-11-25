@@ -43,3 +43,10 @@ def test_consensus_needs_two_independent_voices():
 
 def test_voice_of_kambi_books_none():
     assert voice_of("unibet") is None and voice_of("svenskaspel") is None and voice_of("pl_draftkings") == "draftkings"
+
+
+def test_redact_secrets_and_strip(monkeypatch):
+    from propsbot.free_scan import redact
+    monkeypatch.setenv("PROPLINE_API_KEY", "abcdef1234567890\n")
+    assert "abcdef1234567890" not in redact("Invalid header value b'abcdef1234567890\\n'")
+    assert redact("ingen hemlighet här") == "ingen hemlighet här"
