@@ -320,6 +320,7 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
     t1 = time.time()
     rows: list[ScanRow] = []
     shadow_rows: list[ScanRow] = []
+    hyb_rows: list[ScanRow] = []     # Spelarprops-testet: hybridmodellen (egen bokföring, inga notiser)
     margin_logged = False
     books: set[str] = set()
     store = Store(root / "propsbot.sqlite")
@@ -375,6 +376,14 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
                                                    evd["pin_lines"], evd["kambi_lines"], model,
                                                    offsets, None, global_mm)
                 shadow_rows += shadow
+                try:   # Spelarprops-test 25/11: hybridelasticiteter (mitt emellan vår och brorsens modell)
+                    model_h = {k: (pr.mu_hyb[k[1]], pr) for k, (_mu, pr) in model.items() if k[1] in pr.mu_hyb}
+                    hyb, _ = evaluate_line_adjusted(evd, quotes, names, test_settings, cfg, time.time(),
+                                                    evd["pin_lines"], evd["kambi_lines"], model_h,
+                                                    offsets, None, global_mm)
+                    hyb_rows += hyb
+                except Exception as e:  # noqa: BLE001 – testet får aldrig stoppa skanningen
+                    diag.log(f"Spelarprops-test: FEL {type(e).__name__}: {str(e)[:160]}")
             # Dubbelkoll: finns andra bolags spelarodds (William Hill, 1xBet, FanDuel …) måste
             # även de visa edge. Annars är det troligen Kambis marginal vi mäter, inte en verklig edge.
             if any(q.provider == "oddsapi" for q in quotes):
@@ -544,6 +553,11 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
         diag.log(f"Rättning (modelltest): {type(e).__name__}: {e}")
     _skarp(test_ledger)
     test_ledger.save()
+    try:   # Spelarprops-test: alla ben med minst 2 % edge under hybridmodellen, bara startande spelare
+        from .spelarprops import record_hyb
+        record_hyb(root, hyb_rows, shadow_rows, evd_by_id, data, settings, diag, skarp=_skarp)
+    except Exception as e:  # noqa: BLE001
+        diag.log(f"Spelarprops-test: FEL {type(e).__name__}: {str(e)[:200]}")
     n_test = sum(r.row.decision.playable and r.row.decision.show for r in shadow_rows)
     diag.log(f"Modelltest: {n_test} spelbara enligt modellen, {len(new_test)} nya testspel bokförda")
     if settings.get("fouls_enabled", True) and pm:

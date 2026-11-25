@@ -10,7 +10,7 @@ import json
 import sys
 from pathlib import Path
 
-FILES = ("bokforing_modell_v4.json", "bokforing_skugga_v4.json")
+FILES = ("bokforing_spelarprops_test.json", "bokforing_modell_v4.json", "bokforing_skugga_v4.json")
 
 
 def load(root: Path) -> list[dict]:
@@ -27,16 +27,26 @@ def brier(pairs: list[tuple[float, int]]) -> float:
     return sum((p - y) ** 2 for p, y in pairs) / len(pairs)
 
 
+def _p(b: dict, name: str):
+    return b.get("p_raw_cur", b.get("p_raw")) if name == "nuvarande" else b.get("p_raw_alt" if name == "brorsens" else "p_raw_hyb")
+
+
 def report(bets: list[dict], min_n: int = 150) -> dict:
-    rows = [b for b in bets if b.get("status") in ("vunnen", "förlorad") and b.get("p_raw") is not None
-            and b.get("p_raw_alt") is not None and b.get("sida", "over") == "over"]
+    """Brier per variant på samma spel (spel där alla tre råa sannolikheter finns; annars de två första)."""
+    arms = ["nuvarande", "brorsens", "hybrid"]
+    rows = [b for b in bets if b.get("status") in ("vunnen", "förlorad") and b.get("sida", "over") == "over"
+            and all(_p(b, a) is not None for a in arms)]
+    if not rows:
+        arms = arms[:2]
+        rows = [b for b in bets if b.get("status") in ("vunnen", "förlorad") and b.get("sida", "over") == "over"
+                and all(_p(b, a) is not None for a in arms)]
     res = {"n": len(rows), "enough": len(rows) >= min_n}
     if not rows:
         return res
     y = [1 if b["status"] == "vunnen" else 0 for b in rows]
-    for name, key in (("nuvarande", "p_raw"), ("brorsens", "p_raw_alt")):
-        res[name] = {"brier": round(brier([(b[key], yy) for b, yy in zip(rows, y)]), 4),
-                     "snitt_p": round(sum(b[key] for b in rows) / len(rows), 3)}
+    for a in arms:
+        res[a] = {"brier": round(brier([(_p(b, a), yy) for b, yy in zip(rows, y)]), 4),
+                  "snitt_p": round(sum(_p(b, a) for b in rows) / len(rows), 3)}
     mk = [(b["p_marknad"], yy) for b, yy in zip(rows, y) if b.get("p_marknad") is not None]
     if mk:
         res["marknad"] = {"brier": round(brier(mk), 4), "n": len(mk)}

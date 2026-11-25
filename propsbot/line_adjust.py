@@ -269,8 +269,12 @@ def evaluate_line_adjusted(evd: dict, quotes: list[OddsQuote], names: dict[str, 
                 p_raw = min(max(prob_over(market, mu, line), 0.005), 0.995)
                 mu_a = pr.mu_alt.get(market)
                 if mu_a is not None:   # experiment 25/11: samma modell med brorsens elasticiteter, bara för loggning
+                    cl = lambda v: round(min(max(prob_over(market, v, line), 0.005), 0.995), 4)
                     extra = {"p_raw": round(p_raw, 4), "mu": round(mu, 3), "mu_alt": round(mu_a, 3),
-                             "p_raw_alt": round(min(max(prob_over(market, mu_a, line), 0.005), 0.995), 4)}
+                             "p_raw_alt": cl(mu_a)}
+                    if market in pr.mu_cur:   # alla tre varianterna för samma ben (Spelarprops-testet)
+                        extra.update(p_raw_cur=cl(pr.mu_cur[market]), p_raw_hyb=cl(pr.mu_hyb[market]),
+                                     mu_cur=round(pr.mu_cur[market], 3), mu_hyb=round(pr.mu_hyb[market], 3))
                 if gaps_out is not None:
                     if 0.15 <= p_adj <= 0.85:
                         gaps_out.append((market, logit(p_raw) - logit(p_adj)))
