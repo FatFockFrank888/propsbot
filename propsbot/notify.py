@@ -102,6 +102,8 @@ def send(topic: str, title: str, message: str, priority: int = 4, tags: str = "s
          link: tuple | None = None) -> bool:
     if not topic:
         return False
+    if link and link[1] not in message:   # länken i texten: pushförhandsvisningen visar inga knappar
+        message = f"{message}\n{link[0]}: {link[1]}"
     tg = TG_ROUTE.get(topic)
     tg_ok = (send_telegram(tg, title, message, priority, click, **({"link": link} if link else {})) if tg else False)
     if TG_ONLY and tg:
