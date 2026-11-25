@@ -8913,14 +8913,14 @@
 "utfall": null,
 "resultat_enheter": null,
 "modell_edge": 0.08037516678180201,
-"stangning_ts": 1795648278.6200168,
+"stangning_ts": 1795649335.5481644,
 "analys": {
-"p_stack": 0.4336,
+"p_stack": 0.4334,
 "p_modell_min": 0.529,
 "minuter": 32.7,
 "minuter_sd": 4.1,
-"p_faktorer": 0.4488,
-"p_faktorer_ra": 0.4881,
+"p_faktorer": 0.4519,
+"p_faktorer_ra": 0.501,
 "vantat_faktorer": 24.89,
 "p_betyg": 0.4769,
 "p_betyg_ra": 0.6044,
@@ -8950,17 +8950,17 @@
 "traff_hemmaborta": 0.375,
 "traff_hemmaborta_n": 8,
 "p_kalib": 0.4365,
-"p_blend": 0.4635,
+"p_blend": 0.4653,
 "kalib_modell": "M0",
-"p_modell": 0.5497,
+"p_modell": 0.557,
 "p_marknad": 0.4365,
-"p_slutlig": 0.4635,
+"p_slutlig": 0.4653,
 "vantat": 25.89,
 "nb_r": 15,
 "modell_vikt": 0.24,
 "dq": 0.8,
 "matcher": 12,
-"nivajustering": 0.13,
+"nivajustering": 0.16,
 "logg": [
 {
 "ts": 1795483800.0,
@@ -9040,7 +9040,7 @@
 "minuter_sd_faktorer": 4.1,
 "ref": {
 "pin_p": 0.43648482501794095,
-"dk_p": 0.47530074174176473,
+"dk_p": 0.47103446210396505,
 "pin_linje": null,
 "dk_linje": 26.5,
 "pin_flyttad": false,
@@ -9090,14 +9090,14 @@
 ]
 },
 "prognos": 25.88715195906792,
-"analys_ts": 1795648278.621917,
+"analys_ts": 1795649335.5506294,
 "modellversion": "2026-11-15-betyg",
 "prognos_ts": 1795627397.520816,
 "skarp_stang_p": 0.43648482501794084,
-"skarp_stang_ts": 1795648278.3933592,
+"skarp_stang_ts": 1795649335.2703667,
 "skarp_kalla": "skanning",
 "pin_stang_p": 0.43648482501794095,
-"dk_stang_p": 0.47530074174176473,
+"dk_stang_p": 0.47103446210396505,
 "bolag_bokning": {
 "ts": 1795627397.5297227,
 "odds": {
@@ -9122,7 +9122,7 @@
 "dk_p": 0.5134297510556798
 },
 "bolag_stangning": {
-"ts": 1795648278.636319,
+"ts": 1795649335.9177492,
 "odds": {
 "unibet": {
 "over": 1.78,
@@ -9133,8 +9133,8 @@
 "under": 2.291
 },
 "draftkings (26.5)": {
-"over": 1.95,
-"under": 1.8
+"over": 1.93,
+"under": 1.81
 }
 },
 "pin_flyttad": false,
@@ -9142,14 +9142,14 @@
 "pin_linje": null,
 "dk_linje": 26.5,
 "pin_p": 0.43648482501794095,
-"dk_p": 0.47530074174176473
+"dk_p": 0.47103446210396505
 },
-"bolag_stang_ts": 1795648278.636319,
+"bolag_stang_ts": 1795649335.9177492,
 "skarp_verifierad": false,
 "skarp_status": null,
 "clv_skarp_pp": -3.970565117253533,
 "clv_pin_pp": -3.9705651172535217,
-"clv_dk_pp": -0.08897344487114323
+"clv_dk_pp": -0.5156014086511118
 },
 {
 "key": "nba1028744806|josh hart|threes|1.5|unibet",
@@ -9183,21 +9183,21 @@
 "utfall": null,
 "resultat_enheter": null,
 "modell_edge": 0.07652257417748043,
-"stangning_ts": 1795648278.6200168,
+"stangning_ts": 1795649335.5481644,
 "analys": {
-"p_stack": 0.4065,
-"p_modell_min": 0.3264,
-"minuter": 33.3,
+"p_stack": 0.4043,
+"p_modell_min": 0.3713,
+"minuter": 37.0,
 "minuter_sd": 5.6,
-"p_faktorer": 0.3942,
-"p_faktorer_ra": 0.3537,
-"vantat_faktorer": 1.18,
-"p_betyg": 0.4126,
-"p_betyg_ra": 0.456,
-"vantat_betyg": 1.6,
-"minuter_faktorer": 30.9,
+"p_faktorer": 0.401,
+"p_faktorer_ra": 0.3908,
+"vantat_faktorer": 1.29,
+"p_betyg": 0.4214,
+"p_betyg_ra": 0.5059,
+"vantat_betyg": 1.77,
+"minuter_faktorer": 34.4,
 "f_anv": 1.019,
-"f_miljo": 1.016,
+"f_miljo": 1.0,
 "f_tempo": 1.0,
 "f_pos": 0.985,
 "f_mot": 1.08,
@@ -9207,7 +9207,7 @@
 "f_minutbegransning": false,
 "f_tillbaka": false,
 "f_miljo_kalla": "pinnacle",
-"f_lag_poang": 111.0,
+"f_lag_poang": 111.5,
 "f_mot_n": 3,
 "traff_l5": 0.2,
 "traff_l5_n": 5,
@@ -9220,17 +9220,17 @@
 "traff_hemmaborta": 0.571,
 "traff_hemmaborta_n": 7,
 "p_kalib": 0.4033,
-"p_blend": 0.3848,
+"p_blend": 0.3924,
 "kalib_modell": "M0",
-"p_modell": 0.3054,
+"p_modell": 0.3445,
 "p_marknad": 0.4033,
-"p_slutlig": 0.3848,
-"vantat": 1.18,
+"p_slutlig": 0.3924,
+"vantat": 1.31,
 "nb_r": 8,
 "modell_vikt": 0.18,
 "dq": 0.6,
 "matcher": 9,
-"nivajustering": 0.1,
+"nivajustering": 0.11,
 "logg": [
 {
 "ts": 1795395600.0,
@@ -9311,18 +9311,6 @@
 "redan_borta": false
 },
 {
-"namn": "Karl-Anthony Towns",
-"status": "day-to-day",
-"min": 33.3,
-"redan_borta": false
-},
-{
-"namn": "Josh Hart",
-"status": "day-to-day",
-"min": 30.6,
-"redan_borta": false
-},
-{
 "namn": "Miles McBride",
 "status": "out",
 "min": 15.9,
@@ -9400,15 +9388,15 @@
 }
 ]
 },
-"prognos": 1.1831049834376948,
-"analys_ts": 1795648278.621917,
-"nyhet_status": "day-to-day",
-"nyhet": "Josh Hart: day-to-day enligt ESPN:s skadelista",
-"nyhet_ts": "2026-11-25T18:15:02+00:00",
+"prognos": 1.3145610927085496,
+"analys_ts": 1795649335.5506294,
+"nyhet_status": "ok",
+"nyhet": "Josh Hart inte längre på skadelistan (ESPN)",
+"nyhet_ts": "2026-11-25T23:28:55+00:00",
 "modellversion": "2026-11-15-betyg",
 "prognos_ts": 1795630502.2363522,
 "skarp_stang_p": 0.40328572287269965,
-"skarp_stang_ts": 1795648278.3933592,
+"skarp_stang_ts": 1795649335.2703667,
 "skarp_kalla": "skanning",
 "pin_stang_p": 0.3945420560424376,
 "dk_stang_p": 0.4228390802299693,
@@ -9436,7 +9424,7 @@
 "dk_p": 0.45272782010160156
 },
 "bolag_stangning": {
-"ts": 1795648278.636319,
+"ts": 1795649335.9177492,
 "odds": {
 "unibet": {
 "under": 1.63,
@@ -9458,7 +9446,7 @@
 "pin_p": 0.3945420560424376,
 "dk_p": 0.4228390802299693
 },
-"bolag_stang_ts": 1795648278.636319,
+"bolag_stang_ts": 1795649335.9177492,
 "skarp_verifierad": false,
 "skarp_status": null,
 "clv_skarp_pp": 0.32857228726996257,
@@ -9711,7 +9699,7 @@
 "dk_p": 0.5719288352902587
 },
 "bolag_stangning": {
-"ts": 1795648278.636319,
+"ts": 1795649335.9177492,
 "odds": {
 "pinnacle": {
 "over": 2.48,
@@ -9724,7 +9712,7 @@
 "dk_linje": null,
 "pin_p": 0.6365014949541483
 },
-"bolag_stang_ts": 1795648278.636319,
+"bolag_stang_ts": 1795649335.9177492,
 "skarp_verifierad": false,
 "skarp_status": null,
 "clv_skarp_pp": 4.9760832051759625,
