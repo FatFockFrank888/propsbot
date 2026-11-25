@@ -33,12 +33,28 @@ from .sources.props_text import same_match, same_person
 from .store import Store
 
 
+SECRET_ENVS = ("PROPLINE_API_KEY", "SGO_API_KEY", "ODDS_API_KEY", "TELEGRAM_TOKEN", "SPORTSCORE_API_KEY",
+               "NTFY_TOPIC", "API_FOOTBALL_KEY", "LIVESCORE")
+
+
+def redact(msg: str) -> str:
+    """Byter ut hemligheters värden (och deras 'strippade' form) mot ***."""
+    import os
+    for name in SECRET_ENVS:
+        v = os.environ.get(name, "")
+        for cand in {v, v.strip()}:
+            if len(cand) >= 8:
+                msg = msg.replace(cand, "***")
+    return msg
+
+
 @dataclass
 class Diag:
     lines: list[str] = field(default_factory=list)
     dir: Path = Path("diagnos")
 
     def log(self, msg: str) -> None:
+        msg = redact(msg)      # 25/11: loggen publiceras på data-grenen – hemligheter får aldrig hamna där
         print(msg)
         self.lines.append(msg)
 
@@ -50,7 +66,7 @@ class Diag:
 
     def save(self) -> None:
         self.dir.mkdir(exist_ok=True)
-        (self.dir / "diagnos.txt").write_text("\n".join(self.lines), encoding="utf-8")
+        (self.dir / "diagnos.txt").write_text(redact("\n".join(self.lines)), encoding="utf-8")
 
 
 def _unify_players(quotes: list[OddsQuote], names: dict[str, str]) -> None:
