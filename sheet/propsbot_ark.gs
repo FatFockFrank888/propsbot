@@ -22,8 +22,9 @@ const SPORTS = [
 const STATS_TAB = "📊 Statistik";
 const RAW = {sammanfattning: "_data_sammanfattning", fotboll: "_data_fotboll", nba: "_data_nba",
              parametrar: "_data_parametrar", tier_nyckeltal: "_data_tier_nyckeltal", tier_stats: "_data_tier_stats",
-             tier_kurva: "_data_tier_kurva", tier_vecka: "_data_tier_vecka"};
-const OWN = ["Översikt", STATS_TAB, "Parametrar"].concat(SPORTS.map(s => s.tab)).concat(Object.values(RAW));
+             tier_kurva: "_data_tier_kurva", tier_vecka: "_data_tier_vecka", spelarprops: "_data_spelarprops"};
+const SP_TAB = "🧪 Spelarprops";
+const OWN = ["Översikt", STATS_TAB, "Parametrar"].concat(SPORTS.map(s => s.tab)).concat([SP_TAB]).concat(Object.values(RAW));
 
 // ------------------------------------------------------------------ utseende
 const FONT = "Roboto";
@@ -88,9 +89,10 @@ function byggArket() {
   retry_(() => buildOverview_(ss));
   retry_(() => buildStats_(ss));
   SPORTS.forEach(s => retry_(() => buildSport_(ss, s)));
+  retry_(() => buildSpelarprops_(ss));
   retry_(() => buildParams_(ss));
   // 4. Ordning
-  const order = ["Översikt", STATS_TAB].concat(SPORTS.map(s => s.tab)).concat(["Parametrar"]);
+  const order = ["Översikt", STATS_TAB].concat(SPORTS.map(s => s.tab)).concat([SP_TAB, "Parametrar"]);
   order.forEach((n, i) => { ss.setActiveSheet(ss.getSheetByName(n)); ss.moveActiveSheet(i + 1); });
   ss.setActiveSheet(ss.getSheetByName("Översikt"));
   try { SpreadsheetApp.flush(); } catch (e) { /* omräkningen fortsätter i bakgrunden */ }
@@ -408,6 +410,43 @@ function buildSport_(ss, s) {
   sh.setColumnWidth(2, 80);
   sh.setColumnWidth(4, 200);
   sh.setColumnWidth(5, 160);
+}
+
+// ------------------------------------------------------------------ Spelarprops (testspår)
+// _data_spelarprops, A:U = CSV_COLS i propsbot/spelarprops.py: A Bokförd, B Avspark, C Match, D Spelare, E Marknad,
+// F Linje, G Bolag, H Odds, I Stängning, J CLV (%), K Edge, L Sannolikhet, M Fair odds, N Hade blivit,
+// O Varför inte högre, P p nuvarande, Q p brorsens, R p hybrid, S Status, T Utfall, U Resultat (u).
+function buildSpelarprops_(ss) {
+  const sh = prep_(ss, SP_TAB), t = "'" + RAW.spelarprops + "'!";
+  let row = banner_(sh, SP_TAB, "Testspår: hybridmodellen på bekräftade startare. Ingen insats, inga notiser, ingår inte i A/B/C Tier. " +
+    "Dra inga slutsatser före ~150 avgjorda spel.");
+  row = heading_(sh, row, "Nyckeltal (flat 1u, struken räknas bort)");
+  sh.setRowHeight(row, 20); sh.setRowHeight(row + 1, 38); sh.setRowHeight(row + 2, 20);
+  const vun = "COUNTIF(" + t + "S2:S,\"vunnen\")", forl = "COUNTIF(" + t + "S2:S,\"förlorad\")", n = "(" + vun + "+" + forl + ")";
+  const cards = [
+    ["Spel", "=COUNTA(" + t + "C2:C)", F.int, '=COUNTIF(' + t + 'S2:S,"öppen")&" öppna"'],
+    ["Avgjorda", "=" + n, F.int, '=' + vun + '&" vunna av "&' + n],
+    ["Träff", '=IFERROR(' + vun + "/" + n + ',"–")', F.pct, '="väntat "&IFERROR(TEXT(AVERAGEIFS(' + t + 'L2:L,' + t + 'S2:S,"vunnen")*' + vun + '/' + n + '+AVERAGEIFS(' + t + 'L2:L,' + t + 'S2:S,"förlorad")*' + forl + '/' + n + ',"0.0%"),"–")'],
+    ["ROI flat 1u", '=IFERROR((SUMIF(' + t + 'S2:S,"vunnen",' + t + 'H2:H)-' + n + ')/' + n + ',"–")', F.frac, "vinst = odds − 1"],
+    ["Snitt-CLV", '=IFERROR(AVERAGEIFS(' + t + 'J2:J,' + t + 'S2:S,"<>struken",' + t + 'J2:J,"<>"),"–")', F.clv, "mot Unibets stängning"],
+  ];
+  cards.forEach(([label, f, fmt, sub], i) => {
+    const v = card_(sh, row, 2 + i * 3, label, f, fmt, sub, TIER["C Tier"].color);
+    if (fmt === F.frac || fmt === F.clv) resultColors_(v);
+  });
+  row += 4;
+  row = heading_(sh, row, "Per nivå spelet hade fått", "Hade blivit = nivån enligt våra tier-regler (A, B, C eller – = ingen).");
+  row = table_(sh, row, q_(RAW.spelarprops, "A:U", "select N, count(C), count(U), sum(U), avg(J) where N<>'' group by N order by N " +
+    "label N 'Hade blivit', count(C) 'Spel', count(U) 'Avgjorda', sum(U) 'Resultat', avg(J) 'Snitt CLV'", "(inga testspel än)"), 5, 5,
+    {1: F.int, 2: F.int, 3: F.u2, 4: F.clv}, {results: [3, 4]});
+  row = heading_(sh, row, "Alla testspel (senast bokförda först)", "Filtrera med Data → Skapa ett filter. p = råa sannolikheter per modellvariant.");
+  table_(sh, row, q_(RAW.spelarprops, "A:U", "select A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U order by A desc", "(inga testspel än)"), 21, 1000,
+    {0: F.dt, 1: F.dt, 5: F.line, 7: F.odds, 8: F.odds, 9: F.clv, 10: F.frac, 11: F.frac, 12: F.odds, 15: F.frac, 16: F.frac, 17: F.frac, 20: F.u2},
+    {results: [9, 20], status: [18]});
+  const rng = sh.getRange(row + 1, 2 + 13, 1000, 1);
+  addRules_(sh, ["A", "B", "C"].map(k => SpreadsheetApp.newConditionalFormatRule().whenTextEqualTo(k)
+    .setBackground(TIER[k + " Tier"].tint).setBold(true).setRanges([rng]).build()));
+  sh.setColumnWidth(4, 200); sh.setColumnWidth(5, 140); sh.setColumnWidth(15, 220);
 }
 
 // ------------------------------------------------------------------ Parametrar
