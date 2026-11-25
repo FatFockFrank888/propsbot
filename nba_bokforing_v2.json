@@ -28354,7 +28354,7 @@
 "pin_p": 0.5703751624187849
 },
 "bolag_stangning": {
-"ts": 1795567104.2629616,
+"ts": 1795567793.0932746,
 "odds": {
 "pinnacle": {
 "over": 2.14,
@@ -28372,7 +28372,7 @@
 "pin_p": 0.5703751624187849,
 "dk_p": 0.5922986926820005
 },
-"bolag_stang_ts": 1795567104.2629616,
+"bolag_stang_ts": 1795567793.0932746,
 "skarp_verifierad": false,
 "skarp_status": null,
 "clv_skarp_pp": 3.463308572446455,
@@ -28601,7 +28601,7 @@
 "skarp_stang_p": 0.5410708103391426,
 "skarp_stang_ts": 1795556521.9839566,
 "skarp_kalla": "skanning",
-"pin_stang_p": 0.531201779320483,
+"pin_stang_p": 0.5258369986689866,
 "dk_stang_p": 0.5338520601518885,
 "bolag_bokning": {
 "ts": 1795549165.0465393,
@@ -28627,11 +28627,11 @@
 "dk_p": 0.5338520601518885
 },
 "bolag_stangning": {
-"ts": 1795567104.2629616,
+"ts": 1795567793.0932746,
 "odds": {
 "pinnacle": {
-"over": 1.98,
-"under": 1.769
+"over": 1.962,
+"under": 1.787
 },
 "draftkings (25.5)": {
 "over": 1.84,
@@ -28642,14 +28642,14 @@
 "pin_komb": false,
 "pin_linje": null,
 "dk_linje": 25.5,
-"pin_p": 0.531201779320483,
+"pin_p": 0.5258369986689866,
 "dk_p": 0.5338520601518885
 },
-"bolag_stang_ts": 1795567104.2629616,
+"bolag_stang_ts": 1795567793.0932746,
 "skarp_verifierad": false,
 "skarp_status": null,
 "clv_skarp_pp": 4.107081033914262,
-"clv_pin_pp": 3.120177932048296,
+"clv_pin_pp": 2.583699866898659,
 "clv_dk_pp": 3.3852060151888463
 },
 {
@@ -28904,7 +28904,7 @@
 "dk_p": 0.5974585482850225
 },
 "bolag_stangning": {
-"ts": 1795567104.2629616,
+"ts": 1795567793.0932746,
 "odds": {
 "pinnacle": {
 "over": 2.45,
@@ -28922,11 +28922,560 @@
 "pin_p": 0.6316885265252927,
 "dk_p": 0.5976863177162339
 },
-"bolag_stang_ts": 1795567104.2629616,
+"bolag_stang_ts": 1795567793.0932746,
 "skarp_verifierad": false,
 "skarp_status": null,
 "clv_skarp_pp": 4.046605704418427,
 "clv_pin_pp": 3.6450431287197493,
 "clv_dk_pp": 0.24482224781386952
+},
+{
+"key": "nba1028744844|anthony davis|points|21.5|unibet|under",
+"id": 533,
+"bokford": 1795567792.990416,
+"match_id": "nba1028744844",
+"match": "Washington Wizards – Boston Celtics",
+"hemma": "Washington Wizards",
+"borta": "Boston Celtics",
+"liga": "NBA",
+"avspark": 1795568400.0,
+"spelare": "Anthony Davis",
+"spelare_id": "anthony davis",
+"marknad": "points",
+"linje": 21.5,
+"sida": "under",
+"bolag": "unibet",
+"odds": 1.91,
+"sannolikhet": 0.5619351748939831,
+"ratt_odds": 1.7795646983456124,
+"edge": 0.0732961840475077,
+"spela_fran": 1.82,
+"insats_pct": 0.005789146041653236,
+"stangning": 1.91,
+"status": "öppen",
+"stopp": "sharp money med oss: referensen +4.4 enheter",
+"clv_signal": false,
+"forv_clv_pp": 6.01579597546843,
+"p_modell": null,
+"p_marknad": 0.5619351748939831,
+"utfall": null,
+"resultat_enheter": null,
+"stangning_ts": 1795567792.990457,
+"analys": {
+"p_stack": 0.5761,
+"p_modell_min": 0.5358,
+"minuter": 33.3,
+"minuter_sd": 4.2,
+"p_faktorer": 0.5737,
+"p_faktorer_ra": 0.6197,
+"vantat_faktorer": 20.77,
+"p_betyg": 0.5773,
+"p_betyg_ra": 0.6369,
+"vantat_betyg": 19.7,
+"minuter_faktorer": 31.2,
+"f_anv": 1.0,
+"f_miljo": 0.938,
+"f_tempo": 1.0,
+"f_pos": 0.984,
+"f_mot": 1.0,
+"f_minuter_bas": 34.4,
+"f_b2b": false,
+"f_tre_pa_fyra": false,
+"f_minutbegransning": false,
+"f_tillbaka": false,
+"f_miljo_kalla": "pinnacle",
+"f_lag_poang": 103.5,
+"f_mot_n": 0,
+"traff_l5": 0.2,
+"traff_l5_n": 5,
+"traff_l10": 0.2,
+"traff_l10_n": 10,
+"traff_sasong": 0.312,
+"traff_sasong_n": 16,
+"traff_mot": null,
+"traff_mot_n": 0,
+"traff_hemmaborta": 0.25,
+"traff_hemmaborta_n": 8,
+"p_kalib": 0.5619,
+"p_blend": 0.5504,
+"kalib_modell": "M0",
+"p_modell": 0.5036,
+"p_marknad": 0.5619,
+"p_slutlig": 0.5504,
+"vantat": 22.09,
+"nb_r": 15,
+"modell_vikt": 0.2,
+"dq": 0.67,
+"matcher": 10,
+"nivajustering": 0.0,
+"logg": [
+{
+"ts": 1795392000.0,
+"mot": "ORL",
+"hemma": true,
+"min": 33.0,
+"v": 22.0
+},
+{
+"ts": 1795222800.0,
+"mot": "CHI",
+"hemma": false,
+"min": 34.0,
+"v": 36.0
+},
+{
+"ts": 1795048200.0,
+"mot": "TOR",
+"hemma": false,
+"min": 34.0,
+"v": 25.0
+},
+{
+"ts": 1794873600.0,
+"mot": "MEM",
+"hemma": true,
+"min": 35.0,
+"v": 23.0
+},
+{
+"ts": 1794787200.0,
+"mot": "HOU",
+"hemma": true,
+"min": 31.0,
+"v": 14.0
+},
+{
+"ts": 1794528000.0,
+"mot": "DET",
+"hemma": true,
+"min": 44.0,
+"v": 30.0
+},
+{
+"ts": 1794441600.0,
+"mot": "IND",
+"hemma": false,
+"min": 34.0,
+"v": 21.0
+},
+{
+"ts": 1794268800.0,
+"mot": "DET",
+"hemma": false,
+"min": 34.0,
+"v": 44.0
+},
+{
+"ts": 1793836800.0,
+"mot": "ATL",
+"hemma": true,
+"min": 30.0,
+"v": 26.0
+},
+{
+"ts": 1793665800.0,
+"mot": "ORL",
+"hemma": false,
+"min": 34.0,
+"v": 27.0
+}
+],
+"franvaro": [],
+"lag": "Washington Wizards",
+"mot": "BOS",
+"hemma": true,
+"minuter_sd_faktorer": 4.2,
+"ref": {
+"pin_p": 0.5787915592346939,
+"dk_p": 0.5688487797692381,
+"pin_linje": null,
+"dk_linje": 20.5,
+"pin_flyttad": false,
+"pin_komb": false
+},
+"odds_bolag": [
+{
+"bolag": "atg",
+"over": 1.81,
+"under": 1.9
+},
+{
+"bolag": "betmgm",
+"over": 1.82,
+"under": 1.91
+},
+{
+"bolag": "expekt",
+"over": 1.82,
+"under": 1.91
+},
+{
+"bolag": "leovegas",
+"over": 1.82,
+"under": 1.91
+},
+{
+"bolag": "paf",
+"over": 1.82,
+"under": 1.91
+},
+{
+"bolag": "pinnacle",
+"over": 2.18,
+"under": 1.637
+},
+{
+"bolag": "svenskaspel",
+"over": 1.82,
+"under": 1.91
+},
+{
+"bolag": "unibet",
+"over": 1.82,
+"under": 1.91
+},
+{
+"bolag": "us_betmgm",
+"over": 1.95,
+"under": 1.8
+}
+]
+},
+"prognos": 22.090324514635732,
+"analys_ts": 1795567793.0813265,
+"modellversion": "2026-11-15-betyg",
+"prognos_ts": 1795567792.990416,
+"skarp_stang_p": 0.5619351748939831,
+"skarp_stang_ts": 1795567792.893394,
+"skarp_kalla": "skanning",
+"pin_stang_p": 0.5787915592346939,
+"dk_stang_p": 0.5688487797692381,
+"bolag_bokning": {
+"ts": 1795567793.0932746,
+"odds": {
+"unibet": {
+"over": 1.82,
+"under": 1.91
+},
+"pinnacle": {
+"over": 2.18,
+"under": 1.637
+},
+"draftkings (20.5)": {
+"over": 1.93,
+"under": 1.84
+}
+},
+"pin_flyttad": false,
+"pin_komb": false,
+"pin_linje": null,
+"dk_linje": 20.5,
+"pin_p": 0.5787915592346939,
+"dk_p": 0.5688487797692381
+},
+"bolag_stangning": {
+"ts": 1795567793.0932746,
+"odds": {
+"unibet": {
+"over": 1.82,
+"under": 1.91
+},
+"pinnacle": {
+"over": 2.18,
+"under": 1.637
+},
+"draftkings (20.5)": {
+"over": 1.93,
+"under": 1.84
+}
+},
+"pin_flyttad": false,
+"pin_komb": false,
+"pin_linje": null,
+"dk_linje": 20.5,
+"pin_p": 0.5787915592346939,
+"dk_p": 0.5688487797692381
+},
+"bolag_stang_ts": 1795567793.0932746,
+"skarp_verifierad": true,
+"skarp_status": null,
+"clv_skarp_pp": 3.837496546989938,
+"clv_pin_pp": 5.523134981061018,
+"clv_dk_pp": 4.528857034515433
+},
+{
+"key": "nba1028744844|sam hauser|rebounds|3.5|unibet|under",
+"id": 534,
+"bokford": 1795567792.9904377,
+"match_id": "nba1028744844",
+"match": "Washington Wizards – Boston Celtics",
+"hemma": "Washington Wizards",
+"borta": "Boston Celtics",
+"liga": "NBA",
+"avspark": 1795568400.0,
+"spelare": "Sam Hauser",
+"spelare_id": "sam hauser",
+"marknad": "rebounds",
+"linje": 3.5,
+"sida": "under",
+"bolag": "unibet",
+"odds": 1.79,
+"sannolikhet": 0.5985255196862157,
+"ratt_odds": 1.6707725353536507,
+"edge": 0.0713606802383262,
+"spela_fran": 1.71,
+"insats_pct": 0.005789146041653236,
+"stangning": 1.79,
+"status": "öppen",
+"stopp": "",
+"clv_signal": false,
+"forv_clv_pp": 3.9866301809120763,
+"p_modell": null,
+"p_marknad": 0.5985255196862157,
+"utfall": null,
+"resultat_enheter": null,
+"stangning_ts": 1795567792.990457,
+"analys": {
+"p_stack": 0.6098,
+"p_modell_min": 0.504,
+"minuter": 23.7,
+"minuter_sd": 6.0,
+"p_faktorer": 0.599,
+"p_faktorer_ra": 0.6006,
+"vantat_faktorer": 3.17,
+"p_betyg": 0.5675,
+"p_betyg_ra": 0.4669,
+"vantat_betyg": 3.99,
+"minuter_faktorer": 20.6,
+"f_anv": 1.012,
+"f_miljo": 1.0,
+"f_tempo": 1.001,
+"f_pos": 1.022,
+"f_mot": 0.979,
+"f_minuter_bas": 21.6,
+"f_b2b": false,
+"f_tre_pa_fyra": true,
+"f_minutbegransning": false,
+"f_tillbaka": false,
+"f_miljo_kalla": "pinnacle",
+"f_lag_poang": 115.0,
+"f_mot_n": 3,
+"traff_l5": 0.8,
+"traff_l5_n": 5,
+"traff_l10": 0.7,
+"traff_l10_n": 10,
+"traff_sasong": 0.647,
+"traff_sasong_n": 17,
+"traff_mot": 0.667,
+"traff_mot_n": 3,
+"traff_hemmaborta": 0.6,
+"traff_hemmaborta_n": 10,
+"p_kalib": 0.5985,
+"p_blend": 0.591,
+"kalib_modell": "M0",
+"p_modell": 0.5671,
+"p_marknad": 0.5985,
+"p_slutlig": 0.591,
+"vantat": 3.6,
+"nb_r": 10,
+"modell_vikt": 0.24,
+"dq": 0.8,
+"matcher": 12,
+"nivajustering": 0.13,
+"logg": [
+{
+"ts": 1795397400.0,
+"mot": "GS",
+"hemma": false,
+"min": 22.0,
+"v": 1.0
+},
+{
+"ts": 1795316400.0,
+"mot": "SAC",
+"hemma": false,
+"min": 31.0,
+"v": 6.0
+},
+{
+"ts": 1795055400.0,
+"mot": "DEN",
+"hemma": false,
+"min": 17.0,
+"v": 2.0
+},
+{
+"ts": 1794873600.0,
+"mot": "ORL",
+"hemma": true,
+"min": 25.0,
+"v": 1.0
+},
+{
+"ts": 1794783600.0,
+"mot": "DAL",
+"hemma": true,
+"min": 11.0,
+"v": 1.0
+},
+{
+"ts": 1794441600.0,
+"mot": "TOR",
+"hemma": false,
+"min": 24.0,
+"v": 9.0
+},
+{
+"ts": 1794358800.0,
+"mot": "PHI",
+"hemma": false,
+"min": 18.0,
+"v": 5.0
+},
+{
+"ts": 1794186000.0,
+"mot": "MIL",
+"hemma": false,
+"min": 23.0,
+"v": 3.0
+},
+{
+"ts": 1794009600.0,
+"mot": "CHA",
+"hemma": false,
+"min": 17.0,
+"v": 3.0
+},
+{
+"ts": 1793838600.0,
+"mot": "MIL",
+"hemma": true,
+"min": 30.0,
+"v": 2.0
+}
+],
+"franvaro": [
+{
+"namn": "Mitchell Robinson",
+"status": "out",
+"min": 16.0,
+"redan_borta": false
+}
+],
+"lag": "Boston Celtics",
+"mot": "WSH",
+"hemma": false,
+"minuter_sd_faktorer": 6.0,
+"ref": {
+"pin_p": null,
+"dk_p": 0.620532653530909,
+"pin_linje": null,
+"dk_linje": 2.5,
+"pin_flyttad": false,
+"pin_komb": false
+},
+"odds_bolag": [
+{
+"bolag": "atg",
+"over": 1.94,
+"under": 1.78
+},
+{
+"bolag": "betmgm",
+"over": 1.95,
+"under": 1.79
+},
+{
+"bolag": "expekt",
+"over": 1.95,
+"under": 1.79
+},
+{
+"bolag": "kalshi",
+"over": 2.597,
+"under": 1.626
+},
+{
+"bolag": "leovegas",
+"over": 1.95,
+"under": 1.79
+},
+{
+"bolag": "paf",
+"over": 1.95,
+"under": 1.79
+},
+{
+"bolag": "svenskaspel",
+"over": 1.95,
+"under": 1.79
+},
+{
+"bolag": "unibet",
+"over": 1.95,
+"under": 1.79
+},
+{
+"bolag": "us_betmgm",
+"over": 2.25,
+"under": 1.61
+},
+{
+"bolag": "us_hardrockbet",
+"over": 2.25,
+"under": 1.62
+}
+]
+},
+"prognos": 3.5962477759897027,
+"analys_ts": 1795567793.0813265,
+"modellversion": "2026-11-15-betyg",
+"prognos_ts": 1795567792.9904377,
+"skarp_stang_p": 0.5985255196862157,
+"skarp_stang_ts": 1795567792.893394,
+"skarp_kalla": "skanning",
+"dk_stang_p": 0.620532653530909,
+"bolag_bokning": {
+"ts": 1795567793.0932746,
+"odds": {
+"unibet": {
+"over": 1.95,
+"under": 1.79
+},
+"draftkings (2.5)": {
+"over": 1.65,
+"under": 2.17
+}
+},
+"pin_flyttad": false,
+"pin_komb": false,
+"pin_linje": null,
+"dk_linje": 2.5,
+"dk_p": 0.620532653530909
+},
+"bolag_stangning": {
+"ts": 1795567793.0932746,
+"odds": {
+"unibet": {
+"over": 1.95,
+"under": 1.79
+},
+"draftkings (2.5)": {
+"over": 1.65,
+"under": 2.17
+}
+},
+"pin_flyttad": false,
+"pin_komb": false,
+"pin_linje": null,
+"dk_linje": 2.5,
+"dk_p": 0.620532653530909
+},
+"bolag_stang_ts": 1795567793.0932746,
+"skarp_verifierad": true,
+"skarp_status": null,
+"clv_skarp_pp": 3.9866301809120763,
+"clv_pin_pp": null,
+"clv_dk_pp": 6.1873435653814095
 }
 ]
