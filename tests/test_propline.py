@@ -50,3 +50,21 @@ def test_redact_secrets_and_strip(monkeypatch):
     monkeypatch.setenv("PROPLINE_API_KEY", "abcdef1234567890\n")
     assert "abcdef1234567890" not in redact("Invalid header value b'abcdef1234567890\\n'")
     assert redact("ingen hemlighet här") == "ingen hemlighet här"
+
+
+def test_empty_cached_event_list_is_refetched(tmp_path, monkeypatch):
+    import json
+    import time as t
+    from propsbot.sources import propline as pl
+    monkeypatch.setenv("PROPLINE_API_KEY", "k" * 12)
+    now = t.time()
+    (tmp_path / pl.STATE).write_text(json.dumps({"day": t.strftime("%Y-%m-%d", t.gmtime(now)), "used": 0,
+                                                 "events": {"soccer_epl": {"ts": now - 1800, "list": []}}, "odds": {}}))
+    calls = []
+    monkeypatch.setattr(pl, "_get", lambda path, key: (calls.append(path) or [], 990))
+
+    class D:
+        def log(self, m): pass
+    data = [({"id": "k1", "home_team": "A", "away_team": "B", "commence_time": now + 3600}, [], {})]
+    pl.add_propline(tmp_path, data, {"propline_leagues": ["soccer_epl"]}, D())
+    assert calls == ["/sports/soccer_epl/events"]          # tom lista äldre än 10 min hämtas om

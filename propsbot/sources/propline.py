@@ -123,7 +123,8 @@ def add_propline(root: Path, data: list, settings: dict, diag) -> int:
             return 0
         for lg in settings.get("propline_leagues", LEAGUES):
             ent = st["events"].get(lg) or {}
-            if now - ent.get("ts", 0) > EVENTS_TTL_S:
+            ttl = EVENTS_TTL_S if ent.get("list") else 600   # tom lista (t.ex. efter fel) förnyas efter 10 min
+            if now - ent.get("ts", 0) > ttl:
                 try:
                     ev = call(f"/sports/{lg}/events")
                     ent = {"ts": now, "list": [{k: e.get(k) for k in ("id", "home_team", "away_team", "commence_time")}
