@@ -312,6 +312,11 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
     try:   # fler bolag (William Hill, 1xBet, FanDuel, Betfair, Coolbet …) via The Odds API, inom kreditbudget
         from .sources.us_books import add_football_books
         add_football_books(root, data, settings, diag)
+        try:   # PropLine: oberoende bolag (DraftKings, FanDuel, Bovada …) för spelarprops, bara referens
+            from .sources.propline import add_propline
+            add_propline(root, data, settings, diag)
+        except Exception as e:  # noqa: BLE001
+            diag.log(f"PropLine: FEL {type(e).__name__}: {str(e)[:120]}")
         for _evd, _qs, _nm in data:
             _unify_players(_qs, _nm)
     except Exception as e:
