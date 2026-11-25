@@ -28,6 +28,8 @@ ELASTICITY = {"goal": 1.0, "assist": 1.0, "shots_on_target": 0.6, "shots": 0.5}
 # 25/11: experiment, bara loggning. Värden ur brorsens modellkarta (anpassade mot ~58 000 spelarmatcher mot matchodds):
 # lagets nivå slår på mål/assist 0,5, skott på mål 0,35, skott 0,2. Styr ingen spelbeslut – se alt_elasticitet.py.
 ELASTICITY_ALT = {"goal": 0.5, "assist": 0.5, "shots_on_target": 0.35, "shots": 0.2}
+# Hybrid (25/11): mitt emellan vår och brorsens. Primär modell i Spelarprops-testet (egen bokföring, inga notiser).
+ELASTICITY_HYB = {m: (ELASTICITY[m] + ELASTICITY_ALT[m]) / 2 for m in ELASTICITY}
 NB_SHAPE = {"shots": 6.0, "shots_on_target": 10.0}   # överspridning (lägre = mer spridning)
 
 
@@ -51,6 +53,8 @@ class PlayerRates:
     n_matches: int
     rate: dict[str, float] = field(default_factory=dict)   # per framträdande
     mu_alt: dict[str, float] = field(default_factory=dict)  # väntat antal med ELASTICITY_ALT (loggas, styr inget)
+    mu_cur: dict[str, float] = field(default_factory=dict)  # med nuvarande ELASTICITY
+    mu_hyb: dict[str, float] = field(default_factory=dict)  # med ELASTICITY_HYB (Spelarprops-testets modell)
 
 
 @dataclass
@@ -227,6 +231,8 @@ def model_probs(tm: TeamModel, exp_goals: float, min_apps: float = 2.0
         for m in MARKETS:
             out[(k, m)] = (pr.rate[m] * ratio ** ELASTICITY[m], pr)
             pr.mu_alt[m] = pr.rate[m] * ratio ** ELASTICITY_ALT[m]
+            pr.mu_cur[m] = out[(k, m)][0]
+            pr.mu_hyb[m] = pr.rate[m] * ratio ** ELASTICITY_HYB[m]
     return out
 
 
