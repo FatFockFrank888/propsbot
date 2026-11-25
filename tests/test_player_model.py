@@ -81,3 +81,20 @@ def test_distributions():
     assert nb_over(2.0, 0.5, 1e6) - poisson_over(2.0, 0.5) < 1e-3   # NB -> Poisson
     assert nb_over(2.0, 4.5, 3.0) > poisson_over(2.0, 4.5)          # tjockare svans
     assert 0 < prob_over("shots", 2.5, 1.5) < 1
+
+
+def test_alt_elasticity_logged_not_used():
+    from propsbot.player_model import ELASTICITY, ELASTICITY_ALT, PlayerRates, TeamModel, model_probs
+    pr = PlayerRates("A B", "t", 10, 8, 10, rate={"goal": 0.3, "assist": 0.2, "shots": 2.0, "shots_on_target": 0.8})
+    tm = TeamModel("t", "T", 1.4, {"a b": pr})
+    out = model_probs(tm, 2.1)                       # ratio 1,5
+    mu, _ = out[("a b", "goal")]
+    assert abs(mu - 0.3 * 1.5 ** ELASTICITY["goal"]) < 1e-9          # beslut oförändrat
+    assert abs(pr.mu_alt["goal"] - 0.3 * 1.5 ** ELASTICITY_ALT["goal"]) < 1e-9 and pr.mu_alt["goal"] < mu
+
+
+def test_alt_report():
+    from propsbot.alt_elasticitet import report
+    bets = [{"status": "vunnen" if i % 2 else "förlorad", "p_raw": 0.6, "p_raw_alt": 0.5, "p_marknad": 0.5} for i in range(10)]
+    r = report(bets, min_n=5)
+    assert r["n"] == 10 and r["brorsens"]["brier"] < r["nuvarande"]["brier"] and r["enough"]

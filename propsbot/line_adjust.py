@@ -259,6 +259,7 @@ def evaluate_line_adjusted(evd: dict, quotes: list[OddsQuote], names: dict[str, 
             (q.book, market) in mm.power for q in qs)
         p_adj = p_k if normalized else adjust_prob(p_k, line, ratio, market)
         p, p_mod, note = p_adj, float("nan"), ""
+        extra = None
         if model:
             from .market import inv_logit, logit
             from .player_model import match_player, prob_over
@@ -266,6 +267,10 @@ def evaluate_line_adjusted(evd: dict, quotes: list[OddsQuote], names: dict[str, 
             if mk and (mk, market) in model:
                 mu, pr = model[(mk, market)]
                 p_raw = min(max(prob_over(market, mu, line), 0.005), 0.995)
+                mu_a = pr.mu_alt.get(market)
+                if mu_a is not None:   # experiment 25/11: samma modell med brorsens elasticiteter, bara för loggning
+                    extra = {"p_raw": round(p_raw, 4), "mu": round(mu, 3), "mu_alt": round(mu_a, 3),
+                             "p_raw_alt": round(min(max(prob_over(market, mu_a, line), 0.005), 0.995), 4)}
                 if gaps_out is not None:
                     if 0.15 <= p_adj <= 0.85:
                         gaps_out.append((market, logit(p_raw) - logit(p_adj)))
@@ -313,7 +318,10 @@ def evaluate_line_adjusted(evd: dict, quotes: list[OddsQuote], names: dict[str, 
         if d.cand.edge > settings["max_plausible_edge"]:
             d.playable, d.stake = False, 0.0
             d.reasons.append(f"edge över {settings['max_plausible_edge']:.0%} – orimligt, kontrollera")
-        out.append(ScanRow("fotboll", title, kickoff, Row(d, p_mod, p_k, 0.0), 1))
+        sr = ScanRow("fotboll", title, kickoff, Row(d, p_mod, p_k, 0.0), 1)
+        if extra:
+            sr.extra = extra
+        out.append(sr)
     apply_portfolio_limits([r.row.decision for r in out], cfg.decision)
     return out, info
 
