@@ -27,6 +27,11 @@ def record_hyb(root: Path, hyb_rows: list, cur_rows: list, evd_by_id: dict, data
     rows = [r for r in hyb_rows if r.row.decision.cand.market in allowed]
     cons_n = cons_hit = 0
     cons_edges: list[float] = []
+    try:   # konsensusens antagna marginal för ensidiga priser: anpassad mot utfall när det finns underlag (benlogg.py)
+        from . import benlogg
+        margin = benlogg.consensus_margin(root, settings)
+    except Exception:  # noqa: BLE001
+        benlogg, margin = None, settings.get("propline_one_sided_margin", 0.07)
     try:   # konsensus av oberoende bolag (PropLine): loggas på varje ben och är en egen bokföringsarm
         from .consensus import consensus_p
         qs_by_match = {evd["id"]: qs for evd, qs, _nm in data}
@@ -41,8 +46,7 @@ def record_hyb(root: Path, hyb_rows: list, cur_rows: list, evd_by_id: dict, data
         if consensus_p:
             try:
                 cons = consensus_p(qs_by_match.get(c.match_id, []), c.player_id, c.market, c.line,
-                                   settings.get("propline_one_sided_margin", 0.07),
-                                   settings.get("propline_min_voices", 2))
+                                   margin, settings.get("propline_min_voices", 2))
             except Exception:  # noqa: BLE001
                 cons = None
             if cons:
@@ -53,20 +57,33 @@ def record_hyb(root: Path, hyb_rows: list, cur_rows: list, evd_by_id: dict, data
                 cons_hit += cons_ok
                 ex = dict(getattr(r, "extra", None) or {})
                 ex.update(p_cons=cons["p"], n_cons=cons["n"], vox=",".join(cons["voices"]),
-                          cons_spread=cons["spread"], edge_cons=round(e_c, 4))
+                          cons_spread=cons["spread"], edge_cons=round(e_c, 4), parts=cons.get("parts"))
                 r.extra = ex
         arm = "båda" if model_ok and cons_ok else "modell" if model_ok else "konsensus" if cons_ok else ""
         if arm:
             r.extra = dict(getattr(r, "extra", None) or {}, arm=arm)
         d.playable = bool(arm)
         d.show = True
+    # Startelvespärren körs på ALLA ben (inte bara de med arm) så att benlogg kan bokföra alla bekräftade startande.
+    arm_play = {id(r): r.row.decision.playable for r in rows}
+    for r in rows:
+        r.row.decision.playable = True
     try:   # bara bekräftade startande spelare (annars skulle bänkade spelare dra ner träffen)
         from .free_scan import apply_lineups
-        diag.log(f"Spelarprops-test startelvor: {apply_lineups(root, rows, data, settings)}")
+        diag.log(f"Spelarprops-test startelvor (alla ben): {apply_lineups(root, rows, data, settings)}")
     except Exception as e:  # noqa: BLE001
         diag.log(f"Spelarprops-test startelvor: FEL {type(e).__name__}: {e}")
         for r in rows:
             r.row.decision.playable = False
+    lu_ok = {id(r) for r in rows if r.row.decision.playable}
+    all_led = None
+    if benlogg:
+        try:
+            all_led = benlogg.record_all(root, rows, evd_by_id)
+        except Exception as e:  # noqa: BLE001
+            diag.log(f"Benlogg: FEL {type(e).__name__}: {str(e)[:150]}")
+    for r in rows:
+        r.row.decision.playable = bool(arm_play[id(r)] and id(r) in lu_ok)
     if cons_n:
         diag.log(f"Spelarprops-konsensus: finns för {cons_n} av {len(rows)} ben, snitt edge mot konsensus "
                  f"{sum(cons_edges) / cons_n:+.1%}, {cons_hit} med minst {MIN_EDGE:.0%}")
@@ -82,6 +99,11 @@ def record_hyb(root: Path, hyb_rows: list, cur_rows: list, evd_by_id: dict, data
     if skarp:
         skarp(led)
     led.save()
+    if all_led is not None:
+        try:
+            benlogg.finish(root, all_led, JsonClient(root / ".cache_odds", ttl_s=900), settings, diag)
+        except Exception as e:  # noqa: BLE001
+            diag.log(f"Benlogg: FEL {type(e).__name__}: {str(e)[:150]}")
     n_edge = sum(1 for r in rows if r.row.decision.cand.edge >= MIN_EDGE)
     diag.log(f"Spelarprops-test: {len(rows)} ben med hybridmodell, {n_edge} med minst {MIN_EDGE:.0%} edge (modell), "
              f"{len(new)} nya bokförda, {len(led.bets)} totalt")

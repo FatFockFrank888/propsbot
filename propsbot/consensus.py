@@ -37,13 +37,34 @@ def consensus_p(quotes: list, player_id: str, market: str, line: float, margin: 
         d = by_voice.setdefault(v, {})
         d[q.side] = max(d.get(q.side, 0.0), q.odds)
     ps = {}
-    for v, d in by_voice.items():
+    parts = []   # per röst: "p<v>" = tvåsidigt avmarginaliserad, "q<v>" = ensidigt 1/odds (marginalen läggs på efteråt)
+    for v, d in sorted(by_voice.items()):
         if "over" in d and "under" in d:
             ps[v] = _devig_pair(d["over"], d["under"])
+            parts.append(f"p{ps[v]:.4f}")
         elif "over" in d:
             ps[v] = min(0.99, 1.0 / (d["over"] * (1 + margin)))
+            parts.append(f"q{1.0 / d['over']:.4f}")
     if len(ps) < min_voices:
         return None
     x = sum(math.log(p / (1 - p)) for p in ps.values()) / len(ps)
     return {"p": round(1 / (1 + math.exp(-x)), 4), "n": len(ps), "voices": sorted(ps),
-            "spread": round(max(ps.values()) - min(ps.values()), 3)}
+            "spread": round(max(ps.values()) - min(ps.values()), 3), "parts": ";".join(parts)}
+
+
+def p_from_parts(parts: str, margin: float) -> float | None:
+    """Räknar om konsensusen ur sparade delar med en annan antagen marginal för ensidiga priser."""
+    ps = []
+    for tok in (parts or "").split(";"):
+        if len(tok) < 2:
+            continue
+        try:
+            v = float(tok[1:])
+        except ValueError:
+            continue
+        ps.append(v if tok[0] == "p" else min(0.99, v / (1 + margin)) if tok[0] == "q" else None)
+    ps = [p for p in ps if p is not None and 0 < p < 1]
+    if len(ps) < 2:
+        return None
+    x = sum(math.log(p / (1 - p)) for p in ps) / len(ps)
+    return 1 / (1 + math.exp(-x))

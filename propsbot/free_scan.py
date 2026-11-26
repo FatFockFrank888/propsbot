@@ -279,17 +279,22 @@ def apply_lineups(root: Path, rows: list[ScanRow], data: list, settings: dict) -
         if not evd:
             continue
         mtk = (evd["commence_time"] - now) / 60
+        r.lu_state = "okänd"      # start = bekräftad startspelare, bänk, väntar (spärr), okänd (ingen elva att gå på)
         # Startelvan används när den finns (ESPN har matchen); annars bortser vi från den.
         lu = lus.get(evd["id"], evd["home_team"], evd["away_team"], evd["commence_time"])
         why = gate(lu, mtk, settings)
         if why:
+            r.lu_state = "väntar"
             _block(d, why)
             n_wait += 1
             continue
         if lu is not None and lu.published and lu.starts(d.cand.player_name) is False:
+            r.lu_state = "bänk"
             _block(d, "inte i startelvan")
             n_bench += 1
             continue
+        if lu is not None and lu.published and lu.starts(d.cand.player_name):
+            r.lu_state = "start"
         n_ok += 1
     return f"{n_ok} spelbara ben klara, {n_wait} väntar på startelvan, {n_bench} stoppade (inte i startelvan)"
 
@@ -350,6 +355,11 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
     margin_logged = False
     books: set[str] = set()
     store = Store(root / "propsbot.sqlite")
+    try:   # nivåkalibrering mot utfall (startvärden + egna avgjorda ben), används av line_adjust
+        from . import benlogg
+        benlogg.load_cal(root)
+    except Exception as e:  # noqa: BLE001
+        diag.log(f"Nivåkalibrering: FEL {type(e).__name__}: {str(e)[:120]}")
     pm = None
     if settings.get("use_player_model"):
         from .player_model import PlayerModel
@@ -507,7 +517,10 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
     playable = [r for r in rows if r.row.decision.playable and r.row.decision.show]
     if pm:
         n_mod = sum(1 for r in rows if r.row.p_model == r.row.p_model)  # inte NaN
-        diag.log(f"Spelarmodell: {n_mod} av {len(rows)} ben har modell, "
+        n_mod_t = sum(1 for r in shadow_rows if r.row.p_model == r.row.p_model)
+        act = settings.get("model_mode") == "aktiv"
+        diag.log(f"Spelarmodell ({'aktiv: styr spelen' if act else 'testläge: styr inte spelen'}): "
+                 f"{n_mod} av {len(rows)} huvudben, {n_mod_t} av {len(shadow_rows)} testben har modell, "
                  f"{pm.store.fetched} nya matcher hämtade från ESPN")
     for label_, rr in (("marknad", rows), ("modelltest", shadow_rows)):
         for mk in ("goal", "assist", "shots_on_target", "shots"):
