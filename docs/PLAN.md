@@ -4,6 +4,23 @@
 Risker, Byggplan) och **väntar på godkännande**. Fotbollens spelarprops har en egen plan: `docs/PLAN_FOOTBALL_PROPS.md`.
 Siffrorna kommer från grenen `data` (ögonblicksbild 26/11) och testsviten (250 gröna).
 
+## Status 2026-11-26
+
+| Fas | Status | Filer |
+|---|---|---|
+| 1 Devig | klar | `propsbot/quant/devig.py`, `tests/test_quant_devig.py` |
+| 2 Walk-forward | klar | `propsbot/quant/walk_forward.py`, `tests/test_quant_walk_forward.py` |
+| 3 Dataset | klar | `propsbot/quant/dataset.py`, `tests/test_quant_dataset.py` |
+| 4 Residual + kalibrering | klar | `propsbot/quant/residual.py`, `calibration.py`, `tests/test_quant_residual.py` |
+| 5 Spridning | klar | `propsbot/quant/dispersion.py`, `tests/test_quant_dispersion.py` |
+| 6 Kelly | klar, skugga i tiers (`kelly_pct`, `kelly_u`) | `propsbot/quant/kelly.py`, `tests/test_quant_kelly.py`, `tests/test_quant_shadow.py` |
+| 7 Utvärdering | klar, körd på NBA | `propsbot/quant/evaluate.py`, `tools/quant_report.py`, `KVANTRAPPORT_NBA_2026-11-26.md` |
+| 8 Skugginkoppling NBA (p_resid) | väntar | Rapporten visar att residualen inte slår marknaden än, så det finns inget att logga som tillför något. Görs när residualen med mål = stängning slår marknaden i ≥ 2/3 av vecken |
+| 9 LightGBM | väntar | n-grind ≥ 3 000 per sport |
+
+Ändrat kriterium i fas 4: "brusfeatures ger |medel delta_logit| < 0,02" byttes mot "< 3 standardfel för interceptet".
+0,02 låg under samplingsbruset (SE ≈ 0,017 vid n = 15 000). Log-loss-villkoret står kvar.
+
 ## 0. Sammanfattning
 
 Stora delar av specen finns redan: power-devig, negativ binomial, en marknadsankrad logit-blandning, CLV mot skarp
