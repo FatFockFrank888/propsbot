@@ -1,10 +1,24 @@
-"""Engångssond: API-Football (nyckel API_FOOTBALL_KEY). Max ~7 anrop. Skriver aldrig nyckeln."""
-import json, os, sys, time, urllib.request, urllib.error
-from datetime import datetime, timezone, timedelta
+"""Kontroll av två nycklar: ODDS_API_KEY (The Odds API, gratis /sports) och API_FOOTBALL_KEY (API-Football). Skriver aldrig nycklarna."""
+import json, os, sys, urllib.request, urllib.error, urllib.parse
 
-KEY = (os.environ.get("API_FOOTBALL_KEY") or "").strip()
-if not KEY:
-    sys.exit("API_FOOTBALL_KEY saknas")
+ok = (os.environ.get("ODDS_API_KEY") or "").strip()
+print("ODDS_API_KEY satt:", bool(ok), "| längd:", len(ok))
+if ok:
+    try:
+        with urllib.request.urlopen(urllib.request.Request("https://api.the-odds-api.com/v4/sports/?" + urllib.parse.urlencode({"apiKey": ok}), headers={"User-Agent": "propsbot"}), timeout=30) as r:
+            h = {k.lower(): v for k, v in r.headers.items()}
+            print("THE ODDS API", r.status, "| sporter:", len(json.loads(r.read())), "| krediter kvar:", h.get("x-requests-remaining"))
+    except urllib.error.HTTPError as e:
+        print("THE ODDS API", e.code, e.read()[:120].decode("utf8", "replace"))
+fk = (os.environ.get("API_FOOTBALL_KEY") or "").strip()
+print("API_FOOTBALL_KEY satt:", bool(fk), "| längd:", len(fk), "| samma som ODDS_API_KEY:", bool(fk) and fk == ok)
+if not fk:
+    sys.exit(0)
+from datetime import datetime, timezone, timedelta
+import time
+
+
+KEY = fk
 BASE = "https://v3.football.api-sports.io"
 
 def get(path):
