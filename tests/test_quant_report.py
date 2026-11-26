@@ -39,3 +39,30 @@ def test_report_runs_and_is_summary_only(tmp_path):
 def test_report_requires_input():
     with pytest.raises(SystemExit):
         quant_report.main([])
+
+
+def test_weight_grid_and_settings(tmp_path):
+    import gzip
+    import random as _r
+    rnd = _r.Random(9)
+    rader = []
+    for i in range(600):
+        pk = rnd.uniform(0.3, 0.7)
+        rader.append({"match_id": f"m{i // 10}", "avspark": 1e9 + (i // 10) * 86400, "t0": 1e9 + (i // 10) * 86400 - 3600,
+                      "pk": pk, "pm": min(0.95, max(0.05, pk + rnd.uniform(-0.15, 0.15))), "dq": 1.0,
+                      "y": 1 if rnd.random() < pk else 0})
+    g = quant_report.weight_grid(rader)
+    assert g["folds"] >= 1 and set(g["chosen"]) <= set(quant_report.W_GRID)
+    assert g["logloss"][0.0] <= g["logloss"][0.3]           # marknaden rätt -> hög vikt straffas
+    f = tmp_path / "k.json.gz"
+    with gzip.open(f, "wt", encoding="utf-8") as fh:
+        json.dump({"rader": rader}, fh)
+    out = tmp_path / "r.md"
+    quant_report.main(["--kalib", str(f), "--out", str(out)])
+    assert "Modellvikt" in out.read_text(encoding="utf-8")
+    # blandningen i rapporten är samma som i boten
+    from propsbot.nba import coherent_blend
+    r = rader[0]
+    assert abs(quant_report.blend_p(r, 0.075) - coherent_blend(r["pm"], r["pk"], 0.0, 0.075, 1.0)[1]) < 1e-6
+    s = json.loads((Path(__file__).resolve().parents[1] / "settings.json").read_text(encoding="utf-8"))
+    assert s["nba_model_weight"] == 0.075

@@ -141,7 +141,49 @@ def tiers_vs_kelly(tb: list[dict]) -> dict:
     return out
 
 
-def report(ledger: Path | None, tiers: Path | None, sport: str = "nba") -> str:
+W_GRID = (0.0, 0.025, 0.05, 0.075, 0.1, 0.15, 0.2, 0.3)
+
+
+def blend_p(r: dict, w0: float, key: str = "pm") -> float:
+    """Samma regel som nba.coherent_blend: w = w0·dq, halverad när modellen avviker > 1 i logit."""
+    pm = r.get(key)
+    if pm is None:
+        return r["pk"]
+    lm, lk = base_logit(pm), base_logit(r["pk"])
+    w = w0 * (r.get("dq") or 1.0) * (0.5 if abs(lm - lk) > 1.0 else 1.0)
+    return 1 / (1 + math.exp(-(w * lm + (1 - w) * lk)))
+
+
+def weight_grid(kal_rows: list[dict], key: str = "pm", n_folds: int = 4) -> dict:
+    """Walk-forward över modellvikten w0 på kalibreringsloggen (alla ben, över-orienterade pm/pk/y)."""
+    rows = [{"ts": r["avspark"], "prognos_ts": r.get("t0"), **r} for r in kal_rows
+            if r.get("y") in (0, 1) and r.get("pk") is not None and r.get(key) is not None
+            and r.get("avspark") is not None and (r.get("t0") or 0) <= r["avspark"]]
+    if len({r.get("match_id") for r in rows}) < n_folds + 2:
+        return {"n": len(rows), "folds": 0, "chosen": [], "logloss": {}, "vald_ci": (math.nan, math.nan)}
+    folds = splits(rows, n_folds=n_folds, embargo_s=6 * 3600)
+    tot = {w: [0.0, 0] for w in W_GRID}
+    chosen, diffs = [], []
+    for f in folds:
+        assert_no_leak(rows, f)
+        fit = [rows[i] for i in f.train + f.val]
+        te = [rows[i] for i in f.test]
+        best = min(W_GRID, key=lambda w: evaluate.logloss([blend_p(r, w, key) for r in fit], [r["y"] for r in fit]))
+        chosen.append(best)
+        y = [r["y"] for r in te]
+        for w in W_GRID:
+            tot[w][0] += evaluate.logloss([blend_p(r, w, key) for r in te], y) * len(te)
+            tot[w][1] += len(te)
+        for r in te:
+            ll = lambda p: -(r["y"] * math.log(p) + (1 - r["y"]) * math.log(1 - p))
+            diffs.append((ll(blend_p(r, best, key)) - ll(min(max(r["pk"], 1e-4), 1 - 1e-4)), r["match_id"]))
+    ll = {w: s / n for w, (s, n) in tot.items() if n}
+    xs, gs = zip(*diffs) if diffs else ((), ())
+    return {"n": len(rows), "folds": len(folds), "chosen": chosen, "logloss": ll,
+            "vald_ci": evaluate.boot_ci(xs, gs) if xs else (math.nan, math.nan)}
+
+
+def report(ledger: Path | None, tiers: Path | None, sport: str = "nba", kalib: Path | None = None) -> str:
     L = [f"# Kvantrapport ({sport})", "", "Walk-forward (3 veck, grupperat per match, 6 h embargo). Test = osedd data i varje veck.", ""]
     if ledger:
         bets = json.loads(Path(ledger).read_text(encoding="utf-8"))
@@ -169,6 +211,24 @@ def report(ledger: Path | None, tiers: Path | None, sport: str = "nba") -> str:
             L += ["NB-form r skattad ur (väntat, utfall), momentmetod:", "", "| Marknad | n | r̂ |", "|---|---|---|"]
             L += [f"| {m} | {n} | {r:.1f} |" for m, (n, r) in sorted(ds.items(), key=lambda x: -x[1][0])]
             L.append("")
+    if kalib:
+        import gzip
+        op = gzip.open if str(kalib).endswith(".gz") else open
+        with op(kalib, "rt", encoding="utf-8") as fh:
+            kd = json.load(fh)
+        kr = kd.get("rader", kd) if isinstance(kd, dict) else kd
+        L += ["## Modellvikt (w0) walk-forward på kalibreringsloggen", "",
+              "| Modell | n | veck | vald w0 per veck | Δ log-loss mot marknad: " + " · ".join(f"{w:g}" for w in W_GRID) + " | vald vs marknad, 95 % CI |",
+              "|---|---|---|---|---|---|"]
+        for key, name in (("pm", "spelarmodell"), ("pf", "faktormodell"), ("pb", "betygsmodell")):
+            g = weight_grid(kr, key)
+            if not g["logloss"]:
+                continue
+            b = g["logloss"][0.0]
+            L.append(f"| {name} | {g['n']} | {g['folds']} | {g['chosen']} | "
+                     + " · ".join(f"{g['logloss'][w] - b:+.4f}" for w in W_GRID)
+                     + f" | {g['vald_ci'][0]:+.4f} … {g['vald_ci'][1]:+.4f} |")
+        L.append("")
     if tiers:
         d = json.loads(Path(tiers).read_text(encoding="utf-8"))
         t = tiers_vs_kelly(d.get("bets", d) if isinstance(d, dict) else d)
@@ -187,11 +247,12 @@ def main(argv=None):
     ap.add_argument("--ledger", type=Path)
     ap.add_argument("--tiers", type=Path)
     ap.add_argument("--sport", default="nba")
+    ap.add_argument("--kalib", type=Path, help="nba_kalibrering.json(.gz) för viktanalysen")
     ap.add_argument("--out", type=Path)
     a = ap.parse_args(argv)
-    if not a.ledger and not a.tiers:
-        ap.error("ange --ledger och/eller --tiers")
-    txt = report(a.ledger, a.tiers, a.sport)
+    if not a.ledger and not a.tiers and not a.kalib:
+        ap.error("ange --ledger, --tiers och/eller --kalib")
+    txt = report(a.ledger, a.tiers, a.sport, a.kalib)
     if a.out:
         a.out.write_text(txt, encoding="utf-8")
     print(txt)

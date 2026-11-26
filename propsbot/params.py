@@ -53,6 +53,9 @@ def all_params(settings_path: Path) -> dict:
         ("Insats (A/B)", f"flat 1–3u, 1u = {_pct(t['tier_unit'])} av kassan",
          f"1u standard. 2u high: edge ≥ {_pct(t['tier_2u_edge'])}. 3u maxbet: edge {_pct(t['tier_3u_edge'])}–{_pct(t['tier_3u_max_edge'])} "
          "med Pinnacle som referens och sharp money med oss (högre edge är oftast fel i linjen). Ingen Kelly."),
+        ("Kelly-skugga (A/B/C)", "¼ Kelly, tak 2 % (2u), bara bokföring",
+         "Varje tier-spel får kelly_pct och kelly_u (¼ Kelly på bokförd sannolikhet, 1u = 1 %). Styr inte units eller "
+         "notiser: insatsen är flat 1–3u. Jämförs i tools/quant_report.py (docs/PLAN.md fas 6)."),
         ("Tak (A/B)", "inga", "Inga dags- eller matchbudgetar (18/11): du väljer själv vilka spel du tar. Alla A- och B-spel räknas som spelade."),
         ("Odds Alert (oddsvakt)", ("på" if ov["oddsvakt_on"] else "av") + f", läsning var {ov['oddsvakt_poll_s']} s, "
          f"{ov['oddsvakt_bekrafta']} läsningar i rad, högst en notis per spel och {ov['oddsvakt_cooldown_s'] // 60} min",
@@ -177,6 +180,11 @@ def all_params(settings_path: Path) -> dict:
         ("LIVE: oddsram", _odds(llo, lhi), ""),
         ("LIVE: risk", f"max {_u(s.get('live_max_units', 10))}/spel i LIVE-bokföringen; inga tak per match eller dag",
          "Taken togs bort 18/11 (du väljer själv). Insatsen du spelar är nivåernas flat 1–3u."),
+        ("Modellen: vikt i blandningen", f"{s.get('nba_model_weight', 0.075):g} × dq (halveras vid stor avvikelse)",
+         "Logit-blandning modell/marknad i modelltestets analys och skuggfälten (p_blend, p_faktorer, p_betyg). "
+         "Sänkt från 0,3 den 26/11: stängningen rör sig 7,5 % av vägen mot modellen och walk-forward på 5 374 ben "
+         "valde 0,075–0,1; 0,3 var sämre än marknaden på points, pra och assists (KVANTRAPPORT_NBA_2026-11-26.md). "
+         "Vad modelltestet bokar avgörs av kalibreringen nedan."),
         ("Modellen: kalibrering", "automatisk, per marknad, prövad framåt",
          "Alla ben modellen räknar på loggas och rättas (inte bara de som bokas). Varje körning prövas tre varianter på de "
          "nyaste avgjorda benen: marknaden, kalibrerad marknad och marknad + modellens avvikelser. Modellen får vikt bara "

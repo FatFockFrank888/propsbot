@@ -19,7 +19,18 @@ Data: grenen `data` 26/11 (`nba_modelltest.json` 1 214 rader, `tiers.json` 1 209
    Residual mot utfall överanpassar (+0,008). Det stöder att träna mot stängningen och vänta med LightGBM.
 5. **NB-form:** r̂ points 8 (i dag 15), rebounds 13 (10), assists ≈ Poisson (10), pr 5. n = 41–71: för litet för
    att ändra `NB_R`, men points kan vara underspridd i modellen. Följs upp när n ≥ 150 per marknad.
-6. **Insats:** tiers 1–3u ligger 2,1 × över ¼ Kelly vid odds 3–6,5 (99 % av spelen över Kelly) och under Kelly vid
+6. **Insats:** flat 1–3u behålls (beslut 26/11). Jämförelsen mot ¼ Kelly nedan är bara information.
+   Kelly-fälten på tier-spelen är ren loggning.
+7. **Beslut 26/11: modellvikten sänks från 0,3 till 0,075** (`nba_model_weight`, modellversion `2026-11-26-vikt0075`).
+   Två oberoende skattningar ger samma svar: stängningens rörelse mot modellen (lutning 0,075) och walk-forward på
+   kalibreringsloggen (5 374 ben, 44 matcher), där vikten valdes till 0,1 och 0,075 i respektive veck.
+   0,3 var sämre än marknaden på points, pra och assists. Vinsten är liten och osäker (intervallet för vald vikt mot
+   marknaden täcker 0), så det viktiga är att 0,3 var för högt, inte att 0,075 är exakt rätt.
+   Vad som påverkas: `p_blend` och skuggfälten `p_faktorer`/`p_betyg` i modelltestet. LIVE (marknaden + modellens
+   veto) och vad modelltestet bokar (kalibreringen M0/M1/M2) påverkas inte.
+   Viktanalysen körs om med `--kalib nba_kalibrering.json.gz`.
+
+Tidigare punkt 6 (insats), som underlag: tiers 1–3u ligger 2,1 × över ¼ Kelly vid odds 3–6,5 (99 % av spelen över Kelly) och under Kelly vid
    odds 1,4–2. Exponeringen per match och dag är som mest 12 %, och 21 % av matcherna ligger över 3,5 %.
    Kelly-förslaget bokförs nu som `kelly_pct`/`kelly_u` på varje tier-spel (skugga), så jämförelsen kan göras på
    resultat när det finns ≥ 150 nya avgjorda.
@@ -27,6 +38,16 @@ Data: grenen `data` 26/11 (`nba_modelltest.json` 1 214 rader, `tiers.json` 1 209
 Fotboll: benloggen har 0 avgjorda ben med marknadens p (start 25/11). Rapporten körs när det finns ≥ 150.
 
 ## Rådata från rapporten
+
+
+## Modellvikt (w0) walk-forward på kalibreringsloggen
+
+| Modell | n | veck | vald w0 per veck | Δ log-loss mot marknad: 0 · 0.025 · 0.05 · 0.075 · 0.1 · 0.15 · 0.2 · 0.3 | vald vs marknad, 95 % CI |
+|---|---|---|---|---|---|
+| spelarmodell | 5374 | 2 | [0.1, 0.075] | +0.0000 · -0.0001 · -0.0002 · -0.0002 · -0.0003 · -0.0003 · -0.0002 · +0.0000 | -0.0016 … +0.0009 |
+| faktormodell | 5374 | 2 | [0.0, 0.0] | +0.0000 · -0.0001 · -0.0003 · -0.0004 · -0.0005 · -0.0006 · -0.0006 · -0.0005 | +0.0000 … +0.0000 |
+| betygsmodell | 5374 | 2 | [0.05, 0.05] | +0.0000 · -0.0000 · -0.0001 · -0.0001 · -0.0001 · +0.0000 · +0.0002 · +0.0008 | -0.0008 … +0.0007 |
+
 
 Walk-forward (3 veck, grupperat per match, 6 h embargo). Test = osedd data i varje veck.
 

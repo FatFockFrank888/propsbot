@@ -78,7 +78,7 @@ Kambi-bolagen (en röst) ────┴─> marknadens p ──> blandning i lo
 | `propsbot/kambi.py` | Hittar bolag med samma leverantör, Kambis huvudpris (median), eftersläpning per bolag, eftersläpande priser |
 | `propsbot/blend.py` | Modellvikt (startelva, Pinnacle, oenighet, marknad), nivåkalibrering, klustrat standardfel per match |
 | `propsbot/decision.py` | Edge ≥ 2 % (4 % mål/assist), odds 1,40–6,00, spela från, ¼ Kelly, ett ben per spelare och familj, tak per match, stoppregler |
-| `propsbot/quant/` | Kvantlager i skuggläge (docs/PLAN.md): power-devig med k, walk-forward per match med embargo och läckagekontroll, dataset ur bokföringarna, marknadsankrad residual (logit-offset), Platt/isotonisk kalibrering, NB-form ur residualer, ¼ Kelly med korrelationstak, mått och befordringsregel. `python tools/quant_report.py --ledger nba_modelltest.json --tiers tiers.json` |
+| `propsbot/quant/` | Kvantlager i skuggläge (docs/PLAN.md): power-devig med k, walk-forward per match med embargo och läckagekontroll, dataset ur bokföringarna, marknadsankrad residual (logit-offset), Platt/isotonisk kalibrering, NB-form ur residualer, ¼ Kelly med korrelationstak, mått och befordringsregel. `python tools/quant_report.py --ledger nba_modelltest.json --tiers tiers.json --kalib nba_kalibrering.json.gz` (även viktanalys för NBA-modellen) |
 | `propsbot/store.py` | SQLite-logg: beräkningar, stängning, utfall → CLV och kalibrering |
 | `propsbot/sources/` | Inläsning. `json_source.py` läser formatet i `examples/match.json` |
 
