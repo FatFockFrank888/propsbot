@@ -30611,7 +30611,7 @@
 "p_marknad": 0.5514627627080392,
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795658092.4694443,
+"stangning_ts": 1795658974.9781349,
 "analys": {
 "p_stack": 0.6468,
 "p_modell_min": 0.5559,
@@ -30795,11 +30795,11 @@
 ]
 },
 "prognos": 7.363150525904769,
-"analys_ts": 1795658092.563615,
+"analys_ts": 1795658975.0585482,
 "modellversion": "2026-11-15-betyg",
 "prognos_ts": 1795612698.6549063,
 "skarp_stang_p": 0.617165776919415,
-"skarp_stang_ts": 1795658092.3697505,
+"skarp_stang_ts": 1795658974.8835957,
 "skarp_kalla": "skanning",
 "dk_stang_p": 0.543542650554574,
 "bolag_bokning": {
@@ -30821,7 +30821,7 @@
 "dk_p": 0.5514627627080393
 },
 "bolag_stangning": {
-"ts": 1795658092.589538,
+"ts": 1795658975.0687356,
 "odds": {
 "unibet": {
 "over": 1.66,
@@ -30843,8 +30843,8 @@
 "pin_p": 0.617165776919415,
 "dk_p": 0.543542650554574
 },
-"bolag_stang_ts": 1795658092.589538,
-"skarp_verifierad": false,
+"bolag_stang_ts": 1795658975.0687356,
+"skarp_verifierad": true,
 "skarp_status": null,
 "clv_skarp_pp": 9.903106189350819,
 "clv_pin_pp": 9.903106189350819,
@@ -34648,5 +34648,303 @@
 "clv_skarp_pp": 3.062122739404838,
 "clv_pin_pp": 3.062122739404838,
 "clv_dk_pp": null
+},
+{
+"key": "nba1028744807|stephon castle|assists|7.5|unibet",
+"id": 554,
+"bokford": 1795658974.978104,
+"match_id": "nba1028744807",
+"match": "Portland Trail Blazers – San Antonio Spurs",
+"hemma": "Portland Trail Blazers",
+"borta": "San Antonio Spurs",
+"liga": "NBA",
+"avspark": 1795662000.0,
+"spelare": "Stephon Castle",
+"spelare_id": "stephon castle",
+"marknad": "assists",
+"linje": 7.5,
+"sida": "over",
+"bolag": "unibet",
+"odds": 2.18,
+"sannolikhet": 0.49888524974583703,
+"ratt_odds": 2.0044689645754445,
+"edge": 0.08756984444592475,
+"spela_fran": 2.05,
+"insats_pct": 0.014594508289720665,
+"stangning": 2.18,
+"status": "öppen",
+"stopp": "sharp money med oss: referensen +5.4 enheter",
+"clv_signal": false,
+"forv_clv_pp": 6.725560856560894,
+"p_modell": null,
+"p_marknad": 0.49888524974583703,
+"utfall": null,
+"resultat_enheter": null,
+"stangning_ts": 1795658974.9781349,
+"analys": {
+"p_stack": 0.4991,
+"p_modell_min": 0.4336,
+"minuter": 33.9,
+"minuter_sd": 4.6,
+"p_faktorer": 0.4553,
+"p_faktorer_ra": 0.3245,
+"vantat_faktorer": 6.42,
+"p_betyg": 0.4472,
+"p_betyg_ra": 0.2953,
+"vantat_betyg": 6.11,
+"minuter_faktorer": 30.4,
+"f_anv": 1.0,
+"f_miljo": 1.007,
+"f_tempo": 1.0,
+"f_pos": 0.962,
+"f_mot": 1.014,
+"f_minuter_bas": 30.9,
+"f_b2b": false,
+"f_tre_pa_fyra": false,
+"f_minutbegransning": false,
+"f_tillbaka": false,
+"f_miljo_kalla": "pinnacle",
+"f_lag_poang": 115.2,
+"f_mot_n": 2,
+"traff_l5": 0.6,
+"traff_l5_n": 5,
+"traff_l10": 0.3,
+"traff_l10_n": 10,
+"traff_sasong": 0.278,
+"traff_sasong_n": 18,
+"traff_mot": 0.5,
+"traff_mot_n": 2,
+"traff_hemmaborta": 0.5,
+"traff_hemmaborta_n": 8,
+"p_kalib": 0.4989,
+"p_blend": 0.4825,
+"kalib_modell": "M0",
+"p_modell": 0.4309,
+"p_marknad": 0.4989,
+"p_slutlig": 0.4825,
+"vantat": 7.29,
+"nb_r": 10,
+"modell_vikt": 0.24,
+"dq": 0.8,
+"matcher": 12,
+"nivajustering": 0.0,
+"logg": [
+{
+"ts": 1795489200.0,
+"mot": "SAC",
+"hemma": false,
+"min": 37.0,
+"v": 11.0
+},
+{
+"ts": 1795309200.0,
+"mot": "NO",
+"hemma": true,
+"min": 29.0,
+"v": 6.0
+},
+{
+"ts": 1795136400.0,
+"mot": "LAC",
+"hemma": true,
+"min": 33.0,
+"v": 12.0
+},
+{
+"ts": 1794963600.0,
+"mot": "DET",
+"hemma": true,
+"min": 31.0,
+"v": 7.0
+},
+{
+"ts": 1794780000.0,
+"mot": "UTAH",
+"hemma": false,
+"min": 35.0,
+"v": 9.0
+},
+{
+"ts": 1794623400.0,
+"mot": "GS",
+"hemma": true,
+"min": 25.0,
+"v": 6.0
+},
+{
+"ts": 1794445200.0,
+"mot": "CHI",
+"hemma": false,
+"min": 29.0,
+"v": 3.0
+},
+{
+"ts": 1794276000.0,
+"mot": "PHX",
+"hemma": false,
+"min": 30.0,
+"v": 7.0
+},
+{
+"ts": 1794106800.0,
+"mot": "POR",
+"hemma": false,
+"min": 24.0,
+"v": 5.0
+},
+{
+"ts": 1794020400.0,
+"mot": "SAC",
+"hemma": false,
+"min": 28.0,
+"v": 7.0
+}
+],
+"franvaro": [
+{
+"namn": "Dylan Harper",
+"status": "out",
+"min": 31.0,
+"redan_borta": true
+},
+{
+"namn": "Victor Wembanyama",
+"status": "day-to-day",
+"min": 29.9,
+"redan_borta": false
+},
+{
+"namn": "De'Aaron Fox",
+"status": "day-to-day",
+"min": 27.7,
+"redan_borta": false
+}
+],
+"lag": "San Antonio Spurs",
+"mot": "POR",
+"hemma": false,
+"minuter_sd_faktorer": 4.6,
+"ref": {
+"pin_p": 0.5022222681773608,
+"dk_p": 0.482205185025288,
+"pin_linje": null,
+"dk_linje": null,
+"pin_flyttad": false,
+"pin_komb": false
+},
+"odds_bolag": [
+{
+"bolag": "atg",
+"over": 2.18,
+"under": 1.62
+},
+{
+"bolag": "betmgm",
+"over": 2.18,
+"under": 1.63
+},
+{
+"bolag": "expekt",
+"over": 2.18,
+"under": 1.63
+},
+{
+"bolag": "kalshi",
+"over": 2.0,
+"under": 2.0
+},
+{
+"bolag": "leovegas",
+"over": 2.18,
+"under": 1.63
+},
+{
+"bolag": "paf",
+"over": 2.18,
+"under": 1.63
+},
+{
+"bolag": "pinnacle",
+"over": 1.862,
+"under": 1.877
+},
+{
+"bolag": "svenskaspel",
+"over": 2.18,
+"under": 1.63
+},
+{
+"bolag": "unibet",
+"over": 2.18,
+"under": 1.63
+},
+{
+"bolag": "us_draftkings",
+"over": 1.93,
+"under": 1.81
+}
+]
+},
+"prognos": 7.293815931962535,
+"analys_ts": 1795658975.0585482,
+"modellversion": "2026-11-15-betyg",
+"prognos_ts": 1795658974.978104,
+"skarp_stang_p": 0.49888524974583703,
+"skarp_stang_ts": 1795658974.8835957,
+"skarp_kalla": "skanning",
+"pin_stang_p": 0.5022222681773608,
+"dk_stang_p": 0.482205185025288,
+"bolag_bokning": {
+"ts": 1795658975.0687356,
+"odds": {
+"unibet": {
+"over": 2.18,
+"under": 1.63
+},
+"pinnacle": {
+"over": 1.862,
+"under": 1.877
+},
+"draftkings": {
+"over": 1.93,
+"under": 1.81
+}
+},
+"pin_flyttad": false,
+"pin_komb": false,
+"pin_linje": null,
+"dk_linje": null,
+"pin_p": 0.5022222681773608,
+"dk_p": 0.482205185025288
+},
+"bolag_stangning": {
+"ts": 1795658975.0687356,
+"odds": {
+"unibet": {
+"over": 2.18,
+"under": 1.63
+},
+"pinnacle": {
+"over": 1.862,
+"under": 1.877
+},
+"draftkings": {
+"over": 1.93,
+"under": 1.81
+}
+},
+"pin_flyttad": false,
+"pin_komb": false,
+"pin_linje": null,
+"dk_linje": null,
+"pin_p": 0.5022222681773608,
+"dk_p": 0.482205185025288
+},
+"bolag_stang_ts": 1795658975.0687356,
+"skarp_verifierad": true,
+"skarp_status": null,
+"clv_skarp_pp": 4.016965341556183,
+"clv_pin_pp": 4.350667184708562,
+"clv_dk_pp": 2.3489588695012777
 }
 ]
