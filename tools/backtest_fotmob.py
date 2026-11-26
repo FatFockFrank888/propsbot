@@ -171,7 +171,7 @@ def build(hist, tid):
     return acc, tot_w
 
 
-def predictions(hist, tid, conv):
+def predictions(hist, tid, conv, ctx=None):
     """pid -> dict(modell -> {marknad: mu}) för spelare med apps >= 2 (som produktionen)."""
     acc, tot_w = build(hist, tid)
     if not acc or tot_w <= 0:
@@ -195,6 +195,10 @@ def predictions(hist, tid, conv):
         for b in (0.25, 0.5):
             mods[f"M2_xG_b{b}"] = {"shots": ((1 - b) * r90["shots"] + b * r90["xg"] * conv["shots_per_xg"]) * f,
                                    "sot": ((1 - b) * r90["sot"] + b * r90["xgot"] * conv["sot_per_xgot"]) * f}
+        if ctx:
+            for e in (0.5, 1.0):
+                mods[f"M4_motst_e{e}"] = {mk: r0[mk] * (ctx["fdef"][mk] ** e) * (ctx["g"][mk] if ctx["home"] else 1.0 / ctx["g"][mk])
+                                          for mk in ("shots", "sot")}
         out[pid] = mods
     return out
 
@@ -210,6 +214,13 @@ def evaluate(matches):
     tot = {k: sum(p[k] for m in matches for p in m["players"]) for k in ("shots", "sot", "xg", "xgot")}
     conv = {"shots_per_xg": tot["shots"] / max(tot["xg"], 1e-9), "sot_per_xgot": tot["sot"] / max(tot["xgot"], 1e-9)}
     print(f"konvertering: skott per xG {conv['shots_per_xg']:.2f}, skott på mål per xGOT {conv['sot_per_xgot']:.2f}", flush=True)
+    tt = {}
+    for m in matches:
+        d = {m["h"]: {"shots": 0.0, "sot": 0.0}, m["a"]: {"shots": 0.0, "sot": 0.0}}
+        for p in m["players"]:
+            if p["tid"] in d:
+                d[p["tid"]]["shots"] += p["shots"]; d[p["tid"]]["sot"] += p["sot"]
+        tt[m["id"]] = d
     rows = []   # (split, marknad, linje, y, {modell: p})
     n_lineup = sum(1 for m in matches if m.get("have_lineup"))
     print(f"matcher {len(matches)}, med startelva i data {n_lineup}", flush=True)
@@ -222,7 +233,24 @@ def evaluate(matches):
             hist = team_hist(by_team, tid, m["ts"])
             if len(hist) < 4:
                 continue
-            pr = predictions(hist, tid, conv)
+            opp = m["a"] if tid == m["h"] else m["h"]
+            prior = [x for x in matches if x["ts"] < m["ts"]]
+            ctx = None
+            if len(prior) > 100:
+                ctx = {"home": tid == m["h"], "fdef": {}, "g": {}}
+                oh = team_hist(by_team, opp, m["ts"])
+                for mk in ("shots", "sot"):
+                    lg = sum(tt[x["id"]][x["h"]][mk] + tt[x["id"]][x["a"]][mk] for x in prior) / (2 * len(prior))
+                    hm = sum(tt[x["id"]][x["h"]][mk] for x in prior) / len(prior)
+                    aw = sum(tt[x["id"]][x["a"]][mk] for x in prior) / len(prior)
+                    num = den = 0.0
+                    for age, x in enumerate(oh):
+                        w = 0.5 ** (age / HL)
+                        other = x["a"] if opp == x["h"] else x["h"]
+                        num += w * tt[x["id"]][other][mk]; den += w
+                    ctx["fdef"][mk] = ((num + 3.0 * lg) / (den + 3.0)) / max(lg, 1e-9)
+                    ctx["g"][mk] = math.sqrt(hm / max(aw, 1e-9))
+            pr = predictions(hist, tid, conv, ctx)
             for p in m["players"]:
                 if p["tid"] != tid or p["gk"] or not started(p, m) or p["pid"] not in pr:
                     continue
@@ -234,6 +262,51 @@ def evaluate(matches):
     return rows
 
 
+def _logit(p):
+    p = min(max(p, 1e-4), 1 - 1e-4)
+    return math.log(p / (1 - p))
+
+
+def _fit_cal(pairs):
+    a, b = 0.0, 1.0
+    for _ in range(60):          # Newton-iterationer för logistisk regression på (logit p) -> y
+        g = [0.0, 0.0]; H = [[1e-6, 0.0], [0.0, 1e-6]]
+        for x, y in pairs:
+            q = 1 / (1 + math.exp(-(a + b * x)))
+            w = q * (1 - q)
+            g[0] += q - y; g[1] += (q - y) * x
+            H[0][0] += w; H[0][1] += w * x; H[1][0] += w * x; H[1][1] += w * x * x
+        det = H[0][0] * H[1][1] - H[0][1] * H[1][0]
+        if abs(det) < 1e-12:
+            break
+        da = (H[1][1] * g[0] - H[0][1] * g[1]) / det
+        db = (-H[1][0] * g[0] + H[0][0] * g[1]) / det
+        a -= da; b -= db
+        if abs(da) + abs(db) < 1e-9:
+            break
+    return a, b
+
+
+def add_calibrated(rows, names=("M0_nuvarande", "M4_motst_e1.0", "M4_motst_e0.5")):
+    cal = {}
+    for mk in ("sot", "shots"):
+        for line in LINES[mk]:
+            val = [r for r in rows if r[0] == "val" and r[1] == mk and r[2] == line]
+            for nm in names:
+                if len(val) >= 200 and all(nm in r[4] for r in val):
+                    cal[(mk, line, nm)] = _fit_cal([(_logit(r[4][nm]), r[3]) for r in val])
+    for (mk, line, nm), (a, b) in sorted(cal.items()):
+        print(f"kalibrering fit [val] {nm} {mk}>{line}: a={a:+.3f} b={b:.3f}")
+    for r in rows:
+        if r[0] != "test":
+            continue
+        for nm in names:
+            c = cal.get((r[1], r[2], nm))
+            if c and nm in r[4]:
+                r[4][nm.split("_")[0] + "kal_" + nm.split("_", 1)[1]] = 1 / (1 + math.exp(-(c[0] + c[1] * _logit(r[4][nm]))))
+    return rows
+
+
 def report(rows):
     models = sorted({k for r in rows for k in r[4]})
     for split in ("val", "test"):
@@ -242,6 +315,7 @@ def report(rows):
                 R = [r for r in rows if r[0] == split and r[1] == mk and r[2] == line]
                 if len(R) < 30:
                     continue
+                models = sorted(k for k in {k for r in R for k in r[4]} if all(k in r[4] for r in R))
                 n = len(R)
                 obs = sum(r[3] for r in R) / n
                 print(f"\n[{split}] {mk} över {line}: n={n}, utfall {obs:.3f}")
@@ -260,8 +334,8 @@ def report(rows):
         R = [r for r in rows if r[0] == "test" and r[1] == mk and r[2] == line]
         if len(R) < 100:
             continue
-        for mname in ("M0_nuvarande", "M1_minuter", "M2_xG_b0.5"):
-            if mname not in models:
+        for mname in ("M0_nuvarande", "M4_motst_e1.0", "M4kal_motst_e1.0"):
+            if not all(mname in r[4] for r in R):
                 continue
             R2 = sorted(R, key=lambda r: r[4][mname])
             q = len(R2) // 5
@@ -278,4 +352,5 @@ if __name__ == "__main__":
         print("för lite data"); sys.exit(0)
     rows = evaluate(matches)
     print("utvärderingsrader:", len(rows), flush=True)
+    rows = add_calibrated(rows)
     report(rows)
