@@ -66,3 +66,25 @@ def test_weight_grid_and_settings(tmp_path):
     assert abs(quant_report.blend_p(r, 0.075) - coherent_blend(r["pm"], r["pk"], 0.0, 0.075, 1.0)[1]) < 1e-6
     s = json.loads((Path(__file__).resolve().parents[1] / "settings.json").read_text(encoding="utf-8"))
     assert s["nba_model_weight"] == 0.075
+
+
+def test_football_report(tmp_path):
+    from propsbot import benlogg
+    rnd = random.Random(4)
+    rows = []
+    for i in range(120):
+        pa = rnd.uniform(0.2, 0.6)
+        y = 1 if rnd.random() < pa else 0
+        r = dict.fromkeys(benlogg.COLS)
+        r.update(key=f"m{i // 6}|p{i}|shots|1.5", avspark=1e9 + i, marknad="shots", linje=1.5, y=y, p_adj=pa,
+                 p_hyb=min(0.9, pa + 0.03), p_hyb0=min(0.9, pa + 0.03), p_fb2=pa, p_fb20=pa, odds0=round(1 / pa * 1.1, 2),
+                 odds=round(1 / pa * 1.08, 2))
+        rows.append([r[c] for c in benlogg.COLS])
+    f = tmp_path / "b.json"
+    f.write_text(json.dumps({"cols": benlogg.COLS, "rows": rows}), encoding="utf-8")
+    out = tmp_path / "r.md"
+    quant_report.main(["--benlogg", str(f), "--out", str(out)])
+    txt = out.read_text(encoding="utf-8")
+    assert "per 90 (p_fb2) | 120 |" in txt and "+0.0000" in txt          # p_fb2 = marknaden -> Δ 0
+    assert "för litet (120 av 150" in txt
+    assert "p17" not in txt                                             # inga rader per spelare
