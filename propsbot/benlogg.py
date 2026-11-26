@@ -28,7 +28,9 @@ MARGIN_FILE = "konsensus_marginal.json"
 MIN_N = 150
 STUCK_DAYS = 5
 COLS = ["key", "avspark", "marknad", "linje", "y", "p_cur", "p_hyb", "p_alt", "p_adj", "p_k", "p_cons", "n_cons",
-        "parts", "odds", "p_utfall"]
+        "parts", "odds", "p_utfall", "odds0", "p_hyb0", "p_utfall0", "p_cons0", "p_adj0"]
+PAPER_EDGES = (0.0, 0.02, 0.05)       # pappersspel: virtuella spel vid första bekräftade elva, platt insats
+PAPER_ODDS = (1.40, 6.0)
 
 # Startvärden från FotMob-backtesten (M0, alla val+test-rader). logit(p') = a + b·logit(p_rå)
 PRIOR_CAL = {
@@ -157,6 +159,8 @@ def record_all(root: Path, rows: list, evd_by_id: dict, now: float | None = None
                  "hemma": ev.get("home_team"), "borta": ev.get("away_team"), "avspark": av, "spelare": c.player_name,
                  "spelare_id": c.player_id, "marknad": c.market, "linje": c.line, "sida": "over", "insats_pct": 0.0,
                  "status": "öppen", "utfall": None, "resultat_enheter": None}
+            b.update(odds0=snap["odds"], p_hyb0=snap["p_hyb"], p_utfall0=snap["p_utfall"], p_cons0=snap["p_cons"],
+                     p_adj0=snap["p_adj"], ts0=now)          # första ögonblicksbilden (uppdateras aldrig)
             led.bets.append(b)
             led.by_key[key] = b
             new += 1
@@ -187,7 +191,8 @@ def finish(root: Path, led, client, settings: dict, diag, now: float | None = No
                 done["rows"].append([b["key"], b.get("avspark"), b.get("marknad"), b.get("linje"),
                                      1 if st == "vunnen" else 0, b.get("p_cur"), b.get("p_hyb"), b.get("p_alt"),
                                      b.get("p_adj"), b.get("p_k"), b.get("p_cons"), b.get("n_cons"), b.get("parts"),
-                                     b.get("odds"), b.get("p_utfall")])
+                                     b.get("odds"), b.get("p_utfall"), b.get("odds0"), b.get("p_hyb0"),
+                                     b.get("p_utfall0"), b.get("p_cons0"), b.get("p_adj0")])
                 seen.add(b["key"])
                 harvested += 1
         elif st == "struken":
@@ -223,10 +228,40 @@ def _t(d: list[float]) -> float:
     return m / (sd / math.sqrt(n))
 
 
+def paper(rows: list[dict], diag) -> list[dict]:
+    """Pappersspel: vad hade regeln "p·odds0 − 1 ≥ edge" gett (platt insats 1, odds vid första bekräftade elva)?
+    Alla avgjorda ben ingår, så analysen beror inte på att några riktiga spel görs. CLV = odds0 / sista odds före avspark − 1."""
+    out = []
+    lo, hi = PAPER_ODDS
+    base = [r for r in rows if r.get("odds0") and lo <= r["odds0"] <= hi]
+    sources = (("modell hyb", "p_hyb0"), ("modell utfallsankrad", "p_utfall0"), ("konsensus", "p_cons0"),
+               ("marknad (justerad)", "p_adj0"))
+    for label, col in sources:
+        for e in PAPER_EDGES:
+            R = [r for r in base if r.get(col) is not None and r[col] * r["odds0"] - 1 >= e]
+            if len(R) < 20:
+                continue
+            res = [(r["odds0"] - 1) if r["y"] else -1.0 for r in R]
+            clv = [r["odds0"] / r["odds"] - 1 for r in R if r.get("odds")]
+            n = len(R)
+            mean = sum(res) / n
+            sd = math.sqrt(sum((x - mean) ** 2 for x in res) / max(n - 1, 1)) or 1e-9
+            row = {"källa": label, "edge": e, "n": n, "träff": sum(r["y"] for r in R) / n, "roi": mean,
+                   "t": mean / (sd / math.sqrt(n)), "clv": sum(clv) / len(clv) if clv else None}
+            out.append(row)
+            diag.log(f"Benlogg pappersspel {label} edge ≥ {e:.0%}: n={n}, träff {row['träff']:.1%}, ROI {mean:+.1%} (t {row['t']:+.2f})"
+                     + (f", CLV {row['clv']:+.1%}" if row["clv"] is not None else ""))
+    allr = [(r["odds0"] - 1) if r["y"] else -1.0 for r in base]
+    if len(allr) >= 20:
+        diag.log(f"Benlogg pappersspel ALLA ben (ingen filtrering, referens): n={len(allr)}, ROI {sum(allr) / len(allr):+.1%}")
+    return out
+
+
 def analyse(root: Path, done: dict, settings: dict, diag) -> dict:
     from .consensus import p_from_parts
-    rows = [dict(zip(COLS, r)) for r in done.get("rows", [])]
+    rows = [{**dict.fromkeys(COLS), **dict(zip(COLS, r))} for r in done.get("rows", [])]
     out = {"groups": {}}
+    paper(rows, diag)
     groups: dict[tuple, list[dict]] = {}
     for r in rows:
         groups.setdefault((r["marknad"], line_group(r["linje"])), []).append(r)
