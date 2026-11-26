@@ -30821,12 +30821,8 @@
 "dk_p": 0.5514627627080393
 },
 "bolag_stangning": {
-"ts": 1795655097.101973,
+"ts": 1795656015.9526954,
 "odds": {
-"unibet": {
-"over": 1.65,
-"under": 2.12
-},
 "pinnacle": {
 "over": 1.543,
 "under": 2.37
@@ -30843,7 +30839,7 @@
 "pin_p": 0.617165776919415,
 "dk_p": 0.543542650554574
 },
-"bolag_stang_ts": 1795655097.101973,
+"bolag_stang_ts": 1795656015.9526954,
 "skarp_verifierad": false,
 "skarp_status": null,
 "clv_skarp_pp": 9.903106189350819,
@@ -32789,7 +32785,7 @@
 "edge": 0.08254409459342593,
 "spela_fran": 1.62,
 "insats_pct": 0.02,
-"stangning": 1.66,
+"stangning": 1.67,
 "status": "öppen",
 "stopp": "",
 "clv_signal": false,
@@ -32798,23 +32794,23 @@
 "p_marknad": 0.6330667219844597,
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795655096.9638703,
+"stangning_ts": 1795656015.8396842,
 "analys": {
-"p_stack": 0.6603,
-"p_modell_min": 0.6519,
+"p_stack": 0.6568,
+"p_modell_min": 0.6404,
 "minuter": 29.3,
 "minuter_sd": 3.7,
-"p_faktorer": 0.6305,
-"p_faktorer_ra": 0.6203,
-"vantat_faktorer": 4.65,
-"p_betyg": 0.6407,
-"p_betyg_ra": 0.6707,
-"vantat_betyg": 4.64,
+"p_faktorer": 0.6433,
+"p_faktorer_ra": 0.6951,
+"vantat_faktorer": 4.62,
+"p_betyg": 0.6359,
+"p_betyg_ra": 0.6603,
+"vantat_betyg": 4.71,
 "minuter_faktorer": 27.4,
 "f_anv": 1.0,
 "f_miljo": 0.983,
 "f_tempo": 1.0,
-"f_pos": 1.044,
+"f_pos": 1.038,
 "f_mot": 0.976,
 "f_minuter_bas": 30.0,
 "f_b2b": false,
@@ -32834,18 +32830,18 @@
 "traff_mot_n": 1,
 "traff_hemmaborta": 0.625,
 "traff_hemmaborta_n": 8,
-"p_kalib": 0.6331,
-"p_blend": 0.6295,
+"p_kalib": 0.6297,
+"p_blend": 0.6282,
 "kalib_modell": "M0",
-"p_modell": 0.6153,
-"p_marknad": 0.6331,
-"p_slutlig": 0.6295,
-"vantat": 4.9,
+"p_modell": 0.6221,
+"p_marknad": 0.6297,
+"p_slutlig": 0.6282,
+"vantat": 4.97,
 "nb_r": 10,
 "modell_vikt": 0.2,
 "dq": 0.67,
 "matcher": 10,
-"nivajustering": -0.08,
+"nivajustering": 0.0,
 "logg": [
 {
 "ts": 1795483800.0,
@@ -32924,7 +32920,7 @@
 "hemma": true,
 "minuter_sd_faktorer": 3.7,
 "ref": {
-"pin_p": 0.6365014949541483,
+"pin_p": 0.6316885265252927,
 "dk_p": null,
 "pin_linje": null,
 "dk_linje": null,
@@ -32934,18 +32930,18 @@
 "odds_bolag": [
 {
 "bolag": "atg",
-"over": 2.12,
+"over": 2.1,
 "under": 1.65
 },
 {
 "bolag": "betmgm",
-"over": 2.12,
-"under": 1.66
+"over": 2.1,
+"under": 1.67
 },
 {
 "bolag": "expekt",
-"over": 2.12,
-"under": 1.66
+"over": 2.1,
+"under": 1.67
 },
 {
 "bolag": "kalshi",
@@ -32954,39 +32950,39 @@
 },
 {
 "bolag": "leovegas",
-"over": 2.12,
-"under": 1.66
+"over": 2.1,
+"under": 1.67
 },
 {
 "bolag": "paf",
-"over": 2.12,
-"under": 1.66
+"over": 2.1,
+"under": 1.67
 },
 {
 "bolag": "pinnacle",
-"over": 2.48,
-"under": 1.5
+"over": 2.45,
+"under": 1.51
 },
 {
 "bolag": "svenskaspel",
-"over": 2.12,
-"under": 1.66
+"over": 2.1,
+"under": 1.67
 },
 {
 "bolag": "unibet",
-"over": 2.12,
-"under": 1.66
+"over": 2.1,
+"under": 1.67
 }
 ]
 },
-"prognos": 4.898179687558752,
-"analys_ts": 1795655097.0874774,
+"prognos": 4.974005715053688,
+"analys_ts": 1795656015.9408727,
 "modellversion": "2026-11-15-betyg",
 "prognos_ts": 1795635723.62494,
-"skarp_stang_p": 0.6330667219844597,
-"skarp_stang_ts": 1795655096.803939,
+"skarp_stang_p": 0.6296871474056251,
+"skarp_stang_ts": 1795656015.7336762,
 "skarp_kalla": "skanning",
-"pin_stang_p": 0.6365014949541483,
+"pin_stang_p": 0.6316885265252927,
 "dk_stang_p": 0.5719288352902587,
 "bolag_bokning": {
 "ts": 1795635723.7795131,
@@ -33012,28 +33008,28 @@
 "dk_p": 0.5719288352902587
 },
 "bolag_stangning": {
-"ts": 1795655097.101973,
+"ts": 1795656015.9526954,
 "odds": {
 "unibet": {
-"over": 2.12,
-"under": 1.66
+"over": 2.1,
+"under": 1.67
 },
 "pinnacle": {
-"over": 2.48,
-"under": 1.5
+"over": 2.45,
+"under": 1.51
 }
 },
 "pin_flyttad": false,
 "pin_komb": false,
 "pin_linje": null,
 "dk_linje": null,
-"pin_p": 0.6365014949541483
+"pin_p": 0.6316885265252927
 },
-"bolag_stang_ts": 1795655097.101973,
+"bolag_stang_ts": 1795656015.9526954,
 "skarp_verifierad": true,
 "skarp_status": null,
-"clv_skarp_pp": 4.827140034703281,
-"clv_pin_pp": 5.170617331672145,
+"clv_skarp_pp": 4.489182576819828,
+"clv_pin_pp": 4.689320488786586,
 "clv_dk_pp": -1.2866486347168138
 },
 {
