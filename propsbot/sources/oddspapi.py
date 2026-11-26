@@ -176,22 +176,28 @@ def add_oddspapi(root: Path, data: list, settings: dict, diag) -> int:
             except Exception as ex:  # noqa: BLE001
                 diag.log(f"OddsPapi participants: {type(ex).__name__}: {str(ex)[:100]}")
         teams = st.get("teams", {})
-        matched = multi_total = 0
+        matched = with_rows = multi_total = 0
+        n_b365 = n_named = n_window = 0
         for f in fixtures:
+            has_b365 = bool(((f.get("bookmakerOdds") or {}).get("bet365") or {}).get("markets"))
+            n_b365 += has_b365
             h, a = teams.get(str(f.get("participant1Id"))), teams.get(str(f.get("participant2Id")))
             start = _ts(f.get("startTime"))
+            n_named += bool(h and a)
+            n_window += bool(0 < start - now <= window)
             if not h or not a or not start:
                 continue
             hit = next(((evd, qs, nm) for evd, qs, nm in soon if same_match(
                 evd["home_team"], evd["away_team"], evd["commence_time"], h, a, start)), None)
             if not hit:
                 continue
+            matched += 1
             rows, multi = parse_fixture(f, catalog)
             multi_total += multi
             if not rows:
                 continue
             evd, qs, nm = hit
-            matched += 1
+            with_rows += 1
             out["fixtures"][f["fixtureId"]] = {"match_id": evd["id"], "home": h, "away": a, "start": start, "ts": now,
                                                "rows": [[r["market"], r["line"], r["player"], r["odds"], r["mid"], r["period"],
                                                          r["changed"]] for r in rows]}
@@ -205,7 +211,9 @@ def add_oddspapi(root: Path, data: list, settings: dict, diag) -> int:
             n_rows += len(rows)
         if multi_total:
             diag.log(f"OddsPapi: {multi_total} marknader med fler än ett utfall (kontrollera över/under)")
-        diag.log(f"OddsPapi: {len(fixtures)} matcher hämtade, {matched} matchade mot våra")
+        diag.log(f"OddsPapi: {len(fixtures)} matcher hämtade, {n_b365} med bet365-marknader, {n_named} med lagnamn, "
+                 f"{n_window} startar inom {window // 3600} h; våra {len(soon)} matcher inom fönstret, "
+                 f"{matched} matchade mot våra, {with_rows} med aktiva spelarpriser")
     except RuntimeError as ex:
         diag.log(f"OddsPapi: {ex} ({st['used']} anrop i {month})")
     except Exception as ex:  # noqa: BLE001 – får aldrig stoppa skanningen
