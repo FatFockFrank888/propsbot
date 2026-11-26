@@ -14,6 +14,18 @@ residual/kalibrering, spridning, Kelly, utvärdering) och **väntar på godkänn
 Nätverk: FotMob och Kambi nås från miljön "propsbot" (FotMob tillagd 26/11). Proben är `probe.football_prop_fields`
 och ingår i `python -m propsbot.probe`. Tolkningen testas med fixturer i `tests/test_probe_fields.py`.
 
+## Status 2026-11-26
+
+| Fas | Status | Filer |
+|---|---|---|
+| F0 Probe | klar | `propsbot/probe.py` (`football_prop_fields`), `tests/test_probe_fields.py` |
+| F1 Minuter och elvagrind | klar | `propsbot/quant/fb_minutes.py`, `tests/test_quant_fb_minutes.py`; ESPN-cachen sparar `min` och `pos` för nya matcher (`player_model.py`) |
+| F2 Per 90 med EB | klar, backtestad | `propsbot/quant/fb_rates.py`, `tests/test_quant_fb_rates.py`, `tools/backtest_per90.py`, `BACKTEST_PER90_2026-11-26.md` |
+| F3–F7 | väntar | F5 (skuggfältet `p_fb2` i benloggen) är nästa steg: backtesten visar −0,015 till −0,020 i log-loss mot dagens modell för skott och SOT |
+
+Ändring mot planen: `expected_minutes` testas med svag prior för ±1-kriteriet. Standardpriorn (80 min, 3 matcher) krymper
+20 fulla matcher till 88, och det är avsiktligt.
+
 ## 0. Sammanfattning
 
 - **Värt att ta in nu:** per-90-takt × förväntade minuter med Empirical Bayes mot positionsprior. Den största

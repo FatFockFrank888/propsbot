@@ -19,6 +19,7 @@ from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from pathlib import Path
 
+from .quant.fb_minutes import minutes_from_espn
 from .results import BASE, LEAGUES, STAT_NAMES
 from .sources.http import JsonClient, SourceError
 from .sources.props_text import name_key, same_match, same_person
@@ -95,6 +96,8 @@ class EspnStore:
                     continue
                 players.append({
                     "n": (e.get("athlete") or {}).get("displayName", ""), "s": started,
+                    # F1/F2 (26/11): minuter ur bytesminuten och position, för per-90-takten (bara nya matcher)
+                    "min": minutes_from_espn(e), "pos": (e.get("position") or {}).get("abbreviation"),
                     **{m: next((st[k] for k in STAT_NAMES[m] if k in st), 0.0) for m in MARKETS}})
             out["teams"][tid] = players
         # lagets mål ur header/competitors
