@@ -1,4 +1,4 @@
-Skanning 2026-11-26 19:12
+Skanning 2026-11-26 19:27
 Kambi unibet (ubse): OK, 29 matcher i valda ligor
 Kambi paf (paf): OK
 Kambi atg (atg): OK
@@ -6,7 +6,7 @@ Kambi leovegas (leose): OK
 Kambi svenskaspel (svenskaspel): OK
 Kambi expekt (expektse): OK
 Kambi betmgm (betmgmse): OK
-Pinnacle: OK, 24 ligor
+Pinnacle: OK, 25 ligor
 Pinnacle: 37 matcher, matchlinjer för 26 av 29 Kambi-matcher, 0 spelarodds som används
 Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
   Double Chance 1st Half | units=Regular | kategori=Team Props | deltagare=Juventus Or Omonia Nicosia,Draw Or Omonia Nicosia,Draw Or Juventus  ->  används inte (lagmarknad)
@@ -73,14 +73,14 @@ Sides mindre ligor: 6 Kambi-matcher inom 12 h, 41 Pinnacle-matcher, 5 med Pinnac
 Sides rättning: goal-api dagstak 300 anrop nått
 Sides rättning: SportScore 35 anrop i dag
 Sides rättning: API-Football 1 anrop i dag, pausad resten av dygnet (kvot- eller planfel)
-Sides/totals: 31 matcher med Kambi + Pinnacle, 1198 linjer, 0 nya spel, 0 nya skuggspel, Smarkets-priser i 25 av 25; bästa edge +9.9% (Inter Club d'Escaldes 1X2: 1), +8.7% (ART Municipal Jalapa 1X2: 2), +8.3% (Lyon 1X2: 2)
+Sides/totals: 31 matcher med Kambi + Pinnacle, 1202 linjer, 0 nya spel, 0 nya skuggspel, Smarkets-priser i 25 av 25; bästa edge +11.4% (Inter Club d'Escaldes 1X2: 1), +8.7% (ART Municipal Jalapa 1X2: 2), +6.5% (Ferencváros 1X2: 2)
 Hörnmodell (test): 8040 matcher i underlaget (17 ligor), 3 matcher med modell, 390 Kambi-linjer, 0 nya testspel; bästa edge +21.7% (Alanyaspor hörnor under 7.5 @ 2.85), +7.7% (VfL Bochum hörnor under 9.5 @ 2.55), -1.0% (1. FC Heidenheim 1. FC Heidenheim hörnor under 6.5 @ 1.54)
 Fotboll extra bolag: 0 nya hämtningar, 0 odds i bruk, krediter kvar 126, dagsbudget 23 (andel 40%), förbrukat idag 3
-PropLine: 0 anrop denna körning (368/1000 idag), 3531 priser i bruk
+PropLine: 15 anrop denna körning (383/1000 idag), 3531 priser i bruk
 OddsPapi: 0 matcher hämtade, 0 med bet365-marknader, 0 med lagnamn, 0 startar inom 6 h; våra 20 matcher inom fönstret, 0 matchade mot våra, 0 med aktiva spelarpriser; 2 ligagrupper hoppades över
 OddsPapi: 0 anrop denna körning (8/230 i 2026-11), 0 bet365-priser sparade
-Tid: hämtning 365 s
-Marginal över alla matcher: uppmätt marginal: shots stege k=1.10 (70 spelare; marginal vid 3,00 ≈ 12%), shots_on_target stege k=1.16 (154 spelare; marginal vid 3,00 ≈ 19%)
+Tid: hämtning 379 s
+Marginal över alla matcher: uppmätt marginal: shots stege k=1.10 (84 spelare; marginal vid 3,00 ≈ 12%), shots_on_target stege k=1.13 (154 spelare; marginal vid 3,00 ≈ 15%)
   Juventus – Omonia Nicosia: modell uefa.europa, 24 spelare
   CSKA Sofia – Trabzonspor: modell uefa.europa.conf, 13 spelare
   OFI Crete – Anderlecht: modell uefa.europa, 17 spelare
@@ -106,28 +106,28 @@ Marginal över alla matcher: uppmätt marginal: shots stege k=1.10 (70 spelare; 
   1. FC Heidenheim – 1. FC Nürnberg: modell ger.2, 28 spelare
   SønderjyskE – Brøndby IF: modell den.1, 27 spelare
   FC Groningen – Willem II: modell ned.1, 27 spelare
-Modellens nivåavvikelse mot marknaden (log-odds, dras bort): assist -0.70, goal -0.57, shots -0.70, shots_on_target -0.34
-  Juventus – Omonia Nicosia: väntade mål Pinnacle 3.14 mot Kambi 3.16 (kvot 0.994); uppmätt marginal: goal k=1.21, shots stege k=1.04 (7 spelare; marginal vid 3,00 ≈ 4%), shots_on_target stege k=1.14 (7 spelare; marginal vid 3,00 ≈ 17%)
-Exempel uppmätt marginal: goal k=1.21, shots stege k=1.04 (7 spelare; marginal vid 3,00 ≈ 4%), shots_on_target stege k=1.14 (7 spelare; marginal vid 3,00 ≈ 17%)
+Modellens nivåavvikelse mot marknaden (log-odds, dras bort): assist -0.70, goal -0.59, shots -0.70, shots_on_target -0.39
+  Juventus – Omonia Nicosia: väntade mål Pinnacle 3.18 mot Kambi 3.16 (kvot 1.006); uppmätt marginal: goal k=1.20, shots stege k=1.04 (7 spelare; marginal vid 3,00 ≈ 4%), shots_on_target stege k=1.14 (7 spelare; marginal vid 3,00 ≈ 17%)
+Exempel uppmätt marginal: goal k=1.20, shots stege k=1.04 (7 spelare; marginal vid 3,00 ≈ 4%), shots_on_target stege k=1.14 (7 spelare; marginal vid 3,00 ≈ 17%)
   CSKA Sofia – Trabzonspor: väntade mål Pinnacle 3.23 mot Kambi 3.13 (kvot 1.033); uppmätt marginal: goal k=1.19
-  OFI Crete – Anderlecht: väntade mål Pinnacle 2.82 mot Kambi 2.99 (kvot 0.942); uppmätt marginal: goal k=1.32, assist k=1.21, shots stege k=1.06 (7 spelare; marginal vid 3,00 ≈ 7%), shots_on_target stege k=1.19 (28 spelare; marginal vid 3,00 ≈ 23%)
-  Ferencváros – NK Celje: väntade mål Pinnacle 3.28 mot Kambi 3.19 (kvot 1.029); uppmätt marginal: goal k=1.25, assist k=1.19, shots_on_target stege k=1.20 (7 spelare; marginal vid 3,00 ≈ 25%)
-  NEC Nijmegen – Rennes: väntade mål Pinnacle 3.32 mot Kambi 3.34 (kvot 0.995); uppmätt marginal: goal k=1.31, assist k=1.22, shots_on_target stege k=1.11 (14 spelare; marginal vid 3,00 ≈ 13%)
-  Torreense – Celtic: väntade mål Pinnacle 3.38 mot Kambi 3.51 (kvot 0.960); uppmätt marginal: goal k=1.26, assist k=1.20, shots_on_target stege k=1.20 (28 spelare; marginal vid 3,00 ≈ 25%)
+  OFI Crete – Anderlecht: väntade mål Pinnacle 2.82 mot Kambi 2.93 (kvot 0.962); uppmätt marginal: goal k=1.31, assist k=1.21, shots stege k=1.14 (7 spelare; marginal vid 3,00 ≈ 17%), shots_on_target stege k=1.18 (28 spelare; marginal vid 3,00 ≈ 22%)
+  Ferencváros – NK Celje: väntade mål Pinnacle 3.35 mot Kambi 3.23 (kvot 1.036); uppmätt marginal: goal k=1.25, assist k=1.20, shots_on_target stege k=1.14 (7 spelare; marginal vid 3,00 ≈ 17%)
+  NEC Nijmegen – Rennes: väntade mål Pinnacle 3.42 mot Kambi 3.34 (kvot 1.024); uppmätt marginal: goal k=1.29, assist k=1.21, shots_on_target stege k=1.11 (14 spelare; marginal vid 3,00 ≈ 13%)
+  Torreense – Celtic: väntade mål Pinnacle 3.34 mot Kambi 3.34 (kvot 1.001); uppmätt marginal: goal k=1.24, assist k=1.18, shots_on_target stege k=1.22 (21 spelare; marginal vid 3,00 ≈ 27%)
   Sunderland – Jagiellonia Białystok: väntade mål Pinnacle 3.06 mot Kambi 3.17 (kvot 0.965); uppmätt marginal: goal k=1.30, assist k=1.17, shots stege k=1.11 (14 spelare; marginal vid 3,00 ≈ 13%), shots_on_target stege k=1.08 (14 spelare; marginal vid 3,00 ≈ 9%)
-  Lyon – Lillestrøm: väntade mål Pinnacle 3.29 mot Kambi 3.46 (kvot 0.951); uppmätt marginal: goal k=1.30, assist k=1.19, shots stege k=1.12 (14 spelare; marginal vid 3,00 ≈ 14%), shots_on_target stege k=1.11 (14 spelare; marginal vid 3,00 ≈ 13%)
-  Crystal Palace – Real Sociedad: väntade mål Pinnacle 3.28 mot Kambi 3.36 (kvot 0.974); uppmätt marginal: goal k=1.25, assist k=1.24, shots stege k=1.26 (7 spelare; marginal vid 3,00 ≈ 33%), shots_on_target stege k=1.12 (7 spelare; marginal vid 3,00 ≈ 14%)
+  Lyon – Lillestrøm: väntade mål Pinnacle 3.28 mot Kambi 3.43 (kvot 0.958); uppmätt marginal: goal k=1.30, assist k=1.19, shots stege k=1.08 (28 spelare; marginal vid 3,00 ≈ 9%), shots_on_target stege k=1.06 (21 spelare; marginal vid 3,00 ≈ 7%)
+  Crystal Palace – Real Sociedad: väntade mål Pinnacle 3.28 mot Kambi 3.34 (kvot 0.981); uppmätt marginal: goal k=1.25, assist k=1.23, shots stege k=1.08 (7 spelare; marginal vid 3,00 ≈ 9%), shots_on_target stege k=1.12 (7 spelare; marginal vid 3,00 ≈ 14%)
   TSG Hoffenheim – Sturm Graz: väntade mål Pinnacle 3.81 mot Kambi 3.73 (kvot 1.022); uppmätt marginal: goal k=1.25, assist k=1.21, shots_on_target stege k=1.06 (7 spelare; marginal vid 3,00 ≈ 7%)
-  Hajduk Split – Sint-Truiden: väntade mål Pinnacle 2.93 mot Kambi 2.82 (kvot 1.038); uppmätt marginal: goal k=1.24
-  Inter Club d'Escaldes – FC Copenhagen: väntade mål Pinnacle 2.68 mot Kambi 2.87 (kvot 0.936); uppmätt marginal: goal k=1.25
-  Borac Banja Luka – Atalanta: väntade mål Pinnacle 3.28 mot Kambi 3.37 (kvot 0.974); uppmätt marginal: goal k=1.20, assist k=1.11
-  KAA Gent – Crvena Zvezda: väntade mål Pinnacle 2.69 mot Kambi 2.62 (kvot 1.029); uppmätt marginal: goal k=1.19
-  SC Freiburg – FC Twente: väntade mål Pinnacle 2.95 mot Kambi 2.97 (kvot 0.995); uppmätt marginal: goal k=1.26, assist k=1.13, shots stege k=1.12 (7 spelare; marginal vid 3,00 ≈ 14%), shots_on_target stege k=1.20 (7 spelare; marginal vid 3,00 ≈ 25%)
-  S.C. Braga – KuPS: väntade mål Pinnacle 3.16 mot Kambi 3.39 (kvot 0.933); uppmätt marginal: goal k=1.15
+  Hajduk Split – Sint-Truiden: väntade mål Pinnacle 2.90 mot Kambi 2.82 (kvot 1.027); uppmätt marginal: goal k=1.24
+  Inter Club d'Escaldes – FC Copenhagen: väntade mål Pinnacle 2.79 mot Kambi 2.87 (kvot 0.973); uppmätt marginal: goal k=1.23
+  Borac Banja Luka – Atalanta: väntade mål Pinnacle 3.28 mot Kambi 3.33 (kvot 0.985); uppmätt marginal: goal k=1.19, assist k=1.11
+  KAA Gent – Crvena Zvezda: väntade mål Pinnacle 2.69 mot Kambi 2.62 (kvot 1.029); uppmätt marginal: goal k=1.20
+  SC Freiburg – FC Twente: väntade mål Pinnacle 2.94 mot Kambi 2.97 (kvot 0.991); uppmätt marginal: goal k=1.26, assist k=1.13, shots stege k=1.12 (7 spelare; marginal vid 3,00 ≈ 14%), shots_on_target stege k=1.20 (7 spelare; marginal vid 3,00 ≈ 25%)
+  S.C. Braga – KuPS: väntade mål Pinnacle 3.18 mot Kambi 3.39 (kvot 0.939); uppmätt marginal: goal k=1.14
   FC Nordsjælland – Panathinaikos: väntade mål Pinnacle 2.97 mot Kambi 2.95 (kvot 1.007); uppmätt marginal: goal k=1.14
-  Sparta Prague – AZ Alkmaar: väntade mål Pinnacle 2.88 mot Kambi 3.02 (kvot 0.953); uppmätt marginal: goal k=1.22, assist k=1.22, shots stege k=1.04 (7 spelare; marginal vid 3,00 ≈ 4%)
+  Sparta Prague – AZ Alkmaar: väntade mål Pinnacle 2.89 mot Kambi 3.02 (kvot 0.956); uppmätt marginal: goal k=1.22, assist k=1.22, shots stege k=1.10 (7 spelare; marginal vid 3,00 ≈ 12%)
   São Paulo-SP – Remo-PA: väntade mål Pinnacle 2.65 mot Kambi 2.75 (kvot 0.962); uppmätt marginal: goal k=1.42, assist k=1.28, shots stege k=1.04 (7 spelare; marginal vid 3,00 ≈ 4%), shots_on_target stege k=1.24 (7 spelare; marginal vid 3,00 ≈ 30%)
-  CF Pachuca – Chivas Guadalajara: väntade mål Pinnacle 2.57 mot Kambi 2.75 (kvot 0.935); uppmätt marginal: goal k=1.37, assist k=1.21
+  CF Pachuca – Chivas Guadalajara: väntade mål Pinnacle 2.58 mot Kambi 2.75 (kvot 0.938); uppmätt marginal: goal k=1.37, assist k=1.21
   Club León – Cruz Azul: väntade mål Pinnacle 2.88 mot Kambi 3.01 (kvot 0.957); uppmätt marginal: goal k=1.49, assist k=1.26
   Macarthur FC – Melbourne City FC: saknar matchlinjer från Pinnacle
   Çaykur Rizespor – Kasımpaşa: saknar matchlinjer från Pinnacle
@@ -136,25 +136,25 @@ Exempel uppmätt marginal: goal k=1.21, shots stege k=1.04 (7 spelare; marginal 
   1. FC Heidenheim – 1. FC Nürnberg: väntade mål Pinnacle 3.64 mot Kambi 3.60 (kvot 1.011); uppmätt marginal: goal k=1.29
   SønderjyskE – Brøndby IF: väntade mål Pinnacle 3.12 mot Kambi 3.17 (kvot 0.985); uppmätt marginal: goal k=1.55, assist k=1.39
   FC Groningen – Willem II: väntade mål Pinnacle 3.39 mot Kambi 3.37 (kvot 1.009); uppmätt marginal: goal k=1.42, assist k=1.37, shots_on_target stege k=1.12 (14 spelare; marginal vid 3,00 ≈ 14%)
-Tid: modell och utvärdering 310 s
+Tid: modell och utvärdering 244 s
 Bolag med spelarodds: atg, betmgm, expekt, leovegas, paf, pl_bovada, pl_draftkings, pl_eplay24, pl_fanduel, pl_novig, pl_thescorebet, pl_williamhill_it, svenskaspel, unibet
-Spelarodds per marknad: assist 2220, goal 9295, shots 5157, shots_on_target 8460
-Kambi-marknader: assist='to give an assist (settled using opta data)':2220; goal='1st goalscorer':3829; goal='to score':3829; goal='to score at least 2 goals':1420; goal='to score at least 3 goals':217; shots="player's shots (settled using opta data)":5157; shots_on_target="player's shots on target (settled using opta data)":4929
+Spelarodds per marknad: assist 2227, goal 9295, shots 5129, shots_on_target 8453
+Kambi-marknader: assist='to give an assist (settled using opta data)':2227; goal='1st goalscorer':3829; goal='to score':3829; goal='to score at least 2 goals':1420; goal='to score at least 3 goals':217; shots="player's shots (settled using opta data)":5129; shots_on_target="player's shots on target (settled using opta data)":4922
 Pinnacle har inga spelarprops här – använder linjejustering mot Pinnacles matchlinjer.
 CLV-signal: 0 ben släppta (Pinnacle rör sig åt vårt håll)
 Startelvor: 0 spelbara ben klara, 0 väntar på startelvan, 0 stoppade (inte i startelvan)
 Spelregler: stoppade {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0} (modelltest {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0})
-Spelarmodell (testläge: styr inte spelen): 0 av 677 huvudben, 337 av 545 testben har modell, 0 nya matcher hämtade från ESPN
-Bästa edge marknad shots_on_target: -4.5%, -4.7%, -5.0% (av 573 ben)
-Bästa edge modelltest shots_on_target: -4.1%, -4.5%, -4.5% (av 455 ben)
+Spelarmodell (testläge: styr inte spelen): 0 av 676 huvudben, 336 av 544 testben har modell, 0 nya matcher hämtade från ESPN
+Bästa edge marknad shots_on_target: -3.5%, -3.7%, -3.9% (av 573 ben)
+Bästa edge modelltest shots_on_target: -2.6%, -3.1%, -3.5% (av 455 ben)
 0 spelbara ben.
 Bokförda nya spel: 0
 Skuggspel: 0 nya bokförda (stoppade av reglerna, minst 2 % edge)
-Spelarprops-test startelvor (alla ben): 442 spelbara ben klara, 103 väntar på startelvan, 0 stoppade (inte i startelvan)
-Spelarprops-konsensus: finns för 262 av 545 ben, snitt edge mot konsensus +1.1%, 75 med minst 2%
-Benlogg: 54 nya + 207 uppdaterade ben (bekräftade startande), 262 öppna, 0 nya avgjorda, 0 avgjorda totalt
-Spelarprops-test: 545 ben med hybridmodell, 0 med minst 2% edge (modell), 1 nya bokförda, 217 totalt
+Spelarprops-test startelvor (alla ben): 441 spelbara ben klara, 103 väntar på startelvan, 0 stoppade (inte i startelvan)
+Spelarprops-konsensus: finns för 262 av 544 ben, snitt edge mot konsensus +1.6%, 78 med minst 2%
+Benlogg: 0 nya + 260 uppdaterade ben (bekräftade startande), 262 öppna, 0 nya avgjorda, 0 avgjorda totalt
+Spelarprops-test: 544 ben med hybridmodell, 0 med minst 2% edge (modell), 2 nya bokförda, 219 totalt
 Modelltest: 0 spelbara enligt modellen, 0 nya testspel bokförda
 Domare: 69 kommande matcher med utsedd domare (UEFA + football-data)
-Fouls (test): 25 ben med modell, 0 klarar kraven, 0 nya bokförda, bästa edge -14.4%, -16.4%, -22.8%, 0 nya ESPN-matcher, domare känd i 15 matcher
+Fouls (test): 25 ben med modell, 0 klarar kraven, 0 nya bokförda, bästa edge -13.7%, -16.4%, -23.4%, 0 nya ESPN-matcher, domare känd i 15 matcher
 Notiser skickade: 0
