@@ -282,6 +282,19 @@ def evaluate_line_adjusted(evd: dict, quotes: list[OddsQuote], names: dict[str, 
                 # så att modellen bara bidrar med skillnader mellan spelare.
                 off = (model_offset or {}).get(market, 0.0)
                 p_mod = inv_logit(logit(p_raw) - off)
+                try:   # nivå ankrad mot UTFALL (benlogg.py) – loggas alltid, styr bara om model_level == "utfall"
+                    from . import benlogg
+                    cal = benlogg.CAL.get(f"{market}|{benlogg.line_group(line)}")
+                except Exception:  # noqa: BLE001
+                    cal = None
+                if cal:
+                    p_u = inv_logit(cal["a"] + cal["b"] * logit(p_raw))
+                    if extra is not None:
+                        extra["p_mod_utfall"] = round(p_u, 4)
+                    if settings.get("model_level") == "utfall":
+                        p_mod = p_u
+                if extra is not None:
+                    extra.update(p_adj=round(p_adj, 4), p_k=round(p_k, 4))
                 w = settings.get("model_weight", 0.25) * \
                     settings.get("model_market_mult", {}).get(market, 1.0)
                 if abs(logit(p_mod) - logit(p_adj)) > 1.0:
