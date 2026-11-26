@@ -1,4 +1,4 @@
-# NBA – utvärdering på framåtriktad data (2026-11-26T09:22:41+00:00)
+# NBA – utvärdering på framåtriktad data (2026-11-26T09:41:01+00:00)
 
 Bara bokförda prognoser (gjorda före matchen). Unika prestationer = spelare × match × marknad.
 
