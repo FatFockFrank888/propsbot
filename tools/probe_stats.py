@@ -1,43 +1,54 @@
-"""Engångssond: svarar FotMob (matchDetails, playerData) och Understat utan nyckel, och vad ger de per spelare?"""
-import json, sys, time, urllib.request, urllib.error
+"""Engångssond: API-Football (nyckel API_FOOTBALL_KEY). Max ~7 anrop. Skriver aldrig nyckeln."""
+import json, os, sys, time, urllib.request, urllib.error
 from datetime import datetime, timezone, timedelta
 
-UA = {"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36",
-      "Accept": "application/json, text/plain, */*", "Referer": "https://www.fotmob.com/"}
+KEY = (os.environ.get("API_FOOTBALL_KEY") or "").strip()
+if not KEY:
+    sys.exit("API_FOOTBALL_KEY saknas")
+BASE = "https://v3.football.api-sports.io"
 
-def get(url, headers=None, raw=False):
-    req = urllib.request.Request(url, headers={**UA, **(headers or {})})
+def get(path):
+    req = urllib.request.Request(BASE + path, headers={"x-apisports-key": KEY, "Accept": "application/json"})
     try:
         with urllib.request.urlopen(req, timeout=40) as r:
-            b = r.read()
-            return r.status, (b.decode("utf8", "replace") if raw else json.loads(b))
+            h = {k.lower(): v for k, v in r.headers.items()}
+            time.sleep(7)   # gratisplanen: 10 anrop/minut
+            return r.status, h, json.loads(r.read())
     except urllib.error.HTTPError as e:
-        return e.code, e.read()[:200].decode("utf8", "replace")
-    except Exception as e:
-        return 0, f"{type(e).__name__}: {str(e)[:120]}"
+        return e.code, {}, e.read()[:300].decode("utf8", "replace")
 
-def keys(o, n=14):
-    return list(o.keys())[:n] if isinstance(o, dict) else type(o).__name__
+def rate(h):
+    return {k: h.get(k) for k in ("x-ratelimit-requests-limit", "x-ratelimit-requests-remaining", "x-ratelimit-limit", "x-ratelimit-remaining") if h.get(k)}
 
-day = (datetime.now(timezone.utc) - timedelta(days=1)).strftime("%Y%m%d")
-st, d = get(f"https://www.fotmob.com/api/data/matches?date={day}")
-pri = [m for lg in d.get("leagues", []) if lg.get("primaryId") in (47, 87, 54, 55, 53, 42, 73, 77) for m in lg.get("matches", []) if (m.get("status") or {}).get("finished")]
-mid = pri[0]["id"]
-time.sleep(1)
-st, m = get(f"https://www.fotmob.com/api/data/matchDetails?matchId={mid}")
-ps = m["content"]["playerStats"]
-print("match", mid, "spelare", len(ps), "shotmap-skott", len((m["content"].get("shotmap") or {}).get("shots", [])))
-fld = [v for v in ps.values() if not v.get("isGoalkeeper")]
-v = fld[3] if len(fld) > 3 else fld[0]
-print("spelare-nycklar", list(v.keys()))
-print("namn", v.get("name"), "| stats typ", type(v.get("stats")).__name__)
-st_ = v.get("stats")
-print(json.dumps(st_, ensure_ascii=False)[:1800])
-shots = (m["content"].get("shotmap") or {}).get("shots", [])
-print("shotmap[0]", json.dumps(shots[0], ensure_ascii=False)[:500] if shots else None)
-time.sleep(1)
-pid = v.get("id")
-st, p = get(f"https://www.fotmob.com/api/data/playerData?id={pid}")
-rm = p.get("recentMatches") or []
-print("recentMatches", len(rm), "nycklar", list(rm[0].keys()) if rm else None)
-print(json.dumps(rm[0], ensure_ascii=False)[:900] if rm else None)
+st, h, d = get("/status")
+print("STATUS", st, json.dumps(d.get("response") if isinstance(d, dict) else d, ensure_ascii=False)[:500], rate(h))
+yday = (datetime.now(timezone.utc) - timedelta(days=1)).strftime("%Y-%m-%d")
+today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+st, h, d = get(f"/fixtures?date={yday}")
+print("FIXTURES", yday, st, "fel:", d.get("errors") if isinstance(d, dict) else d, "antal:", d.get("results") if isinstance(d, dict) else None, rate(h))
+fid = None
+if isinstance(d, dict) and d.get("response"):
+    big = (39, 140, 135, 78, 61, 2, 3, 848, 88, 94)
+    fin = [f for f in d["response"] if f["fixture"]["status"]["short"] in ("FT", "AET", "PEN")]
+    pick = next((f for f in fin if f["league"]["id"] in big), fin[0] if fin else None)
+    if pick:
+        fid = pick["fixture"]["id"]
+        print(" vald match", fid, pick["league"]["name"], pick["league"]["season"], pick["teams"]["home"]["name"], "-", pick["teams"]["away"]["name"])
+if fid:
+    st, h, d = get(f"/fixtures/players?fixture={fid}")
+    print("PLAYERS", st, "fel:", d.get("errors") if isinstance(d, dict) else d, rate(h))
+    if isinstance(d, dict) and d.get("response"):
+        pl = d["response"][0]["players"]
+        print(" spelare i laget", len(pl))
+        best = max(pl, key=lambda p: (p["statistics"][0]["shots"].get("total") or 0))
+        print(" exempel", best["player"]["name"], json.dumps(best["statistics"][0], ensure_ascii=False)[:700])
+    st, h, d = get(f"/fixtures/lineups?fixture={fid}")
+    print("LINEUPS (spelad match)", st, "fel:", d.get("errors") if isinstance(d, dict) else d, "lag:", len(d.get("response", [])) if isinstance(d, dict) else None)
+st, h, d = get(f"/fixtures?date={today}")
+print("FIXTURES idag", st, "fel:", d.get("errors") if isinstance(d, dict) else d, "antal:", d.get("results") if isinstance(d, dict) else None, rate(h))
+if isinstance(d, dict) and d.get("response"):
+    ns = [f for f in d["response"] if f["fixture"]["status"]["short"] == "NS"]
+    if ns:
+        f0 = ns[0]
+        st, h, d2 = get(f"/fixtures/lineups?fixture={f0['fixture']['id']}")
+        print("LINEUPS (kommande)", f0["league"]["name"], f0["fixture"]["date"], st, "lag:", len(d2.get("response", [])) if isinstance(d2, dict) else d2, rate(h))
