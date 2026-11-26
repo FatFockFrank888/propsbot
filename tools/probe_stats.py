@@ -21,46 +21,23 @@ def keys(o, n=14):
 
 day = (datetime.now(timezone.utc) - timedelta(days=1)).strftime("%Y%m%d")
 st, d = get(f"https://www.fotmob.com/api/data/matches?date={day}")
-print("FOTMOB matches", day, st, keys(d) if st == 200 else d)
-mid = pid = None
-if st == 200:
-    ms = [m for lg in d.get("leagues", []) for m in lg.get("matches", []) if (m.get("status") or {}).get("finished")]
-    pri = [m for lg in d.get("leagues", []) if lg.get("primaryId") in (47, 87, 54, 55, 53, 42, 73, 77) for m in lg.get("matches", []) if (m.get("status") or {}).get("finished")]
-    pick = (pri or ms or [None])[0]
-    print(" ligor", len(d.get("leagues", [])), "avslutade", len(ms), "storliga", len(pri))
-    mid = pick and pick.get("id")
+pri = [m for lg in d.get("leagues", []) if lg.get("primaryId") in (47, 87, 54, 55, 53, 42, 73, 77) for m in lg.get("matches", []) if (m.get("status") or {}).get("finished")]
+mid = pri[0]["id"]
 time.sleep(1)
-if mid:
-    st, m = get(f"https://www.fotmob.com/api/data/matchDetails?matchId={mid}")
-    print("FOTMOB matchDetails", mid, st, keys(m) if st == 200 else m)
-    if st == 200:
-        c = m.get("content", {})
-        print(" content-nycklar", keys(c, 20))
-        ps = c.get("playerStats") or {}
-        print(" playerStats", len(ps))
-        for k, v in list(ps.items())[:1]:
-            print(" exempel spelare", v.get("name"), "| stats-grupper", [g.get("key") or g.get("title") for g in v.get("stats", [])][:6])
-            for g in v.get("stats", [])[:1]:
-                print("  ", json.dumps(g.get("stats"), ensure_ascii=False)[:500])
-            pid = v.get("id")
-        print(" lineup", keys(c.get("lineup"), 8))
+st, m = get(f"https://www.fotmob.com/api/data/matchDetails?matchId={mid}")
+ps = m["content"]["playerStats"]
+print("match", mid, "spelare", len(ps), "shotmap-skott", len((m["content"].get("shotmap") or {}).get("shots", [])))
+fld = [v for v in ps.values() if not v.get("isGoalkeeper")]
+v = fld[3] if len(fld) > 3 else fld[0]
+print("spelare-nycklar", list(v.keys()))
+print("namn", v.get("name"), "| stats typ", type(v.get("stats")).__name__)
+st_ = v.get("stats")
+print(json.dumps(st_, ensure_ascii=False)[:1800])
+shots = (m["content"].get("shotmap") or {}).get("shots", [])
+print("shotmap[0]", json.dumps(shots[0], ensure_ascii=False)[:500] if shots else None)
 time.sleep(1)
-if pid:
-    st, p = get(f"https://www.fotmob.com/api/data/playerData?id={pid}")
-    print("FOTMOB playerData", pid, st, keys(p, 20) if st == 200 else p)
-    if st == 200:
-        print(" recentMatches", len(p.get("recentMatches") or []), json.dumps((p.get("recentMatches") or [None])[0], ensure_ascii=False)[:400])
-time.sleep(1)
-st, u = get("https://understat.com/getLeagueData/EPL/2026", {"X-Requested-With": "XMLHttpRequest", "Referer": "https://understat.com/league/EPL"})
-print("UNDERSTAT league", st, keys(u) if st == 200 else u)
-if st == 200:
-    ms = [x for x in (u.get("dates") or []) if x.get("isResult")]
-    print(" spelade", len(ms), "spelare", len(u.get("players") or []))
-    if ms:
-        time.sleep(1)
-        st, mm = get(f"https://understat.com/getMatchData/{ms[-1]['id']}", {"X-Requested-With": "XMLHttpRequest"})
-        print("UNDERSTAT match", st, keys(mm) if st == 200 else mm)
-        if st == 200:
-            pl = (mm.get("rosters") or {}).get("h") or {}
-            first = list(pl.values())[:1]
-            print(" spelarfält", json.dumps(first, ensure_ascii=False)[:500])
+pid = v.get("id")
+st, p = get(f"https://www.fotmob.com/api/data/playerData?id={pid}")
+rm = p.get("recentMatches") or []
+print("recentMatches", len(rm), "nycklar", list(rm[0].keys()) if rm else None)
+print(json.dumps(rm[0], ensure_ascii=False)[:900] if rm else None)
