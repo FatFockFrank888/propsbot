@@ -127,6 +127,11 @@ def all_params(settings_path: Path) -> dict:
          "Takt per 90 (minuter ur ESPN:s bytesminut) krympt mot ligans positionssnitt (450 min skott, 630 SOT) × E[min | start]. "
          "Bokförs som p_fb2 i benloggen bredvid p_hyb och jämförs mot utfall och marknad; styr inga spel. "
          "Backtest 548 matcher: −0,015 till −0,020 i log-loss mot dagens modell (BACKTEST_PER90_2026-11-26.md)."),
+        ("Kambi-nivå mot utfall", ("på" if s.get("kambi_level_cal", True) else "av") + f", kräver ≥ {s.get('kambi_level_min_n', 150)} ben och ≥ {s.get('kambi_level_min_matches', 40)} matcher per marknad/linje",
+         f"Kambis rättvisa sannolikhet (p_adj) kalibreras mot utfall i benloggen: logit p' = a + b·logit p_adj, prior mot ingen ändring "
+         f"värd {s.get('kambi_level_prior_n', 300)} ben. Sparas bara om den slår rå p_adj på de nyaste 30 % av matcherna. "
+         "26/11: p_adj 30 % mot utfall 22 % på 262 ben i 15 matcher; ESPN och Opta räknar skott på mål identiskt (1 369 av 1 371 spelare), "
+         "så avvikelsen ligger i marknadsnivån. Påverkar edgen för fotbollens spelarprops när en anpassning finns."),
         ("Spelarmodell per 90 + kontext (fb2k)", "skugga, motståndare^e × hemma/borta, vilodagar används inte",
          f"Motståndarens medgivna skott/SOT (8 matcher, krympt mot ligasnittet, 0,8–1,25) med elasticitet {_mk(s.get('fb2_ctx_opp_e', {}))}, "
          f"hemma ×(1+h), borta ÷(1+h) med h {_mk(s.get('fb2_ctx_home_h', {}))}. Bokförs som p_fb2k bredvid p_fb2; styr inga spel. "

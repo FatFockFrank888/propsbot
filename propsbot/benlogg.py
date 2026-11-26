@@ -41,6 +41,10 @@ PRIOR_CAL = {
     "shots|2.5+": (0.1441, 1.1356),
 }
 CAL: dict[str, dict] = {}     # fylls av load_cal() en gång per skanning; läses av line_adjust
+# Kambi-nivån mot UTFALL (27/11): logit(p_adj') = a + b·logit(p_adj) per marknad/linjegrupp. Sparas bara när den
+# slår rå p_adj på de nyaste matcherna, med minst kambi_level_min_n ben och kambi_level_min_matches matcher.
+KAMBI_FILE = "kambi_nivakal.json"
+CAL_KAMBI: dict[str, dict] = {}
 
 
 def line_group(line: float) -> str:
@@ -107,7 +111,58 @@ def load_cal(root: Path) -> dict:
             cal[k] = {"a": f["a"], "b": f["b"], "src": "egen (avgjorda ben)", "n": f.get("n", 0)}
     CAL.clear()
     CAL.update(cal)
+    CAL_KAMBI.clear()
+    for k, f in _read(root / KAMBI_FILE, {}).get("fits", {}).items():
+        if isinstance(f, dict) and "a" in f and "b" in f:
+            CAL_KAMBI[k] = f
     return cal
+
+
+def kambi_level(p_adj: float, market: str, line: float, settings: dict) -> float:
+    """Kalibrerad Kambi-nivå om en godkänd anpassning finns och kambi_level_cal är på, annars p_adj."""
+    f = CAL_KAMBI.get(f"{market}|{line_group(line)}")
+    if not f or not settings.get("kambi_level_cal", True):
+        return p_adj
+    return _sig(f["a"] + f["b"] * _logit(p_adj))
+
+
+def fit_kambi_level(rows: list[dict], settings: dict) -> tuple[dict, list[str]]:
+    """Anpassa Kambi-nivån per (marknad, linjegrupp). Prövas på de nyaste ~30 % av MATCHERNA (inte benen)."""
+    from .quant.calibration import platt_apply, platt_fit
+    min_n = settings.get("kambi_level_min_n", 150)
+    min_m = settings.get("kambi_level_min_matches", 40)
+    prior_n = settings.get("kambi_level_prior_n", 300)
+    fits, log = {}, []
+    groups: dict = {}
+    for r in rows:
+        if r.get("p_adj") is not None and r.get("y") is not None and r.get("marknad"):
+            groups.setdefault(f"{r['marknad']}|{line_group(r['linje'])}", []).append(r)
+    for k, R in sorted(groups.items()):
+        first: dict = {}
+        for r in R:
+            m = str(r["key"]).split("|")[0]
+            first[m] = min(first.get(m, float("inf")), r.get("avspark") or 0.0)
+        mids = sorted(first, key=lambda m: (first[m], m))
+        bias = sum(r["p_adj"] - r["y"] for r in R) / len(R)
+        if len(R) < min_n or len(mids) < min_m:
+            log.append(f"{k}: n={len(R)}, {len(mids)} matcher, p_adj − utfall {bias:+.3f} (väntar på {min_n} ben och {min_m} matcher)")
+            continue
+        test_m = set(mids[int(len(mids) * 0.7):])
+        tr = [r for r in R if str(r["key"]).split("|")[0] not in test_m]
+        te = [r for r in R if str(r["key"]).split("|")[0] in test_m]
+        a_t, b_t = platt_fit([r["p_adj"] for r in tr], [r["y"] for r in tr], prior_n=prior_n)
+        ys = [r["y"] for r in te]
+        raw = _logloss([r["p_adj"] for r in te], ys)
+        cal = _logloss(list(platt_apply((a_t, b_t), [r["p_adj"] for r in te])), ys)
+        a, b = platt_fit([r["p_adj"] for r in R], [r["y"] for r in R], prior_n=prior_n)
+        ok = cal < raw
+        log.append(f"{k}: n={len(R)}, {len(mids)} matcher, p_adj − utfall {bias:+.3f}; a={a:+.3f} b={b:.3f}; "
+                   f"nyaste {len(test_m)} matcher: log-loss rå {raw:.4f} -> kalibrerad {cal:.4f} "
+                   f"{'(sparas)' if ok else '(slår inte rå, sparas inte)'}")
+        if ok:
+            fits[k] = {"a": round(a, 4), "b": round(b, 4), "n": len(R), "matcher": len(mids),
+                       "logloss_ra_holdout": round(raw, 5), "logloss_kal_holdout": round(cal, 5)}
+    return fits, log
 
 
 def consensus_margin(root: Path, settings: dict) -> float:
@@ -331,6 +386,13 @@ def analyse(root: Path, done: dict, settings: dict, diag) -> dict:
         old.update(fits)
         (root / CAL_FILE).write_text(json.dumps({"ts": time.time(), "fits": old}, ensure_ascii=False, indent=1),
                                      encoding="utf-8")
+    # Kambi-nivån mot utfall (påverkar p_adj i line_adjust när en anpassning sparats)
+    kf, klog = fit_kambi_level(rows, settings)
+    for line in klog:
+        diag.log("Benlogg Kambi-nivå " + line)
+    if kf:
+        (root / KAMBI_FILE).write_text(json.dumps({"ts": time.time(), "fits": kf}, ensure_ascii=False, indent=1),
+                                       encoding="utf-8")
     # konsensusens marginal
     cr = [r for r in rows if r["parts"] and r["p_cons"] is not None and "q" in (r["parts"] or "")]
     if len(cr) >= MIN_N:

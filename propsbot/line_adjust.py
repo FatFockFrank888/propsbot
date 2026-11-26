@@ -258,6 +258,12 @@ def evaluate_line_adjusted(evd: dict, quotes: list[OddsQuote], names: dict[str, 
         normalized = mm is not None and line == 0.5 and market in ("goal", "assist") and any(
             (q.book, market) in mm.power for q in qs)
         p_adj = p_k if normalized else adjust_prob(p_k, line, ratio, market)
+        p_adj_raw = p_adj
+        try:   # Kambi-nivån kalibrerad mot utfall (benlogg, 27/11) – bara när en godkänd anpassning finns
+            from . import benlogg as _bl
+            p_adj = _bl.kambi_level(p_adj, market, line, settings)
+        except Exception:  # noqa: BLE001
+            p_adj = p_adj_raw
         p, p_mod, note = p_adj, float("nan"), ""
         extra = None
         if model:
@@ -298,8 +304,8 @@ def evaluate_line_adjusted(evd: dict, quotes: list[OddsQuote], names: dict[str, 
                         extra["p_mod_utfall"] = round(p_u, 4)
                     if settings.get("model_level") == "utfall":
                         p_mod = p_u
-                if extra is not None:
-                    extra.update(p_adj=round(p_adj, 4), p_k=round(p_k, 4))
+                if extra is not None:   # p_adj loggas RÅ (kalibreringen anpassas på den), den kalibrerade bredvid
+                    extra.update(p_adj=round(p_adj_raw, 4), p_k=round(p_k, 4), p_adj_kal=round(p_adj, 4))
                 w = settings.get("model_weight", 0.25) * \
                     settings.get("model_market_mult", {}).get(market, 1.0)
                 if abs(logit(p_mod) - logit(p_adj)) > 1.0:
@@ -324,6 +330,9 @@ def evaluate_line_adjusted(evd: dict, quotes: list[OddsQuote], names: dict[str, 
             fk2 = kambi_fair(qs, market, cfg, cons)
             if fk2:
                 p_c = fk2[0]
+                if p_adj != p_adj_raw:   # samma nivåkalibrering på den försiktiga marginalen
+                    from .market import inv_logit, logit
+                    p_c = inv_logit(logit(p_c) + logit(p_adj) - logit(p_adj_raw))
                 if model and p_mod == p_mod:
                     from .market import inv_logit, logit
                     p_c = inv_logit(logit(p) - logit(p_adj) + logit(p_c))   # samma modellpåslag
@@ -334,6 +343,8 @@ def evaluate_line_adjusted(evd: dict, quotes: list[OddsQuote], names: dict[str, 
         d.reasons.append(f"linjejusterat: {info}")
         if note:
             d.reasons.append(note)
+        if p_adj != p_adj_raw:
+            d.reasons.append(f"Kambi-nivå kalibrerad mot utfall: {p_adj_raw:.0%} -> {p_adj:.0%}")
         if not two_sided:
             d.reasons.append("marginalen kunde inte mätas – inte spelbart")
             d.playable, d.stake = False, 0.0
