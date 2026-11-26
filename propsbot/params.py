@@ -15,6 +15,12 @@ def _odds(lo, hi) -> str:
     return f"{lo:.2f}–{hi:.2f}".replace(".", ",")
 
 
+def _mk(d: dict) -> str:
+    """{'shots': 0.75, 'shots_on_target': 0.5} -> 'skott 0,75, SOT 0,5'."""
+    names = {"shots": "skott", "shots_on_target": "SOT"}
+    return ", ".join(f"{names.get(k, k)} {v:g}".replace(".", ",") for k, v in d.items()) or "–"
+
+
 def _u(x) -> str:
     return f"{x}u"
 
@@ -121,6 +127,10 @@ def all_params(settings_path: Path) -> dict:
          "Takt per 90 (minuter ur ESPN:s bytesminut) krympt mot ligans positionssnitt (450 min skott, 630 SOT) × E[min | start]. "
          "Bokförs som p_fb2 i benloggen bredvid p_hyb och jämförs mot utfall och marknad; styr inga spel. "
          "Backtest 548 matcher: −0,015 till −0,020 i log-loss mot dagens modell (BACKTEST_PER90_2026-11-26.md)."),
+        ("Spelarmodell per 90 + kontext (fb2k)", "skugga, motståndare^e × hemma/borta, vilodagar används inte",
+         f"Motståndarens medgivna skott/SOT (8 matcher, krympt mot ligasnittet, 0,8–1,25) med elasticitet {_mk(s.get('fb2_ctx_opp_e', {}))}, "
+         f"hemma ×(1+h), borta ÷(1+h) med h {_mk(s.get('fb2_ctx_home_h', {}))}. Bokförs som p_fb2k bredvid p_fb2; styr inga spel. "
+         "Backtest: −0,003 till −0,006 i log-loss ovanpå per 90, men Pinnacles väntade mål fångar delvis samma sak."),
         ("CLV-signal", f"edge ≥ {_pct(s.get('clv_min_edge', 0.01))}, förväntad CLV ≥ {s.get('clv_min_expected_pp', 2.0):g}, Pinnacle ≥ +{s.get('clv_min_momentum_pp', 1.5):g}",
          "Släpper igenom ben som bara stoppades av edgekravet när Pinnacle rör sig åt vårt håll."),
         ("Max odds-ålder", f"{dc.max_odds_age_s:.0f} s", ""),

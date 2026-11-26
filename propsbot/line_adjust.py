@@ -278,6 +278,8 @@ def evaluate_line_adjusted(evd: dict, quotes: list[OddsQuote], names: dict[str, 
                     if market in pr.mu_fb2:   # F5 (26/11): per 90 med positionsprior, bara loggning
                         extra.update(p_raw_fb2=cl(pr.mu_fb2[market]), mu_fb2=round(pr.mu_fb2[market], 3),
                                      fb2_min=round(pr.fb2_emin or 0.0, 1), fb2_grp=pr.fb2_grp)
+                    if market in pr.mu_fb2k:  # F4: + motståndare och hemmaplan
+                        extra.update(p_raw_fb2k=cl(pr.mu_fb2k[market]), mu_fb2k=round(pr.mu_fb2k[market], 3))
                 if gaps_out is not None:
                     if 0.15 <= p_adj <= 0.85:
                         gaps_out.append((market, logit(p_raw) - logit(p_adj)))

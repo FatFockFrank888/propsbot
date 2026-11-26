@@ -138,6 +138,14 @@
   "use_player_model": true,
   "fb2_matches": 15,
   "fb2_backfill_per_run": 150,
+  "fb2_ctx_opp_e": {
+    "shots": 0.75,
+    "shots_on_target": 0.5
+  },
+  "fb2_ctx_home_h": {
+    "shots": 0.1,
+    "shots_on_target": 0.15
+  },
   "model_mode": "test",
   "model_weight": 0.1,
   "model_market_mult": {

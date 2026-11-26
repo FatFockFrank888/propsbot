@@ -105,13 +105,48 @@ def _row(extra, lu="start"):
 
 def test_benlogg_records_fb2(tmp_path):
     ev = {"m1": {"commence_time": time.time() + 3600, "home_team": "A", "borta": "B"}}
-    led = benlogg.record_all(tmp_path, [_row({"p_raw_hyb": 0.4, "p_raw_fb2": 0.47})], ev)
+    led = benlogg.record_all(tmp_path, [_row({"p_raw_hyb": 0.4, "p_raw_fb2": 0.47, "p_raw_fb2k": 0.5})], ev)
     b = led.bets[0]
-    assert b["p_fb2"] == 0.47 and b["p_fb20"] == 0.47
+    assert b["p_fb2"] == 0.47 and b["p_fb20"] == 0.47 and b["p_fb2k"] == 0.5 and b["p_fb2k0"] == 0.5
     led = benlogg.record_all(tmp_path, [_row({"p_raw_hyb": 0.4})], ev)        # utan fb2: ingen krasch
     assert led.bets[0].get("p_fb2") is None
     # gamla avgjorda rader (utan de nya kolumnerna) läses fortfarande
-    old = {"cols": benlogg.COLS[:-2], "rows": [["k", 1.0, "shots", 1.5, 1, 0.4, 0.4, 0.4, 0.4, None, None, None,
+    old = {"cols": benlogg.COLS[:-4], "rows": [["k", 1.0, "shots", 1.5, 1, 0.4, 0.4, 0.4, 0.4, None, None, None,
                                                  None, 2.0, None, 2.0, 0.4, None, None, 0.4]]}
     benlogg.analyse(tmp_path, old, {}, NS(log=lambda *_: None))
-    assert benlogg.COLS[-2:] == ["p_fb2", "p_fb20"]
+    assert benlogg.COLS[-4:] == ["p_fb2", "p_fb20", "p_fb2k", "p_fb2k0"]
+
+
+def test_fb2_context(tmp_path, monkeypatch):
+    from propsbot.player_model import apply_fb2_context
+    monkeypatch.setattr(httpmod.urllib.request, "urlopen", fake)
+    pm = _pm(tmp_path, fb2_matches=15)
+    tm1, tm2 = pm.team("eng.1", "1", NOW), pm.team("eng.1", "2", NOW)
+    assert tm1.conc == [] and tm2.conc == []            # låtsasmatcherna har bara ett lag per utdrag
+    lc = pm.league_conceded("eng.1")
+    assert lc == {}                                     # för få matcher med två lag -> ingen motståndarfaktor
+    model_probs(tm1, tm1.avg_goals)
+    apply_fb2_context(tm1, tm2, True, lc, {"shots": 0.75}, {"shots": 0.1, "shots_on_target": 0.15})
+    fw = tm1.players["anfallare 1"]
+    assert abs(fw.mu_fb2k["shots"] - fw.mu_fb2["shots"] * 1.1) < 1e-9          # bara hemmafaktorn
+    assert abs(fw.mu_fb2k["shots_on_target"] - fw.mu_fb2["shots_on_target"] * 1.15) < 1e-9
+    # med motståndardata: medgivet 18 mot ligasnitt 12 -> faktor 1,25 (krympt), ^0,75
+    tm2.conc = [{"shots": 18.0, "shots_on_target": 6.0}] * 5
+    apply_fb2_context(tm1, tm2, False, {"shots": 12.0, "shots_on_target": 4.0}, {"shots": 0.75}, {"shots": 0.1})
+    assert abs(fw.mu_fb2k["shots"] - fw.mu_fb2["shots"] * 1.25 ** 0.75 / 1.1) < 1e-9
+    assert abs(fw.mu_fb2k["shots_on_target"] - fw.mu_fb2["shots_on_target"]) < 1e-9   # e = 0, h = 0
+    before = {k: dict(p.rate) for k, p in tm1.players.items()}
+    apply_fb2_context(tm1, None, None, {}, {"shots": 1.0}, {"shots": 0.2})
+    assert {k: p.rate for k, p in tm1.players.items()} == before                # dagens modell orörd
+    assert abs(fw.mu_fb2k["shots"] - fw.mu_fb2["shots"]) < 1e-9                  # saknad data -> 1
+
+
+def test_conceded_from_two_team_extracts(tmp_path):
+    d = tmp_path / "espn"
+    d.mkdir()
+    for i in range(25):
+        (d / f"eng.1_{i}.json").write_text(json.dumps({"v": 2, "teams": {
+            "1": [{"n": "a", "s": True, "shots": 10, "shots_on_target": 4}],
+            "2": [{"n": "b", "s": True, "shots": 14, "shots_on_target": 5}]}}))
+    pm = _pm(tmp_path)
+    assert pm.league_conceded("eng.1") == {"shots": 12.0, "shots_on_target": 4.5}

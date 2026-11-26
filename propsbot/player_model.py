@@ -63,6 +63,7 @@ class PlayerRates:
     fb2_emin: float | None = None
     fb2_grp: str | None = None
     mu_fb2: dict[str, float] = field(default_factory=dict)  # väntat antal med ELASTICITY_HYB
+    mu_fb2k: dict[str, float] = field(default_factory=dict)  # F4: mu_fb2 × motståndare^e × hemma/borta (skugga)
 
 
 @dataclass
@@ -71,6 +72,7 @@ class TeamModel:
     name: str
     avg_goals: float
     players: dict[str, PlayerRates]  # name_key -> rates
+    conc: list = field(default_factory=list)   # F4: medgivna skott/SOT per match (nyaste först)
 
 
 class EspnStore:
@@ -220,8 +222,14 @@ class PlayerModel:
             self._fb2(league, team_id, done_fb2, players)
         except Exception:  # noqa: BLE001 – skuggmodellen får aldrig stoppa den vanliga
             pass
+        conc = []
+        for _, eid in done:
+            ex = self.store.match_extract(league, eid)
+            others = [ps for t, ps in (ex or {}).get("teams", {}).items() if t != team_id]
+            if ex and team_id in ex.get("teams", {}) and len(others) == 1:
+                conc.append({m: sum(p.get(m) or 0.0 for p in others[0]) for m in FB2_MARKETS})
         g = [x for x in goals if x is not None]
-        tm = TeamModel(team_id, name, sum(g) / len(g) if g else 1.35, players)
+        tm = TeamModel(team_id, name, sum(g) / len(g) if g else 1.35, players, conc)
         self._teams[team_id] = tm
         return tm
 
@@ -253,6 +261,28 @@ class PlayerModel:
         out = {k: {m: a[m] * 90.0 / a["min"] for m in FB2_MARKETS} for k, a in acc.items() if a["min"] >= FB2_PRIOR_MIN}
         self._priors[league] = out
         return out
+
+    def league_conceded(self, league: str) -> dict:
+        """Ligans snitt av ett lags skott/SOT per match ur alla cachade utdrag (för motståndarfaktorn)."""
+        if league in getattr(self, "_lconc", {}):
+            return self._lconc[league]
+        self._lconc = getattr(self, "_lconc", {})
+        tot = {m: 0.0 for m in FB2_MARKETS}
+        n = 0
+        for f in self.store.dir.glob(f"{league}_*.json"):
+            try:
+                ex = json.loads(f.read_text(encoding="utf-8"))
+            except (OSError, ValueError):
+                continue
+            teams = ex.get("teams", {})
+            if len(teams) != 2:
+                continue
+            for ps in teams.values():
+                n += 1
+                for m in FB2_MARKETS:
+                    tot[m] += sum(p.get(m) or 0.0 for p in ps)
+        self._lconc[league] = {m: tot[m] / n for m in FB2_MARKETS} if n >= 20 else {}
+        return self._lconc[league]
 
     def _fb2(self, league: str, team_id: str, done: list, players: dict) -> None:
         from .quant.fb_minutes import Status, expected_minutes
@@ -321,6 +351,19 @@ def model_probs(tm: TeamModel, exp_goals: float, min_apps: float = 2.0
             if m in pr.fb2 and pr.fb2_emin:
                 pr.mu_fb2[m] = pr.fb2[m] * pr.fb2_emin / 90.0 * ratio ** ELASTICITY_HYB[m]
     return out
+
+
+def apply_fb2_context(tm: TeamModel, opp: TeamModel | None, is_home: bool | None, league_conc: dict,
+                      opp_e: dict, home_h: dict) -> None:
+    """F4 (skugga): mu_fb2k = mu_fb2 × motståndarens medgivna^e × hemmafaktor. Saknad data ger faktor 1."""
+    from .quant import fb_context as fc
+    for m in FB2_MARKETS:
+        f_opp = fc.opp_factor([c[m] for c in (opp.conc if opp else [])[:8]], league_conc.get(m, 0.0))
+        f = fc.apply(1.0, {"opp": f_opp, "home": fc.home_factor(is_home, home_h.get(m, 0.0))},
+                     {"opp": opp_e.get(m, 0.0), "home": 1.0})
+        for pr in tm.players.values():
+            if m in pr.mu_fb2:
+                pr.mu_fb2k[m] = pr.mu_fb2[m] * f
 
 
 def prob_over(market: str, mu: float, line: float) -> float:

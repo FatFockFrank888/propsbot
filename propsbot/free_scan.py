@@ -248,10 +248,21 @@ def player_models(evd: dict, settings: dict, pm, diag: Diag) -> dict | None:
         lg, _eid, hid, aid, _ = hit
         lh, la = evd["pin_lines"].lambdas()
         out = {}
+        tms = {}
         for tid, lam in ((hid, lh), (aid, la)):
             tm = pm.team(lg, tid, evd["commence_time"])
+            tms[tid] = tm
             if tm:
                 out.update(model_probs(tm, lam))
+        try:   # F4 (skugga): motståndare och hemmaplan ovanpå per 90-modellen -> mu_fb2k / p_fb2k
+            from .player_model import apply_fb2_context
+            lc = pm.league_conceded(lg)
+            for tid, opp, home in ((hid, aid, True), (aid, hid, False)):
+                if tms.get(tid):
+                    apply_fb2_context(tms[tid], tms.get(opp), home, lc, settings.get("fb2_ctx_opp_e", {}),
+                                      settings.get("fb2_ctx_home_h", {}))
+        except Exception as e:  # noqa: BLE001
+            diag.lines.append(f"  fb2-kontext FEL {type(e).__name__}: {e}")
         n = len({k for k, _ in out})
         diag.lines.append(f"  {evd['home_team']} – {evd['away_team']}: modell {lg}, {n} spelare")
         return out or None

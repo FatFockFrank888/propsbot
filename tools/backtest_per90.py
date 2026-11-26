@@ -26,6 +26,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from propsbot.player_model import nb_over  # noqa: E402
 from propsbot.quant import calibration, evaluate  # noqa: E402
 from propsbot.quant.fb_minutes import Status, expected_minutes  # noqa: E402
+from propsbot.quant import fb_context as fc  # noqa: E402
 from propsbot.quant.fb_rates import M_PRIOR, position_group, shrunk_rate  # noqa: E402
 
 STATS = {"shots": "shots", "sot": "shots_on_target", "fouls": "fouls"}
@@ -53,6 +54,8 @@ class State:
         self.team_hist = defaultdict(list)      # tid -> [match players list] (nyaste sist)
         self.player = defaultdict(list)         # pid -> [{min, s, pos, shots, sot, fouls}] (nyaste sist)
         self.pos_acc = defaultdict(lambda: defaultdict(float))   # (lg, grupp) -> {min, stat...}
+        self.conc = defaultdict(list)            # tid -> [{stat: medgivet}] (nyaste sist)
+        self.lg_conc = defaultdict(lambda: defaultdict(float))   # lg -> {n, stat...}
 
     def m0(self, tid: str, name_id: str, stat: str) -> float | None:
         hist = self.team_hist[tid][-M0_N:][::-1]
@@ -102,7 +105,22 @@ class State:
         e_min = expected_minutes([(r["s"], r.get("min")) for r in hist], Status.CONFIRMED_XI)
         return rate * e_min / 90.0
 
+    def opp(self, lg: str, opp_tid: str | None, stat: str) -> float:
+        a = self.lg_conc.get(lg)
+        if not opp_tid or not a or a["n"] < 20:
+            return 1.0
+        return fc.opp_factor([c[stat] for c in self.conc[opp_tid][-8:][::-1]], a[stat] / a["n"])
+
     def update(self, m: dict) -> None:
+        tids = list(m["teams"])
+        if len(tids) == 2:
+            for t, o in ((tids[0], tids[1]), (tids[1], tids[0])):
+                c = {st: sum(_f(p.get(st)) for p in m["teams"][o]) for st in STATS}
+                self.conc[t].append(c)
+                a = self.lg_conc[m["lg"]]
+                a["n"] += 1
+                for st in STATS:
+                    a[st] += c[st]
         for tid, ps in m["teams"].items():
             self.team_hist[tid].append(ps)
             for p in ps:
@@ -119,13 +137,26 @@ class State:
                             a[st] += _f(p.get(st))
 
 
-def predictions(matches: list[dict], start: str, m_prior: dict | None = None) -> list[dict]:
+def _ts(iso: str) -> float:
+    from datetime import datetime
+    return datetime.fromisoformat(iso.replace("Z", "+00:00")).timestamp()
+
+
+def predictions(matches: list[dict], start: str, m_prior: dict | None = None, ctx: dict | None = None) -> list[dict]:
+    """ctx (valfri): {"home": {match_id: hemmalagets id}, "sched": {lag_id: [ISO-tider, alla tävlingar]}}."""
     mp = m_prior or {s: M_PRIOR[STATS[s]] for s in STATS}
     st = State()
     out = []
+    home = (ctx or {}).get("home", {})
+    sched = {t: [_ts(x) for x in v] for t, v in ((ctx or {}).get("sched") or {}).items()}
     for m in matches:
         if m["date"] >= start:
+            ko = _ts(m["date"])
+            tids = list(m["teams"])
             for tid, ps in m["teams"].items():
+                opp_tid = next((t for t in tids if t != tid), None)
+                is_home = (home[str(m["id"])] == tid) if str(m["id"]) in home else None
+                rest = fc.rest_days(sched.get(tid, []), ko)
                 for p in ps:
                     if not p["s"] or p.get("min") is None or position_group(p.get("pos")) == "GK":
                         continue
@@ -138,7 +169,8 @@ def predictions(matches: list[dict], start: str, m_prior: dict | None = None) ->
                         y = _f(p.get(s))
                         for ln in LINES[s]:
                             out.append({"date": m["date"], "mid": m["id"], "lg": m["lg"], "stat": s, "line": ln,
-                                        "grp": grp, "y": 1 if y > ln else 0,
+                                        "grp": grp, "y": 1 if y > ln else 0, "mu1": mu1,
+                                        "f_opp": st.opp(m["lg"], opp_tid, s), "home": is_home, "rest": rest,
                                         "p0": nb_over(max(mu0, 1e-4), ln, SHAPE[s]),
                                         "p1": nb_over(max(mu1, 1e-4), ln, SHAPE[s])})
         st.update(m)
@@ -168,6 +200,56 @@ def evaluate_rows(rows: list[dict], test: str) -> list[tuple]:
     return res
 
 
+GRID = {"e_opp": (0.0, 0.25, 0.5, 0.75, 1.0), "h": (0.0, 0.05, 0.1, 0.15), "s": (0.0, 0.03, 0.06, 0.1)}
+
+
+def _p_ctx(r: dict, e_opp: float, h: float, s_: float) -> float:
+    mu = fc.apply(r["mu1"], {"opp": r["f_opp"], "home": fc.home_factor(r["home"], h),
+                             "rest": fc.rest_factor(r["rest"], s_)}, {"opp": e_opp, "home": 1.0, "rest": 1.0})
+    return nb_over(max(mu, 1e-4), r["line"], SHAPE[r["stat"]])
+
+
+def context_eval(rows: list[dict], test: str) -> list[tuple]:
+    """Per stat: välj (e_opp, h, s) på perioden före test (log-loss), pröva på test mot M1 (båda efter Platt)."""
+    import itertools
+    out = []
+    for stat in STATS:
+        val = [r for r in rows if r["stat"] == stat and r["date"] < test]
+        te = [r for r in rows if r["stat"] == stat and r["date"] >= test]
+        if len(val) < 500 or len(te) < 500:
+            continue
+        yv = [r["y"] for r in val]
+        best = min(itertools.product(*GRID.values()),
+                   key=lambda g: evaluate.logloss([_p_ctx(r, *g) for r in val], yv))
+        res = [stat, best]
+        for ln in LINES[stat]:
+            v = [r for r in val if r["line"] == ln]
+            t = [r for r in te if r["line"] == ln]
+            if len(v) < 200 or len(t) < 200:
+                continue
+            y = [r["y"] for r in t]
+            c1 = calibration.platt_apply(calibration.platt_fit([r["p1"] for r in v], [r["y"] for r in v]), [r["p1"] for r in t])
+            pc_v = [_p_ctx(r, *best) for r in v]
+            c2 = calibration.platt_apply(calibration.platt_fit(pc_v, [r["y"] for r in v]), [_p_ctx(r, *best) for r in t])
+            ll = lambda p, yy: -(yy * math.log(min(max(p, 1e-6), 1 - 1e-6)) + (1 - yy) * math.log(1 - min(max(p, 1e-6), 1 - 1e-6)))
+            d = [ll(c2[i], r["y"]) - ll(c1[i], r["y"]) for i, r in enumerate(t)]
+            res.append((ln, len(t), evaluate.logloss(c1, y), evaluate.logloss(c2, y), sum(d) / len(d),
+                        evaluate.boot_ci(d, [r["mid"] for r in t], n=1000)))
+        out.append(tuple(res))
+    return out
+
+
+def context_report(rows: list[dict], test: str) -> str:
+    L = ["", "## Matchkontext (F4) ovanpå M1", "",
+         "Elasticiteter valda på perioden före test: e_opp (motståndarens medgivna), h (hemma +h / borta 1/(1+h)), "
+         "s (avdrag vid ≤ 3,5 dagars vila).", "",
+         "| Marknad | vald (e_opp, h, s) | n test | M1 Platt | M1 + kontext Platt | Δ | 95 % CI |", "|---|---|---|---|---|---|---|"]
+    for stat, best, *lines in context_eval(rows, test):
+        for ln, n, l1, l2, d, ci in lines:
+            L.append(f"| {STATS[stat]} > {ln} | {best} | {n} | {l1:.4f} | {l2:.4f} | {d:+.4f} | {ci[0]:+.4f} … {ci[1]:+.4f} |")
+    return "\n".join(L)
+
+
 def report(rows: list[dict], test: str, n_matches: int) -> str:
     L = ["# Backtest per 90 (F1–F2) mot per framträdande", "",
          f"{n_matches} matcher, {len(rows)} prognoser (startande utespelare). Test från {test}; Platt skattad före.", "",
@@ -185,10 +267,14 @@ def main(argv=None):
     ap.add_argument("--val", default="2026-09-15")
     ap.add_argument("--test", default="2026-10-16")
     ap.add_argument("--out", type=Path)
+    ap.add_argument("--context", type=Path, help="JSON med hemmalag och lagens spelscheman (F4)")
     a = ap.parse_args(argv)
     ms = load(a.dir)
-    rows = predictions(ms, a.val)
+    ctx = json.loads(a.context.read_text(encoding="utf-8")) if a.context else None
+    rows = predictions(ms, a.val, ctx=ctx)
     txt = report(rows, a.test, len(ms))
+    if ctx:
+        txt += context_report(rows, a.test)
     if a.out:
         a.out.write_text(txt, encoding="utf-8")
     print(txt)
