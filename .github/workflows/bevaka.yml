@@ -65,6 +65,7 @@ jobs:
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
           SGO_API_KEY: ${{ secrets.SGO_API_KEY }}
           PROPLINE_API_KEY: ${{ secrets.PROPLINE_API_KEY }}
+          ODDS_PAPI_KEY: ${{ secrets.ODDS_PAPI_KEY }}   # oddspapi.io: bet365-spelarprops (bulk, 250 anrop/månad)
           GOAL_API_KEY: ${{ secrets.LIVESCORE }}   # goal-api.com (hemligheten heter LIVESCORE)
           API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
           SPORTSCORE_API_KEY: ${{ secrets.SPORTSCORE_API_KEY }}   # sportscore.com: resultat/status för mindre ligor (av utan nyckel)   # api-sports.io: resultat och status för smala ligor (av utan nyckel)
