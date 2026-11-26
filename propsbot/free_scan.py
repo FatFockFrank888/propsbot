@@ -507,7 +507,10 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
     playable = [r for r in rows if r.row.decision.playable and r.row.decision.show]
     if pm:
         n_mod = sum(1 for r in rows if r.row.p_model == r.row.p_model)  # inte NaN
-        diag.log(f"Spelarmodell: {n_mod} av {len(rows)} ben har modell, "
+        n_mod_t = sum(1 for r in shadow_rows if r.row.p_model == r.row.p_model)
+        act = settings.get("model_mode") == "aktiv"
+        diag.log(f"Spelarmodell ({'aktiv: styr spelen' if act else 'testläge: styr inte spelen'}): "
+                 f"{n_mod} av {len(rows)} huvudben, {n_mod_t} av {len(shadow_rows)} testben har modell, "
                  f"{pm.store.fetched} nya matcher hämtade från ESPN")
     for label_, rr in (("marknad", rows), ("modelltest", shadow_rows)):
         for mk in ("goal", "assist", "shots_on_target", "shots"):
