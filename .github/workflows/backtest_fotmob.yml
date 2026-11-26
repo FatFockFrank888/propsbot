@@ -1,0 +1,28 @@
+name: backtest-fotmob
+# Engångsutvärdering av spelarmodellen mot utfall (inga notiser, ingen skarp data, inga hemligheter).
+on:
+  workflow_dispatch:
+  push:
+    paths: ['tools/backtest_fotmob.py', '.github/workflows/backtest_fotmob.yml']
+jobs:
+  backtest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/cache/restore@v4
+        with:
+          path: fm_cache
+          key: fm-bt-${{ github.run_id }}
+          restore-keys: fm-bt-
+      - run: python3 tools/backtest_fotmob.py
+        env:
+          BT_BUDGET_S: "2400"
+      - uses: actions/cache/save@v4
+        if: always()
+        with:
+          path: fm_cache
+          key: fm-bt-${{ github.run_id }}
