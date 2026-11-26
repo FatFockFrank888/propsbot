@@ -3437,7 +3437,7 @@
 "metod": "lag",
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795722391.8676355
+"stangning_ts": 1795723279.5568275
 },
 {
 "key": "k1028231039|corners|9.5|under|unibet",
@@ -3477,7 +3477,7 @@
 "metod": "odds+lag",
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795722391.8676355
+"stangning_ts": 1795723279.5568275
 },
 {
 "key": "k1028208867|corners_away|5.5|over|unibet",
@@ -3517,6 +3517,86 @@
 "metod": "lag",
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795722391.8676355
+"stangning_ts": 1795723279.5568275
+},
+{
+"key": "k1027911718|corners|6.5|under|unibet",
+"id": 89,
+"bokford": 1795723279.5568275,
+"match_id": "k1027911718",
+"match": "Venezia – Bologna",
+"hemma": "Venezia",
+"borta": "Bologna",
+"liga": "Football / Italy / Serie A",
+"fd_liga": "I1",
+"avspark": 1795808700.0,
+"spelare": "Hörnor",
+"spelare_id": "hörnor",
+"marknad": "corners",
+"linje": 6.5,
+"sida": "under",
+"spel_text": "hörnor under 6.5",
+"bolag": "unibet",
+"odds": 4.1,
+"sannolikhet": 0.26371175436191535,
+"ratt_odds": 3.7920190642227123,
+"edge": 0.0812181928838529,
+"spela_fran": 3.99,
+"insats_pct": 0.01,
+"stangning": 4.1,
+"p_modell": 0.26371175436191535,
+"p_marknad": 0.22348484848484848,
+"vantat_hemma": 4.14,
+"vantat_borta": 4.75,
+"underlag_matcher": [
+9.1,
+15.7
+],
+"status": "öppen",
+"stopp": "hörnmodell (odds+lag): väntat 4.1–4.7 (I1)",
+"metod": "odds+lag",
+"utfall": null,
+"resultat_enheter": null,
+"stangning_ts": 1795723279.5568275
+},
+{
+"key": "k1027973908|corners|6.5|under|unibet",
+"id": 90,
+"bokford": 1795723279.5568275,
+"match_id": "k1027973908",
+"match": "Brest – Paris FC",
+"hemma": "Brest",
+"borta": "Paris FC",
+"liga": "Football / France / Ligue 1",
+"fd_liga": "F1",
+"avspark": 1795808700.0,
+"spelare": "Hörnor",
+"spelare_id": "hörnor",
+"marknad": "corners",
+"linje": 6.5,
+"sida": "under",
+"spel_text": "hörnor under 6.5",
+"bolag": "unibet",
+"odds": 4.0,
+"sannolikhet": 0.27637906446280336,
+"ratt_odds": 3.618219064253999,
+"edge": 0.10551625785121344,
+"spela_fran": 3.8,
+"insats_pct": 0.01,
+"stangning": 4.0,
+"p_modell": 0.27637906446280336,
+"p_marknad": 0.22779922779922782,
+"vantat_hemma": 3.68,
+"vantat_borta": 5.16,
+"underlag_matcher": [
+14.0,
+13.9
+],
+"status": "öppen",
+"stopp": "hörnmodell (odds+lag): väntat 3.7–5.2 (F1)",
+"metod": "odds+lag",
+"utfall": null,
+"resultat_enheter": null,
+"stangning_ts": 1795723279.5568275
 }
 ]
