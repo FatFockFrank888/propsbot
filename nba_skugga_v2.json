@@ -95931,14 +95931,14 @@
 "spela_fran": 1.69,
 "insats_pct": 0.02,
 "stangning": 1.77,
-"status": "öppen",
+"status": "struken",
 "stopp": "Pinnacles linje flyttad – skuggspel tills flytten är verifierad",
 "clv_signal": false,
 "forv_clv_pp": 3.9211858675293754,
 "p_modell": null,
 "p_marknad": 0.6041836100877231,
 "utfall": null,
-"resultat_enheter": null,
+"resultat_enheter": 0.0,
 "stangning_ts": 1795466248.0303686,
 "modellversion": "2026-11-15-betyg",
 "prognos_ts": 1795466248.0302875,
@@ -96002,7 +96002,8 @@
 "skarp_stang_p_egen_linje": 0.6041836100877231,
 "skarp_stang_ts_egen_linje": 1795466247.8814178,
 "skarp_flyttad_fran": 15.5,
-"skarp_flytt_for_oss": true
+"skarp_flytt_for_oss": true,
+"struken_orsak": "spelaren hittades inte i ESPN:s boxscore inom 48 h"
 },
 {
 "key": "nba1028754507|domantas sabonis|points|14.5|unibet|under",
@@ -105620,8 +105621,8 @@
 "analys_ts": 1795638674.945386,
 "modellversion": "2026-11-15-betyg",
 "prognos_ts": 1795603438.8654943,
-"skarp_stang_p": 0.5127234986048625,
-"skarp_stang_ts": 1795638674.723928,
+"skarp_stang_p": 0.5789096074798894,
+"skarp_stang_ts": 1795661797.8319216,
 "skarp_kalla": "skanning",
 "pin_stang_p": 0.5388072660222767,
 "dk_stang_p": 0.5088863474819338,
@@ -105663,11 +105664,15 @@
 "dk_p": 0.5088863474819338
 },
 "bolag_stang_ts": 1795639647.450345,
-"skarp_verifierad": false,
-"skarp_status": null,
-"clv_skarp_pp": 2.491862055608202,
+"skarp_verifierad": true,
+"skarp_status": "flyttad linje",
+"clv_skarp_pp": 9.110472943110887,
 "clv_pin_pp": 5.100238797349616,
-"clv_dk_pp": 2.1081469433153313
+"clv_dk_pp": 2.1081469433153313,
+"skarp_stang_p_egen_linje": 0.5127234986048625,
+"skarp_stang_ts_egen_linje": 1795638674.723928,
+"skarp_flyttad_fran": 31.5,
+"skarp_flytt_for_oss": true
 },
 {
 "key": "nba1028744810|zach lavine|rebounds|3.5|unibet|under",
@@ -105929,7 +105934,7 @@
 },
 "bolag_stang_ts": 1795645216.481355,
 "skarp_verifierad": false,
-"skarp_status": null,
+"skarp_status": "borttagen",
 "clv_skarp_pp": 0.7216382110646458,
 "clv_pin_pp": null,
 "clv_dk_pp": 0.7216382110646458
@@ -107692,8 +107697,8 @@
 "analys_ts": 1795640817.911145,
 "modellversion": "2026-11-15-betyg",
 "prognos_ts": 1795622270.419369,
-"skarp_stang_p": 0.6051545858895633,
-"skarp_stang_ts": 1795640817.6424809,
+"skarp_stang_p": 0.6026114474501238,
+"skarp_stang_ts": 1795658974.8835957,
 "skarp_kalla": "skanning",
 "pin_stang_p": 0.6051545858895633,
 "dk_stang_p": 0.5557809769023802,
@@ -107744,11 +107749,15 @@
 "dk_p": 0.5557809769023802
 },
 "bolag_stang_ts": 1795640817.9277267,
-"skarp_verifierad": false,
-"skarp_status": null,
-"clv_skarp_pp": 4.018283447713388,
+"skarp_verifierad": true,
+"skarp_status": "flyttad linje",
+"clv_skarp_pp": 3.763969603769446,
 "clv_pin_pp": 4.018283447713388,
-"clv_dk_pp": -0.9190774510049238
+"clv_dk_pp": -0.9190774510049238,
+"skarp_stang_p_egen_linje": 0.6051545858895633,
+"skarp_stang_ts_egen_linje": 1795640817.6424809,
+"skarp_flyttad_fran": 19.5,
+"skarp_flytt_for_oss": true
 },
 {
 "key": "nba1028744813|grayson allen|points|12.5|unibet|under",
@@ -108983,8 +108992,8 @@
 "analys_ts": 1795655097.0874774,
 "modellversion": "2026-11-15-betyg",
 "prognos_ts": 1795628025.5653837,
-"skarp_stang_p": 0.5028052185681497,
-"skarp_stang_ts": 1795655096.803939,
+"skarp_stang_p": 0.5632770410855714,
+"skarp_stang_ts": 1795661797.8319216,
 "skarp_kalla": "skanning",
 "pin_stang_p": 0.5071008308877654,
 "dk_stang_p": 0.4985091920940281,
@@ -109035,11 +109044,15 @@
 "dk_p": 0.4985091920940281
 },
 "bolag_stang_ts": 1795655097.101973,
-"skarp_verifierad": false,
-"skarp_status": null,
-"clv_skarp_pp": -0.22452864823553353,
+"skarp_verifierad": true,
+"skarp_status": "flyttad linje",
+"clv_skarp_pp": 5.822653603506634,
 "clv_pin_pp": 0.20503258372602806,
-"clv_dk_pp": -0.6541312956476975
+"clv_dk_pp": -0.6541312956476975,
+"skarp_stang_p_egen_linje": 0.5028052185681497,
+"skarp_stang_ts_egen_linje": 1795655096.803939,
+"skarp_flyttad_fran": 18.5,
+"skarp_flytt_for_oss": true
 },
 {
 "key": "nba1028744813|sion james|threes|1.5|unibet|under",
@@ -112883,7 +112896,7 @@
 "skarp_stang_ts": 1795646247.1716645,
 "skarp_kalla": "skanning",
 "skarp_verifierad": false,
-"skarp_status": null,
+"skarp_status": "borttagen",
 "clv_skarp_pp": 4.785714285714287,
 "clv_pin_pp": null,
 "clv_dk_pp": null
