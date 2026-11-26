@@ -1,4 +1,4 @@
-Skanning 2026-11-26 20:19
+Skanning 2026-11-26 20:30
 Kambi unibet (ubse): OK, 20 matcher i valda ligor
 Kambi paf (paf): OK
 Kambi atg (atg): OK
@@ -69,35 +69,11 @@ Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
   Draw No Bet 1st Half | units=Regular | kategori=Team Props | deltagare=Pachuca,Chivas Guadalajara  ->  används inte (lagmarknad)
   3-Way Handicap Pachuca +1 | units=Regular | kategori=Team Props | deltagare=Pachuca (+1),Draw - (Pachuca +1),Chivas Guadalajara (-1)  ->  används inte (lagmarknad)
   Both Teams To Score and Moneyline | units=Regular | kategori=Team Props | deltagare=Yes & Pachuca,Yes & Draw,Yes & Chivas Guadalajara,No & Pachuca,No & Draw,No & Chivas Guadalajara  ->  används inte (lagmarknad)
-Sides mindre ligor: 4 Kambi-matcher inom 12 h, 22 Pinnacle-matcher, 3 med Pinnacle, 3 matchade: Chile / Primera B, Nicaragua / Primera Division Nicaragua, Paraguay / Copa Paraguay
+Sides mindre ligor: 5 Kambi-matcher inom 12 h, 22 Pinnacle-matcher, 3 med Pinnacle, 3 matchade: Chile / Primera B, Nicaragua / Primera Division Nicaragua, Paraguay / Copa Paraguay
 Sides rättning: goal-api dagstak 300 anrop nått
 Sides rättning: SportScore 36 anrop i dag
 Sides rättning: API-Football 1 anrop i dag, pausad resten av dygnet (kvot- eller planfel)
-  Sides rättad: FK Baumit Jablonec – Lugano 1X2: 1 -> vunnen (2–0)
-  Sides rättad: Celta Vigo – Bournemouth 1X2: 1 -> förlorad (1–2)
-  Sides rättad: Dinamo Zagreb – Bayer Leverkusen 1X2: 1 -> förlorad (0–2)
-  Sides rättad: Viktoria Plzeň – Benfica 1X2: 1 -> vunnen (4–0)
-  Sides rättad: Iberia 1999 – Getafe 1X2: 1 -> vunnen (1–0)
-  Sides rättad: Hearts – AS Monaco 1X2: 2 -> vunnen (2–3)
-  Sides rättad: Marseille – Levski Sofia 1X2: 2 -> förlorad (1–0)
-  Sides rättad: Union Saint-Gilloise – Lech Poznań 1X2: 2 -> förlorad (2–2)
-  Sides rättad: Pafos FC – FC Midtjylland 1X2: 1 -> förlorad (0–2)
-  Sides rättad: Red Bull Salzburg – Ararat-Armenia FC handikapp -1.25 -> vunnen (2–0)
-  Sides rättad: Pafos FC – FC Midtjylland 1X2: X -> förlorad (0–2)
-  Sides rättad: Ajax – Thun handikapp +3 -> förlorad (4–0)
-  Sides rättad: Brighton – Universitatea Craiova under 5.5 -> vunnen (4–0)
-  Sides rättad: Olympiakos Piraeus – AC Milan över 2.5 -> vunnen (2–4)
-  Sides rättad: Marseille – Levski Sofia 1X2: 1 -> vunnen (1–0)
-  Sides rättad: Union Saint-Gilloise – Lech Poznań 1X2: 1 -> förlorad (2–2)
-  Sides rättad: Celta Vigo – Bournemouth 1X2: 1 -> förlorad (1–2)
-  Sides rättad: Dinamo Zagreb – Bayer Leverkusen 1X2: 2 -> vunnen (0–2)
-  Sides rättad: FK Baumit Jablonec – Lugano 1X2: 1 -> vunnen (2–0)
-  Sides rättad: Beşiktaş – Hapoel Beer Sheva 1X2: 2 -> förlorad (2–1)
-  Sides rättad: Viktoria Plzeň – Benfica 1X2: 1 -> vunnen (4–0)
-  Sides rättad: Hearts – AS Monaco 1X2: 2 -> vunnen (2–3)
-  Sides rättad: Iberia 1999 – Getafe under 2.5 -> vunnen (1–0)
-  Sides rättad: FK Kauno Zalgiris – Riga FC 1X2: 2 -> förlorad (2–0)
-Sides/totals: 19 matcher med Kambi + Pinnacle, 679 linjer, 0 nya spel, 0 nya skuggspel, Smarkets-priser i 16 av 16; bästa edge +8.7% (ART Municipal Jalapa 1X2: 2), +7.1% (Cerro Porteño 1X2: X), +4.4% (Venezia 1X2: X)
+Sides/totals: 19 matcher med Kambi + Pinnacle, 677 linjer, 0 nya spel, 0 nya skuggspel, Smarkets-priser i 16 av 16; bästa edge +8.7% (ART Municipal Jalapa 1X2: 2), +4.3% (ART Municipal Jalapa över 2.5), +4.2% (Cerro Porteño handikapp +0.25)
 Hörnmodell (test): 8040 matcher i underlaget (17 ligor), 8 matcher med modell, 1510 Kambi-linjer, 0 nya testspel; bästa edge +21.7% (Alanyaspor hörnor under 7.5 @ 2.85), +13.3% (Leganés Sabadell FC hörnor över 5.5 @ 2.80), +10.6% (Brest hörnor under 6.5 @ 4.00)
 Fotboll extra bolag: 0 nya hämtningar, 241 odds i bruk, krediter kvar 124, dagsbudget 23 (andel 40%), förbrukat idag 5
 PropLine: 0 anrop denna körning (383/1000 idag), 0 priser i bruk
@@ -121,7 +97,7 @@ Marginal över alla matcher: uppmätt marginal: shots stege k=1.04 (7 spelare; m
   Levante – Racing Santander: modell esp.1, 28 spelare
   Marítimo Funchal – Nacional Madeira: modell – hittar inte matchen hos ESPN
 Modellens nivåavvikelse mot marknaden (log-odds, dras bort): goal -0.43, shots -0.63, shots_on_target -0.28
-  São Paulo-SP – Remo-PA: väntade mål Pinnacle 2.66 mot Kambi 2.75 (kvot 0.965); uppmätt marginal: goal k=1.42, assist k=1.28, shots stege k=1.04 (7 spelare; marginal vid 3,00 ≈ 4%), shots_on_target stege k=1.24 (7 spelare; marginal vid 3,00 ≈ 30%)
+  São Paulo-SP – Remo-PA: väntade mål Pinnacle 2.64 mot Kambi 2.75 (kvot 0.960); uppmätt marginal: goal k=1.42, assist k=1.28, shots stege k=1.04 (7 spelare; marginal vid 3,00 ≈ 4%), shots_on_target stege k=1.24 (7 spelare; marginal vid 3,00 ≈ 30%)
 Exempel uppmätt marginal: goal k=1.42, assist k=1.28, shots stege k=1.04 (7 spelare; marginal vid 3,00 ≈ 4%), shots_on_target stege k=1.24 (7 spelare; marginal vid 3,00 ≈ 30%)
   CF Pachuca – Chivas Guadalajara: väntade mål Pinnacle 2.58 mot Kambi 2.75 (kvot 0.938); uppmätt marginal: goal k=1.37, assist k=1.21
   Club León – Cruz Azul: väntade mål Pinnacle 2.88 mot Kambi 3.01 (kvot 0.957); uppmätt marginal: goal k=1.49, assist k=1.26
@@ -141,7 +117,7 @@ Exempel uppmätt marginal: goal k=1.42, assist k=1.28, shots stege k=1.04 (7 spe
   Southampton – Middlesbrough: väntade mål Pinnacle 3.09 mot Kambi 3.16 (kvot 0.978); uppmätt marginal: goal k=1.53, assist k=1.40, shots_on_target stege k=1.21 (14 spelare; marginal vid 3,00 ≈ 26%)
   Levante – Racing Santander: väntade mål Pinnacle 3.56 mot Kambi 3.38 (kvot 1.053); uppmätt marginal: goal k=1.58, assist k=1.56, shots_on_target stege k=1.06 (7 spelare; marginal vid 3,00 ≈ 7%)
   Marítimo Funchal – Nacional Madeira: väntade mål Pinnacle 2.47 mot Kambi 2.53 (kvot 0.977); uppmätt marginal: goal k=1.22
-Tid: modell och utvärdering 171 s
+Tid: modell och utvärdering 105 s
 Bolag med spelarodds: atg, betmgm, expekt, leovegas, oa_onexbet, paf, svenskaspel, unibet
 Spelarodds per marknad: assist 1699, goal 7853, shots 3025, shots_on_target 3299
 Kambi-marknader: assist='to give an assist (settled using opta data)':1699; goal='1st goalscorer':3000; goal='to score':3000; goal='to score at least 2 goals':1545; goal='to score at least 3 goals':301; goal='to score at least 4 goals':7; shots="player's shots (settled using opta data)":2873; shots_on_target="player's shots on target (settled using opta data)":3210
