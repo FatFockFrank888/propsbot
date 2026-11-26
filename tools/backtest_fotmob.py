@@ -307,6 +307,16 @@ def add_calibrated(rows, names=("M0_nuvarande", "M4_motst_e1.0", "M4_motst_e0.5"
     return rows
 
 
+def print_fits(rows):
+    """Slutliga a,b för M0 (rå modell) per marknad/linje på ALLA val+test-rader: används som startvärden i produktionen."""
+    for mk in ("sot", "shots"):
+        for line in LINES[mk]:
+            R = [r for r in rows if r[0] in ("val", "test") and r[1] == mk and r[2] == line and "M0_nuvarande" in r[4]]
+            if len(R) >= 200:
+                a, b = _fit_cal([(_logit(r[4]["M0_nuvarande"]), r[3]) for r in R])
+                print(f"FIT_ALL M0 {mk} {line}: n={len(R)} a={a:+.4f} b={b:.4f} utfall={sum(r[3] for r in R)/len(R):.4f} medel_p={sum(r[4]['M0_nuvarande'] for r in R)/len(R):.4f}")
+
+
 def report(rows):
     models = sorted({k for r in rows for k in r[4]})
     for split in ("val", "test"):
@@ -353,4 +363,5 @@ if __name__ == "__main__":
     rows = evaluate(matches)
     print("utvärderingsrader:", len(rows), flush=True)
     rows = add_calibrated(rows)
+    print_fits(rows)
     report(rows)
