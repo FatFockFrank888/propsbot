@@ -1,4 +1,4 @@
-Skanning 2026-11-26 01:57
+Skanning 2026-11-26 02:11
 Kambi unibet (ubse): OK, 45 matcher i valda ligor
 Kambi paf (paf): OK
 Kambi atg (atg): OK
@@ -7,8 +7,7 @@ Kambi svenskaspel (svenskaspel): OK
 Kambi expekt (expektse): OK
 Kambi betmgm (betmgmse): OK
 Pinnacle: OK, 24 ligor
-  Viktoria Plzeň – Benfica: Pinnacle FEL HTTP 403 för https://guest.api.arcadia.pinnacle.com/0.1/matchups/1640066615/related
-Pinnacle: 40 matcher, matchlinjer för 36 av 45 Kambi-matcher, 0 spelarodds som används
+Pinnacle: 40 matcher, matchlinjer för 37 av 45 Kambi-matcher, 0 spelarodds som används
 Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
   Both Teams To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
   Either Team To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
@@ -70,21 +69,19 @@ Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
   Winning Margin | units=Regular | kategori=Team Props | deltagare=Kairat Almaty By 1,Kairat Almaty By 2,Kairat Almaty By 3,Kairat Almaty By 4+,Mjallby By 1,Mjallby By 2,Mjallby By 3,Mjallby By 4+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
   Correct Score 1st Half | units=Regular | kategori=Team Props | deltagare=Kairat Almaty 0, Mjallby 0,Kairat Almaty 0, Mjallby 1,Kairat Almaty 0, Mjallby 2,Kairat Almaty 0, Mjallby 3,Kairat Almaty 1, Mjallby 0,Kairat Almaty 1, Mjallby 1,Kairat Almaty 1, Mjallby 2,Kairat Almaty 1, Mjallby 3,Kairat Almaty 2, Mjallby 0,Kairat Almaty 2, Mjallby 1,Kairat Almaty 2, Mjallby 2,Kairat Almaty 2, Mjallby 3,Kairat Almaty 3, Mjallby 0,Kairat Almaty 3, Mjallby 1,Kairat Almaty 3, Mjallby 2,Kairat Almaty 3, Mjallby 3  ->  används inte (lagmarknad)
   Mjallby To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-Sides mindre ligor: 7 Kambi-matcher inom 12 h, 37 Pinnacle-matcher, 3 med Pinnacle, 3 matchade: Chinese Taipei / Taiwan Football Premier League, Thailand / Thai League 2, Uganda / Premier League
-Sides rättning: goal-api HTTP 429
+Sides mindre ligor: 5 Kambi-matcher inom 12 h, 38 Pinnacle-matcher, 3 med Pinnacle, 3 matchade: Chinese Taipei / Taiwan Football Premier League, Thailand / Thai League 2, Uganda / Premier League
 Sides rättning: SportScore 1 anrop i dag
-  Sides rättad: Independiente Santa Fe – Once Caldas Manizales 1X2: X -> förlorad (3–0)
-  Sides rättad: Independiente Santa Fe – Once Caldas Manizales över 2.5 -> vunnen (3–0)
-Sides/totals: 39 matcher med Kambi + Pinnacle, 1577 linjer, 0 nya spel, 1 nya skuggspel, Smarkets-priser i 33 av 33; bästa edge +13.5% (Beşiktaş 1X2: 2), +9.5% (Ajax 1X2: 2), +5.3% (CF Pachuca 1X2: X)
+Sides/totals: 40 matcher med Kambi + Pinnacle, 1631 linjer, 0 nya spel, 0 nya skuggspel, Smarkets-priser i 34 av 34; bästa edge +13.4% (Beşiktaş 1X2: 2), +9.2% (Ajax 1X2: 2), +5.6% (CF Pachuca 1X2: X)
 Hörnmodell (test): 8012 matcher i underlaget (17 ligor), 0 matcher med modell, 0 Kambi-linjer, 0 nya testspel; bästa edge 
 Fotboll extra bolag: 0 nya hämtningar, 181 odds i bruk, krediter kvar 127, dagsbudget 23 (andel 40%), förbrukat idag 2
 PropLine: 0 anrop denna körning (15/1000 idag), 0 priser i bruk
-Tid: hämtning 445 s
+Tid: hämtning 475 s
 Marginal över alla matcher: uppmätt marginal: shots_on_target stege k=1.08 (143 spelare; marginal vid 3,00 ≈ 9%)
   CF Monterrey – Club América: modell – hittar inte matchen hos ESPN
   Kairat Almaty – Mjällby AIF: modell uefa.europa.conf, 18 spelare
   Beşiktaş – Hapoel Beer Sheva: modell uefa.europa, 18 spelare
   Red Bull Salzburg – Ararat-Armenia FC: modell uefa.europa, 21 spelare
+  Viktoria Plzeň – Benfica: modell uefa.europa, 19 spelare
   Pafos FC – FC Midtjylland: modell uefa.europa.conf, 17 spelare
   FK Kauno Zalgiris – Riga FC: modell uefa.europa.conf, 17 spelare
   FK Baumit Jablonec – Lugano: modell uefa.europa.conf, 16 spelare
@@ -117,13 +114,13 @@ Marginal över alla matcher: uppmätt marginal: shots_on_target stege k=1.08 (14
   Sparta Prague – AZ Alkmaar: modell uefa.europa, 21 spelare
   São Paulo-SP – Remo-PA: modell bra.1, 29 spelare
   CF Pachuca – Chivas Guadalajara: modell – hittar inte matchen hos ESPN
-Modellens nivåavvikelse mot marknaden (log-odds, dras bort): assist -0.70, goal -0.47, shots -0.70, shots_on_target -0.55
-  CF Monterrey – Club América: väntade mål Pinnacle 2.59 mot Kambi 2.77 (kvot 0.937); uppmätt marginal: goal k=1.48, assist k=1.23
-Exempel uppmätt marginal: goal k=1.48, assist k=1.23
+Modellens nivåavvikelse mot marknaden (log-odds, dras bort): assist -0.70, goal -0.46, shots -0.70, shots_on_target -0.55
+  CF Monterrey – Club América: väntade mål Pinnacle 2.59 mot Kambi 2.77 (kvot 0.937); uppmätt marginal: goal k=1.27
+Exempel uppmätt marginal: goal k=1.27
   Kairat Almaty – Mjällby AIF: väntade mål Pinnacle 2.66 mot Kambi 2.74 (kvot 0.968); uppmätt marginal: goal k=1.37, assist k=1.19
   Beşiktaş – Hapoel Beer Sheva: väntade mål Pinnacle 3.58 mot Kambi 3.72 (kvot 0.962); uppmätt marginal: goal k=1.70, assist k=1.60, shots_on_target stege k=1.02 (6 spelare; marginal vid 3,00 ≈ 2%)
   Red Bull Salzburg – Ararat-Armenia FC: väntade mål Pinnacle 3.90 mot Kambi 3.79 (kvot 1.027); uppmätt marginal: goal k=1.27, assist k=1.26
-  Viktoria Plzeň – Benfica: saknar matchlinjer från Pinnacle
+  Viktoria Plzeň – Benfica: väntade mål Pinnacle 3.45 mot Kambi 3.43 (kvot 1.006); uppmätt marginal: goal k=1.58, assist k=1.50, shots_on_target stege k=1.02 (6 spelare; marginal vid 3,00 ≈ 2%)
   Pafos FC – FC Midtjylland: väntade mål Pinnacle 3.12 mot Kambi 3.24 (kvot 0.964); uppmätt marginal: goal k=1.51, assist k=1.38
   FK Kauno Zalgiris – Riga FC: väntade mål Pinnacle 2.64 mot Kambi 2.72 (kvot 0.968); uppmätt marginal: goal k=1.49
   FK Baumit Jablonec – Lugano: väntade mål Pinnacle 2.84 mot Kambi 2.97 (kvot 0.956); uppmätt marginal: goal k=1.44, assist k=1.28
@@ -158,23 +155,23 @@ Exempel uppmätt marginal: goal k=1.48, assist k=1.23
   Sparta Prague – AZ Alkmaar: väntade mål Pinnacle 3.01 mot Kambi 3.02 (kvot 0.998); uppmätt marginal: goal k=1.49, assist k=1.41, shots_on_target stege k=1.10 (19 spelare; marginal vid 3,00 ≈ 12%)
   São Paulo-SP – Remo-PA: väntade mål Pinnacle 2.99 mot Kambi 3.00 (kvot 0.998); uppmätt marginal: goal k=1.39, assist k=1.27, shots_on_target stege k=1.20 (7 spelare; marginal vid 3,00 ≈ 25%)
   CF Pachuca – Chivas Guadalajara: väntade mål Pinnacle 2.77 mot Kambi 2.98 (kvot 0.930); uppmätt marginal: goal k=1.37, assist k=1.21
-Tid: modell och utvärdering 256 s
+Tid: modell och utvärdering 330 s
 Bolag med spelarodds: atg, betmgm, expekt, leovegas, oa_onexbet, paf, svenskaspel, unibet
-Spelarodds per marknad: assist 4923, goal 19886, shots 8480, shots_on_target 10137
-Kambi-marknader: assist='to give an assist (settled using opta data)':4923; goal='1st goalscorer':7633; goal='to score':7633; goal='to score at least 2 goals':3976; goal='to score at least 3 goals':609; goal='to score at least 4 goals':35; shots="player's shots (settled using opta data)":8367; shots_on_target="player's shots on target (settled using opta data)":10069
+Spelarodds per marknad: assist 4888, goal 19718, shots 8480, shots_on_target 10151
+Kambi-marknader: assist='to give an assist (settled using opta data)':4888; goal='1st goalscorer':7577; goal='to score':7577; goal='to score at least 2 goals':3927; goal='to score at least 3 goals':602; goal='to score at least 4 goals':35; shots="player's shots (settled using opta data)":8367; shots_on_target="player's shots on target (settled using opta data)":10083
 Pinnacle har inga spelarprops här – använder linjejustering mot Pinnacles matchlinjer.
 CLV-signal: 0 ben släppta (Pinnacle rör sig åt vårt håll)
 Startelvor: 0 spelbara ben klara, 0 väntar på startelvan, 0 stoppade (inte i startelvan)
 Spelregler: stoppade {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0} (modelltest {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0})
-Spelarmodell: 0 av 1337 ben har modell, 0 nya matcher hämtade från ESPN
-Bästa edge marknad shots_on_target: -1.4%, -1.4%, -1.6% (av 1168 ben)
-Bästa edge modelltest shots_on_target: -0.3%, -0.5%, -0.6% (av 942 ben)
+Spelarmodell: 0 av 1389 ben har modell, 0 nya matcher hämtade från ESPN
+Bästa edge marknad shots_on_target: -1.4%, -1.4%, -1.6% (av 1210 ben)
+Bästa edge modelltest shots_on_target: +0.1%, -0.3%, -0.5% (av 982 ben)
 0 spelbara ben.
 Bokförda nya spel: 0
 Skuggspel: 0 nya bokförda (stoppade av reglerna, minst 2 % edge)
 Spelarprops-test startelvor: 0 spelbara ben klara, 0 väntar på startelvan, 0 stoppade (inte i startelvan)
-Spelarprops-konsensus: ingen konsensus (för få oberoende röster) för 1084 ben
-Spelarprops-test: 1084 ben med hybridmodell, 0 med minst 2% edge (modell), 0 nya bokförda, 56 totalt
+Spelarprops-konsensus: ingen konsensus (för få oberoende röster) för 1134 ben
+Spelarprops-test: 1134 ben med hybridmodell, 0 med minst 2% edge (modell), 0 nya bokförda, 56 totalt
 Modelltest: 0 spelbara enligt modellen, 0 nya testspel bokförda
 Fouls (test): 0 ben med modell, 0 klarar kraven, 0 nya bokförda, bästa edge –, 0 nya ESPN-matcher, domare känd i 0 matcher
 Notiser skickade: 0

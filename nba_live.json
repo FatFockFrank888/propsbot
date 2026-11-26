@@ -9738,7 +9738,7 @@
 "edge": 0.08756984444592475,
 "spela_fran": 2.05,
 "insats_pct": 0.01,
-"stangning": 2.18,
+"stangning": 1.85,
 "status": "öppen",
 "stopp": "sharp money med oss: referensen +5.4 enheter",
 "clv_signal": false,
@@ -9748,21 +9748,21 @@
 "utfall": null,
 "resultat_enheter": null,
 "modell_edge": 0.08756984444592475,
-"stangning_ts": 1795658975.0581858,
+"stangning_ts": 1795659952.8787048,
 "analys": {
-"p_stack": 0.4991,
-"p_modell_min": 0.4336,
-"minuter": 33.9,
+"p_stack": 0.5236,
+"p_modell_min": 0.5201,
+"minuter": 37.2,
 "minuter_sd": 4.6,
-"p_faktorer": 0.4553,
-"p_faktorer_ra": 0.3245,
-"vantat_faktorer": 6.42,
-"p_betyg": 0.4472,
-"p_betyg_ra": 0.2953,
-"vantat_betyg": 6.11,
-"minuter_faktorer": 30.4,
-"f_anv": 1.0,
-"f_miljo": 1.007,
+"p_faktorer": 0.4923,
+"p_faktorer_ra": 0.4202,
+"vantat_faktorer": 7.2,
+"p_betyg": 0.4785,
+"p_betyg_ra": 0.3654,
+"vantat_betyg": 6.72,
+"minuter_faktorer": 34.0,
+"f_anv": 1.026,
+"f_miljo": 0.981,
 "f_tempo": 1.0,
 "f_pos": 0.962,
 "f_mot": 1.014,
@@ -9784,13 +9784,13 @@
 "traff_mot_n": 2,
 "traff_hemmaborta": 0.5,
 "traff_hemmaborta_n": 8,
-"p_kalib": 0.4989,
-"p_blend": 0.4825,
+"p_kalib": 0.5152,
+"p_blend": 0.5139,
 "kalib_modell": "M0",
-"p_modell": 0.4309,
-"p_marknad": 0.4989,
-"p_slutlig": 0.4825,
-"vantat": 7.29,
+"p_modell": 0.5098,
+"p_marknad": 0.5152,
+"p_slutlig": 0.5139,
+"vantat": 8.03,
 "nb_r": 10,
 "modell_vikt": 0.24,
 "dq": 0.8,
@@ -9876,14 +9876,8 @@
 "redan_borta": true
 },
 {
-"namn": "Victor Wembanyama",
-"status": "day-to-day",
-"min": 29.9,
-"redan_borta": false
-},
-{
 "namn": "De'Aaron Fox",
-"status": "day-to-day",
+"status": "out",
 "min": 27.7,
 "redan_borta": false
 }
@@ -9893,8 +9887,8 @@
 "hemma": false,
 "minuter_sd_faktorer": 4.6,
 "ref": {
-"pin_p": 0.5022222681773608,
-"dk_p": 0.482205185025288,
+"pin_p": 0.5134568057759741,
+"dk_p": 0.523757114534465,
 "pin_linje": null,
 "dk_linje": null,
 "pin_flyttad": false,
@@ -9903,65 +9897,65 @@
 "odds_bolag": [
 {
 "bolag": "atg",
-"over": 2.18,
-"under": 1.62
+"over": 1.84,
+"under": 1.87
 },
 {
 "bolag": "betmgm",
-"over": 2.18,
-"under": 1.63
+"over": 1.85,
+"under": 1.88
 },
 {
 "bolag": "expekt",
-"over": 2.18,
-"under": 1.63
+"over": 1.85,
+"under": 1.88
 },
 {
 "bolag": "kalshi",
-"over": 2.0,
-"under": 2.0
+"over": 1.942,
+"under": 2.062
 },
 {
 "bolag": "leovegas",
-"over": 2.18,
-"under": 1.63
+"over": 1.85,
+"under": 1.88
 },
 {
 "bolag": "paf",
-"over": 2.18,
-"under": 1.63
+"over": 1.85,
+"under": 1.88
 },
 {
 "bolag": "pinnacle",
-"over": 1.862,
-"under": 1.877
+"over": 1.826,
+"under": 1.917
 },
 {
 "bolag": "svenskaspel",
-"over": 2.18,
-"under": 1.63
+"over": 1.85,
+"under": 1.88
 },
 {
 "bolag": "unibet",
-"over": 2.18,
-"under": 1.63
+"over": 1.85,
+"under": 1.88
 },
 {
 "bolag": "us_draftkings",
-"over": 1.93,
-"under": 1.81
+"over": 1.79,
+"under": 1.95
 }
 ]
 },
-"prognos": 7.293815931962535,
-"analys_ts": 1795658975.0585482,
+"prognos": 8.02654584299664,
+"analys_ts": 1795659952.879168,
 "modellversion": "2026-11-15-betyg",
 "prognos_ts": 1795658975.0581696,
-"skarp_stang_p": 0.49888524974583703,
-"skarp_stang_ts": 1795658974.8835957,
+"skarp_stang_p": 0.5152342505367905,
+"skarp_stang_ts": 1795659952.6380234,
 "skarp_kalla": "skanning",
-"pin_stang_p": 0.5022222681773608,
-"dk_stang_p": 0.482205185025288,
+"pin_stang_p": 0.5134568057759741,
+"dk_stang_p": 0.523757114534465,
 "bolag_bokning": {
 "ts": 1795658975.0687356,
 "odds": {
@@ -9986,33 +9980,38 @@
 "dk_p": 0.482205185025288
 },
 "bolag_stangning": {
-"ts": 1795658975.0687356,
+"ts": 1795659953.450652,
 "odds": {
 "unibet": {
-"over": 2.18,
-"under": 1.63
+"over": 1.85,
+"under": 1.88
 },
 "pinnacle": {
-"over": 1.862,
-"under": 1.877
+"over": 1.826,
+"under": 1.917
 },
 "draftkings": {
-"over": 1.93,
-"under": 1.81
+"over": 1.79,
+"under": 1.95
 }
 },
 "pin_flyttad": false,
 "pin_komb": false,
 "pin_linje": null,
 "dk_linje": null,
-"pin_p": 0.5022222681773608,
-"dk_p": 0.482205185025288
+"pin_p": 0.5134568057759741,
+"dk_p": 0.523757114534465
 },
-"bolag_stang_ts": 1795658975.0687356,
+"bolag_stang_ts": 1795659953.450652,
 "skarp_verifierad": true,
 "skarp_status": null,
-"clv_skarp_pp": 4.016965341556183,
-"clv_pin_pp": 4.350667184708562,
-"clv_dk_pp": 2.3489588695012777
+"clv_skarp_pp": 5.65186542065153,
+"clv_pin_pp": 5.474120944569888,
+"clv_dk_pp": 6.504151820418985,
+"nyhet_lag_status": "lag:de aaron fox",
+"nyhet_lag": "Lagkamrat ute: De'Aaron Fox (out). Modellen nu: Stephon Castle väntat 8.0 (37 min), över 7.5 51%, edge vid 2.18: +11% (vid bokning modell +9%)",
+"nyhet_lag_ts": "2026-11-26T02:25:52+00:00",
+"nyhet": "Lagkamrat ute: De'Aaron Fox (out). Modellen nu: Stephon Castle väntat 8.0 (37 min), över 7.5 51%, edge vid 2.18: +11% (vid bokning modell +9%)",
+"nyhet_status": "lag:de aaron fox"
 }
 ]
