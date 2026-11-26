@@ -46,7 +46,7 @@ rött kort, hörna, bortdömt mål) tills spelet är vunnet/förlorat eller matc
 Under kräver en tvåsidig eller skarp referens. Fotbollens Kambi-marknader (skott på mål) är bara
 "över/ja", så där finns ingen undersida att spela.
 
-**Secrets** (Settings → Secrets → Actions): `NTFY_TOPIC`, `ODDS_API_KEY`. Pinnacle använder den publika gästnyckeln i koden.
+**Secrets** (Settings → Secrets → Actions): `NTFY_TOPIC`, `ODDS_API_KEY`. Valfria: `PROPLINE_API_KEY`, `ODDS_PAPI_KEY` (bet365-spelarprops via OddsPapi, bulk, 250 anrop/månad, bara datainsamling till vidare). Pinnacle använder den publika gästnyckeln i koden.
 
 ---
 

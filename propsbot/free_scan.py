@@ -333,6 +333,11 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
             add_propline(root, data, settings, diag)
         except Exception as e:  # noqa: BLE001
             diag.log(f"PropLine: FEL {type(e).__name__}: {str(e)[:120]}")
+        try:   # OddsPapi: bet365:s spelarprops (bulk, 250 anrop/månad), standard bara datainsamling
+            from .sources.oddspapi import add_oddspapi
+            add_oddspapi(root, data, settings, diag)
+        except Exception as e:  # noqa: BLE001
+            diag.log(f"OddsPapi: FEL {type(e).__name__}: {str(e)[:120]}")
         for _evd, _qs, _nm in data:
             _unify_players(_qs, _nm)
     except Exception as e:
