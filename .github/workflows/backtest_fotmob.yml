@@ -2,8 +2,6 @@ name: backtest-fotmob
 # Engångsutvärdering av spelarmodellen mot utfall (inga notiser, ingen skarp data, inga hemligheter).
 on:
   workflow_dispatch:
-  push:
-    paths: ['tools/backtest_fotmob.py', '.github/workflows/backtest_fotmob.yml']
 jobs:
   backtest:
     runs-on: ubuntu-latest
