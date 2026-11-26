@@ -1,4 +1,4 @@
-"""Engångssond: finns bet365 + fotbollsprops i OddsPapi? Skriver bara sammanfattningar (aldrig nyckeln). Max 3 anrop."""
+"""Engångssond 2: marknadsnamn för skott/skott på mål + utfallsstruktur + flera ligor i ett anrop. Max 2 anrop."""
 import json, os, sys, time, urllib.parse, urllib.request
 
 KEY = os.environ.get("ODDS_PAPI_KEY", "")
@@ -9,69 +9,51 @@ def get(path, **params):
     params["apiKey"] = KEY
     url = f"{BASE}/{path}?{urllib.parse.urlencode(params)}"
     try:
-        with urllib.request.urlopen(urllib.request.Request(url, headers={"User-Agent": "probe"}), timeout=60) as r:
-            hdr = {k: v for k, v in r.headers.items() if "limit" in k.lower() or "remain" in k.lower() or "request" in k.lower()}
-            return r.status, hdr, json.loads(r.read())
+        with urllib.request.urlopen(urllib.request.Request(url, headers={"User-Agent": "probe"}), timeout=90) as r:
+            return r.status, json.loads(r.read())
     except urllib.error.HTTPError as e:
-        return e.code, {}, e.read()[:400].decode("utf8", "replace")
-
-
-def shape(o, depth=0, maxd=5):
-    if depth >= maxd:
-        return "…"
-    if isinstance(o, dict):
-        return {k: shape(v, depth + 1, maxd) for k, v in list(o.items())[:6]}
-    if isinstance(o, list):
-        return [shape(o[0], depth + 1, maxd)] if o else []
-    return o if not isinstance(o, str) else o[:30]
-
-
-def find_players(o, path=""):
-    out = []
-    if isinstance(o, dict):
-        if o.get("playerName"):
-            out.append((path, o["playerName"]))
-        for k, v in o.items():
-            out += find_players(v, f"{path}/{k}")
-    elif isinstance(o, list):
-        for i, v in enumerate(o):
-            out += find_players(v, f"{path}[]")
-    return out
+        return e.code, e.read()[:400].decode("utf8", "replace")
 
 
 if not KEY:
     sys.exit("ODDS_PAPI_KEY saknas")
-st, hdr, t = get("tournaments", sportId=10)
-print("tournaments", st, hdr)
-if isinstance(t, list):
-    want = ("premier league", "la liga", "serie a", "bundesliga", "ligue 1", "champions league", "europa league", "conference league", "eredivisie")
-    for x in t:
-        n = str(x.get("tournamentName") or x.get("name") or "").lower()
-        if any(w == n or n.endswith(w) and "women" not in n for w in want) and x.get("categorySlug", x.get("categoryName", "")) is not None:
-            print({k: x[k] for k in x if k in ("tournamentId", "tournamentName", "categoryName", "futureFixtures", "upcomingFixtures")})
-    print("antal turneringar", len(t))
-else:
-    print(str(t)[:400])
+st, mk = get("markets")
+print("markets", st, type(mk).__name__, len(mk) if hasattr(mk, "__len__") else "")
+names = {}
+if isinstance(mk, list):
+    print("markets-struktur:", json.dumps(mk[0], ensure_ascii=False)[:500])
+    for m in mk:
+        mid = str(m.get("marketId"))
+        nm = f"{m.get('marketName') or m.get('name')} | {m.get('marketType', '')} | {m.get('handicap', '')} | {m.get('period', '')}"
+        names[mid] = nm
+        low = nm.lower()
+        if "shot" in low and ("player" in low or m.get("playerProp")):
+            print("SKOTT-MARKNAD", mid, nm)
+    pp = [m for m in mk if m.get("playerProp")]
+    print("playerProp-marknader totalt:", len(pp))
+    print("playerProp-namn (urval):", sorted({str(m.get('marketName'))[:45] for m in pp})[:50])
 time.sleep(1.5)
-st, hdr, o = get("odds-by-tournaments", tournamentIds=17, bookmakers="bet365")
-print("odds-by-tournaments EPL bet365", st, hdr)
-if isinstance(o, (list, dict)):
-    fx = o if isinstance(o, list) else o.get("data", o)
-    print("typ", type(fx).__name__, "antal", len(fx))
-    first = fx[0] if isinstance(fx, list) and fx else fx
-    print("struktur:", json.dumps(shape(first), ensure_ascii=False)[:2500])
-    pl = find_players(fx)
-    print("spelarprop-rader:", len(pl), pl[:8])
-    mk = set()
-    def walk(x):
-        if isinstance(x, dict):
-            for k, v in x.items():
-                if k == "markets" and isinstance(v, dict):
-                    mk.update(v.keys())
-                walk(v)
-        elif isinstance(x, list):
-            for v in x: walk(v)
-    walk(fx)
-    print("marknads-id antal", len(mk), sorted(mk)[:60])
+st, o = get("odds-by-tournaments", tournamentIds="17,8,23,35,34,7", bookmakers="bet365")
+print("multi-liga bet365", st, type(o).__name__)
+if isinstance(o, list):
+    from collections import Counter
+    print("matcher per turnering", dict(Counter(f.get("tournamentId") for f in o)))
+    f0 = next((f for f in o if f.get("tournamentId") == 17), o[0])
+    b = f0["bookmakerOdds"]["bet365"]
+    print("bookmakerOdds-nycklar", list(b.keys()))
+    shots = [(mid, n) for mid, n in names.items() if "shot" in n.lower()]
+    shown = 0
+    for mid, m in b["markets"].items():
+        if mid in dict(shots) and shown < 2:
+            print("EXEMPEL", mid, names.get(mid), json.dumps(m, ensure_ascii=False)[:1400]); shown += 1
+    if not shown:
+        for mid in list(b["markets"])[:1]:
+            print("EXEMPEL(ingen skottmarknad hittad) ", mid, json.dumps(b["markets"][mid], ensure_ascii=False)[:1400])
+    # vilka marknader har spelare i sample
+    pm = []
+    for mid, m in b["markets"].items():
+        if "players" in json.dumps(m)[:3000]:
+            pm.append(f"{mid}={names.get(mid, '?')[:40]}")
+    print("marknader med spelare i EPL-match 1:", len(pm), pm[:40])
 else:
     print(str(o)[:400])
