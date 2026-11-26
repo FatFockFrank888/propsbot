@@ -1,4 +1,4 @@
-"""Engångssond 5: bet365-match 204015112 + aktiva spelarpriser per marknadstyp/period. Max 2 anrop."""
+"""Engångssond 6: den aktiva matchen i detalj (marknads-id, linje, pris, färskhet). Max 2 anrop."""
 import json, os, sys, time, urllib.parse, urllib.request
 from collections import Counter, defaultdict
 
@@ -18,51 +18,22 @@ def get(path, **params):
 
 if not KEY:
     sys.exit("ODDS_PAPI_KEY saknas")
-TARGET = "204015112"
 st, mk = get("markets")
 cat = {str(m["marketId"]): (str(m.get("marketType")), m.get("handicap"), str(m.get("period")), m.get("marketName")) for m in mk}
 time.sleep(1.5)
 st, o = get("odds-by-tournaments", tournamentIds="17,8,23,35,34", bookmakers="bet365")
-print("odds", st, len(o) if isinstance(o, list) else str(o)[:300])
-if isinstance(o, list):
-    tot = defaultdict(Counter)
-    found = None
-    for f in o:
-        b = f["bookmakerOdds"]["bet365"]
-        if b.get("bookmakerFixtureId") == TARGET:
-            found = f
-        for mid, m in b["markets"].items():
-            c = cat.get(mid, ("?", None, "?", "?"))
-            if not c[0].startswith("playertotals-") and "scorer" not in c[0]:
-                continue
-            for out in m["outcomes"].values():
-                for p in (out.get("players") or {}).values():
-                    tot[(c[0], c[2])]["rader"] += 1
-                    tot[(c[0], c[2])]["aktiva"] += bool(p.get("active"))
-    print("MÅLMATCH hittad:", bool(found))
-    if found:
-        b = found["bookmakerOdds"]["bet365"]
-        print("match:", {k: v for k, v in found.items() if k != "bookmakerOdds"}, {k: v for k, v in b.items() if k != "markets"})
-        per = defaultdict(Counter)
-        ex = {}
-        for mid, m in b["markets"].items():
-            c = cat.get(mid, ("?", None, "?", "?"))
-            for oid, out in m["outcomes"].items():
-                pl = out.get("players") or {}
-                if not pl:
-                    continue
-                for pid, p in pl.items():
-                    per[(c[0], c[2])]["rader"] += 1
-                    per[(c[0], c[2])]["aktiva"] += bool(p.get("active"))
-                    if p.get("active") and (c[0], c[2]) not in ex:
-                        ex[(c[0], c[2])] = (mid, c[1], oid, p["playerName"], p["price"], p.get("changedAt"), p.get("mainLine"))
-        for k, v in sorted(per.items()):
-            print("MATCH", k, dict(v))
-        for k, v in ex.items():
-            print("EX", k, v)
-        # under-utfall?
-        mids = [mid for mid, m in b["markets"].items() if cat.get(mid, ("",))[0] in ("playertotals-shots", "playertotals-shotsongoal")]
-        for mid in mids[:3]:
-            print("outcomes-nycklar", mid, cat[mid][:3], list(b["markets"][mid]["outcomes"].keys()))
-    print("ALLA matcher, aktiva spelarrader per typ/period (topp):", [(k, dict(v)) for k, v in sorted(tot.items(), key=lambda kv: -kv[1]["aktiva"])[:15]])
-    print("matcher med bookmakerIsActive:", sum(1 for f in o if f["bookmakerOdds"]["bet365"].get("bookmakerIsActive")), "av", len(o))
+act = [f for f in o if f["bookmakerOdds"]["bet365"].get("bookmakerIsActive")]
+print("aktiva matcher:", [(f["fixtureId"], f["tournamentId"], f["startTime"], f["bookmakerOdds"]["bet365"]["bookmakerFixtureId"]) for f in act])
+print("alla bookmakerFixtureId (start):", sorted((f["startTime"][:16], f["bookmakerOdds"]["bet365"]["bookmakerFixtureId"], f["tournamentId"]) for f in o)[:14])
+for f in act[:1]:
+    b = f["bookmakerOdds"]["bet365"]
+    rows = defaultdict(list)
+    for mid, m in b["markets"].items():
+        c = cat.get(mid, ("?", None, "?", "?"))
+        for oid, out in m["outcomes"].items():
+            for pid, p in (out.get("players") or {}).items():
+                if p.get("active"):
+                    rows[(mid, c[0], c[1], c[2], c[3])].append((p["playerName"], p["price"], p.get("changedAt"), p.get("mainLine")))
+    print("aktiva spelarmarknader i matchen:", len(rows))
+    for k, v in sorted(rows.items(), key=lambda kv: (kv[0][1], str(kv[0][2])))[:60]:
+        print("MKT", k[0], k[1], k[2], k[3], "|", str(k[4])[:50], "| n=%d" % len(v), v[:2])
