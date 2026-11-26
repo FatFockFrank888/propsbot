@@ -136,6 +136,8 @@
   "min_edge_display": 0.02,
   "live_enabled": true,
   "use_player_model": true,
+  "fb2_matches": 15,
+  "fb2_backfill_per_run": 150,
   "model_mode": "test",
   "model_weight": 0.1,
   "model_market_mult": {
@@ -145,6 +147,7 @@
     "assist": 0.6
   },
   "nba_enabled": true,
+  "nba_model_weight": 0.075,
   "nba_hours_ahead": 30,
   "nba_max_events": 15,
   "ntfy_topic": "",

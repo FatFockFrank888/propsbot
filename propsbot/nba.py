@@ -224,7 +224,7 @@ def pinnacle_nba_props(pin: PinnaclePublic, ev, match_id: str) -> tuple[list[Odd
 # ---------------------------------------------------------------- linjeflytt
 # Överspridning per marknad (negativ binomial, form r): varians = μ + μ²/r.
 # Modellversion (loggas på varje ny prognos). Byt vid metodändring; äldre rader behåller sin (eller ingen = legacy).
-NBA_MODEL_VERSION = "2026-11-15-betyg"   # + skuggfält p_faktorer(_ra), f_*, traff_* (nba_factors, styr inte)
+NBA_MODEL_VERSION = "2026-11-26-vikt0075"   # modellvikt 0,3 -> 0,075 (KVANTRAPPORT_NBA_2026-11-26.md); + skuggfält p_faktorer(_ra), f_*, traff_* (nba_factors, styr inte)
 LAST_MODEL: dict = {}    # senaste skanningens modell per match (models, teams) – används av news.nba_teammate_fn
 NB_R = {"points": 15, "rebounds": 10, "assists": 10, "threes": 8, "steals": 30, "blocks": 15,
         "pra": 15, "pr": 15, "ra": 12, "pa": 15}
@@ -951,7 +951,7 @@ def model_test_rows(root: Path, rows: list, per: dict, settings: dict, cfg: Conf
             core = g[cut:len(g) - cut] or g
             off_f[mk] = max(-0.7, min(0.7, sum(core) / len(core)))
     diag.log("NBA faktormodell nivåavvikelse: " + (", ".join(f"{k} {v:+.2f}" for k, v in sorted(off_f.items())) or "–"))
-    w0 = settings.get("nba_model_weight", 0.3)
+    w0 = settings.get("nba_model_weight", 0.075)
     # Skugga (nba_minutes): minuter som fördelning + utklassning, och inlärd blandning modell/marknad.
     stack = load_stack(root)
     cv2 = [(e["_min_sd"] / e["_min"]) ** 2 for m in models.values() for e in m.values()

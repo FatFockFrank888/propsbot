@@ -94,6 +94,122 @@ def espn_fouls_fields() -> str:
     return ", ".join(sorted({s.get("name") or s.get("abbreviation") for s in r.get("stats", [])}))
 
 
+# ------------------------------------------------- F0 (docs/PLAN_FOOTBALL_PROPS.md): fält för spelarprops
+def clock_minute(text: str | None) -> int | None:
+    """"67'" -> 67, "90'+1'" -> 90 (tillägg räknas till 90), annat -> None."""
+    m = re.match(r"^\s*(\d+)'(?:\s*\+\s*\d+')?\s*$", text or "")
+    return int(m.group(1)) if m else None
+
+
+def espn_player_fields(summary: dict) -> dict:
+    """Vad ESPN:s matchsammanfattning ger per spelare: statistiknamn, positioner, start/byte och om
+    minuter kan härledas (startflagga + bytesminut). Tacklingar finns bara på lagnivå (boxscore)."""
+    stats, pos, keys = set(), set(), set()
+    n = subs = parsed = 0
+    for t in summary.get("rosters") or []:
+        for p in t.get("roster") or []:
+            n += 1
+            keys |= set(p)
+            pos.add((p.get("position") or {}).get("abbreviation"))
+            stats |= {s.get("name") or s.get("abbreviation") for s in p.get("stats") or []}
+            for pl in p.get("plays") or []:
+                if pl.get("substitution"):
+                    subs += 1
+                    parsed += clock_minute((pl.get("clock") or {}).get("displayValue")) is not None
+    team = set()
+    for t in (summary.get("boxscore") or {}).get("teams") or []:
+        team |= {s.get("name") for s in t.get("statistics") or []}
+    return {"spelare": n, "statistik": sorted(x for x in stats if x), "positioner": sorted(x for x in pos if x),
+            "start_flagga": "starter" in keys, "byten": subs, "byten_tolkbara": parsed,
+            "minuter_harledbara": "starter" in keys and subs == parsed,
+            "tacklingar_spelare": any("tackle" in x.lower() for x in stats if x),
+            "tacklingar_lag": "totalTackles" in team,
+            "domare": bool(((summary.get("gameInfo") or {}).get("officials")))}
+
+
+def fotmob_player_fields(details: dict) -> dict:
+    """Vad FotMobs matchDetails ger: statistiknycklar per spelare, positionskoder, startelvor, domare."""
+    c = details.get("content") or {}
+    keys = set()
+    n = 0
+    for v in (c.get("playerStats") or {}).values():
+        n += 1
+        for g in v.get("stats") or []:
+            keys |= {s.get("key") for s in (g.get("stats") or {}).values() if s.get("key")}
+    lu = c.get("lineup") or {}
+    starters = [p for side in ("homeTeam", "awayTeam") for p in (lu.get(side) or {}).get("starters") or []]
+    ref = (((c.get("matchFacts") or {}).get("infoBox") or {}).get("Referee") or {}).get("text")
+    return {"spelare": n, "nycklar": sorted(keys), "minuter": "minutes_played" in keys,
+            "tacklingar": any("tackle" in k.lower() for k in keys), "fouls": "fouls" in keys,
+            "startspelare": len(starters), "position": any(p.get("positionId") is not None for p in starters),
+            "domare": ref}
+
+
+def kambi_player_markets(betoffers: list[dict]) -> dict:
+    """Spelarmarknader i ett Kambi-svar per familj: antal erbjudanden, tvåsidiga, linjer."""
+    fam_of = lambda s: ("tacklingar" if "tackle" in s else "kort" if ("card" in s or "booked" in s) else
+                        "fouls" if "foul" in s else "skott_pa_mal" if "on target" in s else
+                        "skott" if "shot" in s else None)
+    out: dict = {}
+    for b in betoffers:
+        lab = ((b.get("criterion") or {}).get("englishLabel") or "")
+        s = lab.lower()
+        if not ("player" in s or "'s" in s or "’s" in s or s.startswith("to get")):
+            continue
+        f = fam_of(s)
+        if f is None:
+            continue
+        d = out.setdefault(f, {"erbjudanden": 0, "tvasidiga": 0, "linjer": set(), "etiketter": set()})
+        d["erbjudanden"] += 1
+        oc = b.get("outcomes") or []
+        if {"OT_OVER", "OT_UNDER"} <= {o.get("type") for o in oc}:
+            d["tvasidiga"] += 1
+        d["linjer"] |= {o["line"] / 1000 for o in oc if o.get("line") is not None}
+        d["etiketter"].add(lab)
+    return {f: {**d, "linjer": sorted(d["linjer"]), "etiketter": sorted(d["etiketter"])} for f, d in out.items()}
+
+
+def football_prop_fields() -> str:
+    """F0-proben: ESPN (en avslutad PL-match), FotMob (samma dag) och Kambi (alla kommande matcher hos Unibet)."""
+    import time as _t
+    from .sources.kambi_public import BASES
+    res = []
+    _, b = _get("https://site.api.espn.com/apis/site/v2/sports/soccer/eng.1/scoreboard")
+    evs = [e for e in json.loads(b).get("events", []) if (e.get("status") or {}).get("type", {}).get("completed")]
+    if evs:
+        _, b = _get(f"https://site.api.espn.com/apis/site/v2/sports/soccer/eng.1/summary?event={evs[0]['id']}")
+        res.append("ESPN " + json.dumps(espn_player_fields(json.loads(b)), ensure_ascii=False))
+    day = _t.strftime("%Y%m%d", _t.gmtime(_t.time() - 86400))
+    _, b = _get(f"https://www.fotmob.com/api/data/matches?date={day}")
+    mid = next((m["id"] for lg in json.loads(b).get("leagues", []) for m in lg.get("matches", [])
+                if (m.get("status") or {}).get("finished")), None)
+    if mid:
+        _, b = _get(f"https://www.fotmob.com/api/data/matchDetails?matchId={mid}")
+        f = fotmob_player_fields(json.loads(b))
+        f["nycklar"] = len(f["nycklar"])
+        res.append("FotMob " + json.dumps(f, ensure_ascii=False))
+    _, b = _get(f"{BASES[0]}/ubse/listView/football/all/all/all/matches.json?lang=en_GB&market=SE&useCombined=true")
+    ids = [(it.get("event") or it)["id"] for it in json.loads(b).get("events", [])
+           if (it.get("event") or it).get("state") == "NOT_STARTED"]
+    tot: dict = {}
+    for eid in ids:
+        _t.sleep(0.25)
+        try:
+            _, bo = _get(f"{BASES[0]}/ubse/betoffer/event/{eid}.json?lang=en_GB&market=SE")
+        except Exception:
+            continue
+        for fam, d in kambi_player_markets(json.loads(bo).get("betOffers", [])).items():
+            t = tot.setdefault(fam, {"matcher": 0, "erbjudanden": 0, "tvasidiga": 0, "linjer": set()})
+            t["matcher"] += 1
+            t["erbjudanden"] += d["erbjudanden"]
+            t["tvasidiga"] += d["tvasidiga"]
+            t["linjer"] |= set(d["linjer"])
+    res.append(f"Kambi ({len(ids)} matcher) " + "; ".join(
+        f"{k}: {v['matcher']} matcher, {v['erbjudanden']} erbj., tvåsidiga {v['tvasidiga']}, linjer {sorted(v['linjer'])}"
+        for k, v in sorted(tot.items())) + ("; tacklingar: 0" if "tacklingar" not in tot else ""))
+    return " | ".join(res)
+
+
 def pinnacle_special_leagues() -> str:
     """Finns fouls/kort/hörnor som egna Pinnacle-ligor (t.ex. 'England - Premier League Bookings')?"""
     from .sources.pinnacle_public import BASE as base, GUEST_KEY
@@ -341,6 +457,7 @@ def main() -> None:
     CHECKS["kambi_league_props"] = kambi_league_props
     CHECKS["espn_stat_names"] = espn_fouls_fields
     CHECKS["pinnacle_special_leagues"] = pinnacle_special_leagues
+    CHECKS["football_prop_fields"] = football_prop_fields
     out = []
     for name, fn in CHECKS.items():
         try:
