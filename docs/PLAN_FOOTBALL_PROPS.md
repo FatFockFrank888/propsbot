@@ -3,6 +3,17 @@
 2026-11-26. Ingen kod är ändrad. Planen bygger på `docs/PLAN.md` (faserna 1–7 där: devig, walk-forward, dataset,
 residual/kalibrering, spridning, Kelly, utvärdering) och **väntar på godkännande** (Regel 2).
 
+## F0-resultat (probe 2026-11-26, `python -c "import propsbot.probe as p; print(p.football_prop_fields())"`)
+
+| Källa | Resultat | Följd för planen |
+|---|---|---|
+| ESPN (summary, PL, LaLiga, Bundesliga, Allsvenskan) | Per spelare: `starter`, `position` (G, CD-L, LB, AM, F …), `subbedIn/Out` med bytesminut (`67'`, `90'+1'`; 70 av 70 tolkbara), statistik: skott, SOT, fouls begångna/dragna, gula/röda kort, mål, assist, offside. **Inga tacklingar per spelare** (bara lagets `totalTackles`). Ingen domare. | **Minuter går att härleda ur ESPN**, som produktionen redan hämtar: start → bytesminut eller 90, inhopp → 90 − minut. F1 behöver alltså ingen ny källa. Positionsprior kan byggas på ESPN-positioner. |
+| FotMob (matchDetails) | `minutes_played`, `matchstats.headers.tackles`, `fouls`, `was_fouled`, `interceptions`, dueller, xG, `positionId` för startspelare, domare. Skott och SOT saknas för spelare utan skott (= 0). | Reservkälla för minuter och domare, och enda källan till tacklingar per spelare. |
+| Kambi/Unibet (128 kommande matcher) | Skott på mål 14 matcher (0,5–3,5), skott 7 (0,5–7,5), fouls 3 (0,5–2,5), "To Get a Card" 11 (ja-pris), **tacklingar 0**. **Inga tvåsidiga spelarprops** (0 över+under). Props släpps nära avspark. | Tacklingar utgår (ingen marknad). Alla spelarpriser är ensidiga, så marginalen måste skattas (konsensusmarginalen i benloggen). Kort finns men är avstängda sedan 20/11. |
+
+Nätverk: FotMob och Kambi nås från miljön "propsbot" (FotMob tillagd 26/11). Proben är `probe.football_prop_fields`
+och ingår i `python -m propsbot.probe`. Tolkningen testas med fixturer i `tests/test_probe_fields.py`.
+
 ## 0. Sammanfattning
 
 - **Värt att ta in nu:** per-90-takt × förväntade minuter med Empirical Bayes mot positionsprior. Den största
