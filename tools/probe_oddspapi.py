@@ -1,5 +1,6 @@
-"""Engångssond 2: marknadsnamn för skott/skott på mål + utfallsstruktur + flera ligor i ett anrop. Max 2 anrop."""
+"""Engångssond 4: aktiva fulltidsmarknader för skott/skott på mål, under-utfall, färskhet. Max 2 anrop."""
 import json, os, sys, time, urllib.parse, urllib.request
+from collections import Counter, defaultdict
 
 KEY = os.environ.get("ODDS_PAPI_KEY", "")
 BASE = "https://api.oddspapi.io/v4"
@@ -18,42 +19,42 @@ def get(path, **params):
 if not KEY:
     sys.exit("ODDS_PAPI_KEY saknas")
 st, mk = get("markets")
-print("markets", st, type(mk).__name__, len(mk) if hasattr(mk, "__len__") else "")
-names = {}
-if isinstance(mk, list):
-    print("markets-struktur:", json.dumps(mk[0], ensure_ascii=False)[:500])
-    for m in mk:
-        mid = str(m.get("marketId"))
-        nm = f"{m.get('marketName') or m.get('name')} | {m.get('marketType', '')} | {m.get('handicap', '')} | {m.get('period', '')}"
-        names[mid] = nm
-        low = nm.lower()
-        if ("shot" in low or "tackle" in low or "foul" in low or "assist" in low or "offside" in low) and "head" not in low and "player" in low and m.get("playerProp") and "." in str(m.get("handicap", "")) and str(m.get("handicap")) in ("0.5", "1.5", "2.5"):
-            print("MARKNAD", mid, nm)
-    pp = [m for m in mk if m.get("playerProp")]
-    print("playerProp-marknader totalt:", len(pp))
-    print("fotbollsliknande playerProp-namn:", sorted({str(m.get("marketName"))[:50] for m in pp if any(w in str(m.get("marketName")).lower() for w in ("shot","tackle","foul","assist","card","goal"))})[:40])
+cat = {}
+for m in mk:
+    t = str(m.get("marketType", ""))
+    if t in ("playertotals-shots", "playertotals-shotsongoal", "playertotals-fouls", "playertotals-tackles", "playertotals-assists", "playertotals-cards") or t.startswith("playertotals-"):
+        cat[str(m["marketId"])] = (t, m.get("handicap"), m.get("period"), m.get("marketName"))
+soccer = {k: v for k, v in cat.items() if v[2] in ("fulltime", "result") or "fulltime" in str(v[2])}
+print("playertotals-typer:", Counter(v[0] for v in cat.values()).most_common(40))
+print("perioder för shots:", Counter(v[2] for v in cat.values() if v[0] == "playertotals-shots"))
+print("shots fulltime-id:", sorted((k, v[1], v[2]) for k, v in cat.items() if v[0] == "playertotals-shots" and "fulltime" in str(v[2]))[:24])
+print("shotsongoal fulltime-id:", sorted((k, v[1], v[2]) for k, v in cat.items() if v[0] == "playertotals-shotsongoal" and "fulltime" in str(v[2]))[:24])
 time.sleep(1.5)
 st, o = get("odds-by-tournaments", tournamentIds="17,8,23,35,34", bookmakers="bet365")
-print("multi-liga bet365", st, type(o).__name__)
+print("odds", st, len(o) if isinstance(o, list) else str(o)[:300])
 if isinstance(o, list):
-    from collections import Counter
-    print("matcher per turnering", dict(Counter(f.get("tournamentId") for f in o)))
-    f0 = next((f for f in o if f.get("tournamentId") == 17), o[0])
-    b = f0["bookmakerOdds"]["bet365"]
-    print("bookmakerOdds-nycklar", list(b.keys()))
-    shots = [(mid, n) for mid, n in names.items() if "shot" in n.lower() and "head" not in n.lower()]
-    shown = 0
-    for mid, m in b["markets"].items():
-        if mid in dict(shots) and shown < 2:
-            print("EXEMPEL", mid, names.get(mid), json.dumps(m, ensure_ascii=False)[:1400]); shown += 1
-    if not shown:
-        for mid in list(b["markets"])[:1]:
-            print("EXEMPEL(ingen skottmarknad hittad) ", mid, json.dumps(b["markets"][mid], ensure_ascii=False)[:1400])
-    # vilka marknader har spelare i sample
-    pm = []
-    for mid, m in b["markets"].items():
-        if "players" in json.dumps(m)[:3000]:
-            pm.append(f"{mid}={names.get(mid, '?')[:40]}")
-    print("marknader med spelare i EPL-match 1:", len(pm), pm[:40])
-else:
-    print(str(o)[:400])
+    print("fixture-nycklar:", sorted(o[0].keys()))
+    stat = defaultdict(Counter)
+    samples = []
+    for f in o:
+        b = f["bookmakerOdds"]["bet365"]
+        for mid, m in b["markets"].items():
+            c = cat.get(mid)
+            if not c or c[0] not in ("playertotals-shots", "playertotals-shotsongoal") or "fulltime" not in str(c[2]):
+                continue
+            stat[c[0]]["marknader"] += 1
+            stat[c[0]]["marketActive"] += bool(m.get("marketActive"))
+            stat[c[0]]["antal_outcomes_%d" % len(m["outcomes"])] += 1
+            for oid, out in m["outcomes"].items():
+                for pid, p in (out.get("players") or {}).items():
+                    stat[c[0]]["spelare"] += 1
+                    stat[c[0]]["aktiv"] += bool(p.get("active"))
+                    stat[c[0]]["mainLine"] += bool(p.get("mainLine"))
+                    if p.get("active") and len(samples) < 8:
+                        samples.append((f["fixtureId"], mid, c[0], c[1], oid, p["playerName"], p["price"], p.get("changedAt"), p.get("limit")))
+    for k, v in stat.items():
+        print("STAT", k, dict(v))
+    for s in samples:
+        print("SAMPLE", s)
+    print("fixture-0 första 600 tecken:", json.dumps({k: v for k, v in o[0].items() if k != "bookmakerOdds"})[:600])
+    print("fixturePath/bookmakerFixtureId:", {k: v for k, v in o[0]["bookmakerOdds"]["bet365"].items() if k != "markets"})
