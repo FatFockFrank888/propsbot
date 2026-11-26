@@ -1,0 +1,48 @@
+name: dry-scan
+# Engångstest: en skanning utan notiser och utan skrivningar till skarp data (tomt tillstånd, inga notisnycklar).
+on:
+  workflow_dispatch:
+  push:
+    paths: ['.github/workflows/dry_scan.yml']
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Torr skanning
+        env:
+          ODDS_PAPI_KEY: ${{ secrets.ODDS_PAPI_KEY }}
+          PROPSBOT_STATE_DIR: ${{ runner.temp }}/state
+        run: |
+          python3 - <<'PY'
+          import json, os
+          d = json.load(open('settings.json'))
+          for k in list(d):
+              if 'ntfy' in k or 'telegram' in k:
+                  d[k] = {} if isinstance(d[k], dict) else ("" if isinstance(d[k], str) else d[k])
+          d.update(telegram_only=False, live_enabled=False, tiers_on=False)
+          json.dump(d, open(os.environ['RUNNER_TEMP'] + '/settings.json', 'w'))
+          PY
+          timeout 1200 python3 -m propsbot skanna --settings "$RUNNER_TEMP/settings.json" > "$RUNNER_TEMP/log.txt" 2>&1 || echo "exit=$?"
+          wc -l "$RUNNER_TEMP/log.txt"
+          echo "=== OddsPapi / PropLine / fel ==="
+          grep -n -i -E 'oddspapi|propline|FEL|Traceback' "$RUNNER_TEMP/log.txt" | cut -c1-260 | head -40
+          echo "=== första 40 rader ==="
+          head -40 "$RUNNER_TEMP/log.txt" | cut -c1-220
+          echo "=== sista 40 rader ==="
+          tail -40 "$RUNNER_TEMP/log.txt" | cut -c1-220
+          echo "=== oddspapi_bet365.json ==="
+          python3 -c "
+          import json,os
+          p=os.environ['RUNNER_TEMP']+'/state/oddspapi_bet365.json'
+          d=json.load(open(p)) if os.path.exists(p) else {}
+          fx=d.get('fixtures',{})
+          print('matcher:',len(fx),'rader:',sum(len(v['rows']) for v in fx.values()))
+          for v in list(fx.values())[:3]: print(v['home'],'-',v['away'],v['rows'][:4])
+          "
