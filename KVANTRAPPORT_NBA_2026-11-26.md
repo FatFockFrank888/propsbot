@@ -87,3 +87,17 @@ NB-form r skattad ur (väntat, utfall), momentmetod:
 
 Exponering per match och dag: median 1.0 %, max 12.0 %, andel över 3,5 %: 21% (610 matcher).
 Units i dag: {1: 1054, 2: 144, 3: 11}. Med ¼ Kelly (1u = 1 %, tak 2u): {0: 89, 1: 497, 2: 623}.
+
+
+## Fas 9: LightGBM-residual (offline, `tools/gbm_experiment.py`)
+
+5374 avgjorda ben, 44 matcher, 2 veck (per match, 6 h embargo).
+Träd per veck (tidigt stopp): [17, 113].
+
+| Modell | log-loss per veck | poolad Δ mot marknad | 95 % CI (per match) |
+|---|---|---|---|
+| marknad | 0.6911, 0.6913 | +0.0000 | – |
+| linjär residual | 0.6954, 0.6934 | +0.0032 | +0.0001 … +0.0069 |
+| LightGBM | 0.6908, 0.6944 | +0.0014 | -0.0063 … +0.0105 |
+
+Tolkning: varken LightGBM (init_score = marknadens logit, 7 löv, ≥ 100 rader per löv, tidigt stopp) eller den linjära residualen slår marknaden. Den linjära är signifikant sämre (+0,0032). Underlaget är 5 374 ben men bara 44 matcher, så bara 2 veck överlever embargot. LightGBM förblir ett offlineverktyg (`propsbot/quant/residual_gbm.py`, inte i requirements.txt). Fas 8 (`p_resid` i NBA:s produktion) byggs inte. Grinden i planen (residualen ska slå marknaden i ≥ 2/3 av vecken) är inte uppfylld, och utvärderingen den 3/12 kör om testet.

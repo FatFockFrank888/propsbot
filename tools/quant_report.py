@@ -183,7 +183,54 @@ def weight_grid(kal_rows: list[dict], key: str = "pm", n_folds: int = 4) -> dict
             "vald_ci": evaluate.boot_ci(xs, gs) if xs else (math.nan, math.nan)}
 
 
-def report(ledger: Path | None, tiers: Path | None, sport: str = "nba", kalib: Path | None = None) -> str:
+FB_SOURCES = (("marknad (p_adj)", "p_adj"), ("modell hyb", "p_hyb"), ("per 90 (p_fb2)", "p_fb2"),
+              ("per 90 + kontext (p_fb2k)", "p_fb2k"), ("konsensus", "p_cons"), ("utfallsankrad", "p_utfall"))
+
+
+def football_report(done: dict, min_n: int = 150) -> str:
+    """F7: benloggens avgjorda fotbollsben (benlogg_avgjorda.json). Samma ben för alla källor i varje jämförelse."""
+    cols = done.get("cols", [])
+    R = [{**dict.fromkeys(cols), **dict(zip(cols, r))} for r in done.get("rows", [])]
+    L = ["## Fotboll: benloggen (F7)", "", f"Avgjorda ben: {len(R)}; med p_fb2: {sum(1 for r in R if r.get('p_fb2') is not None)}.", ""]
+    base = [r for r in R if r.get("p_adj") is not None]
+    L += ["| Källa (jämförs mot marknaden på samma ben) | n | snitt p | utfall | log-loss | Δ mot marknad | 95 % CI (per match) |",
+          "|---|---|---|---|---|---|---|"]
+    mid = lambda r: str(r.get("key", "")).split("|")[0]
+    for name, col in FB_SOURCES:
+        B = [r for r in base if r.get(col) is not None]
+        if len(B) < 20:
+            L.append(f"| {name} | {len(B)} | – | – | – | – | – |")
+            continue
+        y = [r["y"] for r in B]
+        ll_c = evaluate.logloss([r[col] for r in B], y)
+        ll_m = evaluate.logloss([r["p_adj"] for r in B], y)
+        lp = lambda p, yy: -(yy * math.log(min(max(p, 1e-6), 1 - 1e-6)) + (1 - yy) * math.log(1 - min(max(p, 1e-6), 1 - 1e-6)))
+        d = [lp(r[col], r["y"]) - lp(r["p_adj"], r["y"]) for r in B]
+        ci = evaluate.boot_ci(d, [mid(r) for r in B], n=1000)
+        L.append(f"| {name} | {len(B)} | {st.mean(r[col] for r in B):.3f} | {st.mean(y):.3f} | {ll_c:.4f} | "
+                 f"{ll_c - ll_m:+.4f} | {ci[0]:+.4f} … {ci[1]:+.4f} |")
+    L += ["", "Pappersspel (p · odds0 − 1 ≥ edge, odds vid första bekräftade elva, platt 1u, odds 1,40–6,00):", "",
+          "| Källa | edge ≥ | n | ROI | 95 % CI | CLV (odds0/stängning − 1) |", "|---|---|---|---|---|---|"]
+    pb = [r for r in R if r.get("odds0") and 1.4 <= r["odds0"] <= 6.0]
+    for name, col in FB_SOURCES[1:]:
+        c0 = col + "0" if col + "0" in cols else col
+        for e in (0.0, 0.05):
+            B = [r for r in pb if r.get(c0) is not None and r[c0] * r["odds0"] - 1 >= e]
+            if len(B) < 20:
+                continue
+            res = [(r["odds0"] - 1) if r["y"] else -1.0 for r in B]
+            ci = evaluate.boot_ci(res, [mid(r) for r in B], n=1000)
+            clv = [r["odds0"] / r["odds"] - 1 for r in B if r.get("odds")]
+            L.append(f"| {name} | {e:.0%} | {len(B)} | {st.mean(res):+.1%} | {ci[0]:+.1%} … {ci[1]:+.1%} | "
+                     f"{(st.mean(clv) if clv else math.nan):+.1%} |")
+    n2 = sum(1 for r in base if r.get("p_fb2") is not None)
+    L += ["", f"Beslutsunderlag: {'tillräckligt' if n2 >= min_n else f'för litet ({n2} av {min_n} ben med p_fb2)'}. "
+          "Modellen får styra spel först om den slår marknaden (CI under 0) och pappersspelen har positiv CLV, efter beslut.", ""]
+    return "\n".join(L)
+
+
+def report(ledger: Path | None, tiers: Path | None, sport: str = "nba", kalib: Path | None = None,
+           benlogg: Path | None = None) -> str:
     L = [f"# Kvantrapport ({sport})", "", "Walk-forward (3 veck, grupperat per match, 6 h embargo). Test = osedd data i varje veck.", ""]
     if ledger:
         bets = json.loads(Path(ledger).read_text(encoding="utf-8"))
@@ -229,6 +276,8 @@ def report(ledger: Path | None, tiers: Path | None, sport: str = "nba", kalib: P
                      + " · ".join(f"{g['logloss'][w] - b:+.4f}" for w in W_GRID)
                      + f" | {g['vald_ci'][0]:+.4f} … {g['vald_ci'][1]:+.4f} |")
         L.append("")
+    if benlogg:
+        L.append(football_report(json.loads(Path(benlogg).read_text(encoding="utf-8"))))
     if tiers:
         d = json.loads(Path(tiers).read_text(encoding="utf-8"))
         t = tiers_vs_kelly(d.get("bets", d) if isinstance(d, dict) else d)
@@ -248,11 +297,12 @@ def main(argv=None):
     ap.add_argument("--tiers", type=Path)
     ap.add_argument("--sport", default="nba")
     ap.add_argument("--kalib", type=Path, help="nba_kalibrering.json(.gz) för viktanalysen")
+    ap.add_argument("--benlogg", type=Path, help="benlogg_avgjorda.json för fotbollsutvärderingen (F7)")
     ap.add_argument("--out", type=Path)
     a = ap.parse_args(argv)
-    if not a.ledger and not a.tiers and not a.kalib:
-        ap.error("ange --ledger, --tiers och/eller --kalib")
-    txt = report(a.ledger, a.tiers, a.sport, a.kalib)
+    if not a.ledger and not a.tiers and not a.kalib and not a.benlogg:
+        ap.error("ange --ledger, --tiers, --kalib och/eller --benlogg")
+    txt = report(a.ledger, a.tiers, a.sport, a.kalib, a.benlogg)
     if a.out:
         a.out.write_text(txt, encoding="utf-8")
     print(txt)

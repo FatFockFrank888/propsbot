@@ -169,7 +169,7 @@ def predictions(matches: list[dict], start: str, m_prior: dict | None = None, ct
                         y = _f(p.get(s))
                         for ln in LINES[s]:
                             out.append({"date": m["date"], "mid": m["id"], "lg": m["lg"], "stat": s, "line": ln,
-                                        "grp": grp, "y": 1 if y > ln else 0, "mu1": mu1,
+                                        "grp": grp, "y": 1 if y > ln else 0, "mu1": mu1, "cnt": y,
                                         "f_opp": st.opp(m["lg"], opp_tid, s), "home": is_home, "rest": rest,
                                         "p0": nb_over(max(mu0, 1e-4), ln, SHAPE[s]),
                                         "p1": nb_over(max(mu1, 1e-4), ln, SHAPE[s])})

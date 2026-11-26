@@ -15,8 +15,8 @@ Siffrorna kommer från grenen `data` (ögonblicksbild 26/11) och testsviten (250
 | 5 Spridning | klar | `propsbot/quant/dispersion.py`, `tests/test_quant_dispersion.py` |
 | 6 Kelly | klar, skugga i tiers (`kelly_pct`, `kelly_u`) | `propsbot/quant/kelly.py`, `tests/test_quant_kelly.py`, `tests/test_quant_shadow.py` |
 | 7 Utvärdering | klar, körd på NBA | `propsbot/quant/evaluate.py`, `tools/quant_report.py`, `KVANTRAPPORT_NBA_2026-11-26.md` |
-| 8 Skugginkoppling NBA (p_resid) | väntar | Rapporten visar att residualen inte slår marknaden än, så det finns inget att logga som tillför något. Görs när residualen med mål = stängning slår marknaden i ≥ 2/3 av vecken |
-| 9 LightGBM | väntar | n-grind ≥ 3 000 per sport |
+| 8 Skugginkoppling NBA (p_resid) | byggs inte (grinden ej uppfylld) | Både den linjära residualen (+0,0032, CI över 0) och LightGBM är sämre än eller lika med marknaden. Utvärderingen 3/12 kör om testet |
+| 9 LightGBM | klar offline, ingen produktion | `propsbot/quant/residual_gbm.py` (valfri lightgbm), `tools/gbm_experiment.py`, `tests/test_quant_residual_gbm.py` (hoppas över utan lightgbm). 5 374 ben / 44 matcher: +0,0014 mot marknaden (CI −0,006 … +0,011) |
 
 Ändrat kriterium i fas 4: "brusfeatures ger |medel delta_logit| < 0,02" byttes mot "< 3 standardfel för interceptet".
 0,02 låg under samplingsbruset (SE ≈ 0,017 vid n = 15 000). Log-loss-villkoret står kvar.
