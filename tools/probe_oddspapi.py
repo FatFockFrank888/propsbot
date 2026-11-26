@@ -1,4 +1,4 @@
-"""Engångssond 6: den aktiva matchen i detalj (marknads-id, linje, pris, färskhet). Max 2 anrop."""
+"""Engångssond 7: lagnamn (fixtures/participants). Max 2 anrop."""
 import json, os, sys, time, urllib.parse, urllib.request
 from collections import Counter, defaultdict
 
@@ -18,22 +18,13 @@ def get(path, **params):
 
 if not KEY:
     sys.exit("ODDS_PAPI_KEY saknas")
-st, mk = get("markets")
-cat = {str(m["marketId"]): (str(m.get("marketType")), m.get("handicap"), str(m.get("period")), m.get("marketName")) for m in mk}
-time.sleep(1.5)
-st, o = get("odds-by-tournaments", tournamentIds="17,8,23,35,34", bookmakers="bet365")
-act = [f for f in o if f["bookmakerOdds"]["bet365"].get("bookmakerIsActive")]
-print("aktiva matcher:", [(f["fixtureId"], f["tournamentId"], f["startTime"], f["bookmakerOdds"]["bet365"]["bookmakerFixtureId"]) for f in act])
-print("alla bookmakerFixtureId (start):", sorted((f["startTime"][:16], f["bookmakerOdds"]["bet365"]["bookmakerFixtureId"], f["tournamentId"]) for f in o)[:14])
-for f in act[:1]:
-    b = f["bookmakerOdds"]["bet365"]
-    rows = defaultdict(list)
-    for mid, m in b["markets"].items():
-        c = cat.get(mid, ("?", None, "?", "?"))
-        for oid, out in m["outcomes"].items():
-            for pid, p in (out.get("players") or {}).items():
-                if p.get("active"):
-                    rows[(mid, c[0], c[1], c[2], c[3])].append((p["playerName"], p["price"], p.get("changedAt"), p.get("mainLine")))
-    print("aktiva spelarmarknader i matchen:", len(rows))
-    for k, v in sorted(rows.items(), key=lambda kv: (kv[0][1], str(kv[0][2])))[:60]:
-        print("MKT", k[0], k[1], k[2], k[3], "|", str(k[4])[:50], "| n=%d" % len(v), v[:2])
+for path, params in (("fixtures", {"tournamentId": 17}), ("participants", {"sportId": 10})):
+    st, d = get(path, **params)
+    print(path, st, type(d).__name__, len(d) if hasattr(d, "__len__") else "")
+    if isinstance(d, list) and d:
+        print(" första:", json.dumps(d[0], ensure_ascii=False)[:700])
+    elif isinstance(d, dict):
+        print(" nycklar/första:", json.dumps({k: (str(v)[:80]) for k, v in list(d.items())[:6]}, ensure_ascii=False)[:700])
+    else:
+        print(str(d)[:400])
+    time.sleep(1.5)
