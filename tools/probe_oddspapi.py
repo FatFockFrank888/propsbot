@@ -27,13 +27,13 @@ if isinstance(mk, list):
         nm = f"{m.get('marketName') or m.get('name')} | {m.get('marketType', '')} | {m.get('handicap', '')} | {m.get('period', '')}"
         names[mid] = nm
         low = nm.lower()
-        if "shot" in low and ("player" in low or m.get("playerProp")):
-            print("SKOTT-MARKNAD", mid, nm)
+        if ("shot" in low or "tackle" in low or "foul" in low or "assist" in low or "offside" in low) and "head" not in low and "player" in low and m.get("playerProp") and "." in str(m.get("handicap", "")) and str(m.get("handicap")) in ("0.5", "1.5", "2.5"):
+            print("MARKNAD", mid, nm)
     pp = [m for m in mk if m.get("playerProp")]
     print("playerProp-marknader totalt:", len(pp))
-    print("playerProp-namn (urval):", sorted({str(m.get('marketName'))[:45] for m in pp})[:50])
+    print("fotbollsliknande playerProp-namn:", sorted({str(m.get("marketName"))[:50] for m in pp if any(w in str(m.get("marketName")).lower() for w in ("shot","tackle","foul","assist","card","goal"))})[:40])
 time.sleep(1.5)
-st, o = get("odds-by-tournaments", tournamentIds="17,8,23,35,34,7", bookmakers="bet365")
+st, o = get("odds-by-tournaments", tournamentIds="17,8,23,35,34", bookmakers="bet365")
 print("multi-liga bet365", st, type(o).__name__)
 if isinstance(o, list):
     from collections import Counter
@@ -41,7 +41,7 @@ if isinstance(o, list):
     f0 = next((f for f in o if f.get("tournamentId") == 17), o[0])
     b = f0["bookmakerOdds"]["bet365"]
     print("bookmakerOdds-nycklar", list(b.keys()))
-    shots = [(mid, n) for mid, n in names.items() if "shot" in n.lower()]
+    shots = [(mid, n) for mid, n in names.items() if "shot" in n.lower() and "head" not in n.lower()]
     shown = 0
     for mid, m in b["markets"].items():
         if mid in dict(shots) and shown < 2:
