@@ -21,7 +21,8 @@ och ingår i `python -m propsbot.probe`. Tolkningen testas med fixturer i `tests
 | F0 Probe | klar | `propsbot/probe.py` (`football_prop_fields`), `tests/test_probe_fields.py` |
 | F1 Minuter och elvagrind | klar | `propsbot/quant/fb_minutes.py`, `tests/test_quant_fb_minutes.py`; ESPN-cachen sparar `min` och `pos` för nya matcher (`player_model.py`) |
 | F2 Per 90 med EB | klar, backtestad | `propsbot/quant/fb_rates.py`, `tests/test_quant_fb_rates.py`, `tools/backtest_per90.py`, `BACKTEST_PER90_2026-11-26.md` |
-| F3–F7 | väntar | F5 (skuggfältet `p_fb2` i benloggen) är nästa steg: backtesten visar −0,015 till −0,020 i log-loss mot dagens modell för skott och SOT |
+| F5 Skuggmodell `p_fb2` | klar, i skugga | `player_model.py` (`_fb2`, `league_priors`, `mu_fb2`), `line_adjust.py` (`p_raw_fb2`), `benlogg.py` (`p_fb2`, `p_fb20`, pappersspel och Brier mot hyb/marknad), `free_scan.py` (diagnosrad), `settings.json` (`fb2_matches`, `fb2_backfill_per_run`), `tests/test_quant_fb_shadow.py`. Gamla ESPN-utdrag kompletteras med minuter/position, högst 150 per körning (1 564 i cachen ≈ 11 körningar). Residualen mot marknaden (`p_fb2_resid`) kommer när benloggen har ≥ 150 avgjorda ben med `p_fb2` |
+| F3, F4, F6, F7 | väntar | F4 (motståndare, domare, vilodagar) och F6 (insats) efter att `p_fb2` visat värde mot marknaden; F7 = benloggens analys plus `tools/quant_report.py` |
 
 Ändring mot planen: `expected_minutes` testas med svag prior för ±1-kriteriet. Standardpriorn (80 min, 3 matcher) krymper
 20 fulla matcher till 88, och det är avsiktligt.

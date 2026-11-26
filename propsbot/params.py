@@ -117,6 +117,10 @@ def all_params(settings_path: Path) -> dict:
         ("Kambi mot Pinnacle (målförväntan)", f"max {_pct(s.get('max_line_ratio_dev', 0.10))} skillnad", "Annars hoppas matchen över (olika regler, gamla linjer)."),
         ("Spelarmodell", f"{s.get('model_mode', 'test')}, vikt {s.get('model_weight', 0.1):g}",
          "ESPN-statistik. I läget test bokförs modellens spel separat (Modelltest)."),
+        ("Spelarmodell per 90 (fb2)", f"skugga, {s.get('fb2_matches', 15)} lagmatcher, högst {s.get('fb2_backfill_per_run', 150)} ESPN-utdrag kompletteras per körning",
+         "Takt per 90 (minuter ur ESPN:s bytesminut) krympt mot ligans positionssnitt (450 min skott, 630 SOT) × E[min | start]. "
+         "Bokförs som p_fb2 i benloggen bredvid p_hyb och jämförs mot utfall och marknad; styr inga spel. "
+         "Backtest 548 matcher: −0,015 till −0,020 i log-loss mot dagens modell (BACKTEST_PER90_2026-11-26.md)."),
         ("CLV-signal", f"edge ≥ {_pct(s.get('clv_min_edge', 0.01))}, förväntad CLV ≥ {s.get('clv_min_expected_pp', 2.0):g}, Pinnacle ≥ +{s.get('clv_min_momentum_pp', 1.5):g}",
          "Släpper igenom ben som bara stoppades av edgekravet när Pinnacle rör sig åt vårt håll."),
         ("Max odds-ålder", f"{dc.max_odds_age_s:.0f} s", ""),

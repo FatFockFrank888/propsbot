@@ -32,6 +32,8 @@ ELASTICITY_ALT = {"goal": 0.5, "assist": 0.5, "shots_on_target": 0.35, "shots": 
 # Hybrid (25/11): mitt emellan vår och brorsens. Primär modell i Spelarprops-testet (egen bokföring, inga notiser).
 ELASTICITY_HYB = {m: (ELASTICITY[m] + ELASTICITY_ALT[m]) / 2 for m in ELASTICITY}
 NB_SHAPE = {"shots": 6.0, "shots_on_target": 10.0}   # överspridning (lägre = mer spridning)
+FB2_MARKETS = ("shots", "shots_on_target")             # F5-skuggan (backtest BACKTEST_PER90_2026-11-26.md)
+FB2_PRIOR_MIN = 900.0                                   # minsta minuter för ett positionssnitt i ligan
 
 
 def _ts(s: str) -> float:
@@ -56,6 +58,11 @@ class PlayerRates:
     mu_alt: dict[str, float] = field(default_factory=dict)  # väntat antal med ELASTICITY_ALT (loggas, styr inget)
     mu_cur: dict[str, float] = field(default_factory=dict)  # med nuvarande ELASTICITY
     mu_hyb: dict[str, float] = field(default_factory=dict)  # med ELASTICITY_HYB (Spelarprops-testets modell)
+    # F5 (26/11, skugga): takt per 90 krympt mot ligans positionssnitt (quant/fb_rates) och E[min | start]
+    fb2: dict[str, float] = field(default_factory=dict)     # per 90
+    fb2_emin: float | None = None
+    fb2_grp: str | None = None
+    mu_fb2: dict[str, float] = field(default_factory=dict)  # väntat antal med ELASTICITY_HYB
 
 
 @dataclass
@@ -69,20 +76,26 @@ class TeamModel:
 class EspnStore:
     """Permanent cache av avslutade matchers spelarstatistik (små utdrag)."""
 
-    def __init__(self, client: JsonClient, cache_dir: Path):
+    def __init__(self, client: JsonClient, cache_dir: Path, refetch_budget: int = 0):
         self.c = client
         self.dir = cache_dir
         self.dir.mkdir(parents=True, exist_ok=True)
         self.fetched = 0
+        self.refetch_left = refetch_budget     # gamla utdrag utan minuter/position som får hämtas om (F5)
+        self.refetched = 0
 
-    def match_extract(self, league: str, event_id: str) -> dict | None:
+    def match_extract(self, league: str, event_id: str, need_v2: bool = False) -> dict | None:
         f = self.dir / f"{league}_{event_id}.json"
         if f.exists():
-            return json.loads(f.read_text(encoding="utf-8"))
+            old = json.loads(f.read_text(encoding="utf-8"))
+            if not need_v2 or old.get("v", 1) >= 2 or self.refetch_left <= 0:
+                return old
+            self.refetch_left -= 1
+            self.refetched += 1
         raw = self.c.get(f"{BASE}/{league}/summary", {"event": event_id}, ttl=86400)
         if not raw:
             return None
-        out = {"teams": {}}
+        out = {"v": 2, "teams": {}}
         for team in raw.get("rosters", []) or []:
             tid = str((team.get("team") or {}).get("id", ""))
             players = []
@@ -106,16 +119,20 @@ class EspnStore:
                 out.setdefault("goals", {})[str((c.get("team") or c).get("id", c.get("id", "")))] = \
                     _num(c.get("score"))
         if out["teams"]:
+            existed = f.exists()
             f.write_text(json.dumps(out, ensure_ascii=False), encoding="utf-8")
-            self.fetched += 1
+            self.fetched += 0 if existed else 1
         return out
 
 
 class PlayerModel:
     def __init__(self, client: JsonClient, cache_dir: Path, n_matches: int = 8,
-                 half_life: float = 5.0, prior_apps: float = 3.0, sub_weight: float = 0.35):
+                 half_life: float = 5.0, prior_apps: float = 3.0, sub_weight: float = 0.35,
+                 fb2_matches: int = 15, fb2_backfill: int = 0):
         self.c = client
-        self.store = EspnStore(client, cache_dir)
+        self.store = EspnStore(client, cache_dir, refetch_budget=fb2_backfill)
+        self.n_fb2 = fb2_matches
+        self._priors: dict[str, dict] = {}
         self.n = n_matches
         self.hl = half_life
         self.prior = prior_apps
@@ -167,6 +184,7 @@ class PlayerModel:
             if status.get("completed") and st < before:
                 done.append((st, str(ev["id"])))
         done.sort(reverse=True)
+        done_fb2 = done[: max(self.n, self.n_fb2)]
         done = done[: self.n]
         if not done:
             return None
@@ -198,10 +216,74 @@ class PlayerModel:
             rate = {m: (a[m] + team_rate[m] * self.prior) / (a["apps"] + self.prior)
                     for m in MARKETS}
             players[k] = PlayerRates(a["name"], team_id, a["apps"], a["starts"], a["n"], rate)
+        try:
+            self._fb2(league, team_id, done_fb2, players)
+        except Exception:  # noqa: BLE001 – skuggmodellen får aldrig stoppa den vanliga
+            pass
         g = [x for x in goals if x is not None]
         tm = TeamModel(team_id, name, sum(g) / len(g) if g else 1.35, players)
         self._teams[team_id] = tm
         return tm
+
+
+    # --------------------------------------------------------- F5: per 90 (skugga)
+    def league_priors(self, league: str) -> dict:
+        """(grupp eller '*') -> {marknad: per 90} ur alla v2-utdrag för ligan i cachen (bara avslutade matcher)."""
+        if league in self._priors:
+            return self._priors[league]
+        from .quant.fb_rates import position_group
+        acc: dict = {}
+        for f in self.store.dir.glob(f"{league}_*.json"):
+            try:
+                ex = json.loads(f.read_text(encoding="utf-8"))
+            except (OSError, ValueError):
+                continue
+            if ex.get("v", 1) < 2:
+                continue
+            for ps in ex.get("teams", {}).values():
+                for p in ps:
+                    g = position_group(p.get("pos")) if p.get("s") else None
+                    if not g or g == "GK" or not p.get("min"):
+                        continue
+                    for key in (g, "*"):
+                        a = acc.setdefault(key, {"min": 0.0, **{m: 0.0 for m in FB2_MARKETS}})
+                        a["min"] += p["min"]
+                        for m in FB2_MARKETS:
+                            a[m] += p.get(m) or 0.0
+        out = {k: {m: a[m] * 90.0 / a["min"] for m in FB2_MARKETS} for k, a in acc.items() if a["min"] >= FB2_PRIOR_MIN}
+        self._priors[league] = out
+        return out
+
+    def _fb2(self, league: str, team_id: str, done: list, players: dict) -> None:
+        from .quant.fb_minutes import Status, expected_minutes
+        from .quant.fb_rates import M_PRIOR, position_group, shrunk_rate
+        hist: dict[str, list] = {}
+        for _, eid in done:                                   # nyaste först
+            ex = self.store.match_extract(league, eid, need_v2=True)
+            if not ex or ex.get("v", 1) < 2 or team_id not in ex.get("teams", {}):
+                continue
+            for p in ex["teams"][team_id]:
+                hist.setdefault(name_key(p["n"]), []).append(p)
+        priors = self.league_priors(league)
+        if not priors:
+            return
+        for k, pr in players.items():
+            h = [p for p in hist.get(k, []) if p.get("min") is not None]
+            if not h:
+                continue
+            groups = [position_group(p.get("pos")) for p in h if p.get("s")]
+            groups = [g for g in groups if g]
+            grp = max(set(groups), key=groups.count) if groups else None
+            if grp == "GK":
+                continue
+            pri = priors.get(grp) or priors.get("*")
+            if not pri:
+                continue
+            for m in FB2_MARKETS:
+                rows = [{"min": p["min"], "n": p.get(m) or 0.0, "age": i} for i, p in enumerate(h)]
+                pr.fb2[m], _ = shrunk_rate(rows, pri[m], M_PRIOR[m])
+            pr.fb2_emin = expected_minutes([(bool(p.get("s")), p["min"]) for p in h], Status.CONFIRMED_XI)
+            pr.fb2_grp = grp
 
 
 # ------------------------------------------------------------ sannolikheter
@@ -236,6 +318,8 @@ def model_probs(tm: TeamModel, exp_goals: float, min_apps: float = 2.0
             pr.mu_alt[m] = pr.rate[m] * ratio ** ELASTICITY_ALT[m]
             pr.mu_cur[m] = out[(k, m)][0]
             pr.mu_hyb[m] = pr.rate[m] * ratio ** ELASTICITY_HYB[m]
+            if m in pr.fb2 and pr.fb2_emin:
+                pr.mu_fb2[m] = pr.fb2[m] * pr.fb2_emin / 90.0 * ratio ** ELASTICITY_HYB[m]
     return out
 
 

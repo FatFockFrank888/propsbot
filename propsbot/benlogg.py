@@ -28,7 +28,7 @@ MARGIN_FILE = "konsensus_marginal.json"
 MIN_N = 150
 STUCK_DAYS = 5
 COLS = ["key", "avspark", "marknad", "linje", "y", "p_cur", "p_hyb", "p_alt", "p_adj", "p_k", "p_cons", "n_cons",
-        "parts", "odds", "p_utfall", "odds0", "p_hyb0", "p_utfall0", "p_cons0", "p_adj0"]
+        "parts", "odds", "p_utfall", "odds0", "p_hyb0", "p_utfall0", "p_cons0", "p_adj0", "p_fb2", "p_fb20"]
 PAPER_EDGES = (0.0, 0.02, 0.05)       # pappersspel: virtuella spel vid första bekräftade elva, platt insats
 PAPER_ODDS = (1.40, 6.0)
 
@@ -152,7 +152,7 @@ def record_all(root: Path, rows: list, evd_by_id: dict, now: float | None = None
         snap = {"bokford": now, "bolag": c.best.book, "odds": c.best.odds, "stangning": c.best.odds,
                 "p_cur": ex.get("p_raw_cur"), "p_hyb": ex.get("p_raw_hyb"), "p_alt": ex.get("p_raw_alt"),
                 "p_adj": ex.get("p_adj"), "p_k": ex.get("p_k"), "p_cons": ex.get("p_cons"), "n_cons": ex.get("n_cons"),
-                "parts": ex.get("parts"), "p_utfall": ex.get("p_mod_utfall")}
+                "parts": ex.get("parts"), "p_utfall": ex.get("p_mod_utfall"), "p_fb2": ex.get("p_raw_fb2")}
         b = led.by_key.get(key)
         if b is None:
             b = {"key": key, "id": len(led.bets) + 1, "match_id": c.match_id, "match": r.match,
@@ -160,7 +160,7 @@ def record_all(root: Path, rows: list, evd_by_id: dict, now: float | None = None
                  "spelare_id": c.player_id, "marknad": c.market, "linje": c.line, "sida": "over", "insats_pct": 0.0,
                  "status": "öppen", "utfall": None, "resultat_enheter": None}
             b.update(odds0=snap["odds"], p_hyb0=snap["p_hyb"], p_utfall0=snap["p_utfall"], p_cons0=snap["p_cons"],
-                     p_adj0=snap["p_adj"], ts0=now)          # första ögonblicksbilden (uppdateras aldrig)
+                     p_adj0=snap["p_adj"], p_fb20=snap["p_fb2"], ts0=now)   # första ögonblicksbilden (uppdateras aldrig)
             led.bets.append(b)
             led.by_key[key] = b
             new += 1
@@ -192,7 +192,8 @@ def finish(root: Path, led, client, settings: dict, diag, now: float | None = No
                                      1 if st == "vunnen" else 0, b.get("p_cur"), b.get("p_hyb"), b.get("p_alt"),
                                      b.get("p_adj"), b.get("p_k"), b.get("p_cons"), b.get("n_cons"), b.get("parts"),
                                      b.get("odds"), b.get("p_utfall"), b.get("odds0"), b.get("p_hyb0"),
-                                     b.get("p_utfall0"), b.get("p_cons0"), b.get("p_adj0")])
+                                     b.get("p_utfall0"), b.get("p_cons0"), b.get("p_adj0"), b.get("p_fb2"),
+                                     b.get("p_fb20")])
                 seen.add(b["key"])
                 harvested += 1
         elif st == "struken":
@@ -235,7 +236,7 @@ def paper(rows: list[dict], diag) -> list[dict]:
     lo, hi = PAPER_ODDS
     base = [r for r in rows if r.get("odds0") and lo <= r["odds0"] <= hi]
     sources = (("modell hyb", "p_hyb0"), ("modell utfallsankrad", "p_utfall0"), ("konsensus", "p_cons0"),
-               ("marknad (justerad)", "p_adj0"))
+               ("marknad (justerad)", "p_adj0"), ("modell per 90 (fb2)", "p_fb20"))
     for label, col in sources:
         for e in PAPER_EDGES:
             R = [r for r in base if r.get(col) is not None and r[col] * r["odds0"] - 1 >= e]
@@ -285,6 +286,14 @@ def analyse(root: Path, done: dict, settings: dict, diag) -> dict:
                 br_u = [(r["p_utfall"] - r["y"]) ** 2 for r in kal]
                 br_hk = [(r["p_hyb"] - r["y"]) ** 2 for r in kal]
                 txt.append(f"utfallsankrad modell Brier {sum(br_u) / len(kal):.4f} (rå {sum(br_hk) / len(kal):.4f})")
+        f2 = [r for r in R if r.get("p_fb2") is not None and r["p_hyb"] is not None and r["p_adj"] is not None]
+        if len(f2) >= 20:
+            b2 = [(r["p_fb2"] - r["y"]) ** 2 for r in f2]
+            bh = [(r["p_hyb"] - r["y"]) ** 2 for r in f2]
+            ba = [(r["p_adj"] - r["y"]) ** 2 for r in f2]
+            txt.append(f"fb2 (per 90) n={len(f2)} p {sum(r['p_fb2'] for r in f2) / len(f2):.3f} Brier {sum(b2) / len(f2):.4f} "
+                       f"mot hyb {sum(bh) / len(f2):.4f} (t {_t([h - x for h, x in zip(bh, b2)]):+.2f}) och marknad "
+                       f"{sum(ba) / len(f2):.4f} (t {_t([a - x for a, x in zip(ba, b2)]):+.2f})")
         cons = [r for r in R if r["p_cons"] is not None and r["p_adj"] is not None]
         if len(cons) >= 20:
             bc = [(r["p_cons"] - r["y"]) ** 2 for r in cons]
