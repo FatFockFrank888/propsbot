@@ -8,8 +8,18 @@ import json, math, os, sys, time, urllib.request, urllib.error
 from collections import defaultdict
 from datetime import datetime, timezone, timedelta
 
-sys.path.insert(0, os.getcwd())
-from propsbot.player_model import nb_over, NB_SHAPE   # samma sannolikhetsfunktion som produktionen
+# Kopia av propsbot/player_model.py (nb_over, NB_SHAPE) så att skriptet inte beror på numpy/övriga paketet.
+NB_SHAPE = {"shots": 6.0, "shots_on_target": 10.0}
+
+
+def nb_over(mu, line, shape):
+    r = shape
+    p = r / (r + mu)
+    k = int(math.floor(line))
+    cdf = 0.0
+    for i in range(k + 1):
+        cdf += math.exp(math.lgamma(i + r) - math.lgamma(r) - math.lgamma(i + 1) + r * math.log(p) + i * math.log(1 - p))
+    return max(0.0, 1.0 - cdf)
 
 UA = {"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36",
       "Accept": "application/json, text/plain, */*", "Referer": "https://www.fotmob.com/"}
