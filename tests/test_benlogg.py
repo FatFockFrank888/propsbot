@@ -90,8 +90,9 @@ def _fake_done(n, a_true=-0.5, b_true=0.8, m_true=0.15, seed=3):
         parts = ";".join(f"q{q:.4f}" for q in qs)
         p_cons = p_from_parts(parts, 0.07)
         y2 = 1 if random.random() < p_true else 0
-        rows.append([f"k{i}", TS + i * 60, "shots_on_target", 0.5, y2, p_hyb, p_hyb, p_hyb, p_hyb, p_hyb, p_cons, 3, parts, 1.9,
-                     None])
+        o = round(1 / max(p_true, 0.05) * 0.92, 2)      # odds med 8 % marginal mot sanna p
+        rows.append([f"k{i}", TS + i * 60, "shots_on_target", 0.5, y2, p_hyb, p_hyb, p_hyb, p_hyb, p_hyb, p_cons, 3, parts, o,
+                     None, o * 1.03, p_hyb, None, p_cons, p_hyb])
     return {"cols": bl.COLS, "rows": rows}
 
 
@@ -147,3 +148,25 @@ def test_line_adjust_logs_outcome_level_and_switch(monkeypatch):
     rows2, _ = evaluate_line_adjusted(evd, q, {"x y": "X Y"}, dict(s, model_level="utfall"), Config(), now, pin, kambi,
                                       model, {}, None, None)
     assert abs(rows2[0].row.p_model - ex["p_mod_utfall"]) < 1e-3 and rows2[0].row.p_model != p_marknad_niva
+
+
+def test_paper_bets_use_first_odds_and_report_roi_and_clv(tmp_path):
+    d = D()
+    done = _fake_done(900)
+    rows = [{**dict.fromkeys(bl.COLS), **dict(zip(bl.COLS, r))} for r in done["rows"]]
+    out = bl.paper(rows, d)
+    assert out and all({"källa", "edge", "n", "roi", "t", "clv"} <= set(x) for x in out)
+    assert any("ALLA ben" in x for x in d.lines)
+    # odds0 är 3 % över sista odds i testdatan -> positiv CLV för alla pappersspel
+    assert all(x["clv"] > 0.02 for x in out)
+    # äldre rader utan de nya kolumnerna får inte krascha analysen
+    short = {"cols": bl.COLS[:15], "rows": [r[:15] for r in done["rows"][:200]]}
+    bl.analyse(tmp_path, short, {}, D())
+
+
+def test_record_all_stores_first_snapshot_once(tmp_path):
+    led = bl.record_all(tmp_path, [stub_row(odds=1.9)], EVD, now=TS - 3600)
+    led.save()
+    led2 = bl.record_all(tmp_path, [stub_row(odds=2.3)], EVD, now=TS - 1800)
+    b = led2.bets[0]
+    assert b["odds0"] == 1.9 and b["odds"] == 2.3 and b["ts0"] == TS - 3600     # första bilden bevaras
