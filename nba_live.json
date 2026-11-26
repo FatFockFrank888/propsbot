@@ -9738,7 +9738,7 @@
 "edge": 0.08756984444592475,
 "spela_fran": 2.05,
 "insats_pct": 0.01,
-"stangning": 1.85,
+"stangning": 1.87,
 "status": "öppen",
 "stopp": "sharp money med oss: referensen +5.4 enheter",
 "clv_signal": false,
@@ -9748,21 +9748,21 @@
 "utfall": null,
 "resultat_enheter": null,
 "modell_edge": 0.08756984444592475,
-"stangning_ts": 1795659952.8787048,
+"stangning_ts": 1795660795.0373158,
 "analys": {
-"p_stack": 0.5236,
+"p_stack": 0.5038,
 "p_modell_min": 0.5201,
 "minuter": 37.2,
 "minuter_sd": 4.6,
-"p_faktorer": 0.4923,
-"p_faktorer_ra": 0.4202,
-"vantat_faktorer": 7.2,
-"p_betyg": 0.4785,
+"p_faktorer": 0.4792,
+"p_faktorer_ra": 0.418,
+"vantat_faktorer": 7.18,
+"p_betyg": 0.466,
 "p_betyg_ra": 0.3654,
 "vantat_betyg": 6.72,
 "minuter_faktorer": 34.0,
 "f_anv": 1.026,
-"f_miljo": 0.981,
+"f_miljo": 0.979,
 "f_tempo": 1.0,
 "f_pos": 0.962,
 "f_mot": 1.014,
@@ -9772,7 +9772,7 @@
 "f_minutbegransning": false,
 "f_tillbaka": false,
 "f_miljo_kalla": "pinnacle",
-"f_lag_poang": 115.2,
+"f_lag_poang": 114.8,
 "f_mot_n": 2,
 "traff_l5": 0.6,
 "traff_l5_n": 5,
@@ -9784,12 +9784,12 @@
 "traff_mot_n": 2,
 "traff_hemmaborta": 0.5,
 "traff_hemmaborta_n": 8,
-"p_kalib": 0.5152,
-"p_blend": 0.5139,
+"p_kalib": 0.4987,
+"p_blend": 0.5014,
 "kalib_modell": "M0",
 "p_modell": 0.5098,
-"p_marknad": 0.5152,
-"p_slutlig": 0.5139,
+"p_marknad": 0.4987,
+"p_slutlig": 0.5014,
 "vantat": 8.03,
 "nb_r": 10,
 "modell_vikt": 0.24,
@@ -9887,7 +9887,7 @@
 "hemma": false,
 "minuter_sd_faktorer": 4.6,
 "ref": {
-"pin_p": 0.5134568057759741,
+"pin_p": 0.48988545801790057,
 "dk_p": 0.523757114534465,
 "pin_linje": null,
 "dk_linje": null,
@@ -9897,18 +9897,18 @@
 "odds_bolag": [
 {
 "bolag": "atg",
-"over": 1.84,
-"under": 1.87
+"over": 1.87,
+"under": 1.85
 },
 {
 "bolag": "betmgm",
-"over": 1.85,
-"under": 1.88
+"over": 1.87,
+"under": 1.85
 },
 {
 "bolag": "expekt",
-"over": 1.85,
-"under": 1.88
+"over": 1.87,
+"under": 1.85
 },
 {
 "bolag": "kalshi",
@@ -9917,28 +9917,28 @@
 },
 {
 "bolag": "leovegas",
-"over": 1.85,
-"under": 1.88
+"over": 1.87,
+"under": 1.85
 },
 {
 "bolag": "paf",
-"over": 1.85,
-"under": 1.88
+"over": 1.87,
+"under": 1.85
 },
 {
 "bolag": "pinnacle",
-"over": 1.826,
-"under": 1.917
+"over": 1.901,
+"under": 1.833
 },
 {
 "bolag": "svenskaspel",
-"over": 1.85,
-"under": 1.88
+"over": 1.87,
+"under": 1.85
 },
 {
 "bolag": "unibet",
-"over": 1.85,
-"under": 1.88
+"over": 1.87,
+"under": 1.85
 },
 {
 "bolag": "us_draftkings",
@@ -9948,13 +9948,13 @@
 ]
 },
 "prognos": 8.02654584299664,
-"analys_ts": 1795659952.879168,
+"analys_ts": 1795660795.037675,
 "modellversion": "2026-11-15-betyg",
 "prognos_ts": 1795658975.0581696,
-"skarp_stang_p": 0.5152342505367905,
-"skarp_stang_ts": 1795659952.6380234,
+"skarp_stang_p": 0.49873578518424955,
+"skarp_stang_ts": 1795660794.863435,
 "skarp_kalla": "skanning",
-"pin_stang_p": 0.5134568057759741,
+"pin_stang_p": 0.48988545801790057,
 "dk_stang_p": 0.523757114534465,
 "bolag_bokning": {
 "ts": 1795658975.0687356,
@@ -9980,15 +9980,15 @@
 "dk_p": 0.482205185025288
 },
 "bolag_stangning": {
-"ts": 1795659953.450652,
+"ts": 1795660795.3884785,
 "odds": {
 "unibet": {
-"over": 1.85,
-"under": 1.88
+"over": 1.87,
+"under": 1.85
 },
 "pinnacle": {
-"over": 1.826,
-"under": 1.917
+"over": 1.901,
+"under": 1.833
 },
 "draftkings": {
 "over": 1.79,
@@ -9999,19 +9999,20 @@
 "pin_komb": false,
 "pin_linje": null,
 "dk_linje": null,
-"pin_p": 0.5134568057759741,
+"pin_p": 0.48988545801790057,
 "dk_p": 0.523757114534465
 },
-"bolag_stang_ts": 1795659953.450652,
+"bolag_stang_ts": 1795660795.3884785,
 "skarp_verifierad": true,
 "skarp_status": null,
-"clv_skarp_pp": 5.65186542065153,
-"clv_pin_pp": 5.474120944569888,
+"clv_skarp_pp": 4.002018885397435,
+"clv_pin_pp": 3.1169861687625366,
 "clv_dk_pp": 6.504151820418985,
 "nyhet_lag_status": "lag:de aaron fox",
 "nyhet_lag": "Lagkamrat ute: De'Aaron Fox (out). Modellen nu: Stephon Castle väntat 8.0 (37 min), över 7.5 51%, edge vid 2.18: +11% (vid bokning modell +9%)",
 "nyhet_lag_ts": "2026-11-26T02:25:52+00:00",
-"nyhet": "Lagkamrat ute: De'Aaron Fox (out). Modellen nu: Stephon Castle väntat 8.0 (37 min), över 7.5 51%, edge vid 2.18: +11% (vid bokning modell +9%)",
-"nyhet_status": "lag:de aaron fox"
+"nyhet": "Stephon Castle inte längre på skadelistan (ESPN)",
+"nyhet_status": "ok",
+"nyhet_ts": "2026-11-26T02:39:55+00:00"
 }
 ]
