@@ -49,3 +49,33 @@ Negativt Δ = per 90-modellen bättre. CI per match (bootstrap).
    benloggen (skugga) och mäta mot marknad och CLV vid ≥ 150 avgjorda.
 5. Förbehåll: M0 ser här bara ligamatcher (produktionen även cuper/Europa), och rött kort syns inte i ESPN:s
    bytesrader (räknas som 90 min).
+
+## F4: matchkontext ovanpå M1
+Data: samma 548 matcher plus hemmalag (ESPN scoreboard) och lagens fullständiga spelscheman (alla tävlingar) för vilodagar. Körning: `python tools/backtest_per90.py --dir utdrag/ --context kontext.json`. Motståndarens medgivna antal = de senaste 8 matcherna före avspark, krympt mot ligasnittet (5 matcher), klippt 0,8–1,25.
+
+
+Elasticiteter valda på perioden före test: e_opp (motståndarens medgivna), h (hemma +h / borta 1/(1+h)), s (avdrag vid ≤ 3,5 dagars vila).
+
+| Marknad | vald (e_opp, h, s) | n test | M1 Platt | M1 + kontext Platt | Δ | 95 % CI |
+|---|---|---|---|---|---|---|
+| shots > 0.5 | (0.75, 0.1, 0.0) | 5020 | 0.6059 | 0.6010 | -0.0050 | -0.0075 … -0.0026 |
+| shots > 1.5 | (0.75, 0.1, 0.0) | 5020 | 0.5166 | 0.5105 | -0.0061 | -0.0089 … -0.0034 |
+| shots > 2.5 | (0.75, 0.1, 0.0) | 5020 | 0.3545 | 0.3493 | -0.0052 | -0.0075 … -0.0028 |
+| shots_on_target > 0.5 | (0.5, 0.15, 0.06) | 5020 | 0.5453 | 0.5413 | -0.0040 | -0.0064 … -0.0017 |
+| shots_on_target > 1.5 | (0.5, 0.15, 0.06) | 5020 | 0.2388 | 0.2356 | -0.0032 | -0.0047 … -0.0017 |
+| fouls > 0.5 | (1.0, 0.05, 0.03) | 5020 | 0.6572 | 0.6558 | -0.0014 | -0.0028 … +0.0001 |
+| fouls > 1.5 | (1.0, 0.05, 0.03) | 5020 | 0.5618 | 0.5601 | -0.0017 | -0.0033 … -0.0000 |
+
+### Vilka delar bär (Δ log-loss mot M1, test)
+
+| Variant | skott 0,5 / 1,5 / 2,5 | SOT 0,5 / 1,5 | fouls 0,5 / 1,5 |
+|---|---|---|---|
+| bara motståndare | −0,0022 / −0,0012 / −0,0023 | −0,0012 / −0,0010 | −0,0022 / −0,0022 |
+| bara hemma/borta | −0,0027 / −0,0046 / −0,0028 | −0,0027 / −0,0022 | +0,0008 / +0,0006 |
+| bara vilodagar (≤ 3,5 d, 20 % av matcherna) | 0 (vald s = 0) | 0 | 0 |
+
+### Tolkning F4
+
+1. Motståndare och hemmaplan ger tillsammans −0,003 till −0,006 för skott och SOT (alla intervall under 0), alltså ungefär en fjärdedel av vinsten från per 90. Vilodagar ger ingenting och stryks.
+2. **Reservation:** backtesten saknar Pinnacles väntade mål, som produktionen redan använder (ratio^elasticitet). Pinnacle fångar delvis samma sak (hemmaplan, svag motståndare), så effekten ovanpå produktionen är troligen mindre. Därför loggas kontexten som ett eget skuggfält `p_fb2k` bredvid `p_fb2`. Benloggen avgör om den tillför något utöver Pinnacle.
+3. Valda elasticiteter (`settings.json`): `fb2_ctx_opp_e` skott 0,75, SOT 0,5; `fb2_ctx_home_h` skott 0,10, SOT 0,15. Fouls har redan motståndarfaktor i `fouls.py` (elasticitet 0,5, backtesten valde 1,0). Den ändras inte nu.

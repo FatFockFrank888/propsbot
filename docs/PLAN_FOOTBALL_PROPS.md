@@ -22,7 +22,8 @@ och ingår i `python -m propsbot.probe`. Tolkningen testas med fixturer i `tests
 | F1 Minuter och elvagrind | klar | `propsbot/quant/fb_minutes.py`, `tests/test_quant_fb_minutes.py`; ESPN-cachen sparar `min` och `pos` för nya matcher (`player_model.py`) |
 | F2 Per 90 med EB | klar, backtestad | `propsbot/quant/fb_rates.py`, `tests/test_quant_fb_rates.py`, `tools/backtest_per90.py`, `BACKTEST_PER90_2026-11-26.md` |
 | F5 Skuggmodell `p_fb2` | klar, i skugga | `player_model.py` (`_fb2`, `league_priors`, `mu_fb2`), `line_adjust.py` (`p_raw_fb2`), `benlogg.py` (`p_fb2`, `p_fb20`, pappersspel och Brier mot hyb/marknad), `free_scan.py` (diagnosrad), `settings.json` (`fb2_matches`, `fb2_backfill_per_run`), `tests/test_quant_fb_shadow.py`. Gamla ESPN-utdrag kompletteras med minuter/position, högst 150 per körning (1 564 i cachen ≈ 11 körningar). Residualen mot marknaden (`p_fb2_resid`) kommer när benloggen har ≥ 150 avgjorda ben med `p_fb2` |
-| F3, F4, F6, F7 | väntar | F4 (motståndare, domare, vilodagar) och F6 (insats) efter att `p_fb2` visat värde mot marknaden; F7 = benloggens analys plus `tools/quant_report.py` |
+| F4 Matchkontext | klar, i skugga (`p_fb2k`) | `propsbot/quant/fb_context.py`, `tests/test_quant_fb_context.py`; backtest `tools/backtest_per90.py --context` (motståndare + hemma −0,003 till −0,006; vilodagar 0, strukna); `player_model.apply_fb2_context`, `TeamModel.conc`, `PlayerModel.league_conceded`; `free_scan.player_models`; benloggen `p_fb2k`/`p_fb2k0`; `settings.json` `fb2_ctx_opp_e`, `fb2_ctx_home_h`. Domarfaktorn finns redan för fouls (`referees.py`) och gäller inte skott |
+| F3, F6, F7 | väntar | F6 (insats) efter att `p_fb2`/`p_fb2k` visat värde mot marknaden; F7 = benloggens analys plus `tools/quant_report.py` (utvärdering schemalagd 3/12) |
 
 Ändring mot planen: `expected_minutes` testas med svag prior för ±1-kriteriet. Standardpriorn (80 min, 3 matcher) krymper
 20 fulla matcher till 88, och det är avsiktligt.
