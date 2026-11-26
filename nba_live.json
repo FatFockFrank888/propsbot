@@ -9738,7 +9738,7 @@
 "edge": 0.08756984444592475,
 "spela_fran": 2.05,
 "insats_pct": 0.01,
-"stangning": 1.87,
+"stangning": 1.9,
 "status": "öppen",
 "stopp": "sharp money med oss: referensen +5.4 enheter",
 "clv_signal": false,
@@ -9748,16 +9748,16 @@
 "utfall": null,
 "resultat_enheter": null,
 "modell_edge": 0.08756984444592475,
-"stangning_ts": 1795660795.0373158,
+"stangning_ts": 1795661798.0969346,
 "analys": {
-"p_stack": 0.5038,
+"p_stack": 0.5004,
 "p_modell_min": 0.5201,
 "minuter": 37.2,
 "minuter_sd": 4.6,
-"p_faktorer": 0.4792,
+"p_faktorer": 0.477,
 "p_faktorer_ra": 0.418,
 "vantat_faktorer": 7.18,
-"p_betyg": 0.466,
+"p_betyg": 0.4638,
 "p_betyg_ra": 0.3654,
 "vantat_betyg": 6.72,
 "minuter_faktorer": 34.0,
@@ -9784,12 +9784,12 @@
 "traff_mot_n": 2,
 "traff_hemmaborta": 0.5,
 "traff_hemmaborta_n": 8,
-"p_kalib": 0.4987,
-"p_blend": 0.5014,
+"p_kalib": 0.4959,
+"p_blend": 0.4992,
 "kalib_modell": "M0",
 "p_modell": 0.5098,
-"p_marknad": 0.4987,
-"p_slutlig": 0.5014,
+"p_marknad": 0.4959,
+"p_slutlig": 0.4992,
 "vantat": 8.03,
 "nb_r": 10,
 "modell_vikt": 0.24,
@@ -9888,7 +9888,7 @@
 "minuter_sd_faktorer": 4.6,
 "ref": {
 "pin_p": 0.48988545801790057,
-"dk_p": 0.523757114534465,
+"dk_p": 0.5148214948449493,
 "pin_linje": null,
 "dk_linje": null,
 "pin_flyttad": false,
@@ -9897,33 +9897,33 @@
 "odds_bolag": [
 {
 "bolag": "atg",
-"over": 1.87,
-"under": 1.85
+"over": 1.9,
+"under": 1.84
 },
 {
 "bolag": "betmgm",
-"over": 1.87,
-"under": 1.85
+"over": 1.9,
+"under": 1.84
 },
 {
 "bolag": "expekt",
-"over": 1.87,
-"under": 1.85
+"over": 1.9,
+"under": 1.84
 },
 {
 "bolag": "kalshi",
-"over": 1.942,
-"under": 2.062
+"over": 1.98,
+"under": 2.02
 },
 {
 "bolag": "leovegas",
-"over": 1.87,
-"under": 1.85
+"over": 1.9,
+"under": 1.84
 },
 {
 "bolag": "paf",
-"over": 1.87,
-"under": 1.85
+"over": 1.9,
+"under": 1.84
 },
 {
 "bolag": "pinnacle",
@@ -9932,30 +9932,30 @@
 },
 {
 "bolag": "svenskaspel",
-"over": 1.87,
-"under": 1.85
+"over": 1.9,
+"under": 1.84
 },
 {
 "bolag": "unibet",
-"over": 1.87,
-"under": 1.85
+"over": 1.9,
+"under": 1.84
 },
 {
 "bolag": "us_draftkings",
-"over": 1.79,
-"under": 1.95
+"over": 1.82,
+"under": 1.92
 }
 ]
 },
 "prognos": 8.02654584299664,
-"analys_ts": 1795660795.037675,
+"analys_ts": 1795661798.0974877,
 "modellversion": "2026-11-15-betyg",
 "prognos_ts": 1795658975.0581696,
-"skarp_stang_p": 0.49873578518424955,
-"skarp_stang_ts": 1795660794.863435,
+"skarp_stang_p": 0.4958928477408752,
+"skarp_stang_ts": 1795661797.8319216,
 "skarp_kalla": "skanning",
 "pin_stang_p": 0.48988545801790057,
-"dk_stang_p": 0.523757114534465,
+"dk_stang_p": 0.5148214948449493,
 "bolag_bokning": {
 "ts": 1795658975.0687356,
 "odds": {
@@ -9980,19 +9980,19 @@
 "dk_p": 0.482205185025288
 },
 "bolag_stangning": {
-"ts": 1795660795.3884785,
+"ts": 1795661798.1107988,
 "odds": {
 "unibet": {
-"over": 1.87,
-"under": 1.85
+"over": 1.9,
+"under": 1.84
 },
 "pinnacle": {
 "over": 1.901,
 "under": 1.833
 },
 "draftkings": {
-"over": 1.79,
-"under": 1.95
+"over": 1.82,
+"under": 1.92
 }
 },
 "pin_flyttad": false,
@@ -10000,14 +10000,14 @@
 "pin_linje": null,
 "dk_linje": null,
 "pin_p": 0.48988545801790057,
-"dk_p": 0.523757114534465
+"dk_p": 0.5148214948449493
 },
-"bolag_stang_ts": 1795660795.3884785,
+"bolag_stang_ts": 1795661798.1107988,
 "skarp_verifierad": true,
 "skarp_status": null,
-"clv_skarp_pp": 4.002018885397435,
+"clv_skarp_pp": 3.717725141060002,
 "clv_pin_pp": 3.1169861687625366,
-"clv_dk_pp": 6.504151820418985,
+"clv_dk_pp": 5.610589851467412,
 "nyhet_lag_status": "lag:de aaron fox",
 "nyhet_lag": "Lagkamrat ute: De'Aaron Fox (out). Modellen nu: Stephon Castle väntat 8.0 (37 min), över 7.5 51%, edge vid 2.18: +11% (vid bokning modell +9%)",
 "nyhet_lag_ts": "2026-11-26T02:25:52+00:00",
