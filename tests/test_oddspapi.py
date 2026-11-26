@@ -62,12 +62,12 @@ def run(tmp_path, monkeypatch, settings=None, state=None, now=None):
         if path == "participants":
             return {"1": "Manchester City FC", "2": "Real Madrid CF", "999": "Annat"}
         if path == "odds-by-tournaments":
-            return [fixture(time.strftime("%Y-%m-%dT%H:%M:%S.000Z", time.gmtime(now + 6 * 3600)))]
+            return [fixture(time.strftime("%Y-%m-%dT%H:%M:%S.000Z", time.gmtime(now + 3 * 3600)))]
         raise AssertionError(path)
     monkeypatch.setattr(op, "_get", fake_get)
     if state is not None:
         (tmp_path / op.STATE).write_text(json.dumps(state))
-    evd = {"id": "m1", "home_team": "Manchester City", "away_team": "Real Madrid", "commence_time": now + 6 * 3600}
+    evd = {"id": "m1", "home_team": "Manchester City", "away_team": "Real Madrid", "commence_time": now + 3 * 3600}
     qs, nm = [], {}
     d = D()
     n = op.add_oddspapi(tmp_path, [(evd, qs, nm)], settings or {}, d)
@@ -101,16 +101,38 @@ def test_voice_setting_adds_quotes(tmp_path, monkeypatch):
     assert voice_of("op_bet365") == "op_bet365"
 
 
-def test_ttl_skips_recent_chunks_and_month_stop_blocks(tmp_path, monkeypatch):
+def test_chunk_due_logic():
+    now = 1_000_000.0
+    h = 3600
+    f = op.chunk_due
+    assert f(None, now, 150 * 60, 6 * h, 24 * h)                                  # aldrig hämtad: förnya schema
+    assert f(now - 60, now, 150 * 60, 6 * h, 24 * h) is True                      # gammalt format utan schema
+    fresh = {"ts": now - 60, "starts": [now + 3 * h]}
+    assert not f(fresh, now, 150 * 60, 6 * h, 24 * h)                             # match nära men nyss hämtad
+    assert f({"ts": now - 200 * 60, "starts": [now + 3 * h]}, now, 150 * 60, 6 * h, 24 * h)   # nära + TTL ute
+    assert not f({"ts": now - 200 * 60, "starts": [now + 20 * h]}, now, 150 * 60, 6 * h, 24 * h)   # ingen match nära
+    assert f({"ts": now - 25 * h, "starts": [now + 20 * h]}, now, 150 * 60, 6 * h, 24 * h)   # schemat för gammalt
+
+
+def test_far_groups_skipped_near_groups_fetched(tmp_path, monkeypatch):
     now = time.time()
     month = time.strftime("%Y-%m", time.gmtime(now))
     cat = op.build_catalog(CATALOG_RAW)
-    st = {"month": month, "used": 10, "chunks": {"17,8,23,35,34": now - 60, "7,34480": now - 60}, "catalog": cat,
-          "catalog_ts": now, "teams": {}, "teams_try": now}
+    st = {"month": month, "used": 10, "catalog": cat, "catalog_ts": now, "teams": {"1": "Manchester City", "2": "Real Madrid"},
+          "teams_try": now,
+          "chunks": {"17,8,23,35,34": {"ts": now - 4 * 3600, "starts": [now + 3 * 3600]},      # match nära + TTL ute -> hämtas
+                     "7,34480": {"ts": now - 4 * 3600, "starts": [now + 30 * 3600]}}}          # inget nära -> hoppas över
     n, calls, qs, d = run(tmp_path, monkeypatch, state=st, now=now)
-    assert calls == []                             # allt färskt -> inga anrop
-    st["chunks"] = {}
-    st["used"] = 230
+    assert [c[0] for c in calls] == ["odds-by-tournaments"] and calls[0][1]["tournamentIds"] == "17,8,23,35,34"
+    assert any("1 ligagrupper hoppades över" in m for m in d.lines)
+    saved = json.loads((tmp_path / op.STATE).read_text())
+    assert saved["chunks"]["17,8,23,35,34"]["starts"] and saved["chunks"]["7,34480"]["starts"] == [now + 30 * 3600]
+
+
+def test_month_stop_blocks(tmp_path, monkeypatch):
+    now = time.time()
+    st = {"month": time.strftime("%Y-%m", time.gmtime(now)), "used": 230, "chunks": {}, "catalog": op.build_catalog(CATALOG_RAW),
+          "catalog_ts": now, "teams": {}, "teams_try": now}
     n, calls, qs, d = run(tmp_path, monkeypatch, state=st, now=now)
     assert calls == [] and any("månadsgräns" in m for m in d.lines)
 
