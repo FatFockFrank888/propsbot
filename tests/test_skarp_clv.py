@@ -80,3 +80,31 @@ def test_dk_other_line_is_translated_to_ours():
     b["match_id"], b["spelare_id"] = "m", "p"
     update(NS(bets=[b]), {}, 9_000.0, book_probs(qs))
     assert b["bolag_stangning"]["dk_linje"] == 1.5 and b["dk_stang_p"] == d["draftkings"]
+
+
+def test_fanduel_logged_separately_and_does_not_change_sharp_close():
+    qs = [OddsQuote("pinnacle", "m1", "p1", "points", 20.5, "over", 1.90, 0),
+          OddsQuote("pinnacle", "m1", "p1", "points", 20.5, "under", 1.90, 0),
+          OddsQuote("oa_us_fanduel", "m1", "p1", "points", 20.5, "over", 1.80, 0),
+          OddsQuote("oa_us_fanduel", "m1", "p1", "points", 20.5, "under", 2.00, 0)]
+    bp = book_probs(qs)[("m1", "p1", "points", 20.5)]
+    assert bp["fanduel"] > 0.5 and "draftkings" not in bp
+    b = _bet(sida="over")
+    update(NS(bets=[b]), {}, 9_000.0, {("m1", "p1", "points", 20.5): bp})
+    assert b["fd_stang_p"] == bp["fanduel"] and b["clv_fd_pp"] is not None
+    assert "dk_stang_p" not in b and b["clv_dk_pp"] is None
+    assert b["pin_stang_p"] == bp["pinnacle"] and "skarp_stang_p" not in b   # FD påverkar inte skarp stängning
+    st = stats([dict(b, avspark=1.0)], 100.0)
+    assert st["clv_fd_antal"] == 1 and st["clv_fd_pp"] == b["clv_fd_pp"]
+
+
+def test_bovada_logged_separately_as_fallback():
+    qs = [OddsQuote("us_bovada", "m1", "p1", "points", 20.5, "over", 1.80, 0),
+          OddsQuote("us_bovada", "m1", "p1", "points", 20.5, "under", 2.00, 0)]
+    bp = book_probs(qs)[("m1", "p1", "points", 20.5)]
+    assert bp["bovada"] > 0.5 and "fanduel" not in bp
+    b = _bet()
+    update(NS(bets=[b]), {}, 9_000.0, {("m1", "p1", "points", 20.5): bp})
+    assert b["bv_stang_p"] == bp["bovada"] and b["clv_bv_pp"] is not None
+    assert "fd_stang_p" not in b and b["clv_fd_pp"] is None and "skarp_stang_p" not in b
+    assert stats([dict(b, avspark=1.0)], 100.0)["clv_bv_antal"] == 1
