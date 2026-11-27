@@ -1,4 +1,4 @@
-Skanning 2026-11-27 00:37
+Skanning 2026-11-27 00:47
 Kambi unibet (ubse): OK, 21 matcher i valda ligor
 Kambi paf (paf): OK
 Kambi atg (atg): OK
@@ -69,7 +69,7 @@ Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
   Draw No Bet 1st Half | units=Regular | kategori=Team Props | deltagare=Club Leon,Cruz Azul  ->  används inte (lagmarknad)
   3-Way Handicap Club Leon +1 | units=Regular | kategori=Team Props | deltagare=Club Leon (+1),Draw - (Club Leon +1),Cruz Azul (-1)  ->  används inte (lagmarknad)
   Both Teams To Score and Moneyline | units=Regular | kategori=Team Props | deltagare=Yes & Club Leon,Yes & Draw,Yes & Cruz Azul,No & Club Leon,No & Draw,No & Cruz Azul  ->  används inte (lagmarknad)
-Sides mindre ligor: 15 Kambi-matcher inom 12 h, 76 Pinnacle-matcher, 12 med Pinnacle, 12 matchade: Armenia / Premier League, Azerbaijan / Premier League, Ethiopia / Premier League, International Friendly Matches (W), Israel / Ligat Ha'Al, Malaysia / Super League, Poland / III Liga, Saudi Arabia / Professional League, Singapore / Singapore Premier League, Thailand / Thai League 1, Ukraine / Premie
+Sides mindre ligor: 15 Kambi-matcher inom 12 h, 79 Pinnacle-matcher, 12 med Pinnacle, 12 matchade: Armenia / Premier League, Azerbaijan / Premier League, Ethiopia / Premier League, International Friendly Matches (W), Israel / Ligat Ha'Al, Malaysia / Super League, Poland / III Liga, Saudi Arabia / Professional League, Singapore / Singapore Premier League, Thailand / Thai League 1, Ukraine / Premie
 Sides rättning: SportScore 3 anrop i dag
 Sides rättning: API-Football 1 anrop i dag, pausad resten av dygnet (kvot- eller planfel)
 Sides/totals: 28 matcher med Kambi + Pinnacle, 771 linjer, 0 nya spel, 0 nya skuggspel, Smarkets-priser i 18 av 18; bästa edge +6.2% (LKS Goczałkowice Zdroj 1X2: 2), +5.2% (Venezia 1X2: X), +2.4% (Southampton 1X2: X)
@@ -78,7 +78,7 @@ Fotboll extra bolag: 0 nya hämtningar, 410 odds i bruk, krediter kvar 122, dags
 PropLine: 0 anrop denna körning (0/1000 idag), 0 priser i bruk
 OddsPapi: 0 matcher hämtade, 0 med bet365-marknader, 0 med lagnamn, 0 startar inom 6 h; våra 2 matcher inom fönstret, 0 matchade mot våra, 0 med aktiva spelarpriser; 2 ligagrupper hoppades över
 OddsPapi: 0 anrop denna körning (8/230 i 2026-11), 0 bet365-priser sparade
-Tid: hämtning 383 s
+Tid: hämtning 345 s
 Marginal över alla matcher: uppmätt marginal: shots stege k=1.12 (8 spelare; marginal vid 3,00 ≈ 14%), shots_on_target stege k=1.17 (78 spelare; marginal vid 3,00 ≈ 21%)
   CF Pachuca – Chivas Guadalajara: modell – hittar inte matchen hos ESPN
   Club León – Cruz Azul: modell – hittar inte matchen hos ESPN
@@ -96,7 +96,7 @@ Marginal över alla matcher: uppmätt marginal: shots stege k=1.12 (8 spelare; m
   Marítimo Funchal – Nacional Madeira: modell – hittar inte matchen hos ESPN
   Fluminense-RJ – Cruzeiro-MG: modell bra.1, 30 spelare
 Modellens nivåavvikelse mot marknaden (log-odds, dras bort): goal -0.41, shots -0.63, shots_on_target -0.27
-  CF Pachuca – Chivas Guadalajara: väntade mål Pinnacle 2.40 mot Kambi 2.43 (kvot 0.987); uppmätt marginal: goal k=1.23
+  CF Pachuca – Chivas Guadalajara: väntade mål Pinnacle 2.40 mot Kambi 2.44 (kvot 0.986); uppmätt marginal: goal k=1.23
 Exempel uppmätt marginal: goal k=1.23
   Club León – Cruz Azul: väntade mål Pinnacle 2.82 mot Kambi 3.01 (kvot 0.937); uppmätt marginal: goal k=1.51, assist k=1.27
   Macarthur FC – Melbourne City FC: saknar matchlinjer från Pinnacle
@@ -118,7 +118,7 @@ Exempel uppmätt marginal: goal k=1.23
   Fluminense-RJ – Cruzeiro-MG: väntade mål Pinnacle 2.90 mot Kambi 2.87 (kvot 1.010); uppmätt marginal: goal k=1.40, assist k=1.25, shots stege k=1.12 (7 spelare; marginal vid 3,00 ≈ 14%), shots_on_target stege k=1.22 (21 spelare; marginal vid 3,00 ≈ 27%)
   Vila Nova-GO – Atlético-GO: saknar matchlinjer från Pinnacle
 Spelarmodell per 90 (fb2, skugga): 520 spelare med takt per 90, 0 gamla ESPN-utdrag kompletterade med minuter/position (högst 150 per körning), ligor med positionssnitt: bel.1, bra.1, den.1, eng.1, eng.2, esp.1, fra.1, ger.1, ger.2, ita.1, ned.1
-Tid: modell och utvärdering 94 s
+Tid: modell och utvärdering 131 s
 Bolag med spelarodds: atg, betmgm, expekt, leovegas, oa_onexbet, paf, svenskaspel, unibet
 Spelarodds per marknad: assist 1692, goal 8091, shots 3192, shots_on_target 3382
 Kambi-marknader: assist='to give an assist (settled using opta data)':1692; goal='1st goalscorer':3154; goal='to score':3154; goal='to score at least 2 goals':1510; goal='to score at least 3 goals':266; goal='to score at least 4 goals':7; shots="player's shots (settled using opta data)":2933; shots_on_target="player's shots on target (settled using opta data)":3231
@@ -146,13 +146,13 @@ Benlogg pappersspel konsensus edge ≥ 2%: n=69, träff 29.0%, ROI -22.0% (t -1.
 Benlogg pappersspel konsensus edge ≥ 5%: n=61, träff 29.5%, ROI -17.0% (t -0.94), CLV -1.0%
 Benlogg pappersspel ALLA ben (ingen filtrering, referens): n=216, ROI -36.1%
 Benlogg shots_on_target 0.5: n=161, utfall 0.311 | modell p 0.331 Brier 0.2029 | marknad p 0.370 Brier 0.1972 | t(modell bättre) -0.48 | utfallsankrad modell Brier 0.2015 (rå 0.2029) | konsensus p 0.415 (n=102) Brier 0.2074 mot marknad 0.1985, t -0.97
-Benlogg nivåkalibrering shots_on_target 0.5: a=-0.260 b=0.753 (n=161), pröva på nyaste 49: Brier rå 0.2025 -> kalibrerad 0.2022 (sparas)
+Benlogg nivåkalibrering shots_on_target 0.5: a=-0.260 b=0.753 (n=161), pröva på nyaste 49: Brier rå 0.2025 -> kalibrerad 0.2022 (förbättrar för lite, sparas inte)
 Benlogg shots_on_target 1.5: n=74, utfall 0.122 | modell p 0.130 Brier 0.1133 | marknad p 0.214 Brier 0.1210 | t(modell bättre) +0.62 | utfallsankrad modell Brier 0.1112 (rå 0.1133) | konsensus p 0.257 (n=47) Brier 0.1235 mot marknad 0.1151, t -0.75
 Benlogg shots_on_target 2.5+: n=27, utfall 0.000 | modell p 0.050 Brier 0.0042 | marknad p 0.143 Brier 0.0242 | t(modell bättre) +5.40
 Benlogg Kambi-nivå shots_on_target|0.5: n=161, 15 matcher, p_adj − utfall +0.059 (väntar på 150 ben och 40 matcher)
 Benlogg Kambi-nivå shots_on_target|1.5: n=74, 15 matcher, p_adj − utfall +0.092 (väntar på 150 ben och 40 matcher)
 Benlogg Kambi-nivå shots_on_target|2.5+: n=27, 12 matcher, p_adj − utfall +0.143 (väntar på 150 ben och 40 matcher)
-Benlogg konsensusmarginal: bäst 0.30 på 165 ben (antagen 0.07); pröva på nyaste 50: log-loss 0.4614 -> 0.4206 med 0.30 (sparas)
+Benlogg konsensusmarginal: bäst 0.30 på 165 ben (antagen 0.07); pröva på nyaste 50: log-loss 0.4614 -> 0.4206 med 0.30 (optimum på rutnätets kant: marginalen förklarar inte avvikelsen, sparas inte)
 Spelarprops-test: 382 ben med hybridmodell, 0 med minst 2% edge (modell), 0 nya bokförda, 219 totalt
 Modelltest: 0 spelbara enligt modellen, 0 nya testspel bokförda
 Domare: 33 kommande matcher med utsedd domare (UEFA + football-data)
