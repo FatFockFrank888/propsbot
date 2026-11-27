@@ -1,4 +1,4 @@
-Skanning 2026-11-27 00:05
+Skanning 2026-11-27 00:15
 Kambi unibet (ubse): OK, 21 matcher i valda ligor
 Kambi paf (paf): OK
 Kambi atg (atg): OK
@@ -69,18 +69,17 @@ Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
   Draw No Bet 1st Half | units=Regular | kategori=Team Props | deltagare=Club Leon,Cruz Azul  ->  används inte (lagmarknad)
   3-Way Handicap Club Leon +1 | units=Regular | kategori=Team Props | deltagare=Club Leon (+1),Draw - (Club Leon +1),Cruz Azul (-1)  ->  används inte (lagmarknad)
   Both Teams To Score and Moneyline | units=Regular | kategori=Team Props | deltagare=Yes & Club Leon,Yes & Draw,Yes & Cruz Azul,No & Club Leon,No & Draw,No & Cruz Azul  ->  används inte (lagmarknad)
-Sides mindre ligor: 13 Kambi-matcher inom 12 h, 66 Pinnacle-matcher, 8 med Pinnacle, 8 matchade: Armenia / Premier League, Azerbaijan / Premier League, International Friendly Matches (W), Israel / Ligat Ha'Al, Singapore / Singapore Premier League, Thailand / Thai League 1, Ukraine / Premier League, Uruguay / Copa Uruguay
+Sides mindre ligor: 14 Kambi-matcher inom 12 h, 70 Pinnacle-matcher, 9 med Pinnacle, 9 matchade: Armenia / Premier League, Azerbaijan / Premier League, International Friendly Matches (W), Israel / Ligat Ha'Al, Saudi Arabia / Professional League, Singapore / Singapore Premier League, Thailand / Thai League 1, Ukraine / Premier League, Uruguay / Copa Uruguay
 Sides rättning: SportScore 0 anrop i dag
 Sides rättning: API-Football 1 anrop i dag, pausad resten av dygnet (kvot- eller planfel)
-  Sides rättad: NEC FC – Kataka FC över 4.5 -> förlorad (2–1)
-Sides/totals: 24 matcher med Kambi + Pinnacle, 704 linjer, 0 nya spel, 0 nya skuggspel, Smarkets-priser i 16 av 17; bästa edge +5.2% (Venezia 1X2: X), +2.0% (Southampton 1X2: X), +1.6% (Venezia under 2.5)
+Sides/totals: 25 matcher med Kambi + Pinnacle, 738 linjer, 0 nya spel, 0 nya skuggspel, Smarkets-priser i 17 av 18; bästa edge +5.2% (Venezia 1X2: X), +2.0% (Southampton 1X2: X), +1.6% (Venezia under 2.5)
 Hörnmodell (test): 8040 matcher i underlaget (17 ligor), 8 matcher med modell, 1540 Kambi-linjer, 0 nya testspel; bästa edge +21.7% (Alanyaspor hörnor under 7.5 @ 2.85), +13.3% (Leganés Sabadell FC hörnor över 5.5 @ 2.80), +8.7% (Nottingham Forest Chelsea hörnor under 4.5 @ 1.98)
 Fotboll extra bolag: 0 nya hämtningar, 410 odds i bruk, krediter kvar 122, dagsbudget 25 (andel 40%), förbrukat idag 0
 PropLine: 0 anrop denna körning (0/1000 idag), 0 priser i bruk
 OddsPapi: 0 matcher hämtade, 0 med bet365-marknader, 0 med lagnamn, 0 startar inom 6 h; våra 2 matcher inom fönstret, 0 matchade mot våra, 0 med aktiva spelarpriser; 2 ligagrupper hoppades över
 OddsPapi: 0 anrop denna körning (8/230 i 2026-11), 0 bet365-priser sparade
-Tid: hämtning 334 s
-Marginal över alla matcher: uppmätt marginal: shots stege k=1.12 (8 spelare; marginal vid 3,00 ≈ 14%), shots_on_target stege k=1.16 (85 spelare; marginal vid 3,00 ≈ 19%)
+Tid: hämtning 338 s
+Marginal över alla matcher: uppmätt marginal: shots stege k=1.12 (8 spelare; marginal vid 3,00 ≈ 14%), shots_on_target stege k=1.17 (78 spelare; marginal vid 3,00 ≈ 21%)
   CF Pachuca – Chivas Guadalajara: modell – hittar inte matchen hos ESPN
   Club León – Cruz Azul: modell – hittar inte matchen hos ESPN
   VfL Bochum – Darmstadt 98: modell ger.2, 25 spelare
@@ -96,10 +95,10 @@ Marginal över alla matcher: uppmätt marginal: shots stege k=1.12 (8 spelare; m
   Levante – Racing Santander: modell esp.1, 28 spelare
   Marítimo Funchal – Nacional Madeira: modell – hittar inte matchen hos ESPN
   Fluminense-RJ – Cruzeiro-MG: modell bra.1, 30 spelare
-Modellens nivåavvikelse mot marknaden (log-odds, dras bort): goal -0.41, shots -0.64, shots_on_target -0.31
-  CF Pachuca – Chivas Guadalajara: väntade mål Pinnacle 2.42 mot Kambi 2.45 (kvot 0.988); uppmätt marginal: goal k=1.32, assist k=1.18, shots_on_target stege k=1.04 (7 spelare; marginal vid 3,00 ≈ 4%)
-Exempel uppmätt marginal: goal k=1.32, assist k=1.18, shots_on_target stege k=1.04 (7 spelare; marginal vid 3,00 ≈ 4%)
-  Club León – Cruz Azul: väntade mål Pinnacle 2.82 mot Kambi 3.01 (kvot 0.936); uppmätt marginal: goal k=1.51, assist k=1.27
+Modellens nivåavvikelse mot marknaden (log-odds, dras bort): goal -0.41, shots -0.64, shots_on_target -0.27
+  CF Pachuca – Chivas Guadalajara: väntade mål Pinnacle 2.42 mot Kambi 2.43 (kvot 0.993); uppmätt marginal: goal k=1.20
+Exempel uppmätt marginal: goal k=1.20
+  Club León – Cruz Azul: väntade mål Pinnacle 2.82 mot Kambi 3.01 (kvot 0.937); uppmätt marginal: goal k=1.51, assist k=1.27
   Macarthur FC – Melbourne City FC: saknar matchlinjer från Pinnacle
   Çaykur Rizespor – Kasımpaşa: saknar matchlinjer från Pinnacle
   Alanyaspor – Konyaspor: saknar matchlinjer från Pinnacle
@@ -114,22 +113,22 @@ Exempel uppmätt marginal: goal k=1.32, assist k=1.18, shots_on_target stege k=1
   Brest – Paris FC: väntade mål Pinnacle 2.67 mot Kambi 2.79 (kvot 0.959); uppmätt marginal: goal k=1.42, assist k=1.33, shots_on_target stege k=1.19 (14 spelare; marginal vid 3,00 ≈ 23%)
   Nottingham Forest – Chelsea: väntade mål Pinnacle 2.80 mot Kambi 2.82 (kvot 0.991); uppmätt marginal: goal k=1.41, assist k=1.42, shots_on_target stege k=1.16 (8 spelare; marginal vid 3,00 ≈ 19%)
   Southampton – Middlesbrough: väntade mål Pinnacle 3.14 mot Kambi 3.16 (kvot 0.993); uppmätt marginal: goal k=1.51, assist k=1.39
-  Levante – Racing Santander: väntade mål Pinnacle 3.57 mot Kambi 3.44 (kvot 1.038); uppmätt marginal: goal k=1.58, assist k=1.56
+  Levante – Racing Santander: väntade mål Pinnacle 3.53 mot Kambi 3.44 (kvot 1.029); uppmätt marginal: goal k=1.59, assist k=1.56
   Marítimo Funchal – Nacional Madeira: väntade mål Pinnacle 2.47 mot Kambi 2.53 (kvot 0.977); uppmätt marginal: goal k=1.22
   Fluminense-RJ – Cruzeiro-MG: väntade mål Pinnacle 2.90 mot Kambi 2.87 (kvot 1.010); uppmätt marginal: goal k=1.40, assist k=1.25, shots stege k=1.12 (7 spelare; marginal vid 3,00 ≈ 14%), shots_on_target stege k=1.22 (21 spelare; marginal vid 3,00 ≈ 27%)
   Vila Nova-GO – Atlético-GO: saknar matchlinjer från Pinnacle
 Spelarmodell per 90 (fb2, skugga): 520 spelare med takt per 90, 0 gamla ESPN-utdrag kompletterade med minuter/position (högst 150 per körning), ligor med positionssnitt: bel.1, bra.1, den.1, eng.1, eng.2, esp.1, fra.1, ger.1, ger.2, ita.1, ned.1
-Tid: modell och utvärdering 117 s
+Tid: modell och utvärdering 94 s
 Bolag med spelarodds: atg, betmgm, expekt, leovegas, oa_onexbet, paf, svenskaspel, unibet
-Spelarodds per marknad: assist 1706, goal 8210, shots 3192, shots_on_target 3396
-Kambi-marknader: assist='to give an assist (settled using opta data)':1706; goal='1st goalscorer':3168; goal='to score':3168; goal='to score at least 2 goals':1573; goal='to score at least 3 goals':294; goal='to score at least 4 goals':7; shots="player's shots (settled using opta data)":2933; shots_on_target="player's shots on target (settled using opta data)":3245
+Spelarodds per marknad: assist 1692, goal 8098, shots 3192, shots_on_target 3368
+Kambi-marknader: assist='to give an assist (settled using opta data)':1692; goal='1st goalscorer':3133; goal='to score':3133; goal='to score at least 2 goals':1531; goal='to score at least 3 goals':294; goal='to score at least 4 goals':7; shots="player's shots (settled using opta data)":2933; shots_on_target="player's shots on target (settled using opta data)":3217
 Pinnacle har inga spelarprops här – använder linjejustering mot Pinnacles matchlinjer.
 CLV-signal: 0 ben släppta (Pinnacle rör sig åt vårt håll)
 Startelvor: 0 spelbara ben klara, 0 väntar på startelvan, 0 stoppade (inte i startelvan)
 Spelregler: stoppade {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0} (modelltest {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0})
-Spelarmodell (testläge: styr inte spelen): 0 av 437 huvudben, 292 av 382 testben har modell, 0 nya matcher hämtade från ESPN
-Bästa edge marknad shots_on_target: +1.2%, -0.4%, -1.2% (av 382 ben)
-Bästa edge modelltest shots_on_target: +1.2%, -2.0%, -2.1% (av 330 ben)
+Spelarmodell (testläge: styr inte spelen): 0 av 433 huvudben, 292 av 382 testben har modell, 0 nya matcher hämtade från ESPN
+Bästa edge marknad shots_on_target: +0.3%, -1.5%, -2.3% (av 378 ben)
+Bästa edge modelltest shots_on_target: +0.3%, -3.4%, -3.6% (av 330 ben)
 0 spelbara ben.
 Bokförda nya spel: 0
 Skuggspel: 0 nya bokförda (stoppade av reglerna, minst 2 % edge)
