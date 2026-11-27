@@ -26,6 +26,9 @@ DONE_FILE = "benlogg_avgjorda.json"
 CAL_FILE = "modell_utfallskal.json"
 MARGIN_FILE = "konsensus_marginal.json"
 MIN_N = 150
+MARGIN_GRID_MAX = 0.30        # övre kant för konsensusmarginalens sökning; optimum på kanten betyder att antagandet inte stämmer
+MIN_GAIN_BRIER = 0.0005       # nivåkalibreringen sparas bara om den förbättrar Brier på de nyaste 30 % med minst så mycket
+MIN_GAIN_LOGLOSS = 0.002
 STUCK_DAYS = 5
 COLS = ["key", "avspark", "marknad", "linje", "y", "p_cur", "p_hyb", "p_alt", "p_adj", "p_k", "p_cons", "n_cons",
         "parts", "odds", "p_utfall", "odds0", "p_hyb0", "p_utfall0", "p_cons0", "p_adj0", "p_fb2", "p_fb20", "p_fb2k", "p_fb2k0"]
@@ -171,8 +174,8 @@ def consensus_margin(root: Path, settings: dict) -> float:
         return default
     m = _read(root / MARGIN_FILE, {})
     try:
-        if m.get("n", 0) >= MIN_N and 0.0 <= float(m["m"]) <= 0.4:
-            return float(m["m"])
+        if m.get("n", 0) >= MIN_N and 0.0 <= float(m["m"]) < MARGIN_GRID_MAX - 0.005:
+            return float(m["m"])        # ett värde på rutnätets kant är inget optimum: används inte
     except (KeyError, TypeError, ValueError):
         pass
     return default
@@ -375,9 +378,9 @@ def analyse(root: Path, done: dict, settings: dict, diag) -> dict:
             raw = _brier([r["p_hyb"] for r in test], ys_t)
             cal = _brier([_sig(a_t + b_t * _logit(r["p_hyb"])) for r in test], ys_t)
             a, b = fit_logistic([(_logit(r["p_hyb"]), r["y"]) for r in h])
-            ok = cal < raw
+            ok = raw - cal >= MIN_GAIN_BRIER
             diag.log(f"Benlogg nivåkalibrering {mk} {g}: a={a:+.3f} b={b:.3f} (n={len(h)}), pröva på nyaste "
-                     f"{len(test)}: Brier rå {raw:.4f} -> kalibrerad {cal:.4f} {'(sparas)' if ok else '(slår inte rå, sparas inte)'}")
+                     f"{len(test)}: Brier rå {raw:.4f} -> kalibrerad {cal:.4f} {'(sparas)' if ok else '(förbättrar för lite, sparas inte)'}")
             if ok:
                 fits[f"{mk}|{g}"] = {"a": round(a, 4), "b": round(b, 4), "n": len(h), "brier_rå_holdout": round(raw, 5),
                                      "brier_kal_holdout": round(cal, 5)}
@@ -404,14 +407,17 @@ def analyse(root: Path, done: dict, settings: dict, diag) -> dict:
             keep = [(p, r["y"]) for p, r in zip(ps, R) if p is not None]
             return _logloss([p for p, _ in keep], [y for _, y in keep]) if keep else float("inf")
 
-        grid = [i / 100 for i in range(0, 31)]
+        grid = [i / 100 for i in range(0, int(MARGIN_GRID_MAX * 100) + 1)]
         m_t = min(grid, key=lambda m: ll(cr[:cut], m))
         base = settings.get("propline_one_sided_margin", 0.07)
         l_new, l_old = ll(cr[cut:], m_t), ll(cr[cut:], base)
         m_all = min(grid, key=lambda m: ll(cr, m))
-        ok = l_new < l_old
+        at_edge = m_all >= MARGIN_GRID_MAX - 0.005
+        ok = (l_old - l_new >= MIN_GAIN_LOGLOSS) and not at_edge
+        why = "(sparas)" if ok else ("(optimum på rutnätets kant: marginalen förklarar inte avvikelsen, sparas inte)" if at_edge
+                                     else "(förbättrar för lite, sparas inte)")
         diag.log(f"Benlogg konsensusmarginal: bäst {m_all:.2f} på {len(cr)} ben (antagen {base:.2f}); pröva på nyaste "
-                 f"{len(cr) - cut}: log-loss {l_old:.4f} -> {l_new:.4f} med {m_t:.2f} {'(sparas)' if ok else '(slår inte antagen, sparas inte)'}")
+                 f"{len(cr) - cut}: log-loss {l_old:.4f} -> {l_new:.4f} med {m_t:.2f} {why}")
         if ok:
             (root / MARGIN_FILE).write_text(json.dumps({"ts": time.time(), "m": m_all, "n": len(cr),
                                                         "logloss_antagen": round(l_old, 5), "logloss_ny": round(l_new, 5)},
