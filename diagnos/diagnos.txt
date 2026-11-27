@@ -1,4 +1,4 @@
-Skanning 2026-11-27 11:18
+Skanning 2026-11-27 11:32
 Kambi unibet (ubse): OK, 21 matcher i valda ligor
 Kambi paf (paf): OK
 Kambi atg (atg): OK
@@ -7,7 +7,7 @@ Kambi svenskaspel (svenskaspel): OK
 Kambi expekt (expektse): OK
 Kambi betmgm (betmgmse): OK
 Pinnacle: OK, 24 ligor
-Pinnacle: 84 matcher, matchlinjer för 16 av 21 Kambi-matcher, 0 spelarodds som används
+Pinnacle: 85 matcher, matchlinjer för 16 av 21 Kambi-matcher, 0 spelarodds som används
 Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
   Both Teams To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
   Either Team To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
@@ -69,17 +69,18 @@ Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
   Nurnberg Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
   Double Chance 1st Half | units=Regular | kategori=Team Props | deltagare=Sonderjyske Or Brondby,Draw Or Brondby,Draw Or Sonderjyske  ->  används inte (lagmarknad)
   Moneyline and Total Goals | units=Regular | kategori=Team Props | deltagare=Sonderjyske & Over 3.5,Sonderjyske & Under 3.5,Draw & Over 3.5,Draw & Under 3.5,Brondby & Over 3.5,Brondby & Under 3.5  ->  används inte (lagmarknad)
-Sides mindre ligor: 85 Kambi-matcher inom 12 h, 241 Pinnacle-matcher, 72 med Pinnacle, 72 matchade: Argentina / Primera Nacional, Bangladesh / Premier League, Belgium / Challenger Pro League, Bosnia & Herzegovina / Premijer Liga, Bulgaria / PFL 1, CAF Confederations Cup, Chile / Primera B, Croatia / 1. HNL League, Cyprus / 1st Division, Czech Republic / First League, Czech Republic / National Foot
+Sides mindre ligor: 84 Kambi-matcher inom 12 h, 234 Pinnacle-matcher, 71 med Pinnacle, 71 matchade: Argentina / Primera Nacional, Belgium / Challenger Pro League, Bosnia & Herzegovina / Premijer Liga, Bulgaria / PFL 1, CAF Confederations Cup, Chile / Primera B, Croatia / 1. HNL League, Cyprus / 1st Division, Czech Republic / First League, Czech Republic / National Football League, Denmark / 1st Di
 Sides rättning: goal-api dagstak 300 anrop nått
-Sides rättning: SportScore 46 anrop i dag
+Sides rättning: SportScore 47 anrop i dag
 Sides rättning: API-Football 1 anrop i dag, pausad resten av dygnet (kvot- eller planfel)
-Sides/totals: 88 matcher med Kambi + Pinnacle, 1502 linjer, 0 nya spel, 0 nya skuggspel, Smarkets-priser i 55 av 63; bästa edge +7.5% (Zakho FC 1X2: 1), +7.3% (Newry City 1X2: 1), +7.2% (OH Leuven 1X2: 2)
-Hörnmodell (test): 8040 matcher i underlaget (17 ligor), 8 matcher med modell, 1530 Kambi-linjer, 0 nya testspel; bästa edge +17.9% (Alanyaspor Konyaspor hörnor under 2.5 @ 2.80), +14.5% (Nottingham Forest Chelsea hörnor under 3.5 @ 2.85), +13.2% (Leganés Sabadell FC hörnor över 5.5 @ 2.80)
+  Sides rättad: Cyprus (W) – Luxembourg (W) under 3.5 -> förlorad (2–2)
+Sides/totals: 87 matcher med Kambi + Pinnacle, 1504 linjer, 0 nya spel, 1 nya skuggspel, Smarkets-priser i 54 av 63; bästa edge +7.3% (Newry City 1X2: 1), +7.2% (OH Leuven 1X2: 2), +7.0% (Zakho FC 1X2: 1)
+Hörnmodell (test): 8040 matcher i underlaget (17 ligor), 8 matcher med modell, 1530 Kambi-linjer, 0 nya testspel; bästa edge +17.9% (Alanyaspor Konyaspor hörnor under 2.5 @ 2.80), +14.1% (Nottingham Forest Chelsea hörnor under 3.5 @ 2.85), +13.2% (Leganés Sabadell FC hörnor över 5.5 @ 2.80)
 Fotboll extra bolag: 0 nya hämtningar, 0 odds i bruk, krediter kvar 122, dagsbudget 25 (andel 40%), förbrukat idag 0
-PropLine: 17 anrop denna körning (87/1000 idag), 3186 priser i bruk
-OddsPapi: 0 matcher hämtade, 0 med bet365-marknader, 0 med lagnamn, 0 startar inom 6 h; våra 2 matcher inom fönstret, 0 matchade mot våra, 0 med aktiva spelarpriser; 2 ligagrupper hoppades över
+PropLine: 2 anrop denna körning (89/1000 idag), 3175 priser i bruk
+OddsPapi: 0 matcher hämtade, 0 med bet365-marknader, 0 med lagnamn, 0 startar inom 6 h; våra 4 matcher inom fönstret, 0 matchade mot våra, 0 med aktiva spelarpriser; 2 ligagrupper hoppades över
 OddsPapi: 0 anrop denna körning (8/230 i 2026-11), 0 bet365-priser sparade
-Tid: hämtning 577 s
+Tid: hämtning 519 s
 Marginal över alla matcher: uppmätt marginal: shots stege k=1.04 (15 spelare; marginal vid 3,00 ≈ 4%), shots_on_target stege k=1.20 (113 spelare; marginal vid 3,00 ≈ 25%)
   VfL Bochum – Darmstadt 98: modell ger.2, 25 spelare
   1. FC Heidenheim – 1. FC Nürnberg: modell ger.2, 28 spelare
@@ -103,7 +104,7 @@ Modellens nivåavvikelse mot marknaden (log-odds, dras bort): goal -0.33, shots 
 Exempel uppmätt marginal: goal k=1.38
   1. FC Heidenheim – 1. FC Nürnberg: väntade mål Pinnacle 3.44 mot Kambi 3.60 (kvot 0.956); uppmätt marginal: goal k=1.33
   SønderjyskE – Brøndby IF: väntade mål Pinnacle 3.05 mot Kambi 3.17 (kvot 0.963); uppmätt marginal: goal k=1.56, assist k=1.41
-  FC Groningen – Willem II: väntade mål Pinnacle 3.43 mot Kambi 3.40 (kvot 1.008); uppmätt marginal: goal k=1.42, assist k=1.37, shots_on_target stege k=1.15 (14 spelare; marginal vid 3,00 ≈ 18%)
+  FC Groningen – Willem II: väntade mål Pinnacle 3.43 mot Kambi 3.40 (kvot 1.010); uppmätt marginal: goal k=1.42, assist k=1.37, shots_on_target stege k=1.15 (14 spelare; marginal vid 3,00 ≈ 18%)
   Werder Bremen – Borussia Mönchengladbach: väntade mål Pinnacle 3.23 mot Kambi 3.34 (kvot 0.967); uppmätt marginal: goal k=1.47, assist k=1.39
   Leganés – Sabadell FC: saknar matchlinjer från Pinnacle
   OH Leuven – Kortrijk: väntade mål Pinnacle 2.98 mot Kambi 2.86 (kvot 1.043); uppmätt marginal: goal k=1.25, assist k=1.12
@@ -119,9 +120,9 @@ Exempel uppmätt marginal: goal k=1.38
   Real Salt Lake – Vancouver Whitecaps: väntade mål Pinnacle 3.25 mot Kambi 3.28 (kvot 0.992); uppmätt marginal: goal k=1.36, assist k=1.20
   Central Coast Mariners – Auckland FC: saknar matchlinjer från Pinnacle
 Spelarmodell per 90 (fb2, skugga): 520 spelare med takt per 90, 0 gamla ESPN-utdrag kompletterade med minuter/position (högst 150 per körning), ligor med positionssnitt: bel.1, bra.1, den.1, eng.1, eng.2, esp.1, fra.1, ger.1, ger.2, ita.1, ned.1
-Tid: modell och utvärdering 96 s
+Tid: modell och utvärdering 130 s
 Bolag med spelarodds: atg, betmgm, expekt, leovegas, paf, pl_bovada, pl_draftkings, pl_eplay24, pl_fanduel, pl_hardrock, pl_novig, pl_thescorebet, pl_williamhill_it, svenskaspel, unibet
-Spelarodds per marknad: assist 1790, goal 8359, shots 2896, shots_on_target 6530
+Spelarodds per marknad: assist 1790, goal 8359, shots 2896, shots_on_target 6519
 Kambi-marknader: assist='to give an assist (settled using opta data)':1790; goal='1st goalscorer':3218; goal='to score':3218; goal='to score at least 2 goals':1629; goal='to score at least 3 goals':273; goal='to score at least 4 goals':21; shots="player's shots (settled using opta data)":2896; shots_on_target="player's shots on target (settled using opta data)":3344
 Pinnacle har inga spelarprops här – använder linjejustering mot Pinnacles matchlinjer.
 CLV-signal: 0 ben släppta (Pinnacle rör sig åt vårt håll)
