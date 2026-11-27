@@ -170,3 +170,19 @@ def test_record_all_stores_first_snapshot_once(tmp_path):
     led2 = bl.record_all(tmp_path, [stub_row(odds=2.3)], EVD, now=TS - 1800)
     b = led2.bets[0]
     assert b["odds0"] == 1.9 and b["odds"] == 2.3 and b["ts0"] == TS - 3600     # första bilden bevaras
+
+
+def test_margin_at_grid_edge_is_not_saved_or_used(tmp_path):
+    done = _fake_done(900, m_true=0.60)                    # sann marginal utanför rutnätet -> optimum på kanten
+    d = D()
+    bl.analyse(tmp_path, done, {}, d)
+    assert not (tmp_path / bl.MARGIN_FILE).exists() and any("rutnätets kant" in x for x in d.lines)
+    (tmp_path / bl.MARGIN_FILE).write_text(json.dumps({"m": 0.30, "n": 300}))      # fil från tidigare version
+    assert bl.consensus_margin(tmp_path, {}) == 0.07                                  # ignoreras
+
+
+def test_calibration_needs_material_gain(tmp_path):
+    done = _fake_done(900, a_true=0.0, b_true=1.0)           # redan välkalibrerad: ingen märkbar vinst
+    d = D()
+    bl.analyse(tmp_path, done, {}, d)
+    assert not (tmp_path / bl.CAL_FILE).exists()
