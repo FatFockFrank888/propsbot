@@ -248,10 +248,21 @@ def player_models(evd: dict, settings: dict, pm, diag: Diag) -> dict | None:
         lg, _eid, hid, aid, _ = hit
         lh, la = evd["pin_lines"].lambdas()
         out = {}
+        tms = {}
         for tid, lam in ((hid, lh), (aid, la)):
             tm = pm.team(lg, tid, evd["commence_time"])
+            tms[tid] = tm
             if tm:
                 out.update(model_probs(tm, lam))
+        try:   # F4 (skugga): motståndare och hemmaplan ovanpå per 90-modellen -> mu_fb2k / p_fb2k
+            from .player_model import apply_fb2_context
+            lc = pm.league_conceded(lg)
+            for tid, opp, home in ((hid, aid, True), (aid, hid, False)):
+                if tms.get(tid):
+                    apply_fb2_context(tms[tid], tms.get(opp), home, lc, settings.get("fb2_ctx_opp_e", {}),
+                                      settings.get("fb2_ctx_home_h", {}))
+        except Exception as e:  # noqa: BLE001
+            diag.lines.append(f"  fb2-kontext FEL {type(e).__name__}: {e}")
         n = len({k for k, _ in out})
         diag.lines.append(f"  {evd['home_team']} – {evd['away_team']}: modell {lg}, {n} spelare")
         return out or None
@@ -364,7 +375,8 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
     if settings.get("use_player_model"):
         from .player_model import PlayerModel
         pm = PlayerModel(JsonClient(root / ".cache_odds", ttl_s=3600, min_interval_s=0.25),
-                         root / "espn")
+                         root / "espn", fb2_matches=settings.get("fb2_matches", 15),
+                         fb2_backfill=settings.get("fb2_backfill_per_run", 150))
     # Skottmarginal mätt över alla matcher (reserv när en enskild match har för lite underlag).
     from .line_adjust import measure_margins
     all_q = [q for _, qs, _ in data for q in qs]
@@ -459,6 +471,12 @@ def scan_once(root: Path, settings_path: Path, notify: bool = True) -> list[Scan
                 edge=d.cand.edge, play_from=d.play_from, playable=int(d.playable),
                 shown=int(d.show), stake=d.stake, reasons="; ".join(d.reasons)))
     rows.sort(key=lambda r: -r.row.decision.cand.edge)
+    if pm:
+        n_fb2 = sum(1 for tm in pm._teams.values() if tm for pr in tm.players.values() if pr.fb2)
+        diag.log(f"Spelarmodell per 90 (fb2, skugga): {n_fb2} spelare med takt per 90, "
+                 f"{pm.store.refetched} gamla ESPN-utdrag kompletterade med minuter/position (högst "
+                 f"{settings.get('fb2_backfill_per_run', 150)} per körning), ligor med positionssnitt: "
+                 + (", ".join(sorted(k for k, v in pm._priors.items() if v)) or "inga än"))
     diag.log(f"Tid: modell och utvärdering {time.time() - t1:.0f} s")
     diag.log(f"Bolag med spelarodds: {', '.join(sorted(books)) or 'inga'}")
     from collections import Counter

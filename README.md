@@ -78,6 +78,9 @@ Kambi-bolagen (en röst) ────┴─> marknadens p ──> blandning i lo
 | `propsbot/kambi.py` | Hittar bolag med samma leverantör, Kambis huvudpris (median), eftersläpning per bolag, eftersläpande priser |
 | `propsbot/blend.py` | Modellvikt (startelva, Pinnacle, oenighet, marknad), nivåkalibrering, klustrat standardfel per match |
 | `propsbot/decision.py` | Edge ≥ 2 % (4 % mål/assist), odds 1,40–6,00, spela från, ¼ Kelly, ett ben per spelare och familj, tak per match, stoppregler |
+| `propsbot/quant/` | Kvantlager i skuggläge (docs/PLAN.md): power-devig med k, walk-forward per match med embargo och läckagekontroll, dataset ur bokföringarna, marknadsankrad residual (logit-offset), Platt/isotonisk kalibrering, NB-form ur residualer, ¼ Kelly med korrelationstak, mått och befordringsregel. `python tools/quant_report.py --ledger nba_modelltest.json --tiers tiers.json --kalib nba_kalibrering.json.gz --benlogg benlogg_avgjorda.json` (även viktanalys för NBA-modellen och fotbollens benlogg mot marknaden) |
+| `tools/backtest_per90.py` | Backtest av fotbollens spelarmodell: per framträdande (i dag) mot per 90 med Empirical Bayes och positionsprior (`propsbot/quant/fb_rates.py`, `fb_minutes.py`). Resultat: `BACKTEST_PER90_2026-11-26.md` |
+| `tools/gbm_experiment.py` | Offlineexperiment: LightGBM-residual (marknaden som init_score) mot linjär residual på NBA:s kalibreringslogg. Kräver `pip install lightgbm`, som inte ingår i botens krav |
 | `propsbot/store.py` | SQLite-logg: beräkningar, stängning, utfall → CLV och kalibrering |
 | `propsbot/sources/` | Inläsning. `json_source.py` läser formatet i `examples/match.json` |
 

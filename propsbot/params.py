@@ -15,6 +15,12 @@ def _odds(lo, hi) -> str:
     return f"{lo:.2f}–{hi:.2f}".replace(".", ",")
 
 
+def _mk(d: dict) -> str:
+    """{'shots': 0.75, 'shots_on_target': 0.5} -> 'skott 0,75, SOT 0,5'."""
+    names = {"shots": "skott", "shots_on_target": "SOT"}
+    return ", ".join(f"{names.get(k, k)} {v:g}".replace(".", ",") for k, v in d.items()) or "–"
+
+
 def _u(x) -> str:
     return f"{x}u"
 
@@ -53,6 +59,9 @@ def all_params(settings_path: Path) -> dict:
         ("Insats (A/B)", f"flat 1–3u, 1u = {_pct(t['tier_unit'])} av kassan",
          f"1u standard. 2u high: edge ≥ {_pct(t['tier_2u_edge'])}. 3u maxbet: edge {_pct(t['tier_3u_edge'])}–{_pct(t['tier_3u_max_edge'])} "
          "med Pinnacle som referens och sharp money med oss (högre edge är oftast fel i linjen). Ingen Kelly."),
+        ("Kelly-skugga (A/B/C)", "¼ Kelly, tak 2 % (2u), bara bokföring",
+         "Varje tier-spel får kelly_pct och kelly_u (¼ Kelly på bokförd sannolikhet, 1u = 1 %). Styr inte units eller "
+         "notiser: insatsen är flat 1–3u. Jämförs i tools/quant_report.py (docs/PLAN.md fas 6)."),
         ("Tak (A/B)", "inga", "Inga dags- eller matchbudgetar (18/11): du väljer själv vilka spel du tar. Alla A- och B-spel räknas som spelade."),
         ("Odds Alert (oddsvakt)", ("på" if ov["oddsvakt_on"] else "av") + f", läsning var {ov['oddsvakt_poll_s']} s, "
          f"{ov['oddsvakt_bekrafta']} läsningar i rad, högst en notis per spel och {ov['oddsvakt_cooldown_s'] // 60} min",
@@ -114,6 +123,19 @@ def all_params(settings_path: Path) -> dict:
         ("Kambi mot Pinnacle (målförväntan)", f"max {_pct(s.get('max_line_ratio_dev', 0.10))} skillnad", "Annars hoppas matchen över (olika regler, gamla linjer)."),
         ("Spelarmodell", f"{s.get('model_mode', 'test')}, vikt {s.get('model_weight', 0.1):g}",
          "ESPN-statistik. I läget test bokförs modellens spel separat (Modelltest)."),
+        ("Spelarmodell per 90 (fb2)", f"skugga, {s.get('fb2_matches', 15)} lagmatcher, högst {s.get('fb2_backfill_per_run', 150)} ESPN-utdrag kompletteras per körning",
+         "Takt per 90 (minuter ur ESPN:s bytesminut) krympt mot ligans positionssnitt (450 min skott, 630 SOT) × E[min | start]. "
+         "Bokförs som p_fb2 i benloggen bredvid p_hyb och jämförs mot utfall och marknad; styr inga spel. "
+         "Backtest 548 matcher: −0,015 till −0,020 i log-loss mot dagens modell (BACKTEST_PER90_2026-11-26.md)."),
+        ("Kambi-nivå mot utfall", ("på" if s.get("kambi_level_cal", True) else "av") + f", kräver ≥ {s.get('kambi_level_min_n', 150)} ben och ≥ {s.get('kambi_level_min_matches', 40)} matcher per marknad/linje",
+         f"Kambis rättvisa sannolikhet (p_adj) kalibreras mot utfall i benloggen: logit p' = a + b·logit p_adj, prior mot ingen ändring "
+         f"värd {s.get('kambi_level_prior_n', 300)} ben. Sparas bara om den slår rå p_adj på de nyaste 30 % av matcherna. "
+         "26/11: p_adj 30 % mot utfall 22 % på 262 ben i 15 matcher; ESPN och Opta räknar skott på mål identiskt (1 369 av 1 371 spelare), "
+         "så avvikelsen ligger i marknadsnivån. Påverkar edgen för fotbollens spelarprops när en anpassning finns."),
+        ("Spelarmodell per 90 + kontext (fb2k)", "skugga, motståndare^e × hemma/borta, vilodagar används inte",
+         f"Motståndarens medgivna skott/SOT (8 matcher, krympt mot ligasnittet, 0,8–1,25) med elasticitet {_mk(s.get('fb2_ctx_opp_e', {}))}, "
+         f"hemma ×(1+h), borta ÷(1+h) med h {_mk(s.get('fb2_ctx_home_h', {}))}. Bokförs som p_fb2k bredvid p_fb2; styr inga spel. "
+         "Backtest: −0,003 till −0,006 i log-loss ovanpå per 90, men Pinnacles väntade mål fångar delvis samma sak."),
         ("CLV-signal", f"edge ≥ {_pct(s.get('clv_min_edge', 0.01))}, förväntad CLV ≥ {s.get('clv_min_expected_pp', 2.0):g}, Pinnacle ≥ +{s.get('clv_min_momentum_pp', 1.5):g}",
          "Släpper igenom ben som bara stoppades av edgekravet när Pinnacle rör sig åt vårt håll."),
         ("Max odds-ålder", f"{dc.max_odds_age_s:.0f} s", ""),
@@ -177,6 +199,11 @@ def all_params(settings_path: Path) -> dict:
         ("LIVE: oddsram", _odds(llo, lhi), ""),
         ("LIVE: risk", f"max {_u(s.get('live_max_units', 10))}/spel i LIVE-bokföringen; inga tak per match eller dag",
          "Taken togs bort 18/11 (du väljer själv). Insatsen du spelar är nivåernas flat 1–3u."),
+        ("Modellen: vikt i blandningen", f"{s.get('nba_model_weight', 0.075):g} × dq (halveras vid stor avvikelse)",
+         "Logit-blandning modell/marknad i modelltestets analys och skuggfälten (p_blend, p_faktorer, p_betyg). "
+         "Sänkt från 0,3 den 26/11: stängningen rör sig 7,5 % av vägen mot modellen och walk-forward på 5 374 ben "
+         "valde 0,075–0,1; 0,3 var sämre än marknaden på points, pra och assists (KVANTRAPPORT_NBA_2026-11-26.md). "
+         "Vad modelltestet bokar avgörs av kalibreringen nedan."),
         ("Modellen: kalibrering", "automatisk, per marknad, prövad framåt",
          "Alla ben modellen räknar på loggas och rättas (inte bara de som bokas). Varje körning prövas tre varianter på de "
          "nyaste avgjorda benen: marknaden, kalibrerad marknad och marknad + modellens avvikelser. Modellen får vikt bara "

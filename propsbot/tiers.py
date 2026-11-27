@@ -36,6 +36,8 @@ import math
 import time
 from pathlib import Path
 
+from .quant import kelly as quant_kelly
+
 TIERS = ("A", "B", "C")
 RANK = {"A": 3, "B": 2, "C": 1}
 
@@ -364,6 +366,9 @@ def update(root: Path, settings: dict, now: float | None = None, sports: tuple =
         tb = {k: b.get(k) for k in COPY}
         tb.update(ident=ident, sport=sport, tier=tier, units=u, kalla=src, kalla_fil=f, kalla_key=b["key"],
                   bokford=t_seen, inte_hogre=why, unit_pct=c["tier_unit"])
+        # Skugga (docs/PLAN.md fas 6): ¼ Kelly med tak 2 % på bokförd p. Styr inte units eller notiser.
+        k_pct = quant_kelly.stake(b.get("sannolikhet"), b.get("odds"))
+        tb.update(kelly_pct=round(k_pct, 4), kelly_u=quant_kelly.units(k_pct, c["tier_unit"]))
         if old is not None:
             tb["uppgraderad_fran"] = old["tier"]
             tb["id"] = old["id"]
