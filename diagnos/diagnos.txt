@@ -1,4 +1,4 @@
-Skanning 2026-11-27 03:19
+Skanning 2026-11-27 03:37
 Kambi unibet (ubse): OK, 21 matcher i valda ligor
 Kambi paf (paf): OK
 Kambi atg (atg): OK
@@ -7,7 +7,8 @@ Kambi svenskaspel (svenskaspel): OK
 Kambi expekt (expektse): OK
 Kambi betmgm (betmgmse): OK
 Pinnacle: OK, 24 ligor
-Pinnacle: 49 matcher, matchlinjer för 16 av 21 Kambi-matcher, 0 spelarodds som används
+  Grazer AK – Altach: Pinnacle FEL HTTP 403 för https://guest.api.arcadia.pinnacle.com/0.1/matchups/1640258940/related
+Pinnacle: 52 matcher, matchlinjer för 15 av 21 Kambi-matcher, 0 spelarodds som används
 Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
   Both Teams To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
   Either Team To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
@@ -69,17 +70,19 @@ Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
   First Team To Score 1st Half | units=1st Goal | kategori=Team Props | deltagare=Heidenheim,Nurnberg,Neither  ->  används inte (lagmarknad)
   Nurnberg Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
   Double Chance 1st Half | units=Regular | kategori=Team Props | deltagare=Sonderjyske Or Brondby,Draw Or Brondby,Draw Or Sonderjyske  ->  används inte (lagmarknad)
-Sides mindre ligor: Pinnacle FEL HTTP 403 för https://guest.api.arcadia.pinnacle.com/0.1/sports/29/matchups
+Sides mindre ligor: 22 Kambi-matcher inom 12 h, 107 Pinnacle-matcher, 18 med Pinnacle, 18 matchade: Armenia / Premier League, Azerbaijan / Premier League, Bangladesh / Premier League, Ethiopia / Premier League, International Friendly Matches (W), Iraq / Stars League, Israel / Ligat Ha'Al, Malaysia / Super League, Poland / III Liga, Qatar / Qatar Stars League, Saudi Arabia / Professional League, Si
 Sides rättning: goal-api dagstak 300 anrop nått
 Sides rättning: SportScore 5 anrop i dag
 Sides rättning: API-Football 1 anrop i dag, pausad resten av dygnet (kvot- eller planfel)
-Sides/totals: 16 matcher med Kambi + Pinnacle, 670 linjer, 0 nya spel, 0 nya skuggspel, Smarkets-priser i 15 av 15; bästa edge +5.0% (Venezia 1X2: X), +2.6% (Marítimo Funchal under 2), +2.4% (Southampton 1X2: X)
+  Sides rättad: CF Pachuca – Chivas Guadalajara 1X2: X -> förlorad (2–1)
+  Sides rättad: CF Pachuca – Chivas Guadalajara under 2.75 -> förlorad (2–1)
+Sides/totals: 33 matcher med Kambi + Pinnacle, 819 linjer, 0 nya spel, 1 nya skuggspel, Smarkets-priser i 20 av 21; bästa edge +7.5% (Zakho FC 1X2: 1), +6.2% (LKS Goczałkowice Zdroj 1X2: 2), +5.1% (Venezia 1X2: X)
 Hörnmodell (test): 8040 matcher i underlaget (17 ligor), 8 matcher med modell, 1540 Kambi-linjer, 0 nya testspel; bästa edge +21.7% (Alanyaspor hörnor under 7.5 @ 2.85), +13.3% (Leganés Sabadell FC hörnor över 5.5 @ 2.80), +9.4% (Nottingham Forest Chelsea hörnor under 4.5 @ 1.98)
-Fotboll extra bolag: 0 nya hämtningar, 0 odds i bruk, krediter kvar 122, dagsbudget 25 (andel 40%), förbrukat idag 0
+Fotboll extra bolag: 1 nya hämtningar, 0 odds i bruk, krediter kvar 122, dagsbudget 25 (andel 40%), förbrukat idag 0
 PropLine: 0 anrop denna körning (15/1000 idag), 0 priser i bruk
 OddsPapi: 0 matcher hämtade, 0 med bet365-marknader, 0 med lagnamn, 0 startar inom 6 h; våra 1 matcher inom fönstret, 0 matchade mot våra, 0 med aktiva spelarpriser; 2 ligagrupper hoppades över
 OddsPapi: 0 anrop denna körning (8/230 i 2026-11), 0 bet365-priser sparade
-Tid: hämtning 322 s
+Tid: hämtning 407 s
 Marginal över alla matcher: uppmätt marginal: shots stege k=1.12 (8 spelare; marginal vid 3,00 ≈ 14%), shots_on_target stege k=1.16 (99 spelare; marginal vid 3,00 ≈ 19%)
   VfL Bochum – Darmstadt 98: modell ger.2, 25 spelare
   1. FC Heidenheim – 1. FC Nürnberg: modell ger.2, 28 spelare
@@ -113,13 +116,13 @@ Exempel uppmätt marginal: goal k=1.40
   Nottingham Forest – Chelsea: väntade mål Pinnacle 2.72 mot Kambi 2.82 (kvot 0.964); uppmätt marginal: goal k=1.43, assist k=1.43, shots_on_target stege k=1.16 (8 spelare; marginal vid 3,00 ≈ 19%)
   Southampton – Middlesbrough: väntade mål Pinnacle 3.13 mot Kambi 3.16 (kvot 0.990); uppmätt marginal: goal k=1.52, assist k=1.39
   Levante – Racing Santander: väntade mål Pinnacle 3.53 mot Kambi 3.44 (kvot 1.029); uppmätt marginal: goal k=1.59, assist k=1.56
-  Marítimo Funchal – Nacional Madeira: väntade mål Pinnacle 2.36 mot Kambi 2.53 (kvot 0.933); uppmätt marginal: goal k=1.25
+  Marítimo Funchal – Nacional Madeira: väntade mål Pinnacle 2.35 mot Kambi 2.53 (kvot 0.926); uppmätt marginal: goal k=1.25
   Fluminense-RJ – Cruzeiro-MG: väntade mål Pinnacle 2.90 mot Kambi 2.87 (kvot 1.010); uppmätt marginal: goal k=1.40, assist k=1.25, shots stege k=1.12 (7 spelare; marginal vid 3,00 ≈ 14%), shots_on_target stege k=1.22 (21 spelare; marginal vid 3,00 ≈ 27%)
   Vila Nova-GO – Atlético-GO: saknar matchlinjer från Pinnacle
-  Columbus Crew – Inter Miami CF: väntade mål Pinnacle 3.65 mot Kambi 3.79 (kvot 0.963); uppmätt marginal: goal k=1.38, assist k=1.33, shots_on_target stege k=1.06 (21 spelare; marginal vid 3,00 ≈ 7%)
+  Columbus Crew – Inter Miami CF: väntade mål Pinnacle 3.64 mot Kambi 3.79 (kvot 0.960); uppmätt marginal: goal k=1.38, assist k=1.33, shots_on_target stege k=1.06 (21 spelare; marginal vid 3,00 ≈ 7%)
   Real Salt Lake – Vancouver Whitecaps: väntade mål Pinnacle 3.36 mot Kambi 3.28 (kvot 1.024); uppmätt marginal: goal k=1.34, assist k=1.18
 Spelarmodell per 90 (fb2, skugga): 520 spelare med takt per 90, 0 gamla ESPN-utdrag kompletterade med minuter/position (högst 150 per körning), ligor med positionssnitt: bel.1, bra.1, den.1, eng.1, eng.2, esp.1, fra.1, ger.1, ger.2, ita.1, ned.1
-Tid: modell och utvärdering 117 s
+Tid: modell och utvärdering 150 s
 Bolag med spelarodds: atg, betmgm, expekt, leovegas, paf, svenskaspel, unibet
 Spelarodds per marknad: assist 1762, goal 8238, shots 2933, shots_on_target 3315
 Kambi-marknader: assist='to give an assist (settled using opta data)':1762; goal='1st goalscorer':3175; goal='to score':3175; goal='to score at least 2 goals':1580; goal='to score at least 3 goals':294; goal='to score at least 4 goals':14; shots="player's shots (settled using opta data)":2933; shots_on_target="player's shots on target (settled using opta data)":3315
