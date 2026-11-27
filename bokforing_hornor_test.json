@@ -3437,7 +3437,7 @@
 "metod": "lag",
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795788350.2817628
+"stangning_ts": 1795789372.530801
 },
 {
 "key": "k1028231039|corners|9.5|under|unibet",
@@ -3477,7 +3477,7 @@
 "metod": "odds+lag",
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795788350.2817628
+"stangning_ts": 1795789372.530801
 },
 {
 "key": "k1028208867|corners_away|5.5|over|unibet",
@@ -3517,7 +3517,7 @@
 "metod": "lag",
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795788350.2817628
+"stangning_ts": 1795789372.530801
 },
 {
 "key": "k1027911718|corners|6.5|under|unibet",
@@ -3557,7 +3557,7 @@
 "metod": "odds+lag",
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795788350.2817628
+"stangning_ts": 1795789372.530801
 },
 {
 "key": "k1027973908|corners|6.5|under|unibet",
@@ -3597,7 +3597,7 @@
 "metod": "odds+lag",
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795788350.2817628
+"stangning_ts": 1795789372.530801
 },
 {
 "key": "k1028231053|corners_away|6.5|over|unibet",
@@ -3623,7 +3623,7 @@
 "edge": 0.0780970321056258,
 "spela_fran": 2.78,
 "insats_pct": 0.01,
-"stangning": 3.25,
+"stangning": 3.3,
 "p_modell": 0.37827966038793887,
 "p_marknad": 0.32142857142857145,
 "vantat_hemma": 5.71,
@@ -3637,7 +3637,7 @@
 "metod": "lag",
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795788350.2817628
+"stangning_ts": 1795789372.530801
 },
 {
 "key": "k1028072679|corners_away|4.5|under|unibet",
@@ -3677,7 +3677,7 @@
 "metod": "odds+lag",
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795788350.2817628
+"stangning_ts": 1795789372.530801
 },
 {
 "key": "k1028143025|corners_home|5.5|over|unibet",
@@ -3717,7 +3717,7 @@
 "metod": "lag",
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795788350.2817628
+"stangning_ts": 1795789372.530801
 },
 {
 "key": "k1028231057|corners_home|6.5|over|unibet",
@@ -3757,7 +3757,7 @@
 "metod": "odds+lag",
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795788350.2817628
+"stangning_ts": 1795789372.530801
 },
 {
 "key": "k1028328575|corners|11.5|over|unibet",
@@ -3797,7 +3797,7 @@
 "metod": "lag",
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795788350.2817628
+"stangning_ts": 1795789372.530801
 },
 {
 "key": "k1028208859|corners|7.5|under|unibet",
@@ -3837,6 +3837,86 @@
 "metod": "lag",
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795788350.2817628
+"stangning_ts": 1795789372.530801
+},
+{
+"key": "k1028488320|corners_home|5.5|over|unibet",
+"id": 97,
+"bokford": 1795789372.530801,
+"match_id": "k1028488320",
+"match": "Carrarese – Juve Stabia",
+"hemma": "Carrarese",
+"borta": "Juve Stabia",
+"liga": "Football / Italy / Serie B",
+"fd_liga": "I2",
+"avspark": 1795874400.0,
+"spelare": "Carrarese",
+"spelare_id": "hörnor",
+"marknad": "corners_home",
+"linje": 5.5,
+"sida": "over",
+"spel_text": "Carrarese hörnor över 5.5",
+"bolag": "unibet",
+"odds": 2.07,
+"sannolikhet": 0.5325012077131908,
+"ratt_odds": 1.8779300131439471,
+"edge": 0.10227749996630475,
+"spela_fran": 1.98,
+"insats_pct": 0.01,
+"stangning": 2.07,
+"p_modell": 0.5325012077131908,
+"p_marknad": 0.4328767123287672,
+"vantat_hemma": 6.07,
+"vantat_borta": 3.92,
+"underlag_matcher": [
+16.3,
+16.3
+],
+"status": "öppen",
+"stopp": "hörnmodell (odds+lag): väntat 6.1–3.9 (I2)",
+"metod": "odds+lag",
+"utfall": null,
+"resultat_enheter": null,
+"stangning_ts": 1795789372.530801
+},
+{
+"key": "k1027911660|cah|-5.5|home|unibet",
+"id": 98,
+"bokford": 1795789372.530801,
+"match_id": "k1027911660",
+"match": "Frosinone – Parma",
+"hemma": "Frosinone",
+"borta": "Parma",
+"liga": "Football / Italy / Serie A",
+"fd_liga": "I1",
+"avspark": 1795874400.0,
+"spelare": "Frosinone",
+"spelare_id": "hörnor",
+"marknad": "cah",
+"linje": -5.5,
+"sida": "home",
+"spel_text": "hörnhandikapp -5.5",
+"bolag": "unibet",
+"odds": 2.75,
+"sannolikhet": 0.45453151224352845,
+"ratt_odds": 2.2000674828112268,
+"edge": 0.24996165866970332,
+"spela_fran": 2.32,
+"insats_pct": 0.01,
+"stangning": 2.75,
+"p_modell": 0.45453151224352845,
+"p_marknad": null,
+"vantat_hemma": 8.51,
+"vantat_borta": 3.22,
+"underlag_matcher": [
+9.0,
+15.6
+],
+"status": "öppen",
+"stopp": "hörnmodell (odds+lag): väntat 8.5–3.2 (I1)",
+"metod": "odds+lag",
+"utfall": null,
+"resultat_enheter": null,
+"stangning_ts": 1795789372.530801
 }
 ]
