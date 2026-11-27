@@ -15,7 +15,7 @@ def bet(pin=None, dk=None, sport="nba", ts=DAY):
 def test_coverage_counts_pin_dk_and_either():
     d = rk.coverage_by_day([bet(0.5, None), bet(None, 0.4), bet(None, None), bet(0.5, 0.5), bet(0.5, sport="fotboll")])
     day = d["2026-11-27"]
-    assert day == {"n": 4, "pin": 2, "dk": 2, "minst": 3}
+    assert day == {"n": 4, "pin": 2, "dk": 2, "fd": 0, "bv": 0, "minst": 3}
 
 
 def test_old_bets_before_logging_start_are_ignored():
