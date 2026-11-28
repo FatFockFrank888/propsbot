@@ -42035,7 +42035,7 @@
 "p_marknad": 0.5511646775088742,
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795862417.7939806,
+"stangning_ts": 1795863690.8437483,
 "analys": {
 "p_stack": 0.5624,
 "p_modell_min": 0.4101,
@@ -42074,7 +42074,7 @@
 "p_kalib": 0.5512,
 "p_blend": 0.5457,
 "kalib_modell": "M0",
-"p_modell": 0.4519,
+"p_modell": 0.4517,
 "p_marknad": 0.5512,
 "p_slutlig": 0.5457,
 "vantat": 36.13,
@@ -42236,11 +42236,11 @@
 ]
 },
 "prognos": 36.1266837969058,
-"analys_ts": 1795862417.9007154,
+"analys_ts": 1795863690.9591324,
 "modellversion": "2026-11-26-vikt0075",
 "prognos_ts": 1795861140.167034,
 "skarp_stang_p": 0.5511646775088742,
-"skarp_stang_ts": 1795862417.6844692,
+"skarp_stang_ts": 1795863690.7018476,
 "skarp_kalla": "skanning",
 "pin_stang_p": 0.5703751624187849,
 "dk_stang_p": 0.5058415696280208,
@@ -42270,7 +42270,7 @@
 "dk_p": 0.5058415696280208
 },
 "bolag_stangning": {
-"ts": 1795862417.9140692,
+"ts": 1795863690.9730532,
 "odds": {
 "unibet": {
 "over": 1.79,
@@ -42294,12 +42294,283 @@
 "pin_p": 0.5703751624187849,
 "dk_p": 0.5058415696280208
 },
-"bolag_stang_ts": 1795862417.9140692,
+"bolag_stang_ts": 1795863690.9730532,
 "skarp_verifierad": false,
 "skarp_status": null,
 "clv_skarp_pp": 3.8344164688361326,
 "clv_pin_pp": 5.755464959827206,
 "clv_dk_pp": -0.6978943192492038,
+"clv_fd_pp": null,
+"clv_bv_pp": null
+},
+{
+"key": "nba1028754489|tyler herro|rebounds|3.5|unibet|under",
+"id": 582,
+"bokford": 1795863690.8437095,
+"match_id": "nba1028754489",
+"match": "Milwaukee Bucks – Oklahoma City Thunder",
+"hemma": "Milwaukee Bucks",
+"borta": "Oklahoma City Thunder",
+"liga": "NBA",
+"avspark": 1795914000.0,
+"spelare": "Tyler Herro",
+"spelare_id": "tyler herro",
+"marknad": "rebounds",
+"linje": 3.5,
+"sida": "under",
+"bolag": "unibet",
+"odds": 1.97,
+"sannolikhet": 0.5382556796099102,
+"ratt_odds": 1.8578531316654747,
+"edge": 0.0603636888315231,
+"spela_fran": 1.9,
+"insats_pct": 0.010294580224158542,
+"stangning": 1.97,
+"status": "öppen",
+"stopp": "sharp money med oss: referensen +8.1 enheter",
+"clv_signal": false,
+"forv_clv_pp": 7.099650468156538,
+"p_modell": null,
+"p_marknad": 0.5382556796099102,
+"utfall": null,
+"resultat_enheter": null,
+"stangning_ts": 1795863690.8437483,
+"analys": {
+"p_stack": 0.5509,
+"p_modell_min": 0.3956,
+"minuter": 32.4,
+"minuter_sd": 6.0,
+"p_faktorer": 0.5332,
+"p_faktorer_ra": 0.4465,
+"vantat_faktorer": 3.88,
+"p_betyg": 0.527,
+"p_betyg_ra": 0.338,
+"vantat_betyg": 4.88,
+"minuter_faktorer": 30.5,
+"f_anv": 1.003,
+"f_miljo": 1.0,
+"f_tempo": 1.014,
+"f_pos": 0.895,
+"f_mot": 1.0,
+"f_minuter_bas": 33.1,
+"f_b2b": true,
+"f_tre_pa_fyra": true,
+"f_minutbegransning": false,
+"f_tillbaka": false,
+"f_miljo_kalla": "pinnacle",
+"f_lag_poang": 108.5,
+"f_mot_n": 0,
+"traff_l5": 0.4,
+"traff_l5_n": 5,
+"traff_l10": 0.6,
+"traff_l10_n": 10,
+"traff_sasong": 0.474,
+"traff_sasong_n": 19,
+"traff_mot": null,
+"traff_mot_n": 0,
+"traff_hemmaborta": 0.5,
+"traff_hemmaborta_n": 10,
+"p_kalib": 0.5383,
+"p_blend": 0.5311,
+"kalib_modell": "M0",
+"p_modell": 0.4078,
+"p_marknad": 0.5383,
+"p_slutlig": 0.5311,
+"vantat": 4.51,
+"nb_r": 10,
+"modell_vikt": 0.05,
+"dq": 0.73,
+"matcher": 11,
+"nivajustering": 0.09,
+"logg": [
+{
+"ts": 1795825800.0,
+"mot": "DET",
+"hemma": false,
+"min": 35.0,
+"v": 3.0
+},
+{
+"ts": 1795654800.0,
+"mot": "BKN",
+"hemma": true,
+"min": 37.0,
+"v": 2.0
+},
+{
+"ts": 1795480200.0,
+"mot": "TOR",
+"hemma": false,
+"min": 37.0,
+"v": 6.0
+},
+{
+"ts": 1795284000.0,
+"mot": "PHI",
+"hemma": false,
+"min": 40.0,
+"v": 11.0
+},
+{
+"ts": 1795136400.0,
+"mot": "POR",
+"hemma": true,
+"min": 31.0,
+"v": 4.0
+},
+{
+"ts": 1795046400.0,
+"mot": "MIA",
+"hemma": false,
+"min": 24.0,
+"v": 2.0
+},
+{
+"ts": 1794790800.0,
+"mot": "ATL",
+"hemma": true,
+"min": 20.0,
+"v": 5.0
+},
+{
+"ts": 1794614400.0,
+"mot": "ORL",
+"hemma": false,
+"min": 34.0,
+"v": 1.0
+},
+{
+"ts": 1794445200.0,
+"mot": "LAL",
+"hemma": true,
+"min": 35.0,
+"v": 2.0
+},
+{
+"ts": 1794186000.0,
+"mot": "BOS",
+"hemma": true,
+"min": 27.0,
+"v": 1.0
+}
+],
+"franvaro": [
+{
+"namn": "Kasparas Jakucionis",
+"status": "out",
+"min": 14.6,
+"redan_borta": false
+}
+],
+"lag": "Milwaukee Bucks",
+"mot": "OKC",
+"hemma": true,
+"minuter_sd_faktorer": 6.0,
+"ref": {
+"pin_p": null,
+"dk_p": 0.5382556796099102,
+"pin_linje": null,
+"dk_linje": null,
+"pin_flyttad": false,
+"pin_komb": false
+},
+"odds_bolag": [
+{
+"bolag": "atg",
+"over": 1.77,
+"under": 1.97
+},
+{
+"bolag": "betmgm",
+"over": 1.77,
+"under": 1.97
+},
+{
+"bolag": "expekt",
+"over": 1.77,
+"under": 1.97
+},
+{
+"bolag": "leovegas",
+"over": 1.77,
+"under": 1.97
+},
+{
+"bolag": "paf",
+"over": 1.77,
+"under": 1.97
+},
+{
+"bolag": "svenskaspel",
+"over": 1.77,
+"under": 1.97
+},
+{
+"bolag": "unibet",
+"over": 1.77,
+"under": 1.97
+},
+{
+"bolag": "us_draftkings",
+"over": 2.01,
+"under": 1.75
+}
+]
+},
+"prognos": 4.514589185167111,
+"analys_ts": 1795863690.9591324,
+"modellversion": "2026-11-26-vikt0075",
+"prognos_ts": 1795863690.8437095,
+"skarp_stang_p": 0.5382556796099102,
+"skarp_stang_ts": 1795863690.7018476,
+"skarp_kalla": "skanning",
+"dk_stang_p": 0.5382556796099102,
+"bolag_bokning": {
+"ts": 1795863690.9730532,
+"odds": {
+"unibet": {
+"over": 1.77,
+"under": 1.97
+},
+"draftkings": {
+"over": 2.01,
+"under": 1.75
+}
+},
+"pin_flyttad": false,
+"pin_komb": false,
+"pin_linje": null,
+"dk_linje": null,
+"fd_linje": null,
+"bv_linje": null,
+"dk_p": 0.5382556796099102
+},
+"bolag_stangning": {
+"ts": 1795863690.9730532,
+"odds": {
+"unibet": {
+"over": 1.77,
+"under": 1.97
+},
+"draftkings": {
+"over": 2.01,
+"under": 1.75
+}
+},
+"pin_flyttad": false,
+"pin_komb": false,
+"pin_linje": null,
+"dk_linje": null,
+"fd_linje": null,
+"bv_linje": null,
+"dk_p": 0.5382556796099102
+},
+"bolag_stang_ts": 1795863690.9730532,
+"skarp_verifierad": false,
+"skarp_status": null,
+"clv_skarp_pp": 3.0641466411940654,
+"clv_pin_pp": null,
+"clv_dk_pp": 3.0641466411940654,
 "clv_fd_pp": null,
 "clv_bv_pp": null
 }
