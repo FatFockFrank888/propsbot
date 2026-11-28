@@ -21162,14 +21162,14 @@
 "spela_fran": 3.29,
 "insats_pct": 0.0,
 "stangning": 2.75,
-"status": "öppen",
+"status": "förlorad",
 "stopp": "edge -16.3% < 2%; linjejusterat: väntade mål Pinnacle 3.08 mot Kambi 3.14 (kvot 0.981); uppmätt marginal: goal k=1.41, assist k=1.18; modell 40% (rå 31%, väntat 0.38, 7 matcher, 4 starter), marknad 30%, modellvikt 0.10",
 "clv_signal": false,
 "forv_clv_pp": null,
 "p_modell": 0.39980361709187107,
 "p_marknad": 0.30364314640115586,
-"utfall": null,
-"resultat_enheter": null,
+"utfall": 0,
+"resultat_enheter": -0.0,
 "p_raw": 0.3131,
 "mu": 0.383,
 "mu_alt": 0.387,
@@ -21259,14 +21259,14 @@
 "spela_fran": 4.59,
 "insats_pct": 0.0,
 "stangning": 3.7,
-"status": "öppen",
+"status": "förlorad",
 "stopp": "edge -17.7% < 2%; linjejusterat: väntade mål Pinnacle 2.69 mot Kambi 2.60 (kvot 1.038); uppmätt marginal: goal k=1.28; modell 33% (rå 25%, väntat 0.29, 6 matcher, 5 starter), marknad 21%, modellvikt 0.10",
 "clv_signal": false,
 "forv_clv_pp": null,
 "p_modell": 0.33021963584389113,
 "p_marknad": 0.2080453106002266,
-"utfall": null,
-"resultat_enheter": null,
+"utfall": 0,
+"resultat_enheter": -0.0,
 "p_raw": 0.2521,
 "mu": 0.295,
 "mu_alt": 0.3,
@@ -21356,14 +21356,14 @@
 "spela_fran": 2.2,
 "insats_pct": 0.0,
 "stangning": 1.92,
-"status": "öppen",
+"status": "vunnen",
 "stopp": "edge -10.8% < 2%; linjejusterat: väntade mål Pinnacle 2.69 mot Kambi 2.60 (kvot 1.038); uppmätt marginal: goal k=1.28",
 "clv_signal": false,
 "forv_clv_pp": null,
 "p_modell": null,
 "p_marknad": 0.4571287389617874,
-"utfall": null,
-"resultat_enheter": null,
+"utfall": 1,
+"resultat_enheter": 0.0,
 "p_cons": 0.556,
 "n_cons": 2,
 "vox": "draftkings,williamhill_it",
@@ -31718,8 +31718,8 @@
 "parts": "q0.3175;q0.4219;q0.3774;q0.3226;q0.3704;q0.3175;q0.3333;q0.4000",
 "arm": "konsensus",
 "stangning_ts": 1795877359.4177554,
-"skarp_stang_p": 0.29327776705962383,
-"skarp_stang_ts": 1795877351.939083,
+"skarp_stang_p": 0.3061556207143553,
+"skarp_stang_ts": 1795878725.7234094,
 "skarp_kalla": "skanning",
 "bolag_bokning": {
 "ts": 1795876048.2448225,
@@ -31736,7 +31736,7 @@
 "bv_linje": null
 },
 "bolag_stangning": {
-"ts": 1795877359.4188218,
+"ts": 1795878737.5048826,
 "odds": {
 "unibet": {
 "over": 2.9
@@ -31749,10 +31749,10 @@
 "fd_linje": null,
 "bv_linje": null
 },
-"bolag_stang_ts": 1795877359.4188218,
+"bolag_stang_ts": 1795878737.5048826,
 "skarp_verifierad": true,
 "skarp_status": null,
-"clv_skarp_pp": -2.9302878101666483,
+"clv_skarp_pp": -1.6425024446935,
 "clv_pin_pp": null,
 "clv_dk_pp": null,
 "clv_fd_pp": null,
@@ -31815,8 +31815,8 @@
 "parts": "q0.2857;q0.4348;q0.2857;q0.3448;q0.4255",
 "arm": "konsensus",
 "stangning_ts": 1795877359.4177554,
-"skarp_stang_p": 0.27293788488549575,
-"skarp_stang_ts": 1795877351.939083,
+"skarp_stang_p": 0.28068613043420654,
+"skarp_stang_ts": 1795878725.7234094,
 "skarp_kalla": "skanning",
 "bolag_bokning": {
 "ts": 1795876048.2448225,
@@ -31833,10 +31833,10 @@
 "bv_linje": null
 },
 "bolag_stangning": {
-"ts": 1795877359.4188218,
+"ts": 1795878737.5048826,
 "odds": {
 "unibet": {
-"over": 3.1
+"over": 3.15
 }
 },
 "pin_flyttad": false,
@@ -31846,10 +31846,10 @@
 "fd_linje": null,
 "bv_linje": null
 },
-"bolag_stang_ts": 1795877359.4188218,
+"bolag_stang_ts": 1795878737.5048826,
 "skarp_verifierad": true,
 "skarp_status": null,
-"clv_skarp_pp": -2.117976217332779,
+"clv_skarp_pp": -1.3431516624617001,
 "clv_pin_pp": null,
 "clv_dk_pp": null,
 "clv_fd_pp": null,
@@ -31911,9 +31911,9 @@
 "edge_cons": 0.0667,
 "parts": "q0.2667;q0.3509;q0.2500;q0.2667;q0.3448;q0.3333",
 "arm": "konsensus",
-"stangning_ts": 1795877359.4177554,
-"skarp_stang_p": 0.21444676613770464,
-"skarp_stang_ts": 1795877351.939083,
+"stangning_ts": 1795878736.801055,
+"skarp_stang_p": 0.22630531832628265,
+"skarp_stang_ts": 1795878725.7234094,
 "skarp_kalla": "skanning",
 "bolag_bokning": {
 "ts": 1795876048.2448225,
@@ -31930,7 +31930,7 @@
 "bv_linje": null
 },
 "bolag_stangning": {
-"ts": 1795877359.4188218,
+"ts": 1795878737.5048826,
 "odds": {
 "unibet": {
 "over": 3.8
@@ -31943,10 +31943,10 @@
 "fd_linje": null,
 "bv_linje": null
 },
-"bolag_stang_ts": 1795877359.4188218,
+"bolag_stang_ts": 1795878737.5048826,
 "skarp_verifierad": true,
 "skarp_status": null,
-"clv_skarp_pp": -4.871112859913746,
+"clv_skarp_pp": -3.6852576410559443,
 "clv_pin_pp": null,
 "clv_dk_pp": null,
 "clv_fd_pp": null,
@@ -32009,8 +32009,8 @@
 "parts": "q0.2985;q0.2703;q0.2128;q0.1905;q0.2128;q0.2985;q0.2273;q0.2597",
 "arm": "konsensus",
 "stangning_ts": 1795877359.4177554,
-"skarp_stang_p": 0.15603020512781096,
-"skarp_stang_ts": 1795877351.939083,
+"skarp_stang_p": 0.1628327695088636,
+"skarp_stang_ts": 1795878725.7234094,
 "skarp_kalla": "skanning",
 "bolag_bokning": {
 "ts": 1795876048.2448225,
@@ -32027,10 +32027,10 @@
 "bv_linje": null
 },
 "bolag_stangning": {
-"ts": 1795877359.4188218,
+"ts": 1795878737.5048826,
 "odds": {
 "unibet": {
-"over": 5.0
+"over": 5.1
 }
 },
 "pin_flyttad": false,
@@ -32040,10 +32040,10 @@
 "fd_linje": null,
 "bv_linje": null
 },
-"bolag_stang_ts": 1795877359.4188218,
+"bolag_stang_ts": 1795878737.5048826,
 "skarp_verifierad": true,
 "skarp_status": null,
-"clv_skarp_pp": -3.2649040155207922,
+"clv_skarp_pp": -2.5846475774155273,
 "clv_pin_pp": null,
 "clv_dk_pp": null,
 "clv_fd_pp": null,
@@ -32105,9 +32105,9 @@
 "edge_cons": 0.1313,
 "parts": "q0.2899;q0.3448;q0.3226;q0.2667;q0.3333;q0.2899;q0.3448;q0.3636",
 "arm": "konsensus",
-"stangning_ts": 1795877359.4177554,
-"skarp_stang_p": 0.21444676613770464,
-"skarp_stang_ts": 1795877351.939083,
+"stangning_ts": 1795878736.801055,
+"skarp_stang_p": 0.22630531832628265,
+"skarp_stang_ts": 1795878725.7234094,
 "skarp_kalla": "skanning",
 "bolag_bokning": {
 "ts": 1795876048.2448225,
@@ -32124,7 +32124,7 @@
 "bv_linje": null
 },
 "bolag_stangning": {
-"ts": 1795877359.4188218,
+"ts": 1795878737.5048826,
 "odds": {
 "unibet": {
 "over": 3.8
@@ -32137,10 +32137,10 @@
 "fd_linje": null,
 "bv_linje": null
 },
-"bolag_stang_ts": 1795877359.4188218,
+"bolag_stang_ts": 1795878737.5048826,
 "skarp_verifierad": true,
 "skarp_status": null,
-"clv_skarp_pp": -4.871112859913746,
+"clv_skarp_pp": -3.6852576410559443,
 "clv_pin_pp": null,
 "clv_dk_pp": null,
 "clv_fd_pp": null,
@@ -32203,8 +32203,8 @@
 "parts": "q0.3333;q0.3448;q0.2174;q0.2500;q0.2174;q0.3333;q0.3077;q0.3333",
 "arm": "konsensus",
 "stangning_ts": 1795877359.4177554,
-"skarp_stang_p": 0.21444676613770464,
-"skarp_stang_ts": 1795877351.939083,
+"skarp_stang_p": 0.22630531832628265,
+"skarp_stang_ts": 1795878725.7234094,
 "skarp_kalla": "skanning",
 "bolag_bokning": {
 "ts": 1795876048.2448225,
@@ -32221,7 +32221,7 @@
 "bv_linje": null
 },
 "bolag_stangning": {
-"ts": 1795877359.4188218,
+"ts": 1795878737.5048826,
 "odds": {
 "unibet": {
 "over": 3.8
@@ -32234,10 +32234,10 @@
 "fd_linje": null,
 "bv_linje": null
 },
-"bolag_stang_ts": 1795877359.4188218,
+"bolag_stang_ts": 1795878737.5048826,
 "skarp_verifierad": true,
 "skarp_status": null,
-"clv_skarp_pp": -4.196349027255181,
+"clv_skarp_pp": -3.0104938083973796,
 "clv_pin_pp": null,
 "clv_dk_pp": null,
 "clv_fd_pp": null,
@@ -32599,7 +32599,7 @@
 "edge": -0.12792752103680005,
 "spela_fran": 2.7,
 "insats_pct": 0.0,
-"stangning": 2.3,
+"stangning": 2.32,
 "status": "öppen",
 "stopp": "edge -12.8% < 2%; linjejusterat: väntade mål Pinnacle 2.74 mot Kambi 2.70 (kvot 1.017); uppmätt marginal: goal k=1.20, assist k=1.23; modell 34% (rå 27%, väntat 0.32, 6 matcher, 3 starter), marknad 38%, modellvikt 0.10",
 "clv_signal": false,
@@ -32633,9 +32633,9 @@
 "edge_cons": 0.0879,
 "parts": "q0.4762;q0.6211;q0.4545;q0.4444;q0.4762;q0.4651;q0.6064",
 "arm": "konsensus",
-"stangning_ts": 1795877359.4177554,
-"skarp_stang_p": 0.3835306117678481,
-"skarp_stang_ts": 1795877351.939083,
+"stangning_ts": 1795878736.801055,
+"skarp_stang_p": 0.3928426825686345,
+"skarp_stang_ts": 1795878725.7234094,
 "skarp_kalla": "skanning",
 "bolag_bokning": {
 "ts": 1795877359.4188218,
@@ -32652,10 +32652,10 @@
 "bv_linje": null
 },
 "bolag_stangning": {
-"ts": 1795877359.4188218,
+"ts": 1795878737.5048826,
 "odds": {
 "unibet": {
-"over": 2.3
+"over": 2.32
 }
 },
 "pin_flyttad": false,
@@ -32665,13 +32665,70 @@
 "fd_linje": null,
 "bv_linje": null
 },
-"bolag_stang_ts": 1795877359.4188218,
+"bolag_stang_ts": 1795878737.5048826,
 "skarp_verifierad": true,
 "skarp_status": null,
-"clv_skarp_pp": -5.125199692780413,
+"clv_skarp_pp": -4.193992612701769,
 "clv_pin_pp": null,
 "clv_dk_pp": null,
 "clv_fd_pp": null,
 "clv_bv_pp": null
+},
+{
+"key": "k1028072676|sean longstaff|shots_on_target|0.5|atg",
+"id": 392,
+"bokford": 1795878736.801015,
+"match_id": "k1028072676",
+"match": "Leeds United – Coventry City",
+"hemma": "Leeds United",
+"borta": "Coventry City",
+"liga": "Football / England / Premier League",
+"avspark": 1795878000.0,
+"spelare": "Sean Longstaff",
+"spelare_id": "sean longstaff",
+"marknad": "shots_on_target",
+"linje": 0.5,
+"sida": "over",
+"bolag": "atg",
+"odds": 2.38,
+"sannolikhet": 0.3993164431276147,
+"ratt_odds": 2.5042795437312284,
+"edge": -0.04962686535627703,
+"spela_fran": 2.56,
+"insats_pct": 0.0,
+"stangning": 2.38,
+"status": "öppen",
+"stopp": "edge -5.0% < 2%; matchen har startat – inga spel under match; linjejusterat: väntade mål Pinnacle 2.84 mot Kambi 2.83 (kvot 1.003); uppmätt marginal: goal k=1.24, assist k=1.25; modell 68% (rå 59%, väntat 0.94, 6 matcher, 2 starter), marknad 38%, modellvikt 0.05",
+"clv_signal": false,
+"forv_clv_pp": null,
+"p_modell": 0.6835004354521365,
+"p_marknad": 0.38406434799297956,
+"utfall": null,
+"resultat_enheter": null,
+"p_raw": 0.5933,
+"mu": 0.941,
+"mu_alt": 0.895,
+"p_raw_alt": 0.5755,
+"p_raw_cur": 0.6112,
+"p_raw_hyb": 0.5933,
+"mu_cur": 0.991,
+"mu_hyb": 0.941,
+"p_raw_fb2": 0.6763,
+"mu_fb2": 1.194,
+"fb2_min": 83.9,
+"fb2_grp": "ST",
+"p_raw_fb2k": 0.7334,
+"mu_fb2k": 1.413,
+"p_mod_utfall": 0.5373,
+"p_adj": 0.3845,
+"p_k": 0.3841,
+"p_adj_kal": 0.3845,
+"p_cons": 0.5148,
+"n_cons": 3,
+"vox": "oa_fanduel,oa_onexbet,oa_williamhill",
+"cons_spread": 0.163,
+"edge_cons": 0.2252,
+"parts": "q0.6623;q0.4878;q0.5000",
+"arm": "konsensus"
 }
 ]
