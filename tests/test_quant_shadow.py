@@ -1,10 +1,11 @@
-"""Fas 8 (skugga): Kelly-förslaget bokförs på tier-spelen utan att ändra units, notiser eller CLV."""
+"""Fas 8: Kelly-förslaget (kelly_pct) driver nu den riktiga insatsen (stake_kr, 28/11) i stället för att
+bara bokföras i skugga. Notiser/CLV opåverkade."""
 import json
 import time
 
 import propsbot.notify as nt
 from propsbot.quant import kelly
-from propsbot.tiers import cfg, run, units_for
+from propsbot.tiers import cfg, kr_to_units, run, stake_kr
 
 C = cfg({})
 
@@ -35,11 +36,13 @@ def test_kelly_shadow_fields_and_units_unchanged(tmp_path, monkeypatch):
         tb = by.get(s["key"])
         if tb is None:
             continue
-        assert tb["units"] == units_for(s, C, "nba")                       # oförändrat
-        assert tb["kelly_pct"] == round(kelly.stake(s["sannolikhet"], s["odds"]), 4)
+        k_pct = round(kelly.stake(s["sannolikhet"], s["odds"]), 4)
+        assert tb["kelly_pct"] == k_pct
         assert 0 <= tb["kelly_u"] <= 2
+        assert tb["units"] == kr_to_units(stake_kr(s, C, k_pct, "nba"), C)       # kelly styr nu insatsen
     assert by["k3"]["kelly_pct"] == 0.0 and by["k3"]["kelly_u"] == 0          # saknad p -> 0, ingen krasch
-    assert by["k2"]["kelly_pct"] < 0.01 <= by["k2"]["units"] * by["k2"]["unit_pct"]   # långt odds: Kelly < 1u
+    assert by["k3"]["stake_kr"] == C["tier_stake_min_kr"]                        # golvet, inte 0
+    assert by["k2"]["kelly_pct"] < 0.01                                          # långt odds: liten kelly
     assert all("kelly" not in x[2] for x in sent)                                # notistexten orörd
 
 

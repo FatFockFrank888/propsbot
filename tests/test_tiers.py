@@ -10,7 +10,7 @@ def bet(**kw):
     b = {"key": "k1", "match_id": "m1", "spelare_id": "p1", "spelare": "X", "marknad": "points", "linje": 20.5,
          "sida": "over", "odds": 2.0, "edge": 0.07, "stopp": "", "bokford": time.time(), "avspark": time.time() + 7200,
          "match": "A – B", "bolag": "unibet", "spela_fran": 1.9, "status": "öppen", "pin_stang_p": 0.53,
-         "insats_pct": 0.002}
+         "insats_pct": 0.002, "sannolikhet": 0.535}
     b.update(kw)
     return b
 
@@ -39,9 +39,9 @@ def test_units():
 def test_run_upgrade_settle_no_caps(tmp_path):
     now = time.time()
     skugga = [bet(key="s1", odds=1.5, bokford=now - 600)]                 # C först
-    live = [bet(key="l1", linje=21.5, bokford=now - 60, edge=0.10)]       # sedan A på samma spelare
-    spel = [bet(key="b%d" % i, match_id="m%d" % (i + 2), spelare_id="q%d" % i, bokford=now - 30, edge=0.10)
-            for i in range(6)]                                            # B: 2u styck, inga tak -> alla 6 spelas
+    live = [bet(key="l1", linje=21.5, bokford=now - 60, edge=0.10, sannolikhet=0.55)]  # sedan A på samma spelare
+    spel = [bet(key="b%d" % i, match_id="m%d" % (i + 2), spelare_id="q%d" % i, bokford=now - 30, edge=0.10,
+                sannolikhet=0.55) for i in range(6)]                       # B: 3u styck, inga tak -> alla 6 spelas
     (tmp_path / "nba_skugga_v2.json").write_text(json.dumps(skugga))
     (tmp_path / "nba_live.json").write_text(json.dumps(live))
     (tmp_path / "nba_bokforing_v2.json").write_text(json.dumps(live + spel))
@@ -64,7 +64,7 @@ def test_run_upgrade_settle_no_caps(tmp_path):
     (tmp_path / "nba_live.json").write_text(json.dumps(live))
     res = run(tmp_path, {}, notify=False, log=lambda *_: None)
     a = next(b for b in res["book"].bets if b["kalla_key"] == "l1")
-    assert a["status"] == "vunnen" and a["resultat_u"] == 2.0        # 2u, odds 2,0
+    assert a["status"] == "vunnen" and a["resultat_u"] == 3.0        # 3u (kelly-tak, mid-tak utan maxbet), odds 2,0
     assert len(res["book"].bets) == 7                                   # ingenting bokas om
     assert (tmp_path / "site" / "tiers.json").exists()
 

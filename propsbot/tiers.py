@@ -14,10 +14,13 @@ grupp) får högst ett spel. Nivåerna rättas var för sig, så att vi ser om t
   A Tier  B + klarar ALLA våra parametrar (NBA: LIVE-kraven i live.py; fotboll: alla regler = regelspel),
           odds tier_a_odds (1,60–3,50). Spelas. Notis för nya spel i A och B (tier_notify, 18/11).
 
-Insats: flat 1–3u, 1u = tier_unit (1 %) av kassan. 1u standard, 2u high (edge ≥ tier_2u_edge), 3u maxbet
-(edge ≥ tier_3u_edge och ≤ tier_3u_max_edge, Pinnacle som referens och sharp money med oss). Riktigt höga
-edgar (> 20 %) är oftast fel i linjen och blir aldrig maxbet. Inga tak (18/11): inga dags- eller matchbudgetar –
-varje A- och B-spel räknas som spelat (användaren väljer själv vad som tas).
+Insats (28/11): kontinuerlig 15–45 kr (stake_kr), inte längre flata 1–3u-hinkar. ¼ Kelly (kelly_pct, tak
+2 % av kassan) skalas linjärt mellan tier_stake_min_kr (15) och ett tak. Taket är tier_stake_max_kr (45)
+bara vid samma villkor som gamla 3u-maxbetet (edge mellan tier_3u_edge/tier_3u_max_edge, Pinnacle som
+referens och sharp money med oss) – annars tier_stake_mid_kr (30), så en orimligt hög (troligen felaktig)
+edge utan bekräftelse aldrig når full insats. "units"-fältet (för bokföring/Sheet) räknas om från kr via
+kr_to_units(). Inga tak (18/11): inga dags- eller matchbudgetar – varje A- och B-spel räknas som spelat
+(användaren väljer själv vad som tas).
 
 Ett spel klassas när det först syns och låses (värden som ändras fram till start, t.ex. Pinnacles pris,
 ändrar inte nivån i efterhand). En senare rad på samma spelare och match får uppgradera nivån före start.
@@ -64,6 +67,11 @@ DEFAULTS = {
     "tier_2u_edge": 0.09, "tier_3u_edge": 0.12, "tier_3u_max_edge": 0.20,
     "tier_notify_max_age_s": 3600,
     "tier_notify": ["A", "B"],      # 18/11: notis för nya A- och B-spel (var bara A)
+    # 28/11: kontinuerlig insats i kr (ersätter flat 1–3u) – ¼ Kelly (tak 2 %) skalat linjärt mellan
+    # tier_stake_min_kr och tier_stake_max_kr. Samma maxbet-spärr som tidigare (orimlig edge utan
+    # bekräftad sharp money når aldrig toppen): då är taket tier_stake_mid_kr istället.
+    "tier_stake_min_kr": 15.0, "tier_stake_mid_kr": 30.0, "tier_stake_max_kr": 45.0,
+    "bankroll": 1000,   # för att räkna om kr-insatsen till u (bokföringens enhet)
 }
 
 # Spärrar som gör spelet ospelbart i alla nivåer (fel i underlaget eller spelaren spelar inte).
@@ -260,6 +268,26 @@ def units_for(b: dict, c: dict, sport: str = "") -> int:
     return 1
 
 
+def stake_kr(b: dict, c: dict, k_pct: float, sport: str = "") -> float:
+    """Kontinuerlig insats i kr (28/11): ¼ Kelly (k_pct, tak 2 %) skalat linjärt mellan
+    tier_stake_min_kr och ett tak. Taket är tier_stake_max_kr bara när samma villkor som gamla
+    3u-maxbeten gäller (edge i rimligt intervall + bekräftad sharp money) – annars tier_stake_mid_kr,
+    så att en orimligt hög (troligen felaktig) edge inte ger maxinsats utan bekräftelse."""
+    e = b.get("edge") or 0.0
+    s = _stopp(b)
+    maxbet_ok = (c["tier_3u_edge"] <= e <= c["tier_3u_max_edge"] and sharp_ref(b, sport)
+                 and "sharp money med oss" in s)
+    lo, hi = c["tier_stake_min_kr"], c["tier_stake_max_kr" if maxbet_ok else "tier_stake_mid_kr"]
+    frac = max(0.0, min(1.0, (k_pct or 0.0) / 0.02))
+    return round(lo + frac * (hi - lo), 1)
+
+
+def kr_to_units(kr: float, c: dict) -> float:
+    bankroll = c.get("bankroll", 1000) or 1000
+    unit_pct = c.get("tier_unit", 0.01) or 0.01
+    return round(kr / (bankroll * unit_pct), 3)
+
+
 def _day(ts: float) -> str:
     return time.strftime("%Y-%m-%d", time.gmtime((ts or 0) - 6 * 3600))
 
@@ -363,12 +391,13 @@ def update(root: Path, settings: dict, now: float | None = None, sports: tuple =
         if old is not None:
             if RANK[tier] <= RANK[old["tier"]] or (old.get("avspark") or 0) <= t_seen:
                 continue
-        u = units_for(b, c, sport)
-        tb = {k: b.get(k) for k in COPY}
-        tb.update(ident=ident, sport=sport, tier=tier, units=u, kalla=src, kalla_fil=f, kalla_key=b["key"],
-                  bokford=t_seen, inte_hogre=why, unit_pct=c["tier_unit"])
-        # Skugga (docs/PLAN.md fas 6): ¼ Kelly med tak 2 % på bokförd p. Styr inte units eller notiser.
+        # 28/11: kontinuerlig insats 15–45 kr (ersätter flat 1–3u) – ¼ Kelly skalat till kr, se stake_kr().
         k_pct = quant_kelly.stake(b.get("sannolikhet"), b.get("odds"))
+        kr = stake_kr(b, c, k_pct, sport)
+        u = kr_to_units(kr, c)
+        tb = {k: b.get(k) for k in COPY}
+        tb.update(ident=ident, sport=sport, tier=tier, units=u, stake_kr=kr, kalla=src, kalla_fil=f,
+                  kalla_key=b["key"], bokford=t_seen, inte_hogre=why, unit_pct=c["tier_unit"])
         tb.update(kelly_pct=round(k_pct, 4), kelly_u=quant_kelly.units(k_pct, c["tier_unit"]))
         if old is not None:
             tb["uppgraderad_fran"] = old["tier"]
