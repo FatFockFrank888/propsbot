@@ -4157,7 +4157,7 @@
 "metod": "odds+lag",
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795878383.752605
+"stangning_ts": 1795879723.7230856
 },
 {
 "key": "k1028238951|corners_away|3.5|under|unibet",
@@ -4183,7 +4183,7 @@
 "edge": 0.09705696284446241,
 "spela_fran": 1.85,
 "insats_pct": 0.01,
-"stangning": 1.93,
+"stangning": 1.94,
 "p_modell": 0.5684232968106023,
 "p_marknad": 0.4741144414168938,
 "vantat_hemma": 5.82,
@@ -4197,7 +4197,7 @@
 "metod": "odds+lag",
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795878383.752605
+"stangning_ts": 1795879723.7230856
 },
 {
 "key": "k1028488280|corners_home|5.5|over|unibet",
@@ -4277,7 +4277,7 @@
 "metod": "lag",
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795878383.752605
+"stangning_ts": 1795879723.7230856
 },
 {
 "key": "k1028208870|corners_home|4.5|under|unibet",
@@ -4317,7 +4317,7 @@
 "metod": "lag",
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795878383.752605
+"stangning_ts": 1795879723.7230856
 },
 {
 "key": "k1027976511|corners|8.5|under|unibet",
@@ -4357,7 +4357,7 @@
 "metod": "lag",
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795878383.752605
+"stangning_ts": 1795879723.7230856
 },
 {
 "key": "k1029395142|corners_home|3.5|under|unibet",
@@ -4397,7 +4397,7 @@
 "metod": "odds+lag",
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795878383.752605
+"stangning_ts": 1795879723.7230856
 },
 {
 "key": "k1028143370|corners_home|6.5|over|unibet",
@@ -4677,7 +4677,7 @@
 "metod": "odds+lag",
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795878383.752605
+"stangning_ts": 1795879723.7230856
 },
 {
 "key": "k1027911657|corners_home|5.5|under|unibet",
@@ -4717,7 +4717,7 @@
 "metod": "lag",
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795878383.752605
+"stangning_ts": 1795879723.7230856
 },
 {
 "key": "k1027973956|corners|6.5|under|unibet",
@@ -4757,7 +4757,7 @@
 "metod": "odds+lag",
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795878383.752605
+"stangning_ts": 1795879723.7230856
 },
 {
 "key": "k1028209167|corners_home|11.5|over|unibet",
@@ -4797,6 +4797,86 @@
 "metod": "odds+lag",
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795878383.752605
+"stangning_ts": 1795879723.7230856
+},
+{
+"key": "k1027976529|corners|7.5|under|unibet",
+"id": 121,
+"bokford": 1795879723.7230856,
+"match_id": "k1027976529",
+"match": "ADO Den Haag – FC Utrecht",
+"hemma": "ADO Den Haag",
+"borta": "FC Utrecht",
+"liga": "Football / Netherlands / Eredivisie",
+"fd_liga": "N1",
+"avspark": 1795950900.0,
+"spelare": "Hörnor",
+"spelare_id": "hörnor",
+"marknad": "corners",
+"linje": 7.5,
+"sida": "under",
+"spel_text": "hörnor under 7.5",
+"bolag": "unibet",
+"odds": 3.65,
+"sannolikhet": 0.2965558182481242,
+"ratt_odds": 3.3720464697250137,
+"edge": 0.08242873660565331,
+"spela_fran": 3.55,
+"insats_pct": 0.01,
+"stangning": 3.65,
+"p_modell": 0.2965558182481242,
+"p_marknad": 0.25051334702258726,
+"vantat_hemma": 4.73,
+"vantat_borta": 4.91,
+"underlag_matcher": [
+9.2,
+14.7
+],
+"status": "öppen",
+"stopp": "hörnmodell (odds+lag): väntat 4.7–4.9 (N1)",
+"metod": "odds+lag",
+"utfall": null,
+"resultat_enheter": null,
+"stangning_ts": 1795879723.7230856
+},
+{
+"key": "k1028072772|cah|-1.5|away|unibet",
+"id": 122,
+"bokford": 1795879723.7230856,
+"match_id": "k1028072772",
+"match": "Everton – Liverpool",
+"hemma": "Everton",
+"borta": "Liverpool",
+"liga": "Football / England / Premier League",
+"fd_liga": "E0",
+"avspark": 1795953600.0,
+"spelare": "Liverpool",
+"spelare_id": "hörnor",
+"marknad": "cah",
+"linje": -1.5,
+"sida": "away",
+"spel_text": "hörnhandikapp -1.5",
+"bolag": "unibet",
+"odds": 1.7,
+"sannolikhet": 0.632036483933981,
+"ratt_odds": 1.5821871449187646,
+"edge": 0.07446202268776769,
+"spela_fran": 1.67,
+"insats_pct": 0.01,
+"stangning": 1.7,
+"p_modell": 0.632036483933981,
+"p_marknad": null,
+"vantat_hemma": 3.82,
+"vantat_borta": 6.65,
+"underlag_matcher": [
+14.5,
+14.5
+],
+"status": "öppen",
+"stopp": "hörnmodell (odds+lag): väntat 3.8–6.6 (E0)",
+"metod": "odds+lag",
+"utfall": null,
+"resultat_enheter": null,
+"stangning_ts": 1795879723.7230856
 }
 ]
