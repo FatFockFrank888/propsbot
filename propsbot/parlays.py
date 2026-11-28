@@ -59,9 +59,13 @@ def build_parlays(bets: list[dict], settings: dict, existing_idents: set[str]) -
     if not c["parlay_on"]:
         return []
     lo, hi = c["parlay_odds"]
+    # Bara ben hos ett bolag som faktiskt går att spela just nu (28/11: äldre öppna spel kan ha ett
+    # bolag som sen dess tagits bort ur playable_books, t.ex. Unibet efter limiteringen - de ska aldrig
+    # bakas in i en ny parlay).
+    playable = set(settings.get("playable_books") or [])
     cands = [b for b in bets if b.get("sport") == "nba" and b.get("tier") in ("A", "B")
              and b.get("status") == "öppen" and b.get("sannolikhet") and b.get("odds")
-             and lo <= b["odds"] <= hi]
+             and lo <= b["odds"] <= hi and (not playable or b.get("bolag") in playable)]
     max_legs = max(2, int(c.get("parlay_max_legs", 4)))
     scored = []
     for size in range(2, max_legs + 1):

@@ -40,6 +40,17 @@ def test_format_bet_readable_swedish_time():
     assert "Insats: 1u – standard (1 % av kassan)" in msg and "snävt rum" in msg and "UTC" not in msg
 
 
+def test_format_bet_shows_kr_when_stake_kr_present():
+    from propsbot.msg import format_bet, kickoff_sv
+    from datetime import datetime, timezone
+    ts = datetime(2026, 11, 25, 0, 0, tzinfo=timezone.utc).timestamp()
+    b = {"match": "A – B", "bolag": "paf", "odds": 2.02, "spela_fran": 1.95, "edge": 0.0642, "sannolikhet": 0.5268,
+         "rum": 0.005, "forv_clv_pp": 1.2, "units": 2.83, "unit_pct": 0.01, "stake_kr": 28.3}
+    title, msg = format_bet(b, tier="B", sport="nba", who="K. Huerter", spel="poäng över 11,5",
+                            ko_text=kickoff_sv(ts), units_txt="2.83u", unit_pct=0.01)
+    assert "Insats: 28 kr" in msg and "2.83u" not in msg and "av kassan" not in msg
+
+
 def test_telegram_retries(monkeypatch):
     import urllib.error
     monkeypatch.setenv("TELEGRAM_TOKEN", "x")

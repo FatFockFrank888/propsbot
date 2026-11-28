@@ -35,6 +35,15 @@ def test_parlay_max_legs_setting_caps_combo_size():
     assert len(out) == 2 and all(len(p["ben"]) == 2 for p in out)   # två 2-bensparlayer, inte en 4-bens
 
 
+def test_stale_non_playable_book_excluded():
+    a = leg(bolag="unibet")                                 # gammalt öppet spel, bolaget inte spelbart längre
+    b = leg(ident="nba|m2|p2", match_id="m2", spelare="Y", bolag="unibet")
+    assert build_parlays([a, b], {"playable_books": ["paf"]}, set()) == []
+    b_paf = leg(ident="nba|m2|p2", match_id="m2", spelare="Y", bolag="paf")
+    out = build_parlays([a, b_paf], {"playable_books": ["paf"]}, set())
+    assert out == []                                         # a (unibet) fortfarande utesluten, bara ett ben kvar
+
+
 def test_same_match_never_combined():
     a = leg()
     b = leg(ident="nba|m1|p2", spelare="Y")   # samma match_id

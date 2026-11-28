@@ -71,9 +71,12 @@ def format_bet(b: dict, *, tier: str, sport: str, who: str, spel: str, liga: str
     if b.get("forv_clv_pp") is not None:
         stat.append(f"förväntad CLV {b['forv_clv_pp']:+.1f} pe".replace(".", ","))
     lines.append(" · ".join(stat))
-    ins = units_txt
-    if unit_pct is not None and b.get("units"):
-        ins += f" ({pct(b['units'] * unit_pct, 0)} av kassan)"
+    if b.get("stake_kr") is not None:
+        ins = f"{b['stake_kr']:.0f} kr"
+    else:
+        ins = units_txt
+        if unit_pct is not None and b.get("units"):
+            ins += f" ({pct(b['units'] * unit_pct, 0)} av kassan)"
     if ins:
         lines.append(f"Insats: {ins}")
     why = []
