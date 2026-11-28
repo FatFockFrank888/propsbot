@@ -186,3 +186,22 @@ def test_calibration_needs_material_gain(tmp_path):
     d = D()
     bl.analyse(tmp_path, done, {}, d)
     assert not (tmp_path / bl.CAL_FILE).exists()
+
+
+def test_stale_calibration_is_removed_when_new_fit_does_not_beat_raw(tmp_path):
+    (tmp_path / bl.CAL_FILE).write_text(json.dumps({"fits": {"shots_on_target|0.5": {"a": -0.9, "b": 0.5, "n": 188}}}))
+    d = D()
+    bl.analyse(tmp_path, _fake_done(900, a_true=0.0, b_true=1.0), {}, d)        # välkalibrerad: ny anpassning slår inte rå
+    left = json.loads((tmp_path / bl.CAL_FILE).read_text())["fits"]
+    assert "shots_on_target|0.5" not in left and any("tidigare anpassning rensas" in x for x in d.lines)
+    assert bl.load_cal(tmp_path)["shots_on_target|0.5"]["src"].startswith("start")     # startvärdet används igen
+
+
+def test_odds_breakdown_reports_groups_and_edge_buckets():
+    d = D()
+    rows = [{**dict.fromkeys(bl.COLS), **dict(zip(bl.COLS, r))} for r in _fake_done(900)["rows"]]
+    out = bl.odds_breakdown(rows, d)
+    labels = [x["grupp"] for x in out]
+    assert "linje 0.5" in labels and any(x.startswith("odds ") for x in labels) and any(x.startswith("modellens edge") for x in labels)
+    assert all(abs(x["implicerad"] - x["träff"]) < 0.5 and x["n"] >= 20 for x in out)
+    assert any("Benlogg marginal" in x for x in d.lines)

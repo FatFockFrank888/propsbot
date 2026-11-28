@@ -318,15 +318,46 @@ def paper(rows: list[dict], diag) -> list[dict]:
     return out
 
 
+def odds_breakdown(rows: list[dict], diag) -> list[dict]:
+    """Var sitter marginalen? ROI, träff och implicerad p (1/odds0) för ALLA ben per linje och oddsnivå, samt ROI per
+    modellens påstådda edge-hink (stiger ROI med påstådd edge? annars är edgen modellfel). Ingen filtrering på modell."""
+    lo, hi = PAPER_ODDS
+    base = [r for r in rows if r.get("odds0") and lo <= r["odds0"] <= hi]
+    out = []
+
+    def one(label, R):
+        if len(R) < 20:
+            return
+        res = [(r["odds0"] - 1) if r["y"] else -1.0 for r in R]
+        n = len(res)
+        mean = sum(res) / n
+        sd = math.sqrt(sum((x - mean) ** 2 for x in res) / max(n - 1, 1)) or 1e-9
+        hit = sum(r["y"] for r in R) / n
+        imp = sum(1 / r["odds0"] for r in R) / n
+        out.append({"grupp": label, "n": n, "träff": hit, "implicerad": imp, "roi": mean, "t": mean / (sd / math.sqrt(n))})
+        diag.log(f"Benlogg marginal {label}: n={n}, träff {hit:.1%} mot implicerad {imp:.1%}, ROI {mean:+.1%} (t {mean / (sd / math.sqrt(n)):+.2f})")
+
+    for g in ("0.5", "1.5", "2.5+"):
+        one(f"linje {g}", [r for r in base if line_group(r["linje"]) == g])
+    for a, b in ((1.4, 1.6), (1.6, 1.9), (1.9, 2.5), (2.5, 4.0), (4.0, 6.01)):
+        one(f"odds {a:.1f}–{min(b, 6.0):.1f}", [r for r in base if a <= r["odds0"] < b])
+    for a, b in ((-9, -0.15), (-0.15, -0.05), (-0.05, 0.0), (0.0, 0.05), (0.05, 9)):
+        one(f"modellens edge {a:+.2f}..{b:+.2f}",
+            [r for r in base if r.get("p_hyb0") is not None and a <= r["p_hyb0"] * r["odds0"] - 1 < b])
+    return out
+
+
 def analyse(root: Path, done: dict, settings: dict, diag) -> dict:
     from .consensus import p_from_parts
     rows = [{**dict.fromkeys(COLS), **dict(zip(COLS, r))} for r in done.get("rows", [])]
     out = {"groups": {}}
     paper(rows, diag)
+    odds_breakdown(rows, diag)
     groups: dict[tuple, list[dict]] = {}
     for r in rows:
         groups.setdefault((r["marknad"], line_group(r["linje"])), []).append(r)
     fits = {}
+    stale = []     # grupper med tillräckligt underlag där ny anpassning inte slår rå: gammal anpassning ska bort
     for (mk, g), R in sorted(groups.items()):
         n = len(R)
         if n < 20:
@@ -384,10 +415,20 @@ def analyse(root: Path, done: dict, settings: dict, diag) -> dict:
             if ok:
                 fits[f"{mk}|{g}"] = {"a": round(a, 4), "b": round(b, 4), "n": len(h), "brier_rå_holdout": round(raw, 5),
                                      "brier_kal_holdout": round(cal, 5)}
+            else:
+                stale.append(f"{mk}|{g}")
+    old_fits = _read(root / CAL_FILE, {}).get("fits", {})
+    changed = False
+    for k in stale:
+        if k in old_fits:
+            old_fits.pop(k)
+            changed = True
+            diag.log(f"Benlogg nivåkalibrering {k}: tidigare anpassning rensas (slår inte rå på mer data, startvärdet används)")
     if fits:
-        old = _read(root / CAL_FILE, {}).get("fits", {})
-        old.update(fits)
-        (root / CAL_FILE).write_text(json.dumps({"ts": time.time(), "fits": old}, ensure_ascii=False, indent=1),
+        old_fits.update(fits)
+        changed = True
+    if changed:
+        (root / CAL_FILE).write_text(json.dumps({"ts": time.time(), "fits": old_fits}, ensure_ascii=False, indent=1),
                                      encoding="utf-8")
     # Kambi-nivån mot utfall (påverkar p_adj i line_adjust när en anpassning sparats)
     kf, klog = fit_kambi_level(rows, settings)
