@@ -35529,14 +35529,14 @@
 "spela_fran": 1.8,
 "insats_pct": 0.019011258365292636,
 "stangning": 1.77,
-"status": "öppen",
+"status": "vunnen",
 "stopp": "",
 "clv_signal": false,
 "forv_clv_pp": 4.002254363433233,
 "p_modell": null,
 "p_marknad": 0.5675104411945905,
-"utfall": null,
-"resultat_enheter": null,
+"utfall": 22,
+"resultat_enheter": 0.01672990736145752,
 "stangning_ts": 1795827513.612888,
 "analys": {
 "ref": {
@@ -36823,14 +36823,14 @@
 "spela_fran": 1.84,
 "insats_pct": 0.016825026823192858,
 "stangning": 1.77,
-"status": "öppen",
+"status": "förlorad",
 "stopp": "",
 "clv_signal": false,
 "forv_clv_pp": 3.206444902430472,
 "p_modell": null,
 "p_marknad": 0.5556246584483885,
-"utfall": null,
-"resultat_enheter": null,
+"utfall": 1,
+"resultat_enheter": -0.016825026823192858,
 "stangning_ts": 1795826388.4935768,
 "analys": {
 "p_stack": 0.5391,
@@ -37358,14 +37358,14 @@
 "spela_fran": 1.97,
 "insats_pct": 0.0117683744916423,
 "stangning": 2.0,
-"status": "öppen",
+"status": "förlorad",
 "stopp": "",
 "clv_signal": false,
 "forv_clv_pp": 6.324936042925749,
 "p_modell": null,
 "p_marknad": 0.517794814974712,
-"utfall": null,
-"resultat_enheter": null,
+"utfall": 4,
+"resultat_enheter": -0.0117683744916423,
 "stangning_ts": 1795813288.8858497,
 "analys": {
 "p_stack": 0.3878,
@@ -38753,14 +38753,14 @@
 "spela_fran": 1.83,
 "insats_pct": 0.012067657728979648,
 "stangning": 1.81,
-"status": "öppen",
+"status": "förlorad",
 "stopp": "sharp money med oss: referensen +1.7 enheter",
 "clv_signal": false,
 "forv_clv_pp": 4.922528302764972,
 "p_modell": null,
 "p_marknad": 0.5586564490810642,
-"utfall": null,
-"resultat_enheter": null,
+"utfall": 4,
+"resultat_enheter": -0.012067657728979648,
 "stangning_ts": 1795828920.6542206,
 "analys": {
 "p_stack": 0.5399,
@@ -41736,6 +41736,270 @@
 "clv_skarp_pp": 3.7489943422481686,
 "clv_pin_pp": null,
 "clv_dk_pp": 3.9404623339724276,
+"clv_fd_pp": null,
+"clv_bv_pp": null
+},
+{
+"key": "nba1028754503|aj dybantsa|assists|3.5|unibet",
+"id": 580,
+"bokford": 1795842185.572163,
+"match_id": "nba1028754503",
+"match": "Washington Wizards – Orlando Magic",
+"hemma": "Washington Wizards",
+"borta": "Orlando Magic",
+"liga": "NBA",
+"avspark": 1795903200.0,
+"spelare": "AJ Dybantsa",
+"spelare_id": "aj dybantsa",
+"marknad": "assists",
+"linje": 3.5,
+"sida": "over",
+"bolag": "unibet",
+"odds": 2.14,
+"sannolikhet": 0.5088863474819338,
+"ratt_odds": 1.9650753158307148,
+"edge": 0.08901678361133847,
+"spela_fran": 2.01,
+"insats_pct": 0.014530312938877122,
+"stangning": 2.14,
+"status": "öppen",
+"stopp": "",
+"clv_signal": false,
+"forv_clv_pp": 4.159662785576562,
+"p_modell": null,
+"p_marknad": 0.5088863474819338,
+"utfall": null,
+"resultat_enheter": null,
+"stangning_ts": 1795842185.5721958,
+"analys": {
+"p_stack": 0.5153,
+"p_modell_min": 0.5051,
+"minuter": 35.8,
+"minuter_sd": 4.7,
+"p_faktorer": 0.5111,
+"p_faktorer_ra": 0.545,
+"vantat_faktorer": 4.01,
+"p_betyg": 0.5036,
+"p_betyg_ra": 0.4216,
+"vantat_betyg": 3.36,
+"minuter_faktorer": 34.3,
+"f_anv": 1.0,
+"f_miljo": 0.972,
+"f_tempo": 1.0,
+"f_pos": 1.084,
+"f_mot": 1.024,
+"f_minuter_bas": 35.9,
+"f_b2b": false,
+"f_tre_pa_fyra": false,
+"f_minutbegransning": false,
+"f_tillbaka": false,
+"f_miljo_kalla": "pinnacle",
+"f_lag_poang": 107.8,
+"f_mot_n": 2,
+"traff_l5": 0.6,
+"traff_l5_n": 5,
+"traff_l10": 0.4,
+"traff_l10_n": 10,
+"traff_sasong": 0.267,
+"traff_sasong_n": 15,
+"traff_mot": 0.5,
+"traff_mot_n": 2,
+"traff_hemmaborta": 0.429,
+"traff_hemmaborta_n": 7,
+"p_kalib": 0.5089,
+"p_blend": 0.5083,
+"kalib_modell": "M0",
+"p_modell": 0.4984,
+"p_marknad": 0.5089,
+"p_slutlig": 0.5083,
+"vantat": 3.79,
+"nb_r": 10,
+"modell_vikt": 0.06,
+"dq": 0.8,
+"matcher": 12,
+"nivajustering": 0.0,
+"logg": [
+{
+"ts": 1795568400.0,
+"mot": "BOS",
+"hemma": true,
+"min": 41.0,
+"v": 7.0
+},
+{
+"ts": 1795392000.0,
+"mot": "ORL",
+"hemma": true,
+"min": 33.0,
+"v": 6.0
+},
+{
+"ts": 1795222800.0,
+"mot": "CHI",
+"hemma": false,
+"min": 37.0,
+"v": 6.0
+},
+{
+"ts": 1795048200.0,
+"mot": "TOR",
+"hemma": false,
+"min": 38.0,
+"v": 2.0
+},
+{
+"ts": 1794873600.0,
+"mot": "MEM",
+"hemma": true,
+"min": 32.0,
+"v": 3.0
+},
+{
+"ts": 1794787200.0,
+"mot": "HOU",
+"hemma": true,
+"min": 30.0,
+"v": 1.0
+},
+{
+"ts": 1794528000.0,
+"mot": "DET",
+"hemma": true,
+"min": 44.0,
+"v": 4.0
+},
+{
+"ts": 1794441600.0,
+"mot": "IND",
+"hemma": false,
+"min": 34.0,
+"v": 2.0
+},
+{
+"ts": 1794268800.0,
+"mot": "DET",
+"hemma": false,
+"min": 37.0,
+"v": 1.0
+},
+{
+"ts": 1794099600.0,
+"mot": "OKC",
+"hemma": false,
+"min": 31.0,
+"v": 3.0
+}
+],
+"franvaro": [],
+"lag": "Washington Wizards",
+"mot": "ORL",
+"hemma": true,
+"minuter_sd_faktorer": 4.7,
+"ref": {
+"pin_p": null,
+"dk_p": 0.5088863474819338,
+"pin_linje": null,
+"dk_linje": null,
+"pin_flyttad": false,
+"pin_komb": false
+},
+"odds_bolag": [
+{
+"bolag": "atg",
+"over": 2.14,
+"under": 1.65
+},
+{
+"bolag": "betmgm",
+"over": 2.14,
+"under": 1.65
+},
+{
+"bolag": "expekt",
+"over": 2.14,
+"under": 1.65
+},
+{
+"bolag": "leovegas",
+"over": 2.14,
+"under": 1.65
+},
+{
+"bolag": "paf",
+"over": 2.14,
+"under": 1.65
+},
+{
+"bolag": "svenskaspel",
+"over": 2.14,
+"under": 1.65
+},
+{
+"bolag": "unibet",
+"over": 2.14,
+"under": 1.65
+},
+{
+"bolag": "us_draftkings",
+"over": 1.84,
+"under": 1.9
+}
+]
+},
+"prognos": 3.788961053963204,
+"analys_ts": 1795842185.707375,
+"modellversion": "2026-11-26-vikt0075",
+"prognos_ts": 1795842185.572163,
+"skarp_stang_p": 0.5088863474819338,
+"skarp_stang_ts": 1795842185.4507508,
+"skarp_kalla": "skanning",
+"dk_stang_p": 0.5088863474819338,
+"bolag_bokning": {
+"ts": 1795842185.718855,
+"odds": {
+"unibet": {
+"over": 2.14,
+"under": 1.65
+},
+"draftkings": {
+"over": 1.84,
+"under": 1.9
+}
+},
+"pin_flyttad": false,
+"pin_komb": false,
+"pin_linje": null,
+"dk_linje": null,
+"fd_linje": null,
+"bv_linje": null,
+"dk_p": 0.5088863474819338
+},
+"bolag_stangning": {
+"ts": 1795842185.718855,
+"odds": {
+"unibet": {
+"over": 2.14,
+"under": 1.65
+},
+"draftkings": {
+"over": 1.84,
+"under": 1.9
+}
+},
+"pin_flyttad": false,
+"pin_komb": false,
+"pin_linje": null,
+"dk_linje": null,
+"fd_linje": null,
+"bv_linje": null,
+"dk_p": 0.5088863474819338
+},
+"bolag_stang_ts": 1795842185.718855,
+"skarp_verifierad": false,
+"skarp_status": null,
+"clv_skarp_pp": 4.159662785576562,
+"clv_pin_pp": null,
+"clv_dk_pp": 4.159662785576562,
 "clv_fd_pp": null,
 "clv_bv_pp": null
 }
