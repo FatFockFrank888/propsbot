@@ -1,11 +1,11 @@
-# NBA – utvärdering på framåtriktad data (2026-11-28T03:31:55+00:00)
+# NBA – utvärdering på framåtriktad data (2026-11-28T03:55:11+00:00)
 
 Bara bokförda prognoser (gjorda före matchen). Unika prestationer = spelare × match × marknad.
 
 | Bokföring | Rader | Prestationer | Matcher | Dagar | Avgjorda | ROI flat | ROI modell | Max DD (u) | CLV pe skarp (95 %) | CLV pe skarp verifierad | Verifierad täckning | Slog skarp stängning | CLV pe mot Unibets stängning | Brier modell / marknad (n) |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | live | 53 | 53 | 46 | 21 | 51 | -2.4 % | +0.6 % | 5.7 | 2.98 (+2.29…+3.72) | 2.92 | 0.92 | +84.9 % | 2.53 | – |
-| spel | 557 | 557 | 184 | 26 | 509 | +6.2 % | +4.7 % | 14.5 | 2.25 (+1.90…+2.64) | 2.15 | 0.83 | +77.8 % | 2.58 | – |
+| spel | 557 | 557 | 184 | 26 | 510 | +6.0 % | +4.6 % | 14.5 | 2.25 (+1.90…+2.64) | 2.15 | 0.83 | +77.8 % | 2.58 | – |
 | skugga | 1690 | 1690 | 198 | 26 | 1557 | +1.4 % | +1.2 % | 39.8 | 0.87 (+0.67…+1.07) | 0.75 | 0.83 | +66.6 % | 1.73 | – |
 | modelltest | 1151 | 1151 | 150 | 21 | 1093 | +4.7 % | +4.6 % | 34.4 | -0.03 (-0.37…+0.39) | -0.12 | 0.81 | +45.9 % | 1.76 | 0.2724 / 0.2437 (595) |
 
@@ -13,7 +13,7 @@ Bara bokförda prognoser (gjorda före matchen). Unika prestationer = spelare ×
 
 | Marknad | Status | Spel | CLV pe skarp (95 %) | Slog | ROI flat |
 |---|---|---|---|---|---|
-| assists | **ok** | 375 | 1.23 (+0.61…+1.66) | +71.9 % | +4.1 % |
+| assists | **ok** | 375 | 1.23 (+0.61…+1.66) | +71.9 % | +3.8 % |
 | blocks | **ok** | 23 | 3.97 (+2.72…+4.88) | +95.7 % | +22.9 % |
 | pa | **osäker** | 55 | 0.68 (-1.18…+0.83) | +61.8 % | +0.6 % |
 | points | **ok** | 810 | 1.24 (+0.73…+1.47) | +67.7 % | -0.8 % |
@@ -34,7 +34,7 @@ Verifierad = referensens notering högst 60 min före start. Flyttad linje = vå
 | live | borttagen | 4 | 3.62 | -53.5 % |
 | live | flyttad linje (för oss) | 2 | 7.04 | -14.0 % |
 | live | verifierad | 16 | 2.48 | +12.9 % |
-| spel | ? | 173 | 2.53 | +11.9 % |
+| spel | ? | 173 | 2.53 | +11.2 % |
 | spel | borttagen | 69 | 2.79 | -21.1 % |
 | spel | flyttad linje (för oss) | 47 | 4.57 | +3.4 % |
 | spel | flyttad linje (mot oss) | 12 | -3.98 | -5.5 % |
