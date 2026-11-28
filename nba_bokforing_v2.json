@@ -35466,7 +35466,7 @@
 "dk_p": 0.521475518695043
 },
 "bolag_stangning": {
-"ts": 1795830210.5221968,
+"ts": 1795831551.151358,
 "odds": {
 "pinnacle": {
 "over": 1.909,
@@ -35491,7 +35491,7 @@
 "dk_p": 0.4883105342570435,
 "fd_p": 0.47398132464329595
 },
-"bolag_stang_ts": 1795830210.5221968,
+"bolag_stang_ts": 1795831551.151358,
 "skarp_verifierad": false,
 "skarp_status": null,
 "clv_skarp_pp": -1.6293728515077266,
@@ -36756,7 +36756,7 @@
 "dk_p": 0.5499177249795996
 },
 "bolag_stangning": {
-"ts": 1795830210.5221968,
+"ts": 1795831551.151358,
 "odds": {
 "pinnacle": {
 "over": 2.31,
@@ -36781,7 +36781,7 @@
 "dk_p": 0.5441959767550287,
 "fd_p": 0.5974857502127816
 },
-"bolag_stang_ts": 1795830210.5221968,
+"bolag_stang_ts": 1795831551.151358,
 "skarp_verifierad": false,
 "skarp_status": null,
 "clv_skarp_pp": 4.319143732091835,
@@ -37319,7 +37319,7 @@
 },
 "bolag_stang_ts": 1795830210.5221968,
 "skarp_verifierad": false,
-"skarp_status": null,
+"skarp_status": "borttagen",
 "clv_skarp_pp": 2.8049715443979717,
 "clv_pin_pp": null,
 "clv_dk_pp": 10.56923625180579,
@@ -37912,23 +37912,23 @@
 "p_marknad": 0.5658475567902825,
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795830210.3868444,
+"stangning_ts": 1795831550.9982998,
 "analys": {
-"p_stack": 0.5589,
-"p_modell_min": 0.4907,
-"minuter": 22.2,
+"p_stack": 0.5741,
+"p_modell_min": 0.3839,
+"minuter": 25.5,
 "minuter_sd": 7.1,
-"p_faktorer": 0.5534,
-"p_faktorer_ra": 0.5909,
-"vantat_faktorer": 5.07,
-"p_betyg": 0.5531,
-"p_betyg_ra": 0.5828,
-"vantat_betyg": 5.25,
-"minuter_faktorer": 19.0,
-"f_anv": 1.0,
+"p_faktorer": 0.5527,
+"p_faktorer_ra": 0.3875,
+"vantat_faktorer": 6.75,
+"p_betyg": 0.5569,
+"p_betyg_ra": 0.4811,
+"vantat_betyg": 6.01,
+"minuter_faktorer": 24.4,
+"f_anv": 1.042,
 "f_miljo": 1.0,
-"f_tempo": 1.013,
-"f_pos": 1.014,
+"f_tempo": 1.011,
+"f_pos": 1.008,
 "f_mot": 1.0,
 "f_minuter_bas": 21.8,
 "f_b2b": false,
@@ -37936,7 +37936,7 @@
 "f_minutbegransning": false,
 "f_tillbaka": false,
 "f_miljo_kalla": "pinnacle",
-"f_lag_poang": 111.5,
+"f_lag_poang": 111.0,
 "f_mot_n": 0,
 "traff_l5": 0.4,
 "traff_l5_n": 5,
@@ -37948,18 +37948,18 @@
 "traff_mot_n": 0,
 "traff_hemmaborta": 0.5,
 "traff_hemmaborta_n": 8,
-"p_kalib": 0.5516,
-"p_blend": 0.552,
+"p_kalib": 0.5604,
+"p_blend": 0.5548,
 "kalib_modell": "M0",
-"p_modell": 0.5597,
-"p_marknad": 0.5516,
-"p_slutlig": 0.552,
-"vantat": 5.83,
+"p_modell": 0.4335,
+"p_marknad": 0.5604,
+"p_slutlig": 0.5548,
+"vantat": 7.0,
 "nb_r": 10,
 "modell_vikt": 0.04,
 "dq": 0.6,
 "matcher": 9,
-"nivajustering": 0.22,
+"nivajustering": 0.28,
 "logg": [
 {
 "ts": 1795392000.0,
@@ -38041,14 +38041,8 @@
 },
 {
 "namn": "Mo Bamba",
-"status": "day-to-day",
+"status": "out",
 "min": 23.8,
-"redan_borta": false
-},
-{
-"namn": "Jaxson Hayes",
-"status": "day-to-day",
-"min": 21.8,
 "redan_borta": false
 }
 ],
@@ -38058,7 +38052,7 @@
 "minuter_sd_faktorer": 7.1,
 "ref": {
 "pin_p": 0.5656486052584382,
-"dk_p": 0.482205185025288,
+"dk_p": 0.5514627627080393,
 "pin_linje": null,
 "dk_linje": null,
 "pin_flyttad": false,
@@ -38082,8 +38076,8 @@
 },
 {
 "bolag": "kalshi",
-"over": 2.247,
-"under": 1.802
+"over": 2.198,
+"under": 1.835
 },
 {
 "bolag": "leovegas",
@@ -38112,19 +38106,19 @@
 },
 {
 "bolag": "us_draftkings",
-"over": 1.81,
-"under": 1.93
+"over": 2.06,
+"under": 1.71
 }
 ]
 },
-"prognos": 5.8289382423956635,
-"analys_ts": 1795830210.5107837,
+"prognos": 7.002671427109481,
+"analys_ts": 1795831551.1404104,
 "modellversion": "2026-11-26-vikt0075",
 "prognos_ts": 1795812230.8443587,
-"skarp_stang_p": 0.5516491311314242,
-"skarp_stang_ts": 1795830210.2325346,
+"skarp_stang_p": 0.5604390411247535,
+"skarp_stang_ts": 1795831550.8095555,
 "skarp_kalla": "skanning",
-"dk_stang_p": 0.482205185025288,
+"dk_stang_p": 0.5514627627080393,
 "bolag_bokning": {
 "ts": 1795812231.0082026,
 "odds": {
@@ -38144,7 +38138,7 @@
 "dk_p": 0.5658475567902825
 },
 "bolag_stangning": {
-"ts": 1795830210.5221968,
+"ts": 1795831551.151358,
 "odds": {
 "unibet": {
 "over": 1.97,
@@ -38155,8 +38149,8 @@
 "under": 1.671
 },
 "draftkings": {
-"over": 1.81,
-"under": 1.93
+"over": 2.06,
+"under": 1.71
 }
 },
 "pin_flyttad": false,
@@ -38166,14 +38160,14 @@
 "fd_linje": null,
 "bv_linje": null,
 "pin_p": 0.5656486052584382,
-"dk_p": 0.482205185025288
+"dk_p": 0.5514627627080393
 },
-"bolag_stang_ts": 1795830210.5221968,
+"bolag_stang_ts": 1795831551.151358,
 "skarp_verifierad": true,
 "skarp_status": null,
-"clv_skarp_pp": 3.081579779809085,
+"clv_skarp_pp": 3.960570779142014,
 "clv_pin_pp": 4.481527192510482,
-"clv_dk_pp": -3.8628148308045396,
+"clv_dk_pp": 3.062942937470592,
 "pin_stang_p": 0.5656486052584382,
 "clv_fd_pp": null,
 "clv_bv_pp": null
@@ -38209,23 +38203,23 @@
 "p_marknad": 0.5449445985277092,
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795830210.3868444,
+"stangning_ts": 1795831550.9982998,
 "analys": {
-"p_stack": 0.551,
-"p_modell_min": 0.5091,
+"p_stack": 0.5504,
+"p_modell_min": 0.5099,
 "minuter": 24.1,
 "minuter_sd": 5.2,
-"p_faktorer": 0.5469,
-"p_faktorer_ra": 0.5776,
-"vantat_faktorer": 4.27,
+"p_faktorer": 0.5481,
+"p_faktorer_ra": 0.5976,
+"vantat_faktorer": 4.24,
 "p_betyg": 0.5435,
-"p_betyg_ra": 0.5205,
+"p_betyg_ra": 0.5212,
 "vantat_betyg": 4.69,
 "minuter_faktorer": 21.2,
 "f_anv": 1.0,
 "f_miljo": 1.0,
-"f_tempo": 1.02,
-"f_pos": 1.018,
+"f_tempo": 1.018,
+"f_pos": 1.012,
 "f_mot": 1.013,
 "f_minuter_bas": 24.0,
 "f_b2b": false,
@@ -38246,17 +38240,17 @@
 "traff_hemmaborta": 0.125,
 "traff_hemmaborta_n": 8,
 "p_kalib": 0.5449,
-"p_blend": 0.5465,
+"p_blend": 0.5474,
 "kalib_modell": "M0",
-"p_modell": 0.5705,
+"p_modell": 0.5849,
 "p_marknad": 0.5449,
-"p_slutlig": 0.5465,
-"vantat": 4.73,
+"p_slutlig": 0.5474,
+"vantat": 4.72,
 "nb_r": 10,
 "modell_vikt": 0.06,
 "dq": 0.8,
 "matcher": 12,
-"nivajustering": 0.22,
+"nivajustering": 0.28,
 "logg": [
 {
 "ts": 1795654800.0,
@@ -38390,12 +38384,12 @@
 }
 ]
 },
-"prognos": 4.726101012338732,
-"analys_ts": 1795830210.5107837,
+"prognos": 4.721434520287915,
+"analys_ts": 1795831551.1404104,
 "modellversion": "2026-11-26-vikt0075",
 "prognos_ts": 1795812230.8443682,
 "skarp_stang_p": 0.5449445985277092,
-"skarp_stang_ts": 1795830210.2325346,
+"skarp_stang_ts": 1795831550.8095555,
 "skarp_kalla": "skanning",
 "pin_stang_p": 0.5421462452051407,
 "dk_stang_p": 0.5514627627080393,
@@ -38423,7 +38417,7 @@
 "dk_p": 0.5514627627080393
 },
 "bolag_stangning": {
-"ts": 1795830210.5221968,
+"ts": 1795831551.151358,
 "odds": {
 "unibet": {
 "over": 1.9,
@@ -38447,7 +38441,7 @@
 "pin_p": 0.5421462452051407,
 "dk_p": 0.5514627627080393
 },
-"bolag_stang_ts": 1795830210.5221968,
+"bolag_stang_ts": 1795831551.151358,
 "skarp_verifierad": true,
 "skarp_status": null,
 "clv_skarp_pp": 3.212408570719627,
@@ -38709,7 +38703,7 @@
 "dk_p": 0.4617443203900897
 },
 "bolag_stangning": {
-"ts": 1795830210.5221968,
+"ts": 1795831551.151358,
 "odds": {
 "unibet": {
 "over": 1.68,
@@ -38723,7 +38717,7 @@
 "fd_linje": null,
 "bv_linje": null
 },
-"bolag_stang_ts": 1795830210.5221968,
+"bolag_stang_ts": 1795831551.151358,
 "skarp_verifierad": false,
 "skarp_status": null,
 "clv_skarp_pp": 1.6770688656304156,
@@ -39033,23 +39027,23 @@
 "p_marknad": 0.5578872035170761,
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795830210.3868444,
+"stangning_ts": 1795831550.9982998,
 "analys": {
-"p_stack": 0.5243,
-"p_modell_min": 0.5286,
+"p_stack": 0.525,
+"p_modell_min": 0.53,
 "minuter": 40.3,
 "minuter_sd": 4.4,
-"p_faktorer": 0.5203,
-"p_faktorer_ra": 0.4623,
-"vantat_faktorer": 6.68,
+"p_faktorer": 0.5214,
+"p_faktorer_ra": 0.4834,
+"vantat_faktorer": 6.66,
 "p_betyg": 0.5263,
-"p_betyg_ra": 0.5809,
-"vantat_betyg": 6.23,
+"p_betyg_ra": 0.5821,
+"vantat_betyg": 6.22,
 "minuter_faktorer": 35.9,
 "f_anv": 1.025,
 "f_miljo": 0.983,
 "f_tempo": 1.0,
-"f_pos": 1.013,
+"f_pos": 1.01,
 "f_mot": 1.08,
 "f_minuter_bas": 33.5,
 "f_b2b": false,
@@ -39070,17 +39064,17 @@
 "traff_hemmaborta": 0.5,
 "traff_hemmaborta_n": 6,
 "p_kalib": 0.5234,
-"p_blend": 0.523,
+"p_blend": 0.5236,
 "kalib_modell": "M0",
-"p_modell": 0.5171,
+"p_modell": 0.5285,
 "p_marknad": 0.5234,
-"p_slutlig": 0.523,
-"vantat": 6.68,
+"p_slutlig": 0.5236,
+"vantat": 6.67,
 "nb_r": 10,
 "modell_vikt": 0.05,
 "dq": 0.67,
 "matcher": 10,
-"nivajustering": -0.03,
+"nivajustering": 0.01,
 "logg": [
 {
 "ts": 1795662000.0,
@@ -39228,12 +39222,12 @@
 }
 ]
 },
-"prognos": 6.68144487265842,
-"analys_ts": 1795830210.5107837,
+"prognos": 6.670453202395618,
+"analys_ts": 1795831551.1404104,
 "modellversion": "2026-11-26-vikt0075",
 "prognos_ts": 1795814546.5517857,
 "skarp_stang_p": 0.5233606241842896,
-"skarp_stang_ts": 1795830210.2325346,
+"skarp_stang_ts": 1795831550.8095555,
 "skarp_kalla": "skanning",
 "pin_stang_p": 0.5233606241842896,
 "bolag_bokning": {
@@ -39255,7 +39249,7 @@
 "pin_p": 0.5578872035170761
 },
 "bolag_stangning": {
-"ts": 1795830210.5221968,
+"ts": 1795831551.151358,
 "odds": {
 "unibet": {
 "over": 2.1,
@@ -39274,7 +39268,7 @@
 "bv_linje": null,
 "pin_p": 0.5233606241842896
 },
-"bolag_stang_ts": 1795830210.5221968,
+"bolag_stang_ts": 1795831551.151358,
 "skarp_verifierad": true,
 "skarp_status": null,
 "clv_skarp_pp": 0.2527290850956265,
@@ -39575,7 +39569,7 @@
 "edge": 0.06236013343935487,
 "spela_fran": 1.72,
 "insats_pct": 0.019734219442833854,
-"stangning": 1.86,
+"stangning": 1.89,
 "status": "öppen",
 "stopp": "",
 "clv_signal": false,
@@ -39584,23 +39578,23 @@
 "p_marknad": 0.5934972812510363,
 "utfall": null,
 "resultat_enheter": null,
-"stangning_ts": 1795830210.3868444,
+"stangning_ts": 1795831550.9982998,
 "analys": {
-"p_stack": 0.5762,
-"p_modell_min": 0.7592,
+"p_stack": 0.5667,
+"p_modell_min": 0.7587,
 "minuter": 31.9,
 "minuter_sd": 6.3,
-"p_faktorer": 0.5931,
-"p_faktorer_ra": 0.7735,
-"vantat_faktorer": 4.4,
-"p_betyg": 0.592,
-"p_betyg_ra": 0.7565,
-"vantat_betyg": 4.37,
+"p_faktorer": 0.5835,
+"p_faktorer_ra": 0.7602,
+"vantat_faktorer": 4.38,
+"p_betyg": 0.5832,
+"p_betyg_ra": 0.756,
+"vantat_betyg": 4.36,
 "minuter_faktorer": 30.5,
 "f_anv": 1.0,
 "f_miljo": 1.0,
-"f_tempo": 0.991,
-"f_pos": 1.051,
+"f_tempo": 0.989,
+"f_pos": 1.048,
 "f_mot": 1.0,
 "f_minuter_bas": 32.3,
 "f_b2b": false,
@@ -39608,7 +39602,7 @@
 "f_minutbegransning": false,
 "f_tillbaka": false,
 "f_miljo_kalla": "pinnacle",
-"f_lag_poang": 109.8,
+"f_lag_poang": 110.2,
 "f_mot_n": 0,
 "traff_l5": 1.0,
 "traff_l5_n": 5,
@@ -39620,18 +39614,18 @@
 "traff_mot_n": 0,
 "traff_hemmaborta": 0.5,
 "traff_hemmaborta_n": 6,
-"p_kalib": 0.5822,
-"p_blend": 0.5889,
+"p_kalib": 0.573,
+"p_blend": 0.5795,
 "kalib_modell": "M0",
-"p_modell": 0.7068,
-"p_marknad": 0.5822,
-"p_slutlig": 0.5889,
+"p_modell": 0.6945,
+"p_marknad": 0.573,
+"p_slutlig": 0.5795,
 "vantat": 4.31,
 "nb_r": 10,
 "modell_vikt": 0.05,
 "dq": 0.67,
 "matcher": 10,
-"nivajustering": 0.22,
+"nivajustering": 0.28,
 "logg": [
 {
 "ts": 1795489200.0,
@@ -39711,7 +39705,7 @@
 "minuter_sd_faktorer": 6.3,
 "ref": {
 "pin_p": null,
-"dk_p": 0.5822395108039671,
+"dk_p": 0.5730479780319825,
 "pin_linje": null,
 "dk_linje": null,
 "pin_flyttad": false,
@@ -39720,54 +39714,54 @@
 "odds_bolag": [
 {
 "bolag": "atg",
-"over": 1.86,
-"under": 1.87
+"over": 1.89,
+"under": 1.84
 },
 {
 "bolag": "betmgm",
-"over": 1.86,
-"under": 1.87
+"over": 1.89,
+"under": 1.84
 },
 {
 "bolag": "expekt",
-"over": 1.86,
-"under": 1.87
+"over": 1.89,
+"under": 1.84
 },
 {
 "bolag": "leovegas",
-"over": 1.86,
-"under": 1.87
+"over": 1.89,
+"under": 1.84
 },
 {
 "bolag": "paf",
-"over": 1.86,
-"under": 1.87
+"over": 1.89,
+"under": 1.84
 },
 {
 "bolag": "svenskaspel",
-"over": 1.86,
-"under": 1.87
+"over": 1.89,
+"under": 1.84
 },
 {
 "bolag": "unibet",
-"over": 1.86,
-"under": 1.87
+"over": 1.89,
+"under": 1.84
 },
 {
 "bolag": "us_draftkings",
-"over": 1.63,
-"under": 2.2
+"over": 1.65,
+"under": 2.15
 }
 ]
 },
-"prognos": 4.3140590175154605,
-"analys_ts": 1795830210.5107837,
+"prognos": 4.3097993704915325,
+"analys_ts": 1795831551.1404104,
 "modellversion": "2026-11-26-vikt0075",
 "prognos_ts": 1795824029.26643,
-"skarp_stang_p": 0.5822395108039671,
-"skarp_stang_ts": 1795830210.2325346,
+"skarp_stang_p": 0.5730479780319825,
+"skarp_stang_ts": 1795831550.8095555,
 "skarp_kalla": "skanning",
-"dk_stang_p": 0.5822395108039671,
+"dk_stang_p": 0.5730479780319825,
 "bolag_bokning": {
 "ts": 1795824029.4477832,
 "odds": {
@@ -39789,15 +39783,15 @@
 "dk_p": 0.5934972812510363
 },
 "bolag_stangning": {
-"ts": 1795830210.5221968,
+"ts": 1795831551.151358,
 "odds": {
 "unibet": {
-"over": 1.86,
-"under": 1.87
+"over": 1.89,
+"under": 1.84
 },
 "draftkings": {
-"over": 1.63,
-"under": 2.2
+"over": 1.65,
+"under": 2.15
 }
 },
 "pin_flyttad": false,
@@ -39806,14 +39800,14 @@
 "dk_linje": null,
 "fd_linje": null,
 "bv_linje": null,
-"dk_p": 0.5822395108039671
+"dk_p": 0.5730479780319825
 },
-"bolag_stang_ts": 1795830210.5221968,
+"bolag_stang_ts": 1795831551.151358,
 "skarp_verifierad": true,
 "skarp_status": null,
-"clv_skarp_pp": 2.3580292926872137,
+"clv_skarp_pp": 1.4388760154887548,
 "clv_pin_pp": null,
-"clv_dk_pp": 2.3580292926872137,
+"clv_dk_pp": 1.4388760154887548,
 "clv_fd_pp": null,
 "clv_bv_pp": null
 },
@@ -40699,6 +40693,1032 @@
 "clv_pin_pp": 6.436618354681278,
 "clv_dk_pp": -2.0288908149115326,
 "clv_fd_pp": -2.9086701791891434,
+"clv_bv_pp": null
+},
+{
+"key": "nba1028744811|stephon castle|assists|6.5|unibet",
+"id": 576,
+"bokford": 1795831550.9982364,
+"match_id": "nba1028744811",
+"match": "San Antonio Spurs – Los Angeles Lakers",
+"hemma": "San Antonio Spurs",
+"borta": "Los Angeles Lakers",
+"liga": "NBA",
+"avspark": 1795833000.0,
+"spelare": "Stephon Castle",
+"spelare_id": "stephon castle",
+"marknad": "assists",
+"linje": 6.5,
+"sida": "over",
+"bolag": "unibet",
+"odds": 1.92,
+"sannolikhet": 0.5760748159334613,
+"ratt_odds": 1.735885639054743,
+"edge": 0.10606364659224576,
+"spela_fran": 1.78,
+"insats_pct": 0.003630804879162554,
+"stangning": 1.92,
+"status": "öppen",
+"stopp": "",
+"clv_signal": false,
+"forv_clv_pp": 5.524148260012796,
+"p_modell": null,
+"p_marknad": 0.5760748159334613,
+"utfall": null,
+"resultat_enheter": null,
+"stangning_ts": 1795831550.9982998,
+"analys": {
+"p_stack": 0.5948,
+"p_modell_min": 0.4888,
+"minuter": 31.2,
+"minuter_sd": 4.4,
+"p_faktorer": 0.5752,
+"p_faktorer_ra": 0.5616,
+"vantat_faktorer": 7.0,
+"p_betyg": 0.5622,
+"p_betyg_ra": 0.3464,
+"vantat_betyg": 5.65,
+"minuter_faktorer": 29.2,
+"f_anv": 1.0,
+"f_miljo": 1.0,
+"f_tempo": 1.0,
+"f_pos": 1.048,
+"f_mot": 1.029,
+"f_minuter_bas": 31.6,
+"f_b2b": false,
+"f_tre_pa_fyra": true,
+"f_minutbegransning": false,
+"f_tillbaka": false,
+"f_miljo_kalla": "pinnacle",
+"f_lag_poang": 116.8,
+"f_mot_n": 4,
+"traff_l5": 0.8,
+"traff_l5_n": 5,
+"traff_l10": 0.6,
+"traff_l10_n": 10,
+"traff_sasong": 0.474,
+"traff_sasong_n": 19,
+"traff_mot": 0.5,
+"traff_mot_n": 4,
+"traff_hemmaborta": 0.2,
+"traff_hemmaborta_n": 10,
+"p_kalib": 0.5761,
+"p_blend": 0.5708,
+"kalib_modell": "M0",
+"p_modell": 0.487,
+"p_marknad": 0.5761,
+"p_slutlig": 0.5708,
+"vantat": 6.8,
+"nb_r": 10,
+"modell_vikt": 0.06,
+"dq": 0.8,
+"matcher": 12,
+"nivajustering": 0.01,
+"logg": [
+{
+"ts": 1795662000.0,
+"mot": "POR",
+"hemma": false,
+"min": 34.0,
+"v": 9.0
+},
+{
+"ts": 1795489200.0,
+"mot": "SAC",
+"hemma": false,
+"min": 37.0,
+"v": 11.0
+},
+{
+"ts": 1795309200.0,
+"mot": "NO",
+"hemma": true,
+"min": 29.0,
+"v": 6.0
+},
+{
+"ts": 1795136400.0,
+"mot": "LAC",
+"hemma": true,
+"min": 33.0,
+"v": 12.0
+},
+{
+"ts": 1794963600.0,
+"mot": "DET",
+"hemma": true,
+"min": 31.0,
+"v": 7.0
+},
+{
+"ts": 1794780000.0,
+"mot": "UTAH",
+"hemma": false,
+"min": 35.0,
+"v": 9.0
+},
+{
+"ts": 1794623400.0,
+"mot": "GS",
+"hemma": true,
+"min": 25.0,
+"v": 6.0
+},
+{
+"ts": 1794445200.0,
+"mot": "CHI",
+"hemma": false,
+"min": 29.0,
+"v": 3.0
+},
+{
+"ts": 1794276000.0,
+"mot": "PHX",
+"hemma": false,
+"min": 30.0,
+"v": 7.0
+},
+{
+"ts": 1794106800.0,
+"mot": "POR",
+"hemma": false,
+"min": 24.0,
+"v": 5.0
+}
+],
+"franvaro": [],
+"lag": "San Antonio Spurs",
+"mot": "LAL",
+"hemma": true,
+"minuter_sd_faktorer": 4.4,
+"ref": {
+"pin_p": null,
+"dk_p": 0.5669119069911251,
+"pin_linje": null,
+"dk_linje": null,
+"pin_flyttad": false,
+"pin_komb": false
+},
+"odds_bolag": [
+{
+"bolag": "atg",
+"over": 1.92,
+"under": 1.81
+},
+{
+"bolag": "betmgm",
+"over": 1.92,
+"under": 1.81
+},
+{
+"bolag": "expekt",
+"over": 1.92,
+"under": 1.81
+},
+{
+"bolag": "leovegas",
+"over": 1.92,
+"under": 1.81
+},
+{
+"bolag": "paf",
+"over": 1.92,
+"under": 1.81
+},
+{
+"bolag": "svenskaspel",
+"over": 1.92,
+"under": 1.81
+},
+{
+"bolag": "unibet",
+"over": 1.92,
+"under": 1.81
+},
+{
+"bolag": "us_betmgm",
+"over": 1.65,
+"under": 2.15
+},
+{
+"bolag": "us_betonlineag",
+"over": 1.62,
+"under": 2.24
+},
+{
+"bolag": "us_draftkings",
+"over": 1.67,
+"under": 2.13
+}
+]
+},
+"prognos": 6.80169824613563,
+"analys_ts": 1795831551.1404104,
+"modellversion": "2026-11-26-vikt0075",
+"prognos_ts": 1795831550.9982364,
+"skarp_stang_p": 0.5760748159334613,
+"skarp_stang_ts": 1795831550.8095555,
+"skarp_kalla": "skanning",
+"dk_stang_p": 0.5669119069911251,
+"fd_stang_p": 0.557156251669161,
+"bolag_bokning": {
+"ts": 1795831551.151358,
+"odds": {
+"unibet": {
+"over": 1.92,
+"under": 1.81
+},
+"draftkings": {
+"over": 1.67,
+"under": 2.13
+},
+"fanduel (7.5)": {
+"over": 2.1,
+"under": 1.71
+}
+},
+"pin_flyttad": false,
+"pin_komb": false,
+"pin_linje": null,
+"dk_linje": null,
+"fd_linje": 7.5,
+"bv_linje": null,
+"dk_p": 0.5669119069911251,
+"fd_p": 0.557156251669161
+},
+"bolag_stangning": {
+"ts": 1795831551.151358,
+"odds": {
+"unibet": {
+"over": 1.92,
+"under": 1.81
+},
+"draftkings": {
+"over": 1.67,
+"under": 2.13
+},
+"fanduel (7.5)": {
+"over": 2.1,
+"under": 1.71
+}
+},
+"pin_flyttad": false,
+"pin_komb": false,
+"pin_linje": null,
+"dk_linje": null,
+"fd_linje": 7.5,
+"bv_linje": null,
+"dk_p": 0.5669119069911251,
+"fd_p": 0.557156251669161
+},
+"bolag_stang_ts": 1795831551.151358,
+"skarp_verifierad": true,
+"skarp_status": null,
+"clv_skarp_pp": 5.524148260012796,
+"clv_pin_pp": null,
+"clv_dk_pp": 4.607857365779178,
+"clv_fd_pp": 3.632291833582768,
+"clv_bv_pp": null
+},
+{
+"key": "nba1028744811|dylan harper|assists|3.5|unibet",
+"id": 577,
+"bokford": 1795831550.9982595,
+"match_id": "nba1028744811",
+"match": "San Antonio Spurs – Los Angeles Lakers",
+"hemma": "San Antonio Spurs",
+"borta": "Los Angeles Lakers",
+"liga": "NBA",
+"avspark": 1795833000.0,
+"spelare": "Dylan Harper",
+"spelare_id": "dylan harper",
+"marknad": "assists",
+"linje": 3.5,
+"sida": "over",
+"bolag": "unibet",
+"odds": 2.35,
+"sannolikhet": 0.4664167934637587,
+"ratt_odds": 2.144005134492872,
+"edge": 0.09607946463983308,
+"spela_fran": 2.19,
+"insats_pct": 0.0032300536018669596,
+"stangning": 2.35,
+"status": "öppen",
+"stopp": "",
+"clv_signal": false,
+"forv_clv_pp": 4.088487857014167,
+"p_modell": null,
+"p_marknad": 0.4664167934637587,
+"utfall": null,
+"resultat_enheter": null,
+"stangning_ts": 1795831550.9982998,
+"analys": {
+"p_stack": 0.4649,
+"p_modell_min": 0.5093,
+"minuter": 30.9,
+"minuter_sd": 5.1,
+"p_faktorer": 0.4691,
+"p_faktorer_ra": 0.5345,
+"vantat_faktorer": 3.65,
+"p_betyg": 0.4696,
+"p_betyg_ra": 0.5461,
+"vantat_betyg": 4.07,
+"minuter_faktorer": 26.0,
+"f_anv": 1.0,
+"f_miljo": 1.0,
+"f_tempo": 1.0,
+"f_pos": 1.048,
+"f_mot": 1.08,
+"f_minuter_bas": 31.2,
+"f_b2b": false,
+"f_tre_pa_fyra": true,
+"f_minutbegransning": false,
+"f_tillbaka": true,
+"f_miljo_kalla": "pinnacle",
+"f_lag_poang": 116.8,
+"f_mot_n": 3,
+"traff_l5": 0.8,
+"traff_l5_n": 5,
+"traff_l10": 0.7,
+"traff_l10_n": 10,
+"traff_sasong": 0.667,
+"traff_sasong_n": 15,
+"traff_mot": 0.333,
+"traff_mot_n": 3,
+"traff_hemmaborta": 0.625,
+"traff_hemmaborta_n": 8,
+"p_kalib": 0.4664,
+"p_blend": 0.468,
+"kalib_modell": "M0",
+"p_modell": 0.5069,
+"p_marknad": 0.4664,
+"p_slutlig": 0.468,
+"vantat": 3.85,
+"nb_r": 10,
+"modell_vikt": 0.04,
+"dq": 0.53,
+"matcher": 8,
+"nivajustering": 0.01,
+"logg": [
+{
+"ts": 1794963600.0,
+"mot": "DET",
+"hemma": true,
+"min": 35.0,
+"v": 2.0
+},
+{
+"ts": 1794780000.0,
+"mot": "UTAH",
+"hemma": false,
+"min": 34.0,
+"v": 4.0
+},
+{
+"ts": 1794623400.0,
+"mot": "GS",
+"hemma": true,
+"min": 25.0,
+"v": 4.0
+},
+{
+"ts": 1794445200.0,
+"mot": "CHI",
+"hemma": false,
+"min": 36.0,
+"v": 10.0
+},
+{
+"ts": 1794276000.0,
+"mot": "PHX",
+"hemma": false,
+"min": 26.0,
+"v": 4.0
+},
+{
+"ts": 1794106800.0,
+"mot": "POR",
+"hemma": false,
+"min": 28.0,
+"v": 4.0
+},
+{
+"ts": 1794020400.0,
+"mot": "SAC",
+"hemma": false,
+"min": 28.0,
+"v": 3.0
+},
+{
+"ts": 1793845800.0,
+"mot": "DAL",
+"hemma": true,
+"min": 36.0,
+"v": 0.0
+},
+{
+"ts": 1793669400.0,
+"mot": "UTAH",
+"hemma": true,
+"min": 27.0,
+"v": 8.0
+},
+{
+"ts": 1793491200.0,
+"mot": "MIN",
+"hemma": true,
+"min": 39.0,
+"v": 6.0
+}
+],
+"franvaro": [],
+"lag": "San Antonio Spurs",
+"mot": "LAL",
+"hemma": true,
+"minuter_sd_faktorer": 6.4,
+"ref": {
+"pin_p": null,
+"dk_p": 0.437204867680097,
+"pin_linje": null,
+"dk_linje": null,
+"pin_flyttad": false,
+"pin_komb": false
+},
+"odds_bolag": [
+{
+"bolag": "atg",
+"over": 2.35,
+"under": 1.54
+},
+{
+"bolag": "betmgm",
+"over": 2.35,
+"under": 1.54
+},
+{
+"bolag": "expekt",
+"over": 2.35,
+"under": 1.54
+},
+{
+"bolag": "kalshi",
+"over": 2.247,
+"under": 1.802
+},
+{
+"bolag": "leovegas",
+"over": 2.35,
+"under": 1.54
+},
+{
+"bolag": "paf",
+"over": 2.35,
+"under": 1.54
+},
+{
+"bolag": "svenskaspel",
+"over": 2.35,
+"under": 1.54
+},
+{
+"bolag": "unibet",
+"over": 2.35,
+"under": 1.54
+},
+{
+"bolag": "us_betonlineag",
+"over": 1.98,
+"under": 1.79
+},
+{
+"bolag": "us_draftkings",
+"over": 2.11,
+"under": 1.68
+},
+{
+"bolag": "us_fanduel",
+"over": 1.88,
+"under": 1.88
+},
+{
+"bolag": "us_hardrockbet",
+"over": 1.95,
+"under": 1.8
+}
+]
+},
+"prognos": 3.849241538496543,
+"analys_ts": 1795831551.1404104,
+"modellversion": "2026-11-26-vikt0075",
+"prognos_ts": 1795831550.9982595,
+"skarp_stang_p": 0.4664167934637587,
+"skarp_stang_ts": 1795831550.8095555,
+"skarp_kalla": "skanning",
+"dk_stang_p": 0.437204867680097,
+"fd_stang_p": 0.5,
+"bolag_bokning": {
+"ts": 1795831551.151358,
+"odds": {
+"unibet": {
+"over": 2.35,
+"under": 1.54
+},
+"draftkings": {
+"over": 2.11,
+"under": 1.68
+},
+"fanduel": {
+"over": 1.88,
+"under": 1.88
+}
+},
+"pin_flyttad": false,
+"pin_komb": false,
+"pin_linje": null,
+"dk_linje": null,
+"fd_linje": null,
+"bv_linje": null,
+"dk_p": 0.437204867680097,
+"fd_p": 0.5
+},
+"bolag_stangning": {
+"ts": 1795831551.151358,
+"odds": {
+"unibet": {
+"over": 2.35,
+"under": 1.54
+},
+"draftkings": {
+"over": 2.11,
+"under": 1.68
+},
+"fanduel": {
+"over": 1.88,
+"under": 1.88
+}
+},
+"pin_flyttad": false,
+"pin_komb": false,
+"pin_linje": null,
+"dk_linje": null,
+"fd_linje": null,
+"bv_linje": null,
+"dk_p": 0.437204867680097,
+"fd_p": 0.5
+},
+"bolag_stang_ts": 1795831551.151358,
+"skarp_verifierad": true,
+"skarp_status": null,
+"clv_skarp_pp": 4.088487857014167,
+"clv_pin_pp": null,
+"clv_dk_pp": 1.167295278647995,
+"clv_fd_pp": 7.446808510638298,
+"clv_bv_pp": null
+},
+{
+"key": "nba1028744811|de aaron fox|assists|5.5|unibet",
+"id": 578,
+"bokford": 1795831550.998269,
+"match_id": "nba1028744811",
+"match": "San Antonio Spurs – Los Angeles Lakers",
+"hemma": "San Antonio Spurs",
+"borta": "Los Angeles Lakers",
+"liga": "NBA",
+"avspark": 1795833000.0,
+"spelare": "De'Aaron Fox",
+"spelare_id": "de aaron fox",
+"marknad": "assists",
+"linje": 5.5,
+"sida": "over",
+"bolag": "unibet",
+"odds": 2.23,
+"sannolikhet": 0.4827410966797902,
+"ratt_odds": 2.0715037664657663,
+"edge": 0.07651264559593218,
+"spela_fran": 2.12,
+"insats_pct": 0.002823196005562458,
+"stangning": 2.23,
+"status": "öppen",
+"stopp": "",
+"clv_signal": false,
+"forv_clv_pp": 3.4310603406247586,
+"p_modell": null,
+"p_marknad": 0.4827410966797902,
+"utfall": null,
+"resultat_enheter": null,
+"stangning_ts": 1795831550.9982998,
+"analys": {
+"p_stack": 0.4736,
+"p_modell_min": 0.3273,
+"minuter": 27.6,
+"minuter_sd": 5.7,
+"p_faktorer": 0.4738,
+"p_faktorer_ra": 0.2958,
+"vantat_faktorer": 4.09,
+"p_betyg": 0.4747,
+"p_betyg_ra": 0.3123,
+"vantat_betyg": 4.52,
+"minuter_faktorer": 23.1,
+"f_anv": 1.0,
+"f_miljo": 1.0,
+"f_tempo": 1.0,
+"f_pos": 1.048,
+"f_mot": 1.0,
+"f_minuter_bas": 28.0,
+"f_b2b": false,
+"f_tre_pa_fyra": true,
+"f_minutbegransning": false,
+"f_tillbaka": true,
+"f_miljo_kalla": "pinnacle",
+"f_lag_poang": 116.8,
+"f_mot_n": 3,
+"traff_l5": 0.4,
+"traff_l5_n": 5,
+"traff_l10": 0.4,
+"traff_l10_n": 10,
+"traff_sasong": 0.562,
+"traff_sasong_n": 16,
+"traff_mot": 0.333,
+"traff_mot_n": 3,
+"traff_hemmaborta": 0.5,
+"traff_hemmaborta_n": 10,
+"p_kalib": 0.4827,
+"p_blend": 0.4759,
+"kalib_modell": "M0",
+"p_modell": 0.3366,
+"p_marknad": 0.4827,
+"p_slutlig": 0.4759,
+"vantat": 4.7,
+"nb_r": 10,
+"modell_vikt": 0.04,
+"dq": 0.6,
+"matcher": 9,
+"nivajustering": 0.01,
+"logg": [
+{
+"ts": 1795309200.0,
+"mot": "NO",
+"hemma": true,
+"min": 26.0,
+"v": 10.0
+},
+{
+"ts": 1795136400.0,
+"mot": "LAC",
+"hemma": true,
+"min": 32.0,
+"v": 5.0
+},
+{
+"ts": 1794963600.0,
+"mot": "DET",
+"hemma": true,
+"min": 34.0,
+"v": 2.0
+},
+{
+"ts": 1794623400.0,
+"mot": "GS",
+"hemma": true,
+"min": 17.0,
+"v": 1.0
+},
+{
+"ts": 1794445200.0,
+"mot": "CHI",
+"hemma": false,
+"min": 31.0,
+"v": 9.0
+},
+{
+"ts": 1794276000.0,
+"mot": "PHX",
+"hemma": false,
+"min": 29.0,
+"v": 6.0
+},
+{
+"ts": 1794106800.0,
+"mot": "POR",
+"hemma": false,
+"min": 22.0,
+"v": 6.0
+},
+{
+"ts": 1794020400.0,
+"mot": "SAC",
+"hemma": false,
+"min": 26.0,
+"v": 4.0
+},
+{
+"ts": 1793845800.0,
+"mot": "DAL",
+"hemma": true,
+"min": 33.0,
+"v": 4.0
+},
+{
+"ts": 1793669400.0,
+"mot": "UTAH",
+"hemma": true,
+"min": 22.0,
+"v": 3.0
+}
+],
+"franvaro": [],
+"lag": "San Antonio Spurs",
+"mot": "LAL",
+"hemma": true,
+"minuter_sd_faktorer": 7.1,
+"ref": {
+"pin_p": null,
+"dk_p": 0.47066494691580574,
+"pin_linje": null,
+"dk_linje": null,
+"pin_flyttad": false,
+"pin_komb": false
+},
+"odds_bolag": [
+{
+"bolag": "atg",
+"over": 2.23,
+"under": 1.6
+},
+{
+"bolag": "betmgm",
+"over": 2.23,
+"under": 1.6
+},
+{
+"bolag": "expekt",
+"over": 2.23,
+"under": 1.6
+},
+{
+"bolag": "kalshi",
+"over": 2.198,
+"under": 1.835
+},
+{
+"bolag": "leovegas",
+"over": 2.23,
+"under": 1.6
+},
+{
+"bolag": "paf",
+"over": 2.23,
+"under": 1.6
+},
+{
+"bolag": "svenskaspel",
+"over": 2.23,
+"under": 1.6
+},
+{
+"bolag": "unibet",
+"over": 2.23,
+"under": 1.6
+},
+{
+"bolag": "us_betmgm",
+"over": 1.83,
+"under": 1.91
+},
+{
+"bolag": "us_betonlineag",
+"over": 1.97,
+"under": 1.8
+},
+{
+"bolag": "us_draftkings",
+"over": 1.98,
+"under": 1.78
+},
+{
+"bolag": "us_espnbet",
+"over": 1.91,
+"under": 1.83
+},
+{
+"bolag": "us_fanduel",
+"over": 1.9,
+"under": 1.87
+},
+{
+"bolag": "us_hardrockbet",
+"over": 1.91,
+"under": 1.83
+}
+]
+},
+"prognos": 4.698385304495912,
+"analys_ts": 1795831551.1404104,
+"modellversion": "2026-11-26-vikt0075",
+"prognos_ts": 1795831550.998269,
+"skarp_stang_p": 0.4827410966797902,
+"skarp_stang_ts": 1795831550.8095555,
+"skarp_kalla": "skanning",
+"dk_stang_p": 0.47066494691580574,
+"fd_stang_p": 0.4956490992452807,
+"bolag_bokning": {
+"ts": 1795831551.151358,
+"odds": {
+"unibet": {
+"over": 2.23,
+"under": 1.6
+},
+"draftkings": {
+"over": 1.98,
+"under": 1.78
+},
+"fanduel": {
+"over": 1.9,
+"under": 1.87
+}
+},
+"pin_flyttad": false,
+"pin_komb": false,
+"pin_linje": null,
+"dk_linje": null,
+"fd_linje": null,
+"bv_linje": null,
+"dk_p": 0.47066494691580574,
+"fd_p": 0.4956490992452807
+},
+"bolag_stangning": {
+"ts": 1795831551.151358,
+"odds": {
+"unibet": {
+"over": 2.23,
+"under": 1.6
+},
+"draftkings": {
+"over": 1.98,
+"under": 1.78
+},
+"fanduel": {
+"over": 1.9,
+"under": 1.87
+}
+},
+"pin_flyttad": false,
+"pin_komb": false,
+"pin_linje": null,
+"dk_linje": null,
+"fd_linje": null,
+"bv_linje": null,
+"dk_p": 0.47066494691580574,
+"fd_p": 0.4956490992452807
+},
+"bolag_stang_ts": 1795831551.151358,
+"skarp_verifierad": true,
+"skarp_status": null,
+"clv_skarp_pp": 3.4310603406247586,
+"clv_pin_pp": null,
+"clv_dk_pp": 2.223445364226312,
+"clv_fd_pp": 4.72186059717381,
+"clv_bv_pp": null
+},
+{
+"key": "nba1028744793|jusuf nurkic|rebounds|6.5|unibet",
+"id": 579,
+"bokford": 1795831550.9982755,
+"match_id": "nba1028744793",
+"match": "Utah Jazz – Denver Nuggets",
+"hemma": "Utah Jazz",
+"borta": "Denver Nuggets",
+"liga": "NBA",
+"avspark": 1795833000.0,
+"spelare": "Jusuf Nurkic",
+"spelare_id": "jusuf nurkic",
+"marknad": "rebounds",
+"linje": 6.5,
+"sida": "over",
+"bolag": "unibet",
+"odds": 1.93,
+"sannolikhet": 0.5556246584483885,
+"ratt_odds": 1.7997761344727812,
+"edge": 0.07235559080538967,
+"spela_fran": 1.84,
+"insats_pct": 0.01945042763585747,
+"stangning": 1.93,
+"status": "öppen",
+"stopp": "sharp money med oss: referensen +7.8 enheter",
+"clv_signal": false,
+"forv_clv_pp": 7.6357300124495735,
+"p_modell": null,
+"p_marknad": 0.5556246584483885,
+"utfall": null,
+"resultat_enheter": null,
+"stangning_ts": 1795831550.9982998,
+"analys": {
+"ref": {
+"pin_p": null,
+"dk_p": 0.5556246584483885,
+"pin_linje": null,
+"dk_linje": null,
+"pin_flyttad": false,
+"pin_komb": false
+},
+"odds_bolag": [
+{
+"bolag": "atg",
+"over": 1.93,
+"under": 1.8
+},
+{
+"bolag": "betmgm",
+"over": 1.93,
+"under": 1.8
+},
+{
+"bolag": "expekt",
+"over": 1.93,
+"under": 1.8
+},
+{
+"bolag": "leovegas",
+"over": 1.93,
+"under": 1.8
+},
+{
+"bolag": "paf",
+"over": 1.93,
+"under": 1.8
+},
+{
+"bolag": "svenskaspel",
+"over": 1.93,
+"under": 1.8
+},
+{
+"bolag": "unibet",
+"over": 1.93,
+"under": 1.8
+},
+{
+"bolag": "us_draftkings",
+"over": 1.7,
+"under": 2.08
+}
+]
+},
+"prognos": null,
+"analys_ts": 1795831551.1404104,
+"modellversion": "2026-11-26-vikt0075",
+"prognos_ts": 1795831550.9982755,
+"skarp_stang_p": 0.5556246584483885,
+"skarp_stang_ts": 1795831550.8095555,
+"skarp_kalla": "skanning",
+"dk_stang_p": 0.5556246584483885,
+"bolag_bokning": {
+"ts": 1795831551.151358,
+"odds": {
+"unibet": {
+"over": 1.93,
+"under": 1.8
+},
+"draftkings": {
+"over": 1.7,
+"under": 2.08
+}
+},
+"pin_flyttad": false,
+"pin_komb": false,
+"pin_linje": null,
+"dk_linje": null,
+"fd_linje": null,
+"bv_linje": null,
+"dk_p": 0.5556246584483885
+},
+"bolag_stangning": {
+"ts": 1795831551.151358,
+"odds": {
+"unibet": {
+"over": 1.93,
+"under": 1.8
+},
+"draftkings": {
+"over": 1.7,
+"under": 2.08
+}
+},
+"pin_flyttad": false,
+"pin_komb": false,
+"pin_linje": null,
+"dk_linje": null,
+"fd_linje": null,
+"bv_linje": null,
+"dk_p": 0.5556246584483885
+},
+"bolag_stang_ts": 1795831551.151358,
+"skarp_verifierad": true,
+"skarp_status": null,
+"clv_skarp_pp": 3.7489943422481686,
+"clv_pin_pp": null,
+"clv_dk_pp": 3.7489943422481686,
+"clv_fd_pp": null,
 "clv_bv_pp": null
 }
 ]
