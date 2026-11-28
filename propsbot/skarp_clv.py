@@ -15,7 +15,8 @@ råoddsen finns (från 2026-11-15; äldre spel har bara referensen).
 Fält på spelet:
   skarp_stang_p / skarp_stang_ts   referensens sannolikhet för vår sida vid senaste notering före start
   pin_stang_p, dk_stang_p          Pinnacles resp. DraftKings rättvisa sannolikhet (om de fanns)
-  clv_skarp_pp, clv_pin_pp, clv_dk_pp
+  fd_stang_p, bv_stang_p           FanDuels resp. Bovadas rättvisa sannolikhet (om de fanns; bara loggning, påverkar inget beslut)
+  clv_skarp_pp, clv_pin_pp, clv_dk_pp, clv_fd_pp, clv_bv_pp
   skarp_kalla                      "skanning" (löpande) eller "bakåt" (rekonstruerad ur datahistoriken)
   skarp_status                     verifierad | flyttad linje | borttagen | gammal notering (se classify)
   skarp_flyttad_fran, skarp_flytt_for_oss
@@ -35,6 +36,8 @@ from collections import defaultdict
 from .market import PIN_ONE_SIDED, devig_power
 
 DK_BOOKS = ("us_draftkings", "oa_us_draftkings")
+FD_BOOKS = ("us_fanduel", "oa_us_fanduel")
+BV_BOOKS = ("us_bovada", "oa_us_bovada")       # Bovada (via SportsGameOdds): reserv om FanDuel saknas
 
 
 def line_key_bet(b: dict) -> str:
@@ -63,6 +66,8 @@ def recompute(b: dict) -> None:
     b["clv_skarp_pp"] = _pp(b.get("skarp_stang_p"), b.get("odds"))
     b["clv_pin_pp"] = _pp(b.get("pin_stang_p"), b.get("odds"))
     b["clv_dk_pp"] = _pp(b.get("dk_stang_p"), b.get("odds"))
+    b["clv_fd_pp"] = _pp(b.get("fd_stang_p"), b.get("odds"))
+    b["clv_bv_pp"] = _pp(b.get("bv_stang_p"), b.get("odds"))
 
 
 def book_probs(quotes) -> dict[tuple, dict]:
@@ -75,7 +80,8 @@ def book_probs(quotes) -> dict[tuple, dict]:
     komb: set = set()      # Pinnacle-kombo (PRA/PR/RA/PA) räknad ur Pinnacles delar
     for q in quotes:
         name = ("pinnacle" if q.book in ("pinnacle", "pinnacle_komb") else "draftkings" if q.book in DK_BOOKS
-                else "unibet" if q.book == "unibet" else None)
+                else "fanduel" if q.book in FD_BOOKS
+                else "bovada" if q.book in BV_BOOKS else "unibet" if q.book == "unibet" else None)
         if name and q.odds and q.odds > 1.0:
             k = (q.match_id, q.player_id, q.market, q.line)
             by[k][name][q.side] = q.odds
@@ -107,12 +113,12 @@ def book_probs(quotes) -> dict[tuple, dict]:
         MAX_LINE_GAP = {}
     lines: dict[tuple, dict[str, dict[float, tuple]]] = defaultdict(lambda: defaultdict(dict))
     for k, books in by.items():
-        for name in ("pinnacle", "draftkings"):
+        for name in ("pinnacle", "draftkings", "fanduel", "bovada"):
             s_ = books.get(name, {})
             if "over" in s_ and "under" in s_ and not (name == "pinnacle" and k in moved):
                 lines[k[:3]][name][k[3]] = (devig_power((s_["over"], s_["under"]))[0], s_["over"], s_["under"])
     for k, d in out.items():
-        for name in ("pinnacle", "draftkings"):
+        for name in ("pinnacle", "draftkings", "fanduel", "bovada"):
             if name in d:
                 continue
             cand = lines.get(k[:3], {}).get(name, {})
@@ -151,11 +157,16 @@ def update(ledger, hist_d: dict, now: float, books: dict | None = None, source: 
                 under = b.get("sida") == "under"
                 snap = {"ts": now, "odds": bp.get("_raw", {}), "pin_flyttad": bool(bp.get("_pin_flyttad")),
                         "pin_komb": bool(bp.get("_pin_komb")),
-                        "pin_linje": bp.get("_pinnacle_linje"), "dk_linje": bp.get("_draftkings_linje")}
+                        "pin_linje": bp.get("_pinnacle_linje"), "dk_linje": bp.get("_draftkings_linje"),
+                        "fd_linje": bp.get("_fanduel_linje"), "bv_linje": bp.get("_bovada_linje")}
                 if "pinnacle" in bp:
                     b["pin_stang_p"] = snap["pin_p"] = 1.0 - bp["pinnacle"] if under else bp["pinnacle"]
                 if "draftkings" in bp:
                     b["dk_stang_p"] = snap["dk_p"] = 1.0 - bp["draftkings"] if under else bp["draftkings"]
+                if "fanduel" in bp:
+                    b["fd_stang_p"] = snap["fd_p"] = 1.0 - bp["fanduel"] if under else bp["fanduel"]
+                if "bovada" in bp:
+                    b["bv_stang_p"] = snap["bv_p"] = 1.0 - bp["bovada"] if under else bp["bovada"]
                 # Analysen: bolagens odds vid bokningen (första noteringen) och senast före start (= stängning)
                 if "bolag_bokning" not in b and now - (b.get("bokford") or 0) < 1800:   # bara i bokningens körning
                     b["bolag_bokning"] = snap
@@ -211,9 +222,11 @@ def stats(bets: list[dict], now: float) -> dict:
     v, nv, bv = m("clv_skarp_pp", True)
     pn, npn, _ = m("clv_pin_pp")
     dk, ndk, _ = m("clv_dk_pp")
+    fd, nfd, _ = m("clv_fd_pp")
+    bv, nbv, _ = m("clv_bv_pp")
     return {"clv_skarp_pp": a, "clv_skarp_antal": na, "clv_skarp_slog": ba,
             "clv_skarp_ver_pp": v, "clv_skarp_ver_antal": nv, "clv_skarp_ver_slog": bv,
-            "clv_pin_pp": pn, "clv_pin_antal": npn, "clv_dk_pp": dk, "clv_dk_antal": ndk,
+            "clv_pin_pp": pn, "clv_pin_antal": npn, "clv_dk_pp": dk, "clv_dk_antal": ndk, "clv_fd_pp": fd, "clv_fd_antal": nfd, "clv_bv_pp": bv, "clv_bv_antal": nbv,
             "clv_skarp_tackning": (na / len(st)) if st else None,
             "clv_skarp_per_status": {k: {"n": len(v), "clv_pp": sum(v) / len(v)} for k, v in _by_status(st).items()}}
 
