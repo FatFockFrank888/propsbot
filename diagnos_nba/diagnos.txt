@@ -1,22 +1,22 @@
-NBA-skanning 2026-11-28 03:54
+NBA-skanning 2026-11-28 04:17
 Kambi NBA: 4 matcher, bolag: atg, betmgm, expekt, leovegas, paf, svenskaspel, unibet
 NBA tid: Kambi-props 10 s
-Pinnacle NBA: 1 matcher, 0 spelarodds (2 s)
-Kalshi: 202 likvida linjer av 1809 öppna marknader
+Pinnacle NBA: 4 matcher, 0 spelarodds (5 s)
+Kalshi: 53 likvida linjer av 1693 öppna marknader
 Kalshi: 0 linjer kopplade till matcher
 DK/FD: 0 nya hämtningar, 0 odds i bruk, krediter kvar 83, dagsbudget 26 (andel 60%), förbrukat idag 15
 SportsGameOdds NBA: vilar efter kvotfel till 28/11 20:43 UTC
-DraftKings via ESPN: 2 matcher, 252 spelarodds (referens)
-Stängningsarkiv (Pinnacle/DK): 126 tvåsidiga linjer noterade, 0 rader arkiverade
+DraftKings via ESPN: 2 matcher, 258 spelarodds (referens)
+Stängningsarkiv (Pinnacle/DK): 129 tvåsidiga linjer noterade, 0 rader arkiverade
 NBA namnexempel Washington Wizards: Kambi [] | Pinnacle []
 NBA linjer: 0 med samma linje hos Pinnacle, 0 flyttade från närliggande linje, 0 kombolinjer (PRA/PR/RA/PA) räknade ur Pinnacles poäng/returer/assist
 NBA-odds (unibet/pinnacle) per marknad: 
-NBA faktormodell (skugga): 98 spelare, Pinnacle-total för 1 av 4 matcher, ligatempo 100.1
+NBA faktormodell (skugga): 98 spelare, Pinnacle-total för 4 av 4 matcher, ligatempo 100.1
 NBA spelarbetyg (skugga): 96 spelare, 0 nya boxscores
 NBA-modell: 4 matcher hos ESPN, 98 spelare, 0 nya boxscores, 88 skadade (out/doubtful)
 NBA-modell nivåavvikelse (dras bort): 
 NBA faktormodell nivåavvikelse: –
-NBA minutmodell (skugga): medel cv² 0.121, spread från Pinnacle för 1 av 4 matcher; stackning: _alla b_m -0.02 b_k 1.20 (n 595), assists b_m +0.06 b_k 1.20 (n 94), blocks b_m +0.01 b_k 1.20 (n 5), pa b_m -0.03 b_k 1.06 (n 25), points b_m +0.02 b_k 1.20 (n 166), pr b_m -0.08 b_k 1.01 (n 61), pra b_m -0.06 b_k 1.07 (n 44), ra b_m +0.01 b_k 1.20 (n 39), rebounds b_m -0.04 b_k 1.10 (n 102), steals b_m -0.05 b_k 1.19 (n 9), threes b_m -0.05 b_k 1.16 (n 50)
+NBA minutmodell (skugga): medel cv² 0.121, spread från Pinnacle för 4 av 4 matcher; stackning: _alla b_m -0.02 b_k 1.20 (n 595), assists b_m +0.06 b_k 1.20 (n 94), blocks b_m +0.01 b_k 1.20 (n 5), pa b_m -0.03 b_k 1.06 (n 25), points b_m +0.02 b_k 1.20 (n 166), pr b_m -0.08 b_k 1.01 (n 61), pra b_m -0.06 b_k 1.07 (n 44), ra b_m +0.01 b_k 1.20 (n 39), rebounds b_m -0.04 b_k 1.10 (n 102), steals b_m -0.05 b_k 1.19 (n 9), threes b_m -0.05 b_k 1.16 (n 50)
 NBA-modelltest: 0 spelbara enligt den kalibrerade modellen av 0 ben med modell (7017 rader i kalibreringsloggen)
 NBA analyssida: 0 ben med analys
 NBA CLV-signal: 0 ben släppta
@@ -25,9 +25,34 @@ NBA spelregler: stoppade {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'f
 NBA: 0 spelbara ben av 0
 NBA LIVE: 0 spel uppfyller live-kraven, 0 nya bokförda live
 NBA skarp stängning: 0 spel uppdaterade
-NBA rättad: Mikal Bridges assists över 2.5 -> förlorad (2)
-NBA kalibrering: 1 nya rättade ben; _alla M0 (n 5536, test 1661, vinst +0.0000), assists M0 (n 487, test 147, vinst +0.0000), pa M0 (n 734, test 221, vinst +0.0000), points M0 (n 767, test 231, vinst +0.0000), pr M0 (n 957, test 288, vinst +0.0000), pra M0 (n 790, test 237, vinst +0.0000), ra M0 (n 583, test 175, vinst +0.0000), rebounds M0 (n 628, test 189, vinst +0.0000), threes M0 (n 495, test 149, vinst +0.0000)
+NBA rättad: Obi Toppin rebounds över 4.5 -> vunnen (3)
+NBA rättad: Collin Murray-Boyles rebounds över 5.5 -> förlorad (7)
+NBA rättad: Ryan Rollins assists över 3.5 -> förlorad (6)
+NBA rättad: Tyler Herro steals över 0.5 -> vunnen (0)
+NBA rättad: Julius Randle points över 21.5 -> vunnen (21)
+NBA rättad: Michael Porter Jr. pa över 21.5 -> vunnen (23)
+NBA rättad: Kyle Kuzma points över 11.5 -> förlorad (8)
+NBA rättad: Scottie Barnes ra över 12.5 -> förlorad (6)
+NBA rättad: Egor Demin points över 10.5 -> förlorad (7)
+NBA rättad: Collin Murray-Boyles rebounds över 5.5 -> förlorad (7)
+NBA rättad: Ivica Zubac rebounds över 9.5 -> förlorad (16)
+NBA rättad: Noah Clowney points över 7.5 -> förlorad (6)
+NBA rättad: Obi Toppin rebounds över 4.5 -> vunnen (3)
+NBA rättad: LeBron James pra över 33.5 -> förlorad (34)
+NBA rättad: Myles Turner assists över 1.5 -> förlorad (1)
+NBA rättad: Tyler Herro assists över 4.5 -> vunnen (4)
+NBA rättad: Ryan Rollins ra över 7.5 -> förlorad (10)
+NBA rättad: Immanuel Quickley rebounds över 3.5 -> förlorad (10)
+NBA rättad: Andrew Nembhard assists över 7.5 -> vunnen (3)
+NBA rättad: Kel'el Ware rebounds över 7.5 -> vunnen (7)
+NBA rättad: VJ Edgecombe rebounds över 6.5 -> vunnen (5)
+NBA rättad: Julius Randle assists över 4.5 -> förlorad (5)
+NBA rättad: Quenton Jackson points över 8.5 -> vunnen (9)
+NBA rättad: Ryan Rollins assists över 3.5 -> förlorad (6)
+NBA rättad: Julius Randle points över 21.5 -> vunnen (21)
+NBA kalibrering: 344 nya rättade ben; _alla M0 (n 5880, test 1764, vinst +0.0000), assists M0 (n 521, test 157, vinst +0.0000), pa M0 (n 782, test 235, vinst +0.0000), points M0 (n 820, test 246, vinst +0.0000), pr M0 (n 1012, test 304, vinst +0.0000), pra M0 (n 837, test 252, vinst +0.0000), ra M0 (n 616, test 185, vinst +0.0000), rebounds M0 (n 666, test 200, vinst +0.0000), threes M0 (n 527, test 159, vinst +0.0000)
 NBA LIVE-status per marknad (skarp CLV, marknadsspel): assists ok, blocks ok, pa osäker, points ok, pr ok, pra ok, ra osäker, rebounds ok, steals ok, threes ok
 NBA modellstatus per marknad (modelltest, styr inte): assists shadow, blocks insufficient_data, pa insufficient_data, points shadow, pr degraded, pra shadow, ra shadow, rebounds degraded, steals insufficient_data, threes shadow
-NBA sides/totals: 1 matcher med Kambi + Pinnacle, 6 linjer, 0 nya spel, 0 nya skuggspel, 0 över stoppade (utklassning); bästa edge +1.8% (totala poäng över 218.5), -3.9% (Orlando Magic -3.5), -4.4% (Orlando Magic vinner (inkl. förlängning))
+  NBA sides rättad: Boston Celtics – Atlanta Hawks Boston Celtics vinner (inkl. förlängning) -> förlorad (86–87)
+NBA sides/totals: 4 matcher med Kambi + Pinnacle, 24 linjer, 0 nya spel, 0 nya skuggspel, 0 över stoppade (utklassning); bästa edge +1.8% (totala poäng över 218.5), -0.4% (Oklahoma City Thunder vinner (inkl. förlängning)), -2.1% (Charlotte Hornets vinner (inkl. förlängning))
 NBA sides: Kambis marknader moneyline - including overtime -> ml; point spread - including overtime -> spread; total points - including overtime -> game_total
