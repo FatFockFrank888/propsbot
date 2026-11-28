@@ -124,3 +124,16 @@ def test_run_respects_playable_books_end_to_end(tmp_path):
     b = leg(ident="nba|m2|p2", match_id="m2", spelare="Y", bolag="unibet")
     out = run(tmp_path, [a, b], {"ntfy_topic": "t", "playable_books": ["paf"]}, notify=False, log=lambda *_: None)
     assert out == []
+
+
+def test_run_excludes_legs_oddsvakt_marked_gone(tmp_path):
+    """Regression: oddsvakt kan se en lina försvinna (status 'borta') innan ledgerns egen status
+    ändras (den ändras bara vid avgörande) - ett sådant ben ska aldrig bakas in i en ny parlay."""
+    a = leg()
+    b = leg(ident="nba|m2|p2", match_id="m2", spelare="Y")
+    site = tmp_path / "site"
+    site.mkdir()
+    (site / "oddsvakt.json").write_text(json.dumps({"bevakningar": {
+        a["ident"]: {"status": "borta"}}}), encoding="utf-8")
+    out = run(tmp_path, [a, b], {"ntfy_topic": "t"}, notify=False, log=lambda *_: None)
+    assert out == []                                 # a är borta, bara b kvar - inget att kombinera med

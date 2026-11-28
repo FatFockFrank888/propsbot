@@ -184,6 +184,17 @@ def write_parlay_csv(parlays: list[dict], out_dir: Path) -> None:
                        p.get("resultat_kr", ""), av])
 
 
+def _gone_idents(root: Path) -> set[str]:
+    """Idents som oddsvakt.py redan sett försvinna (status 'borta') - ett ben vars odds är borta ska
+    aldrig bakas in i en ny parlay, även om den ursprungliga raden i bokföringen fortfarande står som
+    'öppen' (ledgerns status ändras bara vid avgörande, inte när oddset försvinner före matchstart)."""
+    try:
+        d = json.loads((root / "site" / "oddsvakt.json").read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return set()
+    return {ident for ident, w in (d.get("bevakningar") or {}).items() if w.get("status") == "borta"}
+
+
 def run(root: Path, bets: list[dict], settings: dict, notify: bool = True, log=print) -> list[dict]:
     """Läser/sparar site/parlays.json + site/csv/parlayer.csv: bygger nya parlayer, rättar öppna, pushar nya."""
     path = root / "site" / "parlays.json"
@@ -193,7 +204,9 @@ def run(root: Path, bets: list[dict], settings: dict, notify: bool = True, log=p
         parlays = []
     settle_parlays(parlays, bets)
     existing = {p["ident"] for p in parlays}
-    nya = build_parlays(bets, settings, existing)
+    gone = _gone_idents(root)
+    live_bets = [b for b in bets if b.get("ident") not in gone]
+    nya = build_parlays(live_bets, settings, existing)
     parlays += nya
     if notify:
         notify_parlays(nya, settings, log)
