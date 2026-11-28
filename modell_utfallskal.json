@@ -1,4 +1,19 @@
 {
- "ts": 1795835417.0695255,
- "fits": {}
+ "ts": 1795885241.8789282,
+ "fits": {
+  "shots_on_target|0.5": {
+   "a": -0.1542,
+   "b": 0.8916,
+   "n": 450,
+   "brier_rå_holdout": 0.20229,
+   "brier_kal_holdout": 0.20151
+  },
+  "shots_on_target|1.5": {
+   "a": -0.2866,
+   "b": 0.7485,
+   "n": 204,
+   "brier_rå_holdout": 0.11048,
+   "brier_kal_holdout": 0.10927
+  }
+ }
 }
