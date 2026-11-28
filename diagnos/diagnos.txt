@@ -1,194 +1,24 @@
-Skanning 2026-11-28 15:37
-Kambi unibet (ubse): OK, 98 matcher i valda ligor
-Kambi paf (paf): OK
-Kambi atg (atg): OK
-Kambi leovegas (leose): OK
-Kambi svenskaspel (svenskaspel): OK
-Kambi expekt (expektse): OK
-Kambi betmgm (betmgmse): OK
-Pinnacle: OK, 26 ligor
-  Kifisias – PS PAE Kalamata: Pinnacle FEL HTTP 403 för https://guest.api.arcadia.pinnacle.com/0.1/matchups/1640273631/related
-Pinnacle: 116 matcher, matchlinjer för 43 av 60 Kambi-matcher, 0 spelarodds som används
-Pinnacles specialmarknader (beskrivning -> tolkning), exempel:
-  Double Chance 1st Half | units=Regular | kategori=Team Props | deltagare=Austria Vienna Or Wolfsberger AC,Draw Or Wolfsberger AC,Draw Or Austria Vienna  ->  används inte (lagmarknad)
-  Moneyline and Total Goals | units=Regular | kategori=Team Props | deltagare=Austria Vienna & Over 2.5,Austria Vienna & Under 2.5,Draw & Over 2.5,Draw & Under 2.5,Wolfsberger AC & Over 2.5,Wolfsberger AC & Under 2.5  ->  används inte (lagmarknad)
-  Double Chance | units=Regular | kategori=Team Props | deltagare=Austria Vienna Or Wolfsberger AC,Draw Or Wolfsberger AC,Draw Or Austria Vienna  ->  används inte (lagmarknad)
-  Total Goals Range | units=Regular | kategori=Team Props | deltagare=0 - 1,2 - 3,4 - 6,7+  ->  används inte (lagmarknad)
-  Draw No Bet | units=Regular | kategori=Team Props | deltagare=Austria Vienna,Wolfsberger AC  ->  används inte (lagmarknad)
-  Total Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
-  Wolfsberger AC Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
-  Draw No Bet 1st Half | units=Regular | kategori=Team Props | deltagare=Austria Vienna,Wolfsberger AC  ->  används inte (lagmarknad)
-  Correct Score | units=Regular | kategori=Team Props | deltagare=Austria Vienna 0, Wolfsberger AC 0,Austria Vienna 0, Wolfsberger AC 1,Austria Vienna 0, Wolfsberger AC 2,Austria Vienna 0, Wolfsberger AC 3,Austria Vienna 0, Wolfsberger AC 4,Austria Vienna 0, Wolfsberger AC 5,Austria Vienna 0, Wolfsberger AC 6,Austria Vienna 1, Wolfsberger AC 0,Austria Vienna 1, Wolfsberger AC 1,Austria Vienna 1, Wolfsberger AC 2,Austria Vienna 1, Wolfsberger AC 3,Austria Vienna 1, Wolfsberger AC 4,Austria Vienna 1, Wolfsberger AC 5,Austria Vienna 1, Wolfsberger AC 6,Austria Vienna 2, Wolfsberger AC 0,Austria Vienna 2, Wolfsberger AC 1,Austria Vienna 2, Wolfsberger AC 2,Austria Vienna 2, Wolfsberger AC 3,Austria Vienna 2, Wolfsberger AC 4,Austria Vienna 2, Wolfsberger AC 5,Austria Vienna 2, Wolfsberger AC 6,Austria Vienna 3, Wolfsberger AC 0,Austria Vienna 3, Wolfsberger AC 1,Austria Vienna 3, Wolfsberger AC 2,Austria Vienna 3, Wolfsberger AC 3,Austria Vienna 3, Wolfsberger AC 4,Austria Vienna 3, Wolfsberger AC 5,Austria Vienna 3, Wolfsberger AC 6,Austria Vienna 4, Wolfsberger AC 0,Austria Vienna 4, Wolfsberger AC 1,Austria Vienna 4, Wolfsberger AC 2,Austria Vienna 4, Wolfsberger AC 3,Austria Vienna 4, Wolfsberger AC 4,Austria Vienna 4, Wolfsberger AC 5,Austria Vienna 4, Wolfsberger AC 6,Austria Vienna 5, Wolfsberger AC 0,Austria Vienna 5, Wolfsberger AC 1,Austria Vienna 5, Wolfsberger AC 2,Austria Vienna 5, Wolfsberger AC 3,Austria Vienna 5, Wolfsberger AC 4,Austria Vienna 5, Wolfsberger AC 5,Austria Vienna 5, Wolfsberger AC 6,Austria Vienna 6, Wolfsberger AC 0,Austria Vienna 6, Wolfsberger AC 1,Austria Vienna 6, Wolfsberger AC 2,Austria Vienna 6, Wolfsberger AC 3,Austria Vienna 6, Wolfsberger AC 4,Austria Vienna 6, Wolfsberger AC 5,Austria Vienna 6, Wolfsberger AC 6  ->  används inte (lagmarknad)
-  Wolfsberger AC Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
-  Winning Margin 1st Half | units=Regular | kategori=Team Props | deltagare=Austria Vienna By 1,Austria Vienna By 2+,Wolfsberger AC By 1,Wolfsberger AC By 2+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
-  First Team To Score 1st Half | units=1st Goal | kategori=Team Props | deltagare=Austria Vienna,Wolfsberger AC,Neither  ->  används inte (lagmarknad)
-  Either Team To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Wolfsberger AC To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Austria Vienna Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
-  Exact Total Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
-  Exact Total Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5,6+  ->  används inte (lagmarknad)
-  Both Teams To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  First Team To Score | units=1st Goal | kategori=Team Props | deltagare=Austria Vienna,Wolfsberger AC,Neither  ->  används inte (lagmarknad)
-  Both Teams To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Total Goals Range 1st Half | units=Regular | kategori=Team Props | deltagare=0 - 1,2 - 3,4+  ->  används inte (lagmarknad)
-  Both Teams To Score and Moneyline | units=Regular | kategori=Team Props | deltagare=Yes & Austria Vienna,Yes & Draw,Yes & Wolfsberger AC,No & Austria Vienna,No & Draw,No & Wolfsberger AC  ->  används inte (lagmarknad)
-  Odd/Even and Total Goals | units=Regular | kategori=Team Props | deltagare=Odd & Over 2.5,Odd & Under 2.5,Even & Over 2.5,Even & Under 2.5  ->  används inte (lagmarknad)
-  Austria Vienna To Win To Nil 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Both Teams To Score and Total Goals | units=Regular | kategori=Team Props | deltagare=Yes & Over 2.5,Yes & Under 2.5,No & Over 2.5,No & Under 2.5  ->  används inte (lagmarknad)
-  3-Way Handicap Austria Vienna -1 | units=Regular | kategori=Team Props | deltagare=Austria Vienna (-1),Draw - (Austria Vienna -1),Wolfsberger AC (+1)  ->  används inte (lagmarknad)
-  Austria Vienna Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
-  Austria Vienna To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Winning Margin | units=Regular | kategori=Team Props | deltagare=Austria Vienna By 1,Austria Vienna By 2,Austria Vienna By 3,Austria Vienna By 4+,Wolfsberger AC By 1,Wolfsberger AC By 2,Wolfsberger AC By 3,Wolfsberger AC By 4+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
-  Total Goals Odd/Even 1st Half | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
-  Correct Score 1st Half | units=Regular | kategori=Team Props | deltagare=Austria Vienna 0, Wolfsberger AC 0,Austria Vienna 0, Wolfsberger AC 1,Austria Vienna 0, Wolfsberger AC 2,Austria Vienna 0, Wolfsberger AC 3,Austria Vienna 1, Wolfsberger AC 0,Austria Vienna 1, Wolfsberger AC 1,Austria Vienna 1, Wolfsberger AC 2,Austria Vienna 1, Wolfsberger AC 3,Austria Vienna 2, Wolfsberger AC 0,Austria Vienna 2, Wolfsberger AC 1,Austria Vienna 2, Wolfsberger AC 2,Austria Vienna 2, Wolfsberger AC 3,Austria Vienna 3, Wolfsberger AC 0,Austria Vienna 3, Wolfsberger AC 1,Austria Vienna 3, Wolfsberger AC 2,Austria Vienna 3, Wolfsberger AC 3  ->  används inte (lagmarknad)
-  Wolfsberger AC To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  3-Way Handicap Austria Vienna -2 | units=Regular | kategori=Team Props | deltagare=Austria Vienna (-2),Draw - (Austria Vienna -2),Wolfsberger AC (+2)  ->  används inte (lagmarknad)
-  Either Team To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Austria Vienna Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
-  Austria Vienna To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Wolfsberger AC Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
-  Austria Vienna To Win To Nil | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Wolfsberger AC To Win To Nil | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Wolfsberger AC To Win To Nil 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Double Chance 1st Half | units=Regular | kategori=Team Props | deltagare=Vicenza Or Cesena,Draw Or Cesena,Draw Or Vicenza  ->  används inte (lagmarknad)
-  Moneyline and Total Goals | units=Regular | kategori=Team Props | deltagare=Vicenza & Over 2.5,Vicenza & Under 2.5,Draw & Over 2.5,Draw & Under 2.5,Cesena & Over 2.5,Cesena & Under 2.5  ->  används inte (lagmarknad)
-  Double Chance | units=Regular | kategori=Team Props | deltagare=Vicenza Or Cesena,Draw Or Cesena,Draw Or Vicenza  ->  används inte (lagmarknad)
-  Vicenza Goals Odd/Even | units=Regular | kategori=Team Props | deltagare=Odd,Even  ->  används inte (lagmarknad)
-  3-Way Handicap Vicenza +1 | units=Regular | kategori=Team Props | deltagare=Vicenza (+1),Draw - (Vicenza +1),Cesena (-1)  ->  används inte (lagmarknad)
-  Cesena Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
-  3-Way Handicap Vicenza -1 | units=Regular | kategori=Team Props | deltagare=Vicenza (-1),Draw - (Vicenza -1),Cesena (+1)  ->  används inte (lagmarknad)
-  Vicenza To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Vicenza Goals | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4,5+  ->  används inte (lagmarknad)
-  First Team To Score | units=1st Goal | kategori=Team Props | deltagare=Vicenza,Cesena,Neither  ->  används inte (lagmarknad)
-  Winning Margin 1st Half | units=Regular | kategori=Team Props | deltagare=Vicenza By 1,Vicenza By 2+,Cesena By 1,Cesena By 2+,Any Score Draw (0:0 Excluded),No Goal  ->  används inte (lagmarknad)
-  Cesena To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Draw No Bet 1st Half | units=Regular | kategori=Team Props | deltagare=Vicenza,Cesena  ->  används inte (lagmarknad)
-  Vicenza To Score? 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Both Teams To Score and Moneyline | units=Regular | kategori=Team Props | deltagare=Yes & Vicenza,Yes & Draw,Yes & Cesena,No & Vicenza,No & Draw,No & Cesena  ->  används inte (lagmarknad)
-  Cesena To Win To Nil | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Vicenza To Win To Nil 1st Half | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Cesena To Score? | units=Regular | kategori=Team Props | deltagare=Yes,No  ->  används inte (lagmarknad)
-  Vicenza Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
-  Cesena Goals 1st Half | units=Regular | kategori=Team Props | deltagare=0,1,2,3,4+  ->  används inte (lagmarknad)
-Sides mindre ligor: 107 Kambi-matcher inom 12 h, 295 Pinnacle-matcher, 93 med Pinnacle, 93 matchade: Argentina / Primera Nacional, Austria / Second League, Bolivia / Liga Profesional Bolivia, Bosnia & Herzegovina / Premijer Liga, Bulgaria / PFL 1, Chile / Primera B, Chile / Primera Chile, Chile / Segunda División, Colombia / Liga Dimayor, Colombia / Torneo Dimayor, Copa Libertadores, Costa Rica / P
-Sides rättning: goal-api dagstak 300 anrop nått
-Sides rättning: SportScore 43 anrop i dag
-Sides rättning: API-Football 1 anrop i dag, pausad resten av dygnet (kvot- eller planfel)
-  Sides rättad: Real Betis – Rayo Vallecano 1X2: X -> förlorad (0–1)
-  Sides rättad: Preußen Münster – SC Verl under 2.5 -> vunnen (0–0)
-  Sides rättad: Panserraikos – Pas Pyrgos 1X2: 2 -> förlorad (2–1)
-  Sides rättad: Real Betis – Rayo Vallecano 1X2: X -> förlorad (0–1)
-  Sides rättad: Waldhof Mannheim – VfB Stuttgart II 1X2: 2 -> förlorad (1–1)
-  Sides rättad: 1. FC Saarbrücken – Alemannia Aachen 1X2: 2 -> vunnen (0–1)
-  Sides rättad: Al Wakrah – Al Sadd (QAT) 1X2: 2 -> förlorad (1–0)
-  Sides rättad: Preußen Münster – SC Verl under 2.5 -> vunnen (0–0)
-  Sides rättad: Tremblay FC – Red Star FC 1X2: 2 -> vunnen (0–1)
-  Sides rättad: Vanspor FK – Bursaspor 1X2: 1 -> förlorad (1–1)
-Sides/totals: 136 matcher med Kambi + Pinnacle, 2478 linjer, 0 nya spel, 7 nya skuggspel, Smarkets-priser i 82 av 96; bästa edge +8.2% (Apollon Kalamarias 1X2: 1), +5.6% (Independiente Santa Fe 1X2: X), +5.0% (Philadelphia Union 1X2: 2)
-  hörnor Sides rättad: Samsunspor – Gençlerbirliği SK hörnor över 11.5 -> förlorad (5–1)
-  hörnor Sides rättad: UD Las Palmas – FC Andorra hörnor under 7.5 -> förlorad (3–5)
-Hörnmodell (test): 8040 matcher i underlaget (17 ligor), 20 matcher med modell, 3898 Kambi-linjer, 0 nya testspel; bästa edge +29.2% (Real Madrid Real Madrid hörnor över 10.5 @ 4.90), +28.7% (PSV Eindhoven PSV Eindhoven hörnor under 5.5 @ 3.40), +24.3% (Inter Inter hörnor under 5.5 @ 2.90)
-Fotboll extra bolag: 0 nya hämtningar, 175 odds i bruk, krediter kvar 73, dagsbudget 26 (andel 40%), förbrukat idag 10
-PropLine: 10 anrop denna körning (354/1000 idag), 7357 priser i bruk
-OddsPapi: 0 matcher hämtade, 0 med bet365-marknader, 0 med lagnamn, 0 startar inom 6 h; våra 38 matcher inom fönstret, 0 matchade mot våra, 0 med aktiva spelarpriser; 2 ligagrupper hoppades över
-OddsPapi: 0 anrop denna körning (17/230 i 2026-11), 0 bet365-priser sparade
-Tid: hämtning 801 s
-Marginal över alla matcher: uppmätt marginal: shots stege k=1.05 (28 spelare; marginal vid 3,00 ≈ 6%), shots_on_target stege k=1.14 (138 spelare; marginal vid 3,00 ≈ 17%)
-  Angers – Lens: modell fra.1, 28 spelare
-  Torino – Lazio: modell ita.1, 28 spelare
-  Cercle Brugge – KV Mechelen: modell bel.1, 30 spelare
-  Ipswich Town – Aston Villa: modell eng.1, 30 spelare
-  VfB Stuttgart – Eintracht Frankfurt: modell ger.1, 30 spelare
-  Charlotte FC – Chicago Fire: modell usa.1, 28 spelare
-  Elche – Atlético Madrid: modell esp.1, 31 spelare
-  Académico Viseu – Alverca: modell por.1, 26 spelare
-  VfL Osnabrück – Hannover 96: modell ger.2, 29 spelare
-  Houston Dynamo – San Jose Earthquakes: modell usa.1, 32 spelare
-  Sporting de Charleroi – SK Beveren: modell – hittar inte matchen hos ESPN
-  Lommel SK – Zulte Waregem: modell bel.1, 26 spelare
-  Nice – Troyes: modell fra.1, 29 spelare
-  Le Havre – Strasbourg: modell fra.1, 34 spelare
-  Le Mans – Lille: modell fra.1, 29 spelare
-  Cambuur Leeuwarden – Sparta Rotterdam: modell – hittar inte matchen hos ESPN
-  Real Madrid – Alaves: modell esp.1, 28 spelare
-  Philadelphia Union – New England Revolution: modell usa.1, 26 spelare
-  FC Cincinnati – Nashville SC: modell usa.1, 27 spelare
-  Botafogo-RJ – Bahia-BA: modell – hittar inte matchen hos ESPN
-  Club Atlas – Deportivo Toluca FC: modell – hittar inte matchen hos ESPN
-  Los Angeles FC – St. Louis City SC: modell – hittar inte matchen hos ESPN
-  Club América – CF Monterrey: modell – hittar inte matchen hos ESPN
-  Portland Timbers – FC Dallas: modell – hittar inte matchen hos ESPN
-  ADO Den Haag – FC Utrecht: modell ned.1, 30 spelare
-  Udinese – Fiorentina: modell ita.1, 28 spelare
-  Everton – Liverpool: modell eng.1, 27 spelare
-  Swansea City – Cardiff City: modell eng.2, 33 spelare
-  Greuther Fürth – Arminia Bielefeld: modell ger.2, 28 spelare
-  Eintracht Braunschweig – VfL Wolfsburg: modell ger.2, 26 spelare
-  1. FC Magdeburg – Energie Cottbus: modell ger.2, 27 spelare
-  Sint-Truiden – KRC Genk: modell bel.1, 29 spelare
-Modellens nivåavvikelse mot marknaden (log-odds, dras bort): assist -0.57, goal -0.23, shots -0.57, shots_on_target -0.36
-  Gaziantep B.B. – Amed Sportif Faaliyetler: saknar matchlinjer från Pinnacle
-  Angers – Lens: väntade mål Pinnacle 2.81 mot Kambi 2.92 (kvot 0.964); uppmätt marginal: goal k=1.27, assist k=1.18, shots_on_target stege k=1.14 (14 spelare; marginal vid 3,00 ≈ 17%)
-Exempel uppmätt marginal: goal k=1.27, assist k=1.18, shots_on_target stege k=1.14 (14 spelare; marginal vid 3,00 ≈ 17%)
-  Torino – Lazio: väntade mål Pinnacle 2.67 mot Kambi 2.67 (kvot 1.000); uppmätt marginal: goal k=1.49, assist k=1.44, shots_on_target stege k=1.34 (7 spelare; marginal vid 3,00 ≈ 45%)
-  Cercle Brugge – KV Mechelen: väntade mål Pinnacle 2.70 mot Kambi 2.86 (kvot 0.945); uppmätt marginal: goal k=1.28
-  Ipswich Town – Aston Villa: väntade mål Pinnacle 3.14 mot Kambi 3.15 (kvot 0.997); uppmätt marginal: goal k=1.48, assist k=1.47, shots_on_target stege k=1.16 (6 spelare; marginal vid 3,00 ≈ 19%)
-  VfB Stuttgart – Eintracht Frankfurt: väntade mål Pinnacle 3.93 mot Kambi 3.99 (kvot 0.983); uppmätt marginal: goal k=1.57, assist k=1.50, shots_on_target stege k=1.06 (7 spelare; marginal vid 3,00 ≈ 7%)
-  Eibar – Burgos: saknar matchlinjer från Pinnacle
-  Charlotte FC – Chicago Fire: väntade mål Pinnacle 3.59 mot Kambi 3.64 (kvot 0.988); uppmätt marginal: goal k=1.43, assist k=1.34
-  Elche – Atlético Madrid: väntade mål Pinnacle 2.91 mot Kambi 2.98 (kvot 0.976); uppmätt marginal: goal k=1.42, assist k=1.44
-  PSV Eindhoven – Go Ahead Eagles: saknar matchlinjer från Pinnacle
-  Académico Viseu – Alverca: väntade mål Pinnacle 2.56 mot Kambi 2.62 (kvot 0.974); uppmätt marginal: goal k=1.41
-  VfL Osnabrück – Hannover 96: väntade mål Pinnacle 2.84 mot Kambi 2.93 (kvot 0.968); uppmätt marginal: goal k=1.22
-  Houston Dynamo – San Jose Earthquakes: väntade mål Pinnacle 2.79 mot Kambi 2.89 (kvot 0.964); uppmätt marginal: goal k=1.45, assist k=1.23
-  Inter – Genoa: saknar matchlinjer från Pinnacle
-  Sporting de Charleroi – SK Beveren: väntade mål Pinnacle 2.89 mot Kambi 3.05 (kvot 0.950); uppmätt marginal: goal k=1.33
-  Lommel SK – Zulte Waregem: väntade mål Pinnacle 2.90 mot Kambi 3.04 (kvot 0.954); uppmätt marginal: goal k=1.45, assist k=1.28
-  Nice – Troyes: väntade mål Pinnacle 2.81 mot Kambi 2.82 (kvot 0.996); uppmätt marginal: goal k=1.45, assist k=1.32
-  PSG – Lorient: saknar matchlinjer från Pinnacle
-  Le Havre – Strasbourg: väntade mål Pinnacle 2.85 mot Kambi 2.89 (kvot 0.983); uppmätt marginal: goal k=1.57, assist k=1.40, shots_on_target stege k=1.17 (28 spelare; marginal vid 3,00 ≈ 21%)
-  Le Mans – Lille: väntade mål Pinnacle 2.62 mot Kambi 2.57 (kvot 1.017); uppmätt marginal: goal k=1.52, assist k=1.43, shots stege k=1.04 (14 spelare; marginal vid 3,00 ≈ 4%), shots_on_target stege k=1.10 (14 spelare; marginal vid 3,00 ≈ 12%)
-  Cambuur Leeuwarden – Sparta Rotterdam: väntade mål Pinnacle 3.57 mot Kambi 3.52 (kvot 1.012); uppmätt marginal: goal k=1.67, assist k=1.54, shots_on_target stege k=1.13 (14 spelare; marginal vid 3,00 ≈ 15%)
-  Valladolid – Real Sociedad B: saknar matchlinjer från Pinnacle
-  Real Madrid – Alaves: väntade mål Pinnacle 3.76 mot Kambi 3.78 (kvot 0.994); uppmätt marginal: goal k=1.50, assist k=1.49
-  Vitoria Guimarães – CF Estrela: saknar matchlinjer från Pinnacle
-  Philadelphia Union – New England Revolution: väntade mål Pinnacle 3.30 mot Kambi 3.43 (kvot 0.961); uppmätt marginal: goal k=1.43, assist k=1.30
-  Fortaleza-CE – Criciúma-SC: saknar matchlinjer från Pinnacle
-  Club Atlético Vélez Sarsfield – Independiente: saknar matchlinjer från Pinnacle
-  FC Cincinnati – Nashville SC: väntade mål Pinnacle 3.26 mot Kambi 3.28 (kvot 0.996); uppmätt marginal: goal k=1.47, assist k=1.35
-  Botafogo-RJ – Bahia-BA: väntade mål Pinnacle 3.22 mot Kambi 3.14 (kvot 1.027); uppmätt marginal: goal k=1.59, assist k=1.46, shots_on_target stege k=1.04 (7 spelare; marginal vid 3,00 ≈ 4%)
-  Club Atlas – Deportivo Toluca FC: väntade mål Pinnacle 3.32 mot Kambi 3.19 (kvot 1.041); uppmätt marginal: goal k=1.52, assist k=1.33
-  Instituto – River Plate: saknar matchlinjer från Pinnacle
-  Los Angeles FC – St. Louis City SC: väntade mål Pinnacle 3.15 mot Kambi 3.28 (kvot 0.962); uppmätt marginal: goal k=1.41, assist k=1.28
-  Club América – CF Monterrey: väntade mål Pinnacle 2.81 mot Kambi 2.82 (kvot 0.996); uppmätt marginal: goal k=1.44, assist k=1.29
-  Portland Timbers – FC Dallas: väntade mål Pinnacle 3.34 mot Kambi 3.44 (kvot 0.969); uppmätt marginal: goal k=1.49, assist k=1.39
-  Çorum Belediyespor – Kocaelispor: saknar matchlinjer från Pinnacle
-  ADO Den Haag – FC Utrecht: väntade mål Pinnacle 3.12 mot Kambi 2.98 (kvot 1.046); uppmätt marginal: goal k=1.37, assist k=1.21, shots stege k=1.08 (7 spelare; marginal vid 3,00 ≈ 9%), shots_on_target stege k=1.13 (14 spelare; marginal vid 3,00 ≈ 15%)
-  Udinese – Fiorentina: väntade mål Pinnacle 2.91 mot Kambi 2.93 (kvot 0.995); uppmätt marginal: goal k=1.32, assist k=1.36, shots_on_target stege k=1.18 (14 spelare; marginal vid 3,00 ≈ 22%)
-  Everton – Liverpool: väntade mål Pinnacle 3.02 mot Kambi 3.04 (kvot 0.994); uppmätt marginal: goal k=1.35, assist k=1.36, shots_on_target stege k=1.12 (6 spelare; marginal vid 3,00 ≈ 14%)
-  Swansea City – Cardiff City: väntade mål Pinnacle 3.28 mot Kambi 3.22 (kvot 1.020); uppmätt marginal: goal k=1.48, assist k=1.33
-  Greuther Fürth – Arminia Bielefeld: väntade mål Pinnacle 2.85 mot Kambi 2.93 (kvot 0.971); uppmätt marginal: goal k=1.44
-  Eintracht Braunschweig – VfL Wolfsburg: väntade mål Pinnacle 3.47 mot Kambi 3.44 (kvot 1.007); uppmätt marginal: goal k=1.32
-  1. FC Magdeburg – Energie Cottbus: väntade mål Pinnacle 3.57 mot Kambi 3.78 (kvot 0.944); uppmätt marginal: goal k=1.33
-  Sint-Truiden – KRC Genk: väntade mål Pinnacle 3.23 mot Kambi 3.15 (kvot 1.024); uppmätt marginal: goal k=1.41, assist k=1.23
-Spelarmodell per 90 (fb2, skugga): 1035 spelare med takt per 90, 11 gamla ESPN-utdrag kompletterade med minuter/position (högst 150 per körning), ligor med positionssnitt: bel.1, eng.1, eng.2, esp.1, fra.1, ger.1, ger.2, ita.1, ned.1, por.1, usa.1
-Tid: modell och utvärdering 301 s
-Bolag med spelarodds: atg, betmgm, expekt, leovegas, oa_fanduel, oa_onexbet, paf, pl_bovada, pl_draftkings, pl_eplay24, pl_fanduel, pl_hardrock, pl_novig, pl_thescorebet, pl_williamhill_it, svenskaspel, unibet
-Spelarodds per marknad: assist 4308, goal 18844, shots 6938, shots_on_target 15665
-Kambi-marknader: assist='to give an assist (settled using opta data)':4308; goal='1st goalscorer':7149; goal='to score':7149; goal='to score at least 2 goals':3770; goal='to score at least 3 goals':664; goal='to score at least 4 goals':105; goal='to score at least 5 goals':7; shots="player's shots (settled using opta data)":6938; shots_on_target="player's shots on target (settled using opta data)":8133
+Skanning 2026-11-28 15:58
+Fotboll extra bolag: 0 nya hämtningar, 0 odds i bruk (inga), krediter kvar 73, dagsbudget 26 (andel 40%), förbrukat idag 10
+Tid: hämtning 3 s
+Marginal över alla matcher: uppmätt marginal: otillräckligt underlag i matchen
+Modellens nivåavvikelse mot marknaden (log-odds, dras bort): 
+Spelarmodell per 90 (fb2, skugga): 0 spelare med takt per 90, 0 gamla ESPN-utdrag kompletterade med minuter/position (högst 150 per körning), ligor med positionssnitt: inga än
+Tid: modell och utvärdering 0 s
+Bolag med spelarodds: inga
+Spelarodds per marknad: 
+Kambi-marknader: 
 Pinnacle har inga spelarprops här – använder linjejustering mot Pinnacles matchlinjer.
 CLV-signal: 0 ben släppta (Pinnacle rör sig åt vårt håll)
-Startelvor: 0 spelbara ben klara, 1 väntar på startelvan, 0 stoppade (inte i startelvan)
+Startelvor: 0 spelbara ben klara, 0 väntar på startelvan, 0 stoppade (inte i startelvan)
 Spelregler: stoppade {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0} (modelltest {'edge': 0, 'spelare': 0, 'oddsfall': 0, 'sharp': 0, 'fotboll': 0})
-Spelarmodell (testläge: styr inte spelen): 0 av 973 huvudben, 629 av 733 testben har modell, 1 nya matcher hämtade från ESPN
-Bästa edge marknad shots_on_target: +2.7%, +1.7%, +0.8% (av 850 ben)
-Bästa edge modelltest shots_on_target: +2.2%, +0.5%, +0.1% (av 637 ben)
+Spelarmodell (testläge: styr inte spelen): 0 av 0 huvudben, 0 av 0 testben har modell, 0 nya matcher hämtade från ESPN
 0 spelbara ben.
 Bokförda nya spel: 0
 Skuggspel: 0 nya bokförda (stoppade av reglerna, minst 2 % edge)
-Spelarprops-test startelvor (alla ben): 33 spelbara ben klara, 700 väntar på startelvan, 0 stoppade (inte i startelvan)
-Spelarprops-konsensus: finns för 500 av 733 ben, snitt edge mot konsensus -3.4%, 125 med minst 2%
-Benlogg: 1 nya + 25 uppdaterade ben (bekräftade startande), 395 öppna, 0 nya avgjorda, 630 avgjorda totalt
+Spelarprops-test startelvor (alla ben): 0 spelbara ben klara, 0 väntar på startelvan, 0 stoppade (inte i startelvan)
+Spelarprops-konsensus: ingen konsensus (för få oberoende röster) för 0 ben
+Benlogg: 0 nya + 0 uppdaterade ben (bekräftade startande), 395 öppna, 0 nya avgjorda, 630 avgjorda totalt
 Benlogg pappersspel modell hyb edge ≥ 0%: n=118, träff 22.0%, ROI -26.1% (t -1.87), CLV -0.0%
 Benlogg pappersspel modell hyb edge ≥ 2%: n=111, träff 20.7%, ROI -28.5% (t -1.99), CLV +0.1%
 Benlogg pappersspel modell hyb edge ≥ 5%: n=106, träff 19.8%, ROI -32.8% (t -2.31), CLV +0.0%
@@ -225,8 +55,6 @@ Benlogg Kambi-nivå shots_on_target|0.5: n=387, 29 matcher, p_adj − utfall +0.
 Benlogg Kambi-nivå shots_on_target|1.5: n=174, 29 matcher, p_adj − utfall +0.059 (väntar på 150 ben och 40 matcher)
 Benlogg Kambi-nivå shots_on_target|2.5+: n=69, 23 matcher, p_adj − utfall +0.052 (väntar på 150 ben och 40 matcher)
 Benlogg konsensusmarginal: bäst 0.30 på 424 ben (antagen 0.07); pröva på nyaste 128: log-loss 0.5042 -> 0.4926 med 0.30 (optimum på rutnätets kant: marginalen förklarar inte avvikelsen, sparas inte)
-Spelarprops-test: 733 ben med hybridmodell, 3 med minst 2% edge (modell), 0 nya bokförda, 397 totalt
+Spelarprops-test: 0 ben med hybridmodell, 0 med minst 2% edge (modell), 0 nya bokförda, 397 totalt
 Modelltest: 0 spelbara enligt modellen, 0 nya testspel bokförda
-Domare: 64 kommande matcher med utsedd domare (UEFA + football-data)
-Fouls (test): 285 ben med modell, 6 klarar kraven, 0 nya bokförda, bästa edge +27.0%, +25.4%, +20.2%, 0 nya ESPN-matcher, domare känd i 3 matcher
 Notiser skickade: 0
