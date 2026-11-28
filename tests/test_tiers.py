@@ -50,7 +50,7 @@ def test_run_upgrade_settle_no_caps(tmp_path):
     orig = nt.send
     nt.send = lambda *a, **k: sent.append(a) or True
     try:
-        res = run(tmp_path, {"ntfy_topic": "t"}, notify=True, log=lambda *_: None)
+        res = run(tmp_path, {"ntfy_topic": "t", "parlay_on": False}, notify=True, log=lambda *_: None)
     finally:
         nt.send = orig
     bets = {b["kalla_key"]: b for b in res["book"].bets}

@@ -511,4 +511,6 @@ def run(root: Path, settings: dict, notify: bool = True, log=print) -> dict:
     (site / "tiers.json").write_text(json.dumps(rensa_nan({"uppdaterad_ts": time.time(), "regler": cfg(settings),
                                                            "bets": pub}), ensure_ascii=False, allow_nan=False),
                                      encoding="utf-8")
+    from . import parlays as _parlays
+    res["parlays"] = _parlays.run(root, res["book"].bets, settings, notify=notify, log=log)
     return res
