@@ -1,5 +1,13 @@
 {
-  "sports": [],
+  "sports": [
+    "soccer_epl",
+    "soccer_spain_la_liga",
+    "soccer_germany_bundesliga",
+    "soccer_italy_serie_a",
+    "soccer_france_ligue_one",
+    "soccer_uefa_champs_league",
+    "soccer_sweden_allsvenskan"
+  ],
   "hours_ahead": 36,
   "prop_markets": [
     "player_shots_on_target",
@@ -31,7 +39,7 @@
     "williamhill",
     "onexbet"
   ],
-  "use_kambi": false,
+  "use_kambi": true,
   "use_pinnacle": true,
   "use_the_odds_api": false,
   "kambi_market": "SE",
@@ -225,8 +233,8 @@
   "football_live_max_units": 10,
   "football_kelly_scale": 0.5,
   "sides_lineup_gate": false,
-  "sides_enabled": false,
-  "fouls_enabled": false,
+  "sides_enabled": true,
+  "fouls_enabled": true,
   "sides_live": false,
   "sides_markets": [
     "1x2",
@@ -253,7 +261,7 @@
   "lineup_lookup_minutes": 150,
   "sides_low_limit": 2000,
   "sides_low_limit_extra_edge": 0.01,
-  "sides_extra_leagues": false,
+  "sides_extra_leagues": true,
   "sides_extra_hours": 12,
   "sides_extra_max_events": 150,
   "live_odds_window": [

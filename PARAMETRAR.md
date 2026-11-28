@@ -18,7 +18,7 @@ Genereras från de värden boten använder (`python -m propsbot parametrar`).
 | Tak (A/B) | inga | Inga dags- eller matchbudgetar (18/11): du väljer själv vilka spel du tar. Alla A- och B-spel räknas som spelade. |
 | Odds Alert (oddsvakt) | på, läsning var 30 s, 2 läsningar i rad, högst en notis per spel och 10 min | Bevakar Kambi-oddset för A/B-spelen som fått notis (och dina egna bevakningar från webbsidan) fram till start. ✅ BACK UP när oddset är tillbaka på lägsta oddset, ❌ GONE när det fallit under eller spelet är borta. Lägsta odds = max(spela från, odds som ger kravet på edge mot den senaste skarpa sannolikheten). Spel du tagit bevakas inte. Egen Telegram-chatt telegram_chats.oddsvakt (satt). |
 | Spelbara bolag | paf | Unibet limiterat (28/11). Svenskaspel/ATG pausade (Apple Pay-strul) – bara Paf spelbart tills vidare. Läses ändå alla (unibet, betmgm, expekt, leovegas, svenskaspel, atg m.fl.) bara för att mäta marginalen/konsensus. |
-| Fotboll | av (28/11) | `sports` tömd – bara NBA körs tills vidare. |
+| Fotboll | på igen (28/11) | Stängdes av kort för att fokusera på NBA/Paf, slogs på igen samma dag. `use_kambi`, `sides_enabled`, `fouls_enabled`, `sides_extra_leagues` = true. |
 | Minsta edge (alla spel) | 6 % | edge = sannolikhet × odds − 1. Gäller alla marknader och sporter. |
 | Oddsram | 1,40–6,00 | Inga spel utanför. |
 | Max oddsfall | 3 % | Inget spel om bästa oddset fallit mer än så från det högsta vi sett (för sent). |
