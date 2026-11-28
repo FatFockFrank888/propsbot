@@ -133,9 +133,7 @@ def notify_parlays(parlays: list[dict], settings: dict, log=print) -> int:
     for p in parlays:
         if p.get("notis"):
             continue
-        rader = "\n".join(f"· {b['spelare'] or b['match']} {b['marknad']} "
-                          f"{'under' if b['sida'] == 'under' else 'över'} {b['linje']:g} @ {b['odds']:.2f} "
-                          f"({b['bolag']})" for b in p["ben"])
+        rader = "\n".join(f"· {_leg_label(b)}" for b in p["ben"])
         title = f"PARLAY ({len(p['ben'])} ben) · NBA"
         msg = (f"{rader}\nKombinerat odds {p['combo_odds']:.2f} · edge {p['combo_edge']*100:+.1f} % "
               f"· insats {p['stake_kr']:.0f} kr")
@@ -150,10 +148,15 @@ CSV_HEAD = ["Bokförd", "Antal ben", "Ben", "Kombinerad sannolikhet", "Kombinera
             "Insats (kr)", "Status", "Resultat (kr)", "Avspark"]
 
 
+def _leg_label(b: dict) -> str:
+    who = b["spelare"] or b["match"]
+    tag = f" ({b['match']})" if b["spelare"] else ""        # ingen dubblett om det redan är matchraden
+    return (f"{who}{tag} {b['marknad']} {'under' if b['sida'] == 'under' else 'över'} {b['linje']:g} "
+            f"@ {b['odds']:.2f} ({b['bolag']})")
+
+
 def _ben_text(ben: list[dict]) -> str:
-    return " | ".join(f"{b['spelare'] or b['match']} {b['marknad']} "
-                      f"{'under' if b['sida'] == 'under' else 'över'} {b['linje']:g} @ {b['odds']:.2f} "
-                      f"({b['bolag']})" for b in ben)
+    return " | ".join(_leg_label(b) for b in ben)
 
 
 def write_parlay_csv(parlays: list[dict], out_dir: Path) -> None:

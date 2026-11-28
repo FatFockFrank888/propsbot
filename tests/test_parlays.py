@@ -91,6 +91,7 @@ def test_notify_parlays_dedup(monkeypatch):
     [p] = build_parlays([a, b], {}, set())
     n = notify_parlays([p], {"ntfy_topic": "t"})
     assert n == 1 and p["notis"] and "PARLAY" in sent[0][1]
+    assert "X (A – B)" in sent[0][2]                 # spelare + match så man slipper leta upp matchen
     n2 = notify_parlays([p], {"ntfy_topic": "t"})
     assert n2 == 0                                   # redan notiserad, skickas inte igen
 
