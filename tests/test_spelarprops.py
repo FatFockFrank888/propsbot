@@ -26,7 +26,7 @@ def test_annotate_never_above_c_without_sharp_ref():
 
 
 def test_export_writes_json_and_csv(tmp_path):
-    (tmp_path / sp.LEDGER).write_text(json.dumps({"bets": [bet()]}), encoding="utf-8")
+    (tmp_path / sp.LEDGER).write_text(json.dumps([bet()]), encoding="utf-8")   # Ledger.save() skriver en ren lista
     assert sp.export(tmp_path, {}) == 1
     d = json.loads((tmp_path / "site" / "spelarprops.json").read_text(encoding="utf-8"))
     assert d["bets"][0]["hade_blivit"] in ("C", "–")
