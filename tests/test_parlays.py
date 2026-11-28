@@ -106,3 +106,12 @@ def test_run_roundtrip_persists_and_settles(tmp_path):
     a_done, b_done = dict(a, status="vunnen"), dict(b, status="vunnen")
     out2 = run(tmp_path, [a_done, b_done], {"ntfy_topic": "t"}, notify=False, log=lambda *_: None)
     assert len(out2) == 1 and out2[0]["status"] == "vunnen"   # samma parlay rättad, ingen ny skapad
+
+
+def test_run_respects_playable_books_end_to_end(tmp_path):
+    """Regression: run() byggde tidigare en egen reducerad settings-dict till build_parlays() som
+    saknade playable_books helt, så filtret i build_parlays aldrig slog till i produktion."""
+    a = leg(bolag="unibet")
+    b = leg(ident="nba|m2|p2", match_id="m2", spelare="Y", bolag="unibet")
+    out = run(tmp_path, [a, b], {"ntfy_topic": "t", "playable_books": ["paf"]}, notify=False, log=lambda *_: None)
+    assert out == []

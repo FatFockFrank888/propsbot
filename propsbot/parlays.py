@@ -29,6 +29,7 @@ DEFAULTS = {
     "parlay_min_edge": 0.08,     # högre än enskilda B-kravet (5 %) – kombinationens osäkerhet är större
     "parlay_max_legs": 4,
     "parlay_odds": [1.40, 6.50],  # samma ramar som enskilda ben, per ben
+    "tier_stake_min_kr": 15.0, "tier_stake_mid_kr": 30.0,   # samma kr-tak som tiers.py, läses från settings där satta
 }
 
 
@@ -184,8 +185,7 @@ def run(root: Path, bets: list[dict], settings: dict, notify: bool = True, log=p
         parlays = []
     settle_parlays(parlays, bets)
     existing = {p["ident"] for p in parlays}
-    nya = build_parlays(bets, {**_cfg(settings), **{k: settings[k] for k in
-                        ("tier_stake_min_kr", "tier_stake_mid_kr") if k in settings}}, existing)
+    nya = build_parlays(bets, settings, existing)
     parlays += nya
     if notify:
         notify_parlays(nya, settings, log)
