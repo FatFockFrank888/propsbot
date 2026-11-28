@@ -16,7 +16,8 @@ Genereras från de värden boten använder (`python -m propsbot parametrar`).
 | Kelly-skugga (A/B/C) | ¼ Kelly, tak 2 % (2u), bara bokföring | Varje tier-spel får kelly_pct och kelly_u (¼ Kelly på bokförd sannolikhet, 1u = 1 %). Styr inte units eller notiser: insatsen är flat 1–3u. Jämförs i tools/quant_report.py (docs/PLAN.md fas 6). |
 | Tak (A/B) | inga | Inga dags- eller matchbudgetar (18/11): du väljer själv vilka spel du tar. Alla A- och B-spel räknas som spelade. |
 | Odds Alert (oddsvakt) | på, läsning var 30 s, 2 läsningar i rad, högst en notis per spel och 10 min | Bevakar Kambi-oddset för A/B-spelen som fått notis (och dina egna bevakningar från webbsidan) fram till start. ✅ BACK UP när oddset är tillbaka på lägsta oddset, ❌ GONE när det fallit under eller spelet är borta. Lägsta odds = max(spela från, odds som ger kravet på edge mot den senaste skarpa sannolikheten). Spel du tagit bevakas inte. Egen Telegram-chatt telegram_chats.oddsvakt (satt). |
-| Spelbara bolag | svenskaspel, atg, paf | Unibet limiterat (28/11) och plockat ur spelbara; betmgm/expekt pausade (200/200/200 på de tre kvarvarande en vecka). Läses ändå alla (unibet, betmgm, expekt, leovegas m.fl.) bara för att mäta marginalen/konsensus. |
+| Spelbara bolag | paf | Unibet limiterat (28/11). Svenskaspel/ATG pausade (Apple Pay-strul) – bara Paf spelbart tills vidare. Läses ändå alla (unibet, betmgm, expekt, leovegas, svenskaspel, atg m.fl.) bara för att mäta marginalen/konsensus. |
+| Fotboll | av (28/11) | `sports` tömd – bara NBA körs tills vidare. |
 | Minsta edge (alla spel) | 6 % | edge = sannolikhet × odds − 1. Gäller alla marknader och sporter. |
 | Oddsram | 1,40–6,00 | Inga spel utanför. |
 | Max oddsfall | 3 % | Inget spel om bästa oddset fallit mer än så från det högsta vi sett (för sent). |
