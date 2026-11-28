@@ -28,8 +28,11 @@ from .the_odds_api import TheOddsApi, normalize_name
 SPORT = "basketball_nba"
 # Upp till 10 bolag i samma anrop kostar som EN region – fler bolag är alltså gratis.
 # BetRivers är Kambi (samma prissättning som Unibet) och tas inte med. bet365 finns inte i API:t.
+# nordicbet (28/11): testläggning för att se om The Odds API har NBA-spelarprops från europeiska
+# bolag överhuvudtaget (annars bara amerikanska bolag här) – kostar inget extra, bara fler bolag i
+# samma anrop. Ta bort igen om diagnosloggen visar 0 odds från nordicbet.
 BOOKS = ["draftkings", "fanduel", "betmgm", "williamhill_us", "fanatics", "espnbet",
-         "hardrockbet", "betonlineag"]
+         "hardrockbet", "betonlineag", "nordicbet"]
 # Prioritetsordning: marknaderna där vi spelar mest först.
 MARKETS = [
     ("player_points", "points"), ("player_threes", "threes"), ("player_assists", "assists"),
@@ -119,6 +122,7 @@ def _fetch_budgeted(root: Path, items, settings: dict, diag, *, sport_key: str, 
     left = max(0, int(day_budget * share) - day.get(sport_key, 0))
     lo, hi = window
     n_quotes = n_calls = 0
+    per_book: dict = {}
     for evd, qs_all, names in items:
         mid = evd["id"]
         ko = float(evd["commence_time"])
@@ -144,12 +148,15 @@ def _fetch_budgeted(root: Path, items, settings: dict, diag, *, sport_key: str, 
         qs_all += q
         names.update(nm)
         n_quotes += len(q)
+        for quote in q:
+            per_book[quote.book] = per_book.get(quote.book, 0) + 1
     state[sport_key] = {k: v for k, v in store.items() if now - v.get("avspark", now) < 86400}
     state["forbrukat_per_dag"] = dict(sorted(spent.items())[-40:])
     state["kvar"] = api.usage.remaining
     path.write_text(json.dumps(state), encoding="utf-8")
-    diag.log(f"{label}: {n_calls} nya hämtningar, {n_quotes} odds i bruk, krediter kvar {api.usage.remaining}, "
-             f"dagsbudget {day_budget} (andel {share:.0%}), förbrukat idag {day.get(sport_key, 0)}")
+    diag.log(f"{label}: {n_calls} nya hämtningar, {n_quotes} odds i bruk ({', '.join(f'{k} {v}' for k, v in sorted(per_book.items())) or 'inga'}), "
+             f"krediter kvar {api.usage.remaining}, dagsbudget {day_budget} (andel {share:.0%}), "
+             f"förbrukat idag {day.get(sport_key, 0)}")
     return n_quotes
 
 

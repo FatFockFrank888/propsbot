@@ -12,11 +12,12 @@ Genereras från de värden boten använder (`python -m propsbot parametrar`).
 | A Tier | B + alla parametrar, odds 1,60–3,50 | NBA: klarar LIVE-kraven (se NBA nedan). Fotboll: klarar alla regler (regelspel). Spelas. |
 | Notiser för nya spel | A och B Tier · kanal propsbot-tier-ab-8f44db | En notis per nytt spel i nivån (rubrik "A TIER …" / "B TIER …") i en egen ntfy-kanal (tier_ntfy_topic). C ger aldrig notis. Övriga notiser (nyheter, uppgraderingar) går till den vanliga kanalen. |
 | Livenotiser (Mina spel) | propsbot-live-28c022 | Plingarna under match för dina spel (mål, straff, rött kort, returer, poäng, vunnet/förlorat) i en egen kanal (live_ntfy_topic), så att den kan ha ett eget ljud i ntfy-appen. |
-| Insats (A/B) | flat 1–3u, 1u = 1 % av kassan | 1u standard. 2u high: edge ≥ 9 %. 3u maxbet: edge 100 %–20 % med Pinnacle som referens och sharp money med oss (högre edge är oftast fel i linjen). Ingen Kelly. |
-| Kelly-skugga (A/B/C) | ¼ Kelly, tak 2 % (2u), bara bokföring | Varje tier-spel får kelly_pct och kelly_u (¼ Kelly på bokförd sannolikhet, 1u = 1 %). Styr inte units eller notiser: insatsen är flat 1–3u. Jämförs i tools/quant_report.py (docs/PLAN.md fas 6). |
+| Insats (A/B) | 15–45 kr, ¼ Kelly-skalad (28/11) | Ersätter flata 1–3u. ¼ Kelly (tak 2 % av kassan) skalas linjärt 15→45 kr. Taket är 45 kr bara vid gamla maxbet-villkoret (edge 100 %–20 % [`tier_3u_edge`/`tier_3u_max_edge`], Pinnacle som referens, sharp money med oss) – just nu satt så maxbet aldrig triggas (`tier_3u_edge`=1.0), så i praktiken 15–30 kr. Annars 30 kr-tak. `units` (bokföring/Sheet) = kr / (kassa × 1 %). |
+| Kelly-styrd insats (A/B/C) | ¼ Kelly, tak 2 % | `kelly_pct`/`kelly_u` räknas per spel och styr nu insatsen (stake_kr) direkt, inte bara skugga. Jämförs i tools/quant_report.py (docs/PLAN.md fas 6). |
 | Tak (A/B) | inga | Inga dags- eller matchbudgetar (18/11): du väljer själv vilka spel du tar. Alla A- och B-spel räknas som spelade. |
 | Odds Alert (oddsvakt) | på, läsning var 30 s, 2 läsningar i rad, högst en notis per spel och 10 min | Bevakar Kambi-oddset för A/B-spelen som fått notis (och dina egna bevakningar från webbsidan) fram till start. ✅ BACK UP när oddset är tillbaka på lägsta oddset, ❌ GONE när det fallit under eller spelet är borta. Lägsta odds = max(spela från, odds som ger kravet på edge mot den senaste skarpa sannolikheten). Spel du tagit bevakas inte. Egen Telegram-chatt telegram_chats.oddsvakt (satt). |
-| Spelbara bolag | svenskaspel, betmgm, expekt, atg, unibet | Bara Kambi-bolag. Paf och LeoVegas läses bara för att mäta marginalen. |
+| Spelbara bolag | paf | Unibet limiterat (28/11). Svenskaspel/ATG pausade (Apple Pay-strul) – bara Paf spelbart tills vidare. Läses ändå alla (unibet, betmgm, expekt, leovegas, svenskaspel, atg m.fl.) bara för att mäta marginalen/konsensus. |
+| Fotboll | av (28/11) | `sports` tömd – bara NBA körs tills vidare. |
 | Minsta edge (alla spel) | 6 % | edge = sannolikhet × odds − 1. Gäller alla marknader och sporter. |
 | Oddsram | 1,40–6,00 | Inga spel utanför. |
 | Max oddsfall | 3 % | Inget spel om bästa oddset fallit mer än så från det högsta vi sett (för sent). |
