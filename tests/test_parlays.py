@@ -23,6 +23,18 @@ def test_build_parlays_cross_match_and_edge():
     assert 15.0 <= p["stake_kr"] <= 30.0
 
 
+def test_build_parlays_prefers_bigger_combo_up_to_4_legs():
+    legs = [leg(ident=f"nba|m{i}|p{i}", match_id=f"m{i}", spelare=f"P{i}") for i in range(4)]
+    out = build_parlays(legs, {}, set())
+    assert len(out) == 1 and len(out[0]["ben"]) == 4          # alla 4 i en parlay, inget ben kvar över
+
+
+def test_parlay_max_legs_setting_caps_combo_size():
+    legs = [leg(ident=f"nba|m{i}|p{i}", match_id=f"m{i}", spelare=f"P{i}") for i in range(4)]
+    out = build_parlays(legs, {"parlay_max_legs": 2}, set())
+    assert len(out) == 2 and all(len(p["ben"]) == 2 for p in out)   # två 2-bensparlayer, inte en 4-bens
+
+
 def test_same_match_never_combined():
     a = leg()
     b = leg(ident="nba|m1|p2", spelare="Y")   # samma match_id

@@ -1,20 +1,25 @@
-"""Värde-parlayer (28/11): kombinerar redan godkända A/B-spel (NBA) till 2-bens-parlayer, bara för att
-få bättre spridning av en liten kassa över färre spel – INTE skenlägg. Bygger bara på riktiga, redan
-klassade +EV-ben; inga påhittade "vaska"-ben och ingen falsk bank-leg.
+"""Värde-parlayer (28/11, 2–4 ben 28/11): kombinerar redan godkända A/B-spel (NBA) till parlayer, bara
+för att få bättre spridning av en liten kassa över färre spel – INTE skenlägg. Bygger bara på riktiga,
+redan klassade +EV-ben; inga påhittade "vaska"-ben och ingen falsk bank-leg.
 
 Antaganden som INTE är verifierade mot Paf, flagga om det visar sig fel:
   - combo_odds = produkten av bendes egna odds (ingen extra marginal utöver vad varje ben redan har).
     Om Paf lägger på egen marginal på parlayer blir verkligt värde sämre än här beräknat.
   - combo_p = produkten av bendes bokförda sannolikheter (antar oberoende -> bara ben från OLIKA matcher
     kombineras, för att hålla antagandet rimligt).
+  - OBS fler ben (3–4) blåser upp den beräknade edgen rent mekaniskt (odds multipliceras, sannolikhet
+    multipliceras ner, men produkten sväller fort) – det är en artefakt av oberoende-antagandet, inte
+    bevis på bättre värde. Chansen att träffa alla 4 ben är låg även när varje ben för sig är +EV.
 
 Insats: samma ¼ Kelly-skalning (15–45 kr) som tiers.py, men taket är alltid tier_stake_mid_kr (aldrig
 maxbet) eftersom en parlays sammansatta risk är högre än ett enskilt ben.
 """
 from __future__ import annotations
 
+import csv
 import json
 import time
+from itertools import combinations
 from pathlib import Path
 
 from .quant import kelly as quant_kelly
@@ -22,7 +27,7 @@ from .quant import kelly as quant_kelly
 DEFAULTS = {
     "parlay_on": True,
     "parlay_min_edge": 0.08,     # högre än enskilda B-kravet (5 %) – kombinationens osäkerhet är större
-    "parlay_max_legs": 2,
+    "parlay_max_legs": 4,
     "parlay_odds": [1.40, 6.50],  # samma ramar som enskilda ben, per ben
 }
 
@@ -38,9 +43,18 @@ def _leg_view(b: dict) -> dict:
             "bolag": b.get("bolag"), "avspark": b.get("avspark")}
 
 
+def _score(combo: tuple[dict, ...]) -> tuple[float, float, float]:
+    combo_p = combo_odds = 1.0
+    for leg in combo:
+        combo_p *= leg["sannolikhet"]
+        combo_odds *= leg["odds"]
+    return combo_p, combo_odds, combo_p * combo_odds - 1.0
+
+
 def build_parlays(bets: list[dict], settings: dict, existing_idents: set[str]) -> list[dict]:
-    """Bygger nya 2-bens-parlayer ur öppna A/B-spel (NBA), olika match per ben, combo-edge >= parlay_min_edge.
-    existing_idents: redan skapade parlay-idents denna/tidigare körning, för att inte dubbelboka ett ben."""
+    """Bygger nya parlayer (2–parlay_max_legs ben) ur öppna A/B-spel (NBA), olika match per ben,
+    combo-edge >= parlay_min_edge. Väljer högst edge först, ingen bets återanvänds i två parlayer
+    samma körning. existing_idents: redan skapade parlay-idents, för att inte dubbelboka ett ben."""
     c = _cfg(settings)
     if not c["parlay_on"]:
         return []
@@ -48,33 +62,35 @@ def build_parlays(bets: list[dict], settings: dict, existing_idents: set[str]) -
     cands = [b for b in bets if b.get("sport") == "nba" and b.get("tier") in ("A", "B")
              and b.get("status") == "öppen" and b.get("sannolikhet") and b.get("odds")
              and lo <= b["odds"] <= hi]
+    max_legs = max(2, int(c.get("parlay_max_legs", 4)))
+    scored = []
+    for size in range(2, max_legs + 1):
+        for combo in combinations(cands, size):
+            if len({leg.get("match_id") for leg in combo}) < size:   # kräver olika match per ben
+                continue
+            combo_p, combo_odds, combo_edge = _score(combo)
+            if combo_edge >= c["parlay_min_edge"]:
+                scored.append((combo_edge, combo_p, combo_odds, combo))
+    scored.sort(key=lambda x: -x[0])
     used: set[str] = set()
     out = []
-    for i, a in enumerate(cands):
-        if a["ident"] in used:
+    for combo_edge, combo_p, combo_odds, combo in scored:
+        idents = [leg["ident"] for leg in combo]
+        if any(i in used for i in idents):
             continue
-        for b in cands[i + 1:]:
-            if b["ident"] in used or b.get("match_id") == a.get("match_id"):
-                continue
-            combo_p = a["sannolikhet"] * b["sannolikhet"]
-            combo_odds = a["odds"] * b["odds"]
-            combo_edge = combo_p * combo_odds - 1.0
-            if combo_edge < c["parlay_min_edge"]:
-                continue
-            ident = "parlay|" + "+".join(sorted((a["ident"], b["ident"])))
-            if ident in existing_idents:
-                used.add(a["ident"]); used.add(b["ident"])
-                break
-            k_pct = quant_kelly.stake(combo_p, combo_odds)
-            lo_kr, hi_kr = c.get("tier_stake_min_kr", 15.0), c.get("tier_stake_mid_kr", 30.0)
-            frac = max(0.0, min(1.0, k_pct / 0.02))
-            stake_kr = round(lo_kr + frac * (hi_kr - lo_kr), 1)
-            out.append({"ident": ident, "typ": "Parlay", "sport": "nba", "ben": [_leg_view(a), _leg_view(b)],
-                        "combo_p": round(combo_p, 4), "combo_odds": round(combo_odds, 3),
-                        "combo_edge": round(combo_edge, 4), "stake_kr": stake_kr,
-                        "bokford": time.time(), "status": "öppen", "avspark": min(a["avspark"], b["avspark"])})
-            used.add(a["ident"]); used.add(b["ident"])
-            break
+        ident = "parlay|" + "+".join(sorted(idents))
+        if ident in existing_idents:
+            used.update(idents)
+            continue
+        k_pct = quant_kelly.stake(combo_p, combo_odds)
+        lo_kr, hi_kr = c.get("tier_stake_min_kr", 15.0), c.get("tier_stake_mid_kr", 30.0)
+        frac = max(0.0, min(1.0, k_pct / 0.02))
+        stake_kr = round(lo_kr + frac * (hi_kr - lo_kr), 1)
+        out.append({"ident": ident, "typ": "Parlay", "sport": "nba", "ben": [_leg_view(leg) for leg in combo],
+                    "combo_p": round(combo_p, 4), "combo_odds": round(combo_odds, 3),
+                    "combo_edge": round(combo_edge, 4), "stake_kr": stake_kr,
+                    "bokford": time.time(), "status": "öppen", "avspark": min(leg["avspark"] for leg in combo)})
+        used.update(idents)
     return out
 
 
@@ -126,8 +142,34 @@ def notify_parlays(parlays: list[dict], settings: dict, log=print) -> int:
     return sent
 
 
+CSV_HEAD = ["Bokförd", "Antal ben", "Ben", "Kombinerad sannolikhet", "Kombinerat odds", "Edge (%)",
+            "Insats (kr)", "Status", "Resultat (kr)", "Avspark"]
+
+
+def _ben_text(ben: list[dict]) -> str:
+    return " | ".join(f"{b['spelare'] or b['match']} {b['marknad']} "
+                      f"{'under' if b['sida'] == 'under' else 'över'} {b['linje']:g} @ {b['odds']:.2f} "
+                      f"({b['bolag']})" for b in ben)
+
+
+def write_parlay_csv(parlays: list[dict], out_dir: Path) -> None:
+    """site/csv/parlayer.csv – läses in i Google Sheets med IMPORTDATA, samma mönster som övriga CSV:er
+    (se workbook.write_csv_exports)."""
+    from datetime import datetime, timezone
+    out_dir.mkdir(parents=True, exist_ok=True)
+    with open(out_dir / "parlayer.csv", "w", newline="", encoding="utf-8") as fh:
+        w = csv.writer(fh)
+        w.writerow(CSV_HEAD)
+        for p in sorted(parlays, key=lambda x: -x["bokford"]):
+            bok = datetime.fromtimestamp(p["bokford"], tz=timezone.utc).strftime("%Y-%m-%d %H:%M")
+            av = datetime.fromtimestamp(p["avspark"], tz=timezone.utc).strftime("%Y-%m-%d %H:%M")
+            w.writerow([bok, len(p["ben"]), _ben_text(p["ben"]), p["combo_p"], p["combo_odds"],
+                       round(p["combo_edge"] * 100, 1), p["stake_kr"], p["status"],
+                       p.get("resultat_kr", ""), av])
+
+
 def run(root: Path, bets: list[dict], settings: dict, notify: bool = True, log=print) -> list[dict]:
-    """Läser/sparar site/parlays.json: bygger nya parlayer, rättar öppna, pushar nya."""
+    """Läser/sparar site/parlays.json + site/csv/parlayer.csv: bygger nya parlayer, rättar öppna, pushar nya."""
     path = root / "site" / "parlays.json"
     try:
         parlays = json.loads(path.read_text(encoding="utf-8")).get("parlayer", [])
@@ -143,4 +185,5 @@ def run(root: Path, bets: list[dict], settings: dict, notify: bool = True, log=p
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps({"uppdaterad_ts": time.time(), "parlayer": parlays}, ensure_ascii=False),
                     encoding="utf-8")
+    write_parlay_csv(parlays, root / "site" / "csv")
     return parlays

@@ -11,6 +11,7 @@
  *   🏀 NBA         – samma
  *   🚩 Hörnspel    – egen bokföring för hörnmarknaderna (annars inbakade i ⚽ Fotboll): nyckeltal, nivåfördelning,
  *                    öppna/avgjorda och alla hörnspel. Testspår (bokforing_hornor_test.json) + ev. tier-graderade.
+ *   🎰 Parlayer    – 2–4-bens värde-parlayer av redan godkända A/B NBA-spel (propsbot/parlays.py), 28/11.
  *   Parametrar    – alla regler per sport (samma som webbsidans flik)
  *   _data_*       – dolda rådataflikar (IMPORTDATA). Rör inte.
  * Gamla flikar raderas inte: de döps om till "arkiv – <namn>" och döljs.
@@ -24,10 +25,12 @@ const SPORTS = [
 const STATS_TAB = "📊 Statistik";
 const RAW = {sammanfattning: "_data_sammanfattning", fotboll: "_data_fotboll", nba: "_data_nba",
              parametrar: "_data_parametrar", tier_nyckeltal: "_data_tier_nyckeltal", tier_stats: "_data_tier_stats",
-             tier_kurva: "_data_tier_kurva", tier_vecka: "_data_tier_vecka", spelarprops: "_data_spelarprops"};
+             tier_kurva: "_data_tier_kurva", tier_vecka: "_data_tier_vecka", spelarprops: "_data_spelarprops",
+             parlayer: "_data_parlayer"};
 const SP_TAB = "🧪 Spelarprops";
 const HORN_TAB = "🚩 Hörnspel";
-const OWN = ["Översikt", STATS_TAB, "Parametrar"].concat(SPORTS.map(s => s.tab)).concat([HORN_TAB, SP_TAB])
+const PARLAY_TAB = "🎰 Parlayer";
+const OWN = ["Översikt", STATS_TAB, "Parametrar"].concat(SPORTS.map(s => s.tab)).concat([HORN_TAB, SP_TAB, PARLAY_TAB])
   .concat(Object.values(RAW));
 
 // ------------------------------------------------------------------ utseende
@@ -95,9 +98,10 @@ function byggArket() {
   SPORTS.forEach(s => retry_(() => buildSport_(ss, s)));
   retry_(() => buildHornspel_(ss));
   retry_(() => buildSpelarprops_(ss));
+  retry_(() => buildParlayer_(ss));
   retry_(() => buildParams_(ss));
   // 4. Ordning
-  const order = ["Översikt", STATS_TAB].concat(SPORTS.map(s => s.tab)).concat([HORN_TAB, SP_TAB, "Parametrar"]);
+  const order = ["Översikt", STATS_TAB].concat(SPORTS.map(s => s.tab)).concat([HORN_TAB, SP_TAB, PARLAY_TAB, "Parametrar"]);
   order.forEach((n, i) => { ss.setActiveSheet(ss.getSheetByName(n)); ss.moveActiveSheet(i + 1); });
   ss.setActiveSheet(ss.getSheetByName("Översikt"));
   try { SpreadsheetApp.flush(); } catch (e) { /* omräkningen fortsätter i bakgrunden */ }
@@ -452,6 +456,36 @@ function buildSpelarprops_(ss) {
   addRules_(sh, ["A", "B", "C"].map(k => SpreadsheetApp.newConditionalFormatRule().whenTextEqualTo(k)
     .setBackground(TIER[k + " Tier"].tint).setBold(true).setRanges([rng]).build()));
   sh.setColumnWidth(4, 200); sh.setColumnWidth(5, 140); sh.setColumnWidth(15, 220);
+}
+
+// ------------------------------------------------------------------ Parlayer (28/11)
+// _data_parlayer, A:J = CSV_HEAD i propsbot/parlays.py: A Bokförd, B Antal ben, C Ben, D Kombinerad
+// sannolikhet, E Kombinerat odds, F Edge (%), G Insats (kr), H Status, I Resultat (kr), J Avspark.
+// Bara riktiga redan godkända A/B NBA-spel kombinerade (olika match per ben) – ingen skenläggning.
+function buildParlayer_(ss) {
+  const sh = prep_(ss, PARLAY_TAB), t = "'" + RAW.parlayer + "'!";
+  let row = banner_(sh, PARLAY_TAB, "2–4 ben, alltid olika match (oberoende-antagande). Combo-odds antas vara " +
+    "produkten av benens egna odds hos Paf – inte verifierat, kolla mot en riktig parlaykurs.");
+  row = heading_(sh, row, "Nyckeltal");
+  sh.setRowHeight(row, 20); sh.setRowHeight(row + 1, 38); sh.setRowHeight(row + 2, 20);
+  const vun = "COUNTIF(" + t + "H2:H,\"vunnen\")", forl = "COUNTIF(" + t + "H2:H,\"förlorad\")", n = "(" + vun + "+" + forl + ")";
+  const krFmt = '+0" kr";-0" kr";0" kr"';
+  const cards = [
+    ["Parlayer", "=COUNTA(" + t + "C2:C)", F.int, '=COUNTIF(' + t + 'H2:H,"öppen")&" öppna"'],
+    ["Avgjorda", "=" + n, F.int, '=' + vun + '&" vunna av "&' + n],
+    ["Träff", '=IFERROR(' + vun + "/" + n + ',"–")', F.pct, "av avgjorda parlayer"],
+    ["Resultat", '=IFERROR(SUM(' + t + 'I2:I),"–")', krFmt, "summa av alla avgjorda, kr"],
+  ];
+  cards.forEach(([label, f, fmt, sub], i) => {
+    const v = card_(sh, row, 2 + i * 3, label, f, fmt, sub, TIER["B Tier"].color);
+    if (fmt === krFmt) resultColors_(v);
+  });
+  row += 4;
+  row = heading_(sh, row, "Alla parlayer (senast bokförda först)", "Ben = alla ben i klartext med odds och bolag. Grön/röd = vunnen/förlorad.");
+  table_(sh, row, q_(RAW.parlayer, "A:J", "select A,B,C,D,E,F,G,H,I,J order by A desc", "(inga parlayer än)"), 10, 500,
+    {0: F.dt, 1: F.int, 3: F.frac, 4: F.odds, 5: F.pct, 6: krFmt, 8: krFmt, 9: F.dt},
+    {results: [8], status: [7]});
+  sh.setColumnWidth(4, 320);
 }
 
 // ------------------------------------------------------------------ Hörnspel (egen bokföring, bryts ut ur _data_fotboll)
