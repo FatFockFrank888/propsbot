@@ -144,9 +144,10 @@ def export(root: Path, settings: dict) -> int:
     import csv
     from datetime import datetime, timezone
     from . import tiers
-    try:
-        bets = json.loads((root / LEDGER).read_text(encoding="utf-8")).get("bets", [])
-    except (FileNotFoundError, json.JSONDecodeError, AttributeError):
+    try:   # Ledger.save() skriver en ren lista, inte {"bets": [...]} (se ledger.py) – samma inläsning som workbook._load_items
+        raw = json.loads((root / LEDGER).read_text(encoding="utf-8"))
+        bets = raw.get("bets", []) if isinstance(raw, dict) else raw
+    except (FileNotFoundError, json.JSONDecodeError):
         bets = []
     c = tiers.cfg(settings)
     ann = [annotate(b, c) for b in bets if not b.get("dubblett")]

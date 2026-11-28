@@ -9,7 +9,7 @@ NHL togs bort 12/11 (förlorade mot Kambi: med bara Bovada+Pinnacle som referens
 |---|---|
 | Webbsida | https://fatfockfrank888.github.io/propsbot/ – Spela nu · Radar · Resultat · Bokföring & analys · Parametrar, med sportväljare (Alla/Fotboll/NBA) |
 | Notiser | ntfy, en kanal. Nya spel i **A och B Tier** (sedan 18/11; tidigare LIVE-spel), **ett spel per spelare och match** över alla marknader, linjer, sidor och bolag. Misslyckad notis skickas igen nästa körning. |
-| Google-arket | `sheet/propsbot_ark.gs` (Apps Script) bygger Översikt (nyckeltalskort), 📊 Statistik (kurvor och uppdelningar) och en flik per sport från `…/propsbot/csv/*.csv`, med A/B/C Tier som huvudrader (kör menyn *Propsbot → Bygg om arket* efter uppdatering) |
+| Google-arket | `sheet/propsbot_ark.gs` (Apps Script) bygger Översikt (nyckeltalskort), 📊 Statistik (kurvor och uppdelningar), en flik per sport, egna flikar för 🚩 Hörnspel och 🧪 Spelarprops (bryts ut ur den vanliga fotbollsbokföringen för egen överblick) från `…/propsbot/csv/*.csv`, med A/B/C Tier som huvudrader (kör menyn *Propsbot → Bygg om arket* efter uppdatering) |
 | Parametrar | [PARAMETRAR.md](PARAMETRAR.md) (`python -m propsbot parametrar`) och fliken Parametrar på webbsidan |
 | Kod | `propsbot/` fotboll + NBA · `propsbot/site.py` webbsidan · `web/index.html` sidan |
 | Läge | grenen `data` |

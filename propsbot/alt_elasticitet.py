@@ -16,8 +16,9 @@ FILES = ("bokforing_spelarprops_test.json", "bokforing_modell_v4.json", "bokfori
 def load(root: Path) -> list[dict]:
     out = []
     for f in FILES:
-        try:
-            out += json.loads((root / f).read_text(encoding="utf-8")).get("bets", [])
+        try:   # Ledger.save() skriver en ren lista, inte {"bets": [...]}
+            raw = json.loads((root / f).read_text(encoding="utf-8"))
+            out += raw.get("bets", []) if isinstance(raw, dict) else raw
         except (FileNotFoundError, json.JSONDecodeError):
             pass
     return out

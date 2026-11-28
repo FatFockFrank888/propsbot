@@ -9,6 +9,8 @@
  *   📊 Statistik   – kurvor och uppdelningar: marknad, odds, edge, insats, sport, sida, bolag, vecka
  *   ⚽ Fotboll     – nyckeltal för sporten · öppna A/B-spel · senaste avgjorda · alla bokföringar · alla spel
  *   🏀 NBA         – samma
+ *   🚩 Hörnspel    – egen bokföring för hörnmarknaderna (annars inbakade i ⚽ Fotboll): nyckeltal, nivåfördelning,
+ *                    öppna/avgjorda och alla hörnspel. Testspår (bokforing_hornor_test.json) + ev. tier-graderade.
  *   Parametrar    – alla regler per sport (samma som webbsidans flik)
  *   _data_*       – dolda rådataflikar (IMPORTDATA). Rör inte.
  * Gamla flikar raderas inte: de döps om till "arkiv – <namn>" och döljs.
@@ -24,7 +26,9 @@ const RAW = {sammanfattning: "_data_sammanfattning", fotboll: "_data_fotboll", n
              parametrar: "_data_parametrar", tier_nyckeltal: "_data_tier_nyckeltal", tier_stats: "_data_tier_stats",
              tier_kurva: "_data_tier_kurva", tier_vecka: "_data_tier_vecka", spelarprops: "_data_spelarprops"};
 const SP_TAB = "🧪 Spelarprops";
-const OWN = ["Översikt", STATS_TAB, "Parametrar"].concat(SPORTS.map(s => s.tab)).concat([SP_TAB]).concat(Object.values(RAW));
+const HORN_TAB = "🚩 Hörnspel";
+const OWN = ["Översikt", STATS_TAB, "Parametrar"].concat(SPORTS.map(s => s.tab)).concat([HORN_TAB, SP_TAB])
+  .concat(Object.values(RAW));
 
 // ------------------------------------------------------------------ utseende
 const FONT = "Roboto";
@@ -89,10 +93,11 @@ function byggArket() {
   retry_(() => buildOverview_(ss));
   retry_(() => buildStats_(ss));
   SPORTS.forEach(s => retry_(() => buildSport_(ss, s)));
+  retry_(() => buildHornspel_(ss));
   retry_(() => buildSpelarprops_(ss));
   retry_(() => buildParams_(ss));
   // 4. Ordning
-  const order = ["Översikt", STATS_TAB].concat(SPORTS.map(s => s.tab)).concat([SP_TAB, "Parametrar"]);
+  const order = ["Översikt", STATS_TAB].concat(SPORTS.map(s => s.tab)).concat([HORN_TAB, SP_TAB, "Parametrar"]);
   order.forEach((n, i) => { ss.setActiveSheet(ss.getSheetByName(n)); ss.moveActiveSheet(i + 1); });
   ss.setActiveSheet(ss.getSheetByName("Översikt"));
   try { SpreadsheetApp.flush(); } catch (e) { /* omräkningen fortsätter i bakgrunden */ }
@@ -447,6 +452,65 @@ function buildSpelarprops_(ss) {
   addRules_(sh, ["A", "B", "C"].map(k => SpreadsheetApp.newConditionalFormatRule().whenTextEqualTo(k)
     .setBackground(TIER[k + " Tier"].tint).setBold(true).setRanges([rng]).build()));
   sh.setColumnWidth(4, 200); sh.setColumnWidth(5, 140); sh.setColumnWidth(15, 220);
+}
+
+// ------------------------------------------------------------------ Hörnspel (egen bokföring, bryts ut ur _data_fotboll)
+// Samma kolumner som _data_fotboll (A:S, se buildSport_): C Typ (Hörn-test / A-C Tier), G Marknad, Q Status, S Resultat.
+// Ingen egen rådatakälla – filtrerar bara G contains "Hörn" i den fotbollsdata som redan importeras.
+function buildHornspel_(ss) {
+  const sh = prep_(ss, HORN_TAB), t = "'" + RAW.fotboll + "'!";
+  let row = banner_(sh, HORN_TAB,
+    "Hörnmarknaderna (Hörnor, Hörnhandikapp, hemma-/bortalag) – egen flik, annars inbakade i ⚽ Fotboll. " +
+    "Hörn-test = loggat men inte (än) graderat till Tier. " + TIER_NOTE);
+
+  row = heading_(sh, row, "Nyckeltal (alla hörnspel, oavsett typ)");
+  sh.setRowHeight(row, 20); sh.setRowHeight(row + 1, 38); sh.setRowHeight(row + 2, 20);
+  const vun = "COUNTIFS(" + t + "G2:G,\"Hörn*\"," + t + "Q2:Q,\"vunnen\")",
+        forl = "COUNTIFS(" + t + "G2:G,\"Hörn*\"," + t + "Q2:Q,\"förlorad\")",
+        n = "(" + vun + "+" + forl + ")";
+  const cards = [
+    ["Spel", "=COUNTIF(" + t + "G2:G,\"Hörn*\")", F.int, '=COUNTIFS(' + t + 'G2:G,"Hörn*",' + t + 'Q2:Q,"öppen")&" öppna"'],
+    ["Avgjorda", "=" + n, F.int, '=' + vun + '&" vunna av "&' + n],
+    ["Träff", '=IFERROR(' + vun + "/" + n + ',"–")', F.pct, "av avgjorda hörnspel"],
+    ["ROI", '=IFERROR(SUMIFS(' + t + 'S2:S,' + t + 'G2:G,"Hörn*")/SUMIFS(' + t + 'P2:P,' + t + 'G2:G,"Hörn*",' +
+      t + 'Q2:Q,"<>öppen"),"–")', F.frac, "resultat / insats"],
+    ["Snitt-CLV", '=IFERROR(AVERAGEIFS(' + t + 'M2:M,' + t + 'G2:G,"Hörn*",' + t + 'M2:M,"<>"),"–")', F.clv,
+      "mot stängningsoddset"],
+  ];
+  cards.forEach(([label, f, fmt, sub], i) => {
+    const v = card_(sh, row, 2 + i * 3, label, f, fmt, sub, TIER["C Tier"].color);
+    if (fmt === F.frac || fmt === F.clv) resultColors_(v);
+  });
+  row += 4;
+
+  row = heading_(sh, row, "Per typ", "Hörn-test = ingen insats graderad till Tier än. A/B/C Tier = spelat enligt samma regler som övrig fotboll.");
+  row = table_(sh, row, q_(RAW.fotboll, "A:S",
+    "select C, count(A), count(S), sum(S), avg(M) where G contains 'Hörn' group by C order by C " +
+    "label C 'Typ', count(A) 'Spel', count(S) 'Avgjorda', sum(S) 'Resultat', avg(M) 'Snitt CLV'",
+    "(inga hörnspel än)"), 5, 5, {1: F.int, 2: F.int, 3: F.u2, 4: F.clv}, {results: [3, 4], tiers: [0]});
+
+  row = heading_(sh, row, "Öppna hörnspel");
+  row = table_(sh, row, q_(RAW.fotboll, "A:S",
+    "select C,D,E,F,G,H,I,J,K,O,P where G contains 'Hörn' and Q='öppen' order by D limit 20 " +
+    "label C 'Typ', D 'Start', O 'Edge', P 'Insats'", "(inga öppna hörnspel just nu)"), 11, 20,
+    {1: F.dt, 6: F.line, 8: F.odds, 9: F.frac, 10: F.units}, {tiers: [0]});
+
+  row = heading_(sh, row, "Senaste avgjorda hörnspel", "De 30 senaste.");
+  row = table_(sh, row, q_(RAW.fotboll, "A:S",
+    "select C,D,E,F,G,H,I,K,L,M,P,Q,S where G contains 'Hörn' and Q<>'öppen' order by D desc limit 30 " +
+    "label C 'Typ', D 'Start', M 'CLV', P 'Insats', S 'Resultat'", "(inga avgjorda hörnspel än)"), 13, 30,
+    {1: F.dt, 6: F.line, 7: F.odds, 8: F.odds, 9: F.clv, 10: F.units, 12: F.u2},
+    {tiers: [0], results: [9, 12], status: [11]});
+
+  row = heading_(sh, row, "Alla hörnspel (senaste först)", "Filtrera med Data → Skapa ett filter.");
+  table_(sh, row, q_(RAW.fotboll, "A:S",
+    "select A,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S where G contains 'Hörn' order by A desc", "(inga hörnspel än)"),
+    18, 2000, {0: F.dt, 2: F.dt, 7: F.line, 9: F.odds, 10: F.odds, 11: F.clv, 12: F.frac, 13: F.frac, 17: F.u2},
+    {tiers: [1], results: [11, 17], status: [15]});
+
+  sh.setColumnWidth(2, 80);
+  sh.setColumnWidth(4, 200);
+  sh.setColumnWidth(5, 160);
 }
 
 // ------------------------------------------------------------------ Parametrar
