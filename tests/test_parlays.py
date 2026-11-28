@@ -20,7 +20,16 @@ def test_build_parlays_cross_match_and_edge():
     p = out[0]
     assert p["combo_p"] == round(0.6 * 0.6, 4) and p["combo_odds"] == round(1.9 * 1.9, 3)
     assert p["combo_edge"] == round(0.6 * 0.6 * (1.9 * 1.9) - 1, 4)
-    assert 15.0 <= p["stake_kr"] <= 30.0
+    assert 10.0 <= p["stake_kr"] <= 20.0          # parlayers eget, lägre tak än enskilda ben (15-45 kr)
+    assert p["sport"] == "NBA"
+
+
+def test_build_parlays_mixes_sports():
+    a = leg(sport="nba")
+    b = leg(ident="k1|m2|p2", match_id="m2", spelare="Y", sport="fotboll")
+    out = build_parlays([a, b], {}, set())
+    assert len(out) == 1 and out[0]["sport"] == "FOTBOLL+NBA"
+    assert {leg_["sport"] for leg_ in out[0]["ben"]} == {"nba", "fotboll"}
 
 
 def test_build_parlays_prefers_bigger_combo_up_to_4_legs():

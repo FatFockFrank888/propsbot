@@ -1,6 +1,7 @@
-"""Värde-parlayer (28/11, 2–4 ben 28/11): kombinerar redan godkända A/B-spel (NBA) till parlayer, bara
-för att få bättre spridning av en liten kassa över färre spel – INTE skenlägg. Bygger bara på riktiga,
-redan klassade +EV-ben; inga påhittade "vaska"-ben och ingen falsk bank-leg.
+"""Värde-parlayer (28/11, 2–4 ben 28/11, alla sporter 28/11): kombinerar redan godkända A/B-spel (valfri
+sport, inte bara NBA) till parlayer, bara för att få bättre spridning av en liten kassa över färre spel –
+INTE skenlägg. Bygger bara på riktiga, redan klassade +EV-ben; inga påhittade "vaska"-ben och ingen falsk
+bank-leg.
 
 Antaganden som INTE är verifierade mot Paf, flagga om det visar sig fel:
   - combo_odds = produkten av bendes egna odds (ingen extra marginal utöver vad varje ben redan har).
@@ -11,8 +12,9 @@ Antaganden som INTE är verifierade mot Paf, flagga om det visar sig fel:
     multipliceras ner, men produkten sväller fort) – det är en artefakt av oberoende-antagandet, inte
     bevis på bättre värde. Chansen att träffa alla 4 ben är låg även när varje ben för sig är +EV.
 
-Insats: samma ¼ Kelly-skalning (15–45 kr) som tiers.py, men taket är alltid tier_stake_mid_kr (aldrig
-maxbet) eftersom en parlays sammansatta risk är högre än ett enskilt ben.
+Insats: egen, lägre ¼ Kelly-skalning (parlay_stake_min_kr–parlay_stake_max_kr, 10–20 kr som standard)
+än enskilda ben (15–45 kr) – en parlays sammansatta risk är högre, så insatsen hålls lägre rakt av,
+inget maxbet-undantag.
 """
 from __future__ import annotations
 
@@ -29,7 +31,7 @@ DEFAULTS = {
     "parlay_min_edge": 0.08,     # högre än enskilda B-kravet (5 %) – kombinationens osäkerhet är större
     "parlay_max_legs": 4,
     "parlay_odds": [1.40, 6.50],  # samma ramar som enskilda ben, per ben
-    "tier_stake_min_kr": 15.0, "tier_stake_mid_kr": 30.0,   # samma kr-tak som tiers.py, läses från settings där satta
+    "parlay_stake_min_kr": 10.0, "parlay_stake_max_kr": 20.0,   # lägre än enskilda ben (15-45 kr) - högre risk
 }
 
 
@@ -41,7 +43,12 @@ def _leg_view(b: dict) -> dict:
     return {"ident": b["ident"], "match_id": b.get("match_id"), "match": b.get("match"),
             "spelare": b.get("spelare"), "marknad": b.get("marknad"), "linje": b.get("linje"),
             "sida": b.get("sida"), "odds": b.get("odds"), "sannolikhet": b.get("sannolikhet"),
-            "bolag": b.get("bolag"), "avspark": b.get("avspark")}
+            "bolag": b.get("bolag"), "avspark": b.get("avspark"), "sport": b.get("sport")}
+
+
+def _sport_label(combo: tuple[dict, ...]) -> str:
+    sports = sorted({(leg.get("sport") or "").upper() for leg in combo} - {""})
+    return "+".join(sports) or "?"
 
 
 def _score(combo: tuple[dict, ...]) -> tuple[float, float, float]:
@@ -64,7 +71,7 @@ def build_parlays(bets: list[dict], settings: dict, existing_idents: set[str]) -
     # bolag som sen dess tagits bort ur playable_books, t.ex. Unibet efter limiteringen - de ska aldrig
     # bakas in i en ny parlay).
     playable = set(settings.get("playable_books") or [])
-    cands = [b for b in bets if b.get("sport") == "nba" and b.get("tier") in ("A", "B")
+    cands = [b for b in bets if b.get("tier") in ("A", "B")
              and b.get("status") == "öppen" and b.get("sannolikhet") and b.get("odds")
              and lo <= b["odds"] <= hi and (not playable or b.get("bolag") in playable)]
     max_legs = max(2, int(c.get("parlay_max_legs", 4)))
@@ -88,10 +95,10 @@ def build_parlays(bets: list[dict], settings: dict, existing_idents: set[str]) -
             used.update(idents)
             continue
         k_pct = quant_kelly.stake(combo_p, combo_odds)
-        lo_kr, hi_kr = c.get("tier_stake_min_kr", 15.0), c.get("tier_stake_mid_kr", 30.0)
+        lo_kr, hi_kr = c["parlay_stake_min_kr"], c["parlay_stake_max_kr"]
         frac = max(0.0, min(1.0, k_pct / 0.02))
         stake_kr = round(lo_kr + frac * (hi_kr - lo_kr), 1)
-        out.append({"ident": ident, "typ": "Parlay", "sport": "nba", "ben": [_leg_view(leg) for leg in combo],
+        out.append({"ident": ident, "typ": "Parlay", "sport": _sport_label(combo), "ben": [_leg_view(leg) for leg in combo],
                     "combo_p": round(combo_p, 4), "combo_odds": round(combo_odds, 3),
                     "combo_edge": round(combo_edge, 4), "stake_kr": stake_kr,
                     "bokford": time.time(), "status": "öppen", "avspark": min(leg["avspark"] for leg in combo)})
@@ -135,10 +142,11 @@ def notify_parlays(parlays: list[dict], settings: dict, log=print) -> int:
         if p.get("notis"):
             continue
         rader = "\n".join(f"· {_leg_label(b)}" for b in p["ben"])
-        title = f"PARLAY ({len(p['ben'])} ben) · NBA"
+        title = f"PARLAY ({len(p['ben'])} ben) · {p['sport']}"
         msg = (f"{rader}\nKombinerat odds {p['combo_odds']:.2f} · edge {p['combo_edge']*100:+.1f} % "
               f"· insats {p['stake_kr']:.0f} kr")
-        if send(topic, title, msg, priority=3, tags="basketball"):
+        tags = "basketball" if p["sport"] == "NBA" else "soccer" if p["sport"] == "FOTBOLL" else "sport"
+        if send(topic, title, msg, priority=3, tags=tags):
             p["notis"] = True
             sent += 1
     log(f"Parlayer: {sent} notiser skickade")
