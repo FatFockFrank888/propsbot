@@ -1,11 +1,11 @@
-# NBA – utvärdering på framåtriktad data (2026-11-28T00:39:51+00:00)
+# NBA – utvärdering på framåtriktad data (2026-11-28T00:58:35+00:00)
 
 Bara bokförda prognoser (gjorda före matchen). Unika prestationer = spelare × match × marknad.
 
 | Bokföring | Rader | Prestationer | Matcher | Dagar | Avgjorda | ROI flat | ROI modell | Max DD (u) | CLV pe skarp (95 %) | CLV pe skarp verifierad | Verifierad täckning | Slog skarp stängning | CLV pe mot Unibets stängning | Brier modell / marknad (n) |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| live | 53 | 53 | 46 | 21 | 51 | -2.4 % | +0.6 % | 5.7 | 2.96 (+2.26…+3.72) | 2.90 | 0.92 | +84.6 % | 2.59 | – |
-| spel | 553 | 553 | 184 | 26 | 509 | +6.2 % | +4.7 % | 14.5 | 2.29 (+1.94…+2.69) | 2.18 | 0.83 | +77.9 % | 2.55 | – |
+| live | 53 | 53 | 46 | 21 | 51 | -2.4 % | +0.6 % | 5.7 | 2.98 (+2.29…+3.72) | 2.92 | 0.92 | +84.9 % | 2.53 | – |
+| spel | 553 | 553 | 184 | 26 | 509 | +6.2 % | +4.7 % | 14.5 | 2.29 (+1.94…+2.69) | 2.18 | 0.83 | +77.9 % | 2.54 | – |
 | skugga | 1682 | 1682 | 198 | 26 | 1550 | +1.5 % | +1.3 % | 39.8 | 0.85 (+0.66…+1.07) | 0.73 | 0.83 | +66.5 % | 1.74 | – |
 | modelltest | 1151 | 1151 | 150 | 21 | 1093 | +4.7 % | +4.6 % | 34.4 | -0.03 (-0.37…+0.39) | -0.12 | 0.81 | +45.9 % | 1.76 | 0.2724 / 0.2437 (595) |
 
@@ -13,16 +13,16 @@ Bara bokförda prognoser (gjorda före matchen). Unika prestationer = spelare ×
 
 | Marknad | Status | Spel | CLV pe skarp (95 %) | Slog | ROI flat |
 |---|---|---|---|---|---|
-| assists | **ok** | 371 | 1.20 (+0.57…+1.62) | +71.8 % | +4.1 % |
-| blocks | **ok** | 23 | 3.97 (+2.74…+5.00) | +95.7 % | +22.9 % |
-| pa | **osäker** | 55 | 0.74 (-1.33…+0.86) | +61.5 % | +0.6 % |
-| points | **ok** | 807 | 1.24 (+0.74…+1.46) | +67.6 % | -0.9 % |
-| pr | **ok** | 99 | 1.38 (+0.60…+2.51) | +71.9 % | +0.2 % |
-| pra | **ok** | 45 | 1.23 (+0.48…+2.62) | +70.5 % | -25.0 % |
-| ra | **osäker** | 127 | 0.50 (-0.75…+0.96) | +62.6 % | +12.2 % |
-| rebounds | **ok** | 454 | 0.99 (+0.61…+1.34) | +70.3 % | -0.8 % |
-| steals | **ok** | 49 | 4.25 (+3.15…+7.02) | +93.9 % | +39.5 % |
-| threes | **ok** | 258 | 1.33 (+0.63…+1.80) | +68.5 % | +9.2 % |
+| assists | **ok** | 371 | 1.20 (+0.55…+1.65) | +71.8 % | +4.1 % |
+| blocks | **ok** | 23 | 3.97 (+2.72…+4.88) | +95.7 % | +22.9 % |
+| pa | **osäker** | 55 | 0.74 (-1.29…+0.84) | +61.5 % | +0.6 % |
+| points | **ok** | 807 | 1.24 (+0.72…+1.48) | +67.7 % | -0.9 % |
+| pr | **ok** | 99 | 1.38 (+0.64…+2.52) | +71.9 % | +0.2 % |
+| pra | **ok** | 45 | 1.23 (+0.45…+2.68) | +70.5 % | -25.0 % |
+| ra | **osäker** | 127 | 0.50 (-0.86…+1.00) | +62.6 % | +12.2 % |
+| rebounds | **ok** | 454 | 0.99 (+0.63…+1.33) | +70.3 % | -0.8 % |
+| steals | **ok** | 49 | 4.25 (+3.09…+6.99) | +93.9 % | +39.5 % |
+| threes | **ok** | 258 | 1.33 (+0.61…+1.81) | +68.5 % | +9.2 % |
 
 ## Skarp stängning per status
 
@@ -30,16 +30,16 @@ Verifierad = referensens notering högst 60 min före start. Flyttad linje = vå
 
 | Bokföring | Status | n | CLV pe skarp | ROI flat |
 |---|---|---|---|---|
-| live | ? | 30 | 2.85 | -3.1 % |
+| live | ? | 31 | 2.89 | -3.1 % |
 | live | borttagen | 4 | 3.62 | -53.5 % |
 | live | flyttad linje (för oss) | 2 | 7.04 | -14.0 % |
 | live | verifierad | 16 | 2.48 | +12.9 % |
-| spel | ? | 159 | 2.62 | +11.9 % |
+| spel | ? | 160 | 2.62 | +11.9 % |
 | spel | borttagen | 66 | 2.90 | -21.1 % |
 | spel | flyttad linje (för oss) | 46 | 4.58 | +3.4 % |
 | spel | flyttad linje (mot oss) | 11 | -3.76 | -5.5 % |
 | spel | verifierad | 234 | 1.74 | +8.4 % |
-| skugga | ? | 529 | 0.41 | +1.0 % |
+| skugga | ? | 530 | 0.41 | +1.0 % |
 | skugga | borttagen | 203 | 1.20 | -4.9 % |
 | skugga | flyttad linje (för oss) | 216 | 4.66 | +17.1 % |
 | skugga | flyttad linje (mot oss) | 52 | -4.82 | -19.7 % |
@@ -58,14 +58,14 @@ Verifierad = referensens notering högst 60 min före start. Flyttad linje = vå
 | blocks | **insufficient_data** | 0.1919 / 0.2085 (5) | -0.1012…+0.0132 | 3.39 (+1.65…+4.04) | 0 | – |
 | pa | **insufficient_data** | 0.3044 / 0.2521 (25) | +0.0090…+0.0948 | -1.44 (-2.22…-0.88) | 1 | +110.0 % |
 | points | **shadow** | 0.2612 / 0.2412 (166) | -0.0099…+0.0480 | -0.46 (-0.87…+0.16) | 10 | -21.4 % |
-| pr | **degraded** | 0.3142 / 0.2545 (61) | +0.0434…+0.0799 | -0.23 (-1.87…+1.21) | 2 | -7.0 % |
-| pra | **shadow** | 0.3242 / 0.2511 (44) | -0.0029…+0.1258 | -0.08 (-0.94…+0.88) | 1 | -100.0 % |
-| ra | **shadow** | 0.2432 / 0.2430 (39) | -0.0411…+0.0544 | 0.10 (-0.93…+0.97) | 2 | +100.5 % |
-| rebounds | **degraded** | 0.2792 / 0.2488 (102) | +0.0019…+0.0667 | -0.33 (-0.79…+0.11) | 15 | -3.0 % |
-| steals | **insufficient_data** | 0.3038 / 0.2473 (9) | -0.0179…+0.1285 | 3.50 (+1.68…+5.18) | 0 | – |
-| threes | **shadow** | 0.2720 / 0.2446 (50) | -0.0119…+0.0638 | 0.11 (-0.74…+1.23) | 10 | +18.5 % |
+| pr | **degraded** | 0.3142 / 0.2545 (61) | +0.0430…+0.0784 | -0.23 (-1.85…+1.29) | 2 | -7.0 % |
+| pra | **shadow** | 0.3242 / 0.2511 (44) | -0.0057…+0.1251 | -0.08 (-0.95…+0.87) | 1 | -100.0 % |
+| ra | **shadow** | 0.2432 / 0.2430 (39) | -0.0420…+0.0547 | 0.10 (-0.91…+0.96) | 2 | +100.5 % |
+| rebounds | **degraded** | 0.2792 / 0.2488 (102) | +0.0020…+0.0683 | -0.33 (-0.80…+0.11) | 15 | -3.0 % |
+| steals | **insufficient_data** | 0.3038 / 0.2473 (9) | -0.0177…+0.1280 | 3.50 (+1.73…+5.21) | 0 | – |
+| threes | **shadow** | 0.2720 / 0.2446 (50) | -0.0145…+0.0655 | 0.11 (-0.73…+1.26) | 10 | +18.5 % |
 
-p för validering (max av Brier- och CLV-p) – Benjamini–Hochberg q = 0.1 över 7 marknader: ra 0.498, assists 0.633, threes 0.909, points 0.969, pra 0.971, rebounds 0.983, pr 1.000
+p för validering (max av Brier- och CLV-p) – Benjamini–Hochberg q = 0.1 över 7 marknader: ra 0.513, assists 0.633, threes 0.908, points 0.969, pra 0.970, rebounds 0.986, pr 1.000
 
 ## Skuggmodeller (modelltest, samma spel)
 
@@ -82,7 +82,7 @@ p för validering (max av Brier- och CLV-p) – Benjamini–Hochberg q = 0.1 öv
 
 | Odds | Avgjorda | ROI flat | CLV pe |
 |---|---|---|---|
-| 1.60–2.00 | 23 | +4.9 % | 3.75 |
+| 1.60–2.00 | 23 | +4.9 % | 3.76 |
 | 2.00–2.50 | 24 | -3.6 % | 2.25 |
 | 2.50–3.00 | 4 | -37.5 % | 2.83 |
 
