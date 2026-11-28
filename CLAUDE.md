@@ -11,7 +11,7 @@
 2. Var kritisk och oberoende. Försvara inte trösklar som data motsäger. Ändra inte trösklar på ROI ensamt (brus), använd CLV + ROI och minst ~150 avgjorda.
 3. Inga falska notiser, inga skrivningar till skarpt Sheet/data-gren från tester. Telegram testas bara torrt.
 4. `settings.json` är enda sanningen för parametrar. Uppdatera PARAMETRAR.md/README när värden ändras.
-5. Commit/push bara på uppdragets gren. Ingen PR utan begäran.
+5. Commit/push direkt till `main` (28/11: inget gren+PR-steg längre – ändringar ska gå live direkt, användaren vill inte klicka merge varje gång).
 
 ## Fakta om repot
 - Fotboll + NBA. NHL borttagen 12/11 (för hög p mot Kambi). Notiser: Telegram + ntfy (`propsbot/notify.py`).
