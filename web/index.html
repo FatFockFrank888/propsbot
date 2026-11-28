@@ -1198,6 +1198,7 @@ function changeTopic() {
   for (const [id, x] of Object.entries(pending())) if (!((MINAD && MINAD.spel) || []).some(b => b.ident === id)) sendMina({...x, bet: undefined});
   render();
 }
+function krPerUnit() { return (TIERD?.regler?.bankroll || 1000) * (TIERD?.regler?.tier_unit || 0.01); }
 function openTake(ident) {
   const r = TIER.find(x => x.ident === ident), mine = minaAll().find(b => b.ident === ident);
   if (!r && !mine) return;
@@ -1210,7 +1211,7 @@ function openTake(ident) {
       ${myTopic() ? "" : `<label>Din ursprungliga propsbot-kanal i ntfy (den du haft från början – INTE tier-ab eller live). Sparas bara i den här webbläsaren
         <input id="tkTopic" placeholder="propsbot-…" autocomplete="off"></label>`}
       <div class="row"><label>Odds du fick<input id="tkOdds" type="number" step="0.01" min="1.01" value="${o.odds ?? b.odds ?? ""}"></label>
-        <label>Units (1u = 1 % av kassan)<input id="tkU" type="number" step="0.5" min="0.5" max="20" value="${o.units ?? b.units ?? 1}"></label></div>
+        <label>Insats (kr)<input id="tkU" type="number" step="1" min="1" value="${Math.round((o.units ?? b.units ?? 1) * krPerUnit())}"></label></div>
       <label>Bolag<input id="tkBook" value="${esc(o.bolag ?? b.bolag ?? "")}"></label>
       <div class="row"><button class="btn take on" data-id="${esc(ident)}" onclick="saveTake(this.dataset.id)">${mine ? "Spara ändring" : "Spara – bevaka spelet"}</button>
         ${mine ? `<button class="btn" data-id="${esc(ident)}" onclick="undoTake(this.dataset.id)">Ångra – jag tog det inte</button>` : ""}</div>
@@ -1221,8 +1222,9 @@ function openTake(ident) {
 async function saveTake(ident) {
   const tp = document.getElementById("tkTopic");
   if (tp) { if (!cleanTopic(tp.value)) { document.getElementById("tkMsg").textContent = "Fyll i din ntfy-kanal först."; return; } LS.set("pb_topic", cleanTopic(tp.value)); }
-  const odds = parseFloat(document.getElementById("tkOdds").value.replace(",", ".")), units = parseFloat(document.getElementById("tkU").value.replace(",", "."));
-  if (!(odds > 1.01) || !(units > 0)) { document.getElementById("tkMsg").textContent = "Kontrollera odds och units."; return; }
+  const odds = parseFloat(document.getElementById("tkOdds").value.replace(",", ".")), kr = parseFloat(document.getElementById("tkU").value.replace(",", "."));
+  if (!(odds > 1.01) || !(kr > 0)) { document.getElementById("tkMsg").textContent = "Kontrollera odds och insats."; return; }
+  const units = kr / krPerUnit();
   const r = TIER.find(x => x.ident === ident), b = r ? r.raw : (minaAll().find(x => x.ident === ident) || {});
   const msg = {v: 1, typ: "tog", ident, sport: b.sport, kalla_fil: b.kalla_fil, kalla_key: b.kalla_key, odds, units,
                bolag: document.getElementById("tkBook").value.trim(), ts: Date.now() / 1000};
